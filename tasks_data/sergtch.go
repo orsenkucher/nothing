@@ -6,14 +6,8 @@ import (
 	"strings"
 )
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
-
-func getAllWords(str string) []string {
-	var words []string = []string{}
+func sergTchgetAllWords(str string) []string {
+	words := []string{}
 	j := 0
 	for j < len(str) {
 		for j < len(str) && str[j] != '"' {
@@ -32,7 +26,7 @@ func getAllWords(str string) []string {
 	return words
 }
 
-func main() {
+func sergTchParser() {
 	print("hello world")
 	dat, err := ioutil.ReadFile("tasks.txt")
 	check(err)
@@ -41,7 +35,7 @@ func main() {
 	fmt.Println("[")
 
 	for i := 0; i < len(lines); i++ {
-		words := getAllWords(lines[i])
+		words := sergTchgetAllWords(lines[i])
 		fmt.Println("\t{")
 		fmt.Print("\t\t\"question\" : \"")
 		fmt.Print(words[0])
