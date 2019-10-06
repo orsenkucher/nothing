@@ -1,3 +1,5 @@
+flutter create --androidx --org com.crystalfactory crystalpuzzle
+
 # crystalpuzzle
 
 A new Flutter project.
