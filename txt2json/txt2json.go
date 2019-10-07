@@ -67,13 +67,15 @@ func parseLine(line string, v reflect.Value) error {
 		value := values.Field(i)
 		switch key {
 		case "doc":
-			doc := cutDoc(line, indexer)
-			value.SetString(doc)
-			// fmt.Println(doc)
+			if doc, ok := cutDoc(line, indexer); ok {
+				value.SetString(doc)
+				// fmt.Println(doc)
+			}
 		case "col":
-			col := cutCol(line, indexer)
-			value.Set(reflect.ValueOf(col))
-			// fmt.Println(col)
+			if col, ok := cutCol(line, indexer); ok {
+				value.Set(reflect.ValueOf(col))
+				// fmt.Println(col)
+			}
 		}
 	}
 	// fmt.Println(task)
@@ -81,29 +83,35 @@ func parseLine(line string, v reflect.Value) error {
 }
 
 // exp:\s*"(.*?)"
-func cutDoc(line, indexer string) string {
+func cutDoc(line, indexer string) (string, bool) {
 	pattern := indexer + ":\\s*\"(.*?)\""
 	rx, err := regexp.Compile(pattern)
 	if err != nil {
 		panic(err)
 	}
-	cut := rx.FindStringSubmatch(line)[1]
-	return cut
+	cuts := rx.FindStringSubmatch(line)
+	if len(cuts) > 1 {
+		return cuts[1], true
+	}
+	return "", false
 }
 
 // ans:\s*\[(.*?)*?\]
-func cutCol(line, indexer string) []string {
+func cutCol(line, indexer string) ([]string, bool) {
 	pattern := indexer + ":\\s*\\[(.*?)*?\\]"
 	rx, err := regexp.Compile(pattern)
 	if err != nil {
 		panic(err)
 	}
-	cuts := strings.Split(rx.FindStringSubmatch(line)[1], ",")
-
-	for i := 0; i < len(cuts); i++ {
-		cuts[i] = trim(cuts[i])
+	cuts := rx.FindStringSubmatch(line)
+	if len(cuts) > 1 {
+		cuts = strings.Split(cuts[1], ",")
+		for i := 0; i < len(cuts); i++ {
+			cuts[i] = trim(cuts[i])
+		}
+		return cuts, true
 	}
-	return cuts
+	return nil, false
 }
 
 func trim(s string) string {

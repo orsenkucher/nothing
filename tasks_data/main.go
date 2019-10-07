@@ -74,8 +74,8 @@ func sergtch() {
 
 func main() {
 	// sergtch()
-	// orsen()
-	test()
+	orsen()
+	// test()
 }
 
 type task struct {
@@ -131,34 +131,43 @@ func orsen2() {
 		panic(err)
 	}
 	fmt.Println(albums)
+	bytes, err = txt2json.ConvertToPrettyJSON(&albums)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("******")
+	fmt.Println(string(bytes))
+
+	err = ioutil.WriteFile("orsen.json", bytes, 0)
+	check(err)
 }
 
-type myInt int
+// type myInt int
 
-func (mi *myInt) inc(add int) {
-	*mi += myInt(add)
-}
+// func (mi *myInt) inc(add int) {
+// 	*mi += myInt(add)
+// }
 
-type myInt2 int
+// type myInt2 int
 
-func (mi2 *myInt2) inc(add int) {
-	*mi2 += myInt2(add)
-}
+// func (mi2 *myInt2) inc(add int) {
+// 	*mi2 += myInt2(add)
+// }
 
-type incrementor interface {
-	inc(add int)
-}
+// type incrementor interface {
+// 	inc(add int)
+// }
 
-func test() {
-	mi := myInt(1)
-	mi.inc(1)
-	fmt.Println(mi)
-	var i incrementor
-	i = &mi
-	i.inc(1)
-	fmt.Println(i)
-	mi2 := myInt2(6)
-	i = &mi2
-	i.inc(6)
-	fmt.Println(myInt2(i))
-}
+// func test() {
+// 	mi := myInt(1)
+// 	mi.inc(1)
+// 	fmt.Println(mi)
+// 	var i incrementor
+// 	i = &mi
+// 	i.inc(1)
+// 	fmt.Println(i)
+// 	mi2 := myInt2(6)
+// 	i = &mi2
+// 	i.inc(6)
+// 	fmt.Println(myInt2(i))
+// }
