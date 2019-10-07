@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/QwertyGroup/CrystalPuzzle/txt2json"
+	"github.com/orsenkucher/CrystalPuzzle/txt2json"
 )
 
 func check(e error) {
