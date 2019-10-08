@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/orsenkucher/CrystalPuzzle/txt2json"
+	"github.com/orsenkucher/crystalpuzzle/txt2json"
 )
 
 func check(e error) {
@@ -74,7 +74,18 @@ func sergtch() {
 
 func main() {
 	// sergtch()
-	orsen()
+	fmt.Println(roleA)
+	fmt.Println(roleB)
+	fmt.Println(roleC)
+	fmt.Println(roleD)
+
+	orsen := roleA | roleC // 01010
+	fmt.Println(orsen&roleA == roleA)
+	fmt.Println(orsen&roleB == roleB)
+
+	// test int
+
+	// orsen()
 	// test()
 }
 
@@ -107,6 +118,27 @@ func orsen() {
 
 	orsen2()
 }
+
+const (
+	_ = iota
+	one
+	two
+	tree
+)
+
+const (
+	a = 1 << (iota * 10)
+	b
+	c
+)
+
+const (
+	_ = 1 << iota
+	roleA
+	roleB
+	roleC
+	roleD
+)
 
 // Album describes album struct
 // artist:"BROCKHAMPTON", tit: "GINGER", tags: ["2019", "12 songs", "44:12" "Hip-Hop/Rap"], story:"Ginger is the fifth studio album by American hip hop collective Brockhampton. It was released on August 23, 2019, through the band's label Question Everything and RCA."
