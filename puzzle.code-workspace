@@ -5,6 +5,9 @@
 		}
 	],
 	"settings": {
-		"editor.fontSize": 16
+		"editor.fontSize": 16,
+		"files.exclude": {
+			"frontend":true
+		}
 	}
 }
