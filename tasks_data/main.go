@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"net/http/httptest"
 	"strings"
 
+	"github.com/orsenkucher/crystalpuzzle/tasks"
 	"github.com/orsenkucher/crystalpuzzle/txt2json"
 )
 
@@ -74,14 +76,24 @@ func sergtch() {
 
 func main() {
 	// sergtch()
-	fmt.Println(roleA)
-	fmt.Println(roleB)
-	fmt.Println(roleC)
-	fmt.Println(roleD)
+	// fmt.Println(roleA)
+	// fmt.Println(roleB)
+	// fmt.Println(roleC)
+	// fmt.Println(roleD)
 
-	orsen := roleA | roleC // 01010
-	fmt.Println(orsen&roleA == roleA)
-	fmt.Println(orsen&roleB == roleB)
+	// orsen := roleA | roleC // 01010
+	// fmt.Println(orsen&roleA == roleA)
+	// fmt.Println(orsen&roleB == roleB)
+
+	// start := time.Now()
+	// took := time.Since(start)
+	// fmt.Printf("Call took %v milliseconds.", took.Nanoseconds())
+
+	req := httptest.NewRequest("", "/", nil)
+	rr := httptest.NewRecorder()
+	tasks.CalcFibGo(rr, req)
+	got := rr.Body.String()
+	fmt.Println(got)
 
 	// test int
 
