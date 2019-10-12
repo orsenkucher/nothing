@@ -1,11 +1,21 @@
 package tasks
 
-import "testing"
+import (
+	"fmt"
+	"net/http/httptest"
+	"testing"
+)
 
-// TestAbs testing method
-func TestAbs(t *testing.T) {
-	got := 1
-	if got != 1 {
-		t.Errorf("Abs(-1) = %d; want 1", got)
+// HelloGet testing method
+func TestHelloGet(t *testing.T) {
+	req := httptest.NewRequest("POST", "/", nil)
+	rr := httptest.NewRecorder()
+	fmt.Println("Making a request")
+	HelloGet(rr, req)
+	got := rr.Body.String()
+	fmt.Println(got)
+
+	if got != "Hello, World!" {
+		t.Errorf("Expected \"Hello, World!\". Got %s", got)
 	}
 }

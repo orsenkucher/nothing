@@ -10,6 +10,7 @@ import (
 	"cloud.google.com/go/firestore"
 )
 
+// Task is struct contains task
 type Task struct {
 	Question    string `firestore:"question"`
 	Explanation string `firestore:"explanation"`
@@ -25,6 +26,7 @@ func show(ctx context.Context, doc *firestore.DocumentRef, w http.ResponseWriter
 // HelloGet is an HTTP Cloud Function.
 func HelloGet(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
+
 	client, err := firestore.NewClient(ctx, "crystal-factory")
 	if err != nil {
 		log.Fatalf("create client: %v", err)
