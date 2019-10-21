@@ -1,8 +1,8 @@
+import 'package:crystalpuzzle/src/ui/curvebar/nav_button.dart';
+import 'package:crystalpuzzle/src/ui/curvebar/nav_custom_painter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'src/nav_button.dart';
-import 'src/nav_custom_painter.dart';
 
 class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
@@ -96,7 +96,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         var idx = (offset.dx * _length) ~/ size.width;
         if (idx < 0) idx = 0;
         if (idx >= _length) idx = _length - 1;
-        setPage(idx);
+        _buttonTap(idx);
       }
     }
 
@@ -180,17 +180,17 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   }
 
   void setPage(int index) {
-    _buttonTap(index);
+    _buttonTap(index, notifyListener: false);
   }
 
   int _currentExecuting;
 
-  void _buttonTap(int index) {
-    if (widget.onTap != null) {
-      widget.onTap(index);
-    }
+  void _buttonTap(int index, {bool notifyListener = true}) {
     if (_currentExecuting != null && _currentExecuting == index) {
       return;
+    }
+    if (notifyListener && widget.onTap != null) {
+      widget.onTap(index);
     }
     _currentExecuting = index;
     final newPosition = index / _length;

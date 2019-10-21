@@ -8,8 +8,8 @@ environment:
 
 dependencies:
   # curved_navigation_bar: ^0.3.1
-  curved_navigation_bar:
-    path: ./reworked/curved_navigation_bar_reworked-0.3.1/
+  # curved_navigation_bar:
+  #   path: ./reworked/curved_navigation_bar_reworked-0.3.1/
 
   flutter:
     sdk: flutter

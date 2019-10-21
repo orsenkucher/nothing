@@ -1,4 +1,4 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:crystalpuzzle/src/ui/curvebar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -28,6 +28,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _pageIdx = 0;
+  GlobalKey<CurvedNavigationBarState> _curveBarKey = GlobalKey();
 
   void _setPageIdx(int idx) {
     setState(() {
@@ -37,6 +38,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var pageController = PageController(
+      viewportFraction: .8,
+      initialPage: _pageIdx,
+    );
+
+    var duration = Duration(milliseconds: 220);
+    var curve = Curves.easeOutCubic;
+
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       appBar: AppBar(
@@ -45,36 +54,54 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 0,
       ),
       bottomNavigationBar: CurvedNavigationBar(
+        key: _curveBarKey,
         backgroundColor: Colors.blueAccent,
-        animationDuration: Duration(milliseconds: 200),
-        animationCurve: Curves.easeOutCubic,
+        animationDuration: duration,
+        animationCurve: curve,
         height: 54,
-        items: <Widget>[
+        items: [
           Icon(Icons.add, size: 30),
           Icon(Icons.list, size: 30),
           Icon(Icons.compare_arrows, size: 30),
         ],
-        onTap: (index) => _setPageIdx(index),
+        onTap: (index) {
+          pageController.animateToPage(index, duration: duration, curve: curve);
+          // pageController.jumpToPage(index);
+          _setPageIdx(index);
+        },
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Current view:',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              '$_pageIdx',
-              style: Theme.of(context)
-                  .textTheme
-                  .display1
-                  .copyWith(color: Colors.white),
-            ),
-          ],
+        child: PageView.builder(
+          controller: pageController,
+          itemCount: 3,
+          scrollDirection: Axis.horizontal,
+          physics: BouncingScrollPhysics(),
+          pageSnapping: true,
+          onPageChanged: (index) {
+            _setPageIdx(index);
+            _curveBarKey.currentState.setPage(index);
+          },
+          itemBuilder: (context, i) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Current index:',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '$_pageIdx',
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(color: Colors.white),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
