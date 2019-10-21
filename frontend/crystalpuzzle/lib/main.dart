@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.blueAccent,
-        animationDuration: Duration(milliseconds: 250),
+        animationDuration: Duration(milliseconds: 200),
         animationCurve: Curves.easeOutCubic,
         height: 54,
         items: <Widget>[

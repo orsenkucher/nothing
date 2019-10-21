@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'src/nav_button.dart';
@@ -13,6 +14,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
+  final bool useSlide;
 
   CurvedNavigationBar({
     Key key,
@@ -25,6 +27,7 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
+    this.useSlide = true,
   })  : assert(items != null),
         assert(items.length >= 1),
         assert(0 <= index && index < items.length),
@@ -88,6 +91,26 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    void slide(Offset offset) {
+      {
+        var idx = (offset.dx * _length) ~/ size.width;
+        if (idx < 0) idx = 0;
+        if (idx >= _length) idx = _length - 1;
+        setPage(idx);
+      }
+    }
+
+    Widget decorateWithSlide(Widget wg) {
+      if (widget.useSlide) {
+        return GestureDetector(
+            onHorizontalDragUpdate: (upd) => slide(upd.localPosition),
+            onHorizontalDragDown: (upd) => slide(upd.localPosition),
+            child: wg);
+      } else {
+        return wg;
+      }
+    }
+
     return Container(
       color: widget.backgroundColor,
       height: widget.height,
@@ -138,17 +161,18 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             right: 0,
             bottom: 0 - (75.0 - widget.height),
             child: SizedBox(
-                height: 100.0,
-                child: Row(
-                    children: widget.items.map((item) {
-                  return NavButton(
-                    onTap: _buttonTap,
-                    position: _pos,
-                    length: _length,
-                    index: widget.items.indexOf(item),
-                    child: item,
-                  );
-                }).toList())),
+              height: 100.0,
+              child: decorateWithSlide(Row(
+                  children: widget.items.map((item) {
+                return NavButton(
+                  onTap: _buttonTap,
+                  position: _pos,
+                  length: _length,
+                  index: widget.items.indexOf(item),
+                  child: item,
+                );
+              }).toList())),
+            ),
           ),
         ],
       ),
