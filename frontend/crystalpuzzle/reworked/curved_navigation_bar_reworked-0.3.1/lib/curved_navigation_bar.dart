@@ -155,14 +155,20 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
     );
   }
 
-  void setPage(int index){
+  void setPage(int index) {
     _buttonTap(index);
   }
+
+  int _currentExecuting;
 
   void _buttonTap(int index) {
     if (widget.onTap != null) {
       widget.onTap(index);
     }
+    if (_currentExecuting != null && _currentExecuting == index) {
+      return;
+    }
+    _currentExecuting = index;
     final newPosition = index / _length;
     setState(() {
       _startingPos = _pos;

@@ -27,11 +27,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _pageIdx = 0;
 
-  void _incrementCounter(int idx) {
+  void _setPageIdx(int idx) {
     setState(() {
-      _counter = idx;
+      _pageIdx = idx;
     });
   }
 
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Icon(Icons.list, size: 30),
           Icon(Icons.compare_arrows, size: 30),
         ],
-        onTap: (index) => _incrementCounter(index),
+        onTap: (index) => _setPageIdx(index),
       ),
       body: Center(
         child: Column(
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text(
-              '$_counter',
+              '$_pageIdx',
               style: Theme.of(context)
                   .textTheme
                   .display1
@@ -77,11 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: Icon(Icons.add),
-      // ),
     );
   }
 }
