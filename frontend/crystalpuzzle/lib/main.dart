@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _pageIdx = 0;
   GlobalKey<CurvedNavigationBarState> _curveBarKey = GlobalKey();
+  int _isAnimating = 0;
 
   void _setPageIdx(int idx) {
     setState(() {
@@ -41,9 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
     var pageController = PageController(
       viewportFraction: .8,
       initialPage: _pageIdx,
-    );
+    ); //..addListener(() => print("hello"));
 
-    var duration = Duration(milliseconds: 220);
+    var duration = Duration(milliseconds: 320);
     var curve = Curves.easeOutCubic;
 
     return Scaffold(
@@ -65,7 +66,15 @@ class _MyHomePageState extends State<MyHomePage> {
           Icon(Icons.compare_arrows, size: 30),
         ],
         onTap: (index) {
-          pageController.animateToPage(index, duration: duration, curve: curve);
+          // if (_isAnimating) {
+          //   return;
+          // }
+          _isAnimating++;
+          pageController
+              .animateToPage(index, duration: duration, curve: curve)
+              .then((_) {
+            _isAnimating--;
+          });
           // pageController.jumpToPage(index);
           _setPageIdx(index);
         },
@@ -78,8 +87,11 @@ class _MyHomePageState extends State<MyHomePage> {
           physics: BouncingScrollPhysics(),
           pageSnapping: true,
           onPageChanged: (index) {
-            _setPageIdx(index);
-            _curveBarKey.currentState.setPage(index);
+            if (_isAnimating == 0) {
+              print(_isAnimating);
+              _setPageIdx(index);
+              _curveBarKey.currentState.setPage(index);
+            }
           },
           itemBuilder: (context, i) {
             return Column(

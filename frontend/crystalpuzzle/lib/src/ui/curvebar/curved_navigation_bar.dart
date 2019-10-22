@@ -91,8 +91,12 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    void slide(Offset offset) {
+    void slide(Offset offset, Offset delta) {
       {
+        // print(delta.distanceSquared);
+        if (delta.distanceSquared > 15) {
+          return;
+        }
         var idx = (offset.dx * _length) ~/ size.width;
         if (idx < 0) idx = 0;
         if (idx >= _length) idx = _length - 1;
@@ -103,8 +107,14 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
     Widget decorateWithSlide(Widget wg) {
       if (widget.useSlide) {
         return GestureDetector(
-            onHorizontalDragUpdate: (upd) => slide(upd.localPosition),
-            onHorizontalDragDown: (upd) => slide(upd.localPosition),
+            onHorizontalDragUpdate: (upd) => slide(
+                  upd.localPosition,
+                  upd.delta,
+                ),
+            onHorizontalDragDown: (upd) => slide(
+                  upd.localPosition,
+                  Offset.zero,
+                ),
             child: wg);
       } else {
         return wg;
