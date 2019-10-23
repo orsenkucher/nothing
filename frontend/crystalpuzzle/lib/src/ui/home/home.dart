@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
         curve: curve,
         pages: [
           PageOne(),
-          PageTwo(),
+          PlayPage(),
           PageThree(),
         ],
       ),
