@@ -4,6 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Pages extends StatefulWidget {
+  // final List<Widget Function(BuildContext, PageState)> pageBuilders;
+  final List<Widget> pages;
+  final Duration duration;
+  final Curve curve;
+
+  Pages({
+    @required this.pages,
+    @required this.duration,
+    @required this.curve,
+  });
+
   @override
   _PagesState createState() => _PagesState();
 }
@@ -12,20 +23,21 @@ class _PagesState extends State<Pages> {
   int _animations = 0;
   PageController _controller;
 
-  _PagesState() {
+  @override
+  void initState() {
+    super.initState();
     _controller = PageController(
       viewportFraction: .8,
+      initialPage: 0,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    var duration = Duration(milliseconds: 220);
-    var curve = Curves.easeOut;
     return Center(
       child: PageView.builder(
         controller: _controller,
-        itemCount: 3,
+        itemCount: widget.pages.length,
         scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(),
         pageSnapping: true,
@@ -40,40 +52,26 @@ class _PagesState extends State<Pages> {
           return BlocBuilder<PageBloc, PageState>(
             builder: (context, state) {
               if (state is PageStateIndex) {
-                var idx = state.index;
-                _animations++;
-                _controller
-                    .animateToPage(state.index,
-                        duration: duration, curve: curve)
-                    .then((_) {
-                  _animations--;
-                });
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Current index:',
-                      style: TextStyle(
-                        color: Theme.of(context).canvasColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      '$idx',
-                      style: Theme.of(context)
-                          .textTheme
-                          .display1
-                          .copyWith(color: Colors.white),
-                    ),
-                  ],
+                _runPageAnimation(
+                  state,
+                  widget.duration,
+                  widget.curve,
                 );
-              } else {
-                return Container();
               }
+              return widget.pages[i];
             },
           );
         },
       ),
     );
+  }
+
+  void _runPageAnimation(PageStateIndex state, Duration duration, Cubic curve) {
+    _animations++;
+    _controller
+        .animateToPage(state.index, duration: duration, curve: curve)
+        .then((_) {
+      _animations--;
+    });
   }
 }

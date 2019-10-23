@@ -6,21 +6,23 @@ import 'bloc/bloc.dart';
 
 class CurveBar extends StatelessWidget {
   final List<Widget> items;
+  final Duration duration;
+  final Curve curve;
   final double height;
 
   CurveBar({
     @required this.items,
+    @required this.duration,
+    @required this.curve,
     this.height,
   });
 
   @override
   Widget build(BuildContext context) {
-    var duration = Duration(milliseconds: 220);
-    var curve = Curves.easeOut;
     var key = GlobalKey<CurvedNavigationBarState>();
     BlocProvider.of<PageBloc>(context).listen((state) {
       if (state is PageStateIndex) {
-        key.currentState.setPage(state.index);
+        key.currentState?.setPage(state.index);
       }
     });
     return CurvedNavigationBar(
