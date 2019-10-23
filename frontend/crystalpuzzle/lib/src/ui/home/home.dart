@@ -1,13 +1,14 @@
 import 'package:crystalpuzzle/src/ui/home/curvebar.dart';
 import 'package:crystalpuzzle/src/ui/home/pages.dart';
 import 'package:crystalpuzzle/src/ui/pages/pages.dart';
+import 'package:crystalpuzzle/src/ui/pages/playpage.dart';
 
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   final String title;
-  final Duration duration = const Duration(milliseconds: 220);
-  final Curve curve = Curves.easeOut;
+  final Duration duration = const Duration(milliseconds: 600);
+  final Curve curve = Curves.easeOutQuint;
 
   HomePage({Key key, this.title}) : super(key: key);
 

@@ -1,8 +1,7 @@
+import 'package:crystalpuzzle/src/bloc/bloc.dart';
 import 'package:crystalpuzzle/src/ui/curvebar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'bloc/bloc.dart';
 
 class CurveBar extends StatelessWidget {
   final List<Widget> items;

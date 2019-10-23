@@ -1,8 +1,13 @@
-import 'dart:async';
 import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
+import 'package:crystalpuzzle/src/bloc/playbloc/states.dart';
 import 'package:http/http.dart';
-import './bloc.dart';
+
+import 'events.dart';
+
+export 'events.dart';
+export 'states.dart';
 
 class PlayBloc extends Bloc<PlayEvent, PlayState> {
   @override
@@ -36,10 +41,6 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
   }
 
   Future<TasksState> fetchTasks() async {
-    //  var querie struct {
-    // 	Count int      `json:"count"`
-    // 	IDs   []string `json:"ids"`
-    // }
     var url =
         'https://us-central1-crystal-factory.cloudfunctions.net/GiveTasks';
     var resp = await post(url, body: '{"count": 3}');
@@ -48,7 +49,7 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
       var decoded = json.decode(resp.body);
       return TasksState.fromJson(decoded);
     } else {
-      throw Exception('Failed to load post');
+      return await simulateLoading();
     }
   }
 }

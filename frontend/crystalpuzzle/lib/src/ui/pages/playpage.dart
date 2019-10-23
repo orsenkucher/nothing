@@ -1,5 +1,4 @@
-import 'package:crystalpuzzle/src/ui/pages/playpage/bloc/bloc.dart';
-import 'package:crystalpuzzle/src/ui/pages/playpage/bloc/play_state.dart';
+import 'package:crystalpuzzle/src/bloc/playbloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,20 +37,6 @@ class DisplayTask extends StatelessWidget {
                 t.question,
               ),
             ),
-            // Text(
-            //   t.question,
-            //   style: Theme.of(context)
-            //       .textTheme
-            //       .display1
-            //       .copyWith(color: Colors.white),
-            // ),
-            // Text(
-            //   t.explanation,
-            //   style: Theme.of(context)
-            //       .textTheme
-            //       .body1
-            //       .copyWith(color: Colors.white),
-            // ))
           )
           .toList(),
     );

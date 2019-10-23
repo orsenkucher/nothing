@@ -1,10 +1,8 @@
-import 'package:crystalpuzzle/src/ui/home/bloc/bloc.dart';
-import 'package:crystalpuzzle/src/ui/home/bloc/page_state.dart';
+import 'package:crystalpuzzle/src/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Pages extends StatefulWidget {
-  // final List<Widget Function(BuildContext, PageState)> pageBuilders;
   final List<Widget> pages;
   final Duration duration;
   final Curve curve;
@@ -66,7 +64,7 @@ class _PagesState extends State<Pages> {
     );
   }
 
-  void _runPageAnimation(PageStateIndex state, Duration duration, Cubic curve) {
+  void _runPageAnimation(PageStateIndex state, Duration duration, Curve curve) {
     _animations++;
     _controller
         .animateToPage(state.index, duration: duration, curve: curve)
