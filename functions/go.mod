@@ -1,4 +1,4 @@
-module github.com/orsenkucher/crystalpuzzle/tasks
+module github.com/orsenkucher/crystalpuzzle/functions
 
 go 1.13
 
