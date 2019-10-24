@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:crystalpuzzle/src/ui/curvebar/clip_path.dart';
 import 'package:crystalpuzzle/src/ui/curvebar/nav_button.dart';
 import 'package:crystalpuzzle/src/ui/curvebar/nav_custom_painter.dart';
 import 'package:flutter/gestures.dart';
@@ -148,9 +149,14 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                 child: Material(
                   color: Color(0x44000000),
                   type: MaterialType.circle,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: _icon,
+                  child: ClipOval(
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: _icon,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -160,11 +166,26 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             left: 0,
             right: 0,
             bottom: 0 - (75.0 - widget.height),
-            child: CustomPaint(
-              painter: NavCustomPainter(
-                  _pos, _length, widget.color, Directionality.of(context)),
-              child: Container(
-                height: 75.0,
+            // child: CustomPaint(
+            //   painter: NavCustomPainter(
+            //       _pos, _length, widget.color, Directionality.of(context),),
+            //   child: Container(
+            //     height: 75.0,
+            //   ),
+            // ),
+            child: ClipPath(
+              clipper: CustomClipPath(
+                _pos,
+                _length,
+                widget.color,
+                Directionality.of(context),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+                child: Container(
+                  height: 75.0,
+                  color: Colors.transparent,
+                ),
               ),
             ),
           ),

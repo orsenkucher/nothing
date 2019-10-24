@@ -1,14 +1,14 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
-class NavCustomPainter extends CustomPainter {
+class CustomClipPath extends CustomClipper<Path> {
   double loc;
   double s;
   Color color;
   TextDirection textDirection;
 
-  NavCustomPainter(
+  CustomClipPath(
       double startingLoc, int itemsLength, this.color, this.textDirection) {
     final span = 1.0 / itemsLength;
     s = 0.2;
@@ -17,13 +17,7 @@ class NavCustomPainter extends CustomPainter {
   }
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.transparent;
-    // ..color = Color(0x44000000)
-    // ..style = PaintingStyle.fill
-    // ..maskFilter = MaskFilter.blur(BlurStyle.inner, 6);
-    // ..imageFilter = ImageFilter.blur(sigmaX: 5, sigmaY: 5);
-
+  Path getClip(Size size) {
     final path = Path()
       ..moveTo(0, 0)
       ..lineTo((loc - 0.1) * size.width, 0)
@@ -47,11 +41,9 @@ class NavCustomPainter extends CustomPainter {
       ..lineTo(size.width, size.height)
       ..lineTo(0, size.height)
       ..close();
-    canvas.drawPath(path, paint);
+    return path;
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return this != oldDelegate;
-  }
+  bool shouldReclip(CustomClipper<Path> oldClipper) => this != oldClipper;
 }
