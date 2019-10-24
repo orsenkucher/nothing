@@ -25,7 +25,7 @@ class _PagesState extends State<Pages> {
   void initState() {
     super.initState();
     _controller = PageController(
-      viewportFraction: .8,
+      viewportFraction: 1,
       initialPage: 0,
     );
   }
