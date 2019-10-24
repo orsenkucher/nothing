@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:crystalpuzzle/src/ui/curvebar/nav_button.dart';
 import 'package:crystalpuzzle/src/ui/curvebar/nav_custom_painter.dart';
 import 'package:flutter/gestures.dart';
@@ -144,7 +146,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                   -(1 - _buttonHide) * 80,
                 ),
                 child: Material(
-                  color: widget.buttonBackgroundColor ?? widget.color,
+                  color: Color(0x44000000),
                   type: MaterialType.circle,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

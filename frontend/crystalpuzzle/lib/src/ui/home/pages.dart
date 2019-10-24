@@ -30,36 +30,47 @@ class _PagesState extends State<Pages> {
     );
   }
 
+  var img1 = 'https://w.wallhaven.cc/full/13/wallhaven-13gom9.jpg';
+  var img2 = 'https://w.wallhaven.cc/full/q6/wallhaven-q6omvd.jpg';
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: PageView.builder(
-        controller: _controller,
-        itemCount: widget.pages.length,
-        scrollDirection: Axis.horizontal,
-        physics: BouncingScrollPhysics(),
-        pageSnapping: true,
-        onPageChanged: (index) {
-          if (_animations == 0) {
-            BlocProvider.of<PageBloc>(context).add(
-              PageChanged(index: index),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(img2),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: PageView.builder(
+          controller: _controller,
+          itemCount: widget.pages.length,
+          scrollDirection: Axis.horizontal,
+          physics: BouncingScrollPhysics(),
+          pageSnapping: true,
+          onPageChanged: (index) {
+            if (_animations == 0) {
+              BlocProvider.of<PageBloc>(context).add(
+                PageChanged(index: index),
+              );
+            }
+          },
+          itemBuilder: (context, i) {
+            return BlocBuilder<PageBloc, PageState>(
+              builder: (context, state) {
+                if (state is PageStateIndex) {
+                  _runPageAnimation(
+                    state,
+                    widget.duration,
+                    widget.curve,
+                  );
+                }
+                return widget.pages[i];
+              },
             );
-          }
-        },
-        itemBuilder: (context, i) {
-          return BlocBuilder<PageBloc, PageState>(
-            builder: (context, state) {
-              if (state is PageStateIndex) {
-                _runPageAnimation(
-                  state,
-                  widget.duration,
-                  widget.curve,
-                );
-              }
-              return widget.pages[i];
-            },
-          );
-        },
+          },
+        ),
       ),
     );
   }

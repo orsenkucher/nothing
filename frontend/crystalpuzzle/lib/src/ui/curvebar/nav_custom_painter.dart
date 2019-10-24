@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class NavCustomPainter extends CustomPainter {
@@ -17,8 +19,10 @@ class NavCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill;
+      ..color = Colors.amberAccent.withOpacity(0.4) //Color(0x44000000)
+      ..style = PaintingStyle.fill
+      ..maskFilter = MaskFilter.blur(BlurStyle.inner, 6);
+    // ..imageFilter = ImageFilter.blur(sigmaX: 5, sigmaY: 5);
 
     final path = Path()
       ..moveTo(0, 0)

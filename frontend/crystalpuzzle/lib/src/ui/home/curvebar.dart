@@ -26,7 +26,8 @@ class CurveBar extends StatelessWidget {
     });
     return CurvedNavigationBar(
       key: key,
-      backgroundColor: Theme.of(context).accentColor,
+      backgroundColor: Colors.transparent, //Theme.of(context).cardColor,
+      color: Colors.black,
       animationDuration: duration,
       animationCurve: curve,
       height: height,
