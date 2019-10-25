@@ -8,8 +8,10 @@ import (
 	"github.com/orsenkucher/crystalpuzzle/functions"
 )
 
+const addTasksURL = "https://us-central1-crystal-factory.cloudfunctions.net/AddTasks"
+
 // SendTasks is public
 func SendTasks(tasks []functions.Task) {
 	strb, _ := json.Marshal(&tasks)
-	http.Post("https://us-central1-crystal-factory.cloudfunctions.net/AddTasks", "application/json", bytes.NewBuffer(strb))
+	http.Post(addTasksURL, "application/json", bytes.NewBuffer(strb))
 }
