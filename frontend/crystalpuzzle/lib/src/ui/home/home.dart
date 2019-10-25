@@ -2,7 +2,7 @@ import 'package:crystalpuzzle/src/ui/home/curvebar.dart';
 import 'package:crystalpuzzle/src/ui/home/pages.dart';
 import 'package:crystalpuzzle/src/ui/pages/pages.dart';
 import 'package:crystalpuzzle/src/ui/pages/playpage.dart';
-
+import 'package:crystalpuzzle/src/ui/pages/newpage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -27,6 +27,7 @@ class HomePage extends StatelessWidget {
               PageOne(),
               PlayPage(),
               PageThree(),
+              Newpage(),
             ],
           ),
           Align(
@@ -54,6 +55,8 @@ class HomePage extends StatelessWidget {
     return CurveBar(items: [
       Icon(Icons.add, size: 30, color: Colors.white),
       Icon(Icons.list, size: 30, color: Colors.white),
+      Icon(Icons.compare_arrows, size: 50, color: Colors.white),
+      Icon(Icons.compare_arrows, size: 30, color: Colors.white),
       Icon(Icons.compare_arrows, size: 30, color: Colors.white),
     ], height: 54, duration: duration, curve: curve);
   }
