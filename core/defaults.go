@@ -2,7 +2,6 @@ package core
 
 import "reflect"
 
-// Defs is Defs
 type defaults Values
 
 // Defaults is an array of default values

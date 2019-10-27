@@ -182,9 +182,18 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-                child: Container(
-                  height: 75.0,
-                  color: Colors.transparent,
+                child: CustomPaint(
+                  painter: NavCustomPainter(
+                    _pos,
+                    _length,
+                    Color(0x44000000),
+                    // widget.color,
+                    Directionality.of(context),
+                  ),
+                  child: Container(
+                    height: 75.0,
+                    // color: Colors.transparent,
+                  ),
                 ),
               ),
             ),

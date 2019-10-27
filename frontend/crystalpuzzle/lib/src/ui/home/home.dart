@@ -27,6 +27,7 @@ class HomePage extends StatelessWidget {
               PageOne(),
               PlayPage(),
               PageThree(),
+              PlayPage(),
               Newpage(),
             ],
           ),
@@ -55,7 +56,7 @@ class HomePage extends StatelessWidget {
     return CurveBar(items: [
       Icon(Icons.add, size: 30, color: Colors.white),
       Icon(Icons.list, size: 30, color: Colors.white),
-      Icon(Icons.compare_arrows, size: 50, color: Colors.white),
+      Icon(Icons.compare_arrows, size: 40, color: Colors.white),
       Icon(Icons.compare_arrows, size: 30, color: Colors.white),
       Icon(Icons.compare_arrows, size: 30, color: Colors.white),
     ], height: 54, duration: duration, curve: curve);

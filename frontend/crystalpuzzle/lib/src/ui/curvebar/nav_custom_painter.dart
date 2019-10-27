@@ -18,9 +18,9 @@ class NavCustomPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.transparent;
-    // ..color = Color(0x44000000)
-    // ..style = PaintingStyle.fill
+    final paint = Paint() //..color = Colors.transparent;
+      ..color = color
+      ..style = PaintingStyle.fill;
     // ..maskFilter = MaskFilter.blur(BlurStyle.inner, 6);
     // ..imageFilter = ImageFilter.blur(sigmaX: 5, sigmaY: 5);
 

@@ -8,62 +8,68 @@ class Newpage extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(28),
-          ),
+          color: Colors.white,
         ),
-        FractionallySizedBox(
-          heightFactor: 0.46,
-          child: Container(
-            width: 376,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(28),
-            ),
-            child: BlocBuilder<PlayBloc, PlayState>(
-              builder: (context, state) {
-                switch (state.runtimeType) {
-                  case TasksState:
-                    return DisplayTask2(state: state);
-                }
-                return Container();
-              },
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 331,
-          left: 50,
-          right: 50,
-          child: Container(
-            height: 78,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-                width: 4,
+        Column(
+          children: <Widget>[
+            Flexible(
+              flex: 46,
+              child: Container(
+                // width: 376,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.zero,
+                    bottom: Radius.circular(28),
+                  ),
+                ),
+                child: BlocBuilder<PlayBloc, PlayState>(
+                  builder: (context, state) {
+                    switch (state.runtimeType) {
+                      case TasksState:
+                        return DisplayTask2(state: state);
+                    }
+                    return Container();
+                  },
+                ),
               ),
-              borderRadius: BorderRadius.circular(28),
             ),
-            child: BlocBuilder<PlayBloc, PlayState>(
-              builder: (context, state) {
-                switch (state.runtimeType) {
-                  case TasksState:
-                    return Center(
-                      child: Text(
-                        (state as TasksState).tasks[0].answers[0],
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    );
-                }
-                return Container();
-              },
+            Flexible(
+              flex: 54,
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                  horizontal: 50,
+                  vertical: 40,
+                ),
+                height: 78,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 4,
+                  ),
+                  borderRadius: BorderRadius.circular(28),
+                ),
+                child: BlocBuilder<PlayBloc, PlayState>(
+                  builder: (context, state) {
+                    switch (state.runtimeType) {
+                      case TasksState:
+                        return Center(
+                          child: Text(
+                            (state as TasksState).tasks[0].answers[0],
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                    }
+                    return Container();
+                  },
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ],
     );
