@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/orsenkucher/crystalpuzzle/functions"
+	"github.com/orsenkucher/noting/functions"
 )
 
 const addTasksURL = "https://us-central1-crystal-factory.cloudfunctions.net/AddTasks"

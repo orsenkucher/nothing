@@ -7,8 +7,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/orsenkucher/crystalpuzzle/fbclients"
-	"github.com/orsenkucher/crystalpuzzle/functions"
+	"github.com/orsenkucher/nothing/fbclients"
+	"github.com/orsenkucher/nothing/functions"
 )
 
 func check(err error) {

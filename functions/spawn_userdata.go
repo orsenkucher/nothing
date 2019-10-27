@@ -8,7 +8,7 @@ import (
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	"firebase.google.com/go/auth"
-	"github.com/orsenkucher/crystalpuzzle/core"
+	"github.com/orsenkucher/nothing/core"
 )
 
 var authClient *auth.Client
