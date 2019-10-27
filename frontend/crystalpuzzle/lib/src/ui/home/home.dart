@@ -15,9 +15,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Theme.of(context).cardColor,
       appBar: _makeAppBar(context),
-      // bottomNavigationBar: _makeNavBar(context),
+      bottomNavigationBar: _makeNavBar(context),
       body: Stack(
         children: [
           Pages(
@@ -31,10 +32,10 @@ class HomePage extends StatelessWidget {
               Newpage(),
             ],
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: _makeNavBar(context),
-          )
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: _makeNavBar(context),
+          // )
         ],
       ),
     );

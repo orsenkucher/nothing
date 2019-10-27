@@ -2,7 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crystalpuzzle/src/bloc/playbloc/bloc.dart';
 
-class Newpage extends StatelessWidget {
+class Newpage extends StatefulWidget {
+  @override
+  _NewpageState createState() => _NewpageState();
+}
+
+class _NewpageState extends State<Newpage> {
+  FocusNode myFocusNode;
+  String currentText = "";
+  @override
+  void initState() {
+    super.initState();
+    // FocusScope.of(context).requestFocus(new FocusNode());
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    myFocusNode.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -10,6 +32,10 @@ class Newpage extends StatelessWidget {
         Container(
           color: Colors.white,
         ),
+        //  TextField(
+        //   autofocus: true,
+        //focusNode: myFocusNode,
+        //  ),
         Column(
           children: <Widget>[
             Flexible(
@@ -38,38 +64,100 @@ class Newpage extends StatelessWidget {
               flex: 54,
               child: Container(
                 margin: EdgeInsets.symmetric(
-                  horizontal: 50,
+                  horizontal: 60,
                   vertical: 40,
                 ),
                 height: 78,
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 4,
-                  ),
+                  color: Colors.black,
+                  // border: Border.all(
+                  //   color: Colors.white,
+                  //   width: 4,
+                  // ),
                   borderRadius: BorderRadius.circular(28),
                 ),
-                child: BlocBuilder<PlayBloc, PlayState>(
-                  builder: (context, state) {
-                    switch (state.runtimeType) {
-                      case TasksState:
-                        return Center(
+                child: Center(
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        width: 205,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(28),
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 4,
+                          ),
+                        ),
+                        child: Center(
                           child: Text(
-                            (state as TasksState).tasks[0].answers[0],
+                            currentText,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        );
-                    }
-                    return Container();
-                  },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ],
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: FlatButton(
+              color: Colors.red,
+              onPressed: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+                FocusScope.of(context).requestFocus(myFocusNode);
+              },
+              child: Container(
+                width: 10,
+                height: 10,
+              )),
+        ),
+        Container(
+          width: 1,
+          height: 1,
+          child: FittedBox(
+            fit: BoxFit.none,
+            child: Container(
+              width: 200,
+              height: 200,
+              child: TextField(
+                autocorrect: false,
+                onSubmitted: (s) => print(s),
+                keyboardAppearance: Brightness.light,
+                maxLength: 12,
+                cursorColor: Colors.transparent,
+                style: TextStyle(
+                  color: Colors.transparent,
+                ),
+                focusNode: myFocusNode,
+                onChanged: (s) => setState(() {
+                  currentText = s;
+                }),
+                showCursor: false,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                  hintText: "dsfasf",
+                  fillColor: Colors.transparent,
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );
