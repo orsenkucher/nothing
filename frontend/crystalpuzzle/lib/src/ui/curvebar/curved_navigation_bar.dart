@@ -153,7 +153,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: _icon,
                       ),
                     ),

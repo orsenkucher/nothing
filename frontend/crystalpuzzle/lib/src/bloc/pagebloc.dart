@@ -3,33 +3,52 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-abstract class PageEvent {}
+abstract class PageEvent {
+  const PageEvent();
+}
+
+enum Invoker {
+  system,
+  slidebar,
+  pageview,
+}
 
 class PageChanged extends PageEvent {
   final int index;
+  final Invoker invoker;
 
-  PageChanged({@required this.index});
+  const PageChanged({
+    @required this.index,
+    @required this.invoker,
+  });
 }
 
 @immutable
-abstract class PageState {}
+abstract class PageState {
+  const PageState();
+}
 
 class PageStateIndex extends PageState {
   final int index;
+  final Invoker invoker;
 
-  PageStateIndex({@required this.index});
+  const PageStateIndex({
+    @required this.index,
+    @required this.invoker,
+  });
 }
 
 class PageBloc extends Bloc<PageEvent, PageState> {
   @override
-  PageState get initialState => PageStateIndex(index: 1);
+  PageStateIndex get initialState =>
+      PageStateIndex(index: 1, invoker: Invoker.system);
 
   @override
   Stream<PageState> mapEventToState(
     PageEvent event,
   ) async* {
     if (event is PageChanged) {
-      yield PageStateIndex(index: event.index);
+      yield PageStateIndex(index: event.index, invoker: event.invoker);
     }
   }
 }

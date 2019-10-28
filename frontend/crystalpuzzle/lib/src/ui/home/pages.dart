@@ -26,7 +26,7 @@ class _PagesState extends State<Pages> {
     super.initState();
     _controller = PageController(
       viewportFraction: 1,
-      initialPage: 0,
+      initialPage: BlocProvider.of<PageBloc>(context).initialState.index,
     );
   }
 
@@ -53,22 +53,23 @@ class _PagesState extends State<Pages> {
           onPageChanged: (index) {
             if (_animations == 0) {
               BlocProvider.of<PageBloc>(context).add(
-                PageChanged(index: index),
+                PageChanged(index: index, invoker: Invoker.pageview),
               );
             }
           },
           itemBuilder: (context, i) {
-            return BlocBuilder<PageBloc, PageState>(
-              builder: (context, state) {
-                if (state is PageStateIndex) {
+            return BlocListener<PageBloc, PageState>(
+              listener: (context, state) {
+                if (state is PageStateIndex &&
+                    state.invoker != Invoker.pageview) {
                   _runPageAnimation(
                     state,
                     widget.duration,
                     widget.curve,
                   );
                 }
-                return widget.pages[i];
               },
+              child: widget.pages[i],
             );
           },
         ),

@@ -19,24 +19,30 @@ class CurveBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var key = GlobalKey<CurvedNavigationBarState>();
-    BlocProvider.of<PageBloc>(context).listen((state) {
-      if (state is PageStateIndex) {
-        key.currentState?.setPage(state.index);
-      }
-    });
-    return CurvedNavigationBar(
-      key: key,
-      backgroundColor: Colors.transparent, //Theme.of(context).cardColor,
-      color: Colors.black,
-      animationDuration: duration,
-      animationCurve: curve,
-      height: height,
-      items: items,
-      onTap: (index) {
-        BlocProvider.of<PageBloc>(context).add(
-          PageChanged(index: index),
-        );
+    return BlocListener<PageBloc, PageState>(
+      listener: (context, state) {
+        if (state is PageStateIndex) {
+          key.currentState?.setPage(state.index);
+        }
       },
+      child: CurvedNavigationBar(
+        key: key,
+        index: _latestState(context)?.index ?? 0,
+        backgroundColor: Colors.transparent, //Theme.of(context).cardColor,
+        color: Colors.black,
+        animationDuration: duration,
+        animationCurve: curve,
+        height: height,
+        items: items,
+        onTap: (index) {
+          BlocProvider.of<PageBloc>(context).add(
+            PageChanged(index: index, invoker: Invoker.slidebar),
+          );
+        },
+      ),
     );
   }
+
+  PageStateIndex _latestState(BuildContext context) =>
+      BlocProvider.of<PageBloc>(context).state as PageStateIndex;
 }

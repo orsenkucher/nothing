@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
       resizeToAvoidBottomPadding: false,
       backgroundColor: Theme.of(context).cardColor,
       appBar: _makeAppBar(context),
-      bottomNavigationBar: _makeNavBar(context),
+      // bottomNavigationBar: _makeNavBar(context),
       body: Stack(
         children: [
           Pages(
@@ -32,10 +32,10 @@ class HomePage extends StatelessWidget {
               Newpage(),
             ],
           ),
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: _makeNavBar(context),
-          // )
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: _makeNavBar(context),
+          )
         ],
       ),
     );
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
     return CurveBar(items: [
       Icon(Icons.add, size: 30, color: Colors.white),
       Icon(Icons.list, size: 30, color: Colors.white),
-      Icon(Icons.compare_arrows, size: 40, color: Colors.white),
+      Icon(Icons.compare_arrows, size: 30, color: Colors.white),
       Icon(Icons.compare_arrows, size: 30, color: Colors.white),
       Icon(Icons.compare_arrows, size: 30, color: Colors.white),
     ], height: 54, duration: duration, curve: curve);

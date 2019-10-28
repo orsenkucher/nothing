@@ -8,19 +8,19 @@ class Newpage extends StatefulWidget {
 }
 
 class _NewpageState extends State<Newpage> {
-  FocusNode myFocusNode;
+  FocusNode focusNode;
   String currentText = "";
   @override
   void initState() {
     super.initState();
     // FocusScope.of(context).requestFocus(new FocusNode());
-    myFocusNode = FocusNode();
+    focusNode = FocusNode();
   }
 
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
-    myFocusNode.dispose();
+    focusNode.dispose();
 
     super.dispose();
   }
@@ -30,33 +30,32 @@ class _NewpageState extends State<Newpage> {
     return Stack(
       children: <Widget>[
         Container(
-          color: Colors.white,
+          color: Colors.transparent,
         ),
-        //  TextField(
-        //   autofocus: true,
-        //focusNode: myFocusNode,
-        //  ),
         Column(
           children: <Widget>[
             Flexible(
               flex: 46,
-              child: Container(
-                // width: 376,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.zero,
-                    bottom: Radius.circular(28),
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: focusNode.unfocus,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.zero,
+                      bottom: Radius.circular(28),
+                    ),
                   ),
-                ),
-                child: BlocBuilder<PlayBloc, PlayState>(
-                  builder: (context, state) {
-                    switch (state.runtimeType) {
-                      case TasksState:
-                        return DisplayTask2(state: state);
-                    }
-                    return Container();
-                  },
+                  child: BlocBuilder<PlayBloc, PlayState>(
+                    builder: (context, state) {
+                      switch (state.runtimeType) {
+                        case TasksState:
+                          return DisplayTask2(state: state);
+                      }
+                      return Container();
+                    },
+                  ),
                 ),
               ),
             ),
@@ -77,55 +76,49 @@ class _NewpageState extends State<Newpage> {
                   borderRadius: BorderRadius.circular(28),
                 ),
                 child: Center(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        width: 205,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(28),
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 4,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            currentText,
-                            style: TextStyle(
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      focusNode.unfocus();
+                      focusNode.requestFocus();
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 205,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(28),
+                            color: Colors.white,
+                            border: Border.all(
                               color: Colors.black,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
+                              width: 4,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              currentText,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ],
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: FlatButton(
-              color: Colors.red,
-              onPressed: () {
-                FocusScope.of(context).requestFocus(FocusNode());
-                FocusScope.of(context).requestFocus(myFocusNode);
-              },
-              child: Container(
-                width: 10,
-                height: 10,
-              )),
         ),
         Container(
           width: 1,
@@ -137,6 +130,7 @@ class _NewpageState extends State<Newpage> {
               height: 200,
               child: TextField(
                 autocorrect: false,
+                autofocus: false,
                 onSubmitted: (s) => print(s),
                 keyboardAppearance: Brightness.light,
                 maxLength: 12,
@@ -144,7 +138,7 @@ class _NewpageState extends State<Newpage> {
                 style: TextStyle(
                   color: Colors.transparent,
                 ),
-                focusNode: myFocusNode,
+                focusNode: focusNode,
                 onChanged: (s) => setState(() {
                   currentText = s;
                 }),
