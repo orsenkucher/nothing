@@ -35,6 +35,7 @@ class _PagesState extends State<Pages> {
   var img2 = 'https://w.wallhaven.cc/full/q6/wallhaven-q6omvd.jpg';
   var img3 = 'https://w.wallhaven.cc/full/md/wallhaven-mdyvvm.jpg';
   var img4 = 'https://w.wallhaven.cc/full/j5/wallhaven-j589rq.png';
+  var imglocal = 'assets/vibrantback.png';
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,8 @@ class _PagesState extends State<Pages> {
       child: DecoratedBox(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(img4),
+            // image: NetworkImage(img4),
+            image: AssetImage(imglocal),
             fit: BoxFit.cover,
           ),
         ),
@@ -91,7 +93,7 @@ class _PagesState extends State<Pages> {
           return AnimatedContainer(
             margin: EdgeInsets.only(
               top: active ? 50 : 140,
-              bottom: active ? 50 : 140,
+              bottom: active ? 60 : 140,
               right: active ? 50 : 80,
               left: active ? 50 : 80,
             ),
