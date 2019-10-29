@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nothing/bloc/bloc.dart';
+import 'package:nothing/bloc/problem/bloc.dart';
+import 'package:nothing/bloc/problems/bloc.dart';
 import 'package:nothing/data/model/problem.dart';
 
 class SolveProblems extends StatefulWidget {
@@ -18,7 +19,7 @@ class _SolveProblemsState extends State<SolveProblems> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    BlocProvider.of<ProblemBloc>(context).add(
+    BlocProvider.of<ProblemsBloc>(context).add(
       FetchProblems(
         count: widget.count,
       ),
@@ -27,15 +28,15 @@ class _SolveProblemsState extends State<SolveProblems> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProblemBloc, ProblemState>(
+    return BlocBuilder<ProblemsBloc, ProblemsState>(
       builder: (context, state) {
-        if (state is LoadingProblem) {
+        if (state is LoadingProblems) {
           return LoadingCircle();
         }
-        if (state is LoadedProblem) {
+        if (state is LoadedProblems) {
           return _SolveProblems(state.problems);
         }
-        return Container();
+        return Placeholder();
       },
     );
   }
@@ -100,7 +101,7 @@ class __SolveProblemsState extends State<_SolveProblems> {
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: focusNode.unfocus,
-                child: QuestionBox(problems: widget.problems),
+                child: QuestionBox(),
               ),
             ),
             Flexible(
@@ -129,7 +130,13 @@ class __SolveProblemsState extends State<_SolveProblems> {
           child: TextField(
             autocorrect: false,
             autofocus: false,
-            onSubmitted: (s) => print(s),
+            onSubmitted: (s) {
+              print(s);
+              BlocProvider.of<ProblemBloc>(context).add(AnsweredProblem(
+                id: 0,
+                correct: true, // TODO: only for now
+              ));
+            },
             keyboardAppearance: Brightness.light,
             maxLength: 12,
             focusNode: focusNode,
@@ -215,11 +222,7 @@ class AnswerBox extends StatelessWidget {
 }
 
 class QuestionBox extends StatelessWidget {
-  final List<Problem> problems;
-
-  const QuestionBox({
-    @required this.problems,
-  });
+  const QuestionBox();
 
   @override
   Widget build(BuildContext context) {
@@ -232,14 +235,20 @@ class QuestionBox extends StatelessWidget {
         ),
       ),
       child: Align(
-        child: Text(
-          problems[0].question,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        child:
+            BlocBuilder<ProblemBloc, ProblemState>(builder: (context, state) {
+          if (state is NewProblem) {
+            return Text(
+              state.problem.question,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          }
+          return Container();
+        }),
       ),
     );
   }

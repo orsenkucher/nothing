@@ -4,21 +4,21 @@ import 'package:nothing/data/model/problem.dart';
 import 'package:nothing/error/cloud_error.dart';
 
 @immutable
-abstract class ProblemState extends Equatable {
-  const ProblemState();
+abstract class ProblemsState extends Equatable {
+  const ProblemsState();
 }
 
-class LoadingProblem extends ProblemState {
-  const LoadingProblem();
+class LoadingProblems extends ProblemsState {
+  const LoadingProblems();
 
   @override
   List<Object> get props => [];
 }
 
-class LoadedProblem extends ProblemState {
+class LoadedProblems extends ProblemsState {
   final List<Problem> problems;
 
-  const LoadedProblem({
+  const LoadedProblems({
     @required this.problems,
   });
 
@@ -26,7 +26,7 @@ class LoadedProblem extends ProblemState {
   List<Object> get props => [problems];
 }
 
-class LoadingError extends ProblemState {
+class LoadingError extends ProblemsState {
   final CloudError error;
 
   const LoadingError({

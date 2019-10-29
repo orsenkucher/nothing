@@ -31,6 +31,7 @@ class LocalProblemRepo extends ProblemRepo {
       Duration(seconds: 6),
       () => List<Problem>.generate(count, (i) {
         return Problem(
+          id: i,
           question: "Simulation $i",
           explanation: "It's just a simulation",
           answers: ["On, I knew that"],
