@@ -9,14 +9,8 @@ import (
 	"strconv"
 
 	"cloud.google.com/go/firestore"
+	"github.com/orsenkucher/nothing/data/model"
 )
-
-//Task is struct
-type Task struct {
-	Question    string   `firebase:"question" json:"question"`
-	Explanation string   `firebase:"explanation" json:"explanation"`
-	Answers     []string `firebase:"answers" json:"answer"`
-}
 
 // Counter is int
 type Counter struct {
@@ -33,7 +27,7 @@ func getCounter(ctx context.Context, cdoc *firestore.DocumentRef) int {
 // AddTasks is Schedule
 func AddTasks(w http.ResponseWriter, r *http.Request) {
 	str, _ := ioutil.ReadAll(r.Body)
-	var tasks []Task
+	var tasks []model.Task
 	json.Unmarshal(str, &tasks)
 
 	ctx := context.Background()

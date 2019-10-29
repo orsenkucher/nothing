@@ -10,10 +10,11 @@ import (
 	"strconv"
 
 	"cloud.google.com/go/firestore"
+	"github.com/orsenkucher/nothing/data/model"
 )
 
-func getTask(ctx context.Context, tdoc *firestore.DocumentRef) Task {
-	var t Task
+func getTask(ctx context.Context, tdoc *firestore.DocumentRef) model.Task {
+	var t model.Task
 	snap, _ := tdoc.Get(ctx)
 	snap.DataTo(&t)
 	return t
@@ -37,7 +38,7 @@ func GiveTasks(w http.ResponseWriter, r *http.Request) {
 	if counter < querie.Count {
 		querie.Count = counter
 	}
-	tasks := make([]Task, 0, querie.Count)
+	tasks := make([]model.Task, 0, querie.Count)
 	for i := 0; i < querie.Count; i++ {
 		tasks = append(tasks, getTask(ctx, client.Doc("Tasks/"+strconv.Itoa(i))))
 	}
