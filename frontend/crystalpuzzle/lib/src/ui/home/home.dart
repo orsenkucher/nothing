@@ -55,11 +55,11 @@ class HomePage extends StatelessWidget {
     //   color: Colors.transparent,
     // );
     return CurveBar(items: [
-      Icon(Icons.add, size: 30, color: Colors.white),
-      Icon(Icons.list, size: 30, color: Colors.white),
-      Icon(Icons.compare_arrows, size: 30, color: Colors.white),
-      Icon(Icons.compare_arrows, size: 30, color: Colors.white),
-      Icon(Icons.compare_arrows, size: 30, color: Colors.white),
+      Icon(Icons.add, size: 30, color: Colors.black),
+      Icon(Icons.list, size: 30, color: Colors.black),
+      Icon(Icons.compare_arrows, size: 30, color: Colors.black),
+      Icon(Icons.atm, size: 30, color: Colors.black),
+      Icon(Icons.filter_b_and_w, size: 30, color: Colors.black),
     ], height: 54, duration: duration, curve: curve);
   }
 }

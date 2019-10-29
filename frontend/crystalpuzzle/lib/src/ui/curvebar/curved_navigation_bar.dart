@@ -147,11 +147,11 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                   -(1 - _buttonHide) * 80,
                 ),
                 child: Material(
-                  color: Color(0x44000000),
+                  color: Color(0x44ffcc33),
                   type: MaterialType.circle,
                   child: ClipOval(
                     child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+                      filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: _icon,
@@ -181,12 +181,12 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                 Directionality.of(context),
               ),
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+                filter: ImageFilter.blur(sigmaX: 8, sigmaY: 3),
                 child: CustomPaint(
                   painter: NavCustomPainter(
                     _pos,
                     _length,
-                    Color(0x44000000),
+                    Color(0x44ffcc33),
                     // widget.color,
                     Directionality.of(context),
                   ),

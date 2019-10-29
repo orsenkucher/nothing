@@ -33,6 +33,7 @@ class _PagesState extends State<Pages> {
   var img1 = 'https://w.wallhaven.cc/full/13/wallhaven-13gom9.jpg';
   var img2 = 'https://w.wallhaven.cc/full/q6/wallhaven-q6omvd.jpg';
   var img3 = 'https://w.wallhaven.cc/full/md/wallhaven-mdyvvm.jpg';
+  var img4 = 'https://w.wallhaven.cc/full/j5/wallhaven-j589rq.png';
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class _PagesState extends State<Pages> {
       child: DecoratedBox(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(img3),
+            image: NetworkImage(img4),
             fit: BoxFit.cover,
           ),
         ),

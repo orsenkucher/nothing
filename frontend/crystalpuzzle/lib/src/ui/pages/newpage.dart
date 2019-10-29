@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crystalpuzzle/src/bloc/playbloc/bloc.dart';
@@ -29,8 +31,13 @@ class _NewpageState extends State<Newpage> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Container(
-          color: Colors.transparent,
+        ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+            child: Container(
+              color: Colors.transparent,
+            ),
+          ),
         ),
         Column(
           children: <Widget>[
@@ -83,9 +90,10 @@ class _NewpageState extends State<Newpage> {
                       focusNode.requestFocus();
                     },
                     child: Row(
+                      mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Container(
-                          width: 205,
+                          width: 215,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(28),
                             color: Colors.white,
@@ -106,10 +114,11 @@ class _NewpageState extends State<Newpage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          padding: EdgeInsets.only(left: 10),
                           child: Icon(
                             Icons.arrow_forward,
                             color: Colors.white,
+                            size: 35,
                           ),
                         ),
                       ],
