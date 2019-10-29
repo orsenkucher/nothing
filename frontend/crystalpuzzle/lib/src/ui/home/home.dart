@@ -1,7 +1,6 @@
 import 'package:crystalpuzzle/src/ui/home/curvebar.dart';
 import 'package:crystalpuzzle/src/ui/home/pages.dart';
 import 'package:crystalpuzzle/src/ui/pages/pages.dart';
-import 'package:crystalpuzzle/src/ui/pages/playpage.dart';
 import 'package:crystalpuzzle/src/ui/pages/newpage.dart';
 import 'package:flutter/material.dart';
 
