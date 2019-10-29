@@ -31,12 +31,10 @@ class _NewpageState extends State<Newpage> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-            child: Container(
-              color: Colors.transparent,
-            ),
+        Container(
+          decoration: BoxDecoration(
+            color: Color(0x44ffcc33), // 0xAAffcc33 0xAA000000
+            // border: Border.all(width: 10, color: Color(0xAAffcc33)),
           ),
         ),
         Column(

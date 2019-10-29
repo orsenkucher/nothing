@@ -26,6 +26,7 @@ class _PagesState extends State<Pages> {
     super.initState();
     _controller = PageController(
       viewportFraction: 1,
+      // keepPage: true,
       initialPage: BlocProvider.of<PageBloc>(context).initialState.index,
     );
   }
@@ -50,6 +51,7 @@ class _PagesState extends State<Pages> {
           itemCount: widget.pages.length,
           scrollDirection: Axis.horizontal,
           physics: BouncingScrollPhysics(),
+          // physics: NeverScrollableScrollPhysics(),
           pageSnapping: true,
           onPageChanged: (index) {
             if (_animations == 0) {
@@ -70,11 +72,40 @@ class _PagesState extends State<Pages> {
                   );
                 }
               },
-              child: widget.pages[i],
+              child: _buildPage(i),
             );
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildPage(int i) {
+    return BlocBuilder<PageBloc, PageState>(
+      builder: (context, state) {
+        if (state is PageStateIndex) {
+          if (i == widget.pages.length - 1) {
+            return widget.pages[i];
+          }
+          var active = state.index == i;
+          return AnimatedContainer(
+            margin: EdgeInsets.only(
+              top: active ? 50 : 140,
+              bottom: active ? 50 : 140,
+              right: active ? 50 : 80,
+              left: active ? 50 : 80,
+            ),
+            duration: widget.duration * 1.5,
+            curve: widget.curve,
+            decoration: BoxDecoration(
+              color: active ? Colors.transparent : Colors.black,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: widget.pages[i],
+          );
+        }
+        return Container();
+      },
     );
   }
 
