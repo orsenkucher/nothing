@@ -132,7 +132,7 @@ class __SolveProblemsState extends State<_SolveProblems> {
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: focusNode.unfocus,
-                child: QuestionBox(),
+                child: QuestionBox(questionCount: widget.problems.length),
               ),
             ),
             Flexible(
@@ -224,14 +224,15 @@ class AnswerBox extends StatelessWidget {
                   },
                   child: Container(
                     width: 215,
-                    // margin: EdgeInsets.all(4),
+                    margin: EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(28),
+                      // borderRadius: BorderRadius.circular(28),
+                      borderRadius: BorderRadius.circular(24),
                       color: Colors.white,
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 4,
-                      ),
+                      // border: Border.all(
+                      //   color: Colors.black,
+                      //   width: 4,
+                      // ),
                     ),
                     child: Center(
                       child: Text(
@@ -263,7 +264,11 @@ class AnswerBox extends StatelessWidget {
 }
 
 class QuestionBox extends StatelessWidget {
-  const QuestionBox();
+  final int questionCount;
+
+  const QuestionBox({
+    @required this.questionCount,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -275,21 +280,62 @@ class QuestionBox extends StatelessWidget {
           bottom: Radius.circular(28),
         ),
       ),
-      child: Align(
-        child:
-            BlocBuilder<ProblemBloc, ProblemState>(builder: (context, state) {
-          if (state is NewProblem) {
-            return Text(
-              state.problem.question,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          }
-          return Container();
-        }),
+      child: Stack(
+        children: <Widget>[
+          Align(
+            child: BlocBuilder<ProblemBloc, ProblemState>(
+                builder: (context, state) {
+              if (state is NewProblem) {
+                return Text(
+                  state.problem.question,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              }
+              return Container();
+            }),
+          ),
+          Positioned(
+            bottom: 10,
+            right: 20,
+            child: Row(
+              children: <Widget>[
+                Text(
+                  "Tap to hide ",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Icon(
+                  Icons.keyboard,
+                  color: Colors.white,
+                )
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            left: 20,
+            child: BlocBuilder<ProblemBloc, ProblemState>(
+              builder: (context, state) {
+                if (state is NewProblem) {
+                  return Text(
+                    "${state.index} of $questionCount",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                }
+                return Container();
+              },
+            ),
+          )
+        ],
       ),
     );
   }

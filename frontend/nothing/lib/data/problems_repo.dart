@@ -13,12 +13,16 @@ class CloudProblemsRepo extends ProblemsRepo {
       'https://us-central1-crystal-factory.cloudfunctions.net/GiveTasks';
 
   Future<List<Problem>> fetchProblems(int count) async {
-    var resp = await post(fetchProblemsUrl, body: '{"count": $count}');
-    print(resp.body);
-    if (resp.statusCode == 200) {
-      List<dynamic> decoded = json.decode(resp.body);
-      return decoded.map((f) => Problem.fromJson(f)).toList();
-    } else {
+    try {
+      var resp = await post(fetchProblemsUrl, body: '{"count": $count}');
+      print(resp.body);
+      if (resp.statusCode == 200) {
+        List<dynamic> decoded = json.decode(resp.body);
+        return decoded.map((f) => Problem.fromJson(f)).toList();
+      } else {
+        throw null;
+      }
+    } catch (_) {
       throw CloudError(error: "Coud not fetch problems");
     }
   }
