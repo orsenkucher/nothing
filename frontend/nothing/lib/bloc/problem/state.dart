@@ -6,18 +6,20 @@ abstract class ProblemState extends Equatable {
   const ProblemState();
 }
 
-class InitialProblemState extends ProblemState {
+class WaitingProblem extends ProblemState {
   @override
   List<Object> get props => [];
 }
 
 class NewProblem extends ProblemState {
   final Problem problem;
+  final int index;
 
   const NewProblem({
     @required this.problem,
+    @required this.index,
   });
 
   @override
-  List<Object> get props => [problem];
+  List<Object> get props => [problem, index];
 }

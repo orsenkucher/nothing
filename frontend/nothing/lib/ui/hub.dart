@@ -5,9 +5,7 @@ class Hub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SolveProblems(
-        count: 3,
-      ),
+      body: SolveProblems(),
     );
   }
 }

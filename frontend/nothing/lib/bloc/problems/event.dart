@@ -9,7 +9,7 @@ class FetchProblems extends ProblemsEvent {
   final int count;
 
   const FetchProblems({
-    @required this.count,
+    this.count = 4,
   });
 
   @override

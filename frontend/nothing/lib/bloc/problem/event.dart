@@ -1,29 +1,23 @@
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:nothing/data/model/problem.dart';
 
 abstract class ProblemEvent extends Equatable {
   const ProblemEvent();
 }
 
 class AnsweredProblem extends ProblemEvent {
-  final int id;
-  final bool correct;
+  final String answer;
   const AnsweredProblem({
-    @required this.id,
-    @required this.correct,
+    @required this.answer,
   });
 
   @override
-  List<Object> get props => [id, correct];
+  List<Object> get props => [answer];
 }
 
 class NextProblem extends ProblemEvent {
-  final Problem problem;
-  const NextProblem({
-    @required this.problem,
-  });
+  const NextProblem();
 
   @override
-  List<Object> get props => [problem];
+  List<Object> get props => null;
 }

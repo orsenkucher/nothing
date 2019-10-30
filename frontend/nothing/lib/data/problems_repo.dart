@@ -4,11 +4,11 @@ import 'package:http/http.dart';
 import 'package:nothing/data/model/problem.dart';
 import 'package:nothing/error/cloud_error.dart';
 
-abstract class ProblemRepo {
+abstract class ProblemsRepo {
   Future<List<Problem>> fetchProblems(int count);
 }
 
-class CloudProblemRepo extends ProblemRepo {
+class CloudProblemsRepo extends ProblemsRepo {
   var fetchProblemsUrl =
       'https://us-central1-crystal-factory.cloudfunctions.net/GiveTasks';
 
@@ -19,22 +19,22 @@ class CloudProblemRepo extends ProblemRepo {
       List<dynamic> decoded = json.decode(resp.body);
       return decoded.map((f) => Problem.fromJson(f)).toList();
     } else {
-      throw CloudError(error: "Coud not fetch problem");
+      throw CloudError(error: "Coud not fetch problems");
     }
   }
 }
 
-class LocalProblemRepo extends ProblemRepo {
+class LocalProblemsRepo extends ProblemsRepo {
   @override
   Future<List<Problem>> fetchProblems(int count) {
     return Future.delayed(
-      Duration(seconds: 6),
+      Duration(seconds: 4),
       () => List<Problem>.generate(count, (i) {
         return Problem(
           id: i,
           question: "Simulation $i",
           explanation: "It's just a simulation",
-          answers: ["On, I knew that"],
+          answers: ["Oh, I knew that", "Know", "I know"],
         );
       }),
     );

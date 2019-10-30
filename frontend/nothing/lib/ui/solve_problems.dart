@@ -5,11 +5,7 @@ import 'package:nothing/bloc/problems/bloc.dart';
 import 'package:nothing/data/model/problem.dart';
 
 class SolveProblems extends StatefulWidget {
-  final int count;
-
-  const SolveProblems({
-    @required this.count,
-  });
+  const SolveProblems();
 
   @override
   _SolveProblemsState createState() => _SolveProblemsState();
@@ -20,9 +16,7 @@ class _SolveProblemsState extends State<SolveProblems> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     BlocProvider.of<ProblemsBloc>(context).add(
-      FetchProblems(
-        count: widget.count,
-      ),
+      FetchProblems(),
     );
   }
 
@@ -36,8 +30,32 @@ class _SolveProblemsState extends State<SolveProblems> {
         if (state is LoadedProblems) {
           return _SolveProblems(state.problems);
         }
-        return Placeholder();
+        if (state is LoadingError) {
+          return ErrorMessage(state: state);
+        }
+        return Container();
       },
+    );
+  }
+}
+
+class ErrorMessage extends StatelessWidget {
+  final LoadingError state;
+
+  const ErrorMessage({
+    @required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        state.error.error,
+        style: TextStyle(
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }
@@ -49,16 +67,29 @@ class LoadingCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: 250,
-        height: 250,
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-          strokeWidth: 12,
+    return Stack(children: <Widget>[
+      Center(
+        child: SizedBox(
+          width: 250,
+          height: 250,
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+            strokeWidth: 12,
+          ),
         ),
       ),
-    );
+      Center(
+        child: SizedBox(
+          width: 250 - 12 * 3.0,
+          height: 250 - 12 * 3.0,
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+            strokeWidth: 12,
+            value: 1.1,
+          ),
+        ),
+      ),
+    ]);
   }
 }
 
@@ -132,17 +163,15 @@ class __SolveProblemsState extends State<_SolveProblems> {
             autofocus: false,
             onSubmitted: (s) {
               print(s);
-              BlocProvider.of<ProblemBloc>(context).add(AnsweredProblem(
-                id: 0,
-                correct: true, // TODO: only for now
-              ));
+              setState(() => currentText = "");
+              BlocProvider.of<ProblemBloc>(context).add(
+                AnsweredProblem(answer: s),
+              );
             },
             keyboardAppearance: Brightness.light,
             maxLength: 12,
             focusNode: focusNode,
-            onChanged: (s) => setState(() {
-              currentText = s;
-            }),
+            onChanged: (s) => setState(() => currentText = s),
             showCursor: false,
             textInputAction: TextInputAction.next,
           ),
@@ -170,50 +199,62 @@ class AnswerBox extends StatelessWidget {
         vertical: 40,
       ),
       height: 78,
-      decoration: BoxDecoration(
+      // decoration: BoxDecoration(
+      //   color: Colors.black,
+      //   borderRadius: BorderRadius.circular(28),
+      // ),
+      child: Material(
         color: Colors.black,
         borderRadius: BorderRadius.circular(28),
-      ),
-      child: Center(
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            focusNode.unfocus();
-            focusNode.requestFocus();
-          },
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Container(
-                width: 215,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 4,
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    currentText,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+        elevation: 0,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(28),
+          splashColor: Color(0xFF2ecc71),
+          highlightColor: Colors.transparent,
+          onTap: () => print("tap"),
+          child: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    focusNode.unfocus();
+                    focusNode.requestFocus();
+                  },
+                  child: Container(
+                    width: 215,
+                    // margin: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(28),
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 4,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        currentText,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Icon(
-                  Icons.arrow_forward,
-                  color: Colors.white,
-                  size: 35,
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                    size: 35,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
