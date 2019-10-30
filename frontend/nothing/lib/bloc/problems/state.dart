@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:nothing/data/model/problem.dart';
 import 'package:nothing/error/cloud_error.dart';
 
-@immutable
 abstract class ProblemsState extends Equatable {
   const ProblemsState();
 }

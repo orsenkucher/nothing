@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nothing/data/model/problem.dart';
 
-@immutable
 abstract class ProblemState extends Equatable {
   const ProblemState();
 }
