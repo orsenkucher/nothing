@@ -44,7 +44,7 @@ func GiveProblems(w http.ResponseWriter, r *http.Request) {
 	}
 	problems := make([]problemWithID, 0, querie.Count)
 	for i := 0; i < querie.Count; i++ {
-		problems = append(problems, problemWithID{ID: i, Problem: getProblem(storeClient.Doc("problems/" + strconv.Itoa(i)))})
+		problems = append(problems, problemWithID{ID: i, Problem: getProblem(storeClient.Doc("problems/" + querie.Group + "/problems/" + strconv.Itoa(i)))})
 	}
 	resp, _ := json.Marshal(problems)
 	fmt.Fprint(w, string(resp))

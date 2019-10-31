@@ -14,7 +14,7 @@ var storeClient *firestore.Client
 var globalCtx context.Context
 
 func init() {
-	globalCtx := context.Background()
+	globalCtx = context.Background()
 	conf := &firebase.Config{ProjectID: "crystal-factory"}
 	app, err := firebase.NewApp(globalCtx, conf)
 	if err != nil {
