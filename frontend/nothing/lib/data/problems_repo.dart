@@ -10,7 +10,7 @@ abstract class ProblemsRepo {
 
 class CloudProblemsRepo extends ProblemsRepo {
   var fetchProblemsUrl =
-      'https://us-central1-crystal-factory.cloudfunctions.net/GiveTasks';
+      'https://us-central1-crystal-factory.cloudfunctions.net/GiveProblems';
 
   Future<List<Problem>> fetchProblems(int count) async {
     try {
