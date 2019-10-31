@@ -14,7 +14,10 @@ class CloudProblemsRepo extends ProblemsRepo {
 
   Future<List<Problem>> fetchProblems(int count) async {
     try {
-      var resp = await post(fetchProblemsUrl, body: '{"count": $count}');
+      var resp = await post(
+        fetchProblemsUrl,
+        body: '{"count": $count, "group": "logic"}',
+      );
       print(resp.body);
       if (resp.statusCode == 200) {
         List<dynamic> decoded = json.decode(resp.body);
