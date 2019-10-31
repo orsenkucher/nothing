@@ -14,8 +14,8 @@ cloud.google.com/go/firestore v1.0.0 h1:RxJi9Mh28rKV8d/i7YM0baC8iu7w5q9l/Zcoktp/
 cloud.google.com/go/firestore v1.0.0/go.mod h1:SdFEKccng5n2jTXm5x01uXEvi4MBzxWFR6YI781XSJI=
 cloud.google.com/go/pubsub v1.0.1 h1:W9tAK3E57P75u0XLLR82LZyw8VpAnhmyTOxW9qzmyj8=
 cloud.google.com/go/pubsub v1.0.1/go.mod h1:R0Gpsv3s54REJCy4fxDixWD93lHJMoZTyQ2kNxGRt3I=
-firebase.google.com/go v3.9.0+incompatible h1:wc6nmbU9gvtR22QYdRmwD/BJ61ZvpCV43C5ahWD3hYo=
-firebase.google.com/go v3.9.0+incompatible/go.mod h1:xlah6XbEyW6tbfSklcfe5FHJIwjt8toICdV5Wh9ptHs=
+firebase.google.com/go v3.10.0+incompatible h1:GVdqx1+ZmPg9qd2S+8K9NHgkUUmZsGJxDq56IW5ciqs=
+firebase.google.com/go v3.10.0+incompatible/go.mod h1:xlah6XbEyW6tbfSklcfe5FHJIwjt8toICdV5Wh9ptHs=
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
@@ -51,10 +51,8 @@ github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+o
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
-github.com/orsenkucher/nothing v0.0.0-20191027144714-5a32a90919ee h1:Cns7n6XjQuB1fQXaYRzYzJmrYbB8lduIhOnopTvdMv0=
-github.com/orsenkucher/nothing v0.0.0-20191027144714-5a32a90919ee/go.mod h1:G/nzALRALrr1JWoKhkFJUvWYiizyVLv2uMUVyTUQszY=
-github.com/orsenkucher/nothing v0.0.0-20191029194411-50a604c6e5f4 h1:Dt9YbLvN01mfRj06xgtx1NzGzYGFn3nWhyjtlUB4Z8g=
-github.com/orsenkucher/nothing v0.0.0-20191029194411-50a604c6e5f4/go.mod h1:G/nzALRALrr1JWoKhkFJUvWYiizyVLv2uMUVyTUQszY=
+github.com/orsenkucher/nothing v0.0.0-20191031135720-ce1775b41c30 h1:ZBrubBOhlBdTBgS4msFfXZfH5Ey+LCDiGHHMnTYNg1A=
+github.com/orsenkucher/nothing v0.0.0-20191031135720-ce1775b41c30/go.mod h1:G/nzALRALrr1JWoKhkFJUvWYiizyVLv2uMUVyTUQszY=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
 go.opencensus.io v0.22.0 h1:C9hSCOW830chIVkdja34wa6Ky+IzWllkUinR+BtRZd4=

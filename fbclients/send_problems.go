@@ -18,15 +18,13 @@ func SendData() {
 	var problems []model.Problem
 	dat, err := ioutil.ReadFile("data/problems.json")
 	core.Check(err)
-	fmt.Print(string(dat))
 	json.Unmarshal(dat, &problems)
-	fmt.Println(len(problems))
 	/*problems = []model.Problem{{
 		Question:    "?",
 		Explanation: "~",
 		Answers:     []string{"!"},
 	}} //*/
-	SendProblems(problems, "errudidtion")
+	SendProblems(problems, "logic")
 }
 
 // SendProblems sends problems to firestore
@@ -39,5 +37,6 @@ func SendProblems(problems []model.Problem, group string) {
 		Group:    group,
 	}
 	strb, _ := json.Marshal(&problemsQuery)
+	fmt.Println(string(strb))
 	http.Post(addProblemsURL, "application/json", bytes.NewBuffer(strb))
 }
