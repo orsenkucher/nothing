@@ -103,7 +103,6 @@ class _SolveProblems extends StatefulWidget {
 
 class __SolveProblemsState extends State<_SolveProblems> {
   FocusNode focusNode;
-  String currentText = "";
   @override
   void initState() {
     super.initState();
@@ -129,67 +128,47 @@ class __SolveProblemsState extends State<_SolveProblems> {
           children: <Widget>[
             Flexible(
               flex: 46,
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: focusNode.unfocus,
-                child: QuestionBox(questionCount: widget.problems.length),
+              child: QuestionBox(
+                focusNode: focusNode,
+                questionCount: widget.problems.length,
               ),
             ),
             Flexible(
               flex: 54,
               child: AnswerBox(
                 focusNode: focusNode,
-                currentText: currentText,
               ),
             ),
           ],
         ),
-        _spawnHiddenTextField(),
       ],
-    );
-  }
-
-  Container _spawnHiddenTextField() {
-    return Container(
-      width: 1,
-      height: 1,
-      child: FittedBox(
-        fit: BoxFit.none,
-        child: Container(
-          width: 200,
-          height: 200,
-          child: TextField(
-            autocorrect: false,
-            autofocus: false,
-            onSubmitted: (s) {
-              print(s);
-              setState(() => currentText = "");
-              BlocProvider.of<ProblemBloc>(context).add(
-                AnsweredProblem(answer: s),
-              );
-            },
-            keyboardAppearance: Brightness.light,
-            maxLength: 12,
-            focusNode: focusNode,
-            onChanged: (s) => setState(() => currentText = s),
-            showCursor: false,
-            textInputAction: TextInputAction.next,
-          ),
-        ),
-      ),
     );
   }
 }
 
-class AnswerBox extends StatelessWidget {
+class AnswerBox extends StatefulWidget {
   const AnswerBox({
-    Key key,
     @required this.focusNode,
-    @required this.currentText,
-  }) : super(key: key);
+  });
 
   final FocusNode focusNode;
-  final String currentText;
+
+  @override
+  _AnswerBoxState createState() => _AnswerBoxState();
+}
+
+class _AnswerBoxState extends State<AnswerBox> {
+  final textController = TextEditingController();
+  String currentText = "";
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
+  final borderRadius = 28.0;
+  final gapWidth = 4.0;
 
   @override
   Widget build(BuildContext context) {
@@ -199,61 +178,22 @@ class AnswerBox extends StatelessWidget {
         vertical: 40,
       ),
       height: 78,
-      // decoration: BoxDecoration(
-      //   color: Colors.black,
-      //   borderRadius: BorderRadius.circular(28),
-      // ),
       child: Material(
         color: Colors.black,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(borderRadius),
         elevation: 0,
         child: InkWell(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(borderRadius),
           splashColor: Color(0xFF2ecc71),
           highlightColor: Colors.transparent,
-          onTap: () => print("tap"),
+          onTap: () => _submit(textController.text),
           child: Center(
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    focusNode.unfocus();
-                    focusNode.requestFocus();
-                  },
-                  child: Container(
-                    width: 215,
-                    margin: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      // borderRadius: BorderRadius.circular(28),
-                      borderRadius: BorderRadius.circular(24),
-                      color: Colors.white,
-                      // border: Border.all(
-                      //   color: Colors.black,
-                      //   width: 4,
-                      // ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        currentText,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-                ),
+                _spawnHiddenTextField(),
+                _spawnTextArea(),
+                _spawnArrow(),
               ],
             ),
           ),
@@ -261,81 +201,164 @@ class AnswerBox extends StatelessWidget {
       ),
     );
   }
+
+  Padding _spawnArrow() {
+    return Padding(
+      padding: EdgeInsets.all(15),
+      child: Icon(
+        Icons.arrow_forward,
+        color: Colors.white,
+        size: 35,
+      ),
+    );
+  }
+
+  GestureDetector _spawnTextArea() {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        widget.focusNode.unfocus();
+        widget.focusNode.requestFocus();
+      },
+      child: Container(
+        width: 215,
+        margin: EdgeInsets.all(gapWidth),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderRadius - gapWidth),
+          color: Colors.white,
+        ),
+        child: Center(
+          child: Text(
+            currentText,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _spawnHiddenTextField() {
+    return Container(
+      width: 1,
+      height: 1,
+      child: FittedBox(
+        fit: BoxFit.none,
+        child: Container(
+          width: 200,
+          height: 200,
+          child: TextField(
+            controller: textController,
+            autocorrect: false,
+            autofocus: false,
+            onSubmitted: _submit,
+            keyboardAppearance: Brightness.light,
+            maxLength: 12,
+            focusNode: widget.focusNode,
+            onChanged: (s) => setState(() => currentText = s),
+            showCursor: false,
+            textInputAction: TextInputAction.next,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _submit(String s) {
+    if (s.trim().isEmpty) {
+      return;
+    }
+    print(s);
+    textController.clear();
+    setState(() => currentText = "");
+    BlocProvider.of<ProblemBloc>(context).add(
+      AnsweredProblem(answer: s),
+    );
+  }
 }
 
 class QuestionBox extends StatelessWidget {
+  final FocusNode focusNode;
   final int questionCount;
 
   const QuestionBox({
+    @required this.focusNode,
     @required this.questionCount,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.zero,
-          bottom: Radius.circular(28),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: focusNode.unfocus,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.zero,
+            bottom: Radius.circular(28),
+          ),
         ),
-      ),
-      child: Stack(
-        children: <Widget>[
-          Align(
-            child: BlocBuilder<ProblemBloc, ProblemState>(
-                builder: (context, state) {
-              if (state is NewProblem) {
-                return Text(
-                  state.problem.question,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                );
-              }
-              return Container();
-            }),
-          ),
-          Positioned(
-            bottom: 10,
-            right: 20,
-            child: Row(
-              children: <Widget>[
-                Text(
-                  "Tap to hide ",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Icon(
-                  Icons.keyboard,
-                  color: Colors.white,
-                )
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 10,
-            left: 20,
-            child: BlocBuilder<ProblemBloc, ProblemState>(
-              builder: (context, state) {
+        child: Stack(
+          children: <Widget>[
+            Align(
+              child: BlocBuilder<ProblemBloc, ProblemState>(
+                  builder: (context, state) {
                 if (state is NewProblem) {
                   return Text(
-                    "${state.index} of $questionCount",
+                    state.problem.question,
                     style: TextStyle(
                       color: Colors.white,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
                   );
                 }
                 return Container();
-              },
+              }),
             ),
-          )
-        ],
+            Positioned(
+              bottom: 10,
+              right: 20,
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    "Tap to hide ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(
+                    Icons.keyboard,
+                    color: Colors.white,
+                  )
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              left: 20,
+              child: BlocBuilder<ProblemBloc, ProblemState>(
+                builder: (context, state) {
+                  if (state is NewProblem) {
+                    return Text(
+                      "${state.index} of $questionCount",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

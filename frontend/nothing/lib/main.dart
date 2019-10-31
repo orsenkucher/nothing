@@ -12,7 +12,7 @@ void main() => runApp(App());
 // [+] Repo ln: 16 exception
 // [.] Divide widgets into smaller & define widget-wide params
 // [.] Fix symbol rendering
-// [.] Arrow button tap, clear TextField
+// [+] Arrow button tap, clear TextField
 // [.] Rework all bloc states and events with sumtypes
 class App extends StatelessWidget {
   @override
