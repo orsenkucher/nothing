@@ -1,10 +1,8 @@
 package functions
 
 import (
-	"context"
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strconv"
 
@@ -17,9 +15,13 @@ type Counter struct {
 	Counter int `firebase:"counter" json:"counter"`
 }
 
-func getCounter(ctx context.Context, cdoc *firestore.DocumentRef) int {
+func getCounter(cdoc *firestore.DocumentRef) int {
 	var c Counter
-	snap, _ := cdoc.Get(ctx)
+	snap, err := cdoc.Get(globalCtx)
+	if err != nil {
+		cdoc.Set(globalCtx, Counter{Counter: 0})
+		return 0
+	}
 	snap.DataTo(&c)
 	return c.Counter
 }
@@ -27,20 +29,18 @@ func getCounter(ctx context.Context, cdoc *firestore.DocumentRef) int {
 // AddTasks is Schedule
 func AddTasks(w http.ResponseWriter, r *http.Request) {
 	str, _ := ioutil.ReadAll(r.Body)
-	var tasks []model.Task
+	var tasks struct {
+		Tasks []model.Task `json:"tasks"`
+		Group string       `json:"group"`
+	}
 	json.Unmarshal(str, &tasks)
 
-	ctx := context.Background()
-	client, err := firestore.NewClient(ctx, "crystal-factory")
-	if err != nil {
-		log.Fatalf("create client: %v", err)
-	}
-	counter := getCounter(ctx, client.Doc("Tasks/Counter"))
+	counter := getCounter(storeClient.Doc("Tasks/" + tasks.Group))
 
-	for _, task := range tasks {
-		client.Doc("Tasks/"+strconv.Itoa(counter)).Set(ctx, task)
+	for _, task := range tasks.Tasks {
+		storeClient.Doc("Tasks/"+tasks.Group+"/Tasks/"+strconv.Itoa(counter)).Set(globalCtx, task)
 		counter++
 	}
 
-	client.Doc("Tasks/Counter").Set(ctx, Counter{Counter: counter})
+	storeClient.Doc("Tasks/"+tasks.Group).Set(globalCtx, Counter{Counter: counter})
 }

@@ -1,46 +1,49 @@
 package functions
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
-	"strconv"
 
 	"cloud.google.com/go/firestore"
 	"github.com/orsenkucher/nothing/data/model"
 )
 
-func getTask(ctx context.Context, tdoc *firestore.DocumentRef) model.Task {
+type taskWithID struct{
+	task model.Task
+	ID int64 `json:"id"`
+}
+
+func getTask(tdoc *firestore.DocumentRef) model.Task {
 	var t model.Task
-	snap, _ := tdoc.Get(ctx)
+	snap, _ := tdoc.Get(globalCtx)
 	snap.DataTo(&t)
 	return t
+}
+
+func getUserSolvedTasks(group string, ID string) []bool {
+	return []bool{}
 }
 
 // GiveTasks is public
 func GiveTasks(w http.ResponseWriter, r *http.Request) {
 	str, _ := ioutil.ReadAll(r.Body)
 	var querie struct {
+		Group string   `json:"group"`
 		Count int      `json:"count"`
 		IDs   []string `json:"ids"`
 	}
 	json.Unmarshal(str, &querie)
 
-	ctx := context.Background()
-	client, err := firestore.NewClient(ctx, "crystal-factory")
-	if err != nil {
-		log.Fatalf("create client: %v", err)
-	}
-	counter := getCounter(ctx, client.Doc("Tasks/Counter"))
+	counter := getCounter(storeClient.Doc("Tasks/" + querie.Group))
+	//avaliableTasks := make([]bool, counter, counter)
 	if counter < querie.Count {
 		querie.Count = counter
 	}
-	tasks := make([]model.Task, 0, querie.Count)
+	tasks := make(taskWithID, 0, querie.Count)
 	for i := 0; i < querie.Count; i++ {
-		tasks = append(tasks, getTask(ctx, client.Doc("Tasks/"+strconv.Itoa(i))))
+		tasks = append(tasks, taskWithID{task :getTask(ctx, client.Doc("Tasks/"+strconv.Itoa(i))), ID:i})
 	}
 	resp, _ := json.Marshal(tasks)
 	fmt.Fprint(w, string(resp))
