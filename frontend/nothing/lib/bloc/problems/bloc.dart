@@ -35,6 +35,7 @@ class ProblemsBloc extends Bloc<ProblemsEvent, ProblemsState> {
       }
     } else if (event is AnsweredProblems) {
       print(event.results);
+      problemsRepo.sendSummary(event.results);
       add(FetchProblems());
     }
   }

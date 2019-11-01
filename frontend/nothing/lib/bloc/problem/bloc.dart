@@ -49,8 +49,6 @@ class ProblemBloc extends Bloc<ProblemEvent, ProblemState> {
       _index++;
       yield NewProblem(problem: _problems.current, index: _index);
     } else {
-      print("THIS DONE");
-      print(_summary);
       problemsBloc.add(AnsweredProblems(results: _summary));
     }
   }

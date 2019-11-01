@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"math/rand"
 	"net/http"
 	"sort"
@@ -93,26 +94,28 @@ func GiveProblems(w http.ResponseWriter, r *http.Request) {
 //ProcessAnswers process answers
 func ProcessAnswers(w http.ResponseWriter, r *http.Request) {
 	str, _ := ioutil.ReadAll(r.Body)
+	log.Println(str)
 	var query struct {
-		Group    string `json:"group"`
-		ID       string `json:"id"`
-		Problems []int  `json:"problems"`
-		Answers  []bool `json:"answers"`
+		Group   string       `json:"group"`
+		ID      string       `json:"id"`
+		Summary map[int]bool `json:"summary"`
 	}
 	json.Unmarshal(str, &query)
+	log.Println(query)
 	solved := getUserSolvedProblems(query.Group, query.ID)
-	for i := 0; i < len(query.Answers); i++ {
-		if query.Answers[i] {
-			fmt.Fprintln(w, query.Problems[i])
+	for id, v := range query.Summary {
+		if v {
+			fmt.Fprintln(w, id)
 			fmt.Fprintln(w, solved)
-			if query.Problems[i]/6 >= len(solved) {
-				solved = append(solved, make([]byte, query.Problems[i]/6-len(solved)+1)...)
-				solved[query.Problems[i]/6] &= 1 << (byte(query.Problems[i] % 6))
+			if id/6 >= len(solved) {
+				solved = append(solved, make([]byte, id/6-len(solved)+1)...)
 			}
+			solved[id/6] |= 1 << (byte(id % 6))
 		}
 	}
 	fmt.Fprintln(w, "HelloWorld")
 	fmt.Fprintln(w, solved)
+
 	if len(solved) > 0 {
 		storeClient.Doc("userdata/"+query.ID+"/problemsSolved/"+query.Group).
 			Set(globalCtx, problemsSolved{
