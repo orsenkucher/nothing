@@ -228,7 +228,7 @@ class _AnswerBoxState extends State<AnswerBox> {
             autocorrect: false,
             autofocus: false,
             onSubmitted: _submit,
-            keyboardAppearance: Brightness.light,
+            keyboardAppearance: Brightness.dark,
             maxLength: 12,
             focusNode: widget.focusNode,
             onChanged: (s) => setState(() => currentText = s),
