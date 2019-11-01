@@ -1,7 +1,7 @@
 package main
 
-import "github.com/orsenkucher/nothing/fbclients"
+import "fmt"
 
 func main() {
-	fbclients.SendData()
+	fmt.Println(4 & (1 << 2))
 }
