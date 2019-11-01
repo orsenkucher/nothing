@@ -15,10 +15,14 @@ class CloudProblemsRepo extends ProblemsRepo {
 
   Future<List<Problem>> fetchProblems(int count) async {
     try {
+      var body = json.encode({
+        "count": count,
+        "group": "logic",
+        "ids": ["4VFtjjzlmSglRaEQ4p5b7zdAQxo1"]
+      });
       var resp = await post(
         fetchProblemsUrl,
-        body:
-            '{"count": $count, "group": "logic", "ids": ["4VFtjjzlmSglRaEQ4p5b7zdAQxo1"]}',
+        body: body,
       );
       print(resp.body);
       if (resp.statusCode == 200) {
@@ -38,10 +42,14 @@ class CloudProblemsRepo extends ProblemsRepo {
       'https://us-central1-crystal-factory.cloudfunctions.net/ProcessAnswers';
 
   Future<void> sendSummary(Map<int, bool> summary) async {
-    var summaryStr = summary.map((k, v) => MapEntry(k.toString(), v));
-    var summaryJson = json.encode(summaryStr);
-    var body =
-        '{"id": "4VFtjjzlmSglRaEQ4p5b7zdAQxo1", "group": "logic", "summary":$summaryJson}';
+    var summaryJson = json.encode(
+      summary.map((k, v) => MapEntry(k.toString(), v)),
+    );
+    var body = json.encode({
+      "id": "4VFtjjzlmSglRaEQ4p5b7zdAQxo1",
+      "group": "logic",
+      "summary": summaryJson
+    });
     var resp = await post(
       sendSummaryUrl,
       body: body,

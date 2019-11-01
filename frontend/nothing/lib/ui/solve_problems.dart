@@ -274,12 +274,12 @@ class QuestionBox extends StatelessWidget {
           ),
         ),
         child: BlocBuilder<ProblemsBloc, ProblemsState>(
-          builder: (context, state$) => state$ is LoadedProblems
-              ? Question(state$: state$)
-              : state$ is LoadingProblems
+          builder: (context, state) => state is LoadedProblems
+              ? Question(state$: state)
+              : state is LoadingProblems
                   ? LoadingCircle()
-                  : state$ is LoadingError
-                      ? ErrorMessage(state: state$)
+                  : state is LoadingError
+                      ? ErrorMessage(state: state)
                       : Container(),
         ),
       ),
