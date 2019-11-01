@@ -103,14 +103,20 @@ func ProcessAnswers(w http.ResponseWriter, r *http.Request) {
 	solved := getUserSolvedProblems(query.Group, query.ID)
 	for i := 0; i < len(query.Answers); i++ {
 		if query.Answers[i] {
+			fmt.Fprintln(w, query.Problems[i])
+			fmt.Fprintln(w, solved)
 			if query.Problems[i]/6 >= len(solved) {
 				solved = append(solved, make([]byte, query.Problems[i]/6-len(solved)+1)...)
 				solved[query.Problems[i]/6] &= 1 << (byte(query.Problems[i] % 6))
 			}
 		}
 	}
-	storeClient.Doc("userdata/"+query.ID+"/problemsSolved/"+query.Group).
-		Set(globalCtx, problemsSolved{
-			Data: base64.StdEncoding.EncodeToString(solved),
-		})
+	fmt.Fprintln(w, "HelloWorld")
+	fmt.Fprintln(w, solved)
+	if len(solved) > 0 {
+		storeClient.Doc("userdata/"+query.ID+"/problemsSolved/"+query.Group).
+			Set(globalCtx, problemsSolved{
+				Data: base64.StdEncoding.EncodeToString(solved),
+			})
+	}
 }
