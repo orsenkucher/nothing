@@ -177,11 +177,11 @@ class _AnswerBoxState extends State<AnswerBox> {
 
   Padding _spawnArrow() {
     return Padding(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(12),
       child: Icon(
         Icons.arrow_forward,
         color: Colors.white,
-        size: 35,
+        size: 30,
       ),
     );
   }
@@ -194,7 +194,7 @@ class _AnswerBoxState extends State<AnswerBox> {
         widget.focusNode.requestFocus();
       },
       child: Container(
-        width: 215,
+        width: 190,
         margin: EdgeInsets.all(gap),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius - gap),

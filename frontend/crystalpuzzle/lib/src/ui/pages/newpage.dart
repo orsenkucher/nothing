@@ -139,7 +139,7 @@ class _NewpageState extends State<Newpage> {
                 autocorrect: false,
                 autofocus: false,
                 onSubmitted: (s) => print(s),
-                keyboardAppearance: Brightness.light,
+                keyboardAppearance: Brightness.dark,
                 maxLength: 12,
                 cursorColor: Colors.transparent,
                 style: TextStyle(
