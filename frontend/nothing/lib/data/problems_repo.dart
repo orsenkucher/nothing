@@ -6,6 +6,7 @@ import 'package:nothing/error/cloud_error.dart';
 
 abstract class ProblemsRepo {
   Future<List<Problem>> fetchProblems(int count);
+  Future<void> sendSummary(Map<int, bool> summary);
 }
 
 class CloudProblemsRepo extends ProblemsRepo {
@@ -29,6 +30,21 @@ class CloudProblemsRepo extends ProblemsRepo {
       throw CloudError(error: "Coud not fetch problems");
     }
   }
+
+  var sendSummaryUrl =
+      'https://us-central1-crystal-factory.cloudfunctions.net/ProcessAnswers';
+
+  Future<void> sendSummary(Map<int, bool> summary) async {
+    var summaryStr = summary.map((k, v) => MapEntry(k.toString(), v));
+    var summaryJson = json.encode(summaryStr);
+    var body =
+        '{"id": "FhF0RoQfOZNqOO4PWSD3M1d0HDB2", "group": "logic", "summary":$summaryJson';
+    var resp = await post(
+      sendSummaryUrl,
+      body: body,
+    );
+    print(resp.statusCode);
+  }
 }
 
 class LocalProblemsRepo extends ProblemsRepo {
@@ -46,4 +62,6 @@ class LocalProblemsRepo extends ProblemsRepo {
       }),
     );
   }
+
+  Future<void> sendSummary(Map<int, bool> summary) async {}
 }

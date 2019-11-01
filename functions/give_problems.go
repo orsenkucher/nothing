@@ -94,18 +94,17 @@ func GiveProblems(w http.ResponseWriter, r *http.Request) {
 func ProcessAnswers(w http.ResponseWriter, r *http.Request) {
 	str, _ := ioutil.ReadAll(r.Body)
 	var query struct {
-		Group    string `json:"group"`
-		ID       string `json:"id"`
-		Problems []int  `json:"problems"`
-		Answers  []bool `json:"answers"`
+		Group   string       `json:"group"`
+		ID      string       `json:"id"`
+		Summary map[int]bool `json:"summary"`
 	}
 	json.Unmarshal(str, &query)
 	solved := getUserSolvedProblems(query.Group, query.ID)
-	for i := 0; i < len(query.Answers); i++ {
-		if query.Answers[i] {
-			if query.Problems[i]/6 >= len(solved) {
-				solved = append(solved, make([]byte, query.Problems[i]/6-len(solved)+1)...)
-				solved[query.Problems[i]/6] &= 1 << (byte(query.Problems[i] % 6))
+	for pbm, ans := range query.Summary {
+		if ans {
+			if pbm/6 >= len(solved) {
+				solved = append(solved, make([]byte, pbm/6-len(solved)+1)...)
+				solved[pbm/6] &= 1 << (byte(pbm % 6))
 			}
 		}
 	}
