@@ -32,6 +32,8 @@ class ProblemsBloc extends Bloc<ProblemsEvent, ProblemsState> {
         );
       } on CloudError catch (error) {
         yield LoadingError(error: error);
+        print("Retry in 10 sec");
+        Future.delayed(Duration(seconds: 10), () => add(FetchProblems()));
       }
     } else if (event is AnsweredProblems) {
       print(event.results);

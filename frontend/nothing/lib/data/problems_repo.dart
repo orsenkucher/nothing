@@ -17,15 +17,18 @@ class CloudProblemsRepo extends ProblemsRepo {
     try {
       var resp = await post(
         fetchProblemsUrl,
-        body: '{"count": $count, "group": "logic"}',
+        body:
+            '{"count": $count, "group": "logic", "ids": ["4VFtjjzlmSglRaEQ4p5b7zdAQxo1"]}',
       );
       print(resp.body);
       if (resp.statusCode == 200) {
         List<dynamic> decoded = json.decode(resp.body);
-        return decoded.map((f) => Problem.fromJson(f)).toList();
-      } else {
-        throw null;
+        var problems = decoded.map((f) => Problem.fromJson(f)).toList();
+        if (problems.length == count) {
+          return problems;
+        }
       }
+      throw null;
     } catch (_) {
       throw CloudError(error: "Coud not fetch problems");
     }
@@ -38,7 +41,7 @@ class CloudProblemsRepo extends ProblemsRepo {
     var summaryStr = summary.map((k, v) => MapEntry(k.toString(), v));
     var summaryJson = json.encode(summaryStr);
     var body =
-        '{"id": "FhF0RoQfOZNqOO4PWSD3M1d0HDB2", "group": "logic", "summary":$summaryJson';
+        '{"id": "4VFtjjzlmSglRaEQ4p5b7zdAQxo1", "group": "logic", "summary":$summaryJson}';
     var resp = await post(
       sendSummaryUrl,
       body: body,
