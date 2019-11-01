@@ -2,42 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/problem/bloc.dart';
 import 'package:nothing/bloc/problems/bloc.dart';
-import 'package:nothing/data/model/problem.dart';
-
-class SolveProblems extends StatefulWidget {
-  const SolveProblems();
-
-  @override
-  _SolveProblemsState createState() => _SolveProblemsState();
-}
-
-class _SolveProblemsState extends State<SolveProblems> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    BlocProvider.of<ProblemsBloc>(context).add(
-      FetchProblems(),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ProblemsBloc, ProblemsState>(
-      builder: (context, state) {
-        if (state is LoadingProblems) {
-          return LoadingCircle();
-        }
-        if (state is LoadedProblems) {
-          return _SolveProblems(state.problems);
-        }
-        if (state is LoadingError) {
-          return ErrorMessage(state: state);
-        }
-        return Container();
-      },
-    );
-  }
-}
 
 class ErrorMessage extends StatelessWidget {
   final LoadingError state;
@@ -54,6 +18,7 @@ class ErrorMessage extends StatelessWidget {
         style: TextStyle(
           fontSize: 40,
           fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
       ),
     );
@@ -67,24 +32,26 @@ class LoadingCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final side = 120.0;
+    final stroke = 8.0;
     return Stack(children: <Widget>[
       Center(
         child: SizedBox(
-          width: 250,
-          height: 250,
+          width: side,
+          height: side,
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-            strokeWidth: 12,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: stroke,
           ),
         ),
       ),
       Center(
         child: SizedBox(
-          width: 250 - 12 * 3.0,
-          height: 250 - 12 * 3.0,
+          width: side - stroke * 3.0,
+          height: side - stroke * 3.0,
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-            strokeWidth: 12,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: stroke,
             value: 1.1,
           ),
         ),
@@ -93,20 +60,27 @@ class LoadingCircle extends StatelessWidget {
   }
 }
 
-class _SolveProblems extends StatefulWidget {
-  final List<Problem> problems;
-  const _SolveProblems(this.problems);
+class SolveProblems extends StatefulWidget {
+  const SolveProblems();
 
   @override
-  __SolveProblemsState createState() => __SolveProblemsState();
+  _SolveProblemsState createState() => _SolveProblemsState();
 }
 
-class __SolveProblemsState extends State<_SolveProblems> {
+class _SolveProblemsState extends State<SolveProblems> {
   FocusNode focusNode;
   @override
   void initState() {
     super.initState();
     focusNode = FocusNode();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    BlocProvider.of<ProblemsBloc>(context).add(
+      FetchProblems(),
+    );
   }
 
   @override
@@ -130,7 +104,6 @@ class __SolveProblemsState extends State<_SolveProblems> {
               flex: 46,
               child: QuestionBox(
                 focusNode: focusNode,
-                questionCount: widget.problems.length,
               ),
             ),
             Flexible(
@@ -167,23 +140,23 @@ class _AnswerBoxState extends State<AnswerBox> {
     super.dispose();
   }
 
-  final borderRadius = 28.0;
-  final gapWidth = 4.0;
+  final radius = 28.0;
+  final gap = 4.0;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: 60,
-        vertical: 40,
+        vertical: 50,
       ),
       height: 78,
       child: Material(
         color: Colors.black,
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(radius),
         elevation: 0,
         child: InkWell(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(radius),
           splashColor: Color(0xFF2ecc71),
           highlightColor: Colors.transparent,
           onTap: () => _submit(textController.text),
@@ -222,9 +195,9 @@ class _AnswerBoxState extends State<AnswerBox> {
       },
       child: Container(
         width: 215,
-        margin: EdgeInsets.all(gapWidth),
+        margin: EdgeInsets.all(gap),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius - gapWidth),
+          borderRadius: BorderRadius.circular(radius - gap),
           color: Colors.white,
         ),
         child: Center(
@@ -282,11 +255,9 @@ class _AnswerBoxState extends State<AnswerBox> {
 
 class QuestionBox extends StatelessWidget {
   final FocusNode focusNode;
-  final int questionCount;
 
   const QuestionBox({
     @required this.focusNode,
-    @required this.questionCount,
   });
 
   @override
@@ -302,64 +273,85 @@ class QuestionBox extends StatelessWidget {
             bottom: Radius.circular(28),
           ),
         ),
-        child: Stack(
-          children: <Widget>[
-            Align(
-              child: BlocBuilder<ProblemBloc, ProblemState>(
-                  builder: (context, state) {
-                if (state is NewProblem) {
-                  return Text(
-                    state.problem.question,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                }
-                return Container();
-              }),
-            ),
-            Positioned(
-              bottom: 10,
-              right: 20,
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    "Tap to hide ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Icon(
-                    Icons.keyboard,
-                    color: Colors.white,
-                  )
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: 20,
-              child: BlocBuilder<ProblemBloc, ProblemState>(
-                builder: (context, state) {
-                  if (state is NewProblem) {
-                    return Text(
-                      "${state.index} of $questionCount",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  }
-                  return Container();
-                },
-              ),
-            )
-          ],
+        child: BlocBuilder<ProblemsBloc, ProblemsState>(
+          builder: (context, state$) => state$ is LoadedProblems
+              ? Question(state$: state$)
+              : state$ is LoadingProblems
+                  ? LoadingCircle()
+                  : state$ is LoadingError
+                      ? ErrorMessage(state: state$)
+                      : Container(),
         ),
       ),
+    );
+  }
+}
+
+class Question extends StatelessWidget {
+  final LoadedProblems state$;
+
+  const Question({
+    this.state$,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Positioned(
+          bottom: 10,
+          right: 20,
+          child: Row(
+            children: <Widget>[
+              Text(
+                "Tap to hide ",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Icon(
+                Icons.keyboard,
+                color: Colors.white,
+              )
+            ],
+          ),
+        ),
+        Align(
+          child:
+              BlocBuilder<ProblemBloc, ProblemState>(builder: (context, state) {
+            if (state is NewProblem) {
+              return Text(
+                state.problem.question,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              );
+            }
+            return Container();
+          }),
+        ),
+        Positioned(
+          bottom: 10,
+          left: 20,
+          child: BlocBuilder<ProblemBloc, ProblemState>(
+            builder: (context, state) {
+              if (state is NewProblem) {
+                return Text(
+                  "${state.index} of ${state$.problems.length}",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              }
+              return Container();
+            },
+          ),
+        ),
+      ],
     );
   }
 }
