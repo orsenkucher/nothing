@@ -1,222 +1,223 @@
 [
 	{
-		"question" : "Black",
-		"explanation" : "Opposite",
-		"answer" : [
+		"question": "Black",
+		"explanation": "Opposite",
+		"answers": [
 			"white",
 			"White"
 		]
 	},
 	{
-		"question" : "One two...",
-		"explanation" : "Obvious sequence",
-		"answer" : [
+		"question": "One two...",
+		"explanation": "Obvious sequence",
+		"answers": [
 			"three"
 		]
 	},
 	{
-		"question" : "Which leter is missing?",
-		"explanation" : "Letter",
-		"answer" : [
+		"question": "Which leter is missing?",
+		"explanation": "Letter",
+		"answers": [
 			"t"
 		]
 	},
 	{
-		"question" : "ð´",
-		"explanation" : "You do that in the bed",
-		"answer" : [
+		"question": "😴",
+		"explanation": "You do that in the bed",
+		"answers": [
 			"sleep",
 			"sleepy",
 			"snooze"
 		]
 	},
 	{
-		"question" : "Quantity matters",
-		"explanation" : "Count the letters",
-		"answer" : [
+		"question": "Quantity matters",
+		"explanation": "Count the letters",
+		"answers": [
 			"15"
 		]
 	},
 	{
-		"question" : "Red + orange + yellow + green + blue+ indigo+ violet",
-		"explanation" : "Multicoloured arc appearing in the sky",
-		"answer" : [
+		"question": "Red + orange + yellow + green + blue+ indigo+ violet",
+		"explanation": "Multicoloured arc appearing in the sky",
+		"answers": [
 			"rainbow"
 		]
 	},
 	{
-		"question" : "1 1 2 3 5 8 ?",
-		"explanation" : "The next number is found by adding up the two numbers before it.",
-		"answer" : [
+		"question": "1 1 2 3 5 8 ?",
+		"explanation": "The next number is found by adding up the two numbers before it.",
+		"answers": [
 			"13"
 		]
 	},
 	{
-		"question" : "Yellow + blue",
-		"explanation" : "Mix them",
-		"answer" : [
+		"question": "Yellow + blue",
+		"explanation": "Mix them",
+		"answers": [
 			"green"
 		]
 	},
 	{
-		"question" : "Triangle Square ...",
-		"explanation" : "3 angles, 4 angles ... ",
-		"answer" : [
+		"question": "Triangle Square ...",
+		"explanation": "3 angles, 4 angles ... ",
+		"answers": [
 			"pentagon"
 		]
 	},
 	{
-		"question" : "Half",
-		"explanation" : "Half of the word 'Half'",
-		"answer" : [
+		"question": "Half",
+		"explanation": "Half of the word 'Half'",
+		"answers": [
 			"ha",
 			"Ha"
 		]
 	},
 	{
-		"question" : "1 2 6 24 ?",
-		"explanation" : "1 * 2 = 2, 2 * 3 = 6, 6 * 4 = 24",
-		"answer" : [
+		"question": "1 2 6 24 ?",
+		"explanation": "1 * 2 = 2, 2 * 3 = 6, 6 * 4 = 24",
+		"answers": [
 			"120"
 		]
 	},
 	{
-		"question" : "Backwards",
-		"explanation" : "Just backwards backwards",
-		"answer" : [
+		"question": "Backwards",
+		"explanation": "Just backwards backwards",
+		"answers": [
 			"sdrawkcab"
 		]
 	},
 	{
-		"question" : "F E D C B ?",
-		"explanation" : "Alphabet",
-		"answer" : [
+		"question": "F E D C B ?",
+		"explanation": "Alphabet",
+		"answers": [
 			"a"
 		]
 	},
 	{
-		"question" : "Make a smile",
-		"explanation" : ")",
-		"answer" : [
+		"question": "Make a smile",
+		"explanation": ")",
+		"answers": [
 			":)",
 			": )",
 			":-)"
 		]
 	},
 	{
-		"question" : "Eiffel Tower",
-		"explanation" : "Where is it located?",
-		"answer" : [
+		"question": "Eiffel Tower",
+		"explanation": "Where is it located?",
+		"answers": [
 			"paris"
 		]
 	},
 	{
-		"question" : "Previous",
-		"explanation" : "Try to remember previous answer",
-		"answer" : [
+		"question": "Previous",
+		"explanation": "Try to remember previous answer",
+		"answers": [
 			"paris"
 		]
 	},
 	{
-		"question" : "dough + sauce + cheese + sausage + tomato",
-		"explanation" : "Dish of italian origin",
-		"answer" : [
+		"question": "dough + sauce + cheese + sausage + tomato",
+		"explanation": "Dish of italian origin",
+		"answers": [
 			"pizza"
 		]
 	},
 	{
-		"question" : "First letter",
-		"explanation" : "Literally first letter of the word 'First' ",
-		"answer" : [
+		"question": "First letter",
+		"explanation": "Literally first letter of the word 'First' ",
+		"answers": [
 			"f"
 		]
 	},
 	{
-		"question" : "A + B = -2, A - B = 8, B * A = ?",
-		"explanation" : "A = 3",
-		"answer" : [
+		"question": "A + B = -2, A - B = 8, B * A = ?",
+		"explanation": "A = 3",
+		"answers": [
 			"-15"
 		]
 	},
 	{
-		"question" : "ð¥ + ð§",
-		"explanation" : "Water boils and turns into ...",
-		"answer" : [
+		"question": "🔥 + 💧",
+		"explanation": "Water boils and turns into ...",
+		"answers": [
 			"steam",
 			"vapor"
 		]
 	},
 	{
-		"question" : "A + B = 3 , B + C = 5 , E + F = ?",
-		"explanation" : "Each letter corresponds to its number in the alphabet A = 1, B = 2, C = 3 ...",
-		"answer" : [
+		"question": "A + B = 3 , B + C = 5 , E + F = ?",
+		"explanation": "Each letter corresponds to its number in the alphabet A = 1, B = 2, C = 3 ...",
+		"answers": [
 			"11"
 		]
 	},
 	{
-		"question" : "RGB(255,255,255)",
-		"explanation" : "Google it",
-		"answer" : [
+		"question": "RGB(255,255,255)",
+		"explanation": "Google it",
+		"answers": [
 			"white"
 		]
 	},
 	{
-		"question" : "xyz zxy yxz xzy yzx ?",
-		"explanation" : "From 3 letters you can make 6 combinations, which combitaion is left?",
-		"answer" : [
+		"question": "xyz zxy yxz xzy yzx ?",
+		"explanation": "From 3 letters you can make 6 combinations, which combitaion is left?",
+		"answers": [
 			"zyx"
 		]
 	},
 	{
-		"question" : "I'm loving it",
-		"explanation" : "The slogan of the famous fastfood company",
-		"answer" : [
+		"question": "I'm loving it",
+		"explanation": "The slogan of the famous fastfood company",
+		"answers": [
 			"mcdonald's",
 			"Macdonald's",
 			"macdonalds",
 			"mcdonalds",
-			"Macdonalds"
+			"Macdonalds",
+			""
 		]
 	},
 	{
-		"question" : "Au",
-		"explanation" : "A chemical element with symbol Au",
-		"answer" : [
+		"question": "Au",
+		"explanation": "A chemical element with symbol Au",
+		"answers": [
 			"gold"
 		]
 	},
 	{
-		"question" : "$ - |",
-		"explanation" : "Get rid from the line in $",
-		"answer" : [
+		"question": "$ - |",
+		"explanation": "Get rid from the line in $",
+		"answers": [
 			"s"
 		]
 	},
 	{
-		"question" : "Stone(ot) window(ni) sand(?)",
-		"explanation" : "The third and the second letters of each word swapped places",
-		"answer" : [
+		"question": "Stone(ot) window(ni) sand(?)",
+		"explanation": "The third and the second letters of each word swapped places",
+		"answers": [
 			"na"
 		]
 	},
 	{
-		"question" : "Too much space",
-		"explanation" : "Get rid of the space, literally",
-		"answer" : [
+		"question": "Too much space",
+		"explanation": "Get rid of the space, literally",
+		"answers": [
 			"toomuchspace"
 		]
 	},
 	{
-		"question" : "I6 06 68 88 ? 98",
-		"explanation" : "Turn your phone upside down",
-		"answer" : [
+		"question": "I6 06 68 88 ? 98",
+		"explanation": "Turn your phone upside down",
+		"answers": [
 			"87"
 		]
 	},
 	{
-		"question" : "Joke",
-		"explanation" : "Laugh lots, live longer",
-		"answer" : [
+		"question": "Joke",
+		"explanation": "Laugh lots, live longer",
+		"answers": [
 			"haha",
 			"xD",
 			"ha",
@@ -226,320 +227,320 @@
 		]
 	},
 	{
-		"question" : "Level 26",
-		"explanation" : "The question on lvl 26",
-		"answer" : [
+		"question": "Level 26",
+		"explanation": "The question on lvl 26",
+		"answers": [
 			"au"
 		]
 	},
 	{
-		"question" : "220",
-		"explanation" : "common voltage",
-		"answer" : [
+		"question": "220",
+		"explanation": "common voltage",
+		"answers": [
 			"volt",
 			"Volt"
 		]
 	},
 	{
-		"question" : "Ð¯OÐ¯Ð¯IM",
-		"explanation" : "Mirror the written text",
-		"answer" : [
+		"question": "ЯOЯЯIM",
+		"explanation": "Mirror the written text",
+		"answers": [
 			"mirror"
 		]
 	},
 	{
-		"question" : "16,4 = 0  7,2 = 1 19,5 = 4  25,7 = ?",
-		"explanation" : "Remainder",
-		"answer" : [
+		"question": "16,4 = 0  7,2 = 1 19,5 = 4  25,7 = ?",
+		"explanation": "Remainder",
+		"answers": [
 			"4"
 		]
 	},
 	{
-		"question" : "Just do it",
-		"explanation" : "Famous sport brand",
-		"answer" : [
+		"question": "Just do it",
+		"explanation": "Famous sport brand",
+		"answers": [
 			"nike"
 		]
 	},
 	{
-		"question" : "â¢â¢â¢---â¢â¢â¢",
-		"explanation" : "Morse code",
-		"answer" : [
+		"question": "•••---•••",
+		"explanation": "Morse code",
+		"answers": [
 			"sos"
 		]
 	},
 	{
-		"question" : "What's the same between you and us?",
-		"explanation" : "Letter",
-		"answer" : [
+		"question": "What's the same between you and us?",
+		"explanation": "Letter",
+		"answers": [
 			"u"
 		]
 	},
 	{
-		"question" : "O T T F F S S E N ?",
-		"explanation" : "Count letters aloud",
-		"answer" : [
+		"question": "O T T F F S S E N ?",
+		"explanation": "Count letters aloud",
+		"answers": [
 			"t"
 		]
 	},
 	{
-		"question" : "CTRL + C ",
-		"explanation" : "COPY PASTE",
-		"answer" : [
+		"question": "CTRL + C ",
+		"explanation": "COPY PASTE",
+		"answers": [
 			"ctrl + v",
 			"Ctrl + v",
 			"ctrl+v"
 		]
 	},
 	{
-		"question" : "Write the answer",
-		"explanation" : "Be simple",
-		"answer" : [
+		"question": "Write the answer",
+		"explanation": "Be simple",
+		"answers": [
 			"answer",
 			"the answer"
 		]
 	},
 	{
-		"question" : "â¿",
-		"explanation" : "Cryptocurrency",
-		"answer" : [
+		"question": "₿",
+		"explanation": "Cryptocurrency",
+		"answers": [
 			"bitcoin"
 		]
 	},
 	{
-		"question" : "Low battery",
-		"explanation" : "What do you do with the phone then?",
-		"answer" : [
+		"question": "Low battery",
+		"explanation": "What do you do with the phone then?",
+		"answers": [
 			"charge"
 		]
 	},
 	{
-		"question" : "The most famous fruit",
-		"explanation" : "It's on the back of your phone",
-		"answer" : [
+		"question": "The most famous fruit",
+		"explanation": "It's on the back of your phone",
+		"answers": [
 			"apple"
 		]
 	},
 	{
-		"question" : "A = Z, B = Y, E = ?",
-		"explanation" : "Atbash code",
-		"answer" : [
+		"question": "A = Z, B = Y, E = ?",
+		"explanation": "Atbash code",
+		"answers": [
 			"v"
 		]
 	},
 	{
-		"question" : "A(9,36) = 4, B(12,52) = 40, B(A(5,30),7) = ?",
-		"explanation" : "A(5,30) = 6, B(6,7) = ?",
-		"answer" : [
+		"question": "A(9,36) = 4, B(12,52) = 40, B(A(5,30),7) = ?",
+		"explanation": "A(5,30) = 6, B(6,7) = ?",
+		"answers": [
 			"1"
 		]
 	},
 	{
-		"question" : "Who lives in pineapple under the sea?",
-		"explanation" : "bikini bottom",
-		"answer" : [
+		"question": "Who lives in pineapple under the sea?",
+		"explanation": "bikini bottom",
+		"answers": [
 			"spongebob",
 			"spongebob squarepants"
 		]
 	},
 	{
-		"question" : "Square with cut corners",
-		"explanation" : "It will 8 angles, so it is ...",
-		"answer" : [
+		"question": "Square with cut corners",
+		"explanation": "It will 8 angles, so it is ...",
+		"answers": [
 			"octagon"
 		]
 	},
 	{
-		"question" : "Silver Bronze Gold",
-		"explanation" : "Each place corresponds to a number",
-		"answer" : [
+		"question": "Silver Bronze Gold",
+		"explanation": "Each place corresponds to a number",
+		"answers": [
 			"231"
 		]
 	},
 	{
-		"question" : "541 = 10, 358 = 16, 139 = ?",
-		"explanation" : "5 + 4 + 1 = 10",
-		"answer" : [
+		"question": "541 = 10, 358 = 16, 139 = ?",
+		"explanation": "5 + 4 + 1 = 10",
+		"answers": [
 			"13"
 		]
 	},
 	{
-		"question" : "â¬ï¸",
-		"explanation" : "What does this arrow point to?",
-		"answer" : [
+		"question": "⬆️",
+		"explanation": "What does this arrow point to?",
+		"answers": [
 			"51/75"
 		]
 	},
 	{
-		"question" : "Des pa ...",
-		"explanation" : "Famous song by Louis Fonsi",
-		"answer" : [
+		"question": "Des pa ...",
+		"explanation": "Famous song by Louis Fonsi",
+		"answers": [
 			"cito"
 		]
 	},
 	{
-		"question" : "N S W",
-		"explanation" : "Compass",
-		"answer" : [
+		"question": "N S W",
+		"explanation": "Compass",
+		"answers": [
 			"e"
 		]
 	},
 	{
-		"question" : "Roman Zeus",
-		"explanation" : "King of the Gods",
-		"answer" : [
+		"question": "Roman Zeus",
+		"explanation": "King of the Gods",
+		"answers": [
 			"jupiter"
 		]
 	},
 	{
-		"question" : "sinÎ± * sinÎ² * sinÎ³ * ... * sinÏ",
-		"explanation" : "sinÏ = 0",
-		"answer" : [
+		"question": "sinα * sinβ * sinγ * ... * sinω",
+		"explanation": "sinπ = 0",
+		"answers": [
 			"0"
 		]
 	},
 	{
-		"question" : "Coca-Cola",
-		"explanation" : "Could you distinguish them?",
-		"answer" : [
+		"question": "Coca-Cola",
+		"explanation": "Could you distinguish them?",
+		"answers": [
 			"pepsi",
 			"pepsi-cola"
 		]
 	},
 	{
-		"question" : "WTR -> 254,       UOI -> ?",
-		"explanation" : "Quickly switch between number and regular keyboards",
-		"answer" : [
+		"question": "WTR -\u003e 254,       UOI -\u003e ?",
+		"explanation": "Quickly switch between number and regular keyboards",
+		"answers": [
 			"798"
 		]
 	},
 	{
-		"question" : "Hello World!",
-		"explanation" : "The most famous programm among programmers",
-		"answer" : [
+		"question": "Hello World!",
+		"explanation": "The most famous programm among programmers",
+		"answers": [
 			"programm"
 		]
 	},
 	{
-		"question" : "The question is locked",
-		"explanation" : "Find key to this question",
-		"answer" : [
+		"question": "The question is locked",
+		"explanation": "Find key to this question",
+		"answers": [
 			"key",
 			"unlock"
 		]
 	},
 	{
-		"question" : "ð¤µð»ð¤µð¾â«ï¸ð½ (film)",
-		"explanation" : "Will Smith starrs in this film",
-		"answer" : [
+		"question": "🤵🏻🤵🏾⚫️👽 (film)",
+		"explanation": "Will Smith starrs in this film",
+		"answers": [
 			"men in black",
 			"MIB",
 			"mib"
 		]
 	},
 	{
-		"question" : "March 14",
-		"explanation" : "3.14, doesn't remind anything?",
-		"answer" : [
+		"question": "March 14",
+		"explanation": "3.14, doesn't remind anything?",
+		"answers": [
 			"pi"
 		]
 	},
 	{
-		"question" : "What goes after December 31?",
-		"explanation" : "The question mark!",
-		"answer" : [
+		"question": "What goes after December 31?",
+		"explanation": "The question mark!",
+		"answers": [
 			"?"
 		]
 	},
 	{
-		"question" : "\u221E + 90\u00B0",
-		"explanation" : "Turn infinity by 90 degrees",
-		"answer" : [
+		"question": "\\u{221E} + 90\\u{B0}",
+		"explanation": "Turn infinity by 90 degrees",
+		"answers": [
 			"8"
 		]
 	},
 	{
-		"question" : "IS THERE SOMETHING WR0NG?",
-		"explanation" : "One letter is replaced",
-		"answer" : [
+		"question": "IS THERE SOMETHING WR0NG?",
+		"explanation": "One letter is replaced",
+		"answers": [
 			"0"
 		]
 	},
 	{
-		"question" : "A K Q J ?",
-		"explanation" : "Cards",
-		"answer" : [
+		"question": "A K Q J ?",
+		"explanation": "Cards",
+		"answers": [
 			"10"
 		]
 	},
 	{
-		"question" : "J F M A M J J A S O N ?",
-		"explanation" : "J - January",
-		"answer" : [
+		"question": "J F M A M J J A S O N ?",
+		"explanation": "J - January",
+		"answers": [
 			"d"
 		]
 	},
 	{
-		"question" : "3,2 = 25  2,6 = 64   1,3 = 16  3,7 = ?",
-		"explanation" : "(3+2)^2 = 25",
-		"answer" : [
+		"question": "3,2 = 25  2,6 = 64   1,3 = 16  3,7 = ?",
+		"explanation": "(3+2)^2 = 25",
+		"answers": [
 			"100"
 		]
 	},
 	{
-		"question" : "Ins?a?r?m",
-		"explanation" : "Instagram",
-		"answer" : [
+		"question": "Ins?a?r?m",
+		"explanation": "Instagram",
+		"answers": [
 			"tga"
 		]
 	},
 	{
-		"question" : "NaOH + HCl = NaCl + ?",
-		"explanation" : "H + OH",
-		"answer" : [
+		"question": "NaOH + HCl = NaCl + ?",
+		"explanation": "H + OH",
+		"answers": [
 			"h2o",
 			"water"
 		]
 	},
 	{
-		"question" : "A = 1, B = 2, C = 0, D = ?",
-		"explanation" : " B has 2 closed contours, A has 1",
-		"answer" : [
+		"question": "A = 1, B = 2, C = 0, D = ?",
+		"explanation": " B has 2 closed contours, A has 1",
+		"answers": [
 			"1"
 		]
 	},
 	{
-		"question" : "3 7 15 31 ?",
-		"explanation" : "3 + 4 = 7 , 7 + 8 = 15, ...",
-		"answer" : [
+		"question": "3 7 15 31 ?",
+		"explanation": "3 + 4 = 7 , 7 + 8 = 15, ...",
+		"answers": [
 			"63"
 		]
 	},
 	{
-		"question" : "Right down left down right",
-		"explanation" : "Draw it on a sheet of paper",
-		"answer" : [
+		"question": "Right down left down right",
+		"explanation": "Draw it on a sheet of paper",
+		"answers": [
 			"2"
 		]
 	},
 	{
-		"question" : "12 30 7 24 ?",
-		"explanation" : "How many months in year, days in month?",
-		"answer" : [
+		"question": "12 30 7 24 ?",
+		"explanation": "How many months in year, days in month?",
+		"answers": [
 			"60"
 		]
 	},
 	{
-		"question" : "_ _ _ _",
-		"explanation" : "4-letter word on the middle of the screen",
-		"answer" : [
+		"question": "_ _ _ _",
+		"explanation": "4-letter word on the middle of the screen",
+		"answers": [
 			"hint"
 		]
 	},
 	{
-		"question" : "LVL/LVLS",
-		"explanation" : "It's last level, do it on your own))",
-		"answer" : [
+		"question": "LVL/LVLS",
+		"explanation": "It's last level, do it on your own))",
+		"answers": [
 			"1"
 		]
 	}

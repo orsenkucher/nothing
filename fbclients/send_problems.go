@@ -24,6 +24,7 @@ func SendData() {
 		Explanation: "~",
 		Answers:     []string{"!"},
 	}} //*/
+	// print()
 	SendProblems(problems, "logic")
 }
 
@@ -37,6 +38,8 @@ func SendProblems(problems []model.Problem, group string) {
 		Group:    group,
 	}
 	strb, _ := json.Marshal(&problemsQuery)
-	fmt.Println(string(strb))
+	fmt.Printf("Sending %v bytes\n", len(strb))
 	http.Post(addProblemsURL, "application/json", bytes.NewBuffer(strb))
+	fmt.Println("done")
+	fmt.Println(string(strb))
 }

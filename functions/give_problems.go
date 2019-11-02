@@ -113,7 +113,6 @@ func ProcessAnswers(w http.ResponseWriter, r *http.Request) {
 			solved[id/6] |= 1 << (byte(id % 6))
 		}
 	}
-	fmt.Fprintln(w, "HelloWorld")
 	fmt.Fprintln(w, solved)
 
 	if len(solved) > 0 {

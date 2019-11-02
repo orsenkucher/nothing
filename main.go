@@ -8,40 +8,57 @@ import (
 	"net/http"
 
 	"github.com/orsenkucher/nothing/core"
+	"github.com/orsenkucher/nothing/fbclients"
 	"github.com/orsenkucher/nothing/txt2json"
 )
 
 func main() {
 	// fn0()
-	fn1()
+	// fn1()
+	fn2()
 }
 
-type task struct {
-	Question    string   `doc:"q"`
-	Explanation string   `doc:"exp"`
-	Answer      []string `col:"ans"`
+type problem struct {
+	Question    string   `doc:"q" json:"question"`
+	Explanation string   `doc:"exp" json:"explanation"`
+	Answer      []string `col:"ans" json:"answers"`
+}
+
+func fn2() {
+	fbclients.SendData()
 }
 
 func fn1() {
+	// fmt.Println(string([]rune("😴")))
+
 	bytes, err := ioutil.ReadFile("txt2json/problems.txt")
 	core.Check(err)
-	fmt.Println(string([]rune("😴")))
 	// fmt.Printf("%+q\n", bytes)
 
-	var tasks []task
+	var problems []problem
 	// prep := fmt.Sprintf("%+q\n", bytes)
 	// print(prep)
-	err = txt2json.Parse(string(bytes), &tasks)
+	err = txt2json.Parse(string(bytes), &problems)
 	core.Check(err)
 
-	fmt.Println(tasks)
+	fmt.Println(problems)
 
-	b, err := txt2json.ConvertToJSON(&tasks)
+	b, err := txt2json.ConvertToPrettyJSON(&problems)
 	core.Check(err)
 	fmt.Println(string(b))
 
-	err = ioutil.WriteFile("txt2json/parsed.json", b, 0)
+	// err = ioutil.WriteFile("txt2json/parsed.json", b, 0)
+	// core.Check(err)
+	err = ioutil.WriteFile("data/problems.json", b, 0)
 	core.Check(err)
+
+	// fl, err := os.Create("txt2json/parsed.json")
+	// core.Check(err)
+	// n, err := fl.WriteString(string(b))
+	// core.Check(err)
+	// err = fl.Close()
+	// core.Check(err)
+	// print(n)
 }
 
 func fn0() {

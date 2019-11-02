@@ -19,7 +19,7 @@ class Problem extends Equatable {
       id: json['id'],
       question: json['question'],
       explanation: json['explanation'],
-      answers: List<String>.from(json['answer']),
+      answers: List<String>.from(json['answers']),
     );
   }
 

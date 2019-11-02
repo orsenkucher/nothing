@@ -3,7 +3,6 @@ package txt2json
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"reflect"
 	"regexp"
 	"strings"
@@ -69,7 +68,7 @@ func parseLine(line string, v reflect.Value) error {
 		switch key {
 		case "doc":
 			if doc, ok := cutDoc(line, indexer); ok {
-				value.SetString(fmt.Sprintf("%+q", doc))
+				value.SetString(doc)
 				// fmt.Println(doc)
 			}
 		case "col":
@@ -108,7 +107,7 @@ func cutCol(line, indexer string) ([]string, bool) {
 	if len(cuts) > 1 {
 		cuts = strings.Split(cuts[1], ",")
 		for i := 0; i < len(cuts); i++ {
-			cuts[i] = fmt.Sprintf("%+q", trim(cuts[i]))
+			cuts[i] = trim(cuts[i])
 		}
 		return cuts, true
 	}
