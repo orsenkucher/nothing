@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"cloud.google.com/go/firestore"
-	"github.com/orsenkucher/nothing/data/model"
+	"github.com/orsenkucher/nothing/functions/data/model"
 )
 
 type problemsSolved struct {

@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/orsenkucher/nothing/core"
-	"github.com/orsenkucher/nothing/data/model"
+	"github.com/orsenkucher/nothing/functions/data/model"
 )
 
 const addProblemsURL = "https://us-central1-crystal-factory.cloudfunctions.net/AddProblems"
@@ -16,7 +16,7 @@ const addProblemsURL = "https://us-central1-crystal-factory.cloudfunctions.net/A
 // SendData send problems from json
 func SendData() {
 	var problems []model.Problem
-	dat, err := ioutil.ReadFile("data/problems.json")
+	dat, err := ioutil.ReadFile("functions/data/problems.json")
 	core.Check(err)
 	json.Unmarshal(dat, &problems)
 	/*problems = []model.Problem{{

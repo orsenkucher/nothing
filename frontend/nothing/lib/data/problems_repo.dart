@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart';
 import 'package:nothing/data/model/problem.dart';
 import 'package:nothing/error/cloud_error.dart';
@@ -15,9 +14,6 @@ class CloudProblemsRepo extends ProblemsRepo {
       'https://us-central1-crystal-factory.cloudfunctions.net/GiveProblems';
 
   Future<List<Problem>> fetchProblems(int count) async {
-    var doc =
-        await Firestore.instance.document('problems/logic/problems/10').get();
-
     try {
       var body = json.encode({
         "count": count,

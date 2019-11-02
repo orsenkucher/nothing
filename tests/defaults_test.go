@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/orsenkucher/crystalpuzzle/core"
+	"github.com/orsenkucher/nothing/core"
 )
 
 type user struct {

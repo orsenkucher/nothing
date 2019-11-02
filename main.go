@@ -49,7 +49,7 @@ func fn1() {
 
 	// err = ioutil.WriteFile("txt2json/parsed.json", b, 0)
 	// core.Check(err)
-	err = ioutil.WriteFile("data/problems.json", b, 0)
+	err = ioutil.WriteFile("functions/data/problems.json", b, 0)
 	core.Check(err)
 
 	// fl, err := os.Create("txt2json/parsed.json")

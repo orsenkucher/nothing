@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"cloud.google.com/go/firestore"
-	"github.com/orsenkucher/nothing/data/model"
+	"github.com/orsenkucher/nothing/functions/data/model"
 )
 
 // Counter is int
