@@ -10,6 +10,7 @@ void main() => runApp(App());
 // [+] Make 2 blocs
 // [+] How to persist some state in bloc
 // [+] Repo ln: 16 exception
+// [+] Connect to firebase ios / android
 // [.] Divide widgets into smaller & define widget-wide params
 // [.] Fix symbol rendering
 // [+] Arrow button tap, clear TextField
