@@ -7,8 +7,20 @@ class Hub extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SwipeCard(
+        allowVertical: true,
+        child: _spawnContent(),
+      ),
+    );
+  }
+
+  Widget _spawnContent() {
+    return Card(
+      elevation: 7,
+      child: FractionallySizedBox(
+        widthFactor: 0.9,
+        heightFactor: 0.9,
         child: FlutterLogo(
-          size: 100,
+          size: 10,
         ),
       ),
     );

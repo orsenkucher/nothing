@@ -1,10 +1,15 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 
 class SwipeCard extends StatefulWidget {
   final Widget child;
+  final bool allowVertical;
   const SwipeCard({
     @required this.child,
+    this.allowVertical = true,
   });
 
   @override
@@ -32,6 +37,7 @@ class _SwipeCardState extends State<SwipeCard>
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 
@@ -49,7 +55,9 @@ class _SwipeCardState extends State<SwipeCard>
           final cardSize = cardRenderBox.size;
           _dragAlignment += Alignment(
             details.delta.dx / (size.width - cardSize.width) * 2,
-            details.delta.dy / (size.height - cardSize.height) * 2,
+            widget.allowVertical
+                ? details.delta.dy / (size.height - cardSize.height) * 2
+                : 0,
           );
         });
       },
@@ -58,15 +66,66 @@ class _SwipeCardState extends State<SwipeCard>
       },
       child: Align(
         alignment: _dragAlignment,
-        child: Card(
-          key: _cardKey,
-          child: widget.child,
+        child: Transform.rotate(
+          // angle: (pi / 180.0) *
+          //     (_controller.status == AnimationStatus.forward
+          //         ? _animation.value
+          //         : _dragAlignment.x),
+          angle: (pi / 180.0) * _dragAlignment.x,
+          child: Container(
+            key: _cardKey,
+            child: widget.child,
+          ),
         ),
       ),
     );
   }
 
-  void _runAnimation(Offset pixelsPerSecond, Size size) {
+  void _runAnimation(Offset offset, Size size) {
+    if (offset.distanceSquared < 9) {
+      _animateBack(offset, size);
+    } else {
+      _animateOutside(offset, size);
+    }
+  }
+
+  void _animateOutside(Offset pixelsPerSecond, Size size) {
+    final normed = pixelsPerSecond / pixelsPerSecond.distance;
+    final RenderBox cardRenderBox = _cardKey.currentContext.findRenderObject();
+    final cardSize = cardRenderBox.size;
+    final ratioX = 1 / (size.width - cardSize.width) * 2;
+    final ratioY = 1 / (size.height - cardSize.height) * 2;
+    final multiplier =
+        Offset(size.width * ratioX, size.height * ratioY).distance;
+    print(multiplier);
+    final magnified = normed * multiplier;
+    _animation = _controller.drive(
+      AlignmentTween(
+        begin: _dragAlignment,
+        end: Alignment(magnified.dx, magnified.dy),
+      ),
+    );
+
+    final unitsPerSecondX = pixelsPerSecond.dx / size.width;
+    final unitsPerSecondY = pixelsPerSecond.dy / size.height;
+    final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
+    final unitVelocity = unitsPerSecond.distance;
+
+    const spring = SpringDescription(
+      mass: 30,
+      stiffness: 1,
+      damping: 1,
+    );
+
+    final simulation = SpringSimulation(spring, 0, 1, -unitVelocity);
+
+    _controller.animateWith(simulation).then((_) {
+      sleep(Duration(seconds: 1));
+      _dragAlignment = Alignment.center;
+    });
+  }
+
+  void _animateBack(Offset pixelsPerSecond, Size size) {
     _animation = _controller.drive(
       AlignmentTween(
         begin: _dragAlignment,
