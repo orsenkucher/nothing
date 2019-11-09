@@ -73,10 +73,6 @@ class _SwipeCardState extends State<SwipeCard>
       child: Align(
         alignment: _dragAlignment,
         child: Transform.rotate(
-          // angle: (pi / 180.0) *
-          //     (_controller.status == AnimationStatus.forward
-          //         ? _animation.value
-          //         : _dragAlignment.x),
           angle: (pi / 180.0) * _dragAlignment.x,
           child: Container(
             key: _cardKey,
@@ -106,9 +102,11 @@ class _SwipeCardState extends State<SwipeCard>
     final cardSize = cardRenderBox.size;
     final ratioX = 1 / (size.width - cardSize.width) * 2;
     final ratioY = 1 / (size.height - cardSize.height) * 2;
-    final multiplier =
-        Offset(size.width * ratioX, size.height * ratioY).distance;
-    print(multiplier);
+    final multiplier = Offset(
+      size.width * ratioX,
+      size.height * ratioY,
+    ).distance;
+    // print(multiplier);
     final magnified = normed * multiplier;
     _animation = _controller.drive(
       AlignmentTween(
@@ -117,18 +115,7 @@ class _SwipeCardState extends State<SwipeCard>
       ),
     );
 
-    final unitsPerSecondX = pixelsPerSecond.dx / size.width;
-    final unitsPerSecondY = pixelsPerSecond.dy / size.height;
-    final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
-    final unitVelocity = unitsPerSecond.distance;
-
-    const spring = SpringDescription(
-      mass: 30,
-      stiffness: 1,
-      damping: 1,
-    );
-
-    final simulation = SpringSimulation(spring, 0, 1, -unitVelocity);
+    final simulation = _simulateSpring(pixelsPerSecond, size);
 
     _controller.animateWith(simulation).then((_) {
       sleep(Duration(milliseconds: 500));
@@ -144,19 +131,24 @@ class _SwipeCardState extends State<SwipeCard>
       ),
     );
 
-    final unitsPerSecondX = pixelsPerSecond.dx / size.width;
-    final unitsPerSecondY = pixelsPerSecond.dy / size.height;
-    final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
-    final unitVelocity = unitsPerSecond.distance;
-
-    const spring = SpringDescription(
-      mass: 30,
-      stiffness: 1,
-      damping: 1,
-    );
-
-    final simulation = SpringSimulation(spring, 0, 1, -unitVelocity);
+    final simulation = _simulateSpring(pixelsPerSecond, size);
 
     _controller.animateWith(simulation);
   }
+}
+
+SpringSimulation _simulateSpring(Offset pixelsPerSecond, Size size) {
+  final unitsPerSecondX = pixelsPerSecond.dx / size.width;
+  final unitsPerSecondY = pixelsPerSecond.dy / size.height;
+  final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
+  final unitVelocity = unitsPerSecond.distance;
+
+  const spring = SpringDescription(
+    mass: 30,
+    stiffness: 1,
+    damping: 1,
+  );
+
+  final simulation = SpringSimulation(spring, 0, 1, -unitVelocity);
+  return simulation;
 }
