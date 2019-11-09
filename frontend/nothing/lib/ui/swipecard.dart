@@ -6,10 +6,12 @@ import 'package:flutter/physics.dart';
 
 class SwipeCard extends StatefulWidget {
   final Widget child;
-  final bool allowVertical;
+  final double horizontalMultiplier;
+  final double verticalMultiplier;
   const SwipeCard({
     @required this.child,
-    this.allowVertical = true,
+    this.horizontalMultiplier = 1,
+    this.verticalMultiplier = 1,
   });
 
   @override
@@ -54,10 +56,14 @@ class _SwipeCardState extends State<SwipeCard>
               _cardKey.currentContext.findRenderObject();
           final cardSize = cardRenderBox.size;
           _dragAlignment += Alignment(
-            details.delta.dx / (size.width - cardSize.width) * 2,
-            widget.allowVertical
-                ? details.delta.dy / (size.height - cardSize.height) * 2
-                : 0,
+            details.delta.dx /
+                (size.width - cardSize.width) *
+                2 *
+                widget.horizontalMultiplier,
+            details.delta.dy /
+                (size.height - cardSize.height) *
+                2 *
+                widget.verticalMultiplier,
           );
         });
       },
@@ -90,7 +96,12 @@ class _SwipeCardState extends State<SwipeCard>
   }
 
   void _animateOutside(Offset pixelsPerSecond, Size size) {
-    final normed = pixelsPerSecond / pixelsPerSecond.distance;
+    var normed = pixelsPerSecond / pixelsPerSecond.distance;
+    normed = pixelsPerSecond.scale(
+      widget.horizontalMultiplier,
+      widget.verticalMultiplier,
+    );
+    normed = normed / normed.distance;
     final RenderBox cardRenderBox = _cardKey.currentContext.findRenderObject();
     final cardSize = cardRenderBox.size;
     final ratioX = 1 / (size.width - cardSize.width) * 2;
@@ -120,7 +131,7 @@ class _SwipeCardState extends State<SwipeCard>
     final simulation = SpringSimulation(spring, 0, 1, -unitVelocity);
 
     _controller.animateWith(simulation).then((_) {
-      sleep(Duration(seconds: 1));
+      sleep(Duration(milliseconds: 500));
       _dragAlignment = Alignment.center;
     });
   }

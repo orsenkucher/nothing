@@ -7,7 +7,7 @@ class Hub extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SwipeCard(
-        allowVertical: true,
+        horizontalMultiplier: 1.25,
         child: _spawnContent(),
       ),
     );
