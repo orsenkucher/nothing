@@ -46,6 +46,9 @@ class _SwipeCardState extends State<SwipeCard>
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final csize =
+        (_cardKey.currentContext.findRenderObject() as RenderBox).size;
+    // print(_dragAlignment.x);
     return GestureDetector(
       onPanDown: (details) {
         _controller.stop();
@@ -72,11 +75,17 @@ class _SwipeCardState extends State<SwipeCard>
       },
       child: Align(
         alignment: _dragAlignment,
-        child: Transform.rotate(
-          angle: (pi / 180.0) * _dragAlignment.x,
-          child: Container(
-            key: _cardKey,
-            child: widget.child,
+        child: Transform.translate(
+          offset: true ? Offset(0, _dragAlignment.x.abs() * 5) : Offset.zero,
+          child: Transform.rotate(
+            origin: Offset(
+                _dragAlignment.x.sign * csize.width / 2, csize.height / 2),
+            // alignment: Alignment(0, -_dragAlignment.x.abs() * 1.2),
+            angle: (pi / 180.0) * _dragAlignment.x * 3,
+            child: Container(
+              key: _cardKey,
+              child: widget.child,
+            ),
           ),
         ),
       ),
