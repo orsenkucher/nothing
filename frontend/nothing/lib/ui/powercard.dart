@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 
 class PowerCard extends StatefulWidget {
   final Widget child;
@@ -34,33 +35,45 @@ class _PowerCardState extends State<PowerCard>
 
   @override
   Widget build(BuildContext context) {
-    final rotAnim = Tween<double>(begin: 0, end: 0 * pi).animate(_controller);
-    final transAnim = RelativeRectTween(
-      begin: RelativeRect.fromLTRB(0, 0, 0, 0),
-      end: RelativeRect.fromLTRB(100.0 + 100, 150.0 + 100, -300, 150.0 + 100),
+    final offsetAnim = RectTween(
+      begin: Rect.fromLTRB(0, 0, 100, 100),
+      end: Rect.fromLTRB(100, 100, 200, 200),
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(
-          0.125,
-          0.250,
-          curve: Curves.easeOutQuint,
-        ),
+        curve: Curves.linear,
       ),
     );
     return AnimatedBuilder(
-      animation: rotAnim,
+      animation: offsetAnim,
       child: widget.child,
       builder: (context, child) {
-        return PositionedTransition(
-          rect: transAnim,
-          child: Transform.rotate(
-            angle: rotAnim.value,
-            child: GestureDetector(
-              onTap: () =>
-                  _controller.forward().then((_) => _controller.reverse()),
-              child: child,
-            ),
+        return RelativePositionedTransition(
+          // size: MediaQuery.of(context).size,
+          size: Size(0, 0),
+          // position: offsetAnim,
+          rect: offsetAnim,
+          child: GestureDetector(
+            onTap: () {
+              _controller.forward().then((_) => _controller.reverse());
+            },
+
+            // onTap: () {
+            //   const spring = SpringDescription(
+            //     mass: 30,
+            //     stiffness: 1,
+            //     damping: 1,
+            //   );
+
+            //   final simulation = SpringSimulation(spring, 0, 1, 0);
+            //   _controller
+            //       .animateWith(simulation)
+            //       // .animateTo()
+            //       .then((_) => _controller.reverse());
+            //   // _controller.forward().then((_) => _controller.reverse());
+            // },
+
+            child: child,
           ),
         );
       },
