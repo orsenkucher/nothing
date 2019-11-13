@@ -47,7 +47,8 @@ class _SwipeCardState extends State<SwipeCard>
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     final csize =
-        (_cardKey.currentContext.findRenderObject() as RenderBox).size;
+        (_cardKey.currentContext?.findRenderObject() as RenderBox)?.size ??
+            Size.zero;
     // print(_dragAlignment.x);
     return GestureDetector(
       onPanDown: (details) {
@@ -116,7 +117,7 @@ class _SwipeCardState extends State<SwipeCard>
       size.height * ratioY,
     ).distance;
     // print(multiplier);
-    final magnified = normed * multiplier;
+    final magnified = normed * multiplier / 2; // do not need to "/2"
     _animation = _controller.drive(
       AlignmentTween(
         begin: _dragAlignment,
@@ -128,7 +129,7 @@ class _SwipeCardState extends State<SwipeCard>
 
     _controller.animateWith(simulation).then((_) {
       sleep(Duration(milliseconds: 500));
-      _dragAlignment = Alignment.center;
+      // _dragAlignment = Alignment.center;
     });
   }
 
