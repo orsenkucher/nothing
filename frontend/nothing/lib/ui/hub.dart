@@ -5,6 +5,7 @@ import 'package:nothing/ui/powercard.dart';
 import 'package:nothing/ui/solve_problems.dart';
 import 'package:nothing/ui/swipecard.dart' as swp;
 import 'package:nothing/ui/tinder.dart';
+import 'package:nothing/ui/dev/cards.dart' as dev;
 
 class Hub extends StatelessWidget {
   @override
@@ -19,29 +20,45 @@ class Hub extends StatelessWidget {
       "assets/welcome1.png",
       "assets/welcome1.png"
     ];
+
     return Scaffold(
-      body: CardDeck(
-        totalCount: 10,
-        stackCount: 4,
-        cardBuilder: (context, idx, isActive) {
-          return Card(
-            elevation: isActive ? 7 : 1,
-            child: FractionallySizedBox(
-              widthFactor: 0.85,
-              heightFactor: 0.85,
-              child: Center(
-                child: Text(
-                  "$idx",
-                  style: TextStyle(
-                    fontSize: 180,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+      body: dev.Cards(
+        cardBuilder: (context, child, active, index) {
+          return FractionallySizedBox(
+            widthFactor: 0.8,
+            heightFactor: 0.8,
+            child: Card(child: child),
           );
         },
+        contentBuilder: (context, index) {
+          return Center(child: Text('$index', style: TextStyle(fontSize: 180)));
+        },
+        stackCount: 4,
+        totalCount: 10,
       ),
+
+      // body: CardDeck(
+      //   totalCount: 10,
+      //   stackCount: 4,
+      //   cardBuilder: (context, idx, isActive) {
+      //     return Card(
+      //       elevation: isActive ? 7 : 1,
+      //       child: FractionallySizedBox(
+      //         widthFactor: 0.85,
+      //         heightFactor: 0.85,
+      //         child: Center(
+      //           child: Text(
+      //             "$idx",
+      //             style: TextStyle(
+      //               fontSize: 180,
+      //               fontWeight: FontWeight.bold,
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //     );
+      //   },
+      // ),
 
       // body: swp.SwipeCard(
       //   horizontalMultiplier: 0.7, //1.25
@@ -92,9 +109,9 @@ class Hub extends StatelessWidget {
     );
   }
 
-  Widget _spawnContent() {
-    return FlutterLogo(
-      size: 100,
-    );
-  }
+  // Widget _spawnContent() {
+  //   return FlutterLogo(
+  //     size: 100,
+  //   );
+  // }
 }
