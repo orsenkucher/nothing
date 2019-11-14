@@ -82,7 +82,7 @@ class _SwipeCardState extends State<SwipeCard>
             origin: Offset(
                 _dragAlignment.x.sign * csize.width / 2, csize.height / 2),
             // alignment: Alignment(0, -_dragAlignment.x.abs() * 1.2),
-            angle: (pi / 180.0) * _dragAlignment.x * 3,
+            angle: -(pi / 180.0) * _dragAlignment.x * 3,
             child: Container(
               key: _cardKey,
               child: widget.child,
@@ -117,7 +117,7 @@ class _SwipeCardState extends State<SwipeCard>
       size.height * ratioY,
     ).distance;
     // print(multiplier);
-    final magnified = normed * multiplier / 2; // do not need to "/2"
+    final magnified = normed * multiplier;
     _animation = _controller.drive(
       AlignmentTween(
         begin: _dragAlignment,

@@ -96,11 +96,8 @@ class Hub extends StatelessWidget {
   }
 
   Widget _spawnContent() {
-    return Card(
-      elevation: 7,
-      child: FlutterLogo(
-        size: 100,
-      ),
+    return FlutterLogo(
+      size: 100,
     );
   }
 }
