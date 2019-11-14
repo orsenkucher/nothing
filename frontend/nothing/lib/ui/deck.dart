@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:nothing/ui/swipecard.dart';
 
-typedef Widget CardBuilder(BuildContext context, int index);
+typedef Widget CardBuilder(BuildContext context, int index, bool isActive);
 
 class CardDeck extends StatefulWidget {
   final CardBuilder _cardBuilder;
@@ -23,7 +24,7 @@ class CardDeck extends StatefulWidget {
 }
 
 class _CardDeckState extends State<CardDeck> {
-  int index = 8;
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,15 @@ class _CardDeckState extends State<CardDeck> {
         for (int i = min(widget._stackCount + index, widget._totalCount) - 1;
             i >= index;
             i--)
-          widget._cardBuilder(context, i),
+          SwipeCard(
+            key: UniqueKey(),
+            horizontalMultiplier: 0.7, //1.25
+            verticalMultiplier: 0.0,
+            index: i - index,
+            isActive: index == i,
+            child: widget._cardBuilder(context, i, index == i),
+            callback: (i) => setState(() => index++),
+          ),
       ],
     );
   }

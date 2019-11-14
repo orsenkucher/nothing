@@ -23,21 +23,18 @@ class Hub extends StatelessWidget {
       body: CardDeck(
         totalCount: 10,
         stackCount: 4,
-        cardBuilder: (context, idx) {
-          return swp.SwipeCard(
-            horizontalMultiplier: 0.7, //1.25
-            verticalMultiplier: 0.0,
-            child: Card(
-              elevation: 7,
-              child: FractionallySizedBox(
-                widthFactor: 0.85,
-                heightFactor: 0.85,
-                child: FittedBox(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [for (int i = 0; i <= idx; i++) _spawnContent()],
+        cardBuilder: (context, idx, isActive) {
+          return Card(
+            elevation: isActive ? 7 : 1,
+            child: FractionallySizedBox(
+              widthFactor: 0.85,
+              heightFactor: 0.85,
+              child: Center(
+                child: Text(
+                  "$idx",
+                  style: TextStyle(
+                    fontSize: 180,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
