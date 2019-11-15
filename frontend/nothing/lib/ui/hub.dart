@@ -24,11 +24,7 @@ class Hub extends StatelessWidget {
     return Scaffold(
       body: dev.Cards(
         cardBuilder: (context, child, active, index) {
-          return FractionallySizedBox(
-            widthFactor: 0.8,
-            heightFactor: 0.8,
-            child: Card(child: child),
-          );
+          return Card(child: child);
         },
         contentBuilder: (context, index) {
           return Center(child: Text('$index', style: TextStyle(fontSize: 180)));
