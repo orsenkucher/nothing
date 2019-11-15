@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:nothing/ui/cards.dart';
 import 'package:nothing/ui/deck.dart';
@@ -23,14 +25,20 @@ class Hub extends StatelessWidget {
 
     return Scaffold(
       body: dev.Cards(
-        cardBuilder: (context, child, active, index) {
-          return Card(child: child);
+        cardBuilder: (context, child, index, lerp) {
+          return Material(
+            borderRadius: BorderRadius.circular(16),
+            elevation: lerpDouble(1, 7, lerp), //active ? 7 : 1,
+            child: child,
+          );
         },
         contentBuilder: (context, index) {
           return Center(child: Text('$index', style: TextStyle(fontSize: 180)));
         },
         stackCount: 4,
         totalCount: 10,
+        heightFactor: 0.85,
+        widthFactor: 0.85,
       ),
 
       // body: CardDeck(

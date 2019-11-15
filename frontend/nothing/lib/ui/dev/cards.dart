@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 typedef Widget CardBuilder(
-    BuildContext context, Widget child, bool active, int stackIndex);
+    BuildContext context, Widget child, int stackIndex, double activeLerp);
 typedef Widget ContentBuilder(BuildContext context, int index);
 
 // Align version
@@ -36,11 +36,16 @@ class Cards extends StatefulWidget {
 }
 
 class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
+  final _horizontalMultiplier = 1;
+  final _verticalMultiplier = 0;
   AnimationController _controller;
   int _index = 0;
   List<Size> _sizes = List<Size>();
   List<Alignment> _aligns = List<Alignment>();
-  double _normedOffset = 0.5;
+  double _normedOffset = 0;
+  double _normedOffsetAcc = 0;
+
+  Alignment _dragAlignment = Alignment.center;
 
   @override
   void initState() {
@@ -62,7 +67,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     for (int i = 0; i < widget._stackCount + 1; i++) {
       _sizes.add(Size(
         size.width * widget._widthFactor -
-            (gap.width / widget._stackCount) * i * 2.5,
+            (gap.width / widget._stackCount) * i, // * 2.5,
         size.height * widget._heightFactor -
             (gap.height / widget._stackCount) * i,
       ));
@@ -98,61 +103,92 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
         width: mainCardSize.width,
         height: mainCardSize.height,
         child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: (upd) {
+            _normedOffsetAcc +=
+                upd.delta.dx * 2 / MediaQuery.of(context).size.width;
+            _normedOffset = min(max(-1, _normedOffsetAcc), 1);
             setState(() {
-              _normedOffset += upd.delta.dx / MediaQuery.of(context).size.width;
+              assert(_normedOffset >= -1 && _normedOffset <= 1);
+            });
+            // print(_normedOffset);
+            final cardSize = _sizes[0];
+            final size = MediaQuery.of(context).size;
+            setState(() {
+              _dragAlignment += Alignment(
+                upd.delta.dx /
+                    (size.width - cardSize.width) *
+                    2 *
+                    _horizontalMultiplier,
+                upd.delta.dy /
+                    (size.height - cardSize.height) *
+                    2 *
+                    _verticalMultiplier,
+              );
             });
           },
-          child: Container(color: Colors.green.withAlpha(50)),
+          child: Container(
+              // color: Colors.green.withAlpha(50),
+              ),
         ),
       ),
     );
   }
 
   List<Widget> _buildCards(BuildContext context) {
-    var start = min(widget._stackCount + _index, widget._totalCount) - 1;
+    var start = min(widget._stackCount + _index + 1, widget._totalCount) - 1;
     var end = _index;
     return [
-      // build transparent card here
-      for (int i = start; i >= end + 1; i--) _buildCard(context, i),
+      _buildTransparentCard(context, start),
+      for (int i = start - 1; i >= end + 1; i--)
+        _buildCard(context, i, i == end + 1),
       _buildFrontCard(context, end),
     ];
   }
 
   Widget _buildFrontCard(BuildContext context, int idx) {
     var size = _sizes[idx];
-    var align = _aligns[idx];
+    // var align = _aligns[idx];
     return Align(
-      alignment: align,
+      alignment: _dragAlignment,
       child: SizedBox(
         width: size.width,
         height: size.height,
         child: widget._cardBuilder(
           context,
           widget._contentBuilder(context, idx),
-          idx == _index,
+          // idx == _index,
           idx - _index,
+          1,
         ),
       ),
     );
   }
 
-  Widget _buildCard(BuildContext context, int idx) {
+  Widget _buildTransparentCard(BuildContext context, int idx) {
+    return Opacity(
+      opacity: _normedOffset.abs(),
+      child: _buildCard(context, idx),
+    );
+  }
+
+  Widget _buildCard(BuildContext context, int idx, [beforeLast = false]) {
     final curSize = _sizes[idx];
     final curAlign = _aligns[idx];
     final nextSize = _sizes[idx - 1];
     final nextAlign = _aligns[idx - 1];
     return Align(
-      alignment: Alignment.lerp(curAlign, nextAlign, _normedOffset),
+      alignment: Alignment.lerp(curAlign, nextAlign, _normedOffset.abs()),
       child: SizedBox(
-        width: lerpDouble(curSize.width, nextSize.width, _normedOffset),
-        height: lerpDouble(curSize.height, nextSize.height, _normedOffset),
+        width: lerpDouble(curSize.width, nextSize.width, _normedOffset.abs()),
+        height:
+            lerpDouble(curSize.height, nextSize.height, _normedOffset.abs()),
         child: widget._cardBuilder(
-          context,
-          widget._contentBuilder(context, idx),
-          idx == _index,
-          idx - _index,
-        ),
+            context,
+            widget._contentBuilder(context, idx),
+            // idx == _index,
+            idx - _index,
+            beforeLast ? _normedOffset.abs() : 0),
       ),
     );
   }
