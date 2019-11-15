@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 
 typedef Widget CardBuilder(
     BuildContext context, Widget child, int stackIndex, double activeLerp);
@@ -36,14 +37,15 @@ class Cards extends StatefulWidget {
 }
 
 class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
-  final _horizontalMultiplier = 1;
-  final _verticalMultiplier = 0;
+  double _horizontalMultiplier = 1;
+  double _verticalMultiplier = 0;
   AnimationController _controller;
   int _index = 0;
   List<Size> _sizes = List<Size>();
   List<Alignment> _aligns = List<Alignment>();
   double _normedOffset = 0;
   double _normedOffsetAcc = 0;
+  Animation<Alignment> _animation;
 
   Alignment _dragAlignment = Alignment.center;
 
@@ -51,6 +53,13 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    _controller.addListener(() {
+      setState(() {
+        _dragAlignment = _animation.value;
+        _normedOffsetAcc += _controller.value;
+        _normedOffset = min(max(-1, _normedOffsetAcc), 1);
+      });
+    });
   }
 
   @override
@@ -127,6 +136,10 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
               );
             });
           },
+          onHorizontalDragEnd: (details) {
+            _runAnimation(
+                details.velocity.pixelsPerSecond, MediaQuery.of(context).size);
+          },
           child: Container(
               // color: Colors.green.withAlpha(50),
               ),
@@ -138,28 +151,39 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   List<Widget> _buildCards(BuildContext context) {
     var start = min(widget._stackCount + _index + 1, widget._totalCount) - 1;
     var end = _index;
+    // print('start: $start; end: $end.');
+    // var start = widget._stackCount;
+    // var end = 0;
+    var tnd = // transparentNeeded
+        _index < widget._totalCount - widget._stackCount - 1;
     return [
-      _buildTransparentCard(context, start),
-      for (int i = start - 1; i >= end + 1; i--)
+      if (tnd) _buildTransparentCard(context, start),
+      for (int i = start - (tnd ? 1 : 0); i >= end + 1; i--) //  end + 1
+        // for (int i = start - 1; i >= end + 1; i--)
         _buildCard(context, i, i == end + 1),
-      _buildFrontCard(context, end),
+      if (_index < widget._totalCount) _buildFrontCard(context, end),
     ];
   }
 
   Widget _buildFrontCard(BuildContext context, int idx) {
-    var size = _sizes[idx];
+    var size = _sizes[0];
     // var align = _aligns[idx];
     return Align(
       alignment: _dragAlignment,
-      child: SizedBox(
-        width: size.width,
-        height: size.height,
-        child: widget._cardBuilder(
-          context,
-          widget._contentBuilder(context, idx),
-          // idx == _index,
-          idx - _index,
-          1,
+      child: Transform.rotate(
+        // origin: Offset(_dragAlignment.x.sign * size.width / 2, size.height / 2),
+        angle: (pi / 180.0) * _dragAlignment.x * 1,
+        child: SizedBox(
+          key: UniqueKey(),
+          width: size.width,
+          height: size.height,
+          child: widget._cardBuilder(
+            context,
+            widget._contentBuilder(context, idx),
+            // idx == _index,
+            idx - _index,
+            1,
+          ),
         ),
       ),
     );
@@ -173,13 +197,15 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   }
 
   Widget _buildCard(BuildContext context, int idx, [beforeLast = false]) {
-    final curSize = _sizes[idx];
-    final curAlign = _aligns[idx];
-    final nextSize = _sizes[idx - 1];
-    final nextAlign = _aligns[idx - 1];
+    // print(idx);
+    final curSize = _sizes[idx - _index];
+    final curAlign = _aligns[idx - _index];
+    final nextSize = _sizes[idx - 1 - _index];
+    final nextAlign = _aligns[idx - 1 - _index];
     return Align(
       alignment: Alignment.lerp(curAlign, nextAlign, _normedOffset.abs()),
       child: SizedBox(
+        key: UniqueKey(),
         width: lerpDouble(curSize.width, nextSize.width, _normedOffset.abs()),
         height:
             lerpDouble(curSize.height, nextSize.height, _normedOffset.abs()),
@@ -191,5 +217,88 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
             beforeLast ? _normedOffset.abs() : 0),
       ),
     );
+  }
+
+// Anim
+  void _runAnimation(Offset offset, Size size) {
+    if (offset.distanceSquared < 9) {
+      _animateBack(offset, size);
+    } else {
+      _animateOutside(offset, size);
+    }
+  }
+
+  void _animateOutside(Offset pixelsPerSecond, Size size) {
+    var normed = pixelsPerSecond / pixelsPerSecond.distance;
+    normed = pixelsPerSecond.scale(
+      _horizontalMultiplier,
+      _verticalMultiplier,
+    );
+    normed = normed / normed.distance;
+    // final RenderBox cardRenderBox = _cardKey.currentContext.findRenderObject();
+    // final cardSize = cardRenderBox.size;
+    final cardSize = _sizes[0];
+    final ratioX = 1 / (size.width - cardSize.width) * 2;
+    final ratioY = 1 / (size.height - cardSize.height) * 2;
+    final multiplier = Offset(
+      size.width * ratioX,
+      size.height * ratioY,
+    ).distance;
+    // print(multiplier);
+    final magnified = normed * multiplier / 1.3; //* 1.1;
+    _animation = _controller.drive(
+      AlignmentTween(
+        begin: _dragAlignment,
+        end: Alignment(magnified.dx, magnified.dy),
+      ),
+    );
+
+    final simulation = _simulateSpring(pixelsPerSecond, size);
+    // _controller.addListener((){});
+    _controller.animateWith(simulation).then((_) {
+      setState(() {
+        _index++;
+        print(_index);
+      });
+      setState(() {
+        _normedOffsetAcc = 0;
+        _normedOffset = 0;
+        _dragAlignment = Alignment.center;
+      });
+    });
+  }
+
+  void _animateBack(Offset pixelsPerSecond, Size size) {
+    _animation = _controller.drive(
+      AlignmentTween(
+        begin: _dragAlignment,
+        end: Alignment.center,
+      ),
+    );
+
+    final simulation = _simulateSpring(pixelsPerSecond, size);
+
+    _controller.animateWith(simulation).then((_) {
+      setState(() {
+        _normedOffsetAcc = 0;
+        _normedOffset = 0;
+      });
+    });
+  }
+
+  SpringSimulation _simulateSpring(Offset pixelsPerSecond, Size size) {
+    final unitsPerSecondX = pixelsPerSecond.dx / size.width;
+    final unitsPerSecondY = pixelsPerSecond.dy / size.height;
+    final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
+    final unitVelocity = unitsPerSecond.distance;
+
+    const spring = SpringDescription(
+      mass: 30,
+      stiffness: 1,
+      damping: 1,
+    );
+
+    final simulation = SpringSimulation(spring, 0, 1, -unitVelocity);
+    return simulation;
   }
 }
