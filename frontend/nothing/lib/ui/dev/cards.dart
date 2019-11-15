@@ -37,26 +37,62 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+
+    if (ethereal != null) {
+      ethereal.remove();
+    }
+    ethereal = OverlayEntry(
+      opaque: false,
+      builder: (context) => etherealGestureBuilder(context),
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Overlay.of(context).insert(ethereal);
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    ethereal.remove();
     super.dispose();
   }
+
+  Widget etherealGestureBuilder(BuildContext context) {
+    final RenderBox cardRenderBox = key.currentContext.findRenderObject();
+    final size = cardRenderBox.size;
+    return Positioned(
+      left: 0,
+      top: 0,
+      child: SizedBox(
+        width: size.width,
+        height: size.height,
+        child: _gestureDetector(context),
+      ),
+    );
+  }
+
+  OverlayEntry ethereal;
+  GlobalKey etherealKey = GlobalKey();
+  GlobalKey key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        Container(key: key, child: _buildCard(context, 0)),
         ..._buildCards(context),
-        _gestureDetector(context),
       ],
     );
   }
 
   Widget _gestureDetector(BuildContext context) {
-    return SizedBox(child: Container(color: Colors.blue));
+    return GestureDetector(
+      onHorizontalDragUpdate: (upd) {
+        print(upd.delta);
+      },
+      child: Container(color: Colors.green.withAlpha(50)),
+    );
   }
 
   List<Widget> _buildCards(BuildContext context) {
