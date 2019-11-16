@@ -56,8 +56,8 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     _controller.addListener(() {
       setState(() {
         _dragAlignment = _animation.value;
-        _normedOffsetAcc += _controller.value;
-        _normedOffset = min(max(-1, _normedOffsetAcc), 1);
+        // _normedOffsetAcc += _controller.value;
+        // _normedOffset = min(max(-1, _normedOffsetAcc), 1);
       });
     });
   }
@@ -155,7 +155,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     // var start = widget._stackCount;
     // var end = 0;
     var tnd = // transparentNeeded
-        _index < widget._totalCount - widget._stackCount - 1;
+        _index <= widget._totalCount - widget._stackCount - 1;
     return [
       if (tnd) _buildTransparentCard(context, start),
       for (int i = start - (tnd ? 1 : 0); i >= end + 1; i--) //  end + 1
@@ -253,9 +253,23 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
       ),
     );
 
-    final simulation = _simulateSpring(pixelsPerSecond, size);
     // _controller.addListener((){});
+    // final rndValue = -Random().nextInt(2000);
+    final normedSnap = _normedOffset;
+    var myl = () {
+      // print('outside $rndValue');
+      setState(() {
+        // _normedOffsetAcc += _controller.value;
+        // _normedOffset = min(max(-1, _normedOffsetAcc), 1);
+        _normedOffset =
+            lerpDouble(normedSnap, 1 * normedSnap.sign, _controller.value);
+      });
+    };
+    final simulation = _simulateSpring(pixelsPerSecond, size);
+    _controller.addListener(myl);
+    // _normedOffsetAcc = 0;
     _controller.animateWith(simulation).then((_) {
+      _controller.removeListener(myl);
       setState(() {
         _index++;
         print(_index);
@@ -277,8 +291,19 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     );
 
     final simulation = _simulateSpring(pixelsPerSecond, size);
-
+    // final rndValue = Random().nextInt(1000);
+    final normedSnap = _normedOffset;
+    var myl = () {
+      // print('back $rndValue');
+      setState(() {
+        // _normedOffsetAcc -= _controller.value;
+        // _normedOffset = min(max(-1, _normedOffsetAcc), 1);
+        _normedOffset = lerpDouble(normedSnap, 0, _controller.value);
+      });
+    };
+    _controller.addListener(myl);
     _controller.animateWith(simulation).then((_) {
+      _controller.removeListener(myl);
       setState(() {
         _normedOffsetAcc = 0;
         _normedOffset = 0;
