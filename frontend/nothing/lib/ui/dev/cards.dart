@@ -80,9 +80,10 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
         size.height * widget._heightFactor -
             (gap.height / widget._stackCount) * i,
       ));
+      var currgapheight = (size.height - _sizes[i].height) / 2;
       _aligns.add(Alignment(
         0.0,
-        (0.7 / (widget._stackCount - 1)) * i,
+        _sizes[0].height * 0.1 * i / currgapheight,
       ));
     }
   }
@@ -141,7 +142,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
                 details.velocity.pixelsPerSecond, MediaQuery.of(context).size);
           },
           child: Container(
-              // color: Colors.green.withAlpha(50),
+              //color: Colors.green.withAlpha(50),
               ),
         ),
       ),
@@ -209,12 +210,17 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
         width: lerpDouble(curSize.width, nextSize.width, _normedOffset.abs()),
         height:
             lerpDouble(curSize.height, nextSize.height, _normedOffset.abs()),
-        child: widget._cardBuilder(
-            context,
-            widget._contentBuilder(context, idx),
-            // idx == _index,
-            idx - _index,
-            beforeLast ? _normedOffset.abs() : 0),
+        child: Opacity(
+          opacity: 1 -
+              lerpDouble(0.25 * (idx - _index), 0.25 * (idx - _index - 1),
+                  _normedOffset.abs()),
+          child: widget._cardBuilder(
+              context,
+              widget._contentBuilder(context, idx),
+              // idx == _index,
+              idx - _index,
+              beforeLast ? _normedOffset.abs() : 0),
+        ),
       ),
     );
   }
@@ -245,7 +251,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
       size.height * ratioY,
     ).distance;
     // print(multiplier);
-    final magnified = normed * multiplier / 1.3; //* 1.1;
+    final magnified = normed * multiplier; //* 1.1;
     _animation = _controller.drive(
       AlignmentTween(
         begin: _dragAlignment,

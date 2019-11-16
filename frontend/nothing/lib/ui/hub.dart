@@ -24,21 +24,26 @@ class Hub extends StatelessWidget {
     ];
 
     return Scaffold(
-      body: dev.Cards(
-        cardBuilder: (context, child, index, lerp) {
-          return Material(
-            borderRadius: BorderRadius.circular(16),
-            elevation: lerpDouble(1, 7, lerp), //active ? 7 : 1,
-            child: child,
-          );
-        },
-        contentBuilder: (context, index) {
-          return Center(child: Text('$index', style: TextStyle(fontSize: 180)));
-        },
-        stackCount: 4,
-        totalCount: 10,
-        heightFactor: 0.85,
-        widthFactor: 0.85,
+      body: Container(
+        color: Colors.blue,
+        child: dev.Cards(
+          cardBuilder: (context, child, index, lerp) {
+            return Material(
+              shadowColor: Colors.black.withAlpha(60),
+              borderRadius: BorderRadius.circular(28),
+              elevation: lerpDouble(1, 7, lerp), //active ? 7 : 1,
+              child: child,
+            );
+          },
+          contentBuilder: (context, index) {
+            return Center(
+                child: Text('$index', style: TextStyle(fontSize: 180)));
+          },
+          stackCount: 3,
+          totalCount: 10,
+          heightFactor: 0.60,
+          widthFactor: 0.85,
+        ),
       ),
 
       // body: CardDeck(
