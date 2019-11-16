@@ -118,6 +118,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
             _normedOffsetAcc +=
                 upd.delta.dx * 2 / MediaQuery.of(context).size.width;
             _normedOffset = min(max(-1, _normedOffsetAcc), 1);
+            print('$_normedOffsetAcc | $_normedOffset');
             setState(() {
               assert(_normedOffset >= -1 && _normedOffset <= 1);
             });
@@ -216,7 +217,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
                   _normedOffset.abs()),
           child: widget._cardBuilder(
               context,
-              widget._contentBuilder(context, idx),
+              beforeLast ? widget._contentBuilder(context, idx) : Container(),
               // idx == _index,
               idx - _index,
               beforeLast ? _normedOffset.abs() : 0),
@@ -241,6 +242,10 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
       _verticalMultiplier,
     );
     normed = normed / normed.distance;
+    if (normed.dx.sign != _normedOffset.sign) {
+      _animateBack(pixelsPerSecond, size);
+      return;
+    }
     // final RenderBox cardRenderBox = _cardKey.currentContext.findRenderObject();
     // final cardSize = cardRenderBox.size;
     final cardSize = _sizes[0];
