@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'dart:ui' as prefix0;
 
 import 'package:flutter/material.dart';
 import 'package:nothing/ui/cards.dart';
@@ -33,7 +34,7 @@ class Hub extends StatelessWidget {
             return Material(
               shadowColor: Colors.black.withAlpha(60),
               borderRadius: BorderRadius.circular(28),
-              elevation: lerpDouble(1, 7, lerp), //active ? 7 : 1,
+              elevation: lerpDouble(1, 7, lerp),
               child: child,
             );
           },

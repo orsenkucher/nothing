@@ -1,12 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 
 typedef Widget CardBuilder(
   BuildContext context,
   Widget child,
   int stackIndex,
-  double frontLerp,
+  double front,
 );
 
 typedef Widget ContentBuilder(
@@ -42,16 +43,25 @@ class Cards2 extends StatefulWidget {
   _Cards2State createState() => _Cards2State();
 }
 
-class _Cards2State extends State<Cards2> with SingleTickerProviderStateMixin {
+class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   AnimationController _controller;
 
   double _horizontalMultiplier = 1;
   double _verticalMultiplier = 0;
 
+  Size _screenSize;
   List<Size> _sizes = List<Size>();
   List<Alignment> _aligns = List<Alignment>();
 
   int _index = 0;
+  int _cntIndex = 0;
+
+  // double _frontOffset = 0;
+  double _frontOffsetNormed = 0; // [from -1; to 1]
+
+  List<Animation<Alignment>> _animations = List<Animation<Alignment>>();
+  // List<int> _animatingCards = List<int>();
+  // int _animatingCards = 0;
 
   @override
   void initState() {
@@ -71,13 +81,13 @@ class _Cards2State extends State<Cards2> with SingleTickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _refillSizes();
-    _refillAligns(_sizes);
+    _screenSize = MediaQuery.of(context).size;
+    _refillSizes(_screenSize);
+    _refillAligns(_screenSize, _sizes);
   }
 
-  void _refillSizes() {
+  void _refillSizes(Size full) {
     _sizes.clear();
-    final Size full = MediaQuery.of(context).size;
     final gap = Size(
       full.width * (1 - widget._widthFactor) / 2,
       full.height * (1 - widget._heightFactor) / 2,
@@ -94,9 +104,8 @@ class _Cards2State extends State<Cards2> with SingleTickerProviderStateMixin {
     }
   }
 
-  void _refillAligns(List<Size> sizes) {
+  void _refillAligns(Size full, List<Size> sizes) {
     _aligns.clear();
-    final Size full = MediaQuery.of(context).size;
     for (int i = 0; i < widget._stackCount + 1; i++) {
       var curGapHeight = (full.height - sizes[i].height) / 2;
       _aligns.add(
@@ -121,18 +130,50 @@ class _Cards2State extends State<Cards2> with SingleTickerProviderStateMixin {
     return Align(
       alignment: frontAlign,
       child: SizedBox(
-        width: frontSize.width,
+        width: _screenSize.width, //  frontSize.width,
         height: frontSize.height,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: (update) {
-            _controller.value += update.delta.dx / 100;
+            _calcFrontOffset(update.delta);
+            _controller.value = _frontOffsetNormed.abs();
           },
-          onHorizontalDragEnd: (end) {},
+          onHorizontalDragEnd: (end) {
+            _animate(end.velocity);
+          },
           child: Container(), // color: Colors.green.withAlpha(50)
         ),
       ),
     );
+  }
+
+  void _animate(Velocity v) {
+    final spring = _simulateSpring(v.pixelsPerSecond, _screenSize);
+    final controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    final anim = _calcAnimatingAlign(controller);
+    _animations.add(anim);
+    setState(() {
+      _index++;
+      // _animatingCards++;
+    });
+    controller.animateWith(spring).then((_) {
+      // _animatingCards--;
+      _animations.remove(anim);
+      _cntIndex++;
+      // controller.dispose();
+    });
+  }
+
+  void _calcFrontOffset(Offset offset) {
+    // _frontOffset += offset.dx / _screenSize.width;
+    _frontOffsetNormed += offset.dx / _screenSize.width;
+    _frontOffsetNormed = min(max(-1, _frontOffsetNormed), 1);
+    setState(() {
+      assert(_frontOffsetNormed >= -1 && _frontOffsetNormed <= 1);
+    });
   }
 
   bool _transparentCardNeeded() {
@@ -145,12 +186,111 @@ class _Cards2State extends State<Cards2> with SingleTickerProviderStateMixin {
     var tcn = _transparentCardNeeded();
     return [
       // if (tcn) _buildTransparentCard(context, start),
-      for (int i = start - (tcn ? 1 : 0); i >= end + 1; i--)
+      for (int i = start - (tcn ? 1 : 0);
+          i >= end + 1 + _animations.length;
+          i--)
         _buildCard(context, i - _index, i == end + 1),
-      // if (_index < widget._totalCount) _buildFrontCard(context, end),
+      if (_index < widget._totalCount)
+        _frontCard(context, end),
+      for (int i = 0; i < _animations.length; i++) _animatingCard(context, i),
     ];
   }
 
+  Widget _animatingCard(BuildContext context, int shift) {
+    final align = _animations[shift];
+    return _buildFrontCard(
+      _controller,
+      context,
+      shift,
+      align,
+    );
+  }
+
+  Widget _frontCard(BuildContext context, int stackIdx) {
+    final align = _calcFrontAlign(_controller);
+    return _buildFrontCard(
+      _controller,
+      context,
+      stackIdx,
+      align,
+    );
+  }
+
+  AnimatedBuilder _buildFrontCard(
+    AnimationController controller,
+    BuildContext context,
+    int stackIdx,
+    Animation<Alignment> align,
+  ) {
+    return AnimatedBuilder(
+      animation: controller,
+      child: widget._contentBuilder(context, stackIdx + _cntIndex),
+      builder: (context, child) {
+        return Align(
+          alignment: align.value,
+          child: Transform.rotate(
+            angle:
+                _frontOffsetNormed.sign * (pi / 180.0) * 8 * controller.value,
+            child: SizedBox(
+              width: _sizes[0].width,
+              height: _sizes[0].height,
+              child: widget._cardBuilder(
+                context,
+                child,
+                stackIdx,
+                1,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Animation<Alignment> _calcFrontAlign(AnimationController controller) {
+    final full = _screenSize;
+    final card = _sizes[0];
+    final gap = Size(
+      (full.width - card.width) / 2,
+      (full.height - card.height) / 2,
+    );
+    // print('gap $gap');
+    // print('card $card');
+    // print('full $full');
+    final align = AlignmentTween(
+      begin: _aligns[0],
+      end: Alignment(
+        _frontOffsetNormed.sign * (gap.width + card.width) / gap.width,
+        0, // (gap.height + card.height) / gap.height,
+      ),
+    ).animate(controller);
+    return align;
+  }
+
+  Animation<Alignment> _calcAnimatingAlign(AnimationController controller) {
+    final size = _screenSize;
+    final cardSize = _sizes[0];
+    final ratioX = 1 / (size.width - cardSize.width) * 2;
+    final ratioY = 1 / (size.height - cardSize.height) * 2;
+    final multiplier = Offset(
+      size.width * ratioX,
+      size.height * ratioY,
+    ).distance;
+    var normed = Offset(_frontOffsetNormed.sign, 0);
+    final magnified = normed * multiplier;
+    final align = AlignmentTween(
+      begin: _aligns[0],
+      end: Alignment(magnified.dx, magnified.dy),
+    ).animate(controller);
+    return align;
+  }
+
+  double _calcOpacity(int index) {
+    const drop = 0.25;
+    return max(min(1 - drop * index, 1), 0);
+  }
+
+//  Widget _middleCard(){}
   Widget _buildCard(
     BuildContext context,
     int stackIdx, [
@@ -164,18 +304,14 @@ class _Cards2State extends State<Cards2> with SingleTickerProviderStateMixin {
       begin: _aligns[stackIdx],
       end: _aligns[stackIdx - 1],
     ).animate(_controller);
-    final calcOpacity = (int index) {
-      const drop = 0.25;
-      return max<double>(min<double>(1 - drop * index, 1), 0);
-    };
     final opacity = Tween<double>(
-      begin: calcOpacity(stackIdx),
-      end: calcOpacity(stackIdx - 1),
+      begin: _calcOpacity(stackIdx),
+      end: _calcOpacity(stackIdx - 1),
     ).animate(_controller);
     return AnimatedBuilder(
       animation: _controller,
       child: underFront
-          ? widget._contentBuilder(context, stackIdx + _index)
+          ? widget._contentBuilder(context, stackIdx + _cntIndex)
           : Container(),
       builder: (context, child) {
         return Align(
@@ -189,12 +325,28 @@ class _Cards2State extends State<Cards2> with SingleTickerProviderStateMixin {
                 context,
                 child,
                 stackIdx,
-                underFront ? 1 : 0, // TODO
+                underFront ? _controller.value : 0,
               ),
             ),
           ),
         );
       },
     );
+  }
+
+  SpringSimulation _simulateSpring(Offset pixelsPerSecond, Size size) {
+    final unitsPerSecondX = pixelsPerSecond.dx / size.width;
+    final unitsPerSecondY = pixelsPerSecond.dy / size.height;
+    final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
+    final unitVelocity = unitsPerSecond.distance;
+
+    const spring = SpringDescription(
+      mass: 40,
+      stiffness: 1,
+      damping: 1,
+    );
+
+    final simulation = SpringSimulation(spring, 0, 1, -unitVelocity);
+    return simulation;
   }
 }
