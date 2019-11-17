@@ -130,7 +130,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     return Align(
       alignment: frontAlign,
       child: SizedBox(
-        width: _screenSize.width, //  frontSize.width,
+        width: frontSize.width,
         height: frontSize.height,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
@@ -140,6 +140,10 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
           },
           onHorizontalDragEnd: (end) {
             _animate(end.velocity);
+            // setState(() {
+            //   _index++;
+            //   _cntIndex++;
+            // });
           },
           child: Container(), // color: Colors.green.withAlpha(50)
         ),
@@ -149,22 +153,35 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
 
   void _animate(Velocity v) {
     final spring = _simulateSpring(v.pixelsPerSecond, _screenSize);
-    final controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 1),
-    );
-    final anim = _calcAnimatingAlign(controller);
-    _animations.add(anim);
+    // final controller = AnimationController(
+    //   vsync: this,
+    //   duration: Duration(seconds: 1),
+    // );
+    // final anim = _calcAnimatingAlign(controller);
+    // _animations.add(anim);
+
+    _controller.animateWith(spring);
     setState(() {
-      _index++;
-      // _animatingCards++;
-    });
-    controller.animateWith(spring).then((_) {
-      // _animatingCards--;
-      _animations.remove(anim);
       _cntIndex++;
-      // controller.dispose();
     });
+
+    // // _controller.reset();
+    // // _frontOffsetNormed = 0;
+    // final anim = _calcAnimatingAlign(controller);
+    // _animations.add(anim);
+    // setState(() {
+    //   // _index++;
+    //   // _animatingCards++;
+    // });
+    // controller.animateWith(spring).then((_) {
+    //   // _animatingCards--;
+    //   _animations.remove(anim);
+    //   _cntIndex++;
+    //   // controller.dispose();
+
+    //   _controller.reset();
+    //   _frontOffsetNormed = 0;
+    // });
   }
 
   void _calcFrontOffset(Offset offset) {
@@ -187,12 +204,12 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     return [
       // if (tcn) _buildTransparentCard(context, start),
       for (int i = start - (tcn ? 1 : 0);
-          i >= end + 1 + _animations.length;
+          i >= end + 1; //+ _animations.length;
           i--)
         _buildCard(context, i - _index, i == end + 1),
       if (_index < widget._totalCount)
-        _frontCard(context, end),
-      for (int i = 0; i < _animations.length; i++) _animatingCard(context, i),
+        _frontCard(context, end - _index),
+      // for (int i = 0; i < _animations.length; i++) _animatingCard(context, i),
     ];
   }
 
@@ -232,6 +249,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
             angle:
                 _frontOffsetNormed.sign * (pi / 180.0) * 8 * controller.value,
             child: SizedBox(
+              // key: UniqueKey(),
               width: _sizes[0].width,
               height: _sizes[0].height,
               child: widget._cardBuilder(
@@ -317,6 +335,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         return Align(
           alignment: align.value,
           child: SizedBox(
+            // key: UniqueKey(),
             width: size.value.width,
             height: size.value.height,
             child: Opacity(
