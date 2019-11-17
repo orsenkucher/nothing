@@ -153,17 +153,39 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
 
   void _animate(Velocity v) {
     final spring = _simulateSpring(v.pixelsPerSecond, _screenSize);
-    // final controller = AnimationController(
-    //   vsync: this,
-    //   duration: Duration(seconds: 1),
-    // );
-    // final anim = _calcAnimatingAlign(controller);
-    // _animations.add(anim);
+    final controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    final anim = _calcAnimatingAlign(controller);
+    _animations.add(anim);
+    print(_animations.length);
+    // setState(() {
+    //   _index++;
+    // });
+    // setState(() {
+    //   _cntIndex++;
+    // });
+    // var f = controller.animateWith(spring);
+    var f = controller.forward();
+    f.then((_) {
+      _animations.remove(anim);
+      controller.dispose();
+      print(_animations.length);
+      // _index++;
 
-    _controller.animateWith(spring);
-    setState(() {
-      _cntIndex++;
+      // setState(() {
+      //   _cntIndex++;
+      // });
+      // _frontOffsetNormed = 0;
     });
+
+    // _controller.animateWith(spring);
+    // _controller.reverse();
+    // _frontOffsetNormed = 0;
+    // setState(() {
+    //   _cntIndex++;
+    // });
 
     // // _controller.reset();
     // // _frontOffsetNormed = 0;
@@ -209,7 +231,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         _buildCard(context, i - _index, i == end + 1),
       if (_index < widget._totalCount)
         _frontCard(context, end - _index),
-      // for (int i = 0; i < _animations.length; i++) _animatingCard(context, i),
+      // if (_index < widget._totalCount)
+      for (int i = 0; i < _animations.length; i++) _animatingCard(context, i),
     ];
   }
 
@@ -218,7 +241,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     return _buildFrontCard(
       _controller,
       context,
-      shift,
+      -shift,
       align,
     );
   }
