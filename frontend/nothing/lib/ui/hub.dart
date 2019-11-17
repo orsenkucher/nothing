@@ -9,6 +9,8 @@ import 'package:nothing/ui/swipecard.dart' as swp;
 import 'package:nothing/ui/tinder.dart';
 import 'package:nothing/ui/dev/cards.dart' as dev;
 
+import 'package:nothing/ui/dev/cards2.dart';
+
 class Hub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class Hub extends StatelessWidget {
     return Scaffold(
       body: Container(
         color: Colors.blue,
-        child: dev.Cards(
+        child: Cards2(
           cardBuilder: (context, child, index, lerp) {
             return Material(
               shadowColor: Colors.black.withAlpha(60),
@@ -39,7 +41,7 @@ class Hub extends StatelessWidget {
             return Center(
                 child: Text('$index', style: TextStyle(fontSize: 180)));
           },
-          stackCount: 3,
+          stackCount: 5,
           totalCount: 10,
           heightFactor: 0.60,
           widthFactor: 0.85,
