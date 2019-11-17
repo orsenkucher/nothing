@@ -30,7 +30,8 @@ class Cards extends StatefulWidget {
         _stackCount = stackCount,
         _widthFactor = widthFactor,
         _heightFactor = heightFactor,
-        assert(stackCount <= totalCount);
+        assert(stackCount <= totalCount),
+        assert(stackCount > 0);
 
   @override
   _CardsState createState() => _CardsState();
@@ -118,7 +119,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
             _normedOffsetAcc +=
                 upd.delta.dx * 2 / MediaQuery.of(context).size.width;
             _normedOffset = min(max(-1, _normedOffsetAcc), 1);
-            print('$_normedOffsetAcc | $_normedOffset');
+            // print('$_normedOffsetAcc | $_normedOffset');
             setState(() {
               assert(_normedOffset >= -1 && _normedOffset <= 1);
             });
@@ -329,7 +330,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     final unitVelocity = unitsPerSecond.distance;
 
     const spring = SpringDescription(
-      mass: 30,
+      mass: 40,
       stiffness: 1,
       damping: 1,
     );

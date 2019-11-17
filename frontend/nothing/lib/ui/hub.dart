@@ -12,16 +12,16 @@ import 'package:nothing/ui/dev/cards.dart' as dev;
 class Hub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    CardController controller;
-    List<String> welcomeImages = [
-      "assets/welcome0.png",
-      "assets/welcome1.png",
-      "assets/welcome2.png",
-      "assets/welcome2.png",
-      "assets/welcome1.png",
-      "assets/welcome1.png"
-    ];
+    // final size = MediaQuery.of(context).size;
+    // CardController controller;
+    // List<String> welcomeImages = [
+    //   "assets/welcome0.png",
+    //   "assets/welcome1.png",
+    //   "assets/welcome2.png",
+    //   "assets/welcome2.png",
+    //   "assets/welcome1.png",
+    //   "assets/welcome1.png"
+    // ];
 
     return Scaffold(
       body: Container(
