@@ -43,6 +43,15 @@ class Cards2 extends StatefulWidget {
   _Cards2State createState() => _Cards2State();
 }
 
+class AnimBundle {
+  final Animation<Alignment> align;
+  final AnimationController controller;
+  const AnimBundle({
+    @required this.align,
+    @required this.controller,
+  });
+}
+
 class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   AnimationController _controller;
 
@@ -59,7 +68,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   // double _frontOffset = 0;
   double _frontOffsetNormed = 0; // [from -1; to 1]
 
-  List<Animation<Alignment>> _animations = List<Animation<Alignment>>();
+  List<AnimBundle> _animations = List<AnimBundle>();
+  Animation<Alignment> _frontAlign;
   // List<int> _animatingCards = List<int>();
   // int _animatingCards = 0;
 
@@ -158,7 +168,16 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       duration: Duration(seconds: 1),
     );
     final anim = _calcAnimatingAlign(controller);
-    _animations.add(anim);
+    final bundle = AnimBundle(
+      align: anim,
+      controller: controller,
+    );
+    setState(() {
+      _animations.add(bundle);
+    });
+    // controller.addListener(() {
+    //   setState(() {});
+    // });
     print(_animations.length);
     // setState(() {
     //   _index++;
@@ -166,10 +185,10 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     // setState(() {
     //   _cntIndex++;
     // });
-    // var f = controller.animateWith(spring);
-    var f = controller.forward();
+    var f = controller.animateWith(spring);
+    // var f = controller.forward();
     f.then((_) {
-      _animations.remove(anim);
+      _animations.remove(bundle);
       controller.dispose();
       print(_animations.length);
       // _index++;
@@ -224,7 +243,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     var end = _index;
     var tcn = _transparentCardNeeded();
     return [
-      // if (tcn) _buildTransparentCard(context, start),
+      if (tcn) _buildTransparentCard(context, start - _index),
       for (int i = start - (tcn ? 1 : 0);
           i >= end + 1; //+ _animations.length;
           i--)
@@ -237,22 +256,22 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   }
 
   Widget _animatingCard(BuildContext context, int shift) {
-    final align = _animations[shift];
+    final bundle = _animations[shift];
     return _buildFrontCard(
-      _controller,
+      bundle.controller,
       context,
       -shift,
-      align,
+      bundle.align,
     );
   }
 
   Widget _frontCard(BuildContext context, int stackIdx) {
-    final align = _calcFrontAlign(_controller);
+    _frontAlign = _calcFrontAlign(_controller);
     return _buildFrontCard(
       _controller,
       context,
       stackIdx,
-      align,
+      _frontAlign,
     );
   }
 
@@ -320,7 +339,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     var normed = Offset(_frontOffsetNormed.sign, 0);
     final magnified = normed * multiplier;
     final align = AlignmentTween(
-      begin: _aligns[0],
+      begin: _frontAlign.value, //_aligns[0],
       end: Alignment(magnified.dx, magnified.dy),
     ).animate(controller);
     return align;
@@ -376,6 +395,14 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     );
   }
 
+  Widget _buildTransparentCard(BuildContext context, int stackIdx) {
+    final opacity = Tween<double>(begin: 0, end: 1).animate(_controller);
+    return Opacity(
+      opacity: opacity.value,
+      child: _buildCard(context, stackIdx),
+    );
+  }
+
   SpringSimulation _simulateSpring(Offset pixelsPerSecond, Size size) {
     final unitsPerSecondX = pixelsPerSecond.dx / size.width;
     final unitsPerSecondY = pixelsPerSecond.dy / size.height;
@@ -383,7 +410,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     final unitVelocity = unitsPerSecond.distance;
 
     const spring = SpringDescription(
-      mass: 40,
+      mass: 20,
       stiffness: 1,
       damping: 1,
     );
