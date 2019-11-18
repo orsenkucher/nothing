@@ -205,7 +205,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     final curAlign = _aligns[idx - _index];
     final nextSize = _sizes[idx - 1 - _index];
     final nextAlign = _aligns[idx - 1 - _index];
-    final op = 0.1; //0.25;
+    final op = 0.25;
     return Align(
       alignment: Alignment.lerp(curAlign, nextAlign, _normedOffset.abs()),
       child: SizedBox(

@@ -69,9 +69,9 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
 
   // double _frontOffset = 0;
   double _frontOffsetNormed = 0; // [from -1; to 1]
+  Animation<Alignment> _frontAlign;
 
   List<AnimBundle> _animations = List<AnimBundle>();
-  Animation<Alignment> _frontAlign;
   // bool _frontAnimating = false;
 
   @override
@@ -148,6 +148,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
           onHorizontalDragUpdate: (update) {
             _calcFrontOffset(update.delta);
             // if (!_frontAnimating)
+            // _controller.stop();
             _controller.value = _frontOffsetNormed.abs();
           },
           onHorizontalDragEnd: (end) {
@@ -162,6 +163,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   void _animate(Velocity v) {
     final sign = v.pixelsPerSecond.dx.sign;
     final off = _frontOffsetNormed;
+    // print(off.abs());
     if (sign == 0 && off.abs() > 0.5 || sign == off.sign) {
       _animateOut(v);
     } else {
@@ -185,9 +187,10 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     };
     controller.addListener(l);
     // _frontAnimating = true;
-    _frontOffsetNormed = 0;
+    _frontOffsetNormed = 1e-4 * _frontOffsetNormed.sign;
     controller.animateWith(spring).then((_) {
       setState(() {
+        // _frontOffsetNormed = 0;
         // _frontAnimating = false;
         controller.removeListener(l);
         controller.dispose();
@@ -359,28 +362,44 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   }
 
   double _calcOpacity(int index) {
-    const drop = 0.25;
+    const drop = 0.15;
     return max(min(1 - drop * index, 1), 0);
   }
 
-//  Widget _middleCard(){}
   Widget _buildCard(
     BuildContext context,
     int stackIdx, [
     bool underFront = false,
   ]) {
+    final from = 0.0;
+    final to = 0.6;
     final size = Tween<Size>(
       begin: _sizes[stackIdx],
       end: _sizes[stackIdx - 1],
-    ).animate(_controller);
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Interval(from, to, curve: Curves.linear),
+      ),
+    );
     final align = Tween<Alignment>(
       begin: _aligns[stackIdx],
       end: _aligns[stackIdx - 1],
-    ).animate(_controller);
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Interval(from, to, curve: Curves.linear),
+      ),
+    );
     final opacity = Tween<double>(
       begin: _calcOpacity(stackIdx),
       end: _calcOpacity(stackIdx - 1),
-    ).animate(_controller);
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Interval(from, to, curve: Curves.easeOut),
+      ),
+    );
     return AnimatedBuilder(
       animation: _controller,
       child: underFront
@@ -409,7 +428,6 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   }
 
   Widget _buildTransparentCard(BuildContext context, int stackIdx) {
-    // print('op: ${_controller.value}');
     final opacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: _controller,
