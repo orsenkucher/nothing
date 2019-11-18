@@ -46,9 +46,11 @@ class Cards2 extends StatefulWidget {
 class AnimBundle {
   final Animation<Alignment> align;
   final AnimationController controller;
+  final Animation<double> rotation;
   const AnimBundle({
     @required this.align,
     @required this.controller,
+    @required this.rotation,
   });
 }
 
@@ -70,8 +72,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
 
   List<AnimBundle> _animations = List<AnimBundle>();
   Animation<Alignment> _frontAlign;
-  // List<int> _animatingCards = List<int>();
-  // int _animatingCards = 0;
+  // bool _frontAnimating = false;
 
   @override
   void initState() {
@@ -146,14 +147,11 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
           behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: (update) {
             _calcFrontOffset(update.delta);
+            // if (!_frontAnimating)
             _controller.value = _frontOffsetNormed.abs();
           },
           onHorizontalDragEnd: (end) {
             _animate(end.velocity);
-            // setState(() {
-            //   _index++;
-            //   _cntIndex++;
-            // });
           },
           child: Container(), // color: Colors.green.withAlpha(50)
         ),
@@ -162,67 +160,85 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   }
 
   void _animate(Velocity v) {
+    final sign = v.pixelsPerSecond.dx.sign;
+    final off = _frontOffsetNormed;
+    if (sign == 0 && off.abs() > 0.5 || sign == off.sign) {
+      _animateOut(v);
+    } else {
+      _animateBack(v);
+    }
+  }
+
+  void _animateBack(Velocity v) {
+    final spring = _simulateSpring(v.pixelsPerSecond, _screenSize);
+    final controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    final l = () {
+      setState(() {
+        _controller.value = Tween<double>(
+          begin: _controller.value,
+          end: 0,
+        ).animate(controller).value;
+      });
+    };
+    controller.addListener(l);
+    // _frontAnimating = true;
+    _frontOffsetNormed = 0;
+    controller.animateWith(spring).then((_) {
+      setState(() {
+        // _frontAnimating = false;
+        controller.removeListener(l);
+        controller.dispose();
+      });
+    });
+  }
+
+  void _animateOut(Velocity v) {
     final spring = _simulateSpring(v.pixelsPerSecond, _screenSize);
     final controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
     );
     final anim = _calcAnimatingAlign(controller);
+    final rot = Tween<double>(
+      begin: _controller.value,
+      end: 1,
+    ).animate(controller);
     final bundle = AnimBundle(
       align: anim,
       controller: controller,
+      rotation: rot,
     );
     setState(() {
       _animations.add(bundle);
     });
-    // controller.addListener(() {
-    //   setState(() {});
-    // });
+
     print(_animations.length);
-    // setState(() {
-    //   _index++;
-    // });
-    // setState(() {
-    //   _cntIndex++;
-    // });
-    var f = controller.animateWith(spring);
-    // var f = controller.forward();
-    f.then((_) {
-      _animations.remove(bundle);
-      controller.dispose();
-      print(_animations.length);
-      // _index++;
-
-      // setState(() {
-      //   _cntIndex++;
-      // });
-      // _frontOffsetNormed = 0;
+    final l = () {
+      setState(() {
+        _controller.value = Tween<double>(
+          begin: _controller.value,
+          end: 1,
+        ).animate(controller).value;
+      });
+    };
+    controller.addListener(l);
+    controller.animateWith(spring).then((_) {
+      setState(() {
+        _index++;
+        _cntIndex++;
+      });
+      setState(() {
+        _controller.reset();
+        _frontOffsetNormed = 0;
+        _animations.remove(bundle);
+        controller.removeListener(l);
+        controller.dispose();
+        print(_animations.length);
+      });
     });
-
-    // _controller.animateWith(spring);
-    // _controller.reverse();
-    // _frontOffsetNormed = 0;
-    // setState(() {
-    //   _cntIndex++;
-    // });
-
-    // // _controller.reset();
-    // // _frontOffsetNormed = 0;
-    // final anim = _calcAnimatingAlign(controller);
-    // _animations.add(anim);
-    // setState(() {
-    //   // _index++;
-    //   // _animatingCards++;
-    // });
-    // controller.animateWith(spring).then((_) {
-    //   // _animatingCards--;
-    //   _animations.remove(anim);
-    //   _cntIndex++;
-    //   // controller.dispose();
-
-    //   _controller.reset();
-    //   _frontOffsetNormed = 0;
-    // });
   }
 
   void _calcFrontOffset(Offset offset) {
@@ -244,14 +260,12 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     var tcn = _transparentCardNeeded();
     return [
       if (tcn) _buildTransparentCard(context, start - _index),
-      for (int i = start - (tcn ? 1 : 0);
-          i >= end + 1; //+ _animations.length;
-          i--)
+      for (int i = start - (tcn ? 1 : 0); i >= end + 1; i--)
         _buildCard(context, i - _index, i == end + 1),
-      if (_index < widget._totalCount)
+      if (_index < widget._totalCount && _animations.length == 0)
         _frontCard(context, end - _index),
-      // if (_index < widget._totalCount)
-      for (int i = 0; i < _animations.length; i++) _animatingCard(context, i),
+      if (_index < widget._totalCount)
+        for (int i = 0; i < _animations.length; i++) _animatingCard(context, i),
     ];
   }
 
@@ -262,6 +276,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       context,
       -shift,
       bundle.align,
+      bundle.rotation,
     );
   }
 
@@ -272,6 +287,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       context,
       stackIdx,
       _frontAlign,
+      _controller,
     );
   }
 
@@ -280,6 +296,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     BuildContext context,
     int stackIdx,
     Animation<Alignment> align,
+    Animation<double> rot,
   ) {
     return AnimatedBuilder(
       animation: controller,
@@ -288,10 +305,9 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         return Align(
           alignment: align.value,
           child: Transform.rotate(
-            angle:
-                _frontOffsetNormed.sign * (pi / 180.0) * 8 * controller.value,
+            angle: _frontOffsetNormed.sign * (pi / 180.0) * 8 * rot.value,
             child: SizedBox(
-              // key: UniqueKey(),
+              key: UniqueKey(),
               width: _sizes[0].width,
               height: _sizes[0].height,
               child: widget._cardBuilder(
@@ -314,14 +330,11 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       (full.width - card.width) / 2,
       (full.height - card.height) / 2,
     );
-    // print('gap $gap');
-    // print('card $card');
-    // print('full $full');
     final align = AlignmentTween(
       begin: _aligns[0],
       end: Alignment(
         _frontOffsetNormed.sign * (gap.width + card.width) / gap.width,
-        0, // (gap.height + card.height) / gap.height,
+        0,
       ),
     ).animate(controller);
     return align;
@@ -377,7 +390,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         return Align(
           alignment: align.value,
           child: SizedBox(
-            // key: UniqueKey(),
+            key: UniqueKey(),
             width: size.value.width,
             height: size.value.height,
             child: Opacity(
@@ -396,7 +409,13 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   }
 
   Widget _buildTransparentCard(BuildContext context, int stackIdx) {
-    final opacity = Tween<double>(begin: 0, end: 1).animate(_controller);
+    // print('op: ${_controller.value}');
+    final opacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOutCubic,
+      ),
+    );
     return Opacity(
       opacity: opacity.value,
       child: _buildCard(context, stackIdx),
@@ -410,7 +429,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     final unitVelocity = unitsPerSecond.distance;
 
     const spring = SpringDescription(
-      mass: 20,
+      mass: 30,
       stiffness: 1,
       damping: 1,
     );
