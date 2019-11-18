@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 
@@ -73,6 +74,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
 
   List<AnimBundle> _animations = List<AnimBundle>();
   // bool _frontAnimating = false;
+  final ObserverList<VoidCallback> _listeners = ObserverList<VoidCallback>();
 
   @override
   void initState() {
@@ -146,12 +148,14 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: (update) {
+            _listeners.forEach((l) => l());
             _calcFrontOffset(update.delta);
             // if (!_frontAnimating)
             // _controller.stop();
             _controller.value = _frontOffsetNormed.abs();
           },
           onHorizontalDragEnd: (end) {
+            _listeners.forEach((l) => l());
             _animate(end.velocity);
           },
           child: Container(), // color: Colors.green.withAlpha(50)
@@ -186,6 +190,10 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       });
     };
     controller.addListener(l);
+    final l2 = () {
+      controller.removeListener(l);
+    };
+    _listeners.add(l2);
     // _frontAnimating = true;
     _frontOffsetNormed = 1e-4 * _frontOffsetNormed.sign;
     controller.animateWith(spring).then((_) {
@@ -193,6 +201,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         // _frontOffsetNormed = 0;
         // _frontAnimating = false;
         controller.removeListener(l);
+        _listeners.remove(l2);
         controller.dispose();
       });
     });
