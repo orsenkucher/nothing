@@ -48,10 +48,12 @@ class AnimBundle {
   final Animation<Alignment> align;
   final AnimationController controller;
   final Animation<double> rotation;
+  final double rotSgn;
   const AnimBundle({
     @required this.align,
     @required this.controller,
     @required this.rotation,
+    @required this.rotSgn,
   });
 }
 
@@ -236,6 +238,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       align: anim,
       controller: controller,
       rotation: rot,
+      rotSgn: _frontOffsetNormed.sign,
     );
     setState(() {
       _animations.add(bundle);
@@ -326,6 +329,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       -1,
       bundle.align,
       bundle.rotation,
+      bundle.rotSgn,
     );
   }
 
@@ -338,6 +342,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       stackIdx,
       _frontAlign,
       _controller,
+      _frontOffsetNormed.sign,
     );
   }
 
@@ -347,6 +352,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     int stackIdx,
     Animation<Alignment> align,
     Animation<double> rot,
+    double rotSgn,
   ) {
     return AnimatedBuilder(
       animation: controller,
@@ -355,7 +361,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         return Align(
           alignment: align.value,
           child: Transform.rotate(
-            angle: _frontOffsetNormed.sign * (pi / 180.0) * 8 * rot.value,
+            angle: rotSgn * (pi / 180.0) * 8 * rot.value,
             child: SizedBox(
               key: UniqueKey(),
               width: _sizes[0].width,

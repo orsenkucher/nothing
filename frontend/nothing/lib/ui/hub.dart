@@ -35,7 +35,7 @@ class Hub extends StatelessWidget {
             // print(lerp);
             var colors = Colors.primaries;
             Color color = colors[(colors.length + index * 6) % colors.length];
-            color = Colors.white;
+            // color = Colors.white;
             return Material(
               shadowColor: Colors.black.withAlpha(60),
               borderRadius: BorderRadius.circular(28),
