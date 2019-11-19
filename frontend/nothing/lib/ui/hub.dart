@@ -32,10 +32,15 @@ class Hub extends StatelessWidget {
         // child: dev.Cards(
         child: Cards2(
           cardBuilder: (context, child, index, lerp) {
+            // print(lerp);
+            var colors = Colors.primaries;
+            Color color = colors[(colors.length + index * 6) % colors.length];
+            color = Colors.white;
             return Material(
               shadowColor: Colors.black.withAlpha(60),
               borderRadius: BorderRadius.circular(28),
               elevation: lerpDouble(1, 7, lerp),
+              color: color,
               child: child,
             );
           },

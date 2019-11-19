@@ -76,6 +76,9 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   List<AnimBundle> _animations = List<AnimBundle>();
   // bool _frontAnimating = false;
   final ObserverList<VoidCallback> _listeners = ObserverList<VoidCallback>();
+  // AnimBundle _midBnd;
+  AnimationController _midController;
+  Animation<double> _midVals;
 
   @override
   void initState() {
@@ -84,6 +87,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       vsync: this,
       duration: Duration(seconds: 1),
     );
+    _midController = _controller;
+    _midVals = _controller;
   }
 
   @override
@@ -150,6 +155,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
           behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: (update) {
             _listeners.forEach((l) => l());
+            _midController = _controller;
+            _midVals = _controller;
             _calcFrontOffset(update.delta);
             // if (!_frontAnimating)
             // _controller.stop();
@@ -196,6 +203,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     };
     _listeners.add(l2);
     // _frontAnimating = true;
+    _midController = _controller;
+    _midVals = _controller;
     _frontOffsetNormed = 1e-4 * _frontOffsetNormed.sign;
     controller.animateWith(spring).then((_) {
       setState(() {
@@ -213,10 +222,14 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     final controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
+      // lowerBound: _controller.value, //опа
+      lowerBound: 0,
+      upperBound: 1,
     );
     final anim = _calcAnimatingAlign(controller);
     final rot = Tween<double>(
       begin: _controller.value,
+      // begin: 0,
       end: 1,
     ).animate(controller);
     final bundle = AnimBundle(
@@ -238,9 +251,13 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     //   });
     // };
     // controller.addListener(l);
+    // setState(() {
     _frontOffsetNormed = 1e-4 * _frontOffsetNormed.sign;
     _controller.reset();
     _cntIndex++;
+    _midController = controller;
+    _midVals = rot;
+    // });
     // _usefrontAlign = true;
     // _frontAlign = AlignmentTween(
     //   begin: _aligns[0],
@@ -255,8 +272,14 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         // _usefrontAlign = false;
 
         // _frontOffsetNormed = 0;
+        // print("kek");
+        // print(_animations.first.controller.value);
         _animations.remove(bundle);
         // controller.removeListener(l);
+        if (_animations.length == 0) {
+          _midController = _controller;
+          _midVals = _controller;
+        }
         controller.dispose();
         print(_animations.length);
       });
@@ -282,9 +305,12 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     var tcn = _transparentCardNeeded();
     return [
       if (tcn) _buildTransparentCard(context, start - _index),
+      // for (int i = 0; i < _animations.length; i++)
+      //   _buildCard(context, end + _animations.length),
       for (int i = start - (tcn ? 1 : 0); i >= end + 1; i--)
         _buildCard(context, i - _index, i == end + 1),
-      if (_index < widget._totalCount) //&& _animations.length == 0)
+      if (_index < widget._totalCount &&
+          _midController == _controller) //&& _animations.length == 0)
         _frontCard(context, end - _index),
       if (_index < widget._totalCount)
         for (int i = 0; i < _animations.length; i++) _animatingCard(context, i),
@@ -338,6 +364,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
                 context,
                 child,
                 stackIdx,
+                // stackIdx >= 0 ? stackIdx : 0,
                 1,
               ),
             ),
@@ -383,7 +410,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   }
 
   double _calcOpacity(int index) {
-    const drop = 0.15;
+    const drop = 0.20; //0.20;
     return max(min(1 - drop * index, 1), 0);
   }
 
@@ -392,10 +419,18 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     int stackIdx, [
     bool underFront = false,
   ]) {
+    // print(underFront);
     final from = 0.0;
     final to = 0.6;
-    var controller = _controller;
-    // _animations.length > 0 ? _animations.last.controller : _controller;
+    // var controller = _controller;
+    // var controller = _animations.length > 0
+    //     // &&             _animations.first.controller.status != AnimationStatus.forward
+    //     // ? _animations.last.rotation
+    //     ? _animations.first.rotation
+    //     : _controller;
+    var controller2 = _midController;
+    var controller = _midVals;
+    // print('[${_animations.length}] ${controller.value}');
     final size = Tween<Size>(
       begin: _sizes[stackIdx],
       end: _sizes[stackIdx - 1],
@@ -424,7 +459,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       ),
     );
     return AnimatedBuilder(
-      animation: controller,
+      animation: controller2,
       child: underFront
           ? widget._contentBuilder(context, stackIdx + _cntIndex)
           : Container(),
@@ -441,7 +476,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
                 context,
                 child,
                 stackIdx,
-                underFront ? _controller.value : 0,
+                underFront ? controller.value : 0,
               ),
             ),
           ),
@@ -451,14 +486,24 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   }
 
   Widget _buildTransparentCard(BuildContext context, int stackIdx) {
+    // var controller =
+    //     // _animations.length > 0 ? _animations.last.rotation : _controller;
+    //     _animations.length > 0 ? _animations.first.rotation : _controller;
+    // var controller = _midController;
     final opacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        parent: _controller,
+        parent: _midVals, // _controller
         curve: Curves.easeOutCubic,
       ),
     );
-    return Opacity(
-      opacity: opacity.value,
+    return AnimatedBuilder(
+      animation: _midController, //controller,
+      builder: (context, child) {
+        return Opacity(
+          opacity: opacity.value,
+          child: child,
+        );
+      },
       child: _buildCard(context, stackIdx),
     );
   }
