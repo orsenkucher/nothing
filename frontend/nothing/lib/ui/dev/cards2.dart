@@ -71,6 +71,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   // double _frontOffset = 0;
   double _frontOffsetNormed = 0; // [from -1; to 1]
   Animation<Alignment> _frontAlign;
+  // bool _usefrontAlign = false;
 
   List<AnimBundle> _animations = List<AnimBundle>();
   // bool _frontAnimating = false;
@@ -228,25 +229,34 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     });
 
     print(_animations.length);
-    final l = () {
-      setState(() {
-        _controller.value = Tween<double>(
-          begin: _controller.value,
-          end: 1,
-        ).animate(controller).value;
-      });
-    };
-    controller.addListener(l);
+    // final l = () {
+    //   setState(() {
+    //     _controller.value = Tween<double>(
+    //       begin: _controller.value,
+    //       end: 1,
+    //     ).animate(controller).value;
+    //   });
+    // };
+    // controller.addListener(l);
+    _frontOffsetNormed = 1e-4 * _frontOffsetNormed.sign;
+    _controller.reset();
+    _cntIndex++;
+    // _usefrontAlign = true;
+    // _frontAlign = AlignmentTween(
+    //   begin: _aligns[0],
+    //   end: _aligns[0],
+    // ).animate(_controller);
     controller.animateWith(spring).then((_) {
       setState(() {
-        _index++;
-        _cntIndex++;
+        // _index++;
       });
       setState(() {
-        _controller.reset();
-        _frontOffsetNormed = 0;
+        // _controller.reset();
+        // _usefrontAlign = false;
+
+        // _frontOffsetNormed = 0;
         _animations.remove(bundle);
-        controller.removeListener(l);
+        // controller.removeListener(l);
         controller.dispose();
         print(_animations.length);
       });
@@ -274,7 +284,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       if (tcn) _buildTransparentCard(context, start - _index),
       for (int i = start - (tcn ? 1 : 0); i >= end + 1; i--)
         _buildCard(context, i - _index, i == end + 1),
-      if (_index < widget._totalCount && _animations.length == 0)
+      if (_index < widget._totalCount) //&& _animations.length == 0)
         _frontCard(context, end - _index),
       if (_index < widget._totalCount)
         for (int i = 0; i < _animations.length; i++) _animatingCard(context, i),
@@ -286,13 +296,15 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     return _buildFrontCard(
       bundle.controller,
       context,
-      -shift,
+      // -shift,
+      -1,
       bundle.align,
       bundle.rotation,
     );
   }
 
   Widget _frontCard(BuildContext context, int stackIdx) {
+    // _frontAlign = _usefrontAlign ? _frontAlign : _calcFrontAlign(_controller);
     _frontAlign = _calcFrontAlign(_controller);
     return _buildFrontCard(
       _controller,
@@ -382,12 +394,14 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   ]) {
     final from = 0.0;
     final to = 0.6;
+    var controller = _controller;
+    // _animations.length > 0 ? _animations.last.controller : _controller;
     final size = Tween<Size>(
       begin: _sizes[stackIdx],
       end: _sizes[stackIdx - 1],
     ).animate(
       CurvedAnimation(
-        parent: _controller,
+        parent: controller,
         curve: Interval(from, to, curve: Curves.linear),
       ),
     );
@@ -396,7 +410,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       end: _aligns[stackIdx - 1],
     ).animate(
       CurvedAnimation(
-        parent: _controller,
+        parent: controller,
         curve: Interval(from, to, curve: Curves.linear),
       ),
     );
@@ -405,12 +419,12 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       end: _calcOpacity(stackIdx - 1),
     ).animate(
       CurvedAnimation(
-        parent: _controller,
+        parent: controller,
         curve: Interval(from, to, curve: Curves.easeOut),
       ),
     );
     return AnimatedBuilder(
-      animation: _controller,
+      animation: controller,
       child: underFront
           ? widget._contentBuilder(context, stackIdx + _cntIndex)
           : Container(),
