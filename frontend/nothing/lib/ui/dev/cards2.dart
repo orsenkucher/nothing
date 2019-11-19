@@ -254,13 +254,14 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     //   });
     // };
     // controller.addListener(l);
-    // setState(() {
-    _frontOffsetNormed = 1e-4 * _frontOffsetNormed.sign;
-    _controller.reset();
-    _cntIndex++;
-    _midController = controller;
-    _midVals = rot;
-    // });
+    setState(() {
+      _frontOffsetNormed = 1e-4 * _frontOffsetNormed.sign;
+      _controller.reset();
+      _cntIndex++;
+      _index++;
+      _midController = controller;
+      _midVals = rot;
+    });
     // _usefrontAlign = true;
     // _frontAlign = AlignmentTween(
     //   begin: _aligns[0],
@@ -269,6 +270,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     controller.animateWith(spring).then((_) {
       setState(() {
         // _index++;
+        // _cntIndex++;
       });
       setState(() {
         // _controller.reset();
@@ -306,16 +308,17 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     var start = min(widget._stackCount + _index + 1, widget._totalCount) - 1;
     var end = _index;
     var tcn = _transparentCardNeeded();
+    var compFront = _controller == _midController ? 0 : -1;
     return [
       if (tcn) _buildTransparentCard(context, start - _index),
       // for (int i = 0; i < _animations.length; i++)
       //   _buildCard(context, end + _animations.length),
-      for (int i = start - (tcn ? 1 : 0); i >= end + 1; i--)
+      for (int i = start - (tcn ? 1 : compFront); i >= end + 1; i--)
         _buildCard(context, i - _index, i == end + 1),
       if (_index < widget._totalCount &&
           _midController == _controller) //&& _animations.length == 0)
         _frontCard(context, end - _index),
-      if (_index < widget._totalCount)
+      if (_index <= widget._totalCount)
         for (int i = 0; i < _animations.length; i++) _animatingCard(context, i),
     ];
   }
@@ -356,7 +359,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   ) {
     return AnimatedBuilder(
       animation: controller,
-      child: widget._contentBuilder(context, stackIdx + _cntIndex),
+      child: widget._contentBuilder(
+          context, stackIdx + _cntIndex), //- _animations.length.sign),
       builder: (context, child) {
         return Align(
           alignment: align.value,
@@ -467,7 +471,13 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     return AnimatedBuilder(
       animation: controller2,
       child: underFront
-          ? widget._contentBuilder(context, stackIdx + _cntIndex)
+          ? widget._contentBuilder(
+              context,
+              stackIdx +
+                  _cntIndex -
+                  (_midController == _controller
+                      ? 0
+                      : 1)) //- _animations.length.sign)
           : Container(),
       builder: (context, child) {
         return Align(
