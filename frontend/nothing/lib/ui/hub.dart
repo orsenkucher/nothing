@@ -49,7 +49,7 @@ class Hub extends StatelessWidget {
                 child: Text('$index', style: TextStyle(fontSize: 180)));
           },
           stackCount: 3,
-          totalCount: 12,
+          totalCount: 24,
           heightFactor: 0.60,
           widthFactor: 0.85,
         ),

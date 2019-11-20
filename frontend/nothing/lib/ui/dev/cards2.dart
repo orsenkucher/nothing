@@ -536,7 +536,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       damping: 1,
     );
 
-    final simulation = SpringSimulation(spring, 0, 1, -unitVelocity);
+    final simulation = SpringSimulation(spring, 0, 1, unitVelocity);
     return simulation;
   }
 }
