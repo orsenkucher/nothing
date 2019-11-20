@@ -44,9 +44,43 @@ class Hub extends StatelessWidget {
               child: child,
             );
           },
-          contentBuilder: (context, index) {
-            return Center(
-                child: Text('$index', style: TextStyle(fontSize: 180)));
+          contentBuilder: (context, index, lerp) {
+            var colorRight =
+                Color.lerp(Color(0xffEAEAEA), Color(0xff56D16C), lerp * 7);
+            var colorLeft = Color.lerp(Color(0xffEAEAEA), Colors.red, lerp * 7);
+            print(lerp);
+            return Padding(
+              padding: EdgeInsets.all(20),
+              child: Container(
+                  color: Colors.white,
+                  child: Stack(
+                    children: [
+                      Align(
+                          alignment: Alignment.topRight,
+                          child: Text('YES',
+                              style: TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                  color: colorRight))),
+                      Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text('NO',
+                              style: TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                  color: colorLeft))),
+                      Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                              'Have you achieved any of your recent goals?',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)))
+                    ],
+                  )),
+            );
           },
           stackCount: 3,
           totalCount: 24,
