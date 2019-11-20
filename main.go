@@ -15,7 +15,15 @@ import (
 func main() {
 	// fn0()
 	// fn1()
-	fn2()
+	// fn2()
+	http.HandleFunc("/", HelloServer)
+	fmt.Println("Serving...")
+	http.ListenAndServe(":9090", nil)
+}
+
+// HelloServer is hello world default route handler
+func HelloServer(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
 }
 
 type problem struct {
