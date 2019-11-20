@@ -52,6 +52,7 @@ class Hub extends StatelessWidget {
           totalCount: 24,
           heightFactor: 0.60,
           widthFactor: 0.85,
+          // infinite: false,
         ),
       ),
 

@@ -23,6 +23,7 @@ class Cards2 extends StatefulWidget {
   final int _stackCount;
   final double _widthFactor;
   final double _heightFactor;
+  final bool _infinite;
 
   const Cards2({
     @required CardBuilder cardBuilder,
@@ -31,12 +32,14 @@ class Cards2 extends StatefulWidget {
     int stackCount = 3,
     double widthFactor = 0.9,
     double heightFactor = 0.9,
+    bool infinite = false,
   })  : _cardBuilder = cardBuilder,
         _contentBuilder = contentBuilder,
         _totalCount = totalCount,
         _stackCount = stackCount,
         _widthFactor = widthFactor,
         _heightFactor = heightFactor,
+        _infinite = infinite,
         assert(stackCount <= totalCount),
         assert(stackCount > 0);
 
@@ -60,8 +63,8 @@ class AnimBundle {
 class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   AnimationController _controller;
 
-  double _horizontalMultiplier = 1;
-  double _verticalMultiplier = 0;
+  // double _horizontalMultiplier = 1;
+  // double _verticalMultiplier = 0;
 
   Size _screenSize;
   List<Size> _sizes = List<Size>();
@@ -258,7 +261,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       _frontOffsetNormed = 1e-4 * _frontOffsetNormed.sign;
       _controller.reset();
       _cntIndex++;
-      _index++;
+      if (!widget._infinite) _index++;
       _midController = controller;
       _midVals = rot;
     });
@@ -420,7 +423,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   }
 
   double _calcOpacity(int index) {
-    const drop = 0.20; //0.20;
+    const drop = 0.20;
     return max(min(1 - drop * index, 1), 0);
   }
 
@@ -441,13 +444,14 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     var controller2 = _midController;
     var controller = _midVals;
     // print('[${_animations.length}] ${controller.value}');
+    var curve = Curves.easeOutQuad;
     final size = Tween<Size>(
       begin: _sizes[stackIdx],
       end: _sizes[stackIdx - 1],
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(from, to, curve: Curves.linear),
+        curve: Interval(from, to, curve: curve),
       ),
     );
     final align = Tween<Alignment>(
@@ -456,7 +460,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(from, to, curve: Curves.linear),
+        curve: Interval(from, to, curve: curve),
       ),
     );
     final opacity = Tween<double>(
@@ -465,7 +469,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(from, to, curve: Curves.easeOut),
+        curve: Interval(from, to, curve: curve),
       ),
     );
     return AnimatedBuilder(
@@ -531,8 +535,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     final unitVelocity = unitsPerSecond.distance;
 
     const spring = SpringDescription(
-      mass: 30,
-      stiffness: 1,
+      mass: 28,
+      stiffness: 12,
       damping: 1,
     );
 
