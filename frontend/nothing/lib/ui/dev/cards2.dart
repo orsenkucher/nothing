@@ -14,6 +14,7 @@ typedef Widget CardBuilder(
 typedef Widget ContentBuilder(
   BuildContext context,
   int index,
+  double lerp,
 );
 
 class Cards2 extends StatefulWidget {
@@ -362,8 +363,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   ) {
     return AnimatedBuilder(
       animation: controller,
-      child: widget._contentBuilder(
-          context, stackIdx + _cntIndex), //- _animations.length.sign),
+      // child: widget._contentBuilder(
+      //     context, stackIdx + _cntIndex), //- _animations.length.sign),
       builder: (context, child) {
         return Align(
           alignment: align.value,
@@ -375,7 +376,11 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
               height: _sizes[0].height,
               child: widget._cardBuilder(
                 context,
-                child,
+                widget._contentBuilder(
+                  context,
+                  stackIdx + _cntIndex,
+                  _midController.value,
+                ),
                 stackIdx,
                 // stackIdx >= 0 ? stackIdx : 0,
                 1,
@@ -477,11 +482,9 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       child: underFront
           ? widget._contentBuilder(
               context,
-              stackIdx +
-                  _cntIndex -
-                  (_midController == _controller
-                      ? 0
-                      : 1)) //- _animations.length.sign)
+              stackIdx + _cntIndex - (_midController == _controller ? 0 : 1),
+              0,
+            ) //- _animations.length.sign)
           : Container(),
       builder: (context, child) {
         return Align(
