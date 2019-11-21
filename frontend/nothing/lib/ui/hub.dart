@@ -33,14 +33,14 @@ class Hub extends StatelessWidget {
         child: Cards2(
           cardBuilder: (context, child, index, lerp) {
             // print(lerp);
-            var colors = Colors.primaries;
-            Color color = colors[(colors.length + index * 6) % colors.length];
-            color = Colors.white;
+            // var colors = Colors.primaries;
+            // Color color = colors[(colors.length + index * 6) % colors.length];
+            // color = Colors.white;
             return Material(
               shadowColor: Colors.black.withAlpha(60),
               borderRadius: BorderRadius.circular(28),
               elevation: lerpDouble(1, 7, lerp),
-              color: color,
+              // color: color,
               child: child,
             );
           },
@@ -62,35 +62,44 @@ class Hub extends StatelessWidget {
               );
             return Padding(
               padding: EdgeInsets.all(20),
-              child: Container(
-                  color: Colors.white,
-                  child: Stack(
-                    children: [
-                      Align(
-                          alignment: Alignment.topRight,
-                          child: Text('True',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.bold,
-                                  color: colorRight))),
-                      Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Text('False',
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.bold,
-                                  color: colorLeft))),
-                      Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                              'Have you achieved any of your recent goals?',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)))
-                    ],
-                  )),
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Text(
+                      'True',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: colorRight,
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      'False',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: colorLeft,
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Have you achieved any of your recent goals?',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             );
           },
           stackCount: 3,

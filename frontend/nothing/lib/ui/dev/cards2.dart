@@ -24,7 +24,6 @@ class Cards2 extends StatefulWidget {
   final int _stackCount;
   final double _widthFactor;
   final double _heightFactor;
-  final bool _infinite;
 
   const Cards2({
     @required CardBuilder cardBuilder,
@@ -33,14 +32,12 @@ class Cards2 extends StatefulWidget {
     int stackCount = 3,
     double widthFactor = 0.9,
     double heightFactor = 0.9,
-    bool infinite = false,
   })  : _cardBuilder = cardBuilder,
         _contentBuilder = contentBuilder,
         _totalCount = totalCount,
         _stackCount = stackCount,
         _widthFactor = widthFactor,
         _heightFactor = heightFactor,
-        _infinite = infinite,
         assert(stackCount <= totalCount),
         assert(stackCount > 0);
 
@@ -109,6 +106,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     _screenSize = MediaQuery.of(context).size;
     _refillSizes(_screenSize);
     _refillAligns(_screenSize, _sizes);
+    _swapAnimations();
   }
 
   void _refillSizes(Size full) {
@@ -161,8 +159,12 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
           behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: (update) {
             _listeners.forEach((l) => l());
-            _midController = _controller;
-            _midVals = _controller;
+            if (_midController != _controller) {
+              _midController = _controller;
+              _midVals = _controller;
+              _swapAnimations();
+              // _swapTranspOpacity();
+            }
             _calcFrontOffset(update.delta);
             // if (!_frontAnimating)
             // _controller.stop();
@@ -248,7 +250,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       _animations.add(bundle);
     });
 
-    print(_animations.length);
+    // print(_animations.length);
     // final l = () {
     //   setState(() {
     //     _controller.value = Tween<double>(
@@ -262,10 +264,11 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
       _frontOffsetNormed = 1e-4 * _frontOffsetNormed.sign;
       _controller.reset();
       _cntIndex++;
-      if (!widget._infinite) _index++;
+      _index++;
       _midController = controller;
       _midVals = rot;
     });
+    _swapAnimations();
     // _usefrontAlign = true;
     // _frontAlign = AlignmentTween(
     //   begin: _aligns[0],
@@ -288,9 +291,10 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         if (_animations.length == 0) {
           _midController = _controller;
           _midVals = _controller;
+          _swapAnimations();
         }
         controller.dispose();
-        print(_animations.length);
+        // print(_animations.length);
       });
     });
   }
@@ -433,15 +437,25 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     return max(min(1 - drop * index, 1), 0);
   }
 
-  Widget _buildCard(
-    BuildContext context,
-    int stackIdx, [
-    bool underFront = false,
-  ]) {
-    // print(underFront);
+  List<Animation<Size>> _midSizes = List<Animation<Size>>();
+  List<Animation<Alignment>> _midAligns = List<Animation<Alignment>>();
+  List<Animation<double>> _midOpacities = List<Animation<double>>();
+  void _swapAnimations() {
+    _midSizes.clear();
+    _midAligns.clear();
+    _midOpacities.clear();
+
+    for (int i = 1; i <= widget._stackCount; i++) {
+      _swapAnimation(i);
+    }
+
+    _swapTranspOpacity();
+  }
+
+  void _swapAnimation(int stackIdx) {
     final from = 0.0;
     final to = 0.6;
-    var controller2 = _midController;
+    // var controller2 = ;
     var controller = _midVals;
     // print('[${_animations.length}] ${controller.value}');
     var curve = Curves.easeOutQuad;
@@ -454,6 +468,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         curve: Interval(from, to, curve: curve),
       ),
     );
+    _midSizes.add(size);
     final align = Tween<Alignment>(
       begin: _aligns[stackIdx],
       end: _aligns[stackIdx - 1],
@@ -463,6 +478,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         curve: Interval(from, to, curve: curve),
       ),
     );
+    _midAligns.add(align);
     final opacity = Tween<double>(
       begin: _calcOpacity(stackIdx),
       end: _calcOpacity(stackIdx - 1),
@@ -472,42 +488,48 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         curve: Interval(from, to, curve: curve),
       ),
     );
+    _midOpacities.add(opacity);
+  }
+
+  Widget _buildCard(
+    BuildContext context,
+    int stackIdx, [
+    bool underFront = false,
+  ]) {
+    // print(underFront);
+    // print(stackIdx);
     return AnimatedBuilder(
-      animation: controller2,
+      animation: _midController,
       child: underFront
-          ? widget._contentBuilder(
-              context,
-              stackIdx + _cntIndex - (_midController == _controller ? 0 : 1),
-              0,
+          ? FittedBox(
+              fit: BoxFit.cover,
+              child: SizedBox(
+                width: _sizes[0].width,
+                height: _sizes[0].height,
+                child: widget._contentBuilder(
+                  context,
+                  stackIdx +
+                      _cntIndex -
+                      (_midController == _controller ? 0 : 1),
+                  0,
+                ),
+              ),
             )
           : Container(),
       builder: (context, child) {
         return Align(
-          alignment: align.value,
+          alignment: _midAligns[stackIdx - 1].value,
           child: SizedBox(
             key: UniqueKey(),
-            width: size.value.width,
-            height: size.value.height,
+            width: _midSizes[stackIdx - 1].value.width,
+            height: _midSizes[stackIdx - 1].value.height,
             child: Opacity(
-              opacity: opacity.value,
+              opacity: _midOpacities[stackIdx - 1].value,
               child: widget._cardBuilder(
                 context,
-                FittedBox(
-                  fit: BoxFit.cover,
-                  child: SizedBox(
-                    width: _sizes[0].width,
-                    height: _sizes[0].height,
-                    child: Container(
-                      // color: Colors.red,
-                      child: Opacity(
-                        opacity: opacity.value,
-                        child: child,
-                      ),
-                    ),
-                  ),
-                ),
+                child,
                 stackIdx,
-                underFront ? controller.value : 0,
+                underFront ? _midVals.value : 0,
               ),
             ),
           ),
@@ -516,22 +538,26 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     );
   }
 
+  Animation<double> _transpOpacity;
+  void _swapTranspOpacity() {
+    _transpOpacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _midVals,
+        curve: Curves.easeOutCubic,
+      ),
+    );
+  }
+
   Widget _buildTransparentCard(BuildContext context, int stackIdx) {
     // var controller =
     //     // _animations.length > 0 ? _animations.last.rotation : _controller;
     //     _animations.length > 0 ? _animations.first.rotation : _controller;
     // var controller = _midController;
-    final opacity = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(
-        parent: _midVals, // _controller
-        curve: Curves.easeOutCubic,
-      ),
-    );
     return AnimatedBuilder(
       animation: _midController, //controller,
       builder: (context, child) {
         return Opacity(
-          opacity: opacity.value,
+          opacity: _transpOpacity.value,
           child: child,
         );
       },
@@ -547,11 +573,22 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
 
     const spring = SpringDescription(
       mass: 25,
-      stiffness: 12,
+      stiffness: 10,
       damping: 1,
     );
 
-    final simulation = SpringSimulation(spring, 0, 1, unitVelocity);
+    const eps = 1e-2;
+    final simulation = SpringSimulation(
+      spring,
+      0,
+      1,
+      unitVelocity,
+      tolerance: Tolerance(
+        distance: eps,
+        time: eps,
+        velocity: eps,
+      ),
+    );
     return simulation;
   }
 }
