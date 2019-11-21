@@ -45,9 +45,21 @@ class Hub extends StatelessWidget {
             );
           },
           contentBuilder: (context, index, lerp) {
-            var colorRight =
-                Color.lerp(Color(0xffEAEAEA), Color(0xff56D16C), lerp * 7);
-            var colorLeft = Color.lerp(Color(0xffEAEAEA), Colors.red, lerp * 7);
+            lerp = (lerp * 6).clamp(-1.0, 1.0);
+            var colorRight = Color(0xffEAEAEA);
+            var colorLeft = Color(0xffEAEAEA);
+            if (lerp > 0)
+              colorRight = Color.lerp(
+                Color(0xffEAEAEA),
+                Color(0xff56D16C),
+                lerp.abs(),
+              );
+            if (lerp < 0)
+              colorLeft = Color.lerp(
+                Color(0xffEAEAEA),
+                Colors.red,
+                lerp.abs(),
+              );
             print(lerp);
             return Padding(
               padding: EdgeInsets.all(20),
@@ -57,14 +69,14 @@ class Hub extends StatelessWidget {
                     children: [
                       Align(
                           alignment: Alignment.topRight,
-                          child: Text('YES',
+                          child: Text('True',
                               style: TextStyle(
                                   fontSize: 40,
                                   fontWeight: FontWeight.bold,
                                   color: colorRight))),
                       Align(
                           alignment: Alignment.bottomLeft,
-                          child: Text('NO',
+                          child: Text('False',
                               style: TextStyle(
                                   fontSize: 40,
                                   fontWeight: FontWeight.bold,

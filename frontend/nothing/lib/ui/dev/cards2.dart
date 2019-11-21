@@ -379,7 +379,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
                 widget._contentBuilder(
                   context,
                   stackIdx + _cntIndex,
-                  _midController.value,
+                  // _midController.value * _frontOffsetNormed.sign,
+                  rot.value * rotSgn,
                 ),
                 stackIdx,
                 // stackIdx >= 0 ? stackIdx : 0,
@@ -440,12 +441,6 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     // print(underFront);
     final from = 0.0;
     final to = 0.6;
-    // var controller = _controller;
-    // var controller = _animations.length > 0
-    //     // &&             _animations.first.controller.status != AnimationStatus.forward
-    //     // ? _animations.last.rotation
-    //     ? _animations.first.rotation
-    //     : _controller;
     var controller2 = _midController;
     var controller = _midVals;
     // print('[${_animations.length}] ${controller.value}');
@@ -484,7 +479,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
               context,
               stackIdx + _cntIndex - (_midController == _controller ? 0 : 1),
               0,
-            ) //- _animations.length.sign)
+            )
           : Container(),
       builder: (context, child) {
         return Align(
@@ -497,7 +492,14 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
               opacity: opacity.value,
               child: widget._cardBuilder(
                 context,
-                child,
+                FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: SizedBox(
+                    width: _sizes[0].width,
+                    height: _sizes[0].height,
+                    child: child,
+                  ),
+                ),
                 stackIdx,
                 underFront ? controller.value : 0,
               ),
@@ -538,7 +540,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     final unitVelocity = unitsPerSecond.distance;
 
     const spring = SpringDescription(
-      mass: 28,
+      mass: 25,
       stiffness: 12,
       damping: 1,
     );
