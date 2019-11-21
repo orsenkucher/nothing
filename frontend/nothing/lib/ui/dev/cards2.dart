@@ -493,11 +493,17 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
               child: widget._cardBuilder(
                 context,
                 FittedBox(
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.cover,
                   child: SizedBox(
                     width: _sizes[0].width,
                     height: _sizes[0].height,
-                    child: child,
+                    child: Container(
+                      // color: Colors.red,
+                      child: Opacity(
+                        opacity: opacity.value,
+                        child: child,
+                      ),
+                    ),
                   ),
                 ),
                 stackIdx,

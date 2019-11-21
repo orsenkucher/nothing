@@ -60,7 +60,6 @@ class Hub extends StatelessWidget {
                 Colors.red,
                 lerp.abs(),
               );
-            print(lerp);
             return Padding(
               padding: EdgeInsets.all(20),
               child: Container(
