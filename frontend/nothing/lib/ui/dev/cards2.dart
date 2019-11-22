@@ -165,10 +165,11 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
               _swapAnimations();
               // _swapTranspOpacity();
             }
-            _calcFrontOffset(update.delta);
+            final rotChanged = _calcFrontOffset(update.delta);
             // if (!_frontAnimating)
             // _controller.stop();
             _controller.value = _frontOffsetNormed.abs();
+            if (rotChanged) _calcFrontAlign();
           },
           onHorizontalDragEnd: (end) {
             _listeners.forEach((l) => l());
@@ -275,10 +276,11 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     //   end: _aligns[0],
     // ).animate(_controller);
     controller.animateWith(spring).then((_) {
-      setState(() {
-        // _index++;
-        // _cntIndex++;
-      });
+      // setState(() {
+      //   // _index++;
+      //   // _cntIndex++;
+      // });
+      _animations.remove(bundle);
       setState(() {
         // _controller.reset();
         // _usefrontAlign = false;
@@ -286,26 +288,28 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         // _frontOffsetNormed = 0;
         // print("kek");
         // print(_animations.first.controller.value);
-        _animations.remove(bundle);
         // controller.removeListener(l);
         if (_animations.length == 0) {
           _midController = _controller;
           _midVals = _controller;
           _swapAnimations();
         }
-        controller.dispose();
         // print(_animations.length);
       });
+      controller.dispose();
     });
   }
 
-  void _calcFrontOffset(Offset offset) {
+  bool _calcFrontOffset(Offset offset) {
     // _frontOffset += offset.dx / _screenSize.width;
-    _frontOffsetNormed += offset.dx / _screenSize.width;
-    _frontOffsetNormed = min(max(-1, _frontOffsetNormed), 1);
+    final newOffset = _frontOffsetNormed + offset.dx / _screenSize.width;
+    // if (newOffset.sign != _frontOffsetNormed.sign) _calcFrontAlign();
+    final changed = newOffset.sign != _frontOffsetNormed.sign;
+    _frontOffsetNormed = newOffset.clamp(-1, 1);
     setState(() {
       assert(_frontOffsetNormed >= -1 && _frontOffsetNormed <= 1);
     });
+    return changed;
   }
 
   bool _transparentCardNeeded() {
@@ -345,8 +349,6 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   }
 
   Widget _frontCard(BuildContext context, int stackIdx) {
-    // _frontAlign = _usefrontAlign ? _frontAlign : _calcFrontAlign(_controller);
-    _frontAlign = _calcFrontAlign(_controller);
     return _buildFrontCard(
       _controller,
       context,
@@ -397,7 +399,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     );
   }
 
-  Animation<Alignment> _calcFrontAlign(AnimationController controller) {
+  void _calcFrontAlign() {
     final full = _screenSize;
     final card = _sizes[0];
     final gap = Size(
@@ -410,8 +412,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         _frontOffsetNormed.sign * (gap.width + card.width) / gap.width,
         0,
       ),
-    ).animate(controller);
-    return align;
+    ).animate(_controller);
+    _frontAlign = align;
   }
 
   Animation<Alignment> _calcAnimatingAlign(AnimationController controller) {
@@ -450,6 +452,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     }
 
     _swapTranspOpacity();
+    _calcFrontAlign();
   }
 
   void _swapAnimation(int stackIdx) {
