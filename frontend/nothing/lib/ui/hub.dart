@@ -15,6 +15,7 @@ import 'package:nothing/bloc/questions/bloc.dart';
 // import 'package:nothing/ui/dev/cards2.dart';
 import 'package:nothing/ui/playdeck.dart';
 import 'package:nothing/ui/solve_problems.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
 class Hub extends StatefulWidget {
   @override
@@ -22,6 +23,13 @@ class Hub extends StatefulWidget {
 }
 
 class _HubState extends State<Hub> {
+  final String adId = 'ca-app-pub-1110795858328496~4855150329';
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAdMob.instance.initialize(appId: adId);
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();

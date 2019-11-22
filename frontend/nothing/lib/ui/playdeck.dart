@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
@@ -13,6 +14,35 @@ class PlayDeck extends StatelessWidget {
   const PlayDeck({
     @required this.qus,
   });
+
+  void _showAd() {
+    MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+      keywords: <String>['arcade', 'trivia', 'archero'],
+      // contentUrl: 'https://flutter.io',
+      childDirected: false,
+      // testDevices: <String>["AB830EF6C4B9891477B08F050EED5DC1"],
+    );
+
+    InterstitialAd myInterstitial = InterstitialAd(
+      // Replace the testAdUnitId with an ad unit id from the AdMob dash.
+      // InterstitialAd.testAdUnitId,
+      // "AB830EF6C4B9891477B08F050EED5DC1"
+      //
+      adUnitId: "ca-app-pub-1110795858328496/6878678433",
+      // adUnitId: InterstitialAd.testAdUnitId,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("InterstitialAd event is $event");
+      },
+    );
+    myInterstitial
+      ..load()
+      ..show(
+        anchorType: AnchorType.bottom,
+        anchorOffset: 0.0,
+        horizontalCenterOffset: 0.0,
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +60,7 @@ class PlayDeck extends StatelessWidget {
       },
       onDone: (context) {
         print('Done');
+        _showAd();
         BlocProvider.of<QuBloc>(context).add(
           FetchQus(),
         );
