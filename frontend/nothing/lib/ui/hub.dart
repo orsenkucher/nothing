@@ -31,6 +31,13 @@ class Hub extends StatelessWidget {
         color: Colors.blue,
         // child: dev.Cards(
         child: Cards2(
+          onSwipe: (context, idx, dr) {
+            final text = 'Card $idx: ${dr < 0 ? "left" : "right"}';
+            final snackBar = SnackBar(content: Text(text));
+            print(text);
+            Scaffold.of(context).removeCurrentSnackBar();
+            Scaffold.of(context).showSnackBar(snackBar);
+          },
           cardBuilder: (context, child, index, lerp) {
             // print(lerp);
             // var colors = Colors.primaries;
@@ -45,6 +52,7 @@ class Hub extends StatelessWidget {
             );
           },
           contentBuilder: (context, index, lerp) {
+            // print(index);
             lerp = (lerp * 6).clamp(-1.0, 1.0);
             var colorRight = Color(0xffEAEAEA);
             var colorLeft = Color(0xffEAEAEA);

@@ -17,9 +17,16 @@ typedef Widget ContentBuilder(
   double lerp,
 );
 
+typedef void OnSwipe(
+  BuildContext context,
+  int index,
+  double direction,
+);
+
 class Cards2 extends StatefulWidget {
   final CardBuilder _cardBuilder;
   final ContentBuilder _contentBuilder;
+  final OnSwipe _onSwipe;
   final int _totalCount;
   final int _stackCount;
   final double _widthFactor;
@@ -28,12 +35,14 @@ class Cards2 extends StatefulWidget {
   const Cards2({
     @required CardBuilder cardBuilder,
     @required ContentBuilder contentBuilder,
+    @required OnSwipe onSwipe,
     @required int totalCount,
     int stackCount = 3,
     double widthFactor = 0.9,
     double heightFactor = 0.9,
   })  : _cardBuilder = cardBuilder,
         _contentBuilder = contentBuilder,
+        _onSwipe = onSwipe,
         _totalCount = totalCount,
         _stackCount = stackCount,
         _widthFactor = widthFactor,
@@ -173,7 +182,7 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
           },
           onHorizontalDragEnd: (end) {
             _listeners.forEach((l) => l());
-            _animate(end.velocity);
+            _animate(context, end.velocity);
           },
           child: Container(), // color: Colors.green.withAlpha(50)
         ),
@@ -181,12 +190,12 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     );
   }
 
-  void _animate(Velocity v) {
+  void _animate(BuildContext context, Velocity v) {
     final sign = v.pixelsPerSecond.dx.sign;
     final off = _frontOffsetNormed;
     // print(off.abs());
     if (sign == 0 && off.abs() > 0.5 || sign == off.sign) {
-      _animateOut(v);
+      _animateOut(context, v);
     } else {
       _animateBack(v);
     }
@@ -226,7 +235,14 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
     });
   }
 
-  void _animateOut(Velocity v) {
+  void _animateOut(BuildContext context, Velocity v) {
+    if (_index < widget._totalCount)
+      widget._onSwipe?.call(
+        context,
+        _cntIndex,
+        _frontOffsetNormed.sign,
+      );
+
     final spring = _simulateSpring(v.pixelsPerSecond, _screenSize);
     final controller = AnimationController(
       vsync: this,
