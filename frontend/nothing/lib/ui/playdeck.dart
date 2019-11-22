@@ -2,6 +2,8 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/data/model/question.dart';
 import 'package:nothing/ui/dev/cards2.dart';
 
@@ -21,10 +23,16 @@ class PlayDeck extends StatelessWidget {
       widthFactor: 0.85,
       onSwipe: (context, idx, dr) {
         final text = 'Card $idx: ${dr < 0 ? "left" : "right"}';
-        final snackBar = SnackBar(content: Text(text));
         print(text);
-        Scaffold.of(context).hideCurrentSnackBar();
-        Scaffold.of(context).showSnackBar(snackBar);
+        // final snackBar = SnackBar(content: Text(text));
+        // Scaffold.of(context).hideCurrentSnackBar();
+        // Scaffold.of(context).showSnackBar(snackBar);
+      },
+      onDone: (context) {
+        print('Done');
+        BlocProvider.of<QuBloc>(context).add(
+          FetchQus(),
+        );
       },
       cardBuilder: (context, child, index, lerp) {
         // print(lerp);

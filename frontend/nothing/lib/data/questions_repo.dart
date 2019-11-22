@@ -56,7 +56,7 @@ class LocalQuestionsRepo extends QuestionsRepo {
   @override
   Future<List<Question>> fetchQuestions(int count) {
     return Future.delayed(
-      Duration(seconds: 4),
+      Duration(milliseconds: 1500),
       () => _local,
     );
   }

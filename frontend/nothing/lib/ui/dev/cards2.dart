@@ -23,10 +23,13 @@ typedef void OnSwipe(
   double direction,
 );
 
+typedef void OnDone(BuildContext context);
+
 class Cards2 extends StatefulWidget {
   final CardBuilder _cardBuilder;
   final ContentBuilder _contentBuilder;
   final OnSwipe _onSwipe;
+  final OnDone _onDone;
   final int _totalCount;
   final int _stackCount;
   final double _widthFactor;
@@ -36,6 +39,7 @@ class Cards2 extends StatefulWidget {
     @required CardBuilder cardBuilder,
     @required ContentBuilder contentBuilder,
     @required OnSwipe onSwipe,
+    @required OnDone onDone,
     @required int totalCount,
     int stackCount = 3,
     double widthFactor = 0.9,
@@ -43,6 +47,7 @@ class Cards2 extends StatefulWidget {
   })  : _cardBuilder = cardBuilder,
         _contentBuilder = contentBuilder,
         _onSwipe = onSwipe,
+        _onDone = onDone,
         _totalCount = totalCount,
         _stackCount = stackCount,
         _widthFactor = widthFactor,
@@ -105,8 +110,8 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -191,6 +196,9 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
   }
 
   void _animate(BuildContext context, Velocity v) {
+    if (_cntIndex >= widget._totalCount) {
+      return;
+    }
     final sign = v.pixelsPerSecond.dx.sign;
     final off = _frontOffsetNormed;
     // print(off.abs());
@@ -313,6 +321,9 @@ class _Cards2State extends State<Cards2> with TickerProviderStateMixin {
         // print(_animations.length);
       });
       controller.dispose();
+      if (_animations.length == 0 && _cntIndex >= widget._totalCount) {
+        widget._onDone?.call(context);
+      }
     });
   }
 
