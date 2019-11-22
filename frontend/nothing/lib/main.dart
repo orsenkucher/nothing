@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nothing/bloc/problem/bloc.dart';
-import 'package:nothing/bloc/problems/bloc.dart';
-import 'package:nothing/data/problems_repo.dart';
+// import 'package:nothing/bloc/problem/bloc.dart';
+// import 'package:nothing/bloc/problems/bloc.dart';
+import 'package:nothing/bloc/questions/bloc.dart';
+// import 'package:nothing/data/problems_repo.dart';
+import 'package:nothing/data/questions_repo.dart';
 import 'package:nothing/ui/hub.dart';
 
 void main() => runApp(App());
@@ -20,13 +22,16 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ProblemsBloc>(
-          builder: (context) => ProblemsBloc(problemsRepo: CloudProblemsRepo()),
-          // CloudProblemsRepo | LocalProblemsRepo
-        ),
-        BlocProvider<ProblemBloc>(
-          builder: (context) =>
-              ProblemBloc(problemsBloc: BlocProvider.of<ProblemsBloc>(context)),
+        // BlocProvider<ProblemsBloc>(
+        //   builder: (context) => ProblemsBloc(problemsRepo: CloudProblemsRepo()),
+        //   // CloudProblemsRepo | LocalProblemsRepo
+        // ),
+        // BlocProvider<ProblemBloc>(
+        //   builder: (context) =>
+        //       ProblemBloc(problemsBloc: BlocProvider.of<ProblemsBloc>(context)),
+        // ),
+        BlocProvider<QuBloc>(
+          builder: (context) => QuBloc(qusRepo: LocalQuestionsRepo()),
         ),
       ],
       child: MaterialApp(

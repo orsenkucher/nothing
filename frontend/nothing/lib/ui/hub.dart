@@ -1,18 +1,35 @@
-import 'dart:ui';
-import 'dart:ui' as prefix0;
+// import 'dart:ui';
+// import 'dart:ui' as prefix0;
 
 import 'package:flutter/material.dart';
-import 'package:nothing/ui/cards.dart';
-import 'package:nothing/ui/deck.dart';
-import 'package:nothing/ui/powercard.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/questions/bloc.dart';
+// import 'package:nothing/ui/cards.dart';
+// import 'package:nothing/ui/deck.dart';
+// import 'package:nothing/ui/powercard.dart';
+// import 'package:nothing/ui/solve_problems.dart';
+// import 'package:nothing/ui/swipecard.dart' as swp;
+// import 'package:nothing/ui/tinder.dart';
+// import 'package:nothing/ui/dev/cards.dart' as dev;
+
+// import 'package:nothing/ui/dev/cards2.dart';
+import 'package:nothing/ui/playdeck.dart';
 import 'package:nothing/ui/solve_problems.dart';
-import 'package:nothing/ui/swipecard.dart' as swp;
-import 'package:nothing/ui/tinder.dart';
-import 'package:nothing/ui/dev/cards.dart' as dev;
 
-import 'package:nothing/ui/dev/cards2.dart';
+class Hub extends StatefulWidget {
+  @override
+  _HubState createState() => _HubState();
+}
 
-class Hub extends StatelessWidget {
+class _HubState extends State<Hub> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    BlocProvider.of<QuBloc>(context).add(
+      FetchQus(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // final size = MediaQuery.of(context).size;
@@ -25,96 +42,24 @@ class Hub extends StatelessWidget {
     //   "assets/welcome1.png",
     //   "assets/welcome1.png"
     // ];
-
+// child: BlocBuilder<ProblemsBloc, ProblemsState>(
+//           builder: (context, state) => state is LoadedProblems
+//               ? Question(state$: state)
+//               : state is LoadingProblems
+//                   ? LoadingCircle()
+//                   : state is LoadingError
+//                       ? ErrorMessage(state: state)
+//                       : Container(),
     return Scaffold(
       body: Container(
         color: Colors.blue,
         // child: dev.Cards(
-        child: Cards2(
-          onSwipe: (context, idx, dr) {
-            final text = 'Card $idx: ${dr < 0 ? "left" : "right"}';
-            final snackBar = SnackBar(content: Text(text));
-            print(text);
-            Scaffold.of(context).removeCurrentSnackBar();
-            Scaffold.of(context).showSnackBar(snackBar);
+        child: BlocBuilder<QuBloc, QusState>(
+          builder: (context, state) {
+            return state is LoadingQus
+                ? LoadingCircle()
+                : state is LoadedQus ? PlayDeck(qus: state.qus) : Container();
           },
-          cardBuilder: (context, child, index, lerp) {
-            // print(lerp);
-            // var colors = Colors.primaries;
-            // Color color = colors[(colors.length + index * 6) % colors.length];
-            // color = Colors.white;
-            return Material(
-              shadowColor: Colors.black.withAlpha(60),
-              borderRadius: BorderRadius.circular(28),
-              elevation: lerpDouble(1, 7, lerp),
-              // color: color,
-              child: child,
-            );
-          },
-          contentBuilder: (context, index, lerp) {
-            // print(index);
-            lerp = (lerp * 6).clamp(-1.0, 1.0);
-            var colorRight = Color(0xffEAEAEA);
-            var colorLeft = Color(0xffEAEAEA);
-            if (lerp > 0)
-              colorRight = Color.lerp(
-                Color(0xffEAEAEA),
-                Color(0xff56D16C),
-                lerp.abs(),
-              );
-            if (lerp < 0)
-              colorLeft = Color.lerp(
-                Color(0xffEAEAEA),
-                Colors.red,
-                lerp.abs(),
-              );
-            return Padding(
-              padding: EdgeInsets.all(20),
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Text(
-                      'True',
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: colorRight,
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Text(
-                      'False',
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: colorLeft,
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Have you achieved any of your recent goals?',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            );
-          },
-          stackCount: 3,
-          totalCount: 24,
-          heightFactor: 0.60,
-          widthFactor: 0.85,
-          // infinite: false,
         ),
       ),
 
@@ -189,10 +134,4 @@ class Hub extends StatelessWidget {
       //     }),
     );
   }
-
-  // Widget _spawnContent() {
-  //   return FlutterLogo(
-  //     size: 100,
-  //   );
-  // }
 }
