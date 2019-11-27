@@ -23,7 +23,7 @@ class Hub extends StatefulWidget {
 }
 
 class _HubState extends State<Hub> {
-  final String adId = 'ca-app-pub-1110795858328496~4855150329';
+  final String adId = 'ca-app-pub-3169956978186495~8308569350';
   @override
   void initState() {
     super.initState();

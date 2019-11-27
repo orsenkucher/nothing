@@ -42,7 +42,7 @@ class _PlayDeckState extends State<PlayDeck> {
       // InterstitialAd.testAdUnitId,
       // "AB830EF6C4B9891477B08F050EED5DC1"
       //
-      adUnitId: "ca-app-pub-1110795858328496/6878678433",
+      adUnitId: "ca-app-pub-3169956978186495/7272148845",
       // adUnitId: InterstitialAd.testAdUnitId,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
