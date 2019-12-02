@@ -16,6 +16,7 @@ import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/ui/playdeck.dart';
 import 'package:nothing/ui/solve_problems.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:nothing/ui/statsbar.dart';
 
 class Hub extends StatefulWidget {
   @override
@@ -62,12 +63,25 @@ class _HubState extends State<Hub> {
       body: Container(
         color: Colors.blue,
         // child: dev.Cards(
-        child: BlocBuilder<QuBloc, QusState>(
-          builder: (context, state) {
-            return state is LoadingQus
-                ? LoadingCircle()
-                : state is LoadedQus ? PlayDeck(qus: state.qus) : Container();
-          },
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 50, right: 30, left: 30),
+              child: StatsBar(
+                value: 70,
+                height: 60,
+              ),
+            ),
+            BlocBuilder<QuBloc, QusState>(
+              builder: (context, state) {
+                return state is LoadingQus
+                    ? LoadingCircle()
+                    : state is LoadedQus
+                        ? PlayDeck(qus: state.qus)
+                        : Container();
+              },
+            ),
+          ],
         ),
       ),
 
