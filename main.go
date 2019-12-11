@@ -2,23 +2,53 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 
+	firebase "firebase.google.com/go"
 	"github.com/orsenkucher/nothing/core"
 	"github.com/orsenkucher/nothing/fbclients"
 	"github.com/orsenkucher/nothing/txt2json"
+	"google.golang.org/api/option"
 )
+
+// State is test data
+type State struct {
+	Capital    string  `firestore:"capital"`
+	Population float64 `firestore:"pop"` // in millions
+}
 
 func main() {
 	// fn0()
 	// fn1()
 	// fn2()
-	http.HandleFunc("/", HelloServer)
-	fmt.Println("Serving...")
-	http.ListenAndServe(":9090", nil)
+
+	ctx := context.Background()
+	sa := option.WithCredentialsFile("creds.json")
+	app, err := firebase.NewApp(ctx, nil, sa)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	client, err := app.Firestore(ctx)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer client.Close()
+
+	client.Doc("orsen/hello").Set(ctx, State{
+		Capital:    "Albany",
+		Population: 19.8,
+	})
+
+	fmt.Println("done")
+	// http.HandleFunc("/", HelloServer)
+	// fmt.Println("Serving...")
+	// http.ListenAndServe(":9090", nil)
 }
 
 // HelloServer is hello world default route handler

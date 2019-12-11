@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "crystal-factory",
+  "private_key_id": "81fbbe9729e082f71490c3b77d1ea7ee4c82a107",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDDLaxKMIe9O1tZ\nnetkHEMcmMM62Fkd9vQOkAS83cEo/y7ig5/YEIh65u87ecpcCNoH4MJhA1zavxT9\nKuN9qQB78EenkC6ZYDr1LgDLPYHA6A0KTEW4n1709kHNCEy7Ul1ud83N7BZhPNT6\noPvrUpv6dkBvfoVAAB+7LTTInWwHvcikyE1dMatUgGtCyydmL3SjoHSsG2TdkmGd\n5NplSM0HtwitBueEtT/1/YrjlJmyu+2wOGIZ35LJG4eaSqSXvkGm5YsoAJF7tYXu\n50pK8meh4IeJcdd3A/+woyuBNrbqoBlMQBvphlly2r/Aw4oM/VrK0xfRhYxiixeZ\nRV+lYmJZAgMBAAECggEAAf2KP0DFcZmUXJKZXu5RhON4l4td7/SfwoeXdMbyJv/g\niNt8xXr4WVXXj2ILkpVd29df7sCrsWi3cb7T476Adxhuh/fsHGZN052Xe9BxwqIw\ngoVf70+4wS4YYls4+m65mIciPdJa3BJUaFs8lnFuORym8DwjEbxZQShnMbs2lHxH\nYTQOcUxwO1EhoBNnZrhauRfyNnLOGHN6htZfrO2UrWbeoqvCtZEg7XhkdmMvncfz\nWeiZOOCV8Osr/eR9Wze79g0UVPRnsgtykCA5eaO+ESvQcyA5uTEkDaTrYHawXuYh\nsMOev3OgUbIwDhUaszmwrM6OLyLi8ZKYD1vz51AJfQKBgQD/G3wMchgAW+P69g8B\n2YA3SUn57GIkOT3TKVcH827mugYxlo2f/XxWnc9v1s3So2sAPIuJYEprgMLrCL28\n1AIWja9BSmJpAOXQAVIjIe5bPKk2JZbQhDG9qM9uykfBKBM8YAs3b4P0+RVimrZg\nSTLrdUdz+gDLxavP1wsQSIAWSwKBgQDD3IGh0d10at+/o0qVWbSwGBINjvFZ88h/\nx1RMAkmkz1UmrmPPo1/K2s16IPT/H9M9LbmxN4yrHIIkZXGdLvPEx90l+WzhMHJF\nWW02yhDNGUqdgsBFm4om6rnwBfFSW9SFgFM2SuEn1N5bYqOG2HQIfQnKxmHda6MH\nK48+qaSTawKBgCzRrVeaa/EUM9eRh01x4v7Tl3WbPBrVG7GPn8S71g4fPJtVsggb\nxs6I5zrk6EBLia7+9Bzsl+aPNq+IV51nOf6wYcv8v5FnIPkMYlvdyDyrSadDr11u\n/DYwBFGYpEahPc/rp8zTgMF3SXSLbeM4uQN5FVag46bpUagwRbdUpXxFAoGBAJeg\nrfrIrdjipDWIBMV6nRd2iwNUFiS9RgsmFWyCmOCuYg2AFGU65X31xf02ZnTb/nzu\nWUOI7a3KdDYZEsvM/Yrp75rmbhQnnU9y28n+xOMDIXCvOIqqz1kxfqEC+L/5t51i\nqwjtD0H22e2Ff3N1Pt8TbfE9g6YXHi7+2fZ4/p/hAoGANkHuyGVFhAaU4hSGwk+K\noR9Mm+xRfpTFbzRB4WiZq/jimyUuMqYUlNhUltdxcUFUnu4VKOIrjUJl3Kio4etK\nVSCsav4G2bD3QGgC+fMJWuC0RbhBTPaAGrRBi2GtpE7DpK/C1D8bNoPZanOKMCQ8\nzmuYkOuNLw7qoq0ozC5M2wc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-4vqt1@crystal-factory.iam.gserviceaccount.com",
+  "client_id": "106413814203585975571",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-4vqt1%40crystal-factory.iam.gserviceaccount.com"
+}
