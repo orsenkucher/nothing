@@ -63,6 +63,7 @@ func (s *Server) getUser(id string) *User {
 		s.Users[id] = &User{Done: []byte{}}
 		user, _ = s.Users[id]
 	}
+	s.client.Doc("Users/"+id).Set(s.ctx, user)
 	return user
 }
 
