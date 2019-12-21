@@ -97,9 +97,9 @@ func (s *Server) GiveQuestions(id string, n int) []Question {
 //ReceiveAns is public
 //left ans == true
 //right ans == false
-func (s *Server) ReceiveAns(userid string, ids []int, ans []bool) {
+func (s *Server) ReceiveAns(userid string, answers map[int]bool) {
 	user := s.getUser(userid)
-	for i, id := range ids {
+	for id, ans := range answers {
 		if len(user.Done)*8 <= id {
 			user.Done = append(user.Done, make([]byte, id/8+1-len(user.Done))...)
 		}
@@ -108,7 +108,7 @@ func (s *Server) ReceiveAns(userid string, ids []int, ans []bool) {
 		for {
 			if q.Value.(Question).ID == id {
 				question := q.Value.(Question)
-				if ans[i] {
+				if ans {
 					question.Leftn++
 				} else {
 					question.Rightn++
