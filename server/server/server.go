@@ -76,7 +76,7 @@ func (s *Server) GiveQuestions(id string, n int) []Question {
 	for i := 0; i < s.Que.Len() && len(ans) < n; i++ {
 		q := question.Value.(Question)
 		question = question.Next()
-		if len(user.Done)*8 <= q.ID || user.Done[q.ID/8]&(1<<(q.ID%8)) == 0 && q.Valid {
+		if len(user.Done)*8 <= q.ID || user.Done[q.ID/8]&(1<<uint(q.ID%8)) == 0 && q.Valid {
 			ans = append(ans, q)
 			s.Que.MoveToBack(question.Prev())
 		}
@@ -103,7 +103,7 @@ func (s *Server) ReceiveAns(userid string, answers map[int]bool) {
 		if len(user.Done)*8 <= id {
 			user.Done = append(user.Done, make([]byte, id/8+1-len(user.Done))...)
 		}
-		user.Done[id/8] |= 1 << (id % 8)
+		user.Done[id/8] |= 1 << uint(id%8)
 		q := s.Que.Front()
 		for {
 			if q.Value.(Question).ID == id {
