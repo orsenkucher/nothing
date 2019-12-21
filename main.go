@@ -51,11 +51,6 @@ func main() {
 	// http.ListenAndServe(":9090", nil)
 }
 
-// HelloServer is hello world default route handler
-func HelloServer(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
-}
-
 type problem struct {
 	Question    string   `doc:"q" json:"question"`
 	Explanation string   `doc:"exp" json:"explanation"`

@@ -1,19 +1,25 @@
 package main
 
 import (
-	"fmt"
+	"net/http"
 
 	"github.com/orsenkucher/nothing/server/server"
 )
 
 func main() {
+	s := server.Server{}
+	s.StartUp()
+
+	http.HandleFunc("/", s.GetQues)
+	http.ListenAndServe(":9090", nil)
+
 	/*users := map[string]server.User{}
 	users["0"] = server.User{Done: []byte{}}
 	user, _ := users["0"]
 	user.Done = []byte{1, 2}
 	user, _ = users["0"]
 	fmt.Print(user.Done)//*/
-	s := server.Server{}
+	/* s := server.Server{}
 	s.StartUp()
 	s.AddQuestion(server.Question{
 		ID:       1,
