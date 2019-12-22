@@ -24,7 +24,7 @@ class QuBloc extends Bloc<QusEvent, QusState> {
   ) async* {
     if (event is FetchQus) {
       yield LoadingQus();
-      var problems = await qusRepo.fetchQuestions(event.count);
+      var problems = await qusRepo.fetchQuestions(count: event.count);
       yield LoadedQus(
         qus: problems,
       );
