@@ -14,3 +14,16 @@ class FetchQus extends QusEvent {
   @override
   List<Object> get props => [count];
 }
+
+class QuestionAnswer extends QusEvent {
+  final int idx;
+  final bool answer;
+
+  const QuestionAnswer({
+    this.idx,
+    this.answer,
+  });
+
+  @override
+  List<Object> get props => [answer];
+}
