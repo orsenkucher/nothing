@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:meta/meta.dart';
 
 import 'package:http/http.dart';
 import 'package:nothing/data/model/problem.dart';
@@ -7,11 +8,48 @@ import 'package:nothing/error/cloud_error.dart';
 import 'model/question.dart';
 
 abstract class QuestionsRepo {
-  Future<List<Question>> fetchQuestions(int count);
-  Future<void> sendSummary(Map<int, bool> summary);
+  Future<List<Question>> fetchQuestions({
+    @required int count,
+    Map<int, bool> summary,
+  });
+  // Future<void> sendSummary(Map<int, bool> summary);
 }
 
-// class CloudQuestionsRepo extends QuestionsRepo {}
+class CloudQuestionsRepo extends QuestionsRepo {
+  var fetchProblemsUrl = 'http://34.89.201.1:9090/';
+
+  @override
+  Future<List<Question>> fetchQuestions({
+    int count,
+    Map<int, bool> summary,
+  }) async {
+    var summaryJson = json.encode(
+      summary.map((k, v) => MapEntry(k.toString(), v)),
+    );
+    try {
+      var body = json.encode({
+        "n": count,
+        "userId": "123",
+        "answers": summaryJson,
+      });
+      var resp = await post(
+        fetchProblemsUrl,
+        body: body,
+      );
+      print(resp.body);
+      if (resp.statusCode == 200) {
+        List<dynamic> decoded = json.decode(resp.body);
+        var problems = decoded.map((f) => Question.fromJson(f)).toList();
+        if (problems.length == count) {
+          return problems;
+        }
+      }
+      throw null;
+    } catch (_) {
+      throw CloudError(error: "Coud not fetch problems");
+    }
+  }
+}
 
 class LocalQuestionsRepo extends QuestionsRepo {
   List<Question> _local = [
@@ -54,7 +92,10 @@ class LocalQuestionsRepo extends QuestionsRepo {
   ];
 
   @override
-  Future<List<Question>> fetchQuestions(int count) {
+  Future<List<Question>> fetchQuestions({
+    int count,
+    Map<int, bool> summary,
+  }) {
     return Future.delayed(
       Duration(milliseconds: 1500),
       () => _local,

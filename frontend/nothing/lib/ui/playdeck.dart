@@ -81,6 +81,9 @@ class _PlayDeckState extends State<PlayDeck> {
         onSwipe: (context, idx, dr) {
           final text = 'Card $idx: ${dr < 0 ? "left" : "right"}';
           print(text);
+          BlocProvider.of<QuBloc>(context).add(
+            QuestionAnswer(idx: idx, answer: dr < 0),
+          );
           // final snackBar = SnackBar(content: Text(text));
           // Scaffold.of(context).hideCurrentSnackBar();
           // Scaffold.of(context).showSnackBar(snackBar);

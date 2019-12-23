@@ -92,6 +92,7 @@ func (s *Server) GiveQuestions(id string, n int) []Question {
 		}
 	}
 
+	log.Println(ans)
 	return ans
 }
 

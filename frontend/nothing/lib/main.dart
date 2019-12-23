@@ -31,7 +31,7 @@ class App extends StatelessWidget {
         //       ProblemBloc(problemsBloc: BlocProvider.of<ProblemsBloc>(context)),
         // ),
         BlocProvider<QuBloc>(
-          builder: (context) => QuBloc(qusRepo: LocalQuestionsRepo()),
+          builder: (context) => QuBloc(qusRepo: CloudQuestionsRepo()),
         ),
       ],
       child: MaterialApp(
