@@ -23,15 +23,14 @@ class CloudQuestionsRepo extends QuestionsRepo {
     int count,
     Map<int, bool> summary,
   }) async {
-    var summaryJson = json.encode(
-      summary.map((k, v) => MapEntry(k.toString(), v)),
-    );
     try {
       var body = json.encode({
         "n": count,
-        "userId": "123",
-        "answers": summaryJson,
+        "userId": "007",
+        "answers": summary.map((k, v) => MapEntry(k.toString(), v)),
       });
+      print("**********");
+      print(body);
       var resp = await post(
         fetchProblemsUrl,
         body: body,
