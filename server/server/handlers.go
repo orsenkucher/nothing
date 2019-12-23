@@ -6,13 +6,14 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 // QRequest represents questions request bundled with previous answers
 type QRequest struct {
 	N       int
 	UserID  string
-	Answers map[int]bool
+	Answers map[string]bool
 }
 
 // GetQues is hello world default route handler
@@ -28,7 +29,12 @@ func (s *Server) GetQues(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 	log.Println(req)
-	s.ReceiveAns(req.UserID, req.Answers)
+	mappedmap := make(map[int]bool)
+	for k, v := range req.Answers {
+		key, _ := strconv.Atoi(k)
+		mappedmap[key] = v
+	}
+	s.ReceiveAns(req.UserID, mappedmap)
 	ques := s.GiveQuestions(req.UserID, req.N)
 	quesj, err := json.Marshal(&ques)
 	if err != nil {
