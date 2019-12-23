@@ -1,0 +1,99 @@
+﻿Would you like to lose 20kg?|yes|no
+Do you like lonely evenings?|yes|no
+Do you like dark chocolate?|yes|no
+Do you like a fashionable clothes?|yes|no
+Do you like basketball?|yes|no
+Do you drink coffee regularly?|yes|no
+Do you like to eat chips?|yes|no
+Do you write nicely?|yes|no
+Would you like to be famous?|yes|no
+Have you ever been to a hospital?|yes|no
+Have you ever have something broken?|yes|no
+Do you sing nicely?|yes|no
+Do you know a person who sing nicely?|yes|no
+Do you like Justin Bieber?|yes|no
+Would you like to go into space?|yes|no
+Do you like a hip-hop music?|yes|no
+Do you like pop music?|yes|no
+Do you use an electric toothbrush?|yes|no
+Do you like horror movies?|yes|no
+Have you ever been abroad?|yes|no
+Are you interested in cooking?|yes|no
+Do you use WhatsApp?|yes|no
+Are you selfish?|yes|no
+Have you ever been to Paris?|yes|no
+Nike or Adidas|Nike|Adidas
+Do you eat popcorn at the movies?|yes|no
+Have you ever been bullied?|yes|no
+Do you have false teeth?|yes|no
+Do you have a big head?|yes|no
+Can you touch your nose with your tongue?|yes|no
+Do you like Spiderman?|yes|no
+Is this your favorite app?|yes|no
+Have you ever seen a UFO?|yes|no
+Do you have a bicycle?|yes|no
+Do you like studying?|yes|no
+Do you smiling a lot?|yes|no
+Do you have any pets?|yes|no
+Are you adopted?|yes|no
+Are you a student?|yes|no
+Do you like hugging people?|yes|no
+Christmas  vs  Easter?|Christmas|Easter
+Did you rate this game?|yes|no
+Do you count with your fingers?|yes|no
+Do you about what people think?|yes|no
+Have you ever been rejected?|yes|no
+Can you speak French?|yes|no
+Floyd Mayweather vs Macgreror|Floyd|Gregor
+Have you ever failed a test?|yes|no
+Have you achieved any of your recent goals?|yes|no
+Do you think you will be able to finish all these question?|yes|no
+Kanye West vs Taylor Swift|Kanye|Taylor
+Dogs vs cats|yes|no
+Tea vs coffee|yes|no
+Bananas or Apples|yes|no
+Paris vs London|yes|no
+New-York vs Moscow|yes|no
+Drake vs A$AP Rocky|yes|no
+Rap vs rock|yes|no
+Nirvana vs Metallica|yes|no
+Do you work night shifts?|yes|no
+Do you enjoy sleeping?|yes|no
+Do you get enough sleep?|yes|no
+Do you like cleaning your room?|yes|no
+Have you ever been on a roller coaster?|yes|no
+Have you ever forgotten to lock the door?|yes|no
+Would you like to live 100 years?|yes|no
+Have you ever eaten in McDonalds?|yes|no
+Do you regularly watch TV?|yes|no
+Do you like to travel?|yes|no
+Do you eat meat?|yes|no
+Do you have pets?|yes|no
+Do you like flowers?|yes|no
+Do you live with your parents?|yes|no
+Winter vs Summer|Winter|Summer
+Brad Pitt vs Leonardo DiCaprio?|Bread|Donatello
+iOS vs Android|iOS|Android
+Windows vs MacOS|Windows|MacOs
+Homeless man comes to you and wants $2. Do you give it to him?|yes|no
+Do you brush your teeth?|yes|no
+Do you prefer an electronic version of books instead of paper?|yes|no
+Do you have a brother?|yes|no
+Skies vs Snowboard?|Skies|Snowboard"
+Do you like pancakes?|yes|no
+Be a Jedi or be a wizard?|Jedi|Wizard
+Always say|Yes vs Always say|No?|Yes|No
+KFC vs McDonalds?|KFC|McDonalds
+Boys vs Girls|Boys|Girls
+Napoleon or Julius Caesar?|Napoleon|Caesar
+Computer vs Phone?|Computer|Phone
+Find true love or get one million dollars?|Love|Dollars
+History vs Math?|History|Math"
+Be super famous or be completely anonymous?|Famous|Anonymous
+Win Oscar or win the Nobel prize?|Oscar|Nobel prize
+WhatsApp vs Facebook?|WhatsApp|Facebook
+Go to school vs Go to work?|School|Work
+Baseball vs Football?|Baseball|Football
+Fire vs Water?|Fire|Water
+Free tickets for life vs free lunches for life?|Tickets|Lunches
+Marry your soulmate vs marry a millionaire? |Soulmate|Millionaire
