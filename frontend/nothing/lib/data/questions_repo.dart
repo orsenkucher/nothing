@@ -3,10 +3,14 @@ import 'package:meta/meta.dart';
 
 import 'package:http/http.dart';
 import 'package:nothing/error/cloud_error.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 import 'model/question.dart';
 
 abstract class QuestionsRepo {
+  const QuestionsRepo();
+
   Future<List<Question>> fetchQuestions({
     @required int count,
     Map<int, bool> summary,
@@ -15,17 +19,37 @@ abstract class QuestionsRepo {
 }
 
 class CloudQuestionsRepo extends QuestionsRepo {
-  var fetchProblemsUrl = 'http://34.89.201.1:9090/';
+  final fetchProblemsUrl = 'http://34.89.201.1:9090/';
+  String userId;
+
+  // const CloudQuestionsRepo({
+  //   @required this.userId,
+  // });
+
+  Future<String> loadUserID() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userID = prefs.getString('userid') ?? createUserID(prefs);
+    return userID;
+  }
+
+  Future<String> createUserID(SharedPreferences prefs) async {
+    final newID = Uuid().v4();
+    await prefs.setString('userid', newID);
+    return newID;
+  }
 
   @override
   Future<List<Question>> fetchQuestions({
     int count,
     Map<int, bool> summary,
   }) async {
+    if (userId == null) {
+      userId = await loadUserID();
+    }
     try {
       var body = json.encode({
         "n": count,
-        "userId": "007",
+        "userId": userId,
         "answers": summary.map((k, v) => MapEntry(k.toString(), v)),
       });
       print("**********");
