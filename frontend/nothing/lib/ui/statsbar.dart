@@ -16,14 +16,14 @@ class StatsBar extends StatelessWidget {
         builder: (context, constraints) => Stack(
           children: [
             Container(
-              color: Colors.red,
+              color: Color(0xff427b58), //0xffd65d0e
               width: constraints.maxWidth,
               height: height,
             ),
             AnimatedContainer(
               duration: Duration(milliseconds: 500),
               curve: Curves.easeOutCubic,
-              color: Colors.green,
+              color: Color(0xffaf3a03),
               width: constraints.maxWidth * value,
               height: height,
             ),

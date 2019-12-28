@@ -62,7 +62,7 @@ class _HubState extends State<Hub> {
 //                       : Container(),
     return Scaffold(
       body: Container(
-        color: Colors.blue,
+        color: Color(0xff1d2021), //Colors.blue,
         // child: dev.Cards(
         child: Stack(
           children: [
