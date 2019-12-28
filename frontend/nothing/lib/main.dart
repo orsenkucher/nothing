@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
+import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/data/questions_repo.dart';
 import 'package:nothing/ui/hub.dart';
+
+import 'bloc/question/bloc.dart';
 
 void main() => runApp(App());
 
@@ -14,6 +17,17 @@ void main() => runApp(App());
 // [.] Fix symbol rendering
 // [+] Arrow button tap, clear TextField
 // [.] Rework all bloc states and events with sumtypes
+
+// [.] Поменять ответы местами
+// [.] Адмоб для андройд/айос
+// [.] Цвета
+// [.] Сместить карточки ниже
+// [+] Подвязать слайдер к данным
+// [+] Хранить айди пользователя в приложении
+// [.] Шрифт
+// [.] Порталы
+// [.] Название
+
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -27,11 +41,22 @@ class App extends StatelessWidget {
         //   builder: (context) =>
         //       ProblemBloc(problemsBloc: BlocProvider.of<ProblemsBloc>(context)),
         // ),
-        BlocProvider<QuBloc>(
+        BlocProvider<SummaryBloc>(
+          builder: (context) => SummaryBloc(),
+        ),
+        BlocProvider<QuestionsBloc>(
           builder: (context) {
-            return QuBloc(qusRepo: CloudQuestionsRepo());
+            return QuestionsBloc(
+              qusRepo: LocalQuestionsRepo(), // CloudQuestionsRepo
+              summaryBloc: BlocProvider.of<SummaryBloc>(context),
+            );
           },
         ),
+        BlocProvider<QuestionBloc>(
+          builder: (context) => QuestionBloc(
+            questionsBloc: BlocProvider.of<QuestionsBloc>(context),
+          ),
+        )
       ],
       child: MaterialApp(
         title: 'Nothing',

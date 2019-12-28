@@ -4,13 +4,9 @@ abstract class QuestionEvent extends Equatable {
   const QuestionEvent();
 }
 
-class QuestionAnswer extends QuestionEvent {
-  final bool answer;
-
-  const QuestionAnswer({
-    this.answer,
-  });
+class NextQuestion extends QuestionEvent {
+  const NextQuestion();
 
   @override
-  List<Object> get props => [answer];
+  List<Object> get props => null;
 }

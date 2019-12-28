@@ -3,37 +3,35 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nothing/bloc/questions/event.dart';
 import 'package:nothing/bloc/questions/state.dart';
+import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/data/questions_repo.dart';
 
 export 'event.dart';
 export 'state.dart';
 
-class QuBloc extends Bloc<QusEvent, QusState> {
+class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   final QuestionsRepo qusRepo;
-  Map<int, bool> summary = Map<int, bool>();
+  final SummaryBloc summaryBloc;
 
-  QuBloc({
+  QuestionsBloc({
     @required this.qusRepo,
+    @required this.summaryBloc,
   });
 
   @override
-  QusState get initialState => LoadingQus();
+  QuestionsState get initialState => LoadingQuestions();
 
   @override
-  Stream<QusState> mapEventToState(
-    QusEvent event,
+  Stream<QuestionsState> mapEventToState(
+    QuestionsEvent event,
   ) async* {
-    if (event is QuestionAnswer) {
-      summary[event.idx] = event.answer;
-    }
     if (event is FetchQus) {
-      yield LoadingQus();
+      yield LoadingQuestions();
       var problems = await qusRepo.fetchQuestions(
         count: event.count,
-        summary: summary,
+        summary: summaryBloc.state.summary,
       );
-      summary = Map<int, bool>();
-      yield LoadedQus(
+      yield LoadedQuestions(
         qus: problems,
       );
     }

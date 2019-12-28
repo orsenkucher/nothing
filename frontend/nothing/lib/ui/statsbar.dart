@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class StatsBar extends StatelessWidget {
-  final int value;
+  final double value;
   final double height;
   const StatsBar({
     @required this.value,
     @required this.height,
-  }) : assert(value >= 0 && value <= 100);
+  }) : assert(value >= 0 && value <= 1);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class StatsBar extends StatelessWidget {
               duration: Duration(milliseconds: 500),
               curve: Curves.easeOutCubic,
               color: Colors.green,
-              width: constraints.maxWidth / 100 * value,
+              width: constraints.maxWidth * value,
               height: height,
             ),
           ],

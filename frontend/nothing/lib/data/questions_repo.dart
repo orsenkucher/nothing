@@ -15,26 +15,23 @@ abstract class QuestionsRepo {
     @required int count,
     Map<int, bool> summary,
   });
-  // Future<void> sendSummary(Map<int, bool> summary);
 }
 
 class CloudQuestionsRepo extends QuestionsRepo {
   final fetchProblemsUrl = 'http://34.89.201.1:9090/';
   String userId;
 
-  // const CloudQuestionsRepo({
-  //   @required this.userId,
-  // });
-
   Future<String> loadUserID() async {
     final prefs = await SharedPreferences.getInstance();
     final userID = prefs.getString('userid') ?? createUserID(prefs);
+    print('UserID loaded: $userID');
     return userID;
   }
 
   Future<String> createUserID(SharedPreferences prefs) async {
     final newID = Uuid().v4();
     await prefs.setString('userid', newID);
+    print('New UserID created: $newID');
     return newID;
   }
 

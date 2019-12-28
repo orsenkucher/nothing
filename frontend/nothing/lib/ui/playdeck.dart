@@ -4,7 +4,9 @@ import 'dart:ui';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/question/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
+import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/data/model/question.dart';
 import 'package:nothing/ui/dev/cards2.dart';
 
@@ -67,9 +69,9 @@ class _PlayDeckState extends State<PlayDeck> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<QuBloc, QusState>(
+    return BlocListener<QuestionsBloc, QuestionsState>(
       listener: (context, state) {
-        if (state is LoadedQus) {
+        if (state is LoadedQuestions) {
           _loadAd();
         }
       },
@@ -81,11 +83,15 @@ class _PlayDeckState extends State<PlayDeck> {
         onSwipe: (context, idx, dr) {
           final text = 'Card $idx: ${dr < 0 ? "left" : "right"}';
           print(text);
-          BlocProvider.of<QuBloc>(context).add(
-            QuestionAnswer(
+          BlocProvider.of<SummaryBloc>(context).add(
+            NewAnswer(
               idx: widget.qus[idx].id,
               answer: dr < 0,
             ),
+          );
+
+          BlocProvider.of<QuestionBloc>(context).add(
+            NextQuestion(),
           );
           // final snackBar = SnackBar(content: Text(text));
           // Scaffold.of(context).hideCurrentSnackBar();
@@ -94,7 +100,7 @@ class _PlayDeckState extends State<PlayDeck> {
         onDone: (context) {
           print('Done');
           _showAd();
-          BlocProvider.of<QuBloc>(context).add(
+          BlocProvider.of<QuestionsBloc>(context).add(
             FetchQus(),
           );
         },

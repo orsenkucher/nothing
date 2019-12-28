@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/question/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 // import 'package:nothing/ui/cards.dart';
 // import 'package:nothing/ui/deck.dart';
@@ -34,7 +35,7 @@ class _HubState extends State<Hub> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    BlocProvider.of<QuBloc>(context).add(
+    BlocProvider.of<QuestionsBloc>(context).add(
       FetchQus(),
     );
   }
@@ -67,16 +68,25 @@ class _HubState extends State<Hub> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 50, right: 30, left: 30),
-              child: StatsBar(
-                value: 70,
-                height: 60,
-              ),
+              child: BlocBuilder<QuestionBloc, QuestionState>(
+                  builder: (context, state) {
+                if (state is NewQuestion && state.prevQuestion != null) {
+                  final q = state.prevQuestion;
+                  print(
+                      '${q.leftn} / (${q.leftn + q.rightn}) = ${q.leftn / (q.leftn + q.rightn)}');
+                  return StatsBar(
+                    value: q.leftn / (q.leftn + q.rightn),
+                    height: 60,
+                  );
+                }
+                return Container();
+              }),
             ),
-            BlocBuilder<QuBloc, QusState>(
+            BlocBuilder<QuestionsBloc, QuestionsState>(
               builder: (context, state) {
-                return state is LoadingQus
+                return state is LoadingQuestions
                     ? LoadingCircle()
-                    : state is LoadedQus
+                    : state is LoadedQuestions
                         ? PlayDeck(qus: state.qus)
                         : Container();
               },

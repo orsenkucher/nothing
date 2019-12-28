@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-abstract class QusEvent extends Equatable {
-  const QusEvent();
+abstract class QuestionsEvent extends Equatable {
+  const QuestionsEvent();
 }
 
-class FetchQus extends QusEvent {
+class FetchQus extends QuestionsEvent {
   final int count;
 
   const FetchQus({
@@ -13,17 +13,4 @@ class FetchQus extends QusEvent {
 
   @override
   List<Object> get props => [count];
-}
-
-class QuestionAnswer extends QusEvent {
-  final int idx;
-  final bool answer;
-
-  const QuestionAnswer({
-    this.idx,
-    this.answer,
-  });
-
-  @override
-  List<Object> get props => [answer];
 }
