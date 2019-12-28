@@ -60,7 +60,7 @@ class App extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Nothing',
-        theme: ThemeData(),
+        theme: ThemeData(fontFamily: 'Gilroy'),
         home: Hub(),
         debugShowCheckedModeBanner: false,
       ),
