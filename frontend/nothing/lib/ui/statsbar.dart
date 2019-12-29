@@ -18,7 +18,7 @@ class StatsBar extends StatelessWidget {
 
   final Color leftColor = Color(0xff665c54); // 0xff665c54
   final Color rightColor = Color(0xffd5c4a1); // 0xffd5c4a1
-  final Color grey = Colors.grey;
+  // final Color grey = Colors.grey;
 
   @override
   Widget build(BuildContext context) {
