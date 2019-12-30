@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/event.dart';
 import 'package:nothing/bloc/summary/state.dart';
@@ -13,12 +14,18 @@ class SummaryBloc extends Bloc<SummaryEvent, Summary> {
 
   StreamSubscription _sub;
 
-  SummaryBloc(this.questionsBloc) {
+  SummaryBloc({@required this.questionsBloc}) {
     _sub = questionsBloc.listen((state) {
       if (state is LoadedQuestions) {
         add(ResetSummary());
       }
     });
+  }
+
+  @override
+  Future<void> close() {
+    _sub.cancel();
+    return super.close();
   }
 
   @override
@@ -37,11 +44,5 @@ class SummaryBloc extends Bloc<SummaryEvent, Summary> {
     } else if (event is ResetSummary) {
       yield initialState;
     }
-  }
-
-  @override
-  Future<void> close() {
-    _sub.cancel();
-    return super.close();
   }
 }

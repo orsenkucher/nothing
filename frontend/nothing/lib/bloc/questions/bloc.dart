@@ -13,10 +13,12 @@ export 'state.dart';
 class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   final QuestionsRepo repo;
   final SummaryBloc summaryBloc;
+  final int loadCount;
 
   QuestionsBloc({
     @required this.repo,
     @required this.summaryBloc,
+    this.loadCount = 6,
   });
 
   @override
@@ -25,16 +27,15 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   @override
   Stream<QuestionsState> mapEventToState(QuestionsEvent event) async* {
     if (event is FetchQuestions) {
-      yield* _mapFetchQuestionsToState(event);
+      yield* _mapFetchQuestions(event);
     }
   }
 
-  Stream<QuestionsState> _mapFetchQuestionsToState(
-      FetchQuestions event) async* {
+  Stream<QuestionsState> _mapFetchQuestions(FetchQuestions event) async* {
     yield LoadingQuestions();
     try {
       var problems = await repo.fetchQuestions(
-        count: event.count,
+        count: loadCount,
         summary: summaryBloc.state.summary,
       );
       yield LoadedQuestions(problems);
