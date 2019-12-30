@@ -24,12 +24,12 @@ class LoadedQuestions extends QuestionsState {
   List<Object> get props => [qus];
 }
 
-class QuestionsSummary extends QuestionsState {
-  final Map<int, bool> summary;
-  const QuestionsSummary({
-    @required this.summary,
-  });
+// class QuestionsSummary extends QuestionsState {
+//   final Map<int, bool> summary;
+//   const QuestionsSummary({
+//     @required this.summary,
+//   });
 
-  @override
-  List<Object> get props => [summary];
-}
+//   @override
+//   List<Object> get props => [summary];
+// }
