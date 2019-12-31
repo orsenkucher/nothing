@@ -145,3 +145,56 @@ Summer Olympics vs Winter Olympics|Summer|Winter|
 Skydive vs Bungie Jump|Skydive|Bungie Jump
 Be eaten by a lion vs Be eaten by ants|Lion|Ants
 Be painted by Picasso vs Be painted by Da Vinci|Picasso|Da Vinci
+Work out at home vs Work out at the gym?|Home|Gym|
+Hike 10 miles vs Swim 10 miles?|Hike|Swim|
+Career vs Family|Career|Family|
+Be a horse jockey vs Be a nascar driver|Jockey|Driver
+Go to school vs Go to work|School|Work|
+Run a mile vs Do 100 push ups|Mile|Push ups
+Be a scientist vs be a politician|Scintist|Politician
+Animal Planet vs Discovery Science|Animal Planet|Discovery Science|
+Private car vs public transport|Car|Transport|
+Hoodie vs Sweatshirt|Hoodie|Sweatshirt
+Lose 2 arms vs Lose 2 legs|Arms|Legs
+Dad vs Mom|Dad|Mom
+Love somebody vs Be Loved|Love|Be loved
+Mercedes vs BMW|Mercedes|BMW
+Own a private jet vs Own a yacht|Private jet|Yacht
+Penthouse vs Mansion|Penthouse|Mansion
+Burning to death vs Freezing to death|Burning|Freezing
+Touchpad vs Mouse|Touchpad|Mouse
+Sleep on the floor vs Sleep on the bed|Floor|Bed
+Eat only junk food vs Eat only healthy food|Junk food|Healthy food|
+USA vs China|USA|China
+No speed limit on highway vs You can drive through a red light|No speed limit|Drive through
+Lack of food vs Lack of water|Food|Water
+Kick scooter vs Bike|Kick scooter|Bike
+Math vs History|Math|History
+EarPods vs AirPods|Earpods|Airpods
+Notebook vs PC|Notebook|PC
+Xbox vs Playstation|Xbox|Playstation
+Invisibility vs Eternal life|Invisibility|Eternal life
+Eat only bananas vs Eat only apples|Bananas|Apples
+Lamborghini vs Ferrari|Lamborghini|Ferrari
+Be deaf vs Be blind|Deaf|Blind
+Game of Thrones vs Breaking Bad|GoT|BrBa
+Message somebody vs Call somebody|Message|Call
+Yakuza vs Mafia|Yakuza|Mafiz
+Be French vs Be American|French|American
+Hamburgers vs Sushi|Hamburgers|Sushi
+Burger King vs KFC|Burger King|KFC
+Chicken vs Beef|Chicken|Beef
+Free airline tickets vs Free taxi|Airline|Taxi
+Be prettiest human on the earth vs Be smartest human on the earth|Prettiest|Smartest
+Eat only fish vs Eat only meat|Fish|Meat
+Be a dog vs Be a cat|Dog|Cat
+Bill Gates vs Elon Musk|Bill Gates|Elon Musk
+Tim Cook vs Elon Musk|Tim Cook|Elon Musk
+Be a waiter vs Be a taxi driver|Waiter|Taxi driver
+Be a policeman vs Be a fireman|Policeman|Fireman
+Weather is always cold vs Weather is always hot|Cold|Hot
+Live in desert vs Live in the Arctic Circle|Desert|Arctic Circle|
+Have a heetah vs Have a Jaguar|Cheetah|Jaguar
+CNN vs Fox channel|CNN|Fox
+Mustache vs Beard|Mustache|Beard
+Zeus vs Neptun|Zeus|Neptun
