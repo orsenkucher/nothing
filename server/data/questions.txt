@@ -97,3 +97,51 @@ Baseball vs Football?|Baseball|Football
 Fire vs Water?|Fire|Water
 Free tickets for life vs free lunches for life?|Tickets|Lunches
 Marry your soulmate vs marry a millionaire? |Soulmate|Millionaire
+Do you play FIFA? |YES|NO
+Can you play a musical instrument?|YES|NO
+Do you listen to the radio everyday?|YES|NO
+Do your friends have this app?|YES|NO
+Do you sleep with the lights on?|YES|NO
+Coffee vs Tea|Coffee|Tea
+Have you ever played monopoly?|YES|NO
+Are you shy?|YES|NO
+Do you wash your hands after using the toilet? |YES|NO
+Do you get enough sleep? |YES|NO
+Would you like to have a movie about you?|YES|NO
+Control fire vs Control water|Fire|Water
+Lose forefinger vs Lose thumb|Forefinger|Thumb
+Have brother vs Have sister|Brother|Sister
+Be rich vs Be famous|Rich|Famous
+Be in prison vs Be homeless|Prison|Homeless
+Brad Pitt vs Bradley Copper|Pitt|Copper
+Go to the moon vs Go to the Mars|Moon|Mars
+Waffles vs Pancakes|Waffles|Pancakes
+Be American vs Be Australian|American|Australian
+Jeans vs Shorts|Jeans|Shorts|
+Pizza vs Sushi|Pizza|Sushi|
+Navy vs Army|Navy|Army|
+Have you ever cheated on an exam?|YES|NO
+Do you hate your job?|YES|NO
+Do you have a fear of heights?|YES|NO
+Do you enjoy driving fast?|YES|NO
+Would you like to be able to walk through walls?|YES|NO
+Do you use Emoji?|YES|NO
+Do you have a dog?|YES|NO
+Do you party regularly?|YES|NO
+Do you like dark chocolate?|YES|NO
+Do you like fashionable clothes?|YES|NO
+Do you like volleyball?|YES|NO
+Do you like to eat chips?|YES|NO
+Be Gandalf vs Be Dumbledore|Gandalf|Dumbledore
+Call of Duty vs Battlefield|Call of Duty|Battlefield
+Glasses vs Contacts|Glasses|Contacts
+Have 8 pets vs Have no pets at all|8 pets|No pets
+Be a doctor vs Be a lawyer|Doctor|Lawyer
+Chess vs Checkers|Chess|Checkers|
+Run fast vs Jump high|Run fast|Jump high|
+Godzilla vs King kong|Godzilla|King kong
+Chinese food vs Mexican food|Chinese|Mexican|
+Summer Olympics vs Winter Olympics|Summer|Winter|
+Skydive vs Bungie Jump|Skydive|Bungie Jump
+Be eaten by a lion vs Be eaten by ants|Lion|Ants
+Be painted by Picasso vs Be painted by Da Vinci|Picasso|Da Vinci
