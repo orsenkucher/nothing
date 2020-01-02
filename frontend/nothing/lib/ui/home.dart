@@ -29,30 +29,31 @@ class _HomeState extends State<Home> {
         color: NothingScheme.of(context).background,
         child: Stack(
           children: [
-            BlocBuilder<FeedBloc, Feed>(
-              builder: (context, state) {
-                if (state is Feed && state.batch.length > 0) {
-                  // TODO: fix length check
-                  print(state.batch.length);
-                  return PlayDeck(
-                    qus: state.batch,
-                  );
-                  // return GestureDetector(
-                  //   onTap: () =>
-                  //       BlocProvider.of<FeedBloc>(context).add(MoveNext()),
-                  //   child: Container(
-                  //     color: Colors.white,
-                  //     child: ListView(
-                  //       children:
-                  //           state.batch.map((q) => Text(q.question)).toList(),
-                  //     ),
-                  //   ),
-                  // );
-                } else {
-                  return Container();
-                }
-              },
-            ),
+            PlayDeck(),
+            // BlocBuilder<FeedBloc, Feed>(
+            //   builder: (context, state) {
+            //     if (state is Feed && state.batch.length > 0) {
+            //       // TODO: fix length check
+            //       print(state.batch.length);
+            //       return PlayDeck(
+            //         qus: state.batch,
+            //       );
+            //       // return GestureDetector(
+            //       //   onTap: () =>
+            //       //       BlocProvider.of<FeedBloc>(context).add(MoveNext()),
+            //       //   child: Container(
+            //       //     color: Colors.white,
+            //       //     child: ListView(
+            //       //       children:
+            //       //           state.batch.map((q) => Text(q.question)).toList(),
+            //       //     ),
+            //       //   ),
+            //       // );
+            //     } else {
+            //       return Container();
+            //     }
+            //   },
+            // ),
           ],
         ),
       ),

@@ -289,7 +289,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       _frontOffsetNormed = 1e-4 * _frontOffsetNormed.sign;
       _controller.reset();
       _cntIndex++;
-      _index++;
+      // _index++;
       _midController = controller;
       _midVals = rot;
     });
