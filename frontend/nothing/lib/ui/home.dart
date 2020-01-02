@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
+import 'package:nothing/color/scheme.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,5 +22,32 @@ class _HomeState extends State<Home> {
   }
 
   @override
-  Widget build(BuildContext context) {}
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: NothingScheme.of(context).background,
+        child: Stack(
+          children: [
+            BlocBuilder<FeedBloc, Feed>(
+              builder: (context, state) {
+                if (state is LoadedQuestions) {
+                  return GestureDetector(
+                    onTap: () => BlocProvider.of<FeedBloc>(context).add(
+                      MoveNext(),
+                    ),
+                    child: ListView(
+                      children:
+                          state.batch.map((q) => Text(q.question)).toList(),
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

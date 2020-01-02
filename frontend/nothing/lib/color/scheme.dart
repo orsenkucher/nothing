@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-extension NothingScheme on ColorScheme {
+class NothingScheme extends InheritedWidget {
   Color get background => const Color(0xff1d2021);
   Color get card => const Color(0xff32302f);
   Color get cardborder => const Color(0xffa89984);
@@ -13,4 +13,15 @@ extension NothingScheme on ColorScheme {
   Color get sliderright => const Color(0xffd5c4a1);
   Color get slidertextleft => const Color(0xff1d2021);
   Color get slidertextright => const Color(0xfffbf1c7);
+
+  const NothingScheme();
+
+  static NothingScheme of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<NothingScheme>();
+  }
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) {
+    return false;
+  }
 }
