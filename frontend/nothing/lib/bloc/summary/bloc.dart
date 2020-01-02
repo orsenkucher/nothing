@@ -21,7 +21,7 @@ class SummaryBloc extends Bloc<SummaryEvent, Summary> {
       var newState = Summary({
         ...state.summary,
         event.idx: event.answer,
-      });
+      }, state.id + 1);
       yield newState;
     } else if (event is ResetSummary) {
       yield initialState;

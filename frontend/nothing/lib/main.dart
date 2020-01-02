@@ -21,12 +21,13 @@ class App extends StatelessWidget {
           create: (context) => QuestionsBloc(
             summaryBloc: BlocProvider.of<SummaryBloc>(context),
             repo: CloudQuestionsRepo(),
-            loadCount: 6,
+            loadCount: 10,
           ),
         ),
         BlocProvider<FeedBloc>(
           create: (context) => FeedBloc(
             questionsBloc: BlocProvider.of<QuestionsBloc>(context),
+            summaryBloc: BlocProvider.of<SummaryBloc>(context),
             threshold: 6,
           ),
         ),
