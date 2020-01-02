@@ -30,14 +30,17 @@ class _HomeState extends State<Home> {
           children: [
             BlocBuilder<FeedBloc, Feed>(
               builder: (context, state) {
-                if (state is LoadedQuestions) {
+                if (state is Feed) {
+                  print(state.batch.length);
                   return GestureDetector(
-                    onTap: () => BlocProvider.of<FeedBloc>(context).add(
-                      MoveNext(),
-                    ),
-                    child: ListView(
-                      children:
-                          state.batch.map((q) => Text(q.question)).toList(),
+                    onTap: () =>
+                        BlocProvider.of<FeedBloc>(context).add(MoveNext()),
+                    child: Container(
+                      color: Colors.white,
+                      child: ListView(
+                        children:
+                            state.batch.map((q) => Text(q.question)).toList(),
+                      ),
                     ),
                   );
                 } else {

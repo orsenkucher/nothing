@@ -14,7 +14,10 @@ class NothingScheme extends InheritedWidget {
   Color get slidertextleft => const Color(0xff1d2021);
   Color get slidertextright => const Color(0xfffbf1c7);
 
-  const NothingScheme();
+  const NothingScheme({
+    Key key,
+    @required Widget child,
+  }) : super(key: key, child: child);
 
   static NothingScheme of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<NothingScheme>();

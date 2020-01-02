@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
+import 'package:nothing/color/scheme.dart';
 import 'package:nothing/data/questions_repo.dart';
 import 'package:nothing/ui/home.dart';
 
@@ -14,9 +15,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<SummaryBloc>(
-          create: (context) => SummaryBloc(
-            // questionsBloc: BlocProvider.of<QuestionsBloc>(context),
-          ),
+          create: (context) => SummaryBloc(),
         ),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
@@ -37,7 +36,9 @@ class App extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Gilroy',
         ),
-        home: Home(),
+        home: NothingScheme(
+          child: Home(),
+        ),
         debugShowCheckedModeBanner: false,
       ),
     );
