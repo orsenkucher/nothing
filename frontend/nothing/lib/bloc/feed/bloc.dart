@@ -43,12 +43,18 @@ class FeedBloc extends Bloc<FeedEvent, Feed> {
   }
 
   Stream<Feed> _mapNewArrived(NewArrived event) async* {
-    yield Feed(state.batch.toList()..addAll(event.batch));
+    yield Feed(
+      state.batch.toList()..addAll(event.batch),
+      state.batch.toList(),
+    );
   }
 
   Stream<Feed> _mapMoveNext() async* {
     print('l1: ${state.batch.length}');
-    yield Feed(state.batch.toList()..removeAt(0));
+    yield Feed(
+      state.batch.toList()..removeAt(0),
+      state.batch.toList(),
+    );
     print('l2: ${state.batch.length}');
     if (state.batch.length == threshold) {
       questionsBloc.add(FetchQuestions());

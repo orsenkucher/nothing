@@ -4,6 +4,7 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/playdeck.dart';
+import 'package:nothing/ui/statsbar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -29,6 +30,28 @@ class _HomeState extends State<Home> {
         color: NothingScheme.of(context).background,
         child: Stack(
           children: [
+            Padding(
+              padding: EdgeInsets.only(top: 50, right: 30, left: 30),
+              child: BlocBuilder<FeedBloc, Feed>(builder: (context, state) {
+                if (state is Feed && state.prevBatch.length > 0) {
+                  final q = state.prevBatch.first;
+                  print(
+                      '${q.leftn} / (${q.leftn + q.rightn}) = ${q.leftn / (q.leftn + q.rightn)}');
+                  return StatsBar(
+                    value: q.leftn + q.rightn != 0
+                        ? q.leftn / (q.leftn + q.rightn)
+                        : 0,
+                    height: 50,
+                    left: q.left,
+                    right: q.right,
+                  );
+                }
+                return StatsBar(
+                  value: 0,
+                  height: 50,
+                );
+              }),
+            ),
             PlayDeck(),
             // BlocBuilder<FeedBloc, Feed>(
             //   builder: (context, state) {
@@ -57,6 +80,24 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
+      // Container(
+      //   color: Color(0xff1d2021), //Colors.blue,
+      //   // child: dev.Cards(
+      //   child: Stack(
+      //     children: [
+
+      //       BlocBuilder<QuestionsBloc, QuestionsState>(
+      //         builder: (context, state) {
+      //           return state is LoadingQuestions
+      //               ? LoadingCircle()
+      //               : state is LoadedQuestions
+      //                   ? PlayDeck(qus: state.qus)
+      //                   : Container();
+      //         },
+      //       ),
+      //     ],
+      //   ),
+      // )
     );
   }
 }
