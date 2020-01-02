@@ -10,24 +10,6 @@ export 'event.dart';
 export 'state.dart';
 
 class SummaryBloc extends Bloc<SummaryEvent, Summary> {
-  final QuestionsBloc questionsBloc;
-
-  StreamSubscription _sub;
-
-  SummaryBloc({@required this.questionsBloc}) {
-    _sub = questionsBloc.listen((state) {
-      if (state is LoadedQuestions) {
-        add(ResetSummary());
-      }
-    });
-  }
-
-  @override
-  Future<void> close() {
-    _sub.cancel();
-    return super.close();
-  }
-
   @override
   Summary get initialState => EmptySummary();
 

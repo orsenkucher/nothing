@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider<SummaryBloc>(
           create: (context) => SummaryBloc(
-            questionsBloc: BlocProvider.of<QuestionsBloc>(context),
+            // questionsBloc: BlocProvider.of<QuestionsBloc>(context),
           ),
         ),
         BlocProvider<QuestionsBloc>(

@@ -39,6 +39,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
         summary: summaryBloc.state.summary,
       );
       yield LoadedQuestions(problems);
+      summaryBloc.add(ResetSummary());
     } on CloudError catch (error) {
       yield FailedToLoadQuestions(error);
       final duration = Duration(seconds: 10);
