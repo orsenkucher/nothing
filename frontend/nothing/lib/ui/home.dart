@@ -4,6 +4,7 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/ui/cards.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -27,44 +28,67 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Container(
         color: NothingScheme.of(context).background,
-        child: Stack(
+        child: Column(
           children: [
-            BlocBuilder<FeedBloc, Feed>(
-              builder: (context, state) {
-                if (state is Feed) {
-                  return GestureDetector(
-                    onTap: () => BlocProvider.of<SummaryBloc>(context).add(
-                      NewAnswer(
-                        idx: state.batch[state.current].id,
-                        answer: true,
-                      ),
-                    ),
-                    child: Container(
-                      color: Colors.white,
-                      child: ListView(
-                        children: [
-                          for (int i = 0; i < state.batch.length; i++)
-                            Text(
-                              '${i + 1}. ${state.batch[i].question}',
-                              key: UniqueKey(),
-                              style: TextStyle(
-                                color: state.current == i
-                                    ? Colors.green
-                                    : Colors.black,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              },
+            // Slider placeholder
+            Placeholder(
+              color: Colors.red,
+              fallbackHeight: 50,
             ),
+            // Bind dataflow with ui
+            BlocBuilder<FeedBloc, Feed>(
+              builder: (context, state) => Cards(
+                feed: state,
+                heightFactor: 0.60,
+                widthFactor: 0.85,
+                stack: 3,
+              ),
+            ),
+            // FeedWidget(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class FeedWidget extends StatelessWidget {
+  const FeedWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FeedBloc, Feed>(
+      builder: (context, state) {
+        if (state is Feed) {
+          return GestureDetector(
+            onTap: () => BlocProvider.of<SummaryBloc>(context).add(
+              NewAnswer(
+                idx: state.batch[state.current].id,
+                answer: true,
+              ),
+            ),
+            child: Container(
+              color: Colors.white,
+              child: ListView(
+                children: [
+                  for (int i = 0; i < state.batch.length; i++)
+                    Text(
+                      '${i + 1}. ${state.batch[i].question}',
+                      key: UniqueKey(),
+                      style: TextStyle(
+                        color: state.current == i ? Colors.green : Colors.black,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          );
+        } else {
+          return Container();
+        }
+      },
     );
   }
 }
