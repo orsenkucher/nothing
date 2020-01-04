@@ -1,6 +1,7 @@
 * Nothing project todo
+  
 ** Frontend
-   tis is text
+   this is text
    1. Hello
    2. This
    3. WOW
@@ -13,7 +14,7 @@
    | jj    | world      | eheh  |
    |       |            |       |
    | orsen | kucher git |       |
-
+   
 ** Tasks
 *** TODO Headline
     DEADLINE: <2019-12-31 Tue 17:00>
