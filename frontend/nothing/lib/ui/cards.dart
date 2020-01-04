@@ -87,6 +87,10 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
 
   // Tail card will be on top of stack
   List<Widget> _buildCards(BuildContext context) {
-    return [];
+    return [
+      Container(
+        color: Colors.blue,
+      )
+    ];
   }
 }

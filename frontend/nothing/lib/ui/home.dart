@@ -35,18 +35,31 @@ class _HomeState extends State<Home> {
               color: Colors.red,
               fallbackHeight: 50,
             ),
-            // Bind dataflow with ui
-            BlocBuilder<FeedBloc, Feed>(
-              builder: (context, state) => Cards(
-                feed: state,
-                heightFactor: 0.60,
-                widthFactor: 0.85,
-                stack: 3,
-              ),
+            Expanded(
+              child: CardsMaster(),
             ),
             // FeedWidget(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// Bind to dataflow and tune Cards widget
+class CardsMaster extends StatelessWidget {
+  const CardsMaster({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FeedBloc, Feed>(
+      builder: (context, state) => Cards(
+        feed: state,
+        heightFactor: 0.60,
+        widthFactor: 0.85,
+        stack: 3,
       ),
     );
   }
