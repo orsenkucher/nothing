@@ -12,9 +12,11 @@ mixin CardContent on Widget {
   Animation<double> get animation;
 }
 
-typedef CardContent CardContentFactory(Question question, Animation<double> animation);
+typedef CardContent CardContentFactory(
+    Question question, Animation<double> animation);
 
-typedef CardMaterial CardMaterialFactory(Widget content, Animation<double> animation);
+typedef CardMaterial CardMaterialFactory(
+    Widget content, Animation<double> animation);
 
 typedef OnSwipe(BuildContext context, Question question, bool right);
 
@@ -110,12 +112,12 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   List<Widget> _buildCards(BuildContext context) {
     return [
       widget.materialfactory(
-        content:widget.contentfactory(
-          question:widget.feed.batch[widget.feed.current],
-          animation:_controller,
+        widget.contentfactory(
+          widget.feed.batch[widget.feed.current],
+          _controller,
         ),
-        animation:_controller,
-      );
+        _controller,
+      ),
     ];
   }
 }

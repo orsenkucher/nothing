@@ -15,9 +15,8 @@ class CardsMaster extends StatelessWidget {
     return BlocBuilder<FeedBloc, Feed>(
       builder: (context, state) => Cards(
         feed: state,
-        // and this const won't work either :(
-        contentfactory: (q, a) => const Content(q, a),
-        materialfactory: (c, a) => const Material(c, a),
+        contentfactory: (q, a) => Content(q, a),
+        materialfactory: (c, a) => Material(c, a),
         heightFactor: 0.60,
         widthFactor: 0.85,
         stack: 3,
@@ -26,11 +25,10 @@ class CardsMaster extends StatelessWidget {
   }
 }
 
-class Content extends StatelessWidget with CardContent {
+class Content extends StatelessWidget implements CardContent {
   final Question question;
   final Animation<double> animation;
 
-  // const may not work with mixin
   const Content(this.question, this.animation);
 
   @override
@@ -39,7 +37,7 @@ class Content extends StatelessWidget with CardContent {
   }
 }
 
-class Material extends StatelessWidget with CardMaterial {
+class Material extends StatelessWidget implements CardMaterial {
   final Widget content;
   final Animation<double> animation;
 
@@ -50,4 +48,3 @@ class Material extends StatelessWidget with CardMaterial {
     return content;
   }
 }
-
