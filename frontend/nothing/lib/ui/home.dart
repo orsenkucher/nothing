@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
               fallbackHeight: 50,
             ),
             Expanded(
-              child: CardsMaster(),
+              child: const CardsMaster(),
             ),
             // FeedWidget(),
           ],

@@ -12,6 +12,10 @@ mixin CardContent on Widget {
   Animation<double> get animation;
 }
 
+typedef CardContent CardContentFactory(Question question, Animation<double> animation);
+
+typedef CardMaterial CardMaterialFactory(Widget content, Animation<double> animation);
+
 typedef OnSwipe(BuildContext context, Question question, bool right);
 
 class Cards extends StatefulWidget {
@@ -19,13 +23,13 @@ class Cards extends StatefulWidget {
   final int stack;
   final double widthFactor;
   final double heightFactor;
-  final CardContent content;
-  final CardMaterial material;
+  final CardContentFactory contentfactory;
+  final CardMaterialFactory materialfactory;
 
   const Cards({
     @required this.feed,
-    @required this.content,
-    @required this.material,
+    @required this.contentfactory,
+    @required this.materialfactory,
     this.stack = 3,
     this.widthFactor = 0.9,
     this.heightFactor = 0.9,
@@ -105,9 +109,13 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   // Tail card will be on top of stack
   List<Widget> _buildCards(BuildContext context) {
     return [
-      Container(
-        color: Colors.blue,
-      )
+      widget.materialfactory(
+        content:widget.contentfactory(
+          question:widget.feed.batch[widget.feed.current],
+          animation:_controller,
+        ),
+        animation:_controller,
+      );
     ];
   }
 }
