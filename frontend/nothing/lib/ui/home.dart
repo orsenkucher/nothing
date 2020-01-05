@@ -4,7 +4,7 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-import 'package:nothing/ui/cards.dart';
+import 'package:nothing/ui/cardsmaster.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -41,25 +41,6 @@ class _HomeState extends State<Home> {
             // FeedWidget(),
           ],
         ),
-      ),
-    );
-  }
-}
-
-// Bind to dataflow and tune Cards widget
-class CardsMaster extends StatelessWidget {
-  const CardsMaster({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<FeedBloc, Feed>(
-      builder: (context, state) => Cards(
-        feed: state,
-        heightFactor: 0.60,
-        widthFactor: 0.85,
-        stack: 3,
       ),
     );
   }

@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:nothing/bloc/feed/state.dart';
+import 'package:nothing/data/model/question.dart';
+
+mixin CardMaterial on Widget {
+  Widget get content; //  CardContent
+  Animation<double> get animation;
+}
+
+mixin CardContent on Widget {
+  Question get question;
+  Animation<double> get animation;
+}
+
+typedef OnSwipe(BuildContext context, Question question, bool right);
 
 class Cards extends StatefulWidget {
   final Feed feed;
   final int stack;
   final double widthFactor;
   final double heightFactor;
+  final CardContent content;
+  final CardMaterial material;
 
   const Cards({
     @required this.feed,
+    @required this.content,
+    @required this.material,
     this.stack = 3,
     this.widthFactor = 0.9,
     this.heightFactor = 0.9,
