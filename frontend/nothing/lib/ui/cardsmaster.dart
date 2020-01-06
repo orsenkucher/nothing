@@ -36,11 +36,17 @@ class NothingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      question.question,
-      style: TextStyle(
-        color: NothingScheme.of(context).textbase,
-        fontSize: 18,
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Center(
+        child: Text(
+          question.question,
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: NothingScheme.of(context).textbase,
+          ),
+        ),
       ),
     );
   }

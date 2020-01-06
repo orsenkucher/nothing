@@ -7,6 +7,8 @@ class Feed extends Equatable {
 
   const Feed(this.batch, this.current);
 
+  int get len => batch.length;
+
   @override
   List<Object> get props => [batch, current];
 }

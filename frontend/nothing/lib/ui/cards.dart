@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:nothing/bloc/feed/state.dart';
 import 'package:nothing/data/model/question.dart';
@@ -110,28 +112,100 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
 
   // Tail card will be on top of stack
   List<Widget> _buildCards(BuildContext context) {
-    if (widget.feed.batch.length < 1) {
-      return [];
-    }
+    // count has to be <= stack
+    final count = min(widget.stack, widget.feed.len);
     return [
-      _buildCard(context, 0),
+      for (var i = count; i >= 0; i--) _buildCard(context, i),
     ];
   }
 
   Widget _buildCard(BuildContext context, int index) {
     final question = widget.feed.batch[widget.feed.current + index];
-    return SizedBox(
+    // return SizedBox(
+    //   key: ValueKey(question.id),
+    //   width: _sizes[index].width,
+    //   height: _sizes[index].height,
+    //   child: widget.materialfactory(
+    //     context,
+    //     widget.contentfactory(
+    //       context,
+    //       question,
+    //       _controller,
+    //     ),
+    //     _controller,
+    //   ),
+    // );
+    return Card(
+      // content: widget.contentfactory(context, question, _controller),
+      // material: widget.materialfactory(context, null, _controller),
       key: ValueKey(question.id),
-      width: _sizes[index].width,
-      height: _sizes[index].height,
-      child: widget.materialfactory(
-        context,
+      controller: _controller,
+      sizes: _sizes,
+      aligns: _aligns,
+      index: index,
+      // question: question,
+      // contentfactory: widget.contentfactory,
+      materialfactory: widget.materialfactory,
+      child: _prepareChild(
         widget.contentfactory(
           context,
           question,
           _controller,
         ),
-        _controller,
+      ),
+    );
+  }
+
+  Widget _prepareChild(Widget child) {
+    return FittedBox(
+      fit: BoxFit.cover,
+      child: SizedBox(
+        width: _sizes[0].width,
+        height: _sizes[0].height,
+        child: child,
+      ),
+    );
+  }
+}
+
+class Card extends AnimatedWidget {
+  final AnimationController controller;
+  final int index; // this is relative card index in stack
+  // final Widget content;
+  // final Widget material;
+  // final CardContentFactory contentfactory;
+  final Widget child;
+  final CardMaterialFactory materialfactory;
+  final List<Alignment> aligns;
+  final List<Size> sizes;
+  // final Question question;
+
+  const Card({
+    @required Key key,
+    @required this.controller,
+    @required this.index,
+    // @required this.question,
+    // @required this.content,
+    // @required this.material,
+    // @required this.contentfactory,
+    @required this.child,
+    @required this.materialfactory,
+    @required this.aligns,
+    @required this.sizes,
+  }) : super(key: key, listenable: controller);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: aligns[index],
+      child: SizedBox(
+        width: sizes[index].width,
+        height: sizes[index].height,
+        child: materialfactory(
+          context,
+          child,
+          controller,
+        ),
       ),
     );
   }
