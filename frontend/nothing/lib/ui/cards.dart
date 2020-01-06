@@ -47,9 +47,13 @@ class Cards extends StatefulWidget {
 
 class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   AnimationController _controller; // binds all animations together
+  Size _screenSize; // available screen area
   List<Size> _sizes = List<Size>(); // card sizes (len: stack)
   List<Alignment> _aligns = List<Alignment>(); // card aligns (len: stack)
-  Size _screenSize; // available screen area
+  // Motus lists are pre-baked animations
+  List<Animation<Size>> _motusSizes = List<Animation<Size>>();
+  List<Animation<Alignment>> _motusAligns = List<Animation<Alignment>>();
+  List<Animation<double>> _motusOpacities = List<Animation<double>>();
 
   @override
   void initState() {
@@ -73,6 +77,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     print('Screen size: $_screenSize');
     _refillSizes(_screenSize);
     _refillAligns(_screenSize, _sizes);
+    _motusListsUpdate();
   }
 
   void _refillSizes(Size full) {
@@ -103,6 +108,42 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
       );
     }
     print('Card aligns: $_aligns');
+  }
+
+  void _motusListsUpdate() {
+    _motusSizes.clear();
+    _motusAligns.clear();
+    _motusOpacities.clear();
+    for (var i = 1; i <= widget.stack; i++) {
+      _motusUpdate(i); // begin: i; end: i-1
+    }
+  }
+
+  void _motusUpdate(int index) {
+    final controller = _controller;
+    _motusSizes.add(
+      Tween<Size>(
+        begin: _sizes[index],
+        end: _sizes[index - 1],
+      ).animate(controller),
+    );
+    _motusAligns.add(
+      Tween<Alignment>(
+        begin: _aligns[index],
+        end: _aligns[index - 1],
+      ).animate(controller),
+    );
+    _motusOpacities.add(
+      Tween<double>(
+        begin: _calcOpacity(index),
+        end: _calcOpacity(index - 1),
+      ).animate(controller),
+    );
+  }
+
+  double _calcOpacity(int index) {
+    const drop = 0.20;
+    return max(min(1 - drop * index, 1), 0);
   }
 
   @override
@@ -140,19 +181,25 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     //     _controller,
     //   ),
     // );
-    return Card(
+    return CardTransition(
       // content: widget.contentfactory(context, question, _controller),
       // material: widget.materialfactory(context, null, _controller),
       key: ValueKey(question.id),
       controller: _controller,
-      sizes: _sizes,
-      aligns: _aligns,
-      index: index,
+      size: _motusSizes[index],
+      align: _motusAligns[index],
+      opacity: _motusOpacities[index],
+      // sizes: _sizes,
+      // aligns: _aligns,
+      // index: index,
       // question: question,
       // contentfactory: widget.contentfactory,
-      materialfactory: widget.materialfactory,
-      child: _prepareChild(
-        widget.contentfactory(
+      // materialfactory: widget.materialfactory,
+      child: Card(
+        animation: _controller,
+        basesize: _sizes[0],
+        materialfactory: widget.materialfactory,
+        child: widget.contentfactory(
           context,
           question,
           _controller,
@@ -161,56 +208,104 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget _prepareChild(Widget child) {
-    return FittedBox(
-      fit: BoxFit.cover,
-      child: SizedBox(
-        width: _sizes[0].width,
-        height: _sizes[0].height,
-        child: child,
-      ),
-    );
-  }
+  // Widget _prepareContent(Widget child) {
+  //   return FittedBox(
+  //     fit: BoxFit.cover,
+  //     child: SizedBox(
+  //       width: _sizes[0].width,
+  //       height: _sizes[0].height,
+  //       child: child,
+  //     ),
+  //   );
+  // }
 }
 
-class Card extends AnimatedWidget {
+// OR CardTransition and build from card material in saparate class Card
+class CardTransition extends AnimatedWidget {
   final AnimationController controller;
-  final int index; // this is relative card index in stack
+  // final int index; // this is relative card index in stack
   // final Widget content;
   // final Widget material;
   // final CardContentFactory contentfactory;
   final Widget child;
-  final CardMaterialFactory materialfactory;
-  final List<Alignment> aligns;
-  final List<Size> sizes;
+  // final CardMaterialFactory materialfactory;
+  // final List<Alignment> aligns;
+  // final List<Size> sizes;
   // final Question question;
 
-  const Card({
+  final Animation<AlignmentGeometry> align;
+  final Animation<Size> size;
+  final Animation<double> opacity;
+  // final
+
+  const CardTransition({
     @required Key key,
     @required this.controller,
-    @required this.index,
+    // @required this.index,
     // @required this.question,
     // @required this.content,
     // @required this.material,
     // @required this.contentfactory,
     @required this.child,
-    @required this.materialfactory,
-    @required this.aligns,
-    @required this.sizes,
+    // @required this.materialfactory,
+    // @required this.aligns,
+    // @required this.sizes,
+    @required this.size,
+    @required this.align,
+    @required this.opacity,
   }) : super(key: key, listenable: controller);
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: aligns[index],
-      child: SizedBox(
-        width: sizes[index].width,
-        height: sizes[index].height,
-        child: materialfactory(
-          context,
-          child,
-          controller,
+    return Opacity(
+      opacity: opacity.value,
+      child: Align(
+        // Try swap Size wiht Align
+        // Animation<AlignmentGeometry>
+        // alignment: aligns[index],
+        alignment: align.value,
+        // child: SizeTransition()
+        child: SizedBox(
+          // width: sizes[index].width,
+          // height: sizes[index].height,
+          width: size.value.width,
+          height: size.value.height,
+          child: child,
         ),
+      ),
+    );
+  }
+}
+
+class Card extends StatelessWidget {
+  final CardMaterialFactory materialfactory;
+  final Widget child;
+  final Animation<double> animation;
+  final Size basesize;
+
+  const Card({
+    @required this.basesize,
+    @required this.materialfactory,
+    @required this.child,
+    @required this.animation,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return materialfactory(
+      context,
+      _prepareContent(child),
+      animation,
+    );
+  }
+
+  Widget _prepareContent(Widget child) {
+    return FittedBox(
+      fit: BoxFit.cover,
+      child: SizedBox(
+        width: basesize.width,
+        height: basesize.height,
+        child: child,
       ),
     );
   }
