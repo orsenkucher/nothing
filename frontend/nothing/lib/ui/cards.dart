@@ -52,7 +52,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
   }
 
@@ -110,14 +110,27 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
 
   // Tail card will be on top of stack
   List<Widget> _buildCards(BuildContext context) {
+    if (widget.feed.batch.length < 1) {
+      return [];
+    }
     return [
-      widget.materialfactory(
+      _buildCard(context, 0),
+    ];
+  }
+
+  Widget _buildCard(BuildContext context, int index) {
+    final question = widget.feed.batch[widget.feed.current + index];
+    return SizedBox(
+      key: ValueKey(question.id),
+      width: _sizes[index].width,
+      height: _sizes[index].height,
+      child: widget.materialfactory(
         widget.contentfactory(
-          widget.feed.batch[widget.feed.current],
+          question,
           _controller,
         ),
         _controller,
       ),
-    ];
+    );
   }
 }

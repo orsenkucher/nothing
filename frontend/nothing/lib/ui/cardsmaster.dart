@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/color/scheme.dart';
 import 'package:nothing/data/model/question.dart';
 import 'package:nothing/ui/cards.dart';
 
@@ -15,8 +18,8 @@ class CardsMaster extends StatelessWidget {
     return BlocBuilder<FeedBloc, Feed>(
       builder: (context, state) => Cards(
         feed: state,
-        contentfactory: (q, a) => Content(q, a),
-        materialfactory: (c, a) => Material(c, a),
+        contentfactory: (q, a) => NothingContent(q, a),
+        materialfactory: (c, a) => NothingMaterial(c, a),
         heightFactor: 0.60,
         widthFactor: 0.85,
         stack: 3,
@@ -25,26 +28,42 @@ class CardsMaster extends StatelessWidget {
   }
 }
 
-class Content extends StatelessWidget implements CardContent {
+class NothingContent extends StatelessWidget implements CardContent {
   final Question question;
   final Animation<double> animation;
 
-  const Content(this.question, this.animation);
+  const NothingContent(this.question, this.animation);
 
   @override
   Widget build(BuildContext context) {
-    return Text(question.question);
+    return Text(
+      question.question,
+      style: TextStyle(
+        color: NothingScheme.of(context).textbase,
+        fontSize: 18,
+      ),
+    );
   }
 }
 
-class Material extends StatelessWidget implements CardMaterial {
+class NothingMaterial extends StatelessWidget implements CardMaterial {
   final Widget content;
   final Animation<double> animation;
 
-  const Material(this.content, this.animation);
+  const NothingMaterial(this.content, this.animation);
 
   @override
   Widget build(BuildContext context) {
-    return content;
+    final scheme = NothingScheme.of(context);
+    return Material(
+      shadowColor: scheme.shadow,
+      color: scheme.card,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: scheme.cardborder, width: 4),
+        borderRadius: BorderRadius.circular(28),
+      ),
+      elevation: lerpDouble(1, 7, animation.value),
+      child: content,
+    );
   }
 }

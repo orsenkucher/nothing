@@ -29,14 +29,18 @@ class _HomeState extends State<Home> {
       body: Container(
         color: NothingScheme.of(context).background,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
           children: [
             // Slider placeholder
             Placeholder(
-              color: Colors.red,
+              color: Colors.blueGrey,
               fallbackHeight: 50,
             ),
             Expanded(
-              child: const CardsMaster(),
+              child: SizedBox.expand(
+                child: const CardsMaster(),
+              ),
             ),
             // FeedWidget(),
           ],
