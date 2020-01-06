@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:nothing/bloc/feed/state.dart';
 import 'package:nothing/data/model/question.dart';
 
-mixin CardMaterial on Widget {
-  Widget get content; //  CardContent
-  Animation<double> get animation;
-}
+typedef Widget CardContentFactory(
+  BuildContext context,
+  Question question,
+  Animation<double> animation,
+);
 
-mixin CardContent on Widget {
-  Question get question;
-  Animation<double> get animation;
-}
+typedef Widget CardMaterialFactory(
+  BuildContext context,
+  Widget content,
+  Animation<double> animation,
+);
 
-typedef CardContent CardContentFactory(
-    Question question, Animation<double> animation);
-
-typedef CardMaterial CardMaterialFactory(
-    Widget content, Animation<double> animation);
-
-typedef OnSwipe(BuildContext context, Question question, bool right);
+typedef OnSwipe(
+  BuildContext context,
+  Question question,
+  bool right,
+);
 
 class Cards extends StatefulWidget {
   final Feed feed;
@@ -125,7 +125,9 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
       width: _sizes[index].width,
       height: _sizes[index].height,
       child: widget.materialfactory(
+        context,
         widget.contentfactory(
+          context,
           question,
           _controller,
         ),

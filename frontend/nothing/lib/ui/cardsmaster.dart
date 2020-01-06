@@ -18,8 +18,8 @@ class CardsMaster extends StatelessWidget {
     return BlocBuilder<FeedBloc, Feed>(
       builder: (context, state) => Cards(
         feed: state,
-        contentfactory: (q, a) => NothingContent(q, a),
-        materialfactory: (c, a) => NothingMaterial(c, a),
+        contentfactory: (ctx, que, anim) => NothingContent(que, anim),
+        materialfactory: (ctx, cnt, anim) => NothingMaterial(cnt, anim),
         heightFactor: 0.60,
         widthFactor: 0.85,
         stack: 3,
@@ -28,7 +28,7 @@ class CardsMaster extends StatelessWidget {
   }
 }
 
-class NothingContent extends StatelessWidget implements CardContent {
+class NothingContent extends StatelessWidget {
   final Question question;
   final Animation<double> animation;
 
@@ -46,7 +46,7 @@ class NothingContent extends StatelessWidget implements CardContent {
   }
 }
 
-class NothingMaterial extends StatelessWidget implements CardMaterial {
+class NothingMaterial extends StatelessWidget {
   final Widget content;
   final Animation<double> animation;
 
