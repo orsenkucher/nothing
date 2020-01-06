@@ -54,6 +54,8 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   List<Animation<Size>> _motusSizes = List<Animation<Size>>();
   List<Animation<Alignment>> _motusAligns = List<Animation<Alignment>>();
   List<Animation<double>> _motusOpacities = List<Animation<double>>();
+  // Front card controls
+  double _offset = 0;
 
   @override
   void initState() {
@@ -151,7 +153,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     return Stack(
       children: [
         ..._buildCards(context),
-        // _gestureDetector(context),
+        _gestureDetector(context),
       ],
     );
   }
@@ -167,34 +169,12 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
 
   Widget _buildCard(BuildContext context, int index) {
     final question = widget.feed.batch[widget.feed.current + index];
-    // return SizedBox(
-    //   key: ValueKey(question.id),
-    //   width: _sizes[index].width,
-    //   height: _sizes[index].height,
-    //   child: widget.materialfactory(
-    //     context,
-    //     widget.contentfactory(
-    //       context,
-    //       question,
-    //       _controller,
-    //     ),
-    //     _controller,
-    //   ),
-    // );
     return CardTransition(
-      // content: widget.contentfactory(context, question, _controller),
-      // material: widget.materialfactory(context, null, _controller),
       key: ValueKey(question.id),
       controller: _controller,
       size: _motusSizes[index],
       align: _motusAligns[index],
       opacity: _motusOpacities[index],
-      // sizes: _sizes,
-      // aligns: _aligns,
-      // index: index,
-      // question: question,
-      // contentfactory: widget.contentfactory,
-      // materialfactory: widget.materialfactory,
       child: Card(
         animation: _controller,
         basesize: _sizes[0],
@@ -208,48 +188,48 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     );
   }
 
-  // Widget _prepareContent(Widget child) {
-  //   return FittedBox(
-  //     fit: BoxFit.cover,
-  //     child: SizedBox(
-  //       width: _sizes[0].width,
-  //       height: _sizes[0].height,
-  //       child: child,
-  //     ),
-  //   );
-  // }
+  Widget _gestureDetector(BuildContext context) {
+    final frontSize = _sizes[0];
+    final frontAlign = _aligns[0];
+
+    return Align(
+      alignment: frontAlign,
+      child: SizedBox(
+        width: frontSize.width,
+        height: frontSize.height,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onHorizontalDragUpdate: (update) {
+            final rotChanged = _calcFrontOffset(update.delta);
+            _controller.value = _offset.abs();
+            // if (rotChanged) _calcFrontAlign();
+          },
+          onHorizontalDragEnd: (end) {},
+          child: Container(),
+        ),
+      ),
+    );
+  }
+
+  bool _calcFrontOffset(Offset offset) {
+    final newOffset = _offset + offset.dx / _screenSize.width;
+    final changed = newOffset.sign != _offset.sign;
+    _offset = newOffset.clamp(-1, 1);
+    return changed;
+  }
 }
 
-// OR CardTransition and build from card material in saparate class Card
 class CardTransition extends AnimatedWidget {
   final AnimationController controller;
-  // final int index; // this is relative card index in stack
-  // final Widget content;
-  // final Widget material;
-  // final CardContentFactory contentfactory;
   final Widget child;
-  // final CardMaterialFactory materialfactory;
-  // final List<Alignment> aligns;
-  // final List<Size> sizes;
-  // final Question question;
-
   final Animation<AlignmentGeometry> align;
   final Animation<Size> size;
   final Animation<double> opacity;
-  // final
 
   const CardTransition({
     @required Key key,
     @required this.controller,
-    // @required this.index,
-    // @required this.question,
-    // @required this.content,
-    // @required this.material,
-    // @required this.contentfactory,
     @required this.child,
-    // @required this.materialfactory,
-    // @required this.aligns,
-    // @required this.sizes,
     @required this.size,
     @required this.align,
     @required this.opacity,
@@ -260,14 +240,8 @@ class CardTransition extends AnimatedWidget {
     return Opacity(
       opacity: opacity.value,
       child: Align(
-        // Try swap Size wiht Align
-        // Animation<AlignmentGeometry>
-        // alignment: aligns[index],
         alignment: align.value,
-        // child: SizeTransition()
         child: SizedBox(
-          // width: sizes[index].width,
-          // height: sizes[index].height,
           width: size.value.width,
           height: size.value.height,
           child: child,
