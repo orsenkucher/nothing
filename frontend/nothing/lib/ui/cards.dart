@@ -29,6 +29,7 @@ class Cards extends StatefulWidget {
   final double heightFactor;
   final CardContentFactory contentfactory;
   final CardMaterialFactory materialfactory;
+  final Size size;
 
   const Cards({
     @required this.feed,
@@ -37,6 +38,7 @@ class Cards extends StatefulWidget {
     this.stack = 3,
     this.widthFactor = 0.9,
     this.heightFactor = 0.9,
+    this.size,
   });
 
   @override
@@ -67,7 +69,8 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   @override // is called every time state changes
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _screenSize = MediaQuery.of(context).size;
+    _screenSize = widget.size ?? MediaQuery.of(context).size;
+    print('Screen size: $_screenSize');
     _refillSizes(_screenSize);
     _refillAligns(_screenSize, _sizes);
   }
@@ -88,6 +91,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
         card.height - (gap.height / widget.stack) * i,
       ));
     }
+    print('Card sizes: $_sizes');
   }
 
   void _refillAligns(Size full, List<Size> sizes) {
@@ -98,6 +102,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
         Alignment(0.0, 0.1 * sizes[0].height * i / curGapHeight),
       );
     }
+    print('Card aligns: $_aligns');
   }
 
   @override
@@ -115,7 +120,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     // count has to be <= stack
     final count = min(widget.stack, widget.feed.len);
     return [
-      for (var i = count; i >= 0; i--) _buildCard(context, i),
+      for (var i = count - 1; i >= 0; i--) _buildCard(context, i),
     ];
   }
 

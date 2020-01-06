@@ -15,14 +15,17 @@ class CardsMaster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FeedBloc, Feed>(
-      builder: (context, state) => Cards(
-        feed: state,
-        contentfactory: (ctx, que, anim) => NothingContent(que, anim),
-        materialfactory: (ctx, cnt, anim) => NothingMaterial(cnt, anim),
-        heightFactor: 0.60,
-        widthFactor: 0.85,
-        stack: 3,
+    return LayoutBuilder(
+      builder: (context, box) => BlocBuilder<FeedBloc, Feed>(
+        builder: (context, state) => Cards(
+          feed: state,
+          contentfactory: (ctx, que, anim) => NothingContent(que, anim),
+          materialfactory: (ctx, cnt, anim) => NothingMaterial(cnt, anim),
+          heightFactor: 0.60,
+          widthFactor: 0.85,
+          stack: 3,
+          size: box.biggest,
+        ),
       ),
     );
   }
