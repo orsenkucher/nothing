@@ -5,13 +5,16 @@ import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/data/questions_repo.dart';
+import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/home.dart';
 
-void main() => runApp(App());
+void main() => runApp(const App());
 
-class App extends StatelessWidget {
+class App extends StatelessWidget with PortraitLock {
+  const App();
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider<SummaryBloc>(
