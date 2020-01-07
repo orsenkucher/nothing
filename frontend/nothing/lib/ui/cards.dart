@@ -116,8 +116,22 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     _motusSizes.clear();
     _motusAligns.clear();
     _motusOpacities.clear();
-    for (var i = 1; i <= widget.stack; i++) {
+    _motusFrontUpdate(false);
+    for (var i = 1; i < widget.stack; i++) {
       _motusUpdate(i); // begin: i; end: i-1
+    }
+  }
+
+  void _motusFrontUpdate([bool override = true]) {
+    const zero = 0;
+    final controller = _controller;
+    final align = _calcFrontAlign(controller);
+    if (!override) {
+      _motusSizes.add(null);
+      _motusOpacities.add(null);
+      _motusAligns.add(align);
+    } else {
+      _motusAligns[zero] = align;
     }
   }
 
@@ -148,6 +162,23 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     return max(min(1 - drop * index, 1), 0);
   }
 
+  Animation<Alignment> _calcFrontAlign(AnimationController controller) {
+    final full = _screenSize;
+    final card = _sizes[0];
+    final gap = Size(
+      (full.width - card.width) / 2,
+      (full.height - card.height) / 2,
+    );
+    final align = AlignmentTween(
+      begin: _aligns[0],
+      end: Alignment(
+        _offset.sign * (gap.width + card.width) / gap.width,
+        0,
+      ),
+    ).animate(controller);
+    return align;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -163,14 +194,15 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     // count has to be <= stack
     final count = min(widget.stack, widget.feed.len);
     return [
-      for (var i = count - 1; i >= 0; i--) _buildCard(context, i),
+      for (var i = count - 1; i >= 1; i--) _buildCard(context, i),
+      if (count > 0) _buildFrontCard(context),
     ];
   }
 
   Widget _buildCard(BuildContext context, int index) {
     final question = widget.feed.batch[widget.feed.current + index];
     return CardTransition(
-      key: ValueKey(question.id),
+      key: ValueKey(question.id), // TODO
       controller: _controller,
       size: _motusSizes[index],
       align: _motusAligns[index],
@@ -178,6 +210,28 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
       child: Card(
         animation: _controller,
         basesize: _sizes[0],
+        materialfactory: widget.materialfactory,
+        child: widget.contentfactory(
+          context,
+          question,
+          _controller,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFrontCard(BuildContext context) {
+    const zero = 0;
+    final question = widget.feed.batch[widget.feed.current + zero];
+    return FrontCardTransition(
+      key: ValueKey(question.id),
+      controller: _controller,
+      align: _motusAligns[zero],
+      rot: _controller,
+      rotsgn: _offset.sign,
+      child: FrontCard(
+        animation: _controller,
+        size: _sizes[zero],
         materialfactory: widget.materialfactory,
         child: widget.contentfactory(
           context,
@@ -202,7 +256,10 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
           onHorizontalDragUpdate: (update) {
             final rotChanged = _calcFrontOffset(update.delta);
             _controller.value = _offset.abs();
-            // if (rotChanged) _calcFrontAlign();
+            if (rotChanged) {
+              _motusFrontUpdate();
+              setState(() {}); // TODO find better place?
+            }
           },
           onHorizontalDragEnd: (end) {},
           child: Container(),
@@ -214,8 +271,63 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   bool _calcFrontOffset(Offset offset) {
     final newOffset = _offset + offset.dx / _screenSize.width;
     final changed = newOffset.sign != _offset.sign;
-    _offset = newOffset.clamp(-1, 1);
+    _offset = newOffset.clamp(-1.0, 1.0);
     return changed;
+  }
+}
+
+class FrontCardTransition extends AnimatedWidget {
+  final AnimationController controller;
+  final Widget child;
+  final Animation<Alignment> align;
+  final Animation<double> rot;
+  final double rotsgn;
+
+  const FrontCardTransition({
+    @required Key key,
+    @required this.controller,
+    @required this.child,
+    @required this.align,
+    @required this.rot,
+    @required this.rotsgn,
+  }) : super(key: key, listenable: controller);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: align.value,
+      child: Transform.rotate(
+        angle: rotsgn * (pi / 180.0) * 8 * rot.value,
+        child: child,
+      ),
+    );
+  }
+}
+
+class FrontCard extends StatelessWidget {
+  final CardMaterialFactory materialfactory;
+  final Widget child;
+  final Animation<double> animation;
+  final Size size;
+
+  const FrontCard({
+    @required this.size,
+    @required this.child,
+    @required this.animation,
+    @required this.materialfactory,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: size.width,
+      height: size.height,
+      child: materialfactory(
+        context,
+        child,
+        animation,
+      ),
+    );
   }
 }
 
