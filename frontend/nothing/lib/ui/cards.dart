@@ -117,9 +117,10 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     _motusAligns.clear();
     _motusOpacities.clear();
     _motusFrontUpdate(false);
-    for (var i = 1; i < widget.stack; i++) {
+    for (var i = 1; i <= widget.stack; i++) {
       _motusUpdate(i); // begin: i; end: i-1
     }
+    _motusTransparentUpdate();
   }
 
   void _motusFrontUpdate([bool override = true]) {
@@ -133,6 +134,16 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     } else {
       _motusAligns[zero] = align;
     }
+  }
+
+  void _motusTransparentUpdate() {
+    final controller = _controller;
+    _motusOpacities[widget.stack] = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.easeOutCubic,
+      ),
+    );
   }
 
   void _motusUpdate(int index) {
@@ -194,6 +205,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     // count has to be <= stack
     final count = min(widget.stack, widget.feed.len);
     return [
+      if (widget.feed.len > widget.stack) _buildCard(context, widget.stack),
       for (var i = count - 1; i >= 1; i--) _buildCard(context, i),
       if (count > 0) _buildFrontCard(context),
     ];
