@@ -222,7 +222,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   // Tail card will be on top of stack
   List<Widget> _buildCards(BuildContext context) {
     // count has to be <= stack
-    final count = min(widget.stack, widget.feed.len);
+    final count = min(widget.stack, widget.feed.len - widget.feed.current);
+    // TODO maybe len - cur?
     return [
       if (widget.feed.len > widget.stack) _buildCard(context, widget.stack),
       for (var i = count - 1; i >= 1; i--) _buildCard(context, i),
@@ -272,7 +273,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
 
   Widget _buildOutCard(BuildContext context, int index) {
     final animation = _animations[index];
-    final question = widget.feed.batch[widget.feed.current - index];
+    final question = widget.feed.batch[widget.feed.current - index - 1];
     return _frontCard(
       context,
       question,
@@ -383,7 +384,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final spring = _simulateSpring(
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
-      from: _controller.value, // or from 0
+      // from: _controller.value, // or from 0
+      from: 0,
       to: 1,
     );
     final controller = AnimationController(
@@ -403,11 +405,15 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     );
     setState(() {
       _animations.add(animation);
+
+      _offset = 0;
+      _controller.reset();
     });
     await controller.animateWith(spring);
     setState(() {
       _animations.remove(animation);
     });
+    print('Animations left: ${_animations.length}');
     controller.dispose();
   }
 
