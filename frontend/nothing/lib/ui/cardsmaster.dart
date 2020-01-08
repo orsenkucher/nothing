@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/data/model/question.dart';
 import 'package:nothing/ui/cards.dart';
@@ -25,6 +26,15 @@ class CardsMaster extends StatelessWidget {
           widthFactor: 0.85,
           stack: 3,
           size: box.biggest,
+          onswipe: (context, q, b) {
+            print('${q.question} -> $b');
+            BlocProvider.of<SummaryBloc>(context).add(
+              NewAnswer(
+                idx: q.id, // TODO idx -> id?
+                answer: b,
+              ),
+            );
+          },
         ),
       ),
     );

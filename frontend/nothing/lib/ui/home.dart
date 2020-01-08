@@ -42,51 +42,9 @@ class _HomeState extends State<Home> {
                 child: const CardsMaster(),
               ),
             ),
-            // FeedWidget(),
           ],
         ),
       ),
-    );
-  }
-}
-
-class FeedWidget extends StatelessWidget {
-  const FeedWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<FeedBloc, Feed>(
-      builder: (context, state) {
-        if (state is Feed) {
-          return GestureDetector(
-            onTap: () => BlocProvider.of<SummaryBloc>(context).add(
-              NewAnswer(
-                idx: state.batch[state.current].id,
-                answer: true,
-              ),
-            ),
-            child: Container(
-              color: Colors.white,
-              child: ListView(
-                children: [
-                  for (int i = 0; i < state.batch.length; i++)
-                    Text(
-                      '${i + 1}. ${state.batch[i].question}',
-                      key: UniqueKey(),
-                      style: TextStyle(
-                        color: state.current == i ? Colors.green : Colors.black,
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          );
-        } else {
-          return Container();
-        }
-      },
     );
   }
 }

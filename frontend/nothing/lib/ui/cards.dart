@@ -31,11 +31,13 @@ class Cards extends StatefulWidget {
   final CardContentFactory contentfactory;
   final CardMaterialFactory materialfactory;
   final Size size;
+  final OnSwipe onswipe;
 
   const Cards({
     @required this.feed,
     @required this.contentfactory,
     @required this.materialfactory,
+    @required this.onswipe,
     this.stack = 3,
     this.widthFactor = 0.9,
     this.heightFactor = 0.9,
@@ -319,7 +321,21 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   }
 
   void _animateOut(BuildContext context, Velocity v) {
+    widget.onswipe?.call(
+      context,
+      widget.feed.batch[widget.feed.current],
+      _offset.sign > 0,
+    );
+
     // TODO finish
+    final controller = _controller;
+    final spring = _simulateSpring(
+      size: _screenSize,
+      offsetVelocity: v.pixelsPerSecond,
+      from: controller.value,
+      to: 1,
+    );
+    controller.animateWith(spring);
   }
 
   SpringSimulation _simulateSpring({
