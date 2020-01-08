@@ -72,10 +72,12 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   List<Animation<Size>> _motusSizes = List<Animation<Size>>();
   List<Animation<Alignment>> _motusAligns = List<Animation<Alignment>>();
   List<Animation<double>> _motusOpacities = List<Animation<double>>();
+  List<AnimationController> _motusControllers = List<AnimationController>();
   // Animating-out cards
   List<CardAnimation> _animations = List<CardAnimation>();
   // Front card controls
   double _offset = 0;
+  bool _controlflag = true; // when _controller helms
 
   @override
   void initState() {
@@ -98,7 +100,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     print('Screen size: $_screenSize');
     _refillSizes(_screenSize);
     _refillAligns(_screenSize, _sizes);
-    _motusListsUpdate();
+    _motusListsUpdate(_controller);
   }
 
   void _refillSizes(Size full) {
@@ -131,15 +133,26 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     print('Card aligns: $_aligns');
   }
 
-  void _motusListsUpdate() {
+  void _motusListsUpdate(
+    AnimationController controller, [
+    Animation<double> values,
+  ]) {
+    if (values == null) {
+      values = controller;
+    }
     _motusSizes.clear();
     _motusAligns.clear();
     _motusOpacities.clear();
+    // _motusControllers.clear();
+    _motusControllers = List<AnimationController>.filled(
+      widget.stack + 1,
+      controller,
+    );
     _motusFrontUpdate(false);
     for (var i = 1; i <= widget.stack; i++) {
-      _motusUpdate(i); // begin: i; end: i-1
+      _motusUpdate(i, values); // begin: i; end: i-1
     }
-    _motusTransparentUpdate();
+    _motusTransparentUpdate(values);
   }
 
   void _motusFrontUpdate([bool override = true]) {
@@ -155,8 +168,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     }
   }
 
-  void _motusTransparentUpdate() {
-    final controller = _controller;
+  void _motusTransparentUpdate(Animation<double> controller) {
+    // final controller = _controller;
     _motusOpacities[widget.stack] = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: controller,
@@ -165,8 +178,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     );
   }
 
-  void _motusUpdate(int index) {
-    final controller = _controller;
+  void _motusUpdate(int index, Animation<double> controller) {
+    // final controller = _controller;
     _motusSizes.add(
       Tween<Size>(
         begin: _sizes[index],
@@ -227,28 +240,30 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     return [
       if (widget.feed.len > widget.stack) _buildCard(context, widget.stack),
       for (var i = count - 1; i >= 1; i--) _buildCard(context, i),
-      if (count > 0) _buildFrontCard(context),
+      if (_controlflag && count > 0) _buildFrontCard(context),
       for (var i = 0; i < _animations.length; i++) _buildOutCard(context, i),
     ];
   }
 
   Widget _buildCard(BuildContext context, int index) {
-    final question = widget.feed.batch[widget.feed.current + index];
+    final sh = _controlflag ? 0 : -1; // shift _buildCard index
+    final question = widget.feed.batch[widget.feed.current + index + sh];
+    final controller = _motusControllers[index];
     return CardTransition(
       // key: ValueKey(question.id), // TODO
       key: UniqueKey(),
-      controller: _controller,
+      controller: controller,
       size: _motusSizes[index],
       align: _motusAligns[index],
       opacity: _motusOpacities[index],
       child: Card(
-        animation: _controller,
+        animation: controller,
         basesize: _sizes[0],
         materialfactory: widget.materialfactory,
         child: widget.contentfactory(
           context,
           question,
-          _controller,
+          controller,
         ),
       ),
     );
@@ -260,7 +275,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final controller = _controller;
     final animation = CardAnimation(
       controller: controller,
-      align: _motusAligns[0],
+      align: _motusAligns[zero],
       rot: controller,
       rotsgn: _offset.sign,
     );
@@ -328,6 +343,12 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   }
 
   void _onDragUpdate(DragUpdateDetails update) {
+    // intercept motus control
+    if (!_controlflag) {
+      _motusListsUpdate(_controller);
+      _controlflag = true;
+      setState(() {});
+    }
     final rotChanged = _calcFrontOffset(update.delta);
     _controller.value = _offset.abs();
     if (rotChanged) {
@@ -405,13 +426,22 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     );
     setState(() {
       _animations.add(animation);
-
+    });
+    // rot is continuation of _controller values
+    _motusListsUpdate(controller, rot);
+    _controlflag = false;
+    setState(() {
       _offset = 0;
       _controller.reset();
     });
     await controller.animateWith(spring);
     setState(() {
       _animations.remove(animation);
+      // give control back to _controller
+      if (!_controlflag && _animations.length == 0) {
+        _motusListsUpdate(_controller);
+        _controlflag = true;
+      }
     });
     print('Animations left: ${_animations.length}');
     controller.dispose();
