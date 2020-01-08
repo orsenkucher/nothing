@@ -305,11 +305,15 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   }
 
   void _animateBack(BuildContext context, Velocity v) async {
-    final spring = _simulateSpring(v.pixelsPerSecond, _screenSize);
-
-    // TODO what to do with controller
     final controller = _controller;
-    _offset = 1e-4 * _offset.sign; // TODO ok?
+    final spring = _simulateSpring(
+      size: _screenSize,
+      offsetVelocity: v.pixelsPerSecond,
+      from: controller.value,
+      to: 0,
+    );
+    // _offset = 1e-4 * _offset.sign; // TODO ok?
+    _offset = 0;
     await controller.animateWith(spring);
     // setState(() {});
   }
@@ -318,7 +322,12 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     // TODO finish
   }
 
-  SpringSimulation _simulateSpring(Offset pixelsPerSecond, Size size) {
+  SpringSimulation _simulateSpring({
+    @required Size size,
+    @required Offset offsetVelocity,
+    @required double from,
+    @required double to,
+  }) {
     const eps = 1e-2;
     const spring = SpringDescription(
       mass: 25,
@@ -330,14 +339,14 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
       time: eps,
       velocity: eps,
     );
-    final unitsPerSecondX = pixelsPerSecond.dx / size.width;
-    final unitsPerSecondY = pixelsPerSecond.dy / size.height;
+    final unitsPerSecondX = offsetVelocity.dx / size.width;
+    final unitsPerSecondY = offsetVelocity.dy / size.height;
     final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
     final unitVelocity = unitsPerSecond.distance;
     final simulation = SpringSimulation(
       spring,
-      0,
-      1,
+      from,
+      to,
       unitVelocity,
       tolerance: tolerance,
     );
