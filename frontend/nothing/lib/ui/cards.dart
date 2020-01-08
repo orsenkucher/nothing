@@ -48,7 +48,22 @@ class Cards extends StatefulWidget {
   _CardsState createState() => _CardsState();
 }
 
-class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
+// TODO check all comments
+class CardAnimation {
+  // TODO move from here
+  final Animation<Alignment> align;
+  final AnimationController controller;
+  final Animation<double> rot;
+  final double rotsgn;
+  const CardAnimation({
+    @required this.controller,
+    @required this.align,
+    @required this.rot,
+    @required this.rotsgn,
+  });
+}
+
+class _CardsState extends State<Cards> with TickerProviderStateMixin {
   AnimationController _controller; // binds all animations together
   Size _screenSize; // available screen area
   List<Size> _sizes = List<Size>(); // card sizes (len: stack)
@@ -57,6 +72,8 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   List<Animation<Size>> _motusSizes = List<Animation<Size>>();
   List<Animation<Alignment>> _motusAligns = List<Animation<Alignment>>();
   List<Animation<double>> _motusOpacities = List<Animation<double>>();
+  // Animating-out cards
+  List<CardAnimation> _animations = List<CardAnimation>();
   // Front card controls
   double _offset = 0;
 
@@ -65,7 +82,6 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
     );
   }
 
@@ -211,13 +227,15 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
       if (widget.feed.len > widget.stack) _buildCard(context, widget.stack),
       for (var i = count - 1; i >= 1; i--) _buildCard(context, i),
       if (count > 0) _buildFrontCard(context),
+      for (var i = 0; i < _animations.length; i++) _buildOutCard(context, i),
     ];
   }
 
   Widget _buildCard(BuildContext context, int index) {
     final question = widget.feed.batch[widget.feed.current + index];
     return CardTransition(
-      key: ValueKey(question.id), // TODO
+      // key: ValueKey(question.id), // TODO
+      key: UniqueKey(),
       controller: _controller,
       size: _motusSizes[index],
       align: _motusAligns[index],
@@ -238,20 +256,51 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   Widget _buildFrontCard(BuildContext context) {
     const zero = 0;
     final question = widget.feed.batch[widget.feed.current + zero];
-    return FrontCardTransition(
-      key: ValueKey(question.id),
-      controller: _controller,
-      align: _motusAligns[zero],
-      rot: _controller,
+    final controller = _controller;
+    final animation = CardAnimation(
+      controller: controller,
+      align: _motusAligns[0],
+      rot: controller,
       rotsgn: _offset.sign,
+    );
+    return _frontCard(
+      context,
+      question,
+      animation,
+    );
+  }
+
+  Widget _buildOutCard(BuildContext context, int index) {
+    final animation = _animations[index];
+    final question = widget.feed.batch[widget.feed.current - index];
+    return _frontCard(
+      context,
+      question,
+      animation,
+    );
+  }
+
+  FrontCardTransition _frontCard(
+    BuildContext context,
+    Question question,
+    CardAnimation animation,
+  ) {
+    final controller = animation.controller;
+    return FrontCardTransition(
+      // key: ValueKey(question.id),
+      key: UniqueKey(),
+      controller: controller,
+      align: animation.align,
+      rot: animation.rot,
+      rotsgn: animation.rotsgn,
       child: FrontCard(
-        animation: _controller,
-        size: _sizes[zero],
+        animation: controller,
+        size: _sizes[0],
         materialfactory: widget.materialfactory,
         child: widget.contentfactory(
           context,
           question,
-          _controller,
+          controller,
         ),
       ),
     );
@@ -269,7 +318,9 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
           behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: _onDragUpdate,
           onHorizontalDragEnd: _onDragEnd,
-          child: Container(),
+          child: Container(
+            color: Colors.green.withOpacity(0.2),
+          ),
         ),
       ),
     );
@@ -307,6 +358,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   }
 
   void _animateBack(BuildContext context, Velocity v) async {
+    // TODO async?
     final controller = _controller;
     final spring = _simulateSpring(
       size: _screenSize,
@@ -320,7 +372,7 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     // setState(() {});
   }
 
-  void _animateOut(BuildContext context, Velocity v) {
+  void _animateOut(BuildContext context, Velocity v) async {
     widget.onswipe?.call(
       context,
       widget.feed.batch[widget.feed.current],
@@ -328,14 +380,35 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     );
 
     // TODO finish
-    final controller = _controller;
     final spring = _simulateSpring(
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
-      from: controller.value,
+      from: _controller.value, // or from 0
       to: 1,
     );
-    controller.animateWith(spring);
+    final controller = AnimationController(
+      vsync: this,
+    );
+    final align = _calcAnimatingAlign(controller);
+    final rot = Tween<double>(
+      begin: _controller.value, // or 0 if not ln:340
+      // begin: 0,
+      end: 1,
+    ).animate(controller);
+    final animation = CardAnimation(
+      controller: controller,
+      align: align,
+      rot: rot,
+      rotsgn: _offset.sign,
+    );
+    setState(() {
+      _animations.add(animation);
+    });
+    await controller.animateWith(spring);
+    setState(() {
+      _animations.remove(animation);
+    });
+    controller.dispose();
   }
 
   SpringSimulation _simulateSpring({
@@ -367,6 +440,25 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
       tolerance: tolerance,
     );
     return simulation;
+  }
+
+  Animation<Alignment> _calcAnimatingAlign(AnimationController controller) {
+    final size = _screenSize;
+    final cardSize = _sizes[0];
+    final ratioX = 1 / (size.width - cardSize.width) * 2;
+    final ratioY = 1 / (size.height - cardSize.height) * 2;
+    final multiplier = Offset(
+      size.width * ratioX,
+      size.height * ratioY,
+    ).distance;
+    var normed = Offset(_offset.sign, 0);
+    final magnified = normed * multiplier;
+    final align = AlignmentTween(
+      // begin: _frontAlign.value, //_aligns[0],
+      begin: _motusAligns[0].value,
+      end: Alignment(magnified.dx, magnified.dy),
+    ).animate(controller);
+    return align;
   }
 }
 
