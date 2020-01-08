@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 import 'package:nothing/bloc/feed/state.dart';
 import 'package:nothing/data/model/question.dart';
 
@@ -257,7 +258,6 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
   Widget _gestureDetector(BuildContext context) {
     final frontSize = _sizes[0];
     final frontAlign = _aligns[0];
-
     return Align(
       alignment: frontAlign,
       child: SizedBox(
@@ -265,19 +265,21 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
         height: frontSize.height,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onHorizontalDragUpdate: (update) {
-            final rotChanged = _calcFrontOffset(update.delta);
-            _controller.value = _offset.abs();
-            if (rotChanged) {
-              _motusFrontUpdate();
-              setState(() {}); // TODO find better place?
-            }
-          },
-          onHorizontalDragEnd: (end) {},
+          onHorizontalDragUpdate: _onDragUpdate,
+          onHorizontalDragEnd: _onDragEnd,
           child: Container(),
         ),
       ),
     );
+  }
+
+  void _onDragUpdate(DragUpdateDetails update) {
+    final rotChanged = _calcFrontOffset(update.delta);
+    _controller.value = _offset.abs();
+    if (rotChanged) {
+      _motusFrontUpdate();
+      setState(() {}); // TODO find better place?
+    }
   }
 
   bool _calcFrontOffset(Offset offset) {
@@ -285,6 +287,61 @@ class _CardsState extends State<Cards> with SingleTickerProviderStateMixin {
     final changed = newOffset.sign != _offset.sign;
     _offset = newOffset.clamp(-1.0, 1.0);
     return changed;
+  }
+
+  void _onDragEnd(DragEndDetails end) {
+    // if(widget.feed.){} TODO if no card left -> do not animate
+    _animate(context, end.velocity);
+  }
+
+  void _animate(BuildContext context, Velocity v) {
+    final sign = v.pixelsPerSecond.dx.sign;
+    final offset = _offset;
+    if (sign == 0 && offset.abs() > 0.5 || sign == offset.sign) {
+      _animateOut(context, v);
+    } else {
+      _animateBack(context, v);
+    }
+  }
+
+  void _animateBack(BuildContext context, Velocity v) async {
+    final spring = _simulateSpring(v.pixelsPerSecond, _screenSize);
+
+    // TODO what to do with controller
+    final controller = _controller;
+    _offset = 1e-4 * _offset.sign; // TODO ok?
+    await controller.animateWith(spring);
+    // setState(() {});
+  }
+
+  void _animateOut(BuildContext context, Velocity v) {
+    // TODO finish
+  }
+
+  SpringSimulation _simulateSpring(Offset pixelsPerSecond, Size size) {
+    const eps = 1e-2;
+    const spring = SpringDescription(
+      mass: 25,
+      stiffness: 10,
+      damping: 1,
+    );
+    const tolerance = const Tolerance(
+      distance: eps,
+      time: eps,
+      velocity: eps,
+    );
+    final unitsPerSecondX = pixelsPerSecond.dx / size.width;
+    final unitsPerSecondY = pixelsPerSecond.dy / size.height;
+    final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
+    final unitVelocity = unitsPerSecond.distance;
+    final simulation = SpringSimulation(
+      spring,
+      0,
+      1,
+      unitVelocity,
+      tolerance: tolerance,
+    );
+    return simulation;
   }
 }
 
