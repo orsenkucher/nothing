@@ -96,6 +96,19 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   @override // is called every time state changes
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _attuneWidget();
+  }
+
+  @override // is called when widget changes
+  void didUpdateWidget(Cards oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.size != widget.size) {
+      _attuneWidget();
+      setState(() {});
+    }
+  }
+
+  void _attuneWidget() {
     _screenSize = widget.size ?? MediaQuery.of(context).size;
     print('Screen size: $_screenSize');
     _refillSizes(_screenSize);
