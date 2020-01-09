@@ -284,7 +284,6 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final question = widget.feed.batch[widget.feed.current + index + sh];
     final controller = _motusControllers[index];
     return CardTransition(
-      // key: ValueKey(question.id), // TODO
       key: UniqueKey(),
       controller: controller,
       size: _motusSizes[index],
@@ -322,8 +321,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
 
   Widget _buildOutCard(BuildContext context, int index) {
     final animation = _animations[index];
-    final question = // TODO fuck
-        widget.feed.batch[widget.feed.current - _animations.length + index];
+    final qindex = widget.feed.current - _animations.length + index;
+    final question = qindex < 0 ? null : widget.feed.batch[qindex];
     return _frontCard(
       context,
       question,
@@ -338,7 +337,6 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   ) {
     final controller = animation.controller;
     return FrontCardTransition(
-      // key: ValueKey(question.id),
       key: UniqueKey(),
       controller: controller,
       align: animation.align,
@@ -348,11 +346,13 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
         animation: controller,
         size: _sizes[0],
         materialfactory: widget.materialfactory,
-        child: widget.contentfactory(
-          context,
-          question,
-          controller,
-        ),
+        child: question != null
+            ? widget.contentfactory(
+                context,
+                question,
+                controller,
+              )
+            : Container(),
       ),
     );
   }
@@ -398,8 +398,9 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   }
 
   void _onDragEnd(DragEndDetails end) {
-    // if(widget.feed.){} TODO if no card left -> do not animate
-    _animate(context, end.velocity);
+    if (widget.feed.current < widget.feed.len) {
+      _animate(context, end.velocity);
+    }
   }
 
   void _animate(BuildContext context, Velocity v) {
