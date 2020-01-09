@@ -168,18 +168,27 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   }
 
   void _motusTransparentUpdate(Animation<double> controller) {
+    const from = 0.0;
+    const to = 0.6;
+    const curve = Curves.easeOutCubic;
+    controller = CurvedAnimation(
+      parent: controller,
+      curve: Interval(from, to, curve: curve),
+    );
     _motusOpacities[widget.stack] = Tween<double>(
       begin: 0,
       end: _calcOpacity(widget.stack - 1),
-    ).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Curves.easeOutCubic,
-      ),
-    );
+    ).animate(controller);
   }
 
   void _motusUpdate(int index, Animation<double> controller) {
+    const from = 0.0;
+    const to = 0.6;
+    const curve = Curves.easeOutQuad;
+    controller = CurvedAnimation(
+      parent: controller,
+      curve: Interval(from, to, curve: curve),
+    );
     _motusSizes.add(
       Tween<Size>(
         begin: _sizes[index],

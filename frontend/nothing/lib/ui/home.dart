@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
       body: Container(
         color: NothingScheme.of(context).background,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.max,
           children: [
             // Slider placeholder
