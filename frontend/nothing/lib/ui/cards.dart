@@ -143,7 +143,6 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     _motusSizes.clear();
     _motusAligns.clear();
     _motusOpacities.clear();
-    // _motusControllers.clear();
     _motusControllers = List<AnimationController>.filled(
       widget.stack + 1,
       controller,
@@ -169,8 +168,10 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   }
 
   void _motusTransparentUpdate(Animation<double> controller) {
-    // final controller = _controller;
-    _motusOpacities[widget.stack] = Tween<double>(begin: 0, end: 1).animate(
+    _motusOpacities[widget.stack] = Tween<double>(
+      begin: 0,
+      end: _calcOpacity(widget.stack - 1),
+    ).animate(
       CurvedAnimation(
         parent: controller,
         curve: Curves.easeOutCubic,
@@ -179,7 +180,6 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   }
 
   void _motusUpdate(int index, Animation<double> controller) {
-    // final controller = _controller;
     _motusSizes.add(
       Tween<Size>(
         begin: _sizes[index],
@@ -237,11 +237,15 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     // count has to be <= stack
     final count = min(widget.stack, widget.feed.len - widget.feed.current);
     // TODO maybe len - cur?
+    // TODO prebuild and cache middle cards?
     return [
       if (widget.feed.len > widget.stack) _buildCard(context, widget.stack),
       for (var i = count - 1; i >= 1; i--) _buildCard(context, i),
-      if (_controlflag && count > 0) _buildFrontCard(context),
-      for (var i = 0; i < _animations.length; i++) _buildOutCard(context, i),
+      if (_controlflag && count > 0)
+        _buildFrontCard(context),
+      // for (var i = 0; i < _animations.length; i++) _buildOutCard(context, i),
+      for (var i = _animations.length - 1; i >= 0; i--)
+        _buildOutCard(context, i),
     ];
   }
 
@@ -288,7 +292,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
 
   Widget _buildOutCard(BuildContext context, int index) {
     final animation = _animations[index];
-    final question = widget.feed.batch[widget.feed.current - index - 1];
+    final question = // TODO fuck
+        widget.feed.batch[widget.feed.current - _animations.length + index];
     return _frontCard(
       context,
       question,
@@ -334,9 +339,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
           behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: _onDragUpdate,
           onHorizontalDragEnd: _onDragEnd,
-          child: Container(
-            color: Colors.green.withOpacity(0.2),
-          ),
+          child: Container(),
         ),
       ),
     );
@@ -379,8 +382,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     }
   }
 
-  void _animateBack(BuildContext context, Velocity v) async {
-    // TODO async?
+  void _animateBack(BuildContext context, Velocity v) {
     final controller = _controller;
     final spring = _simulateSpring(
       size: _screenSize,
@@ -388,10 +390,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       from: controller.value,
       to: 0,
     );
-    // _offset = 1e-4 * _offset.sign; // TODO ok?
-    _offset = 0;
-    await controller.animateWith(spring);
-    // setState(() {});
+    _offset = 1e-4 * _offset.sign; // magic
+    controller.animateWith(spring);
   }
 
   void _animateOut(BuildContext context, Velocity v) async {
@@ -401,7 +401,6 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       _offset.sign > 0,
     );
 
-    // TODO finish
     final spring = _simulateSpring(
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
@@ -431,7 +430,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     _motusListsUpdate(controller, rot);
     _controlflag = false;
     setState(() {
-      _offset = 0;
+      // have to preserve _offset sign for some reasons..
+      _offset = 1e-4 * _offset.sign; // magic x2
       _controller.reset();
     });
     await controller.animateWith(spring);
@@ -468,11 +468,12 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final unitsPerSecondY = offsetVelocity.dy / size.height;
     final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
     final unitVelocity = unitsPerSecond.distance;
+    final sign = from < to ? 1 : -1;
     final simulation = SpringSimulation(
       spring,
       from,
       to,
-      unitVelocity,
+      sign * unitVelocity,
       tolerance: tolerance,
     );
     return simulation;
