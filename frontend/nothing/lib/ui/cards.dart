@@ -257,13 +257,21 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   // Tail card will be on top of stack
   List<Widget> _buildCards(BuildContext context) {
     // count has to be <= stack
-    final count = min(widget.stack, widget.feed.len - widget.feed.current);
+    final diff = widget.feed.len - widget.feed.current;
+    final count = min(widget.stack, diff);
     // TODO maybe len - cur?
     // TODO prebuild and cache middle cards?
+    // [0] [1] [2] [3]
+    final tcn = diff > widget.stack;
+    // final tcn2 = diff + 1 > widget.stack; // (tcn2 ? 1 : 0)
+    // final tcn3 = diff == widget.stack; // (tcn3 ? 1 : 2)
+    // TODO suppl incorp
+    final suppl = _controlflag || tcn ? 0 : 1; // supplement
     return [
-      if (widget.feed.len > widget.stack) _buildCard(context, widget.stack),
-      for (var i = count - 1; i >= 1; i--) _buildCard(context, i),
+      if (tcn) _buildCard(context, widget.stack),
+      for (var i = count - 1 + suppl; i >= 1; i--) _buildCard(context, i),
       if (_controlflag && count > 0)
+        // if (count > 0)
         _buildFrontCard(context),
       // for (var i = 0; i < _animations.length; i++) _buildOutCard(context, i),
       for (var i = _animations.length - 1; i >= 0; i--)
