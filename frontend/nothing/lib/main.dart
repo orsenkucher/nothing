@@ -10,6 +10,15 @@ import 'package:nothing/ui/home.dart';
 
 void main() => runApp(const App());
 
+// TODO
+// remove all todos
+// check all comments
+// make consts whenever possible
+// make animations sharper
+// fix all index out of range
+// fix orientation on startup
+// finish card material and card content
+// make slider
 class App extends StatelessWidget with PortraitLock {
   const App();
   @override

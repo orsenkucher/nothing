@@ -7,6 +7,7 @@ import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/data/model/question.dart';
 import 'package:nothing/ui/cards.dart';
+import 'package:nothing/tools/size.dart';
 
 // Bind to dataflow and tune Cards widget
 class CardsMaster extends StatelessWidget {
@@ -25,7 +26,7 @@ class CardsMaster extends StatelessWidget {
           heightFactor: 0.60,
           widthFactor: 0.85,
           stack: 3,
-          size: box.biggest,
+          size: box.biggest.orient(),
           onswipe: (context, q, b) {
             print('${q.question} -> $b');
             BlocProvider.of<SummaryBloc>(context).add(
