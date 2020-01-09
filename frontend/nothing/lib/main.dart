@@ -18,7 +18,9 @@ void main() => runApp(const App());
 // fix all index out of range
 // fix orientation on startup
 // finish card material and card content
+// better animations
 // make slider
+// do i need `tools` folder
 class App extends StatelessWidget with PortraitLock {
   const App();
   @override
@@ -32,7 +34,7 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             summaryBloc: BlocProvider.of<SummaryBloc>(context),
-            repo: CloudQuestionsRepo(),
+            repo: LocalQuestionsRepo(), // CloudQuestionsRepo LocalQuestionsRepo
             loadCount: 10,
           ),
         ),

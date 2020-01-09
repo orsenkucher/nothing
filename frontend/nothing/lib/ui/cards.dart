@@ -197,7 +197,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   void _motusUpdate(int index, Animation<double> controller) {
     const from = 0.0;
     const to = 0.6;
-    const curve = Curves.easeOutQuad;
+    const curve = Curves.easeOutCirc;
     controller = CurvedAnimation(
       parent: controller,
       curve: Interval(from, to, curve: curve),
