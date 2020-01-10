@@ -49,17 +49,43 @@ class NothingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final q = question;
+    final scheme = NothingScheme.of(context);
+    final righttween = ColorTween(
+      begin: scheme.textbase,
+      end: scheme.textright,
+    );
+    final lefttween = ColorTween(
+      begin: scheme.textbase,
+      end: scheme.textleft,
+    );
     return Padding(
       padding: const EdgeInsets.all(20),
-      child: Center(
-        child: Text(
-          question.question,
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: NothingScheme.of(context).textbase,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: Text(
+              q.right,
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+                color: colorRight,
+              ),
+            ),
           ),
-        ),
+          Center(
+            child: Text(
+              q.question,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: NothingScheme.of(context).question,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
