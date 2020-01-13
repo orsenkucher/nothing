@@ -51,27 +51,36 @@ class NothingContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final q = question;
     final scheme = NothingScheme.of(context);
-    final righttween = ColorTween(
+    final rightcolor = ColorTween(
       begin: scheme.textbase,
       end: scheme.textright,
-    );
-    final lefttween = ColorTween(
+    ).animate(animation);
+    final leftcolor = ColorTween(
       begin: scheme.textbase,
       end: scheme.textleft,
-    );
+    ).animate(animation);
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Stack(
         children: [
           Align(
             alignment: Alignment.topRight,
-            child: Text(
-              q.right,
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: colorRight,
-              ),
+            child: TextTransition(
+              controller: animation,
+              text: q.right,
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+              color: rightcolor,
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: TextTransition(
+              controller: animation,
+              text: q.left,
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+              color: leftcolor,
             ),
           ),
           Center(
@@ -109,6 +118,35 @@ class NothingMaterial extends StatelessWidget {
       ),
       elevation: lerpDouble(1, 7, animation.value),
       child: content,
+    );
+  }
+}
+
+class TextTransition extends AnimatedWidget {
+  final Animation<double> controller;
+  final String text;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final Animation<Color> color;
+
+  const TextTransition({
+    Key key,
+    @required this.controller,
+    @required this.text,
+    @required this.fontSize,
+    @required this.fontWeight,
+    @required this.color,
+  }) : super(key: key, listenable: controller);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color.value,
+      ),
     );
   }
 }

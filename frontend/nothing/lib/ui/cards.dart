@@ -197,7 +197,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   void _motusUpdate(int index, Animation<double> controller) {
     const from = 0.0;
     const to = 0.6;
-    const curve = Curves.easeOutCirc;
+    const curve = Curves.easeOutCubic;
     controller = CurvedAnimation(
       parent: controller,
       curve: Interval(from, to, curve: curve),
@@ -261,19 +261,13 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final count = min(widget.stack, diff);
     // TODO maybe len - cur?
     // TODO prebuild and cache middle cards?
-    // [0] [1] [2] [3]
     final tcn = diff > widget.stack;
-    // final tcn2 = diff + 1 > widget.stack; // (tcn2 ? 1 : 0)
-    // final tcn3 = diff == widget.stack; // (tcn3 ? 1 : 2)
     // TODO suppl incorp
     final suppl = _controlflag || tcn ? 0 : 1; // supplement
     return [
       if (tcn) _buildCard(context, widget.stack),
       for (var i = count - 1 + suppl; i >= 1; i--) _buildCard(context, i),
-      if (_controlflag && count > 0)
-        // if (count > 0)
-        _buildFrontCard(context),
-      // for (var i = 0; i < _animations.length; i++) _buildOutCard(context, i),
+      if (_controlflag && count > 0) _buildFrontCard(context),
       for (var i = _animations.length - 1; i >= 0; i--)
         _buildOutCard(context, i),
     ];
@@ -350,7 +344,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
             ? widget.contentfactory(
                 context,
                 question,
-                controller,
+                // controller,
+                animation.rot,
               )
             : Container(),
       ),
@@ -418,6 +413,9 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final spring = _simulateSpring(
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
+      // from: controller.value,
+      // to: 0,
+      mass: 42,
       from: controller.value,
       to: 0,
     );
@@ -435,6 +433,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final spring = _simulateSpring(
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
+      mass: 18,
       // from: _controller.value, // or from 0
       from: 0,
       to: 1,
@@ -481,12 +480,13 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   SpringSimulation _simulateSpring({
     @required Size size,
     @required Offset offsetVelocity,
+    @required double mass,
     @required double from,
     @required double to,
   }) {
     const eps = 1e-2;
-    const spring = SpringDescription(
-      mass: 25,
+    final spring = SpringDescription(
+      mass: mass,
       stiffness: 10,
       damping: 1,
     );

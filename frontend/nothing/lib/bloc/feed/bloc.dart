@@ -74,6 +74,7 @@ class FeedBloc extends Bloc<FeedEvent, Feed> {
     final next = state.current + 1;
     final feed = state.batch.toList();
     // TODO next <= len
+    // Its better to make empty feed
     if (next <= feed.length) {
       yield Feed(feed, next);
     }
