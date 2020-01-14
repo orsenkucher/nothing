@@ -41,9 +41,7 @@ class _HomeState extends State<Home> {
                   child: const CardsMaster(),
                 ),
               ),
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 50),
             ],
           ),
         ),

@@ -29,8 +29,6 @@ class SliderMaster extends StatelessWidget {
     return Slider(
       value: value,
       height: height,
-      left: q.left,
-      right: q.right,
     );
   }
 

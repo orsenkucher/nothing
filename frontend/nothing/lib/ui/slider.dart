@@ -4,16 +4,10 @@ import 'package:nothing/color/scheme.dart';
 class Slider extends StatelessWidget {
   final double value;
   final double height;
-  final String left;
-  final String right;
   const Slider({
     @required this.value,
     @required this.height,
-    String left,
-    String right,
-  })  : this.left = left ?? '',
-        this.right = right ?? '',
-        assert(value >= 0 && value <= 1);
+  }) : assert(value >= 0 && value <= 1);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +18,6 @@ class Slider extends StatelessWidget {
           children: [
             _buildbot(context, constraints), // right
             _buildtop(context, constraints), // left
-            // _buildtxt(context, constraints), // data
           ],
         ),
       ),
@@ -46,30 +39,6 @@ class Slider extends StatelessWidget {
       color: NothingScheme.of(context).sliderright,
       width: constraints.maxWidth,
       height: height,
-    );
-  }
-
-  Widget _buildtxt(BuildContext context, BoxConstraints constraints) {
-    final r = value > 0.5;
-    final color = r
-        ? NothingScheme.of(context).slidertextright
-        : NothingScheme.of(context).slidertextleft;
-    final text = r ? right : left;
-    return SizedBox(
-      width: constraints.maxWidth,
-      height: height,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            '$text ${(value * 100).toInt()}%',
-            style: TextStyle(
-              color: color,
-              fontSize: 18,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

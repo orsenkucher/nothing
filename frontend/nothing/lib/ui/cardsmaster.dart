@@ -24,7 +24,7 @@ class CardsMaster extends StatelessWidget {
               NothingContent(que, anim, dirsgn),
           materialfactory: (ctx, cnt, anim, dirsgn, shadow) =>
               NothingMaterial(cnt, anim, dirsgn, shadow),
-          heightFactor: 0.85,
+          heightFactor: 0.9,
           widthFactor: 0.85,
           stack: 3,
           size: box.biggest,

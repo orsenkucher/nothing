@@ -11,8 +11,7 @@ class NothingScheme extends InheritedWidget {
   Color get question => const Color(0xff000000);
   Color get sliderleft => const Color(0xffDC1A1A);
   Color get sliderright => const Color(0xff44D818);
-  Color get slidertextleft => const Color(0xff1d2021);
-  Color get slidertextright => const Color(0xfffbf1c7);
+  Color get previoustext => const Color(0xffffffff);
 
   const NothingScheme({
     Key key,

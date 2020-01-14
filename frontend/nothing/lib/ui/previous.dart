@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/color/scheme.dart';
 
 class PreviousQ extends StatelessWidget {
   final double height;
@@ -55,8 +56,8 @@ class PreviousA extends StatelessWidget {
           }
           return Column(
             children: [
-              _makerow(context, ln, rn, 18),
-              _makerow(context, l, r, 14),
+              _makerow(context, ln, rn, 19),
+              _makerow(context, l, r, 15),
             ],
           );
         },
@@ -97,7 +98,7 @@ class TextSwitcher extends StatelessWidget {
         key: ValueKey(text),
         style: TextStyle(
           fontSize: fontSize,
-          color: Colors.white,
+          color: NothingScheme.of(context).previoustext,
         ),
       ),
     );

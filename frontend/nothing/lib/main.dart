@@ -14,13 +14,13 @@ void main() => runApp(const App());
 // [ ] remove all todos
 // [ ] check all comments
 // [ ] make consts whenever possible
-// [ ] make animations sharper
-// [ ] better animations
+// [+] make animations sharper
+// [+] better animations
 // [+] fix all index out of range
 // [+] fix orientation on startup
-// [ ] finish card material and card content
-// [ ] make slider
-// [ ] do i need `tools` folder
+// [+] finish card material and card content
+// [+] make slider
+// [+] do i need `tools` folder
 class App extends StatelessWidget with PortraitLock {
   const App();
   @override
