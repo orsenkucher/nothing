@@ -154,6 +154,7 @@ class NothingMaterial extends AnimatedWidget {
       ).animate(curved);
       borderSide = BorderSide(color: color.value, width: borderWidth);
     }
+    final tween = Tween<double>(begin: 1, end: 7).animate(animation);
     return Material(
       shadowColor: scheme.shadow,
       color: scheme.card,
@@ -161,7 +162,7 @@ class NothingMaterial extends AnimatedWidget {
         side: borderSide,
         borderRadius: BorderRadius.circular(28),
       ),
-      elevation: lerpDouble(1, 7, animation.value),
+      elevation: dirsgn == 0 ? 1 : tween.value,
       child: content,
     );
   }
