@@ -17,7 +17,9 @@ class PreviousQ extends StatelessWidget {
           child: BlocBuilder<FeedBloc, Feed>(
             builder: (context, state) => state.current > 0
                 ? TextSwitcher(state.batch[state.current - 1].question)
-                : TextSwitcher(''),
+                : TextSwitcher(
+                    state.len > 0 ? state.batch[state.current].question : '',
+                  ),
           ),
         ),
       ),
@@ -34,25 +36,44 @@ class PreviousA extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: BlocBuilder<FeedBloc, Feed>(
+        builder: (context, state) {
+          var ln = '?', rn = '?';
+          var l = '', r = '';
+          if (state.current > 0) {
+            final q = state.batch[state.current - 1];
+            final sum = q.leftn + q.rightn;
+            final value = (sum != 0 ? q.leftn / sum * 100 : 0.0).toInt();
+            ln = '$value';
+            rn = '${100 - value}';
+            l = q.left;
+            r = q.right;
+          } else if (state.len > 0) {
+            final q = state.batch[state.current];
+            l = q.left;
+            r = q.right;
+          }
+          return Column(
             children: [
-              TextSwitcher('80', fontSize: 18),
-              TextSwitcher('20', fontSize: 18),
+              _makerow(context, ln, rn, 18),
+              _makerow(context, l, r, 14),
             ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextSwitcher('Extremely low', fontSize: 14),
-              TextSwitcher('Extremely high', fontSize: 14),
-            ],
-          ),
-        ],
+          );
+        },
       ),
     );
+  }
+
+  Widget _makerow(
+    BuildContext context,
+    String a,
+    String b,
+    double fontSize,
+  ) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      TextSwitcher(a, fontSize: fontSize),
+      TextSwitcher(b, fontSize: fontSize),
+    ]);
   }
 }
 
