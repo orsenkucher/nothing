@@ -24,7 +24,7 @@ class CardsMaster extends StatelessWidget {
               NothingContent(que, anim, dirsgn),
           materialfactory: (ctx, cnt, anim, dirsgn, shadow) =>
               NothingMaterial(cnt, anim, dirsgn, shadow),
-          heightFactor: 0.80,
+          heightFactor: 0.85,
           widthFactor: 0.85,
           stack: 3,
           size: box.biggest,
@@ -143,7 +143,7 @@ class NothingMaterial extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = NothingScheme.of(context);
-    const borderWidth = 7.0;
+    const borderWidth = 6.0;
     var borderSide = BorderSide(color: scheme.cardborder, width: borderWidth);
     final curved = CurvedAnimation(
       parent: animation,

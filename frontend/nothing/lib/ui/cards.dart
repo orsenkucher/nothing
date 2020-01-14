@@ -150,7 +150,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     for (int i = 0; i < widget.stack + 1; i++) {
       final curGapHeight = (full.height - sizes[i].height) / 2;
       _aligns.add(
-        Alignment(0.0, 0.07 * sizes[0].height * i / curGapHeight),
+        Alignment(0.0, 0.06 * sizes[0].height * i / curGapHeight),
       );
     }
     print('Card aligns: $_aligns');

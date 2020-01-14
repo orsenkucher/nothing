@@ -18,13 +18,13 @@ class Slider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(6),
       child: LayoutBuilder(
         builder: (context, constraints) => Stack(
           children: [
             _buildbot(context, constraints), // right
             _buildtop(context, constraints), // left
-            _buildtxt(context, constraints), // data
+            // _buildtxt(context, constraints), // data
           ],
         ),
       ),
