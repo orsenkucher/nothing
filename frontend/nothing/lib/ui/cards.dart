@@ -12,11 +12,13 @@ typedef Widget CardContentFactory(
   double dirsgn,
 );
 
+enum Shadow { min, tween, max }
 typedef Widget CardMaterialFactory(
   BuildContext context,
   Widget content,
   Animation<double> animation,
   double dirsgn,
+  Shadow shadow,
 );
 
 typedef OnSwipe(
@@ -148,6 +150,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     print('Card aligns: $_aligns');
   }
 
+  Animation<double> _values; // Cheat to fix shadow
   void _motusListsUpdate(
     AnimationController controller, [
     Animation<double> values,
@@ -155,6 +158,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     if (values == null) {
       values = controller;
     }
+    _values = values;
     _motusSizes.clear();
     _motusAligns.clear();
     _motusOpacities.clear();
@@ -311,8 +315,9 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       align: _motusAligns[index],
       opacity: _motusOpacities[index],
       child: Card(
-        animation: controller,
+        animation: _values,
         dirsgn: 0,
+        shadow: index == 1 ? Shadow.tween : Shadow.min,
         basesize: _sizes[0],
         materialfactory: widget.materialfactory,
         child: content,
@@ -364,6 +369,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
         animation: controller,
         values: animation.rot,
         dirsgn: animation.rotsgn,
+        shadow: Shadow.max,
         size: _sizes[0],
         materialfactory: widget.materialfactory,
         child: question != null
@@ -590,6 +596,7 @@ class FrontCard extends StatelessWidget {
   final Animation<double> animation;
   final Animation<double> values;
   final double dirsgn;
+  final Shadow shadow;
   final Size size;
 
   const FrontCard({
@@ -598,6 +605,7 @@ class FrontCard extends StatelessWidget {
     @required this.animation,
     @required this.values,
     @required this.dirsgn,
+    @required this.shadow,
     @required this.materialfactory,
   });
 
@@ -611,6 +619,7 @@ class FrontCard extends StatelessWidget {
         child,
         values,
         dirsgn,
+        shadow,
       ),
     );
   }
@@ -653,6 +662,7 @@ class Card extends StatelessWidget {
   final Widget child;
   final Animation<double> animation;
   final double dirsgn;
+  final Shadow shadow;
   final Size basesize;
 
   const Card({
@@ -660,6 +670,7 @@ class Card extends StatelessWidget {
     @required this.materialfactory,
     @required this.child,
     @required this.dirsgn,
+    @required this.shadow,
     @required this.animation,
   });
 
@@ -670,6 +681,7 @@ class Card extends StatelessWidget {
       _prepareContent(child),
       animation,
       dirsgn,
+      shadow,
     );
   }
 

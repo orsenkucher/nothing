@@ -22,8 +22,8 @@ class CardsMaster extends StatelessWidget {
           feed: state,
           contentfactory: (ctx, que, anim, dirsgn) =>
               NothingContent(que, anim, dirsgn),
-          materialfactory: (ctx, cnt, anim, dirsgn) =>
-              NothingMaterial(cnt, anim, dirsgn),
+          materialfactory: (ctx, cnt, anim, dirsgn, shadow) =>
+              NothingMaterial(cnt, anim, dirsgn, shadow),
           heightFactor: 0.60,
           widthFactor: 0.85,
           stack: 3,
@@ -129,12 +129,14 @@ class NothingContent extends StatelessWidget {
 class NothingMaterial extends AnimatedWidget {
   final Widget content;
   final double dirsgn;
+  final Shadow shadow;
   final Animation<double> animation;
 
   const NothingMaterial(
     this.content,
     this.animation,
-    this.dirsgn, {
+    this.dirsgn,
+    this.shadow, {
     Key key,
   }) : super(key: key, listenable: animation);
 
@@ -143,18 +145,18 @@ class NothingMaterial extends AnimatedWidget {
     final scheme = NothingScheme.of(context);
     const borderWidth = 4.0;
     var borderSide = BorderSide(color: scheme.cardborder, width: borderWidth);
+    final curved = CurvedAnimation(
+      parent: animation,
+      curve: Curves.easeOutCubic,
+    );
     if (dirsgn != 0) {
-      final curved = CurvedAnimation(
-        parent: animation,
-        curve: Curves.easeOutCubic,
-      );
       final color = ColorTween(
         begin: scheme.cardborder,
         end: dirsgn > 0 ? scheme.textright : scheme.textleft,
       ).animate(curved);
       borderSide = BorderSide(color: color.value, width: borderWidth);
     }
-    final tween = Tween<double>(begin: 1, end: 7).animate(animation);
+    const shcase = {Shadow.min: 1.0, Shadow.max: 7.0};
     return Material(
       shadowColor: scheme.shadow,
       color: scheme.card,
@@ -162,7 +164,12 @@ class NothingMaterial extends AnimatedWidget {
         side: borderSide,
         borderRadius: BorderRadius.circular(28),
       ),
-      elevation: dirsgn == 0 ? 1 : tween.value,
+      elevation: shadow == Shadow.tween
+          ? Tween<double>(
+              begin: shcase[Shadow.min],
+              end: shcase[Shadow.max],
+            ).animate(curved).value
+          : shcase[shadow],
       child: content,
     );
   }
