@@ -1,6 +1,6 @@
-import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nothing/data/model/question.dart';
+import 'package:nothing/error/cloud_error.dart';
 
 abstract class QuestionsState extends Equatable {
   const QuestionsState();
@@ -14,22 +14,17 @@ class LoadingQuestions extends QuestionsState {
 }
 
 class LoadedQuestions extends QuestionsState {
-  final List<Question> qus;
+  final List<Question> questions;
 
-  const LoadedQuestions({
-    @required this.qus,
-  });
+  const LoadedQuestions(this.questions);
 
   @override
-  List<Object> get props => [qus];
+  List<Object> get props => [questions];
 }
 
-class QuestionsSummary extends QuestionsState {
-  final Map<int, bool> summary;
-  const QuestionsSummary({
-    @required this.summary,
-  });
-
+class FailedToLoadQuestions extends QuestionsState {
+  final CloudError error;
+  const FailedToLoadQuestions(this.error);
   @override
-  List<Object> get props => [summary];
+  List<Object> get props => [];
 }

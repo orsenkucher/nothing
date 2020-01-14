@@ -14,8 +14,8 @@ class Question extends Equatable {
     @required this.question,
     @required this.left,
     @required this.right,
-    @required this.rightn,
-    @required this.leftn,
+    this.leftn = 0,
+    this.rightn = 0,
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
@@ -30,5 +30,12 @@ class Question extends Equatable {
   }
 
   @override
-  List<Object> get props => [id, question, left, right, leftn, rightn];
+  List<Object> get props => [
+        id,
+        question,
+        left,
+        right,
+        leftn,
+        rightn,
+      ];
 }

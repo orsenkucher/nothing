@@ -4,13 +4,9 @@ abstract class QuestionsEvent extends Equatable {
   const QuestionsEvent();
 }
 
-class FetchQus extends QuestionsEvent {
-  final int count;
-
-  const FetchQus({
-    this.count = 4,
-  });
+class FetchQuestions extends QuestionsEvent {
+  const FetchQuestions();
 
   @override
-  List<Object> get props => [count];
+  List<Object> get props => [];
 }

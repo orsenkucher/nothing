@@ -62,7 +62,7 @@ class _HubState extends State<Hub> {
 //                       : Container(),
     return Scaffold(
       body: Container(
-        color: Colors.blue,
+        color: Color(0xff1d2021), //Colors.blue,
         // child: dev.Cards(
         child: Stack(
           children: [
@@ -75,11 +75,18 @@ class _HubState extends State<Hub> {
                   print(
                       '${q.leftn} / (${q.leftn + q.rightn}) = ${q.leftn / (q.leftn + q.rightn)}');
                   return StatsBar(
-                    value: q.leftn / (q.leftn + q.rightn),
-                    height: 60,
+                    value: q.leftn + q.rightn != 0
+                        ? q.leftn / (q.leftn + q.rightn)
+                        : 0,
+                    height: 50,
+                    left: q.left,
+                    right: q.right,
                   );
                 }
-                return Container();
+                return StatsBar(
+                  value: 0,
+                  height: 50,
+                );
               }),
             ),
             BlocBuilder<QuestionsBloc, QuestionsState>(

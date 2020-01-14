@@ -111,7 +111,12 @@ class _PlayDeckState extends State<PlayDeck> {
           // color = Colors.white;
           return Material(
             shadowColor: Colors.black.withAlpha(60),
-            borderRadius: BorderRadius.circular(28),
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: Color(0xffa89984), width: 4),
+              borderRadius: BorderRadius.circular(28),
+            ),
+            color: Color(0xff32302f),
+            // borderRadius: BorderRadius.circular(28),
             elevation: lerpDouble(1, 7, lerp),
             // color: color,
             child: child,
@@ -121,18 +126,19 @@ class _PlayDeckState extends State<PlayDeck> {
           // print(index);
           final qu = widget.qus[index];
           lerp = (lerp * 6).clamp(-1.0, 1.0);
-          var colorRight = Color(0xffEAEAEA);
-          var colorLeft = Color(0xffEAEAEA);
+          var baseColor = Color(0xff83a598);
+          var colorRight = baseColor;
+          var colorLeft = baseColor;
           if (lerp > 0)
             colorRight = Color.lerp(
-              Color(0xffEAEAEA),
-              Color(0xff56D16C),
+              colorRight,
+              Color(0xff8ec07c),
               lerp.abs(),
             );
           if (lerp < 0)
             colorLeft = Color.lerp(
-              Color(0xffEAEAEA),
-              Colors.red,
+              colorLeft,
+              Color(0xffd3869b), // 0xffcc241d
               lerp.abs(),
             );
           return Padding(
@@ -170,7 +176,7 @@ class _PlayDeckState extends State<PlayDeck> {
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color(0xffd5c4a1), // 0xffd65d0e
                     ),
                   ),
                 )

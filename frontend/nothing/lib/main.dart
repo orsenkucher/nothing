@@ -1,67 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
+import 'package:nothing/color/scheme.dart';
 import 'package:nothing/data/questions_repo.dart';
-import 'package:nothing/ui/hub.dart';
+import 'package:nothing/tools/orientation.dart';
+import 'package:nothing/ui/home.dart';
 
-import 'bloc/question/bloc.dart';
+void main() => runApp(const App());
 
-void main() => runApp(App());
-
-// [+] Make 2 blocs
-// [+] How to persist some state in bloc
-// [+] Repo ln: 16 exception
-// [+] Connect to firebase ios / android
-// [.] Divide widgets into smaller & define widget-wide params
-// [.] Fix symbol rendering
-// [+] Arrow button tap, clear TextField
-// [.] Rework all bloc states and events with sumtypes
-
-// [.] Поменять ответы местами
-// [.] Адмоб для андройд/айос
-// [.] Цвета
-// [.] Сместить карточки ниже
-// [+] Подвязать слайдер к данным
-// [+] Хранить айди пользователя в приложении
-// [.] Шрифт
-// [.] Порталы
-// [.] Название
-
-class App extends StatelessWidget {
+// TODO
+// [ ] remove all todos
+// [ ] check all comments
+// [ ] make consts whenever possible
+// [ ] make animations sharper
+// [ ] better animations
+// [+] fix all index out of range
+// [+] fix orientation on startup
+// [ ] finish card material and card content
+// [ ] make slider
+// [ ] do i need `tools` folder
+class App extends StatelessWidget with PortraitLock {
+  const App();
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return MultiBlocProvider(
       providers: [
-        // BlocProvider<ProblemsBloc>(
-        //   builder: (context) => ProblemsBloc(problemsRepo: CloudProblemsRepo()),
-        //   // CloudProblemsRepo | LocalProblemsRepo
-        // ),
-        // BlocProvider<ProblemBloc>(
-        //   builder: (context) =>
-        //       ProblemBloc(problemsBloc: BlocProvider.of<ProblemsBloc>(context)),
-        // ),
         BlocProvider<SummaryBloc>(
-          builder: (context) => SummaryBloc(),
+          create: (context) => SummaryBloc(),
         ),
         BlocProvider<QuestionsBloc>(
-          builder: (context) {
-            return QuestionsBloc(
-              qusRepo: LocalQuestionsRepo(), // CloudQuestionsRepo
-              summaryBloc: BlocProvider.of<SummaryBloc>(context),
-            );
-          },
-        ),
-        BlocProvider<QuestionBloc>(
-          builder: (context) => QuestionBloc(
-            questionsBloc: BlocProvider.of<QuestionsBloc>(context),
+          create: (context) => QuestionsBloc(
+            summaryBloc: BlocProvider.of<SummaryBloc>(context),
+            repo: LocalQuestionsRepo(), // CloudQuestionsRepo LocalQuestionsRepo
+            loadCount: 12,
           ),
-        )
+        ),
+        BlocProvider<FeedBloc>(
+          create: (context) => FeedBloc(
+            questionsBloc: BlocProvider.of<QuestionsBloc>(context),
+            summaryBloc: BlocProvider.of<SummaryBloc>(context),
+            threshold: 8,
+          ),
+        ),
       ],
       child: MaterialApp(
         title: 'Nothing',
-        theme: ThemeData(),
-        home: Hub(),
+        theme: ThemeData(
+          fontFamily: 'Gilroy',
+        ),
+        home: NothingScheme(
+          child: Home(),
+        ),
         debugShowCheckedModeBanner: false,
       ),
     );

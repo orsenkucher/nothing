@@ -8,6 +8,7 @@ abstract class SummaryEvent extends Equatable {
 class NewAnswer extends SummaryEvent {
   final int idx;
   final bool answer;
+
   const NewAnswer({
     @required this.idx,
     @required this.answer,
@@ -15,4 +16,9 @@ class NewAnswer extends SummaryEvent {
 
   @override
   List<Object> get props => [idx, answer];
+}
+
+class ResetSummary extends SummaryEvent {
+  @override
+  List<Object> get props => [];
 }

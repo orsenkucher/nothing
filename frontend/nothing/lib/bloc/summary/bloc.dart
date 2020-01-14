@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/event.dart';
 import 'package:nothing/bloc/summary/state.dart';
 
-export 'state.dart';
 export 'event.dart';
+export 'state.dart';
 
 class SummaryBloc extends Bloc<SummaryEvent, Summary> {
   @override
@@ -17,8 +21,10 @@ class SummaryBloc extends Bloc<SummaryEvent, Summary> {
       var newState = Summary({
         ...state.summary,
         event.idx: event.answer,
-      });
+      }, state.id + 1);
       yield newState;
+    } else if (event is ResetSummary) {
+      yield initialState;
     }
   }
 }
