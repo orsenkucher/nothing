@@ -276,9 +276,32 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   }
 
   Widget _buildCard(BuildContext context, int index) {
+    const threshold = 2; // Content rendering threshold
     final sh = _controlflag ? 0 : -1; // shift _buildCard index
     final question = widget.feed.batch[widget.feed.current + index + sh];
     final controller = _motusControllers[index];
+    Widget content = Container();
+    if (index <= threshold) {
+      content = widget.contentfactory(
+        context,
+        question,
+        0, // no sign means no anim needed
+        controller,
+      );
+    }
+    if (index == threshold) {
+      // final opacity = Tween<double>(begin: 0, end: 1).animate(controller);
+      final opacity = _motusOpacities[index + 1]; // cheat
+      content = AnimatedBuilder(
+        child: content,
+        animation: controller,
+        builder: (context, child) => Opacity(
+          opacity: opacity.value,
+          child: child,
+          // child: Container(color: Colors.blue),
+        ),
+      );
+    }
     return CardTransition(
       key: UniqueKey(),
       controller: controller,
@@ -290,12 +313,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
         sign: 0,
         basesize: _sizes[0],
         materialfactory: widget.materialfactory,
-        child: widget.contentfactory(
-          context,
-          question,
-          0, // no sign means no anim needed
-          controller,
-        ),
+        child: content,
       ),
     );
   }
