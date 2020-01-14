@@ -20,10 +20,10 @@ class CardsMaster extends StatelessWidget {
       builder: (context, box) => BlocBuilder<FeedBloc, Feed>(
         builder: (context, state) => Cards(
           feed: state,
-          contentfactory: (ctx, que, sgn, anim) =>
-              NothingContent(que, sgn, anim),
-          materialfactory: (ctx, cnt, sgn, anim) =>
-              NothingMaterial(cnt, sgn, anim),
+          contentfactory: (ctx, que, anim, dirsgn) =>
+              NothingContent(que, anim, dirsgn),
+          materialfactory: (ctx, cnt, anim, dirsgn) =>
+              NothingMaterial(cnt, anim, dirsgn),
           heightFactor: 0.60,
           widthFactor: 0.85,
           stack: 3,
@@ -45,10 +45,10 @@ class CardsMaster extends StatelessWidget {
 
 class NothingContent extends StatelessWidget {
   final Question question;
-  final double sign;
+  final double dirsgn;
   final Animation<double> animation;
 
-  const NothingContent(this.question, this.sign, this.animation);
+  const NothingContent(this.question, this.animation, this.dirsgn);
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class NothingContent extends StatelessWidget {
       parent: animation,
       curve: Curves.easeOutCubic,
     );
-    if (sign > 0 && right) {
+    if (dirsgn > 0 && right) {
       final rightcolor = ColorTween(
         begin: scheme.textbase,
         end: scheme.textright,
@@ -101,7 +101,7 @@ class NothingContent extends StatelessWidget {
         fontWeight: fontWeight,
         color: rightcolor,
       );
-    } else if (sign < 0 && !right) {
+    } else if (dirsgn < 0 && !right) {
       final leftcolor = ColorTween(
         begin: scheme.textbase,
         end: scheme.textleft,
@@ -128,13 +128,13 @@ class NothingContent extends StatelessWidget {
 
 class NothingMaterial extends AnimatedWidget {
   final Widget content;
-  final double sign;
+  final double dirsgn;
   final Animation<double> animation;
 
   const NothingMaterial(
     this.content,
-    this.sign,
-    this.animation, {
+    this.animation,
+    this.dirsgn, {
     Key key,
   }) : super(key: key, listenable: animation);
 
@@ -143,14 +143,14 @@ class NothingMaterial extends AnimatedWidget {
     final scheme = NothingScheme.of(context);
     const borderWidth = 4.0;
     var borderSide = BorderSide(color: scheme.cardborder, width: borderWidth);
-    if (sign != 0) {
+    if (dirsgn != 0) {
       final curved = CurvedAnimation(
         parent: animation,
         curve: Curves.easeOutCubic,
       );
       final color = ColorTween(
         begin: scheme.cardborder,
-        end: sign > 0 ? scheme.textright : scheme.textleft,
+        end: dirsgn > 0 ? scheme.textright : scheme.textleft,
       ).animate(curved);
       borderSide = BorderSide(color: color.value, width: borderWidth);
     }

@@ -8,15 +8,15 @@ import 'package:nothing/data/model/question.dart';
 typedef Widget CardContentFactory(
   BuildContext context,
   Question question,
-  double sign,
   Animation<double> animation,
+  double dirsgn,
 );
 
 typedef Widget CardMaterialFactory(
   BuildContext context,
   Widget content,
-  double sign,
   Animation<double> animation,
+  double dirsgn,
 );
 
 typedef OnSwipe(
@@ -194,6 +194,10 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       begin: 0,
       end: _calcOpacity(widget.stack - 1),
     ).animate(controller);
+    _motusOpacities.add(Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(controller));
   }
 
   void _motusUpdate(int index, Animation<double> controller) {
@@ -280,25 +284,23 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final sh = _controlflag ? 0 : -1; // shift _buildCard index
     final question = widget.feed.batch[widget.feed.current + index + sh];
     final controller = _motusControllers[index];
-    Widget content = Container();
+    Widget content = const SizedBox();
     if (index <= threshold) {
       content = widget.contentfactory(
         context,
         question,
-        0, // no sign means no anim needed
         controller,
+        0, // no sign means no anim needed
       );
     }
     if (index == threshold) {
-      // final opacity = Tween<double>(begin: 0, end: 1).animate(controller);
-      final opacity = _motusOpacities[index + 1]; // cheat
+      final opacity = _motusOpacities[widget.stack + 1]; // kinda cheat
       content = AnimatedBuilder(
         child: content,
         animation: controller,
         builder: (context, child) => Opacity(
           opacity: opacity.value,
           child: child,
-          // child: Container(color: Colors.blue),
         ),
       );
     }
@@ -310,7 +312,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       opacity: _motusOpacities[index],
       child: Card(
         animation: controller,
-        sign: 0,
+        dirsgn: 0,
         basesize: _sizes[0],
         materialfactory: widget.materialfactory,
         child: content,
@@ -361,18 +363,17 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       child: FrontCard(
         animation: controller,
         values: animation.rot,
-        sign: animation.rotsgn,
+        dirsgn: animation.rotsgn,
         size: _sizes[0],
         materialfactory: widget.materialfactory,
         child: question != null
             ? widget.contentfactory(
                 context,
                 question,
-                // controller,
-                animation.rotsgn,
                 animation.rot,
+                animation.rotsgn,
               )
-            : Container(),
+            : const SizedBox(),
       ),
     );
   }
@@ -389,7 +390,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
           behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: _onDragUpdate,
           onHorizontalDragEnd: _onDragEnd,
-          child: Container(),
+          child: const SizedBox(),
         ),
       ),
     );
@@ -588,7 +589,7 @@ class FrontCard extends StatelessWidget {
   final Widget child;
   final Animation<double> animation;
   final Animation<double> values;
-  final double sign;
+  final double dirsgn;
   final Size size;
 
   const FrontCard({
@@ -596,7 +597,7 @@ class FrontCard extends StatelessWidget {
     @required this.child,
     @required this.animation,
     @required this.values,
-    @required this.sign,
+    @required this.dirsgn,
     @required this.materialfactory,
   });
 
@@ -608,8 +609,8 @@ class FrontCard extends StatelessWidget {
       child: materialfactory(
         context,
         child,
-        sign,
         values,
+        dirsgn,
       ),
     );
   }
@@ -651,14 +652,14 @@ class Card extends StatelessWidget {
   final CardMaterialFactory materialfactory;
   final Widget child;
   final Animation<double> animation;
-  final double sign;
+  final double dirsgn;
   final Size basesize;
 
   const Card({
     @required this.basesize,
     @required this.materialfactory,
     @required this.child,
-    @required this.sign,
+    @required this.dirsgn,
     @required this.animation,
   });
 
@@ -667,8 +668,8 @@ class Card extends StatelessWidget {
     return materialfactory(
       context,
       _prepareContent(child),
-      sign,
       animation,
+      dirsgn,
     );
   }
 
