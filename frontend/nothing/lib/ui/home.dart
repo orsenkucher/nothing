@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
-import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/cardsmaster.dart';
+import 'package:nothing/ui/slidermaster.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -32,11 +31,7 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.max,
           children: [
-            // Slider placeholder
-            Placeholder(
-              color: Colors.blueGrey,
-              fallbackHeight: 50,
-            ),
+            const SliderMaster(),
             Expanded(
               child: SizedBox.expand(
                 child: const CardsMaster(),
