@@ -20,8 +20,10 @@ class CardsMaster extends StatelessWidget {
       builder: (context, box) => BlocBuilder<FeedBloc, Feed>(
         builder: (context, state) => Cards(
           feed: state,
-          contentfactory: (ctx, que, anim) => NothingContent(que, anim),
-          materialfactory: (ctx, cnt, anim) => NothingMaterial(cnt, anim),
+          contentfactory: (ctx, que, sgn, anim) =>
+              NothingContent(que, sgn, anim),
+          materialfactory: (ctx, cnt, sgn, anim) =>
+              NothingMaterial(cnt, sgn, anim),
           heightFactor: 0.60,
           widthFactor: 0.85,
           stack: 3,
@@ -43,49 +45,28 @@ class CardsMaster extends StatelessWidget {
 
 class NothingContent extends StatelessWidget {
   final Question question;
+  final double sign;
   final Animation<double> animation;
 
-  const NothingContent(this.question, this.animation);
+  const NothingContent(this.question, this.sign, this.animation);
 
   @override
   Widget build(BuildContext context) {
-    final q = question;
-    final scheme = NothingScheme.of(context);
-    final rightcolor = ColorTween(
-      begin: scheme.textbase,
-      end: scheme.textright,
-    ).animate(animation);
-    final leftcolor = ColorTween(
-      begin: scheme.textbase,
-      end: scheme.textleft,
-    ).animate(animation);
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Stack(
         children: [
           Align(
             alignment: Alignment.topRight,
-            child: TextTransition(
-              controller: animation,
-              text: q.right,
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: rightcolor,
-            ),
+            child: _buildText(context, true),
           ),
           Align(
             alignment: Alignment.bottomLeft,
-            child: TextTransition(
-              controller: animation,
-              text: q.left,
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: leftcolor,
-            ),
+            child: _buildText(context, false),
           ),
           Center(
             child: Text(
-              q.question,
+              question.question,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30,
@@ -98,22 +79,86 @@ class NothingContent extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildText(BuildContext context, bool right) {
+    final text = right ? question.right : question.left;
+    final scheme = NothingScheme.of(context);
+    const fontSize = 40.0;
+    const fontWeight = FontWeight.bold;
+    final curved = CurvedAnimation(
+      parent: animation,
+      curve: Curves.easeOutCubic,
+    );
+    if (sign > 0 && right) {
+      final rightcolor = ColorTween(
+        begin: scheme.textbase,
+        end: scheme.textright,
+      ).animate(curved);
+      return TextTransition(
+        controller: animation,
+        text: text,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: rightcolor,
+      );
+    } else if (sign < 0 && !right) {
+      final leftcolor = ColorTween(
+        begin: scheme.textbase,
+        end: scheme.textleft,
+      ).animate(curved);
+      return TextTransition(
+        controller: animation,
+        text: text,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: leftcolor,
+      );
+    } else {
+      return Text(
+        text,
+        style: TextStyle(
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          color: scheme.textbase,
+        ),
+      );
+    }
+  }
 }
 
-class NothingMaterial extends StatelessWidget {
+class NothingMaterial extends AnimatedWidget {
   final Widget content;
+  final double sign;
   final Animation<double> animation;
 
-  const NothingMaterial(this.content, this.animation);
+  const NothingMaterial(
+    this.content,
+    this.sign,
+    this.animation, {
+    Key key,
+  }) : super(key: key, listenable: animation);
 
   @override
   Widget build(BuildContext context) {
     final scheme = NothingScheme.of(context);
+    const borderWidth = 4.0;
+    var borderSide = BorderSide(color: scheme.cardborder, width: borderWidth);
+    if (sign != 0) {
+      final curved = CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeOutCubic,
+      );
+      final color = ColorTween(
+        begin: scheme.cardborder,
+        end: sign > 0 ? scheme.textright : scheme.textleft,
+      ).animate(curved);
+      borderSide = BorderSide(color: color.value, width: borderWidth);
+    }
     return Material(
       shadowColor: scheme.shadow,
       color: scheme.card,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: scheme.cardborder, width: 4),
+        side: borderSide,
         borderRadius: BorderRadius.circular(28),
       ),
       elevation: lerpDouble(1, 7, animation.value),

@@ -8,12 +8,14 @@ import 'package:nothing/data/model/question.dart';
 typedef Widget CardContentFactory(
   BuildContext context,
   Question question,
+  double sign,
   Animation<double> animation,
 );
 
 typedef Widget CardMaterialFactory(
   BuildContext context,
   Widget content,
+  double sign,
   Animation<double> animation,
 );
 
@@ -285,11 +287,13 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       opacity: _motusOpacities[index],
       child: Card(
         animation: controller,
+        sign: 0,
         basesize: _sizes[0],
         materialfactory: widget.materialfactory,
         child: widget.contentfactory(
           context,
           question,
+          0, // no sign means no anim needed
           controller,
         ),
       ),
@@ -338,6 +342,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       rotsgn: animation.rotsgn,
       child: FrontCard(
         animation: controller,
+        values: animation.rot,
+        sign: animation.rotsgn,
         size: _sizes[0],
         materialfactory: widget.materialfactory,
         child: question != null
@@ -345,6 +351,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
                 context,
                 question,
                 // controller,
+                animation.rotsgn,
                 animation.rot,
               )
             : Container(),
@@ -562,12 +569,16 @@ class FrontCard extends StatelessWidget {
   final CardMaterialFactory materialfactory;
   final Widget child;
   final Animation<double> animation;
+  final Animation<double> values;
+  final double sign;
   final Size size;
 
   const FrontCard({
     @required this.size,
     @required this.child,
     @required this.animation,
+    @required this.values,
+    @required this.sign,
     @required this.materialfactory,
   });
 
@@ -579,7 +590,8 @@ class FrontCard extends StatelessWidget {
       child: materialfactory(
         context,
         child,
-        animation,
+        sign,
+        values,
       ),
     );
   }
@@ -621,12 +633,14 @@ class Card extends StatelessWidget {
   final CardMaterialFactory materialfactory;
   final Widget child;
   final Animation<double> animation;
+  final double sign;
   final Size basesize;
 
   const Card({
     @required this.basesize,
     @required this.materialfactory,
     @required this.child,
+    @required this.sign,
     @required this.animation,
   });
 
@@ -635,6 +649,7 @@ class Card extends StatelessWidget {
     return materialfactory(
       context,
       _prepareContent(child),
+      sign,
       animation,
     );
   }
