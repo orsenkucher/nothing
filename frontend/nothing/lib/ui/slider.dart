@@ -24,7 +24,7 @@ class Slider extends StatelessWidget {
           children: [
             _buildbot(context, constraints), // right
             _buildtop(context, constraints), // left
-            _buildtxt(context, constraints),
+            _buildtxt(context, constraints), // data
           ],
         ),
       ),

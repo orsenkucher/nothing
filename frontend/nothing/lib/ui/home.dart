@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.max,
           children: [
-            const SliderMaster(),
+            const SliderMaster(height: 50),
             Expanded(
               child: SizedBox.expand(
                 child: const CardsMaster(),

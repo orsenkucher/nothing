@@ -4,7 +4,9 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/ui/slider.dart';
 
 class SliderMaster extends StatelessWidget {
-  const SliderMaster();
+  final double height;
+
+  const SliderMaster({@required this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class SliderMaster extends StatelessWidget {
         builder: (context, state) {
           return state.current > 0
               ? _buildSlider(context, state)
-              : const SizedBox();
+              : _buildEmpty();
         },
       ),
     );
@@ -26,9 +28,16 @@ class SliderMaster extends StatelessWidget {
     final value = sum != 0 ? q.leftn / sum : 0.0;
     return Slider(
       value: value,
-      height: 50,
+      height: height,
       left: q.left,
       right: q.right,
+    );
+  }
+
+  Widget _buildEmpty() {
+    return Slider(
+      value: 0,
+      height: height,
     );
   }
 }
