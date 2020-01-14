@@ -76,7 +76,7 @@ class LocalQuestionsRepo extends QuestionsRepo {
     Map<int, bool> summary,
   }) {
     return Future.delayed(
-      Duration(milliseconds: 800),
+      Duration(milliseconds: 800), // 800 1800 2800 server delays
       () => _local,
     );
   }

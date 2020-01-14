@@ -110,6 +110,12 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       _attuneWidget();
       setState(() {});
     }
+    if (oldWidget.feed.current >= oldWidget.feed.len) {
+      setState(() {
+        _zeroOffset();
+        _controller.reset();
+      });
+    }
   }
 
   void _attuneWidget() {
@@ -149,6 +155,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     }
     print('Card aligns: $_aligns');
   }
+
+  void _zeroOffset() => _offset = 1e-4 * _offset.sign; // magic
 
   Animation<double> _values; // Cheat to fix shadow
   void _motusListsUpdate(
@@ -433,7 +441,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   void _animate(BuildContext context, Velocity v) {
     final sign = v.pixelsPerSecond.dx.sign;
     final offset = _offset;
-    if (sign == 0 && offset.abs() > 0.5 || sign == offset.sign) {
+    if (sign == 0 && offset.abs() > 0.5 || sign == offset.sign && sign != 0) {
       _animateOut(context, v);
     } else {
       _animateBack(context, v);
@@ -445,13 +453,11 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final spring = _simulateSpring(
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
-      // from: controller.value,
-      // to: 0,
       mass: 42,
       from: controller.value,
       to: 0,
     );
-    _offset = 1e-4 * _offset.sign; // magic
+    _zeroOffset();
     controller.animateWith(spring);
   }
 
@@ -466,7 +472,6 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
       mass: 18,
-      // from: _controller.value, // or from 0
       from: 0,
       to: 1,
     );
@@ -475,8 +480,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     );
     final align = _calcAnimatingAlign(controller);
     final rot = Tween<double>(
-      begin: _controller.value, // or 0 if not ln:340
-      // begin: 0,
+      begin: _controller.value,
       end: 1,
     ).animate(controller);
     final animation = CardAnimation(
@@ -493,7 +497,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     _controlflag = false;
     setState(() {
       // have to preserve _offset sign for some reasons..
-      _offset = 1e-4 * _offset.sign; // magic x2
+      _zeroOffset(); // magic x2
       _controller.reset();
     });
     await controller.animateWith(spring);

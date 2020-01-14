@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:nothing/bloc/questions/state.dart';
 import 'package:nothing/bloc/questions/event.dart';
@@ -23,6 +24,20 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
 
   @override
   QuestionsState get initialState => LoadingQuestions();
+
+  @override
+  Stream<QuestionsState> transformEvents(
+    Stream<QuestionsEvent> events,
+    Stream<QuestionsState> Function(QuestionsEvent) next,
+  ) {
+    return super.transformEvents(
+      Rx.merge([
+        events.throttleTime(const Duration(seconds: 4)),
+        events.debounceTime(const Duration(milliseconds: 200)),
+      ]),
+      next,
+    );
+  }
 
   @override
   Stream<QuestionsState> mapEventToState(QuestionsEvent event) async* {

@@ -73,13 +73,11 @@ class FeedBloc extends Bloc<FeedEvent, Feed> {
   Stream<Feed> _mapMoveNext() async* {
     final next = state.current + 1;
     final feed = state.batch.toList();
-    // TODO next <= len
-    // Its better to make empty feed
     if (next <= feed.length) {
       yield Feed(feed, next);
     }
-    // TODO next - 1 + thsh
-    if (state.current + threshold == state.batch.length) {
+    print('Cached: ${state.batch.length}');
+    if (next + threshold > state.batch.length) {
       questionsBloc.add(FetchQuestions());
     }
   }
