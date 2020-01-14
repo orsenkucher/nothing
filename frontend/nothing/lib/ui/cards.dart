@@ -471,7 +471,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final spring = _simulateSpring(
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
-      mass: 18,
+      mass: 17,
       from: 0,
       to: 1,
     );
@@ -550,15 +550,15 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final size = _screenSize;
     final cardSize = _sizes[0];
     final ratioX = 1 / (size.width - cardSize.width) * 2;
-    final ratioY = 1 / (size.height - cardSize.height) * 2;
-    final multiplier = Offset(
-      size.width * ratioX,
-      size.height * ratioY,
-    ).distance;
+    // final ratioY = 1 / (size.height - cardSize.height) * 2;
+    // final multiplier = Offset(
+    //   size.width * ratioX,
+    //   size.height * ratioY,
+    // ).distance;
+    final multiplier = size.width * ratioX * 1.1; // +10%
     var normed = Offset(_offset.sign, 0);
     final magnified = normed * multiplier;
     final align = AlignmentTween(
-      // begin: _frontAlign.value, //_aligns[0],
       begin: _motusAligns[0].value,
       end: Alignment(magnified.dx, magnified.dy),
     ).animate(controller);

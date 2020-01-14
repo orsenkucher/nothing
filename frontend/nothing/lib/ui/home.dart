@@ -28,21 +28,23 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Container(
         color: NothingScheme.of(context).background,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Previous(height: 80),
-            const SliderMaster(height: 12),
-            Expanded(
-              child: SizedBox.expand(
-                child: const CardsMaster(),
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Previous(height: 80),
+              const SliderMaster(height: 12),
+              Expanded(
+                child: SizedBox.expand(
+                  child: const CardsMaster(),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 80,
-            ),
-          ],
+              SizedBox(
+                height: 50,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -28,11 +28,15 @@ class Previous extends StatelessWidget {
   }
 
   Widget _buildText(BuildContext context, String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 20,
-        color: Colors.white,
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 200),
+      child: Text(
+        text,
+        key: ValueKey(text),
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+        ),
       ),
     );
   }
