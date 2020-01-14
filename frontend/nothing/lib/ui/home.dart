@@ -33,11 +33,14 @@ class _HomeState extends State<Home> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Previous(height: 80),
-            const SliderMaster(height: 50),
+            const SliderMaster(height: 12),
             Expanded(
               child: SizedBox.expand(
                 child: const CardsMaster(),
               ),
+            ),
+            SizedBox(
+              height: 80,
             ),
           ],
         ),
