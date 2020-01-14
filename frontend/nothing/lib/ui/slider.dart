@@ -33,7 +33,7 @@ class Slider extends StatelessWidget {
 
   Widget _buildtop(BuildContext context, BoxConstraints constraints) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutCubic,
       color: NothingScheme.of(context).sliderleft,
       width: constraints.maxWidth * value,
@@ -58,14 +58,17 @@ class Slider extends StatelessWidget {
     return SizedBox(
       width: constraints.maxWidth,
       height: height,
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            color: color,
-            fontSize: 18,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            '$text ${(value * 100).toInt()}%',
+            style: TextStyle(
+              color: color,
+              fontSize: 18,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

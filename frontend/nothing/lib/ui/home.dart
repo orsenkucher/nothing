@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/cardsmaster.dart';
+import 'package:nothing/ui/previous.dart';
 import 'package:nothing/ui/slidermaster.dart';
 
 class Home extends StatefulWidget {
@@ -31,6 +32,7 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.max,
           children: [
+            Previous(height: 80),
             const SliderMaster(height: 50),
             Expanded(
               child: SizedBox.expand(

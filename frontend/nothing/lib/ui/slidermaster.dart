@@ -11,7 +11,7 @@ class SliderMaster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 50, right: 30, left: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: BlocBuilder<FeedBloc, Feed>(
         builder: (context, state) {
           return state.current > 0
