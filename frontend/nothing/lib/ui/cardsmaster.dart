@@ -160,10 +160,11 @@ class NothingMaterial extends AnimatedWidget {
     return Material(
       shadowColor: scheme.shadow,
       color: scheme.card,
-      shape: RoundedRectangleBorder(
-        side: borderSide,
-        borderRadius: BorderRadius.circular(28),
-      ),
+      // shape: RoundedRectangleBorder(
+      //   side: borderSide,
+      //   borderRadius: BorderRadius.circular(28),
+      // ),
+      borderRadius: const BorderRadius.all(Radius.circular(28)),
       elevation: shadow == Shadow.tween
           ? Tween<double>(
               begin: shcase[Shadow.min],
