@@ -150,7 +150,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     for (int i = 0; i < widget.stack + 1; i++) {
       final curGapHeight = (full.height - sizes[i].height) / 2;
       _aligns.add(
-        Alignment(0.0, 0.06 * sizes[0].height * i / curGapHeight),
+        Alignment(0.0, 0.055 * sizes[0].height * i / curGapHeight),
       );
     }
     print('Card aligns: $_aligns');
@@ -453,7 +453,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final spring = _simulateSpring(
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
-      mass: 42,
+      mass: 46,
       from: controller.value,
       to: 0,
     );
@@ -471,7 +471,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final spring = _simulateSpring(
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
-      mass: 17,
+      mass: 19,
       from: 0,
       to: 1,
     );
