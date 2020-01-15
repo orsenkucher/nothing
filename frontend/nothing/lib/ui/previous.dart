@@ -17,14 +17,20 @@ class PreviousQ extends StatelessWidget {
         child: Center(
           child: BlocBuilder<FeedBloc, Feed>(
             builder: (context, state) => state.current > 0
-                ? TextSwitcher(state.batch[state.current - 1].question)
-                : TextSwitcher(
-                    state.len > 0 ? state.batch[state.current].question : '',
+                ? Switcher(_words(state.batch[state.current - 1].question))
+                : Switcher(
+                    _words(state.len > 0
+                        ? state.batch[state.current].question
+                        : ''),
                   ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _words(String text) {
+    return Words(text, key: ValueKey(text));
   }
 }
 
@@ -71,18 +77,39 @@ class PreviousA extends StatelessWidget {
     String b,
     double fontSize,
   ) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      TextSwitcher(a, fontSize: fontSize),
-      TextSwitcher(b, fontSize: fontSize),
-    ]);
+    return Switcher(Row(
+      key: ValueKey(a + b),
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Words(a, fontSize: fontSize),
+        Words(b, fontSize: fontSize),
+      ],
+    ));
   }
 }
 
-class TextSwitcher extends StatelessWidget {
+class Switcher extends StatelessWidget {
+  final Widget child;
+
+  const Switcher(
+    this.child, {
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 200),
+      child: child,
+    );
+  }
+}
+
+class Words extends StatelessWidget {
   final String text;
   final double fontSize;
 
-  const TextSwitcher(
+  const Words(
     this.text, {
     Key key,
     this.fontSize = 20,
@@ -90,16 +117,12 @@ class TextSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 200),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        key: ValueKey(text),
-        style: TextStyle(
-          fontSize: fontSize,
-          color: NothingScheme.of(context).previoustext,
-        ),
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: fontSize,
+        color: NothingScheme.of(context).previoustext,
       ),
     );
   }
