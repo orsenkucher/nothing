@@ -35,9 +35,7 @@ class PreviousQ extends StatelessWidget {
 }
 
 class PreviousA extends StatelessWidget {
-  final double height;
-
-  const PreviousA({@required this.height});
+  const PreviousA();
 
   @override
   Widget build(BuildContext context) {

@@ -29,19 +29,29 @@ class _HomeState extends State<Home> {
       body: Container(
         color: NothingScheme.of(context).background,
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.max,
+          child: Stack(
             children: [
-              PreviousQ(height: 80),
-              const SliderMaster(height: 12),
-              PreviousA(height: 80),
-              Expanded(
-                child: SizedBox.expand(
-                  child: const CardsMaster(),
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  PreviousQ(height: 80),
+                  const SliderMaster(height: 12),
+                  const PreviousA(),
+                ],
               ),
-              SizedBox(height: 50),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  SizedBox(height: 80 + 12 + 40 + .0),
+                  Expanded(
+                    child: SizedBox.expand(
+                      child: const CardsMaster(),
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                ],
+              ),
             ],
           ),
         ),
