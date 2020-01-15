@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
-import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/cardsmaster.dart';
 import 'package:nothing/ui/previous.dart';
 import 'package:nothing/ui/slidermaster.dart';
@@ -10,6 +9,8 @@ class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
+
+const backimg = "assets/back.png";
 
 class _HomeState extends State<Home> {
   @override
@@ -28,8 +29,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-            image: DecorationImage(image: ExactAssetImage("assets/Back.png"))),
-        // color: NothingScheme.of(context).background,
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: ExactAssetImage(backimg),
+          ),
+        ),
         child: SafeArea(
           child: Stack(
             children: [

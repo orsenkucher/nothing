@@ -143,27 +143,14 @@ class NothingMaterial extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = NothingScheme.of(context);
-    const borderWidth = 6.0;
-    var borderSide = BorderSide(color: scheme.cardborder, width: borderWidth);
     final curved = CurvedAnimation(
       parent: animation,
       curve: Curves.easeOutQuad,
     );
-    if (dirsgn != 0) {
-      final color = ColorTween(
-        begin: scheme.cardborder,
-        end: dirsgn > 0 ? scheme.textright : scheme.textleft,
-      ).animate(curved);
-      borderSide = BorderSide(color: color.value, width: borderWidth);
-    }
     const shcase = {Shadow.min: 1.0, Shadow.max: 7.0};
     return Material(
       shadowColor: scheme.shadow,
       color: scheme.card,
-      // shape: RoundedRectangleBorder(
-      //   side: borderSide,
-      //   borderRadius: BorderRadius.circular(28),
-      // ),
       borderRadius: const BorderRadius.all(Radius.circular(28)),
       elevation: shadow == Shadow.tween
           ? Tween<double>(

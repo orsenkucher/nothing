@@ -25,9 +25,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets: 
-
-    - assets/Back.png
+  assets:
+    - assets/back.png
   fonts:
     - family: Gilroy
       fonts:
