@@ -77,29 +77,34 @@ class PreviousA extends StatelessWidget {
     String b,
     double fontSize,
   ) {
-    return Switcher(Row(
-      key: ValueKey(a + b),
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Words(a, fontSize: fontSize),
-        Words(b, fontSize: fontSize),
-      ],
-    ));
+    return Switcher(
+      Row(
+        key: ValueKey(a + b),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Words(a, fontSize: fontSize),
+          Words(b, fontSize: fontSize),
+        ],
+      ),
+      duration: const Duration(milliseconds: 180),
+    );
   }
 }
 
 class Switcher extends StatelessWidget {
   final Widget child;
+  final Duration duration;
 
   const Switcher(
     this.child, {
     Key key,
+    this.duration = const Duration(milliseconds: 220),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 200),
+      duration: duration,
       child: child,
     );
   }

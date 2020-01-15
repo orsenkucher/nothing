@@ -147,7 +147,7 @@ class NothingMaterial extends AnimatedWidget {
     var borderSide = BorderSide(color: scheme.cardborder, width: borderWidth);
     final curved = CurvedAnimation(
       parent: animation,
-      curve: Curves.easeOutCubic,
+      curve: Curves.easeOutQuad,
     );
     if (dirsgn != 0) {
       final color = ColorTween(
