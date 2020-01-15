@@ -27,7 +27,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: NothingScheme.of(context).background,
+        decoration: BoxDecoration(
+            image: DecorationImage(image: ExactAssetImage("assets/Back.png"))),
+        // color: NothingScheme.of(context).background,
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
