@@ -49,8 +49,8 @@ class PreviousA extends StatelessWidget {
             final q = state.batch[state.current - 1];
             final sum = q.leftn + q.rightn;
             final value = (sum != 0 ? q.leftn / sum * 100 : 0.0).toInt();
-            ln = '$value';
-            rn = '${100 - value}';
+            ln = '$value%';
+            rn = '${100 - value}%';
             l = q.left;
             r = q.right;
           } else if (state.len > 0) {

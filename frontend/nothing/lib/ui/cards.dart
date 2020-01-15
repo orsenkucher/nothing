@@ -138,7 +138,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     );
     for (int i = 0; i < widget.stack + 1; i++) {
       _sizes.add(Size(
-        card.width - (gap.width / widget.stack) * i,
+        card.width - (gap.width / widget.stack) * i * 3,
         card.height - (gap.height / widget.stack) * i,
       ));
     }
