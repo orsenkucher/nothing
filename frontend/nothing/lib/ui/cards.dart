@@ -82,13 +82,12 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   // Front card controls
   double _offset = 0;
   bool _controlflag = true; // when _controller helms
+  bool _wobblingflag = false; // used in wobbling animation
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-    );
+    _controller = AnimationController(vsync: this);
   }
 
   @override
@@ -156,7 +155,9 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     print('Card aligns: $_aligns');
   }
 
-  void _zeroOffset() => _offset = 1e-4 * _offset.sign; // magic
+  void _zeroOffset([bool invert = false]) {
+    _offset = 1e-4 * _offset.sign * (invert ? -1 : 1);
+  } // magic
 
   Animation<double> _values; // Cheat to fix shadow
   void _motusListsUpdate(
@@ -411,6 +412,11 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   }
 
   void _onDragUpdate(DragUpdateDetails update) {
+    // if wobbling was on
+    if (_wobblingflag) {
+      _controller.removeStatusListener(_wobbler);
+      _wobblingflag = false;
+    }
     // intercept motus control
     if (!_controlflag) {
       _motusListsUpdate(_controller);
@@ -419,10 +425,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     }
     final rotChanged = _calcFrontOffset(update.delta);
     _controller.value = _offset.abs();
-    if (rotChanged) {
-      _motusFrontUpdate();
-      setState(() {}); // TODO find better place?
-    }
+    if (rotChanged) setState(() => _motusFrontUpdate());
   }
 
   bool _calcFrontOffset(Offset offset) {
@@ -441,10 +444,31 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   void _animate(BuildContext context, Velocity v) {
     final sign = v.pixelsPerSecond.dx.sign;
     final offset = _offset;
-    if (sign == 0 && offset.abs() > 0.5 || sign == offset.sign && sign != 0) {
+    if ((sign - offset).abs() < 0.01 && sign == 0) {
+      _animateWobble();
+    } else if (sign == 0 && offset.abs() > 0.5 ||
+        sign == offset.sign && sign != 0) {
       _animateOut(context, v);
     } else {
       _animateBack(context, v);
+    }
+  }
+
+  void _animateWobble() {
+    _wobblingflag = true;
+    _controller
+      ..removeStatusListener(_wobbler)
+      ..addStatusListener(_wobbler)
+      ..woto();
+  }
+
+  void _wobbler(AnimationStatus status) {
+    if (status == AnimationStatus.completed) {
+      _controller.woback();
+    } else if (status == AnimationStatus.dismissed) {
+      setState(() => _zeroOffset(true));
+      _motusFrontUpdate();
+      _controller.woto();
     }
   }
 
@@ -471,7 +495,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final spring = _simulateSpring(
       size: _screenSize,
       offsetVelocity: v.pixelsPerSecond,
-      mass: 19,
+      mass: 18,
       from: 0,
       to: 1,
     );
@@ -697,6 +721,26 @@ class Card extends StatelessWidget {
         height: basesize.height,
         child: child,
       ),
+    );
+  }
+}
+
+extension WobblingController on AnimationController {
+  static const duration = Duration(milliseconds: 800);
+
+  void woto() {
+    this.animateTo(
+      0.08,
+      duration: duration,
+      curve: Curves.linearToEaseOut,
+    );
+  }
+
+  void woback() {
+    this.animateBack(
+      0.0,
+      duration: duration,
+      curve: Curves.easeInToLinear,
     );
   }
 }

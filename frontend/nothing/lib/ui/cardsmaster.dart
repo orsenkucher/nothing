@@ -147,11 +147,18 @@ class NothingMaterial extends AnimatedWidget {
       parent: animation,
       curve: Curves.easeOutQuad,
     );
+    // const borderWidth = 1.5;
+    // var borderSide = BorderSide(color: scheme.cardborder, width: borderWidth);
+    const borderRadius = const BorderRadius.all(Radius.circular(28));
     const shcase = {Shadow.min: 1.0, Shadow.max: 7.0};
     return Material(
       shadowColor: scheme.shadow,
       color: scheme.card,
-      borderRadius: const BorderRadius.all(Radius.circular(28)),
+      // shape: RoundedRectangleBorder(
+      //   side: borderSide,
+      //   borderRadius: borderRadius,
+      // ),
+      borderRadius: borderRadius,
       elevation: shadow == Shadow.tween
           ? Tween<double>(
               begin: shcase[Shadow.min],
