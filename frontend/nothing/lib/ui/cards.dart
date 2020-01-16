@@ -83,6 +83,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   double _offset = 0;
   bool _controlflag = true; // when _controller helms
   bool _wobblingflag = false; // used in wobbling animation
+  List<AlignmentTween> _bakedFrontAligns = List<AlignmentTween>(2);
 
   @override
   void initState() {
@@ -122,7 +123,13 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     print('Screen size: $_screenSize');
     _refillSizes(_screenSize);
     _refillAligns(_screenSize, _sizes);
+    _bakeFrontAligns();
     _motusListsUpdate(_controller);
+  }
+
+  void _bakeFrontAligns() {
+    _bakedFrontAligns[0] = _calcFrontAlign(-1);
+    _bakedFrontAligns[1] = _calcFrontAlign(1);
   }
 
   void _refillSizes(Size full) {
@@ -185,7 +192,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   void _motusFrontUpdate([bool override = true]) {
     const zero = 0;
     final controller = _controller;
-    final align = _calcFrontAlign(controller);
+    final align = _getFrontAlign(controller);
     if (!override) {
       _motusSizes.add(null);
       _motusOpacities.add(null);
@@ -246,7 +253,12 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     return max(min(1 - drop * index, 1), 0);
   }
 
-  Animation<Alignment> _calcFrontAlign(AnimationController controller) {
+  Animation<Alignment> _getFrontAlign(AnimationController controller) {
+    final index = _offset.sign.clamp(0, 1).toInt();
+    return _bakedFrontAligns[index].animate(controller);
+  }
+
+  AlignmentTween _calcFrontAlign(double sign) {
     final full = _screenSize;
     final card = _sizes[0];
     final gap = Size(
@@ -256,10 +268,10 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final align = AlignmentTween(
       begin: _aligns[0],
       end: Alignment(
-        _offset.sign * (gap.width + card.width) / gap.width,
+        sign * (gap.width + card.width) / gap.width,
         0,
       ),
-    ).animate(controller);
+    );
     return align;
   }
 
