@@ -163,7 +163,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   }
 
   void _zeroOffset([bool invert = false]) {
-    _offset = 1e-4 * _offset.sign * (invert ? -1 : 1);
+    _offset = 1e-3 * _offset.sign * (invert ? -1 : 1);
   } // magic
 
   Animation<double> _values; // Cheat to fix shadow
@@ -481,7 +481,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     _wobblingflag = true;
     if (_offset.sign == 0) _offset += 0.001;
     var i = 0;
-    while (_wobblingflag && i < 6) {
+    while (_wobblingflag && i < 8) {
       i++;
       setState(() => _zeroOffset(true));
       _motusFrontUpdate();
@@ -751,15 +751,19 @@ extension WobblingController on AnimationController {
     return this.animateTo(
       0.08,
       duration: duration,
-      curve: Curves.linearToEaseOut,
+      curve: Curves.easeInOutCubic,
     );
   }
 
+  // [1] linearToEaseOut easeInToLinear
+  // [2] easeInOutCubic easeInOutCubic
+  // [3] easeInToLinear easeInToLinear
+
   TickerFuture woback() {
     return this.animateBack(
-      0.0,
+      1e-3,
       duration: duration,
-      curve: Curves.easeInToLinear,
+      curve: Curves.easeInOutCubic,
     );
   }
 }
