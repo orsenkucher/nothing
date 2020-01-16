@@ -405,18 +405,28 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
           behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: _onDragUpdate,
           onHorizontalDragEnd: _onDragEnd,
+          onHorizontalDragDown: _onDragDown,
+          onHorizontalDragStart: _onDragStart,
           child: const SizedBox(),
         ),
       ),
     );
   }
 
+  void _onDragStart(DragStartDetails _) {
+    if (_controller.value > 0) {
+      _offset = _offset.sign * _controller.value;
+    } else {
+      _zeroOffset();
+    } // controller bias
+  }
+
+  void _onDragDown(DragDownDetails _) {
+    _wobblingflag = false;
+    _controller.stop();
+  }
+
   void _onDragUpdate(DragUpdateDetails update) {
-    // if wobbling was on
-    if (_wobblingflag) {
-      _controller.removeStatusListener(_wobbler);
-      _wobblingflag = false;
-    }
     // intercept motus control
     if (!_controlflag) {
       _motusListsUpdate(_controller);
@@ -454,25 +464,22 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     }
   }
 
-  void _animateWobble() {
+  void _animateWobble() async {
+    if (_wobblingflag) return;
     _wobblingflag = true;
-    _controller
-      ..removeStatusListener(_wobbler)
-      ..addStatusListener(_wobbler)
-      ..woto();
-  }
-
-  void _wobbler(AnimationStatus status) {
-    if (status == AnimationStatus.completed) {
-      _controller.woback();
-    } else if (status == AnimationStatus.dismissed) {
+    if (_offset.sign == 0) _offset += 0.001;
+    var i = 0;
+    while (_wobblingflag && i < 6) {
+      i++;
       setState(() => _zeroOffset(true));
       _motusFrontUpdate();
-      _controller.woto();
+      await _controller.woto();
+      await _controller.woback();
     }
+    _wobblingflag = false;
   }
 
-  void _animateBack(BuildContext context, Velocity v) {
+  void _animateBack(BuildContext context, Velocity v) async {
     final controller = _controller;
     final spring = _simulateSpring(
       size: _screenSize,
@@ -482,7 +489,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       to: 0,
     );
     _zeroOffset();
-    controller.animateWith(spring);
+    await controller.animateWith(spring);
   }
 
   void _animateOut(BuildContext context, Velocity v) async {
@@ -728,16 +735,16 @@ class Card extends StatelessWidget {
 extension WobblingController on AnimationController {
   static const duration = Duration(milliseconds: 800);
 
-  void woto() {
-    this.animateTo(
+  TickerFuture woto() {
+    return this.animateTo(
       0.08,
       duration: duration,
       curve: Curves.linearToEaseOut,
     );
   }
 
-  void woback() {
-    this.animateBack(
+  TickerFuture woback() {
+    return this.animateBack(
       0.0,
       duration: duration,
       curve: Curves.easeInToLinear,
