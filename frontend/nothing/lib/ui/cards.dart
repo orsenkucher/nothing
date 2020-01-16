@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:nothing/bloc/feed/state.dart';
 import 'package:nothing/data/model/question.dart';
+import 'package:vibration/vibration.dart';
 
 typedef Widget CardContentFactory(
   BuildContext context,
@@ -404,10 +405,17 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
           behavior: HitTestBehavior.opaque,
           onHorizontalDragUpdate: _onDragUpdate,
           onHorizontalDragEnd: _onDragEnd,
+          onHorizontalDragStart: (_) => _vibrate(12, 32),
           child: const SizedBox(),
         ),
       ),
     );
+  }
+
+  void _vibrate(int dur, int amp) async {
+    if (await Vibration.hasVibrator()) {
+      await Vibration.vibrate(duration: dur, amplitude: amp);
+    }
   }
 
   void _onDragUpdate(DragUpdateDetails update) {
@@ -442,6 +450,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final sign = v.pixelsPerSecond.dx.sign;
     final offset = _offset;
     if (sign == 0 && offset.abs() > 0.5 || sign == offset.sign && sign != 0) {
+      _vibrate(16, 64);
       _animateOut(context, v);
     } else {
       _animateBack(context, v);
