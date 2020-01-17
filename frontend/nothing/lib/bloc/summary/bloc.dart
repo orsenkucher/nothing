@@ -18,23 +18,43 @@ class SummaryBloc extends Bloc<SummaryEvent, Summary> {
     Stream<Summary> Function(SummaryEvent) next,
   ) {
     return super.transformEvents(
-      events.split(
+      events
+          // .asBroadcastStream()
+          .doOnEach(
+        (x) => print("**EVENTS $x"),
+      )
+          .split(
         (e) => e is NewAnswer,
-        (yes) => yes
-            .buffer(
-              yes.debounceTime(const Duration(milliseconds: 150)),
-            )
-            .where((xs) => xs.length > 0)
-            .map((xs) => xs.first)
-            .doOnEach(
-              (x) => print('--- YES: summary -> ${x.value}'),
-            ),
-        (no) => no.doOnEach(
-          (x) => print(" --- NO: ${x.value}"),
-        ),
+        (yes) {
+          // yes = yes.asBroadcastStream();
+          final window = yes
+              .doOnEach((_) => print("**Bounce IN"))
+              .debounceTime(const Duration(milliseconds: 330))
+              .doOnEach((_) => print("**Bounce OUT"))
+                ..listen((x) => print("YOYOYO $x"));
+          // .pipe(streamConsumer);
+          return yes
+              .doOnEach((e) => print("**YES $e"))
+              .buffer(
+                // yes.debounceTime(const Duration(milliseconds: 150)),
+                window,
+              )
+              // .where((xs) => xs.length > 0)
+              .where(_where)
+              .map((xs) => xs.first)
+              .doOnEach(
+                (x) => print('--- YES: summary -> ${x.value}'),
+              );
+        },
+        (no) => no.doOnEach((x) => print(" --- NO: ${x.value}")),
+        // ..listen(print),
       ),
       next,
     );
+  }
+
+  bool _where(List<SummaryEvent> l) {
+    return l.length > 0;
   }
 
   @override
@@ -59,11 +79,12 @@ extension Split<T> on Stream<T> {
     Stream<T> yes(Stream<T> stream),
     Stream<T> no(Stream<T> stream),
   ) {
+    final broadcast = this.asBroadcastStream();
     return Rx.merge([
-      this.where(condition).run(yes),
-      this.where((x) => !condition(x)).run(no),
+      broadcast.where(condition).chain(yes),
+      broadcast.where((x) => !condition(x)).chain(no),
     ]);
   }
 
-  Stream<T> run(Stream<T> chain(Stream<T> stream)) => chain(this);
+  Stream<T> chain(Stream<T> logic(Stream<T> stream)) => logic(this);
 }
