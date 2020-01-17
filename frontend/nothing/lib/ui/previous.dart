@@ -84,7 +84,7 @@ class PreviousA extends StatelessWidget {
           Words(b, fontSize: fontSize),
         ],
       ),
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 180),
     );
   }
 }
@@ -96,7 +96,7 @@ class Switcher extends StatelessWidget {
   const Switcher(
     this.child, {
     Key key,
-    this.duration = const Duration(milliseconds: 250),
+    this.duration = const Duration(milliseconds: 220),
   }) : super(key: key);
 
   @override

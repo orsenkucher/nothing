@@ -124,6 +124,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     _refillSizes(_screenSize);
     _refillAligns(_screenSize, _sizes);
     _bakeFrontAligns();
+    _motusListsCalc();
     _motusListsUpdate(_controller);
   }
 
@@ -210,14 +211,9 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       parent: controller,
       curve: Interval(from, to, curve: curve),
     );
-    _motusOpacities[widget.stack] = Tween<double>(
-      begin: 0,
-      end: _calcOpacity(widget.stack - 1),
-    ).animate(controller);
-    _motusOpacities.add(Tween<double>(
-      begin: 0,
-      end: _calcOpacity(threshold - 1),
-    ).animate(controller));
+    var stack = widget.stack;
+    _motusOpacities[stack] = _motusBakedOpacities[stack].animate(controller);
+    _motusOpacities.add(_motusBakedOpacities[++stack].animate(controller));
   }
 
   void _motusUpdate(int index, Animation<double> controller) {
@@ -228,23 +224,48 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       parent: controller,
       curve: Interval(from, to, curve: curve),
     );
-    _motusSizes.add(
-      Tween<Size>(
-        begin: _sizes[index],
-        end: _sizes[index - 1],
-      ).animate(controller),
+    _motusSizes.add(_motusBakedSizes[index].animate(controller));
+    _motusAligns.add(_motusBakedAligns[index].animate(controller));
+    _motusOpacities.add(_motusBakedOpacities[index].animate(controller));
+  }
+
+  List<Tween<Size>> _motusBakedSizes;
+  List<Tween<Alignment>> _motusBakedAligns;
+  List<Tween<double>> _motusBakedOpacities;
+  void _motusListsCalc() {
+    final len = widget.stack + 1;
+    _motusBakedSizes = List<Tween<Size>>(len);
+    _motusBakedAligns = List<Tween<Alignment>>(len);
+    _motusBakedOpacities = List<Tween<double>>(len + 1);
+    for (var i = 1; i <= widget.stack; i++) {
+      _motusCalc(i);
+    }
+    _motusTransparentCalc();
+  }
+
+  void _motusCalc(int index) {
+    _motusBakedSizes[index] = Tween<Size>(
+      begin: _sizes[index],
+      end: _sizes[index - 1],
     );
-    _motusAligns.add(
-      Tween<Alignment>(
-        begin: _aligns[index],
-        end: _aligns[index - 1],
-      ).animate(controller),
+    _motusBakedAligns[index] = Tween<Alignment>(
+      begin: _aligns[index],
+      end: _aligns[index - 1],
     );
-    _motusOpacities.add(
-      Tween<double>(
-        begin: _calcOpacity(index),
-        end: _calcOpacity(index - 1),
-      ).animate(controller),
+    _motusBakedOpacities[index] = Tween<double>(
+      begin: _calcOpacity(index),
+      end: _calcOpacity(index - 1),
+    );
+  }
+
+  void _motusTransparentCalc() {
+    _motusBakedOpacities[widget.stack] = Tween<double>(
+      begin: 0,
+      end: _calcOpacity(widget.stack - 1),
+    );
+    _motusBakedOpacities[widget.stack + 1] = Tween<double>(
+      begin: 0,
+      end: _calcOpacity(threshold - 1),
     );
   }
 
@@ -290,10 +311,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     // count has to be <= stack
     final diff = widget.feed.len - widget.feed.current;
     final count = min(widget.stack, diff);
-    // TODO maybe len - cur?
-    // TODO prebuild and cache middle cards?
     final tcn = diff > widget.stack;
-    // TODO suppl incorp
     final suppl = _controlflag || tcn ? 0 : 1; // supplement
     return [
       if (tcn) _buildCard(context, widget.stack),
@@ -438,6 +456,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     _controller.stop();
   }
 
+  Offset _prevDrag = Offset.zero;
   void _onDragUpdate(DragUpdateDetails update) {
     // intercept motus control
     if (!_controlflag) {
@@ -445,6 +464,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       _controlflag = true;
       setState(() {});
     }
+    _prevDrag = update.delta;
     final rotChanged = _calcFrontOffset(update.delta);
     _controller.value = _offset.abs();
     if (rotChanged) setState(() => _motusFrontUpdate());
@@ -466,22 +486,27 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   void _animate(BuildContext context, Velocity v) {
     final sign = v.pixelsPerSecond.dx.sign;
     final offset = _offset;
-    if ((sign - offset).abs() < 0.01 && sign == 0) {
+    if (sign == 0 && offset.abs() < 0.005) {
       _animateWobble();
-    } else if (sign == 0 && offset.abs() > 0.5 ||
-        sign == offset.sign && sign != 0) {
-      _animateOut(context, v);
     } else {
-      _animateBack(context, v);
+      final offBounds = offset.abs() > 0.5;
+      final offsetsMatch = sign == offset.sign;
+      final dragsMatch = _prevDrag.dx.sign == offset.sign;
+      final enoughImpulse = sign != 0 || _prevDrag.dx.abs() > 0.8;
+      if ((offsetsMatch || dragsMatch) && (offBounds || enoughImpulse)) {
+        _animateOut(context, v);
+      } else {
+        _animateBack(context, v);
+      }
     }
   }
 
   void _animateWobble() async {
-    if (_wobblingflag) return;
+    if (_wobblingflag || !_controlflag) return;
     _wobblingflag = true;
     if (_offset.sign == 0) _offset += 0.001;
     var i = 0;
-    while (_wobblingflag && i < 8) {
+    while (_wobblingflag && i < 2) {
       i++;
       setState(() => _zeroOffset(true));
       _motusFrontUpdate();
