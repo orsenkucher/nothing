@@ -486,7 +486,8 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
   void _animate(BuildContext context, Velocity v) {
     final sign = v.pixelsPerSecond.dx.sign;
     final offset = _offset;
-    if (sign == 0 && offset.abs() < 0.005) {
+    if (sign == 0 && offset.abs() < 0.009) {
+      _prevDrag = Offset.zero;
       _animateWobble();
     } else {
       final offBounds = offset.abs() > 0.5;
