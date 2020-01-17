@@ -21,6 +21,7 @@ void main() => runApp(const App());
 // [+] finish card material and card content
 // [+] make slider
 // [+] do i need `tools` folder
+// [+] fast-swipe protection (300ms)
 class App extends StatelessWidget with PortraitLock {
   const App();
   @override
@@ -41,7 +42,6 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<FeedBloc>(
           create: (context) => FeedBloc(
             questionsBloc: BlocProvider.of<QuestionsBloc>(context),
-            // summaryBloc: BlocProvider.of<SummaryBloc>(context),
             threshold: 8,
           ),
         ),

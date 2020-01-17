@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:nothing/bloc/feed/event.dart';
 import 'package:nothing/bloc/feed/state.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
-import 'package:nothing/bloc/summary/bloc.dart';
 
 export 'event.dart';
 export 'state.dart';
@@ -12,17 +11,13 @@ export 'state.dart';
 class FeedBloc extends Bloc<FeedEvent, Feed> {
   final int threshold;
   final QuestionsBloc questionsBloc;
-  // final SummaryBloc summaryBloc;
   StreamSubscription _questionsSub;
-  // StreamSubscription _summarySub;
 
   FeedBloc({
     @required this.questionsBloc,
-    // @required this.summaryBloc,
     this.threshold = 6,
   }) {
     _makeQuestionsSub();
-    // _makeSummarySum();
   }
 
   void _makeQuestionsSub() {
@@ -33,18 +28,9 @@ class FeedBloc extends Bloc<FeedEvent, Feed> {
     });
   }
 
-  // void _makeSummarySum() {
-  //   _summarySub = summaryBloc.listen((state) {
-  //     if (state.runtimeType == Summary) {
-  //       add(MoveNext());
-  //     }
-  //   });
-  // }
-
   @override
   Future<void> close() {
     _questionsSub.cancel();
-    // _summarySub.cancel();
     return super.close();
   }
 
