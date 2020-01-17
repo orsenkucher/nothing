@@ -6,19 +6,25 @@ abstract class SummaryEvent extends Equatable {
 }
 
 class NewAnswer extends SummaryEvent {
-  final int idx;
+  final int id;
   final bool answer;
 
   const NewAnswer({
-    @required this.idx,
+    @required this.id,
     @required this.answer,
   });
 
   @override
-  List<Object> get props => [idx, answer];
+  List<Object> get props => [id, answer];
+
+  @override
+  String toString() => 'Answer: $id -> $answer :: ${super.toString()}';
 }
 
 class ResetSummary extends SummaryEvent {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() => 'Reset :: ${super.toString()}';
 }

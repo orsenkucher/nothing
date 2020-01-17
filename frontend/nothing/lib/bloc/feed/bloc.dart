@@ -12,17 +12,17 @@ export 'state.dart';
 class FeedBloc extends Bloc<FeedEvent, Feed> {
   final int threshold;
   final QuestionsBloc questionsBloc;
-  final SummaryBloc summaryBloc;
+  // final SummaryBloc summaryBloc;
   StreamSubscription _questionsSub;
-  StreamSubscription _summarySub;
+  // StreamSubscription _summarySub;
 
   FeedBloc({
     @required this.questionsBloc,
-    @required this.summaryBloc,
+    // @required this.summaryBloc,
     this.threshold = 6,
   }) {
     _makeQuestionsSub();
-    _makeSummarySum();
+    // _makeSummarySum();
   }
 
   void _makeQuestionsSub() {
@@ -33,18 +33,18 @@ class FeedBloc extends Bloc<FeedEvent, Feed> {
     });
   }
 
-  void _makeSummarySum() {
-    _summarySub = summaryBloc.listen((state) {
-      if (state.runtimeType == Summary) {
-        add(MoveNext());
-      }
-    });
-  }
+  // void _makeSummarySum() {
+  //   _summarySub = summaryBloc.listen((state) {
+  //     if (state.runtimeType == Summary) {
+  //       add(MoveNext());
+  //     }
+  //   });
+  // }
 
   @override
   Future<void> close() {
     _questionsSub.cancel();
-    _summarySub.cancel();
+    // _summarySub.cancel();
     return super.close();
   }
 

@@ -41,7 +41,7 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<FeedBloc>(
           create: (context) => FeedBloc(
             questionsBloc: BlocProvider.of<QuestionsBloc>(context),
-            summaryBloc: BlocProvider.of<SummaryBloc>(context),
+            // summaryBloc: BlocProvider.of<SummaryBloc>(context),
             threshold: 8,
           ),
         ),
