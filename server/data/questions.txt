@@ -69,7 +69,7 @@ Do you have pets?|Yes|No
 Do you like flowers?|Yes|No
 Do you live with your parents?|Yes|No
 Winter vs Summer|Winter|Summer
-Brad Pitt vs Leonardo DiCaprio?|Bread|Donatello
+Brad Pitt vs Leonardo DiCaprio?|Brad|Leonardo
 iOS vs Android|iOS|Android
 Windows vs MacOS|Windows|MacOs
 Homeless man comes to you and wants $2. Do you give it to him?|Yes|No
@@ -148,7 +148,7 @@ Career vs Family|Career|Family
 Be a horse jockey vs Be a nascar driver|Jockey|Driver
 Go to school vs Go to work|School|Work
 Run a mile vs Do 100 push ups|Mile|Push ups
-Be a scientist vs be a politician|Scintist|Politician
+Be a scientist vs be a politician|Scientist|Politician
 Animal Planet vs Discovery Science|Animal Planet|Discovery Science
 Private car vs public transport|Car|Transport
 Hoodie vs Sweatshirt|Hoodie|Sweatshirt
@@ -176,7 +176,7 @@ Lamborghini vs Ferrari|Lamborghini|Ferrari
 Be deaf vs Be blind|Deaf|Blind
 Game of Thrones vs Breaking Bad|GoT|BrBa
 Message somebody vs Call somebody|Message|Call
-Yakuza vs Mafia|Yakuza|Mafiz
+Yakuza vs Mafia|Yakuza|Mafia
 Be French vs Be American|French|American
 Hamburgers vs Sushi|Hamburgers|Sushi
 Burger King vs KFC|Burger King|KFC
@@ -193,7 +193,7 @@ Weather is always cold vs Weather is always hot|Cold|Hot
 Live in desert vs Live in the Arctic Circle|Desert|Arctic Circle
 Have a heetah vs Have a Jaguar|Cheetah|Jaguar
 CNN vs Fox channel|CNN|Fox
-Mustache vs Beard|Mustache|Beard
+Have mustache vs Have beard|Mustache|Beard
 Zeus vs Neptun|Zeus|Neptun
 Do you like ketchup?|Yes|No
 Have you ever been in a hospital?|Yes|No
