@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"log"
+	"math/rand"
 	"strconv"
 	"time"
 
@@ -172,6 +173,7 @@ func (s *Server) Load() {
 	iter := s.client.Collection("Questions").Documents(s.ctx)
 	docs, err := iter.GetAll()
 	s.Que = list.New()
+	qslice := []Question{}
 	if err != nil {
 		print(err)
 	}
@@ -179,8 +181,19 @@ func (s *Server) Load() {
 		question := Question{}
 		doc.DataTo(&question)
 		question.Changed = false
+		qslice = append(qslice, question)
+	}
+
+	rand.Seed(time.Now().UnixNano())
+	for i := len(qslice) - 1; i > 0; i-- { // Fisher–Yates shuffle
+		j := rand.Intn(i + 1)
+		qslice[i], qslice[j] = qslice[j], qslice[i]
+	}
+
+	for _, question := range qslice {
 		s.Que.PushBack(question)
 	}
+
 	iter = s.client.Collection("Users").Documents(s.ctx)
 	docs, err = iter.GetAll()
 	s.Users = map[string]*User{}
@@ -221,10 +234,11 @@ func (s *Server) ShowStatus() {
 //AddQuestion is public
 func (s *Server) AddQuestion(q Question) {
 	q.ID = s.Que.Len()
-	q.Leftn = 0
-	q.Rightn = 0
+	q.Leftn = rand.Intn(10)
+	q.Rightn = rand.Intn(10)
 	q.Valid = true
 	q.Changed = false
+	fmt.Println(q)
 	s.Que.PushFront(q)
 	s.client.Doc("Questions/"+strconv.Itoa(q.ID)).Set(s.ctx, q)
 }

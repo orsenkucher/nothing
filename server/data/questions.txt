@@ -44,7 +44,6 @@ Do you count with your fingers?|Yes|No
 Do you about what people think?|Yes|No
 Have you ever been rejected?|Yes|No
 Can you speak French?|Yes|No
-Floyd Mayweather vs Macgreror|Floyd|Gregor
 Have you ever failed a test?|Yes|No
 Have you achieved any of your recent goals?|Yes|No
 Do you think you will be able to finish all these question?|Yes|No
@@ -79,7 +78,7 @@ Homeless man comes to you and wants $2. Do you give it to him?|Yes|No
 Do you brush your teeth?|Yes|No
 Do you prefer an electronic version of books instead of paper?|Yes|No
 Do you have a brother?|Yes|No
-Skies vs Snowboard?|Skies|Snowboard"
+Skies vs Snowboard?|Skies|Snowboard
 Do you like pancakes?|Yes|No
 Be a Jedi or be a wizard?|Jedi|Wizard
 Always say Yes vs Always say No?|Yes|No
@@ -88,7 +87,7 @@ Boys vs Girls|Boys|Girls
 Napoleon or Julius Caesar?|Napoleon|Caesar
 Computer vs Phone?|Computer|Phone
 Find true love or get one million dollars?|Love|Dollars
-History vs Math?|History|Math"
+History vs Math?|History|Math
 Be super famous or be completely anonymous?|Famous|Anonymous
 Win Oscar or win the Nobel prize?|Oscar|Nobel prize
 WhatsApp vs Facebook?|WhatsApp|Facebook
@@ -96,8 +95,8 @@ Go to school vs Go to work?|School|Work
 Baseball vs Football?|Baseball|Football
 Fire vs Water?|Fire|Water
 Free tickets for life vs free lunches for life?|Tickets|Lunches
-Marry your soulmate vs marry a millionaire? |Soulmate|Millionaire
-Do you play FIFA? |Yes|No
+Marry your soulmate vs marry a millionaire?|Soulmate|Millionaire
+Do you play FIFA?|Yes|No
 Can you play a musical instrument?|Yes|No
 Do you listen to the radio everyday?|Yes|No
 Do your friends have this app?|Yes|No
@@ -105,8 +104,8 @@ Do you sleep with the lights on?|Yes|No
 Coffee vs Tea|Coffee|Tea
 Have you ever played monopoly?|Yes|No
 Are you shy?|Yes|No
-Do you wash your hands after using the toilet? |Yes|No
-Do you get enough sleep? |Yes|No
+Do you wash your hands after using the toilet?|Yes|No
+Do you get enough sleep?|Yes|No
 Would you like to have a movie about you?|Yes|No
 Control fire vs Control water|Fire|Water
 Lose forefinger vs Lose thumb|Forefinger|Thumb
@@ -117,9 +116,9 @@ Brad Pitt vs Bradley Copper|Pitt|Copper
 Go to the moon vs Go to the Mars|Moon|Mars
 Waffles vs Pancakes|Waffles|Pancakes
 Be American vs Be Australian|American|Australian
-Jeans vs Shorts|Jeans|Shorts|
-Pizza vs Sushi|Pizza|Sushi|
-Navy vs Army|Navy|Army|
+Jeans vs Shorts|Jeans|Shorts
+Pizza vs Sushi|Pizza|Sushi
+Navy vs Army|Navy|Army
 Have you ever cheated on an exam?|Yes|No
 Do you hate your job?|Yes|No
 Do you have a fear of heights?|Yes|No
@@ -137,23 +136,23 @@ Call of Duty vs Battlefield|Call of Duty|Battlefield
 Glasses vs Contacts|Glasses|Contacts
 Have 8 pets vs Have no pets at all|8 pets|No pets
 Be a doctor vs Be a lawyer|Doctor|Lawyer
-Chess vs Checkers|Chess|Checkers|
-Run fast vs Jump high|Run fast|Jump high|
+Chess vs Checkers|Chess|Checkers
+Run fast vs Jump high|Run fast|Jump high
 Godzilla vs King kong|Godzilla|King kong
-Chinese food vs Mexican food|Chinese|Mexican|
-Summer Olympics vs Winter Olympics|Summer|Winter|
+Chinese food vs Mexican food|Chinese|Mexican
+Summer Olympics vs Winter Olympics|Summer|Winter
 Skydive vs Bungie Jump|Skydive|Bungie Jump
 Be eaten by a lion vs Be eaten by ants|Lion|Ants
 Be painted by Picasso vs Be painted by Da Vinci|Picasso|Da Vinci
-Work out at home vs Work out at the gym?|Home|Gym|
-Hike 10 miles vs Swim 10 miles?|Hike|Swim|
-Career vs Family|Career|Family|
+Work out at home vs Work out at the gym?|Home|Gym
+Hike 10 miles vs Swim 10 miles?|Hike|Swim
+Career vs Family|Career|Family
 Be a horse jockey vs Be a nascar driver|Jockey|Driver
-Go to school vs Go to work|School|Work|
+Go to school vs Go to work|School|Work
 Run a mile vs Do 100 push ups|Mile|Push ups
 Be a scientist vs be a politician|Scintist|Politician
-Animal Planet vs Discovery Science|Animal Planet|Discovery Science|
-Private car vs public transport|Car|Transport|
+Animal Planet vs Discovery Science|Animal Planet|Discovery Science
+Private car vs public transport|Car|Transport
 Hoodie vs Sweatshirt|Hoodie|Sweatshirt
 Lose 2 arms vs Lose 2 legs|Arms|Legs
 Dad vs Mom|Dad|Mom
@@ -164,7 +163,7 @@ Penthouse vs Mansion|Penthouse|Mansion
 Burning to death vs Freezing to death|Burning|Freezing
 Touchpad vs Mouse|Touchpad|Mouse
 Sleep on the floor vs Sleep on the bed|Floor|Bed
-Eat only junk food vs Eat only healthy food|Junk food|Healthy food|
+Eat only junk food vs Eat only healthy food|Junk food|Healthy food
 USA vs China|USA|China
 No speed limit on highway vs You can drive through a red light|No speed limit|Drive through
 Lack of food vs Lack of water|Food|Water
@@ -193,7 +192,7 @@ Tim Cook vs Elon Musk|Tim Cook|Elon Musk
 Be a waiter vs Be a taxi driver|Waiter|Taxi driver
 Be a policeman vs Be a fireman|Policeman|Fireman
 Weather is always cold vs Weather is always hot|Cold|Hot
-Live in desert vs Live in the Arctic Circle|Desert|Arctic Circle|
+Live in desert vs Live in the Arctic Circle|Desert|Arctic Circle
 Have a heetah vs Have a Jaguar|Cheetah|Jaguar
 CNN vs Fox channel|CNN|Fox
 Mustache vs Beard|Mustache|Beard
