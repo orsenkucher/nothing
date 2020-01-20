@@ -493,7 +493,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       final offBounds = offset.abs() > 0.5;
       final offsetsMatch = sign == offset.sign;
       final dragsMatch = _prevDrag.dx.sign == offset.sign;
-      final enoughImpulse = sign != 0 || _prevDrag.dx.abs() > 1.4;
+      final enoughImpulse = sign != 0 || _prevDrag.dx.abs() > 1.8;
       if ((offsetsMatch || dragsMatch) && (offBounds || enoughImpulse)) {
         _animateOut(context, v);
       } else {
