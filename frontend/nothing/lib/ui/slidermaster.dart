@@ -25,7 +25,7 @@ class SliderMaster extends StatelessWidget {
   Widget _buildSlider(BuildContext context, Feed feed) {
     final q = feed.batch[feed.current - 1];
     final sum = q.leftn + q.rightn;
-    final value = sum != 0 ? q.leftn / sum : 0.0;
+    final value = sum != 0 ? q.leftn / sum : 0.5;
     return Slider(
       value: value,
       height: height,
