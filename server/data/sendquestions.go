@@ -22,8 +22,8 @@ func main() {
 			continue
 		}
 		question.Question = strs[0]
-		question.Left = strs[1]
-		question.Right = strs[2]
+		question.Left = strs[2]
+		question.Right = strs[1]
 		fmt.Println(question)
 		serv.AddQuestion(question)
 	}

@@ -76,19 +76,30 @@ func (s *Server) GiveQuestions(id string, n int) []Question {
 
 	for i := 0; i < s.Que.Len() && len(ans) < n; i++ {
 		q := question.Value.(Question)
-		question = question.Next()
+
 		if len(user.Done)*8 <= q.ID || user.Done[q.ID/8]&(1<<uint(q.ID%8)) == 0 && q.Valid {
 			ans = append(ans, q)
-			s.Que.MoveToBack(question.Prev())
+			if question.Next() != nil {
+				question = question.Next()
+				s.Que.MoveToBack(question.Prev())
+			}
+		} else {
+			question = question.Next()
 		}
 	}
+	question = s.Que.Front()
 
 	for i := 0; i < s.Que.Len() && len(ans) < n; i++ {
 		q := question.Value.(Question)
-		question = question.Next()
+
 		if q.Valid {
 			ans = append(ans, q)
-			s.Que.MoveToBack(question.Prev())
+			if question.Next() != nil {
+				question = question.Next()
+				s.Que.MoveToBack(question.Prev())
+			}
+		} else {
+			question = question.Next()
 		}
 	}
 
