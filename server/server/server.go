@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"time"
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
@@ -53,8 +54,17 @@ func (s *Server) StartUp() {
 		log.Fatalln(err)
 	}
 	s.Load()
+	go s.saveloop()
 	fmt.Println("Startup")
 	s.ShowStatus()
+}
+
+func (s *Server) saveloop() {
+	time.Sleep(time.Minute * 1)
+	for {
+		s.Save()
+		time.Sleep(time.Minute * 10)
+	}
 }
 
 func (s *Server) getUser(id string) *User {
