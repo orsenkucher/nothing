@@ -49,11 +49,11 @@ Have you achieved any of your recent goals?|Yes|No
 Do you think you will be able to finish all these question?|Yes|No
 Kanye West vs Taylor Swift|Kanye|Taylor
 Dogs vs cats|Yes|No
-Tea vs coffee|Yes|No
+Tea vs Coffee|Tea|Cofee
 Bananas vs Apples|Bananas|No
 Live in Paris vs Live in London|Paris|London
 Drake vs A$AP Rocky|Drake|A$AP
-Nirvana vs Metallica|Nirvana|Metallice
+Nirvana vs Metallica|Nirvana|Metallica
 Do you work night shifts?|Yes|No
 Do you enjoy sleeping?|Yes|No
 Do you get enough sleep?|Yes|No
