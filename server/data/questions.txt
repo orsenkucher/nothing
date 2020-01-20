@@ -198,3 +198,66 @@ Have a heetah vs Have a Jaguar|Cheetah|Jaguar
 CNN vs Fox channel|CNN|Fox
 Mustache vs Beard|Mustache|Beard
 Zeus vs Neptun|Zeus|Neptun
+Do you like ketchup?|Yes|No
+Have you ever been in a hospital?|Yes|No
+Would you like to go into space?|Yes|No
+Have you ever tried to cut your own hair?|Yes|No
+Can you speak more than one language?|Yes|No
+Do you have an annoying sibling?|Yes|No
+Do you have more than 10 video games?|Yes|No
+Can you sleep standing up?|Yes|No
+Do you like Clash of Clans?|Yes|No
+Do you like cake?|Yes|No
+Do you play video games everyday?|Yes|No
+Do you trust your friends?|Yes|No
+Do you like Star Wars?|Yes|No
+Have you ever played "Flappy bird"?|Yes|No
+Do you have a bicycle?|Yes|No
+Would you like to go to space?|Yes|No
+Have you ever danced in the rain?|Yes|No
+Have you read any of Stephen King's books?|Yes|No
+Do monsters exist?|Yes|No
+Simpsons vs Futurama|Simpsons|Futurama
+Documentary vs Drama|Documentary|Drama
+Have no children at all vs 5 children|No children|5 children
+Travel by plane vs Travel by train|Plane|Train
+Barcelona vs Real Madrid|Barcelona|Real Madrid
+Live with parents vs Live independently|With parents|Independently
+Spend time at home vs Spend time in nightclub|Home|Nightclub
+Wear corset for 10 years vs Wear braces for 10 years|Corset|Braces
+Horror vs Comedy|Horror|Comedy
+Celebrate New Year with friends vs Celebrate New Year with family|With friends|With family
+TV vs Internet|TV|Internet
+Domestic tourism vs Foreign tourism|Domestic|Foreign
+Visit China vs Visit India|China|India
+Have pierced ears vs Have pierced nose|Ears|Nose
+Have no fear vs Can't feel the pain|No fear|No pain
+Have extremely low self-esteem vs Have extremely high self-esteem|Low|Hight
+Beyond meat burger vs Regular burger|Beyond meat|Regular
+Natural flowers vs Artificial flowers|Natural|Artificial
+Become a journalist vs Become a TV host|Journalist|TV host
+School life vs College life|School|College
+Tomatoes vs Cucumbers|Tomatoes|Cucumbers
+Spongebob Squarepants vs Patrick|Spongebob|Patrick
+Fall vs Spring|Fall|Spring
+Become a programmer vs Become a designer|Programmer|Designer
+Win an Oscar vs Win a Nobel prize|Oscar|Nobel prize
+Lose the one you love vs Let 100 000 people die|One you love|100k die
+Be a girl vs Be a boy|Girl|Boy
+Uber vs Lyft|Uber|Lyft
+Sleep for 15 hours a day vs Sleep for 3 hours a day|15 hours|3 hours 
+Justin Bieber vs Harry Styles|Justin|Harry
+Be a famous rapper vs Be a notorious mobster|Rapper|mobster
+Have shark teeth vs Have no teeth|Shark teeth|No teeth
+Never have any homework vs Never have any exams|No homework|No exams
+Live next to a garbage dump vs Live next to a cemetery|Dump|Cemetery
+Give up your phone vs Give up your ability to sleep|Phone|Sleep
+Have super sensitive taste vs Have super sensitive hearing|Taste|Hearing
+Meet with Putin vs Meet with Donald Trump|Putin|Donal Trump
+Orange juice vs Apple juice|Orange|Apple
+Become a President vs Become a successful entrepreneur|President|Entrepreneur
+Be able to cook nicely vs Be able to sing nicely|Cook|Sing
+Have extremely big ears vs Have an extremely big nose|Ears|Nose
+Google Assistant vs Siri|Google|Siri
+Watch films for 12 hours vs Play video games for 12 hours|Films|Video games
+Own an electric car vs Own a gas car|Electric|Gas
