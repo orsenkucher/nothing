@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"time"
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
@@ -53,8 +54,17 @@ func (s *Server) StartUp() {
 		log.Fatalln(err)
 	}
 	s.Load()
+	go s.saveloop()
 	fmt.Println("Startup")
 	s.ShowStatus()
+}
+
+func (s *Server) saveloop() {
+	time.Sleep(time.Minute * 1)
+	for {
+		s.Save()
+		time.Sleep(time.Minute * 10)
+	}
 }
 
 func (s *Server) getUser(id string) *User {
@@ -139,6 +149,7 @@ func (s *Server) ReceiveAns(userid string, answers map[int]bool) {
 
 //Save is public
 func (s *Server) Save() {
+	log.Println("Saving..")
 	q := s.Que.Front()
 	for s.Que.Len() > 0 {
 		s.client.Doc("Questions/"+strconv.Itoa(q.Value.(Question).ID)).Set(s.ctx, q.Value.(Question))
