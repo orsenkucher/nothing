@@ -121,6 +121,7 @@ func (s *Server) ReceiveAns(userid string, answers map[int]bool) {
 		for {
 			if q.Value.(Question).ID == id {
 				question := q.Value.(Question)
+				question.Changed = true
 				if ans {
 					question.Rightn++
 				} else {
@@ -147,12 +148,12 @@ func (s *Server) Save() {
 		q = q.Next()
 	}
 
-	for id, user := range s.Users {
-		userdata := struct {
-			Done string `firebase:"done" json:"done"`
-		}{Done: base64.StdEncoding.EncodeToString(user.Done)}
-		s.client.Doc("Users/"+id).Set(s.ctx, userdata)
-	}
+	// for id, user := range s.Users {
+	// 	userdata := struct {
+	// 		Done string `firebase:"done" json:"done"`
+	// 	}{Done: base64.StdEncoding.EncodeToString(user.Done)}
+	// 	s.client.Doc("Users/"+id).Set(s.ctx, userdata)
+	// }
 }
 
 //Load loads from firestore
