@@ -36,7 +36,7 @@ class App extends StatelessWidget with PortraitLock {
           create: (context) => QuestionsBloc(
             summaryBloc: BlocProvider.of<SummaryBloc>(context),
             repo: CloudQuestionsRepo(), // CloudQuestionsRepo LocalQuestionsRepo
-            loadCount: 11,
+            loadCount: 12,
           ),
         ),
         BlocProvider<FeedBloc>(

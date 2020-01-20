@@ -148,6 +148,7 @@ func (s *Server) ReceiveAns(userid string, answers map[int]bool) {
 
 //Save is public
 func (s *Server) Save() {
+	log.Println("Saving..")
 	q := s.Que.Front()
 	for s.Que.Len() > 0 {
 		s.client.Doc("Questions/"+strconv.Itoa(q.Value.(Question).ID)).Set(s.ctx, q.Value.(Question))
