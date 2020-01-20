@@ -50,12 +50,10 @@ Do you think you will be able to finish all these question?|Yes|No
 Kanye West vs Taylor Swift|Kanye|Taylor
 Dogs vs cats|Yes|No
 Tea vs coffee|Yes|No
-Bananas or Apples|Yes|No
-Paris vs London|Yes|No
-New-York vs Moscow|Yes|No
-Drake vs A$AP Rocky|Yes|No
-Rap vs rock|Yes|No
-Nirvana vs Metallica|Yes|No
+Bananas vs Apples|Bananas|No
+Live in Paris vs Live in London|Paris|London
+Drake vs A$AP Rocky|Drake|A$AP
+Nirvana vs Metallica|Nirvana|Metallice
 Do you work night shifts?|Yes|No
 Do you enjoy sleeping?|Yes|No
 Do you get enough sleep?|Yes|No
