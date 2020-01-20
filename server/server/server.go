@@ -108,8 +108,8 @@ func (s *Server) GiveQuestions(id string, n int) []Question {
 }
 
 //ReceiveAns is public
-//left ans == true
-//right ans == false
+//right ans == true
+//left ans == false
 func (s *Server) ReceiveAns(userid string, answers map[int]bool) {
 	user := s.getUser(userid)
 	for id, ans := range answers {
@@ -122,9 +122,9 @@ func (s *Server) ReceiveAns(userid string, answers map[int]bool) {
 			if q.Value.(Question).ID == id {
 				question := q.Value.(Question)
 				if ans {
-					question.Leftn++
-				} else {
 					question.Rightn++
+				} else {
+					question.Leftn++
 				}
 				q.Value = question
 			}
