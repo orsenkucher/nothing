@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
@@ -7,8 +9,6 @@ import 'package:nothing/color/scheme.dart';
 import 'package:nothing/data/questions_repo.dart';
 import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/home.dart';
-
-void main() => runApp(const App());
 
 // TODO
 // [ ] remove all todos
@@ -22,6 +22,16 @@ void main() => runApp(const App());
 // [+] make slider
 // [+] do i need `tools` folder
 // [+] fast-swipe protection (300ms)
+void main() async {
+  await _hydrateAsync();
+  runApp(const App());
+}
+
+Future _hydrateAsync() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  BlocSupervisor.delegate = await HydratedBlocDelegate.build();
+}
+
 class App extends StatelessWidget with PortraitLock {
   const App();
   @override

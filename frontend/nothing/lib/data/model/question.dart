@@ -29,6 +29,17 @@ class Question extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'question': question,
+      'left': left,
+      'right': right,
+      'leftn': leftn,
+      'rightn': rightn,
+    };
+  }
+
   @override
   List<Object> get props => [
         id,

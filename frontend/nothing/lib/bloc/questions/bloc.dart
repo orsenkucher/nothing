@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import 'package:nothing/bloc/questions/state.dart';
 import 'package:nothing/bloc/questions/event.dart';
@@ -11,7 +10,7 @@ import 'package:nothing/error/cloud_error.dart';
 export 'event.dart';
 export 'state.dart';
 
-class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
+class QuestionsBloc extends HydratedBloc<QuestionsEvent, QuestionsState> {
   final QuestionsRepo repo;
   final SummaryBloc summaryBloc;
   final int loadCount;
@@ -23,7 +22,8 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   });
 
   @override
-  QuestionsState get initialState => LoadedQuestions.empty();
+  QuestionsState get initialState =>
+      super.initialState ?? LoadedQuestions.empty();
 
   @override
   Stream<QuestionsState> mapEventToState(QuestionsEvent event) async* {
@@ -50,5 +50,31 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
       print("Retry in $duration");
       Future.delayed(duration, () => add(event));
     }
+  }
+
+  @override
+  QuestionsState fromJson(Map<String, dynamic> json) {
+    try {
+      return LoadedQuestions.fromJson(json['questions']);
+    } catch (_) {
+      print('QuestionsState: fromJson error');
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic> toJson(QuestionsState state) {
+    if (state is LoadedQuestions) {
+      try {
+        final js = {
+          'questions': state.questions.map((i) => i.toJson()).toList()
+        };
+        return js;
+      } catch (_) {
+        print('QuestionsState: toJson error');
+        return null;
+      }
+    }
+    return null;
   }
 }
