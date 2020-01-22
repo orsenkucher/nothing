@@ -43,9 +43,8 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.crystalfactory.nothing"
-        minSdkVersion 16
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -63,6 +62,7 @@ android {
    buildTypes {
        release {
            signingConfig signingConfigs.release
+        //    signingConfig signingConfigs.debug
        }
    }
 }

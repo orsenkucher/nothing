@@ -47,7 +47,7 @@ class App extends StatelessWidget with PortraitLock {
         ),
       ],
       child: MaterialApp(
-        title: 'Nothing',
+        title: 'Would you Rather',
         theme: ThemeData(
           fontFamily: 'Gilroy',
         ),
