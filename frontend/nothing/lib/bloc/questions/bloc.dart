@@ -26,20 +26,6 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   QuestionsState get initialState => LoadingQuestions();
 
   @override
-  Stream<QuestionsState> transformEvents(
-    Stream<QuestionsEvent> events,
-    Stream<QuestionsState> Function(QuestionsEvent) next,
-  ) {
-    return super.transformEvents(
-      Rx.merge([
-        events.throttleTime(const Duration(seconds: 4)),
-        events.debounceTime(const Duration(milliseconds: 200)),
-      ]),
-      next,
-    );
-  }
-
-  @override
   Stream<QuestionsState> mapEventToState(QuestionsEvent event) async* {
     if (event is FetchQuestions) {
       yield* _mapFetchQuestions(event);
@@ -47,6 +33,9 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   }
 
   Stream<QuestionsState> _mapFetchQuestions(FetchQuestions event) async* {
+    if (state is LoadingQuestions) {
+      return; // Waiting for server response
+    }
     yield LoadingQuestions();
     try {
       var problems = await repo.fetchQuestions(
