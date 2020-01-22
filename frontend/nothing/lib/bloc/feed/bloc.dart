@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:bloc/bloc.dart';
 import 'package:nothing/bloc/feed/event.dart';
 import 'package:nothing/bloc/feed/state.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
@@ -8,7 +8,7 @@ import 'package:nothing/bloc/questions/bloc.dart';
 export 'event.dart';
 export 'state.dart';
 
-class FeedBloc extends Bloc<FeedEvent, Feed> {
+class FeedBloc extends HydratedBloc<FeedEvent, Feed> {
   final int threshold;
   final QuestionsBloc questionsBloc;
   StreamSubscription _questionsSub;
@@ -35,7 +35,7 @@ class FeedBloc extends Bloc<FeedEvent, Feed> {
   }
 
   @override
-  Feed get initialState => EmptyFeed();
+  Feed get initialState => super.initialState ?? EmptyFeed();
 
   @override
   Stream<Feed> mapEventToState(FeedEvent event) async* {
@@ -65,6 +65,26 @@ class FeedBloc extends Bloc<FeedEvent, Feed> {
     print('Cached: ${state.batch.length}');
     if (next + threshold > state.batch.length) {
       questionsBloc.add(FetchQuestions());
+    }
+  }
+
+  @override
+  Feed fromJson(Map<String, dynamic> json) {
+    try {
+      return Feed.fromJson(json);
+    } catch (_) {
+      print('Feed: fromJson error');
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic> toJson(Feed feed) {
+    try {
+      return feed.toJson();
+    } catch (_) {
+      print('Feed: toJson error');
+      return null;
     }
   }
 }

@@ -6,6 +6,23 @@ class Feed extends Equatable {
   final int current;
 
   const Feed(this.batch, this.current);
+  factory Feed.fromJson(Map<String, dynamic> json) {
+    var feed = Feed(
+      (json['batch'] as List<dynamic>)
+          .map((i) => Question.fromJson(i))
+          .toList(),
+      json['current'],
+    );
+    return feed;
+  }
+
+  Map<String, dynamic> toJson() {
+    final json = {
+      'batch': batch.map((i) => i.toJson()).toList(),
+      'current': current,
+    };
+    return json;
+  }
 
   int get len => batch.length;
 

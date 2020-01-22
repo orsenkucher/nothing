@@ -19,7 +19,7 @@ class LoadedQuestions extends QuestionsState {
   const LoadedQuestions(this.questions);
   const LoadedQuestions.empty() : this(const []);
   factory LoadedQuestions.fromJson(List<dynamic> json) {
-    return LoadedQuestions(json.map((f) => Question.fromJson(f)).toList());
+    return LoadedQuestions(json.map((i) => Question.fromJson(i)).toList());
   }
 
   @override
