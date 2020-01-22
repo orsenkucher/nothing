@@ -23,7 +23,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   });
 
   @override
-  QuestionsState get initialState => LoadingQuestions();
+  QuestionsState get initialState => LoadedQuestions.empty();
 
   @override
   Stream<QuestionsState> mapEventToState(QuestionsEvent event) async* {

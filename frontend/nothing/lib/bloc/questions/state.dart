@@ -17,6 +17,7 @@ class LoadedQuestions extends QuestionsState {
   final List<Question> questions;
 
   const LoadedQuestions(this.questions);
+  const LoadedQuestions.empty() : this(const []);
 
   @override
   List<Object> get props => [questions];
