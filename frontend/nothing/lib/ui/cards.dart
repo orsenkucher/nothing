@@ -432,7 +432,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
         width: frontSize.width,
         height: frontSize.height,
         child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+          behavior: HitTestBehavior.translucent,
           onHorizontalDragUpdate: _onDragUpdate,
           onHorizontalDragEnd: _onDragEnd,
           onHorizontalDragDown: _onDragDown,
