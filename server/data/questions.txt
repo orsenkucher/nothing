@@ -71,7 +71,7 @@ Do you live with your parents?|Yes|No
 Winter vs Summer|Winter|Summer
 Brad Pitt vs Leonardo DiCaprio?|Brad|Leonardo
 iOS vs Android|iOS|Android
-Windows vs MacOS|Windows|MacOs
+Windows vs MacOS|Windows|MacOS
 Homeless man comes to you and wants $2. Do you give it to him?|Yes|No
 Do you brush your teeth regularly?|Yes|No
 Do you prefer an electronic version of books instead of paper?|Paper|Digital
@@ -103,7 +103,6 @@ Coffee vs Tea|Coffee|Tea
 Have you ever played monopoly?|Yes|No
 Are you shy?|Yes|No
 Do you wash your hands after using the toilet?|Yes|No
-Do you get enough sleep?|Yes|No
 Would you like to have a movie about you?|Yes|No
 Control fire vs Control water|Fire|Water
 Lose forefinger vs Lose thumb|Forefinger|Thumb
@@ -125,10 +124,7 @@ Would you like to be able to walk through walls?|Yes|No
 Do you use Emoji?|Yes|No
 Do you have a dog?|Yes|No
 Do you party regularly?|Yes|No
-Do you like dark chocolate?|Yes|No
-Do you like fashionable clothes?|Yes|No
 Do you like volleyball?|Yes|No
-Do you like to eat chips?|Yes|No
 Be Gandalf vs Be Dumbledore|Gandalf|Dumbledore
 Call of Duty vs Battlefield|Call of Duty|Battlefield
 Glasses vs Contacts|Glasses|Contacts
@@ -190,13 +186,12 @@ Be a waiter vs Be a taxi driver|Waiter|Taxi driver
 Be a policeman vs Be a fireman|Policeman|Fireman
 Weather is always cold vs Weather is always hot|Cold|Hot
 Live in desert vs Live in the Arctic Circle|Desert|Arctic Circle
-Have a heetah vs Have a Jaguar|Cheetah|Jaguar
+Have a Heetah vs Have a Jaguar|Cheetah|Jaguar
 CNN vs Fox channel|CNN|Fox
 Have mustache vs Have beard|Mustache|Beard
 Zeus vs Neptun|Zeus|Neptun
 Do you like ketchup?|Yes|No
 Have you ever been in a hospital?|Yes|No
-Would you like to go into space?|Yes|No
 Have you ever tried to cut your own hair?|Yes|No
 Can you speak more than one language?|Yes|No
 Do you have an annoying sibling?|Yes|No
@@ -208,7 +203,6 @@ Do you play video games everyday?|Yes|No
 Do you trust your friends?|Yes|No
 Do you like Star Wars?|Yes|No
 Have you ever played "Flappy bird"?|Yes|No
-Do you have a bicycle?|Yes|No
 Would you like to go to space?|Yes|No
 Have you ever danced in the rain?|Yes|No
 Have you read any of Stephen King's books?|Yes|No
