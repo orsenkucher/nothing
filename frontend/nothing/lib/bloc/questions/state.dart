@@ -8,7 +8,12 @@ abstract class QuestionsState extends Equatable {
 
 class LoadingQuestions extends QuestionsState {
   const LoadingQuestions();
+  @override
+  List<Object> get props => [];
+}
 
+class ReloadingQuestions extends QuestionsState {
+  const ReloadingQuestions();
   @override
   List<Object> get props => [];
 }

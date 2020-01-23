@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/ui/cardsmaster.dart';
 import 'package:nothing/ui/previous.dart';
@@ -21,7 +22,9 @@ class _HomeState extends State<Home> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    BlocProvider.of<QuestionsBloc>(context).add(FetchQuestions());
+    if (BlocProvider.of<FeedBloc>(context).state.len < 36) {
+      BlocProvider.of<QuestionsBloc>(context).add(const FetchQuestions());
+    }
   }
 
   @override

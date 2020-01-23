@@ -64,7 +64,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, Feed> {
     }
     print('Cached: ${state.batch.length}');
     if (next + threshold > state.batch.length) {
-      questionsBloc.add(FetchQuestions());
+      questionsBloc.add(const FetchQuestions());
     }
   }
 

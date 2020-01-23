@@ -27,14 +27,16 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   @override
   Stream<QuestionsState> mapEventToState(QuestionsEvent event) async* {
     if (event is FetchQuestions) {
-      yield* _mapFetchQuestions(event);
+      yield* _mapFetch(event);
+    } else if (event is RefetchQuestions) {
+      yield* _mapRefetch(event);
     }
   }
 
-  Stream<QuestionsState> _mapFetchQuestions(FetchQuestions event) async* {
-    if (state is LoadingQuestions) {
-      return; // Waiting for server response
-    }
+  Stream<QuestionsState> _mapFetch(FetchQuestions event) async* {
+    if (state is LoadingQuestions || state is FailedToLoadQuestions) {
+      return;
+    } // Waiting for server response
     yield LoadingQuestions();
     try {
       var problems = await repo.fetchQuestions(
@@ -45,9 +47,15 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
       summaryBloc.add(ResetSummary());
     } on CloudError catch (error) {
       yield FailedToLoadQuestions(error);
-      final duration = Duration(seconds: 10);
-      print("Retry in $duration");
-      Future.delayed(duration, () => add(event));
+      add(const RefetchQuestions());
     }
+  }
+
+  Stream<QuestionsState> _mapRefetch(RefetchQuestions event) async* {
+    const duration = Duration(seconds: 10);
+    print("Retry in $duration");
+    await Future.delayed(duration);
+    yield ReloadingQuestions();
+    add(const FetchQuestions());
   }
 }

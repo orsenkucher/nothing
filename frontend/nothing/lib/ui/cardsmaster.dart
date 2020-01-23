@@ -30,7 +30,7 @@ class CardsMaster extends StatelessWidget {
           size: box.biggest,
           onswipe: (context, q, b) {
             print('[${q.id}] ${q.question} -> $b');
-            BlocProvider.of<FeedBloc>(context).add(MoveNext());
+            BlocProvider.of<FeedBloc>(context).add(const MoveNext());
             BlocProvider.of<SummaryBloc>(context).add(
               NewAnswer(id: q.id, answer: b),
             );
