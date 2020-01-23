@@ -41,7 +41,7 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, Summary> {
       }, state.id + 1);
       yield newState;
     } else if (event is ResetSummary) {
-      yield initialState;
+      yield EmptySummary();
     }
   }
 
