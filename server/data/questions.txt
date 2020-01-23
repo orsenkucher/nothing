@@ -1,7 +1,7 @@
 ﻿Would you like to lose 20kg?|Yes|No
 Do you like lonely evenings?|Yes|No
 Do you like dark chocolate?|Yes|No
-Do you like a fashionable clothes?|Yes|No
+Do you like fashionable clothes?|Yes|No
 Do you like basketball?|Yes|No
 Do you drink coffee regularly?|Yes|No
 Do you like to eat chips?|Yes|No
@@ -13,7 +13,7 @@ Do you sing nicely?|Yes|No
 Do you know a person who sing nicely?|Yes|No
 Do you like Justin Bieber?|Yes|No
 Would you like to go into space?|Yes|No
-Do you like a hip-hop music?|Yes|No
+Do you like hip-hop music?|Yes|No
 Do you like pop music?|Yes|No
 Do you use an electric toothbrush?|Yes|No
 Do you like horror movies?|Yes|No
@@ -33,7 +33,7 @@ Is this your favorite app?|Yes|No
 Have you ever seen a UFO?|Yes|No
 Do you have a bicycle?|Yes|No
 Do you like studying?|Yes|No
-Do you smiling a lot?|Yes|No
+Do you smile a lot?|Yes|No
 Do you have any pets?|Yes|No
 Are you adopted?|Yes|No
 Are you a student?|Yes|No
@@ -48,9 +48,9 @@ Have you ever failed a test?|Yes|No
 Have you achieved any of your recent goals?|Yes|No
 Do you think you will be able to finish all these question?|Yes|No
 Kanye West vs Taylor Swift|Kanye|Taylor
-Dogs vs cats|Yes|No
+Are Dogs better than Cats|Yes|No
 Tea vs Coffee|Tea|Cofee
-Bananas vs Apples|Bananas|No
+Bananas vs Apples|Bananas|Apples
 Live in Paris vs Live in London|Paris|London
 Drake vs A$AP Rocky|Drake|A$AP
 Nirvana vs Metallica|Nirvana|Metallica
@@ -73,8 +73,8 @@ Brad Pitt vs Leonardo DiCaprio?|Brad|Leonardo
 iOS vs Android|iOS|Android
 Windows vs MacOS|Windows|MacOs
 Homeless man comes to you and wants $2. Do you give it to him?|Yes|No
-Do you brush your teeth?|Yes|No
-Do you prefer an electronic version of books instead of paper?|Yes|No
+Do you brush your teeth regularly?|Yes|No
+Do you prefer an electronic version of books instead of paper?|Paper|Digital
 Do you have a brother?|Yes|No
 Skies vs Snowboard?|Skies|Snowboard
 Do you like pancakes?|Yes|No
@@ -152,7 +152,6 @@ Be a scientist vs be a politician|Scientist|Politician
 Animal Planet vs Discovery Science|Animal Planet|Discovery Science
 Private car vs public transport|Car|Transport
 Hoodie vs Sweatshirt|Hoodie|Sweatshirt
-Lose 2 arms vs Lose 2 legs|Arms|Legs
 Dad vs Mom|Dad|Mom
 Love somebody vs Be Loved|Love|Be loved
 Mercedes vs BMW|Mercedes|BMW
@@ -204,7 +203,7 @@ Do you have an annoying sibling?|Yes|No
 Do you have more than 10 video games?|Yes|No
 Can you sleep standing up?|Yes|No
 Do you like Clash of Clans?|Yes|No
-Do you like cake?|Yes|No
+Do you like cakes?|Yes|No
 Do you play video games everyday?|Yes|No
 Do you trust your friends?|Yes|No
 Do you like Star Wars?|Yes|No
@@ -258,3 +257,4 @@ Have extremely big ears vs Have an extremely big nose|Ears|Nose
 Google Assistant vs Siri|Google|Siri
 Watch films for 12 hours vs Play video games for 12 hours|Films|Video games
 Own an electric car vs Own a gas car|Electric|Gas
+Up or Down|Up|Down
