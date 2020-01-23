@@ -152,7 +152,6 @@ Be a scientist vs be a politician|Scientist|Politician
 Animal Planet vs Discovery Science|Animal Planet|Discovery Science
 Private car vs public transport|Car|Transport
 Hoodie vs Sweatshirt|Hoodie|Sweatshirt
-Lose 2 arms vs Lose 2 legs|Arms|Legs
 Dad vs Mom|Dad|Mom
 Love somebody vs Be Loved|Love|Be loved
 Mercedes vs BMW|Mercedes|BMW
