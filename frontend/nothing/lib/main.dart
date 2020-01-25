@@ -13,7 +13,7 @@ import 'package:nothing/ui/home.dart';
 // TODO
 // [ ] remove all todos
 // [ ] check all comments
-// [ ] make consts whenever possible
+// [+] make consts whenever possible
 // [+] make animations sharper
 // [+] better animations
 // [+] fix all index out of range
@@ -57,13 +57,14 @@ class App extends StatelessWidget with PortraitLock {
         ),
       ],
       child: MaterialApp(
-        title: 'Would you Rather',
+        title: 'Would you rather',
         theme: ThemeData(
           fontFamily: 'Gilroy',
         ),
         home: NothingScheme(
           child: Home(),
         ),
+        color: NothingScheme.app,
         debugShowCheckedModeBanner: false,
       ),
     );
