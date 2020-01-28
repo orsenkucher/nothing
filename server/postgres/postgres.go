@@ -76,16 +76,23 @@ func main() {
 	// }
 	// db.CreateTable(&User{})
 
-	db.Debug().DropTableIfExists(&User{})
+	// db.Debug().DropTableIfExists(&User{})
 	ok := db.HasTable(&User{})
 	fmt.Println(ok)
 	db.Debug().AutoMigrate(&User{})
 	ok = db.HasTable(&User{})
 	fmt.Println(ok)
 	// fmt.Println(name, weight)
+	user := &User{Name: "Orsen", Address: "New York"}
+	db.Create(user)
+	// db.Rows()
+	var users []User
+	db.Find(&users)
+	fmt.Println(users)
 }
 
 type User struct {
 	gorm.Model
-	Name string `gorm:"size:255"`
+	Name    string `gorm:"size:255"`
+	Address string
 }
