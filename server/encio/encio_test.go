@@ -3,6 +3,7 @@ package encio
 import (
 	"fmt"
 	"os"
+	"strings"
 	"testing"
 )
 
@@ -31,6 +32,10 @@ func TestEnc(t *testing.T) {
 	newKey := NewEncIO(pass)
 	dec := newKey.decrypt(enc)
 	decdata := string(dec)
+
+	if strings.Contains(string(enc), mydata) {
+		t.Error("Ты наркоман что-ли??")
+	}
 
 	if mydata != decdata {
 		t.Errorf("my != dec, %s != %s", mydata, decdata)
