@@ -30,6 +30,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(brightness: Brightness.dark),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
