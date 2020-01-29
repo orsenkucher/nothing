@@ -44,3 +44,16 @@ func TestEnc(t *testing.T) {
 	fmt.Println("ENC:", string(enc))
 	fmt.Println("DEC:", decdata)
 }
+
+func TestRead(t *testing.T) {
+	bytes, err := key.ReadFile("creds.json")
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println(string(bytes))
+	bytes, err = key.ReadFile("secure/creds.json")
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println(string(bytes))
+}

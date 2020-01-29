@@ -32,8 +32,8 @@ const (
 )
 
 type encFile struct {
-	base     string
-	sec, enc []byte
+	base, dir string
+	sec, enc  []byte
 }
 
 // ReadFile will retrieve bytes from file.
@@ -42,7 +42,7 @@ type encFile struct {
 func (key EncIO) ReadFile(file string) ([]byte, error) {
 	if ef, err := findFile(file); err == nil {
 		if ef.sec != nil {
-			name := path.Join(path.Dir(file), ef.makeName(sec))
+			name := ef.makePath(enc)
 			enc := key.encrypt(ef.sec)
 			err := toFile(name, enc)
 			return ef.sec, err
@@ -57,10 +57,18 @@ func toFile(file string, bytes []byte) error {
 	return ioutil.WriteFile(file, bytes, 0644)
 }
 
+func (ef *encFile) fromFile(class string) ([]byte, error) {
+	return ioutil.ReadFile(ef.makePath(class))
+}
+
 func (ef *encFile) makeName(class string) string {
 	ext := path.Ext(ef.base)
 	body := strings.TrimSuffix(ef.base, ext)
 	return body + class + ext // creds + .enc + .json
+}
+
+func (ef *encFile) makePath(class string) string {
+	return path.Join(ef.dir, ef.makeName(class))
 }
 
 func (ef *encFile) match(name string, class string) bool {
@@ -68,8 +76,9 @@ func (ef *encFile) match(name string, class string) bool {
 }
 
 func findFile(file string) (encFile, error) {
-	ef := encFile{base: path.Base(file)}
-	files, err := ioutil.ReadDir(path.Dir(file))
+	dir := path.Dir(file)
+	ef := encFile{base: path.Base(file), dir: dir}
+	files, err := ioutil.ReadDir(dir)
 	if err != nil {
 		return ef, err
 	}
@@ -77,11 +86,11 @@ func findFile(file string) (encFile, error) {
 		if !f.IsDir() {
 			name := f.Name()
 			if ef.match(name, sec) {
-				ef.sec, err = ioutil.ReadFile(file)
+				ef.sec, err = ef.fromFile(sec)
 				return ef, err // if secret found the job is done
 			}
 			if ef.match(name, enc) {
-				if ef.enc, err = ioutil.ReadFile(file); err != nil {
+				if ef.enc, err = ef.fromFile(enc); err != nil {
 					return ef, err
 				}
 			}
