@@ -46,12 +46,13 @@ func TestEnc(t *testing.T) {
 }
 
 func TestRead(t *testing.T) {
+	key := NewEncIO("password")
 	bytes, err := key.ReadFile("creds.json")
 	if err != nil {
 		t.Error(err)
 	}
 	fmt.Println(string(bytes))
-	bytes, err = key.ReadFile("secure/creds.json")
+	bytes, err = key.ReadFile("../encio/secure/creds.a.g.zip.json")
 	if err != nil {
 		t.Error(err)
 	}

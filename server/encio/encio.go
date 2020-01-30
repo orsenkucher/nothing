@@ -1,6 +1,7 @@
 package encio
 
 import (
+	"bytes"
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
@@ -12,7 +13,8 @@ import (
 	"strings"
 )
 
-// EncIO is an encryption key in its core
+// EncIO is an encryption key in its core.
+// We advise to .gitignore **/*.secret* files.
 type EncIO []byte
 
 func NewEncIO(key string) EncIO {
@@ -33,15 +35,20 @@ const (
 
 type encFile struct {
 	base, dir string
+	insidx    int
 	sec, enc  []byte
 }
 
 // ReadFile will retrieve bytes from file.
 // File name argument should drop dot[secret|enc] part.
 // It is ok to have "name.[secret|enc].ext" files on disk.
+// If key was wrong, you'll receive random mess and no error!
 func (key EncIO) ReadFile(file string) ([]byte, error) {
 	if ef, err := findFile(file); err == nil {
 		if ef.sec != nil {
+			if ef.enc != nil && bytes.Equal(key.decrypt(ef.enc), ef.sec) {
+				return ef.sec, nil
+			} // if sec == enc
 			name := ef.makePath(enc)
 			enc := key.encrypt(ef.sec)
 			err := toFile(name, enc)
@@ -62,6 +69,9 @@ func (ef *encFile) fromFile(class string) ([]byte, error) {
 }
 
 func (ef *encFile) makeName(class string) string {
+	if ef.insidx > 0 {
+		return ef.base[:ef.insidx] + class + ef.base[ef.insidx:]
+	} // if insertion index is available
 	ext := path.Ext(ef.base)
 	body := strings.TrimSuffix(ef.base, ext)
 	return body + class + ext // creds + .enc + .json
@@ -72,7 +82,11 @@ func (ef *encFile) makePath(class string) string {
 }
 
 func (ef *encFile) match(name string, class string) bool {
-	return ef.base == strings.ReplaceAll(name, class, "")
+	matched := ef.base == strings.ReplaceAll(name, class, "")
+	if matched {
+		ef.insidx = strings.Index(name, class)
+	}
+	return matched
 }
 
 func findFile(file string) (encFile, error) {
@@ -86,8 +100,9 @@ func findFile(file string) (encFile, error) {
 		if !f.IsDir() {
 			name := f.Name()
 			if ef.match(name, sec) {
-				ef.sec, err = ef.fromFile(sec)
-				return ef, err // if secret found the job is done
+				if ef.sec, err = ef.fromFile(sec); err != nil {
+					return ef, err
+				}
 			}
 			if ef.match(name, enc) {
 				if ef.enc, err = ef.fromFile(enc); err != nil {
@@ -96,10 +111,10 @@ func findFile(file string) (encFile, error) {
 			}
 		}
 	}
-	if ef.enc == nil { // if no enc, then nothing found at all
-		return ef, fmt.Errorf("%s not found", file)
-	} else {
+	if append(ef.sec, ef.enc...) != nil {
 		return ef, nil
+	} else {
+		return ef, fmt.Errorf("%s not found", file)
 	}
 }
 
