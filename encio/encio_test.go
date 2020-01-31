@@ -52,7 +52,7 @@ func TestRead(t *testing.T) {
 		t.Error(err)
 	}
 	fmt.Println(string(bytes))
-	bytes, err = key.ReadFile("../encio/secure/creds.a.g.zip.json")
+	bytes, err = key.ReadFile("../encio/test/creds.a.g.zip.json")
 	if err != nil {
 		t.Error(err)
 	}
@@ -61,7 +61,7 @@ func TestRead(t *testing.T) {
 
 func TestConfig(t *testing.T) {
 	key := NewEncIO("password")
-	if cfg, err := key.GetConfig("secure/config.json"); err == nil {
+	if cfg, err := key.GetConfig("test/config.json"); err == nil {
 		fmt.Println(cfg)
 	} else {
 		t.Error(err)

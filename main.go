@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/postgres"
 	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/proxy"
@@ -38,19 +37,34 @@ func main() {
 	db := NewDB(key, cfg)
 	defer db.Close()
 	db.Debug().AutoMigrate(&User{})
-	user := &User{Name: "EncIO", Address: "Go"}
+	user := &User{Name: "admin", Address: "Go"}
+	user2 := &User{Name: "user", Address: "Go"}
+	//db.Debug().DropTableIfExists(&User{})
+	//db.CreateTable(user)
 	db.Create(user)
+	db.Create(user2)
 	var users []User
 	db.Find(&users)
+	db.Table("admin").Find(&users)
+	//db.Query()
 	fmt.Println(users)
 }
 
+// User is public
 type User struct {
 	gorm.Model
 	Name    string `gorm:"size:255"`
 	Address string
 }
 
+func (u User) TableName() string {
+	if u.Name == "admin" {
+		return "admin"
+	}
+	return "user"
+}
+
+//NewDB is public
 func NewDB(key encio.EncIO, cfg encio.Config) *gorm.DB {
 	bytes, err := key.ReadFile(cfg["dbcred"].(string))
 	if err != nil {
@@ -60,8 +74,7 @@ func NewDB(key encio.EncIO, cfg encio.Config) *gorm.DB {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel() // timeout getting google client?
+	ctx := context.Background()
 	client := jwt.Client(ctx)
 	if err != nil {
 		log.Fatalln(err)
