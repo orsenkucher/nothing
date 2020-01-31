@@ -23,7 +23,7 @@ func (key EncIO) reloadConfig(file string) error {
 		if err := json.Unmarshal(bytes, &cfg); err == nil {
 			log.Printf("encio: Config reload %v", cfg)
 		} else {
-			return fmt.Errorf("encio: Your %s is present, but your key might be wrong.\nerr: %w", file, err)
+			return fmt.Errorf("encio: Your '%s' is present, but your key might be wrong.\nerr: %w", file, err)
 		}
 	} else {
 		return err
