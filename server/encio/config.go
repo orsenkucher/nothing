@@ -25,7 +25,7 @@ func (key EncIO) reloadConfig(file string) error {
 			for k := range cfg {
 				keys = append(keys, k)
 			}
-			log.Printf("encio: Config reload -> %v", keys)
+			log.Printf("encio: Config reloaded fields with these keys -> %v", keys)
 			return nil
 		} else {
 			return fmt.Errorf("encio: Your '%s' is present, but your key might be wrong.\nerr: %w", file, err)

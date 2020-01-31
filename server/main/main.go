@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	_ "database/sql"
 	"flag"
 	"fmt"
 	"log"
@@ -22,7 +21,7 @@ var pass string
 func init() {
 	const usage = "Provide encio password"
 	flag.StringVar(&pass, "encio", "", usage)
-	flag.StringVar(&pass, "e", "", usage+" (shorthand)")
+	flag.StringVar(&pass, "s", "", usage+" (shorthand)")
 }
 
 func main() {
