@@ -58,3 +58,12 @@ func TestRead(t *testing.T) {
 	}
 	fmt.Println(string(bytes))
 }
+
+func TestConfig(t *testing.T) {
+	key := NewEncIO("password")
+	if cfg, err := key.GetConfig("secure/config.json"); err == nil {
+		fmt.Println(cfg)
+	} else {
+		t.Error(err)
+	}
+}

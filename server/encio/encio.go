@@ -72,6 +72,9 @@ func (ef *encFile) makeName(class string) string {
 	if ef.insidx > 0 {
 		return ef.base[:ef.insidx] + class + ef.base[ef.insidx:]
 	} // if insertion index is available
+	if class == sec {
+		return ef.base
+	} // in case .secret is not used in secret file name
 	ext := path.Ext(ef.base)
 	body := strings.TrimSuffix(ef.base, ext)
 	return body + class + ext // creds + .enc + .json
@@ -103,8 +106,7 @@ func findFile(file string) (encFile, error) {
 				if ef.sec, err = ef.fromFile(sec); err != nil {
 					return ef, err
 				}
-			}
-			if ef.match(name, enc) {
+			} else if ef.match(name, enc) {
 				if ef.enc, err = ef.fromFile(enc); err != nil {
 					return ef, err
 				}
