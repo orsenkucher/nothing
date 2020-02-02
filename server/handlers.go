@@ -40,5 +40,5 @@ func (s *Server) GetQues(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Fprintf(w, string(quesj))
+	fmt.Fprint(w, string(quesj))
 }

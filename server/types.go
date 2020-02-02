@@ -5,20 +5,20 @@ import "fmt"
 //Question is public
 //leftn/rightn - Number of users answered left/right
 type Question struct {
-	ID       int
-	Question string
-	Left     string
-	Right    string
-	Leftn    int
-	Rightn   int
-	Valid    bool
-	Changed  bool
+	ID       int    `json:"id"`
+	Question string `json:"question"`
+	Left     string `json:"left"`
+	Right    string `json:"right"`
+	Leftn    int    `json:"leftn"`
+	Rightn   int    `json:"rightn"`
+	Valid    bool   `json:"valid"`
+	Changed  bool   `json:"changed"`
 }
 
 //User is public
 type User struct {
 	ID   string
-	Done []byte
+	Done []byte `json:"done"`
 }
 
 func (q *Question) Print() {
