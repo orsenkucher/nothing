@@ -121,10 +121,12 @@ func (s *Server) AddQuestion(question *Question) {
 	if b {
 		question.ID = s.Que.Len() + 1
 		question.Valid = true
+		question.Leftn = rand.Intn(10)
+		question.Rightn = rand.Intn(10)
 		fmt.Println("add new")
 		fmt.Println(question)
 		s.DB.Create(question)
-		s.Que.PushBack(*question)
+		s.Que.PushFront(*question)
 	}
 }
 
