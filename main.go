@@ -5,7 +5,11 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/postgres"
 	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/proxy"
@@ -42,6 +46,28 @@ func main() {
 	//server.ClearBase()
 	server.Load()
 	server.ShowStatus()
+
+	done := make(chan os.Signal, 1)
+	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+	http.HandleFunc("/", server.GetQues)
+	hsrv := &http.Server{
+		Addr:    ":9090",
+		Handler: nil, // use default mux
+	}
+	go func() {
+		if err := hsrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("listen: %s\n", err)
+		}
+	}()
+	log.Print("Server Started")
+	<-done
+	log.Print("Server Stopped")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := hsrv.Shutdown(ctx); err != nil {
+		log.Fatalf("Server Shutdown Failed:%+v", err)
+	}
+	log.Print("Server Exited Properly")
 }
 
 //NewDB is public
