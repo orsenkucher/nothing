@@ -1,10 +1,12 @@
-package sqlserver
+package server
 
 import (
 	"container/list"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"strings"
+	"time"
 
 	"github.com/jinzhu/gorm"
 )
@@ -94,6 +96,11 @@ func (s *Server) Load() {
 	s.Users = make(map[string][]byte)
 	var questions []Question
 	s.DB.Find(&questions)
+	rand.Seed(time.Now().UnixNano())
+	for i := len(questions) - 1; i > 0; i-- { // Fisher–Yates shuffle
+		j := rand.Intn(i + 1)
+		questions[i], questions[j] = questions[j], questions[i]
+	}
 	for _, question := range questions {
 		s.Que.PushBack(question)
 	}
@@ -133,12 +140,13 @@ func (s *Server) UpdateQuestions(filename string) {
 			continue
 		}
 		question.Question = strs[0]
-		question.Left = strs[2]
-		question.Right = strs[1]
-		s.AddQuestion(&question)
-		if s.Que.Len() > 6 {
-			break
+		question.Left = strs[1]
+		question.Right = strs[2]
+		if strs[1] == "Yes" || strs[1] == "True" {
+			question.Left = strs[2]
+			question.Right = strs[1]
 		}
+		s.AddQuestion(&question)
 	}
 }
 
@@ -166,7 +174,7 @@ func (s *Server) ClearBase() {
 func (s *Server) ShowQue() {
 	fmt.Println("que")
 	for q := s.Que.Front(); q != nil; q = q.Next() {
-		fmt.Print(q.Value.(Question).ID)
+		fmt.Print(q.Value.(Question).ID, " ")
 	}
 	fmt.Println()
 }

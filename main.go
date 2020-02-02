@@ -11,7 +11,7 @@ import (
 	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/proxy"
 	"github.com/jinzhu/gorm"
 	"github.com/orsenkucher/nothing/encio"
-	"github.com/orsenkucher/nothing/server/sqlserver"
+	"github.com/orsenkucher/nothing/server"
 
 	"golang.org/x/oauth2/google"
 )
@@ -38,21 +38,10 @@ func main() {
 	db := NewDB(key, cfg)
 	defer db.Close()
 
-	server := &sqlserver.Server{DB: db}
-	server.ClearBase()
+	server := &server.Server{DB: db}
+	//server.ClearBase()
 	server.Load()
-	test(server)
 	server.ShowStatus()
-}
-
-func test(server *sqlserver.Server) {
-	fmt.Println(len(server.GiveQuestions("1", 4)))
-	server.ShowQue()
-	fmt.Println(len(server.GiveQuestions("2", 5)))
-	server.ShowQue()
-	server.ReceiveAns("1", map[int]bool{1: true, 2: false, 3: true, 4: true})
-	fmt.Println(len(server.GiveQuestions("1", 4)))
-	server.ShowQue()
 }
 
 //NewDB is public
