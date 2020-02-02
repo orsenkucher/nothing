@@ -39,15 +39,20 @@ func main() {
 	defer db.Close()
 
 	server := &sqlserver.Server{DB: db}
+	server.ClearBase()
 	server.Load()
-	server.DB.AutoMigrate(sqlserver.Question{})
-	server.DB.AutoMigrate(sqlserver.User{})
 	test(server)
 	server.ShowStatus()
 }
 
 func test(server *sqlserver.Server) {
-	//server.ReceiveAns()
+	fmt.Println(len(server.GiveQuestions("1", 4)))
+	server.ShowQue()
+	fmt.Println(len(server.GiveQuestions("2", 5)))
+	server.ShowQue()
+	server.ReceiveAns("1", map[int]bool{1: true, 2: false, 3: true, 4: true})
+	fmt.Println(len(server.GiveQuestions("1", 4)))
+	server.ShowQue()
 }
 
 //NewDB is public

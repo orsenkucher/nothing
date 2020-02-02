@@ -1,4 +1,4 @@
-package server
+package sqlserver
 
 import (
 	"encoding/json"

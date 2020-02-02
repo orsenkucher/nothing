@@ -78,15 +78,18 @@ func (s *Server) ReceiveAns(userid string, answers map[int]bool) {
 					question.Leftn++
 				}
 				q.Value = question
-				s.DB.Model(&question).Update(Question{Rightn: question.Rightn, Leftn: question.Leftn})
+				s.DB.Model(&question).Update(question)
 				break
 			}
 		}
 	}
+	s.Users[user.ID] = user.Done
 	s.DB.Model(&user).Update(user)
 }
 
 func (s *Server) Load() {
+	s.DB.AutoMigrate(Question{})
+	s.DB.AutoMigrate(User{})
 	s.Que = list.New()
 	s.Users = make(map[string][]byte)
 	var questions []Question
@@ -110,6 +113,7 @@ func (s *Server) AddQuestion(question *Question) {
 
 	if b {
 		question.ID = s.Que.Len() + 1
+		question.Valid = true
 		fmt.Println("add new")
 		fmt.Println(question)
 		s.DB.Create(question)
@@ -148,17 +152,21 @@ func (s *Server) ShowStatus() {
 	fmt.Println("users")
 	var users []User
 	s.DB.Find(&users)
-	for _, u := range questions {
+	for _, u := range users {
 		u.Print()
 	}
-	fmt.Println("que")
-	for q := s.Que.Front(); q != nil; q = q.Next() {
-		fmt.Print(q.Value.(Question).ID)
-	}
-	fmt.Println()
+	s.ShowQue()
 }
 
 func (s *Server) ClearBase() {
 	s.DB.DropTable("questions")
 	s.DB.DropTable("users")
+}
+
+func (s *Server) ShowQue() {
+	fmt.Println("que")
+	for q := s.Que.Front(); q != nil; q = q.Next() {
+		fmt.Print(q.Value.(Question).ID)
+	}
+	fmt.Println()
 }
