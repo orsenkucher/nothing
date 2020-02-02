@@ -72,7 +72,7 @@ func (s *Server) getUser(id string) *User {
 	user, ok := s.Users[id]
 	if !ok {
 		s.Users[id] = &User{Done: []byte{}}
-		user, _ = s.Users[id]
+		user = s.Users[id]
 	}
 	s.client.Doc("Users/"+id).Set(s.ctx, user)
 	return user

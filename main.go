@@ -11,6 +11,7 @@ import (
 	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/proxy"
 	"github.com/jinzhu/gorm"
 	"github.com/orsenkucher/nothing/encio"
+	"github.com/orsenkucher/nothing/server/sqlserver"
 
 	"golang.org/x/oauth2/google"
 )
@@ -36,32 +37,17 @@ func main() {
 	}
 	db := NewDB(key, cfg)
 	defer db.Close()
-	db.Debug().AutoMigrate(&User{})
-	user := &User{Name: "admin", Address: "Go"}
-	user2 := &User{Name: "user", Address: "Go"}
-	//db.Debug().DropTableIfExists(&User{})
-	//db.CreateTable(user)
-	db.Create(user)
-	db.Create(user2)
-	var users []User
-	db.Find(&users)
-	db.Table("admin").Find(&users)
-	//db.Query()
-	fmt.Println(users)
+
+	server := &sqlserver.Server{DB: db}
+	server.Load()
+	server.DB.AutoMigrate(sqlserver.Question{})
+	server.DB.AutoMigrate(sqlserver.User{})
+	test(server)
+	server.ShowStatus()
 }
 
-// User is public
-type User struct {
-	gorm.Model
-	Name    string `gorm:"size:255"`
-	Address string
-}
-
-func (u User) TableName() string {
-	if u.Name == "admin" {
-		return "admin"
-	}
-	return "user"
+func test(server *sqlserver.Server) {
+	//server.ReceiveAns()
 }
 
 //NewDB is public
