@@ -60,6 +60,7 @@ class App extends StatelessWidget with PortraitLock {
         title: 'Would you rather',
         theme: ThemeData(
           fontFamily: 'Gilroy',
+          brightness: Brightness.dark,
         ),
         home: NothingScheme(
           child: Home(),
