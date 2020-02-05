@@ -26,7 +26,7 @@ class CardsMaster extends StatelessWidget {
               NothingMaterial(cnt, anim, dirsgn, shadow),
           heightFactor: 0.9,
           widthFactor: 0.85,
-          stack: 3,
+          stack: 2,
           size: box.biggest,
           onswipe: (context, q, b) {
             print('[${q.id}] ${q.question} -> $b');
@@ -54,14 +54,14 @@ class NothingContent extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: _buildText(context, true),
-          ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: _buildText(context, false),
-          ),
+          // Align(
+          //   alignment: Alignment.topRight,
+          //   child: _buildText(context, true),
+          // ),
+          // Align(
+          //   alignment: Alignment.bottomLeft,
+          //   child: _buildText(context, false),
+          // ),
           Center(
             child: Text(
               question.question,

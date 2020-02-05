@@ -43,7 +43,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.crystalfactory.nothing"
+        applicationId "com.crystalfactory.nothing2"
         minSdkVersion 23
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()

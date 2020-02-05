@@ -301,7 +301,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     return Stack(
       children: [
         ..._buildCards(context),
-        _gestureDetector(context),
+        // _gestureDetector(context),
       ],
     );
   }
@@ -456,7 +456,6 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     _controller.stop();
   }
 
-  Offset _prevDrag = Offset.zero;
   void _onDragUpdate(DragUpdateDetails update) {
     // intercept motus control
     if (!_controlflag) {
@@ -464,7 +463,6 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
       _controlflag = true;
       setState(() {});
     }
-    _prevDrag = update.delta;
     final rotChanged = _calcFrontOffset(update.delta);
     _controller.value = _offset.abs();
     if (rotChanged) setState(() => _motusFrontUpdate());
@@ -487,14 +485,11 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     final sign = v.pixelsPerSecond.dx.sign;
     final offset = _offset;
     if (sign == 0 && offset.abs() < 0.009) {
-      _prevDrag = Offset.zero;
       _animateWobble();
     } else {
       final offBounds = offset.abs() > 0.5;
       final offsetsMatch = sign == offset.sign;
-      final dragsMatch = _prevDrag.dx.sign == offset.sign;
-      final enoughImpulse = sign != 0 || _prevDrag.dx.abs() > 1.8;
-      if ((offsetsMatch || dragsMatch) && (offBounds || enoughImpulse)) {
+      if (offsetsMatch && sign != 0 || sign == 0 && offBounds) {
         _animateOut(context, v);
       } else {
         _animateBack(context, v);

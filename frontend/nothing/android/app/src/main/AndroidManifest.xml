@@ -10,7 +10,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Would you rather"
+        android:label="NOTHING 2"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
