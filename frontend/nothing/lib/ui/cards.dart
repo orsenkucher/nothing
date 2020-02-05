@@ -301,7 +301,7 @@ class _CardsState extends State<Cards> with TickerProviderStateMixin {
     return Stack(
       children: [
         ..._buildCards(context),
-        // _gestureDetector(context),
+        _gestureDetector(context),
       ],
     );
   }

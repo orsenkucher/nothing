@@ -82,6 +82,14 @@ class LocalQuestionsRepo extends QuestionsRepo {
 
   List<Question> _local = [
     Question(
+      id: 17,
+      question: "1 2 6 24 ?",
+      left: "No",
+      right: "Yes!",
+      leftn: 10,
+      rightn: 30,
+    ),
+    Question(
       id: 10,
       question: "Have you achieved any of your recent goals?",
       left: "No",
@@ -91,7 +99,8 @@ class LocalQuestionsRepo extends QuestionsRepo {
     ),
     Question(
       id: 15,
-      question: "Marvel vs DC",
+      question:
+          "Have you achieved any of your recent goals, have you achieved any of your recent goals?",
       left: "Marvel",
       right: "DC",
       leftn: 30,
