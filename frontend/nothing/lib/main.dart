@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
@@ -24,6 +25,11 @@ import 'package:nothing/ui/home.dart';
 // [+] fast-swipe protection (300ms)
 void main() async {
   await _hydrateAsync();
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //   statusBarColor: Colors.amber,
+  //   systemNavigationBarDividerColor: Colors.red,
+  // ));
+  // SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(const App());
 }
 

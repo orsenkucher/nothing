@@ -25,9 +25,9 @@ class CardsMaster extends StatelessWidget {
               NothingContent(que, anim, dirsgn),
           materialfactory: (ctx, cnt, anim, dirsgn, shadow) =>
               NothingMaterial(cnt, anim, dirsgn, shadow),
-          heightFactor: 0.9,
-          widthFactor: 0.85,
-          stack: 1,
+          heightFactor: 0.92,
+          widthFactor: 0.82,
+          stack: 2,
           size: box.biggest,
           onswipe: (context, q, b) {
             print('[${q.id}] ${q.question} -> $b');

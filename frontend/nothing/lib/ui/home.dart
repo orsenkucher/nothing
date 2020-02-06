@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
@@ -41,38 +43,108 @@ class _HomeState extends State<Home> {
       body: Container(
         color: NothingScheme.of(context).card,
         // color: Color(0xff5d26db),
-        child: SafeArea(
-          child: Stack(
-            children: [
-              _inputPoint(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(height: 20),
+        child: Stack(
+          children: [
+            _inputPoint(),
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.stretch,
+            //   mainAxisSize: MainAxisSize.max,
+            //   children: [
+            //     SizedBox(height: 20),
+            //     Expanded(
+            //       child: SizedBox.expand(
+            //         child: const CardsMaster(),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     _yellowThing(),
+            //     _yellowThing(),
+            //   ],
+            // ),
+            SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Center(
+                      child: Text(
+                        "NOTHING PUZZLE 2",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  // ConstrainedBox(
+                  // constraints: BoxConstraints(maxHeight: 200),
+                  // child:
                   Expanded(
-                    child: SizedBox.expand(
-                      child: const CardsMaster(),
+                    child: Center(
+                      child: AutoSizeText(
+                        "A K Q J ?",
+                        maxLines: 4,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 52,
+                          fontWeight: FontWeight.bold,
+                          color: NothingScheme.of(context).question,
+                        ),
+                      ),
+                    ),
+                    // ),
+                  ),
+                  // ---------
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    margin: const EdgeInsets.all(32),
+                    decoration: BoxDecoration(
+                      color: Color(0xfffdcf3c),
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                    height: 70,
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: IconButton(
+                              onPressed: () => print("Press"),
+                              icon: Icon(
+                                Icons.lightbulb_outline,
+                                color: Colors.black,
+                                size: 32,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: AutoSizeText(
+                            "123123",
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: NothingScheme.of(context).question,
+                            ),
+                            maxLines: 1,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _yellowThing(),
-                  _yellowThing(),
-                ],
-              ),
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {
-                  focusNode.unfocus();
-                  focusNode.requestFocus();
-                },
-              ),
-            ],
-          ),
+            ),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                focusNode.unfocus();
+                focusNode.requestFocus();
+              },
+            ),
+          ],
         ),
       ),
     );
