@@ -8,6 +8,7 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/cardsmaster.dart';
+import 'package:vibrate/vibrate.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -77,6 +78,12 @@ class _HomeState extends State<Home> {
             autocorrect: false,
             keyboardAppearance: Brightness.light,
             keyboardType: TextInputType.text,
+            /*      onSubmitted: (s) async =>
+                await SystemChannels.platform.invokeMethod<void>(
+              'HapticFeedback.vibrate',
+              'HapticFeedbackType.success',
+            ), */
+            onSubmitted: (s) async => Vibrate.feedback(FeedbackType.warning),
             textInputAction: TextInputAction.go,
             onChanged: print,
           ),
@@ -93,39 +100,58 @@ class Game extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          print(constraints.biggest.height);
-          double labelH = 60;
-          double ansH = 70;
-          return Column(
-            children: [
-              SizedBox(
-                height: labelH,
-                child: Label(),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        print(constraints.biggest.height);
+        double labelH = 60;
+        double ansH = 70;
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [_yellowThing(), _yellowThing()],
+            ),
+            SizedBox(
+              height: labelH,
+              child: Label(),
+            ),
+            SizedBox(
+              height: min(
+                280,
+                constraints.biggest.height - (labelH + ansH + 12),
               ),
-              SizedBox(
-                height: min(
-                  220,
-                  constraints.biggest.height - (labelH + ansH + 12),
-                ),
-                child: Center(
-                  child: Question(),
-                ),
+              child: Center(
+                child: Question(),
               ),
-              SizedBox(
-                height: ansH,
-                child: Answer(
-                  height: 70,
-                ),
+            ),
+            SizedBox(
+              height: ansH,
+              child: Answer(
+                height: 70,
               ),
-              // Expanded(
-              //   child: Placeholder(),
-              // )
-            ],
-          );
-        },
+            ),
+            // Expanded(
+            //   child: Placeholder(),
+            // )
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _yellowThing() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 24,
+        vertical: 21,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xfffdcf3c),
+          borderRadius: BorderRadius.circular(28),
+        ),
+        width: 50,
+        height: 28,
       ),
     );
   }
@@ -189,14 +215,19 @@ class Question extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoSizeText(
-      "A K Q J ?",
-      maxLines: 4,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 52,
-        fontWeight: FontWeight.bold,
-        color: NothingScheme.of(context).question,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
+      child: AutoSizeText(
+        "Two people are standing back to back. They each walk away from each other for three feet. Then they both turn left and walk for another four feet, and then stop. Now, how many feet apart are they standing?",
+        maxLines: 7,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 52,
+          fontWeight: FontWeight.bold,
+          color: NothingScheme.of(context).question,
+        ),
       ),
     );
   }

@@ -29,7 +29,7 @@ void main() async {
   //   statusBarColor: Colors.amber,
   //   systemNavigationBarDividerColor: Colors.red,
   // ));
-  // SystemChrome.setEnabledSystemUIOverlays([]);
+  SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(const App());
 }
 
