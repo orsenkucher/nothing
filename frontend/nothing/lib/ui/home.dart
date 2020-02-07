@@ -73,6 +73,10 @@ class _HomeState extends State<Home> {
           width: 200,
           child: TextField(
             focusNode: focusNode,
+            enableSuggestions: false,
+            autocorrect: false,
+            keyboardAppearance: Brightness.light,
+            keyboardType: TextInputType.text,
             textInputAction: TextInputAction.go,
             onChanged: print,
           ),
@@ -93,20 +97,25 @@ class Game extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           print(constraints.biggest.height);
+          double labelH = 60;
+          double ansH = 70;
           return Column(
             children: [
               SizedBox(
-                height: 60,
+                height: labelH,
                 child: Label(),
               ),
               SizedBox(
-                height: min(220, constraints.biggest.height - (60 + 70 + 12)),
+                height: min(
+                  220,
+                  constraints.biggest.height - (labelH + ansH + 12),
+                ),
                 child: Center(
                   child: Question(),
                 ),
               ),
               SizedBox(
-                height: 70,
+                height: ansH,
                 child: Answer(
                   height: 70,
                 ),
