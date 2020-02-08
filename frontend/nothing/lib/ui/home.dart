@@ -19,7 +19,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   FocusNode _focusNode;
   TextEditingController _controller = TextEditingController();
-  TextModel model = TextModel()..update('');
+  TextModel model = TextModel();
 
   @override
   void initState() {
@@ -30,6 +30,7 @@ class _HomeState extends State<Home> {
   @override
   void dispose() {
     _focusNode.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -55,17 +56,23 @@ class _HomeState extends State<Home> {
             children: [
               _inputPoint(model),
               Game(),
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {
-                  _focusNode.unfocus();
-                  _focusNode.requestFocus();
-                },
-              ),
+              _gestureDetector(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  GestureDetector _gestureDetector() {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      // onTap: () {
+      onHorizontalDragEnd: (_) {
+        print("heh");
+        _focusNode.unfocus();
+        _focusNode.requestFocus();
+      },
     );
   }
 
@@ -93,6 +100,7 @@ class _HomeState extends State<Home> {
               if (true) {
                 // clear
                 _controller.clear();
+                model.update('');
                 Vibrate.feedback(FeedbackType.success);
               } else {
                 // dont clear
@@ -160,6 +168,14 @@ class Game extends StatelessWidget {
                 height: ansH,
                 child: Answer(),
               ),
+              // if (true)
+              Expanded(
+                child: Icon(
+                  Icons.keyboard_hide,
+                  color: NothingScheme.of(context).textbase.withOpacity(0.2),
+                  size: 180,
+                ),
+              ),
             ],
           );
         },
@@ -181,6 +197,7 @@ class Game extends StatelessWidget {
         ),
         width: 50,
         height: 28,
+        child: Icon(Icons.add_shopping_cart),
       ),
     );
   }
@@ -194,39 +211,45 @@ class Answer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.symmetric(horizontal: 32),
-      decoration: BoxDecoration(
+      child: Material(
+        elevation: 6,
+        shadowColor: Color(0x88fdcf3c),
         color: Color(0xfffdcf3c),
         borderRadius: BorderRadius.circular(28),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 12),
-              child: IconButton(
-                onPressed: () => print("Press"),
-                icon: Icon(
-                  Icons.lightbulb_outline,
-                  color: Colors.black,
-                  size: 32,
+        clipBehavior: Clip.antiAlias,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: IconButton(
+                  onPressed: () => print("Press"),
+                  // tooltip: "hint",
+                  splashColor: Colors.red,
+                  highlightColor: Colors.transparent,
+                  icon: Icon(
+                    Icons.lightbulb_outline,
+                    color: Colors.black,
+                    size: 32,
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: AutoSizeText(
-              TextModel.of(context).text,
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: NothingScheme.of(context).question,
+            Expanded(
+              child: AutoSizeText(
+                TextModel.of(context).text ?? '',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: NothingScheme.of(context).question,
+                ),
+                maxLines: 2,
               ),
-              maxLines: 2,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -251,7 +274,7 @@ class Question extends StatelessWidget {
         style: TextStyle(
           fontSize: 44,
           fontWeight: FontWeight.bold,
-          color: NothingScheme.of(context).question,
+          color: NothingScheme.of(context).previoustext,
         ),
       ),
     );
@@ -268,7 +291,10 @@ class Label extends StatelessWidget {
     return Center(
       child: Text(
         "NOTHING PUZZLE 2",
-        style: TextStyle(fontSize: 20),
+        style: TextStyle(
+          fontSize: 20,
+          color: NothingScheme.of(context).textbase,
+        ),
       ),
     );
   }

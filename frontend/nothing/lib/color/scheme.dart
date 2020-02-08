@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class NothingScheme extends InheritedWidget {
   static Color app = const Color(0xff2e68e9);
   Color get background => app;
-  Color get card => const Color(0xffa89984); //fafafa
+  Color get card => const Color(0xff1d2021); //fafafa
   Color get cardborder => const Color(0x00ffffff);
   Color get shadow => Colors.black.withAlpha(60);
   Color get textbase => const Color(0xffdddddd);
