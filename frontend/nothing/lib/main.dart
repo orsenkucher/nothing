@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
@@ -29,7 +31,7 @@ void main() async {
   //   statusBarColor: Colors.amber,
   //   systemNavigationBarDividerColor: Colors.red,
   // ));
-  SystemChrome.setEnabledSystemUIOverlays([]);
+  if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(const App());
 }
 

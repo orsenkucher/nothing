@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -100,50 +101,55 @@ class Game extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        print(constraints.biggest.height);
-        double labelH = 60;
-        double ansH = 70;
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [_yellowThing(), _yellowThing()],
-            ),
-            SizedBox(
-              height: labelH,
-              child: Label(),
-            ),
-            SizedBox(
-              height: min(
-                280,
-                constraints.biggest.height - (labelH + ansH + 12),
+    var safeWrap = (Widget w) => Platform.isIOS ? w : SafeArea(child: w);
+    return safeWrap(
+      LayoutBuilder(
+        builder: (context, constraints) {
+          print(constraints.biggest.height);
+          double labelH = 50;
+          double ansH = 70;
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [_yellowThing(), _yellowThing()],
               ),
-              child: Center(
-                child: Question(),
+              SizedBox(
+                height: labelH,
+                child: Label(),
               ),
-            ),
-            SizedBox(
-              height: ansH,
-              child: Answer(
-                height: 70,
+              SizedBox(
+                height: min(
+                  280,
+                  constraints.biggest.height -
+                      (labelH + ansH + 21 + 28 + 8 + 12),
+                ),
+                child: Center(
+                  child: Question(),
+                ),
               ),
-            ),
-            // Expanded(
-            //   child: Placeholder(),
-            // )
-          ],
-        );
-      },
+              SizedBox(
+                height: ansH,
+                child: Answer(
+                  height: 70,
+                ),
+              ),
+              // Expanded(
+              //   child: Placeholder(),
+              // )
+            ],
+          );
+        },
+      ),
     );
   }
 
   Widget _yellowThing() {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 21,
+      padding: const EdgeInsets.only(
+        left: 24,
+        right: 24,
+        top: 21,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -217,14 +223,15 @@ class Question extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 20,
+        horizontal: 24,
+        vertical: 8,
       ),
       child: AutoSizeText(
-        "Two people are standing back to back. They each walk away from each other for three feet. Then they both turn left and walk for another four feet, and then stop. Now, how many feet apart are they standing?",
-        maxLines: 7,
+        "Two people are standing back Two people are standing?",
+        maxLines: 6,
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 52,
+          fontSize: 44,
           fontWeight: FontWeight.bold,
           color: NothingScheme.of(context).question,
         ),
@@ -240,13 +247,10 @@ class Label extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Center(
-        child: Text(
-          "NOTHING PUZZLE 2",
-          style: TextStyle(fontSize: 20),
-        ),
+    return Center(
+      child: Text(
+        "NOTHING PUZZLE 2",
+        style: TextStyle(fontSize: 20),
       ),
     );
   }
