@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-import 'package:nothing/ui/cardsmaster.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:vibrate/vibrate.dart';
 
 class Home extends StatefulWidget {
@@ -17,17 +17,19 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  FocusNode focusNode;
+  FocusNode _focusNode;
+  TextEditingController _controller = TextEditingController();
+  TextModel model = TextModel()..update('');
 
   @override
   void initState() {
     super.initState();
-    focusNode = FocusNode();
+    _focusNode = FocusNode();
   }
 
   @override
   void dispose() {
-    focusNode.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -37,8 +39,8 @@ class _HomeState extends State<Home> {
     if (BlocProvider.of<FeedBloc>(context).state.len < 36) {
       BlocProvider.of<QuestionsBloc>(context).add(const FetchQuestions());
     }
-    focusNode.unfocus();
-    focusNode.requestFocus();
+    _focusNode.unfocus();
+    _focusNode.requestFocus();
   }
 
   @override
@@ -47,24 +49,27 @@ class _HomeState extends State<Home> {
       body: Container(
         color: NothingScheme.of(context).card,
         // color: Color(0xff5d26db),
-        child: Stack(
-          children: [
-            _inputPoint(),
-            Game(),
-            GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () {
-                focusNode.unfocus();
-                focusNode.requestFocus();
-              },
-            ),
-          ],
+        child: ScopedModel<TextModel>(
+          model: model,
+          child: Stack(
+            children: [
+              _inputPoint(model),
+              Game(),
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  _focusNode.unfocus();
+                  _focusNode.requestFocus();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _inputPoint() {
+  Widget _inputPoint(TextModel model) {
     return SizedBox(
       height: 1,
       width: 1,
@@ -74,19 +79,31 @@ class _HomeState extends State<Home> {
           height: 200,
           width: 200,
           child: TextField(
-            focusNode: focusNode,
+            focusNode: _focusNode,
+            controller: _controller,
             enableSuggestions: false,
             autocorrect: false,
+            maxLength: 32,
             keyboardAppearance: Brightness.light,
             keyboardType: TextInputType.text,
-            /*      onSubmitted: (s) async =>
-                await SystemChannels.platform.invokeMethod<void>(
-              'HapticFeedback.vibrate',
-              'HapticFeedbackType.success',
-            ), */
-            onSubmitted: (s) async => Vibrate.feedback(FeedbackType.warning),
+            onSubmitted: (s) async {
+              print(s);
+              model.update(s);
+              _focusNode.requestFocus();
+              if (true) {
+                // clear
+                _controller.clear();
+                Vibrate.feedback(FeedbackType.success);
+              } else {
+                // dont clear
+                Vibrate.feedback(FeedbackType.warning);
+              }
+            },
             textInputAction: TextInputAction.go,
-            onChanged: print,
+            onChanged: (s) {
+              model.update(s);
+              print(s);
+            },
           ),
         ),
       ),
@@ -94,10 +111,21 @@ class _HomeState extends State<Home> {
   }
 }
 
+class TextModel extends Model {
+  String _text;
+  String get text => _text;
+
+  void update(String s) {
+    _text = s;
+    notifyListeners();
+  }
+
+  static TextModel of(BuildContext context) =>
+      ScopedModel.of<TextModel>(context, rebuildOnChange: true);
+}
+
 class Game extends StatelessWidget {
-  const Game({
-    Key key,
-  }) : super(key: key);
+  const Game({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -130,13 +158,8 @@ class Game extends StatelessWidget {
               ),
               SizedBox(
                 height: ansH,
-                child: Answer(
-                  height: 70,
-                ),
+                child: Answer(),
               ),
-              // Expanded(
-              //   child: Placeholder(),
-              // )
             ],
           );
         },
@@ -164,12 +187,7 @@ class Game extends StatelessWidget {
 }
 
 class Answer extends StatelessWidget {
-  final double height;
-
-  const Answer({
-    Key key,
-    @required this.height,
-  }) : super(key: key);
+  const Answer({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -180,8 +198,8 @@ class Answer extends StatelessWidget {
         color: Color(0xfffdcf3c),
         borderRadius: BorderRadius.circular(28),
       ),
-      // height: height,
-      child: Stack(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
         children: [
           Align(
             alignment: Alignment.centerLeft,
@@ -197,15 +215,15 @@ class Answer extends StatelessWidget {
               ),
             ),
           ),
-          Center(
+          Expanded(
             child: AutoSizeText(
-              "123123",
+              TextModel.of(context).text,
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
                 color: NothingScheme.of(context).question,
               ),
-              maxLines: 1,
+              maxLines: 2,
             ),
           ),
         ],
