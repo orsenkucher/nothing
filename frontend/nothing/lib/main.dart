@@ -11,6 +11,7 @@ import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/data/questions_repo.dart';
 import 'package:nothing/tools/orientation.dart';
+import 'package:nothing/ui/go.dart';
 import 'package:nothing/ui/home.dart';
 
 // TODO
@@ -27,6 +28,7 @@ import 'package:nothing/ui/home.dart';
 // [+] fast-swipe protection (300ms)
 void main() async {
   await _hydrateAsync();
+  go();
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
   //   statusBarColor: Colors.amber,
   //   systemNavigationBarDividerColor: Colors.red,

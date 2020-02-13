@@ -1,31 +1,27 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
 class Question extends Equatable {
   final int id;
   final String question;
-  final String left;
-  final String right;
-  final int leftn;
-  final int rightn;
+  final String explanation;
+  final List<String> answers;
 
   const Question({
     @required this.id,
     @required this.question,
-    @required this.left,
-    @required this.right,
-    this.leftn = 0,
-    this.rightn = 0,
+    @required this.explanation,
+    @required this.answers,
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       id: json['id'],
       question: json['question'],
-      left: json['left'],
-      right: json['right'],
-      leftn: json['leftn'],
-      rightn: json['rightn'],
+      explanation: json['explanation'],
+      answers: json['answers'],
+      //(json['answers'] as List<dynamic>).map((i) => i).toList(),
     );
   }
 
@@ -33,10 +29,8 @@ class Question extends Equatable {
     return {
       'id': id,
       'question': question,
-      'left': left,
-      'right': right,
-      'leftn': leftn,
-      'rightn': rightn,
+      'explanation': explanation,
+      'answers': answers,
     };
   }
 
@@ -44,9 +38,7 @@ class Question extends Equatable {
   List<Object> get props => [
         id,
         question,
-        left,
-        right,
-        leftn,
-        rightn,
+        explanation,
+        answers,
       ];
 }

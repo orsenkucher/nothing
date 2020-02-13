@@ -5,6 +5,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/color/scheme.dart';
@@ -20,17 +21,29 @@ class _HomeState extends State<Home> {
   FocusNode _focusNode;
   TextEditingController _controller = TextEditingController();
   TextModel model = TextModel();
+  KeyboardVisibilityNotification _keyboardVisibility =
+      new KeyboardVisibilityNotification();
+  int _keyboardVisibilitySubscriberId;
 
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
+    _focusNode.unfocus();
+    _focusNode.requestFocus();
+    _keyboardVisibilitySubscriberId = _keyboardVisibility.addNewListener(
+      onHide: () {
+        _focusNode.unfocus();
+        _focusNode.requestFocus();
+      },
+    );
   }
 
   @override
   void dispose() {
     _focusNode.dispose();
     _controller.dispose();
+    _keyboardVisibility.removeListener(_keyboardVisibilitySubscriberId);
     super.dispose();
   }
 
@@ -167,14 +180,6 @@ class Game extends StatelessWidget {
               SizedBox(
                 height: ansH,
                 child: Answer(),
-              ),
-              // if (true)
-              Expanded(
-                child: Icon(
-                  Icons.keyboard_hide,
-                  color: NothingScheme.of(context).textbase.withOpacity(0.2),
-                  size: 180,
-                ),
               ),
             ],
           );
