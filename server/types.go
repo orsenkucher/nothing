@@ -45,5 +45,5 @@ func (q *Question) Print() {
 }
 
 func (u *User) Print() {
-	fmt.Println(u.ID)
+	fmt.Println("uid: ", u.ID, "mmr:", u.MMR)
 }

@@ -1,4 +1,6 @@
-﻿Would you like to lose 20kg?|Yes|No
+﻿question|exp|ans1, ans2ans
+
+Would you like to lose 20kg?|Yes|No
 Do you like lonely evenings?|Yes|No
 Do you like dark chocolate?|Yes|No
 Do you like fashionable clothes?|Yes|No
