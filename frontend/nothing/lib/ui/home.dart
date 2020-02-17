@@ -5,12 +5,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
+// import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:vibrate/vibrate.dart';
+// import 'package:vibrate/vibrate.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,29 +21,29 @@ class _HomeState extends State<Home> {
   FocusNode _focusNode;
   TextEditingController _controller = TextEditingController();
   TextModel model = TextModel();
-  KeyboardVisibilityNotification _keyboardVisibility =
-      new KeyboardVisibilityNotification();
-  int _keyboardVisibilitySubscriberId;
+  // KeyboardVisibilityNotification _keyboardVisibility =
+  //     new KeyboardVisibilityNotification();
+  // int _keyboardVisibilitySubscriberId;
 
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
-    _focusNode.unfocus();
-    _focusNode.requestFocus();
-    _keyboardVisibilitySubscriberId = _keyboardVisibility.addNewListener(
-      onHide: () {
-        _focusNode.unfocus();
-        _focusNode.requestFocus();
-      },
-    );
+    // _focusNode.unfocus();
+    // _focusNode.requestFocus();
+    // _keyboardVisibilitySubscriberId = _keyboardVisibility.addNewListener(
+    //   onHide: () {
+    //     _focusNode.unfocus();
+    //     _focusNode.requestFocus();
+    //   },
+    // );
   }
 
   @override
   void dispose() {
     _focusNode.dispose();
     _controller.dispose();
-    _keyboardVisibility.removeListener(_keyboardVisibilitySubscriberId);
+    // _keyboardVisibility.removeListener(_keyboardVisibilitySubscriberId);
     super.dispose();
   }
 
@@ -53,6 +53,9 @@ class _HomeState extends State<Home> {
     if (BlocProvider.of<FeedBloc>(context).state.len < 36) {
       BlocProvider.of<QuestionsBloc>(context).add(const FetchQuestions());
     }
+    print("hello");
+    print(_focusNode.hasPrimaryFocus);
+    print(_focusNode.hasFocus);
     _focusNode.unfocus();
     _focusNode.requestFocus();
   }
@@ -67,9 +70,10 @@ class _HomeState extends State<Home> {
           model: model,
           child: Stack(
             children: [
-              _inputPoint(model),
+              // _inputPoint(model),
               Game(),
               _gestureDetector(),
+              _inputPoint2(model),
             ],
           ),
         ),
@@ -114,10 +118,10 @@ class _HomeState extends State<Home> {
                 // clear
                 _controller.clear();
                 model.update('');
-                Vibrate.feedback(FeedbackType.success);
+                // Vibrate.feedback(FeedbackType.success);
               } else {
                 // dont clear
-                Vibrate.feedback(FeedbackType.warning);
+                // Vibrate.feedback(FeedbackType.warning);
               }
             },
             textInputAction: TextInputAction.go,
@@ -127,6 +131,45 @@ class _HomeState extends State<Home> {
             },
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _inputPoint2(TextModel model) {
+    return Visibility(
+      visible: false,
+      // maintainInteractivity: true,
+      // maintainAnimation: true,
+      // maintainSize: true,
+      maintainState: true,
+      child: TextField(
+        autofocus: true,
+        focusNode: _focusNode,
+        controller: _controller,
+        enableSuggestions: false,
+        autocorrect: false,
+        maxLength: 32,
+        keyboardAppearance: Brightness.light,
+        keyboardType: TextInputType.text,
+        onSubmitted: (s) async {
+          print(s);
+          model.update(s);
+          _focusNode.requestFocus();
+          if (true) {
+            // clear
+            _controller.clear();
+            model.update('');
+            // Vibrate.feedback(FeedbackType.success);
+          } else {
+            // dont clear
+            // Vibrate.feedback(FeedbackType.warning);
+          }
+        },
+        textInputAction: TextInputAction.go,
+        onChanged: (s) {
+          model.update(s);
+          print(s);
+        },
       ),
     );
   }

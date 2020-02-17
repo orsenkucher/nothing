@@ -15,10 +15,11 @@ dependencies:
   rxdart: ^0.23.1
   hydrated_bloc: ^3.0.0
   auto_size_text: ^2.1.0
-  vibrate: ^0.0.4
+  # vibrate: ^0.0.4
   scoped_model: ^1.0.1
-  keyboard_visibility: ^0.5.6
+  # keyboard_visibility: ^0.5.6
   json_annotation: ^3.0.1
+  # vibration: ^1.2.4
 
   flutter:
     sdk: flutter
