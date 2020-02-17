@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
@@ -41,11 +42,10 @@ func main() {
 	s := server.StartUp(db)
 	//test(s)
 	s.ShowStatus()
-	fmt.Print(s.UsersAns("u"))
-
-	for _, q := range s.GiveQuestions("u", -1) {
-		q.Print()
-	}
+	qtree := s.GiveQuestions("u", -1)
+	qtree.Question.Print()
+	bytes, _ := json.MarshalIndent(qtree, "", "    ")
+	fmt.Println(string(bytes))
 
 	//s.ReceiveAns([]server.AnswerStats{server.AnswerStats{QID: 10, Seconds: 300, Tries: 1}}, "u")
 	// s.ShowStatus()

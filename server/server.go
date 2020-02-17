@@ -114,8 +114,7 @@ func getNextQuestions(sortedq []Question, user *User, current int) (int, int, in
 }
 
 /*
-Give tree of question in one list
-inexes of question represtented below
+Give tree of question
 	    0
 	   / \
 	 1     2
@@ -124,7 +123,7 @@ inexes of question represtented below
 move left for bad ans and move right for good answer
 answer is bad if it took over 100 seconds
 */
-func (s *Server) GiveQuestions(userid string, current int) []Question {
+func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	ans := s.UsersAns(userid)
 	toSend := make([]Question, 0, 7)
 	toSendInd := make([]int, 0, 7)
@@ -161,9 +160,15 @@ func (s *Server) GiveQuestions(userid string, current int) []Question {
 	}
 	user.MMR = ToSendMMR[0]
 
-	//result := QBTreeNode{Question: toSend[0]}
+	result := QBTreeNode{Question: toSend[0]}
+	result.Left = &QBTreeNode{Question: toSend[1]}
+	result.Right = &QBTreeNode{Question: toSend[2]}
+	result.Left.Left = &QBTreeNode{Question: toSend[3]}
+	result.Left.Right = &QBTreeNode{Question: toSend[4]}
+	result.Right.Left = &QBTreeNode{Question: toSend[5]}
+	result.Right.Right = &QBTreeNode{Question: toSend[6]}
 
-	return toSend
+	return &result
 }
 
 func sort(que []Question, a int, b int) {
