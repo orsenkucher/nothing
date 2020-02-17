@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
@@ -25,10 +26,6 @@ func init() {
 }
 
 func main() {
-
-	fmt.Print("qqq")
-	fmt.Scanln()
-
 	if flag.Parse(); pass == "" {
 		if pass = os.Getenv("encio"); pass == "" {
 			log.Fatalln("No password provided")
@@ -43,12 +40,17 @@ func main() {
 	defer db.Close()
 
 	s := server.StartUp(db)
-	test(s)
+	//test(s)
 	s.ShowStatus()
-	for _, ans := range s.UsersAns("u1") {
-		ans.Print()
-	}
-	s.ClearBase()
+	qtree := s.GiveQuestions("u", -1)
+	qtree.Question.Print()
+	bytes, _ := json.MarshalIndent(qtree, "", "    ")
+	fmt.Println(string(bytes))
+
+	//s.ReceiveAns([]server.AnswerStats{server.AnswerStats{QID: 10, Seconds: 300, Tries: 1}}, "u")
+	// s.ShowStatus()
+
+	//s.ClearBase()
 
 	// done := make(chan os.Signal, 1)
 	// signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
@@ -76,6 +78,10 @@ func main() {
 func test(s *server.Server) {
 	a := server.AnswerStats{QID: 1}
 	s.ReceiveAns([]server.AnswerStats{a}, "u1")
+
+	for _, ans := range s.UsersAns("u1") {
+		ans.Print()
+	}
 }
 
 //NewDB is public

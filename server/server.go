@@ -26,14 +26,17 @@ func StartUp(db *gorm.DB) *Server {
 	var usersList []User
 	server.DB.Find(&usersList)
 
-	for _, user := range usersList {
-		server.Users[user.ID] = &user
+	for i := range usersList {
+		server.Users[usersList[i].ID] = &usersList[i]
 	}
+	fmt.Println(server.Users)
 	server.UpdateData()
 
 	sort(server.Questions, 0, len(server.Questions))
-	server.Qiters = make([]*Question, len(server.Questions))
+	server.Qiters = make([]*Question, len(server.Questions)+1)
+	//fmt.Println(len(server.Qiters), " ", len(server.Qiters) + 1)
 	for i := range server.Questions {
+		//fmt.Println(i)
 		server.Qiters[server.Questions[i].ID] = &server.Questions[i]
 	}
 
@@ -64,6 +67,7 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 		question := s.Qiters[answer.QID]
 		ansinf := AnswerInf{AnswerStats: answer, UserID: userid}
 		s.DB.Create(&ansinf)
+		//s.DB.Model(&ansinf).Update(&ansinf)
 		ChangeRate(question, user, &ansinf)
 		s.DB.Model(user).Update(user)
 		s.DB.Model(question).Update(question)
@@ -71,6 +75,7 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 }
 
 func getClosest(sortedq []Question, mmr int) int {
+	fmt.Println("getClosest mmr:", mmr)
 	i := 0
 	j := 0
 	for k := range sortedq {
@@ -80,10 +85,10 @@ func getClosest(sortedq []Question, mmr int) int {
 	}
 	j = i + 1
 
-	for i != -1 && sortedq[i].MMR == -1 {
+	for i != -1 && sortedq[i].ID == -1 {
 		i--
 	}
-	for j != len(sortedq) && sortedq[i].MMR == -1 {
+	for j != len(sortedq) && sortedq[j].ID == -1 {
 		j++
 	}
 
@@ -99,15 +104,17 @@ func getClosest(sortedq []Question, mmr int) int {
 	return j
 }
 
-func getNextQuestions(sortedq []Question, user *User, current int) (int, int) {
-	ud1, _ := CountRateChange(&sortedq[current], user, &AnswerInf{AnswerStats: AnswerStats{Seconds: 50}})
-	ud2, _ := CountRateChange(&sortedq[current], user, &AnswerInf{AnswerStats: AnswerStats{Seconds: 150}})
-	return getClosest(sortedq, user.MMR+int(ud1)), getClosest(sortedq, user.MMR+int(ud2))
+func getNextQuestions(sortedq []Question, user *User, current int) (int, int, int, int) {
+	fmt.Println("current: ", current)
+	ud1, _ := CountRateChange(&sortedq[current], user, &AnswerInf{AnswerStats: AnswerStats{Seconds: 150}})
+	ud2, _ := CountRateChange(&sortedq[current], user, &AnswerInf{AnswerStats: AnswerStats{Seconds: 50}})
+	//println(int(ud1))
+	//println(int(ud2))
+	return getClosest(sortedq, user.MMR+int(ud1)), getClosest(sortedq, user.MMR+int(ud2)), int(ud1), int(ud2)
 }
 
 /*
-Give tree of question in one list
-inexes of question represtented below
+Give tree of question
 	    0
 	   / \
 	 1     2
@@ -116,9 +123,11 @@ inexes of question represtented below
 move left for bad ans and move right for good answer
 answer is bad if it took over 100 seconds
 */
-func (s *Server) GiveQuestions(userid string, current int) []Question {
+func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	ans := s.UsersAns(userid)
 	toSend := make([]Question, 0, 7)
+	toSendInd := make([]int, 0, 7)
+	ToSendMMR := make([]int, 0, 7)
 	possibleQue := make([]Question, 0, len(s.Questions)-len(ans))
 	for _, q := range s.Questions {
 		for _, a := range ans {
@@ -134,16 +143,32 @@ func (s *Server) GiveQuestions(userid string, current int) []Question {
 		current = getClosest(possibleQue, user.MMR)
 	}
 	toSend = append(toSend, possibleQue[current])
+	toSendInd = append(toSendInd, current)
+	ToSendMMR = append(ToSendMMR, user.MMR)
 	possibleQue[current].ID = -1
 
 	for i := 0; i < 3; i++ {
-		i1, i2 := getNextQuestions(possibleQue, user, toSend[i].ID)
+		user.MMR = ToSendMMR[i]
+		i1, i2, ud1, ud2 := getNextQuestions(possibleQue, user, toSendInd[i])
+		//println(i1)
+		//println(i2)
 		toSend = append(toSend, possibleQue[i1], possibleQue[i2])
+		toSendInd = append(toSendInd, i1, i2)
+		ToSendMMR = append(ToSendMMR, user.MMR+ud1, user.MMR+ud2)
 		possibleQue[i1].ID = -1
 		possibleQue[i2].ID = -1
 	}
+	user.MMR = ToSendMMR[0]
 
-	return toSend
+	result := QBTreeNode{Question: toSend[0]}
+	result.Left = &QBTreeNode{Question: toSend[1]}
+	result.Right = &QBTreeNode{Question: toSend[2]}
+	result.Left.Left = &QBTreeNode{Question: toSend[3]}
+	result.Left.Right = &QBTreeNode{Question: toSend[4]}
+	result.Right.Left = &QBTreeNode{Question: toSend[5]}
+	result.Right.Right = &QBTreeNode{Question: toSend[6]}
+
+	return &result
 }
 
 func sort(que []Question, a int, b int) {
@@ -202,7 +227,7 @@ func (s *Server) UpdateData() {
 			continue
 		}
 		var question Question
-		question.MMR = rand.Intn(100)
+		question.MMR = rand.Intn(10000)
 		question.Question = parts[0]
 		question.Explanation = parts[1]
 		question.Answers = parts[2]

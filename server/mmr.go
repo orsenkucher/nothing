@@ -1,14 +1,17 @@
 package server
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 var max int = 10000
 var min int = 0
-var maxUserDif float64 = 500
+var maxUserDif float64 = 1500
 var maxQuestionDif float64 = 50
 var secNorm float64 = 100
 var smoothness float64 = 4
-var winRate float64 = 0.7
+var winRate float64 = 0.6
 
 func ChangeRate(q *Question, u *User, a *AnswerInf) {
 	ud, qd := CountRateChange(q, u, a)
@@ -31,6 +34,9 @@ func ChangeRate(q *Question, u *User, a *AnswerInf) {
 func CountRateChange(q *Question, u *User, a *AnswerInf) (ud float64, qd float64) {
 	result := countResult(a)
 	diffCoeff := countRateDiffCoeff(q.MMR, u.MMR)
+	fmt.Println("diffCoeff:", diffCoeff)
+	// fmt.Println(u)
+	// fmt.Println(q)
 
 	if (result > 0) == (u.MMR > q.MMR) {
 		result *= diffCoeff
@@ -50,15 +56,17 @@ func CountRateChange(q *Question, u *User, a *AnswerInf) (ud float64, qd float64
 	return
 }
 
+//checked
 func countResult(answer *AnswerInf) float64 {
 	if answer.Tries < 0 {
 		return -1
 	}
-	return -sigmoidRemake(smoothness*float64(answer.Seconds)/secNorm + smoothness)
+	return -sigmoidRemake(smoothness*float64(answer.Seconds)/secNorm - smoothness)
 }
 
 func countRateDiffCoeff(qmmr int, ummr int) float64 {
-	return math.Pow(math.E, -(float64(qmmr-ummr)/maxUserDif)*(float64(qmmr-ummr)/maxUserDif))
+	dif := float64(qmmr - ummr)
+	return 1 / math.Pow(math.E, dif*dif/maxUserDif/maxUserDif)
 }
 
 func sigmoidRemake(x float64) float64 {
