@@ -1,35 +1,13 @@
-import 'package:equatable/equatable.dart';
-import 'package:nothing/data/model/question.dart';
+import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:nothing/domain/domain.dart';
 
-class Feed extends Equatable {
-  final List<Question> batch;
-  final int current;
+part 'state.freezed.dart';
+part 'state.g.dart';
 
-  const Feed(this.batch, this.current);
-  factory Feed.fromJson(Map<String, dynamic> json) {
-    var feed = Feed(
-      (json['batch'] as List<dynamic>)
-          .map((i) => Question.fromJson(i))
-          .toList(),
-      json['current'],
-    );
-    return feed;
-  }
-
-  Map<String, dynamic> toJson() {
-    final json = {
-      'batch': batch.map((i) => i.toJson()).toList(),
-      'current': current,
-    };
-    return json;
-  }
-
-  int get len => batch.length;
-
-  @override
-  List<Object> get props => [batch, current];
-}
-
-class EmptyFeed extends Feed {
-  EmptyFeed() : super(List<Question>(), 0);
+@immutable
+abstract class Feed with _$Feed {
+  const factory Feed({QTree tree, int current}) = _Feed;
+  factory Feed.empty() => _Feed(current: 0, tree: QTree());
+  factory Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
 }

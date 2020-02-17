@@ -1,32 +1,18 @@
-import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter/foundation.dart';
 
-class Summary extends Equatable {
-  final Map<int, bool> summary;
-  final id;
+part 'state.freezed.dart';
+part 'state.g.dart';
 
-  const Summary(this.summary, this.id);
-  factory Summary.fromJson(Map<String, dynamic> json) {
-    var summary = Summary(
-      json['summary']
-          .map((k, v) => MapEntry(int.parse(k), v))
-          .cast<int, bool>(),
-      json['id'],
-    );
-    return summary;
-  }
+@immutable
+abstract class Summary with _$Summary {
+  const factory Summary({
+    @required int id,
+    @required Map<int, bool> summary,
+  }) = _Summary;
 
-  Map<String, dynamic> toJson() {
-    final json = {
-      'summary': summary.map((k, v) => MapEntry(k.toString(), v)),
-      'id': id,
-    };
-    return json;
-  }
+  factory Summary.empty() => _Summary(summary: Map<int, bool>(), id: 0);
 
-  @override
-  List<Object> get props => [summary, id];
-}
-
-class EmptySummary extends Summary {
-  EmptySummary() : super(Map<int, bool>(), 0);
+  factory Summary.fromJson(Map<String, dynamic> json) =>
+      _$SummaryFromJson(json);
 }

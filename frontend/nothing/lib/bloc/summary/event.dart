@@ -1,30 +1,12 @@
-import 'package:meta/meta.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
-abstract class SummaryEvent extends Equatable {
-  const SummaryEvent();
-}
+part 'event.freezed.dart';
 
-class NewAnswer extends SummaryEvent {
-  final int id;
-  final bool answer;
-
-  const NewAnswer({
-    @required this.id,
-    @required this.answer,
-  });
-
-  @override
-  List<Object> get props => [id, answer];
-
-  @override
-  String toString() => 'Answer: $id -> $answer :: ${super.toString()}';
-}
-
-class ResetSummary extends SummaryEvent {
-  @override
-  List<Object> get props => [];
-
-  @override
-  String toString() => 'Reset :: ${super.toString()}';
+@immutable
+abstract class SummaryEvent with _$SummaryEvent {
+  const factory SummaryEvent.reset() = Reset;
+  const factory SummaryEvent.answer({
+    @required int id,
+    @required bool answer,
+  }) = NewAnswer;
 }

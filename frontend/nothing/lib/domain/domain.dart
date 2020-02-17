@@ -6,24 +6,28 @@ part 'domain.g.dart';
 
 @immutable
 abstract class Question with _$Question {
-  const factory Question(
-    List<String> qs,
-    @JsonKey(toJson: _to) List<Question> tree,
-  ) = _Question;
+  const factory Question({
+    int id,
+    String question,
+    String explanation,
+    String answers,
+    int mmr,
+  }) = _Question;
+
   factory Question.fromJson(Map<String, dynamic> json) =>
       _$QuestionFromJson(json);
 }
 
-List<dynamic> _to(List<Question> q) => q.map((f) => f.toJson()).toList();
+// @JsonKey(toJson: _to) List<Question> tree,
+// List<dynamic> _to(List<Question> q) => q.map((f) => f.toJson()).toList();
 
-// List<Question> _from(Map<String, dynamic> json) => json == null
-//     ? null
-//     : (json['tree'] as List)
-//         ?.map((e) =>
-//             e == null ? null : Question.fromJson(e as Map<String, dynamic>))
-//         ?.toList();
+@immutable
+abstract class QTree with _$QTree {
+  const factory QTree({
+    Question question,
+    QTree left,
+    QTree right,
+  }) = _QTree;
 
-// (json['tree'] as List)
-//   ?.map((e) =>
-//       e == null ? null : Question.fromJson(e as Map<String, dynamic>))
-//   ?.toList(),
+  factory QTree.fromJson(Map<String, dynamic> json) => _$QTreeFromJson(json);
+}

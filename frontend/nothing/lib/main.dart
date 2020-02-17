@@ -9,30 +9,12 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-import 'package:nothing/data/questions_repo.dart';
+import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/orientation.dart';
-import 'package:nothing/ui/go.dart';
 import 'package:nothing/ui/home.dart';
 
-// TODO
-// [ ] remove all todos
-// [ ] check all comments
-// [+] make consts whenever possible
-// [+] make animations sharper
-// [+] better animations
-// [+] fix all index out of range
-// [+] fix orientation on startup
-// [+] finish card material and card content
-// [+] make slider
-// [+] do i need `tools` folder
-// [+] fast-swipe protection (300ms)
 void main() async {
   await _hydrateAsync();
-  go();
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //   statusBarColor: Colors.amber,
-  //   systemNavigationBarDividerColor: Colors.red,
-  // ));
   if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(const App());
 }

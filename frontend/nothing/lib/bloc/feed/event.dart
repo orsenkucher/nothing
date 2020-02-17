@@ -1,22 +1,10 @@
-import 'package:equatable/equatable.dart';
-import 'package:nothing/data/model/question.dart';
+import 'package:flutter/foundation.dart';
+import 'package:nothing/domain/domain.dart';
 
-abstract class FeedEvent extends Equatable {
-  const FeedEvent();
-}
+part 'event.freezed.dart';
 
-class MoveNext extends FeedEvent {
-  const MoveNext();
-
-  @override
-  List<Object> get props => [];
-}
-
-class NewArrived extends FeedEvent {
-  final List<Question> batch;
-
-  const NewArrived(this.batch);
-
-  @override
-  List<Object> get props => [batch];
+@immutable
+abstract class FeedEvent with _$FeedEvent {
+  const factory FeedEvent.newArrived(QTree tree) = NewArrived;
+  factory FeedEvent.moveNext() = MoveNext;
 }
