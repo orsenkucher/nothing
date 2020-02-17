@@ -1,41 +1,49 @@
 package server
 
-import "fmt"
+import (
+	"fmt"
 
-//Question is public
-//leftn/rightn - Number of users answered left/right
-type Question struct {
-	ID       int    `json:"id"`
-	Question string `json:"question"`
-	Left     string `json:"left"`
-	Right    string `json:"right"`
-	Leftn    int    `json:"leftn"`
-	Rightn   int    `json:"rightn"`
-	Valid    bool   `json:"valid"`
-	Changed  bool   `json:"changed"`
+	"github.com/jinzhu/gorm"
+)
+
+type ID struct {
+	ID int
 }
 
-//User is public
+type Question struct {
+	ID          int    `json:"id" gorm:"primary_key"`
+	Question    string `json:"question"`
+	Explanation string `json:"explanation"`
+	Answers     string `json:"answers"`
+	MMR         int    `json:"mmr"`
+}
+
 type User struct {
-	ID   string
-	Done []byte `json:"done"`
+	ID   string `gorm:"primary_key"`
+	MMR  int
+	Done []AnswerInf `gorm:"foreignkey:UserID;association_foreignkey:ID"`
+}
+
+type AnswerStats struct {
+	gorm.Model
+	QID     int
+	Tries   int
+	Seconds int
+}
+
+type AnswerInf struct {
+	AnswerStats
+	UserID string
+}
+
+func (a *AnswerInf) Print() {
+	fmt.Print("uid: ", a.UserID, " qid: ", a.QID, " sec: ", a.Seconds)
 }
 
 func (q *Question) Print() {
-	fmt.Print(q.Question)
-	fmt.Println(" id: ", q.ID, "\nleft: ", q.Leftn, " right: ", q.Rightn)
+	fmt.Println(q.ID, " dif: ", q.MMR, " ", q.Question)
 }
 
 func (u *User) Print() {
-	fmt.Print("id: ", u.ID, " ")
-	for _, b := range u.Done {
-		for i := 0; i < 8; i++ {
-			if b&(1<<i) != 0 {
-				fmt.Print(1)
-			} else {
-				fmt.Print(0)
-			}
-		}
-	}
-	fmt.Println()
+	fmt.Println(u.ID)
 }
