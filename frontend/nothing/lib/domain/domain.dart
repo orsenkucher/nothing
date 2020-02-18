@@ -16,7 +16,7 @@ abstract class Question with _$Question {
 
   factory Question.fromJson(Map<String, dynamic> json) =>
       _$QuestionFromJson(json);
-}
+} // our brand new separator: <$>
 
 // @JsonKey(toJson: _to) List<Question> tree,
 // List<dynamic> _to(List<Question> q) => q.map((f) => f.toJson()).toList();
