@@ -51,7 +51,7 @@ func main() {
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 	http.HandleFunc("/", s.GetQues)
 	hsrv := &http.Server{
-		Addr:    ":9090",
+		Addr:    ":9091",
 		Handler: nil, // use default mux
 	}
 	go func() {
