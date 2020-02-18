@@ -92,6 +92,9 @@ func getClosest(sortedq []Question, mmr int) int {
 		j++
 	}
 
+	if j == len(sortedq) && i == -1 {
+		return 0
+	}
 	if j == len(sortedq) {
 		return i
 	}
@@ -219,9 +222,6 @@ func (s *Server) UpdateData() {
 	data, _ := ioutil.ReadFile("./data/questions.txt")
 	lines := strings.Split(string(data), "\n")
 	for _, line := range lines {
-		if len(s.Questions) > 10 {
-			break
-		}
 		parts := strings.Split(line, "|")
 		if len(parts) < 3 {
 			continue

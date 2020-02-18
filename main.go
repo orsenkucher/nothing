@@ -2,11 +2,14 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/postgres"
 	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/proxy"
@@ -40,48 +43,31 @@ func main() {
 	defer db.Close()
 
 	s := server.StartUp(db)
-	//test(s)
 	s.ShowStatus()
-	qtree := s.GiveQuestions("u", -1)
-	qtree.Question.Print()
-	bytes, _ := json.MarshalIndent(qtree, "", "    ")
-	fmt.Println(string(bytes))
-
-	//s.ReceiveAns([]server.AnswerStats{server.AnswerStats{QID: 10, Seconds: 300, Tries: 1}}, "u")
-	// s.ShowStatus()
 
 	//s.ClearBase()
 
-	// done := make(chan os.Signal, 1)
-	// signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
-	// http.HandleFunc("/", server.GetQues)
-	// hsrv := &http.Server{
-	// 	Addr:    ":9090",
-	// 	Handler: nil, // use default mux
-	// }
-	// go func() {
-	// 	if err := hsrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-	// 		log.Fatalf("listen: %s\n", err)
-	// 	}
-	// }()
-	// log.Print("Server Started")
-	// <-done
-	// log.Print("Server Stopped")
-	// ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	// defer cancel()
-	// if err := hsrv.Shutdown(ctx); err != nil {
-	// 	log.Fatalf("Server Shutdown Failed:%+v", err)
-	// }
-	// log.Print("Server Exited Properly")
-}
-
-func test(s *server.Server) {
-	a := server.AnswerStats{QID: 1}
-	s.ReceiveAns([]server.AnswerStats{a}, "u1")
-
-	for _, ans := range s.UsersAns("u1") {
-		ans.Print()
+	done := make(chan os.Signal, 1)
+	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+	http.HandleFunc("/", s.GetQues)
+	hsrv := &http.Server{
+		Addr:    ":9090",
+		Handler: nil, // use default mux
 	}
+	go func() {
+		if err := hsrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("listen: %s\n", err)
+		}
+	}()
+	log.Print("Server Started")
+	<-done
+	log.Print("Server Stopped")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if err := hsrv.Shutdown(ctx); err != nil {
+		log.Fatalf("Server Shutdown Failed:%+v", err)
+	}
+	log.Print("Server Exited Properly")
 }
 
 //NewDB is public

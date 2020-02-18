@@ -18,6 +18,18 @@ type Question struct {
 	MMR         int    `json:"mmr"`
 }
 
+type QBTreeNode struct {
+	Question Question    `json:"question"`
+	Left     *QBTreeNode `json:"left"`
+	Right    *QBTreeNode `json:"right"`
+}
+
+type QRequest struct {
+	CurrentID int           `json:"currentid"`
+	UserID    string        `json:"userid"`
+	Answers   []AnswerStats `json:"answers"`
+}
+
 type User struct {
 	ID   string `gorm:"primary_key"`
 	MMR  int
@@ -26,14 +38,24 @@ type User struct {
 
 type AnswerStats struct {
 	gorm.Model
-	QID     int
-	Tries   int
-	Seconds int
+	QID     int `json:"qid"`
+	Tries   int `json:"tries"`
+	Seconds int `json:"seconds"`
 }
 
 type AnswerInf struct {
 	AnswerStats
 	UserID string
+}
+
+func (qt *QBTreeNode) Print() {
+	qt.Question.Print()
+	if qt.Left != nil {
+		qt.Left.Print()
+	}
+	if qt.Right != nil {
+		qt.Left.Print()
+	}
 }
 
 func (a *AnswerInf) Print() {

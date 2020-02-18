@@ -66,6 +66,8 @@ func countResult(answer *AnswerInf) float64 {
 
 func countRateDiffCoeff(qmmr int, ummr int) float64 {
 	dif := float64(qmmr - ummr)
+	fmt.Println("dif: ", dif)
+	fmt.Println(1 / math.Pow(math.E, dif*dif/maxUserDif/maxUserDif))
 	return 1 / math.Pow(math.E, dif*dif/maxUserDif/maxUserDif)
 }
 
