@@ -22,8 +22,8 @@ class FeedBloc extends HydratedBloc<FeedEvent, Feed> {
 
   void _makeQuestionsSub() {
     _questionsSub = questionsBloc.listen((state) {
-      if (state is LoadedQuestions) {
-        add(NewArrived(state.questions));
+      if (state is Loaded) {
+        add(FeedEvent.newArrived(state.questions));
       }
     });
   }
@@ -35,37 +35,38 @@ class FeedBloc extends HydratedBloc<FeedEvent, Feed> {
   }
 
   @override
-  Feed get initialState => super.initialState ?? EmptyFeed();
+  Feed get initialState => super.initialState ?? Feed.empty();
 
   @override
   Stream<Feed> mapEventToState(FeedEvent event) async* {
-    if (event is NewArrived) {
-      yield* _mapNewArrived(event);
-    } else if (event is MoveNext) {
-      yield* _mapMoveNext();
-    }
+    yield* event.map(newArrived: _mapNewArrived, moveNext: _mapMoveNext);
+    // if (event is NewArrived) {
+    //   yield* _mapNewArrived(event);
+    // } else if (event is MoveNext) {
+    //   yield* _mapMoveNext();
+    // }
   }
 
   Stream<Feed> _mapNewArrived(NewArrived event) async* {
-    final feed = state.batch.toList()..addAll(event.batch);
-    var cur = state.current;
-    if (cur > threshold) {
-      feed.removeRange(0, cur - threshold);
-      cur = threshold;
-    }
-    yield Feed(feed, cur);
+    // final feed = state.batch.toList()..addAll(event.batch);
+    // var cur = state.current;
+    // if (cur > threshold) {
+    //   feed.removeRange(0, cur - threshold);
+    //   cur = threshold;
+    // }
+    // yield Feed(feed, cur);
   }
 
-  Stream<Feed> _mapMoveNext() async* {
-    final next = state.current + 1;
-    final feed = state.batch.toList();
-    if (next <= feed.length) {
-      yield Feed(feed, next);
-    }
-    print('Cached: ${state.batch.length}');
-    if (next + threshold > state.batch.length) {
-      questionsBloc.add(const FetchQuestions());
-    }
+  Stream<Feed> _mapMoveNext(MoveNext _) async* {
+    // final next = state.current + 1;
+    // final feed = state.batch.toList();
+    // if (next <= feed.length) {
+    //   yield Feed(feed, next);
+    // }
+    // print('Cached: ${state.batch.length}');
+    // if (next + threshold > state.batch.length) {
+    //   questionsBloc.add(const FetchQuestions());
+    // }
   }
 
   @override

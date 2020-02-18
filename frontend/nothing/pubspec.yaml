@@ -9,15 +9,11 @@ environment:
 dependencies:
   uuid: ^2.0.4
   http: ^0.12.0+3
-  equatable: ^1.0.1 # rm
-  shared_preferences: ^0.5.6 # rm
   flutter_bloc: ^3.0.0
   rxdart: ^0.23.1
   hydrated_bloc: ^3.0.0
   auto_size_text: ^2.1.0
-  vibrate: ^0.0.4
   scoped_model: ^1.0.1
-  keyboard_visibility: ^0.5.6
   json_annotation: ^3.0.1
 
   flutter:
@@ -25,6 +21,7 @@ dependencies:
 
   cupertino_icons: ^0.1.2
 
+# flutter pub run build_runner watch --delete-conflicting-outputs
 dev_dependencies:
   build_runner:
   flutter_launcher_icons: ^0.7.4
@@ -40,34 +37,10 @@ flutter_icons:
   image_path: "assets/icon.png"
   adaptive_icon_background: "#2e68e9"
   adaptive_icon_foreground: "assets/icon.png"
-  # ios: true
-  # image_path_ios: "assets/icons/icon.png"
-  # image_path_android: "assets/icon.png"
 
 flutter:
   uses-material-design: true
-  # assets:
-  #   - assets/back.png
   fonts:
     - family: Gilroy
       fonts:
         - asset: fonts/Gilroy-Bold.ttf
-# targets:
-#   $default:
-#     builders:
-#       json_serializable:
-#         options:
-#           # Options configure how source code is generated for every
-#           # `@JsonSerializable`-annotated class in the package.
-#           #
-#           # The default value for each is listed.
-#           any_map: false
-#           checked: false
-#           create_factory: true
-#           create_to_json: true
-#           disallow_unrecognized_keys: false
-#           explicit_to_json: true
-#           field_rename: none
-#           ignore_unannotated: false
-#           include_if_null: true
-#           nullable: true

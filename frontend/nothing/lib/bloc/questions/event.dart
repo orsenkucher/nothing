@@ -1,17 +1,9 @@
-import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
-abstract class QuestionsEvent extends Equatable {
-  const QuestionsEvent();
-}
+part 'event.freezed.dart';
 
-class FetchQuestions extends QuestionsEvent {
-  const FetchQuestions();
-  @override
-  List<Object> get props => [];
-}
-
-class RefetchQuestions extends QuestionsEvent {
-  const RefetchQuestions();
-  @override
-  List<Object> get props => [];
+@immutable
+abstract class QuestionsEvent with _$QuestionsEvent {
+  const factory QuestionsEvent.fetch() = Fetch;
+  const factory QuestionsEvent.refetch() = Refetch;
 }

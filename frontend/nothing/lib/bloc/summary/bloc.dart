@@ -10,7 +10,7 @@ export 'state.dart';
 
 class SummaryBloc extends HydratedBloc<SummaryEvent, Summary> {
   @override
-  Summary get initialState => super.initialState ?? EmptySummary();
+  Summary get initialState => super.initialState ?? Summary.empty();
 
   @override
   Stream<Summary> transformEvents(
@@ -34,14 +34,15 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, Summary> {
   Stream<Summary> mapEventToState(
     SummaryEvent event,
   ) async* {
+    // event.map(reset: null, answer: null);
     if (event is NewAnswer) {
-      var newState = Summary({
+      var newState = Summary(summary: {
         ...state.summary,
         event.id: event.answer,
-      }, state.id + 1);
+      }, id: state.id + 1);
       yield newState;
-    } else if (event is ResetSummary) {
-      yield EmptySummary();
+    } else if (event is Reset) {
+      yield Summary.empty();
     }
   }
 

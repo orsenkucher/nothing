@@ -2,7 +2,15 @@
     "folders": [
         {
             "path": "frontend"
+        },
+        {
+            "path": "./nothing-dart.code-workspace"
         }
     ],
-    "settings": {}
+    "settings": {
+        "files.exclude": {
+            "**/*.freezed.dart": true,
+            "**/*.g.dart": true
+        }
+    }
 }
