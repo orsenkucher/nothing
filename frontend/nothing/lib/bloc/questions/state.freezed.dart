@@ -44,13 +44,13 @@ mixin _$QuestionsState {
 }
 
 class _$Loaded with DiagnosticableTreeMixin implements Loaded {
-  const _$Loaded(this.questions);
+  const _$Loaded(this.questions) : assert(questions != null);
 
   @override
   final QTree questions;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'QuestionsState.loaded(questions: $questions)';
   }
 
@@ -64,8 +64,11 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
 
   @override
   bool operator ==(dynamic other) {
-    return other is Loaded &&
-        (identical(other.questions, questions) || other.questions == questions);
+    return identical(this, other) ||
+        (other is Loaded &&
+            (identical(other.questions, questions) ||
+                const DeepCollectionEquality()
+                    .equals(other.questions, questions)));
   }
 
   @override
@@ -73,10 +76,11 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
 
   @override
   _$Loaded copyWith({
-    Object questions = immutable,
+    Object questions = freezed,
   }) {
+    assert(questions != null);
     return _$Loaded(
-      questions == immutable ? this.questions : questions as QTree,
+      questions == freezed ? this.questions : questions as QTree,
     );
   }
 
@@ -155,7 +159,7 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
   const _$Loading();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'QuestionsState.loading()';
   }
 
@@ -167,7 +171,7 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
 
   @override
   bool operator ==(dynamic other) {
-    return other is Loading;
+    return identical(this, other) || (other is Loading);
   }
 
   @override
@@ -244,7 +248,7 @@ class _$Reloading with DiagnosticableTreeMixin implements Reloading {
   const _$Reloading();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'QuestionsState.reloading()';
   }
 
@@ -256,7 +260,7 @@ class _$Reloading with DiagnosticableTreeMixin implements Reloading {
 
   @override
   bool operator ==(dynamic other) {
-    return other is Reloading;
+    return identical(this, other) || (other is Reloading);
   }
 
   @override
@@ -330,13 +334,13 @@ abstract class Reloading implements QuestionsState {
 }
 
 class _$Error with DiagnosticableTreeMixin implements Error {
-  const _$Error(this.error);
+  const _$Error(this.error) : assert(error != null);
 
   @override
   final CloudError error;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'QuestionsState.error(error: $error)';
   }
 
@@ -350,8 +354,10 @@ class _$Error with DiagnosticableTreeMixin implements Error {
 
   @override
   bool operator ==(dynamic other) {
-    return other is Error &&
-        (identical(other.error, error) || other.error == error);
+    return identical(this, other) ||
+        (other is Error &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)));
   }
 
   @override
@@ -359,10 +365,11 @@ class _$Error with DiagnosticableTreeMixin implements Error {
 
   @override
   _$Error copyWith({
-    Object error = immutable,
+    Object error = freezed,
   }) {
+    assert(error != null);
     return _$Error(
-      error == immutable ? this.error : error as CloudError,
+      error == freezed ? this.error : error as CloudError,
     );
   }
 

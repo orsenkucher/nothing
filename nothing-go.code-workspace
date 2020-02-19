@@ -6,7 +6,7 @@
 	],
 	"settings": {
 		"files.exclude": {
-			"frontend":true
+			"frontend": true
 		}
 	}
 }

@@ -36,13 +36,13 @@ mixin _$FeedEvent {
 }
 
 class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
-  const _$NewArrived(this.tree);
+  const _$NewArrived(this.tree) : assert(tree != null);
 
   @override
   final QTree tree;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'FeedEvent.newArrived(tree: $tree)';
   }
 
@@ -56,8 +56,10 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
 
   @override
   bool operator ==(dynamic other) {
-    return other is NewArrived &&
-        (identical(other.tree, tree) || other.tree == tree);
+    return identical(this, other) ||
+        (other is NewArrived &&
+            (identical(other.tree, tree) ||
+                const DeepCollectionEquality().equals(other.tree, tree)));
   }
 
   @override
@@ -65,10 +67,11 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
 
   @override
   _$NewArrived copyWith({
-    Object tree = immutable,
+    Object tree = freezed,
   }) {
+    assert(tree != null);
     return _$NewArrived(
-      tree == immutable ? this.tree : tree as QTree,
+      tree == freezed ? this.tree : tree as QTree,
     );
   }
 
@@ -132,10 +135,10 @@ abstract class NewArrived implements FeedEvent {
 }
 
 class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
-  const _$MoveNext();
+  _$MoveNext();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'FeedEvent.moveNext()';
   }
 
@@ -147,7 +150,7 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
 
   @override
   bool operator ==(dynamic other) {
-    return other is MoveNext;
+    return identical(this, other) || (other is MoveNext);
   }
 
   @override
@@ -205,5 +208,5 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
 }
 
 abstract class MoveNext implements FeedEvent {
-  const factory MoveNext() = _$MoveNext;
+  factory MoveNext() = _$MoveNext;
 }

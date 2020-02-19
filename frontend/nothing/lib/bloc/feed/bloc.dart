@@ -35,7 +35,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, Feed> {
   }
 
   @override
-  Feed get initialState => super.initialState ?? Feed.empty();
+  Feed get initialState => super.initialState ?? Feed.empty;
 
   @override
   Stream<Feed> mapEventToState(FeedEvent event) async* {

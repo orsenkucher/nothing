@@ -22,7 +22,9 @@ mixin _$Summary {
 
 @JsonSerializable()
 class _$_Summary with DiagnosticableTreeMixin implements _Summary {
-  const _$_Summary({@required this.id, @required this.summary});
+  const _$_Summary({@required this.id, @required this.summary})
+      : assert(id != null),
+        assert(summary != null);
 
   factory _$_Summary.fromJson(Map<String, dynamic> json) =>
       _$_$_SummaryFromJson(json);
@@ -33,7 +35,7 @@ class _$_Summary with DiagnosticableTreeMixin implements _Summary {
   final Map<int, bool> summary;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'Summary(id: $id, summary: $summary)';
   }
 
@@ -48,9 +50,12 @@ class _$_Summary with DiagnosticableTreeMixin implements _Summary {
 
   @override
   bool operator ==(dynamic other) {
-    return other is _Summary &&
-        (identical(other.id, id) || other.id == id) &&
-        (identical(other.summary, summary) || other.summary == summary);
+    return identical(this, other) ||
+        (other is _Summary &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.summary, summary) ||
+                const DeepCollectionEquality().equals(other.summary, summary)));
   }
 
   @override
@@ -58,12 +63,14 @@ class _$_Summary with DiagnosticableTreeMixin implements _Summary {
 
   @override
   _$_Summary copyWith({
-    Object id = immutable,
-    Object summary = immutable,
+    Object id = freezed,
+    Object summary = freezed,
   }) {
+    assert(id != null);
+    assert(summary != null);
     return _$_Summary(
-      id: id == immutable ? this.id : id as int,
-      summary: summary == immutable ? this.summary : summary as Map<int, bool>,
+      id: id == freezed ? this.id : id as int,
+      summary: summary == freezed ? this.summary : summary as Map<int, bool>,
     );
   }
 

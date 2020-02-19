@@ -38,12 +38,14 @@ class _HomeState extends State<Home> {
     // if (BlocProvider.of<FeedBloc>(context).state.current < 36) { // REDO HERE
     BlocProvider.of<QuestionsBloc>(context).add(const QuestionsEvent.fetch());
     // }
-    _focusNode.unfocus();
-    _focusNode.requestFocus();
   }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _focusNode.unfocus();
+      _focusNode.requestFocus();
+    });
     return Scaffold(
       body: Container(
         color: NothingScheme.of(context).card,
@@ -66,7 +68,6 @@ class _HomeState extends State<Home> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onHorizontalDragEnd: (_) {
-        print("heh");
         _focusNode.unfocus();
         _focusNode.requestFocus();
       },
@@ -81,7 +82,7 @@ class _HomeState extends State<Home> {
       // maintainSize: true,
       maintainState: true,
       child: TextField(
-        autofocus: true,
+        // autofocus: true,
         focusNode: _focusNode,
         controller: _controller,
         enableSuggestions: false,
@@ -135,7 +136,6 @@ class Game extends StatelessWidget {
     return safeWrap(
       LayoutBuilder(
         builder: (context, constraints) {
-          print(constraints.biggest.height);
           double labelH = 50;
           double ansH = 70;
           return Column(

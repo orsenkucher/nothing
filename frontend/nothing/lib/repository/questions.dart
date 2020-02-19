@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
+import 'package:nothing/bloc/id/bloc.dart';
 import 'package:nothing/domain/domain.dart';
 import 'package:nothing/error/cloud_error.dart';
-import 'package:uuid/uuid.dart';
 
 abstract class QuestionsRepo {
   const QuestionsRepo();
@@ -16,25 +16,26 @@ abstract class QuestionsRepo {
 }
 
 class CloudQuestionsRepo extends QuestionsRepo {
+  final IdBloc idBloc;
   final fetchProblemsUrl = 'http://34.89.201.1:9091/';
-  String userID;
+  // String userID;
+
+  const CloudQuestionsRepo(this.idBloc);
 
   @override
   Future<QTree> fetchQuestions({
     int count,
     Map<int, bool> summary,
   }) async {
-    if (userID == null) {
-      // userID = await _loadUserID();
-      userID = "hello bro";
-    }
+    final userID = idBloc.state.id;
     try {
       // var body = json.encode({
       //   "n": count,
       //   "userId": userID,
       //   "answers": summary.map((k, v) => MapEntry(k.toString(), v)),
       // });
-      var body = json.encode({"currentid":-1, "userid":"helloworld"});
+      print('USERID: $userID');
+      var body = json.encode({"currentid": -1, "userid": userID});
       print('Sending request\n$body');
       var resp = await post(
         fetchProblemsUrl,
@@ -47,7 +48,7 @@ class CloudQuestionsRepo extends QuestionsRepo {
         // if (problems.length == count) {
         //   return problems;
         // }
-        var tr =  QTree.fromJson(decoded);
+        var tr = QTree.fromJson(decoded);
         print(tr);
         return tr;
       }

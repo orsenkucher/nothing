@@ -33,7 +33,7 @@ class _$_Feed with DiagnosticableTreeMixin implements _Feed {
   final int current;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'Feed(tree: $tree, current: $current)';
   }
 
@@ -48,9 +48,12 @@ class _$_Feed with DiagnosticableTreeMixin implements _Feed {
 
   @override
   bool operator ==(dynamic other) {
-    return other is _Feed &&
-        (identical(other.tree, tree) || other.tree == tree) &&
-        (identical(other.current, current) || other.current == current);
+    return identical(this, other) ||
+        (other is _Feed &&
+            (identical(other.tree, tree) ||
+                const DeepCollectionEquality().equals(other.tree, tree)) &&
+            (identical(other.current, current) ||
+                const DeepCollectionEquality().equals(other.current, current)));
   }
 
   @override
@@ -58,12 +61,12 @@ class _$_Feed with DiagnosticableTreeMixin implements _Feed {
 
   @override
   _$_Feed copyWith({
-    Object tree = immutable,
-    Object current = immutable,
+    Object tree = freezed,
+    Object current = freezed,
   }) {
     return _$_Feed(
-      tree: tree == immutable ? this.tree : tree as QTree,
-      current: current == immutable ? this.current : current as int,
+      tree: tree == freezed ? this.tree : tree as QTree,
+      current: current == freezed ? this.current : current as int,
     );
   }
 

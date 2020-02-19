@@ -44,7 +44,7 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
   final int mmr;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'Question(id: $id, question: $question, explanation: $explanation, answers: $answers, mmr: $mmr)';
   }
 
@@ -62,13 +62,21 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
 
   @override
   bool operator ==(dynamic other) {
-    return other is _Question &&
-        (identical(other.id, id) || other.id == id) &&
-        (identical(other.question, question) || other.question == question) &&
-        (identical(other.explanation, explanation) ||
-            other.explanation == explanation) &&
-        (identical(other.answers, answers) || other.answers == answers) &&
-        (identical(other.mmr, mmr) || other.mmr == mmr);
+    return identical(this, other) ||
+        (other is _Question &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.question, question) ||
+                const DeepCollectionEquality()
+                    .equals(other.question, question)) &&
+            (identical(other.explanation, explanation) ||
+                const DeepCollectionEquality()
+                    .equals(other.explanation, explanation)) &&
+            (identical(other.answers, answers) ||
+                const DeepCollectionEquality()
+                    .equals(other.answers, answers)) &&
+            (identical(other.mmr, mmr) ||
+                const DeepCollectionEquality().equals(other.mmr, mmr)));
   }
 
   @override
@@ -82,19 +90,19 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
 
   @override
   _$_Question copyWith({
-    Object id = immutable,
-    Object question = immutable,
-    Object explanation = immutable,
-    Object answers = immutable,
-    Object mmr = immutable,
+    Object id = freezed,
+    Object question = freezed,
+    Object explanation = freezed,
+    Object answers = freezed,
+    Object mmr = freezed,
   }) {
     return _$_Question(
-      id: id == immutable ? this.id : id as int,
-      question: question == immutable ? this.question : question as String,
+      id: id == freezed ? this.id : id as int,
+      question: question == freezed ? this.question : question as String,
       explanation:
-          explanation == immutable ? this.explanation : explanation as String,
-      answers: answers == immutable ? this.answers : answers as String,
-      mmr: mmr == immutable ? this.mmr : mmr as int,
+          explanation == freezed ? this.explanation : explanation as String,
+      answers: answers == freezed ? this.answers : answers as String,
+      mmr: mmr == freezed ? this.mmr : mmr as int,
     );
   }
 
@@ -159,7 +167,7 @@ class _$_QTree with DiagnosticableTreeMixin implements _QTree {
   final QTree right;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'QTree(question: $question, left: $left, right: $right)';
   }
 
@@ -175,10 +183,15 @@ class _$_QTree with DiagnosticableTreeMixin implements _QTree {
 
   @override
   bool operator ==(dynamic other) {
-    return other is _QTree &&
-        (identical(other.question, question) || other.question == question) &&
-        (identical(other.left, left) || other.left == left) &&
-        (identical(other.right, right) || other.right == right);
+    return identical(this, other) ||
+        (other is _QTree &&
+            (identical(other.question, question) ||
+                const DeepCollectionEquality()
+                    .equals(other.question, question)) &&
+            (identical(other.left, left) ||
+                const DeepCollectionEquality().equals(other.left, left)) &&
+            (identical(other.right, right) ||
+                const DeepCollectionEquality().equals(other.right, right)));
   }
 
   @override
@@ -187,14 +200,14 @@ class _$_QTree with DiagnosticableTreeMixin implements _QTree {
 
   @override
   _$_QTree copyWith({
-    Object question = immutable,
-    Object left = immutable,
-    Object right = immutable,
+    Object question = freezed,
+    Object left = freezed,
+    Object right = freezed,
   }) {
     return _$_QTree(
-      question: question == immutable ? this.question : question as Question,
-      left: left == immutable ? this.left : left as QTree,
-      right: right == immutable ? this.right : right as QTree,
+      question: question == freezed ? this.question : question as Question,
+      left: left == freezed ? this.left : left as QTree,
+      right: right == freezed ? this.right : right as QTree,
     );
   }
 
