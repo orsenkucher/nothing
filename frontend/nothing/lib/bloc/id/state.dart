@@ -7,7 +7,7 @@ part 'state.g.dart';
 
 @freezed
 abstract class IdState with _$IdState {
-  const factory IdState(String id) = _IdState;
+  const factory IdState(String id, String salt) = _IdState;
 
   factory IdState.fromJson(Map<String, dynamic> json) =>
       _$IdStateFromJson(json);
