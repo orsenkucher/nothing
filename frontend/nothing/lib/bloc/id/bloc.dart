@@ -1,7 +1,6 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/bloc/id/event.dart';
 import 'package:nothing/bloc/id/state.dart';
-import 'package:uuid/uuid.dart';
 
 export 'event.dart';
 export 'state.dart';
@@ -11,6 +10,8 @@ class IdBloc extends HydratedBloc<IdEvent, IdState> {
     add(IdEvent.issue(state));
   }
 
+  IdState revoke() => IdState.unique();
+
   @override
   IdState get initialState => super.initialState ?? revoke();
 
@@ -18,14 +19,8 @@ class IdBloc extends HydratedBloc<IdEvent, IdState> {
   Stream<IdState> mapEventToState(IdEvent event) async* {
     yield event.when<IdState>(
       revoke: revoke,
-      issue: (s) => s.copyWith(salt: Uuid().v4()),
+      issue: (s) => IdState.salted(s.id),
     );
-  }
-
-  IdState revoke() {
-    final id = Uuid().v4();
-    final state = IdState(id, id);
-    return state;
   }
 
   @override

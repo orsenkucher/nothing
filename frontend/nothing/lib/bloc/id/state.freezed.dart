@@ -36,14 +36,14 @@ class _$_IdState with DiagnosticableTreeMixin implements _IdState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'IdState(id: $id, salt: $salt)';
+    return 'IdState._(id: $id, salt: $salt)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'IdState'))
+      ..add(DiagnosticsProperty('type', 'IdState._'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('salt', salt));
   }
