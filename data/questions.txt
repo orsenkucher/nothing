@@ -1,256 +1,145 @@
-﻿question|exp|ans1, ans2ans
-
-Would you like to lose 20kg?|Yes|No
-Do you like lonely evenings?|Yes|No
-Do you like dark chocolate?|Yes|No
-Do you like fashionable clothes?|Yes|No
-Do you like basketball?|Yes|No
-Do you drink coffee regularly?|Yes|No
-Do you like to eat chips?|Yes|No
-Do you write nicely?|Yes|No
-Would you like to be famous?|Yes|No
-Have you ever been to a hospital?|Yes|No
-Have you ever have something broken?|Yes|No
-Do you sing nicely?|Yes|No
-Do you know a person who sing nicely?|Yes|No
-Do you like Justin Bieber?|Yes|No
-Would you like to go into space?|Yes|No
-Do you like hip-hop music?|Yes|No
-Do you like pop music?|Yes|No
-Do you use an electric toothbrush?|Yes|No
-Do you like horror movies?|Yes|No
-Have you ever been abroad?|Yes|No
-Are you interested in cooking?|Yes|No
-Do you use WhatsApp?|Yes|No
-Are you selfish?|Yes|No
-Have you ever been to Paris?|Yes|No
-Nike or Adidas|Nike|Adidas
-Do you eat popcorn at the movies?|Yes|No
-Have you ever been bullied?|Yes|No
-Do you have false teeth?|Yes|No
-Do you have a big head?|Yes|No
-Can you touch your nose with your tongue?|Yes|No
-Do you like Spiderman?|Yes|No
-Is this your favorite app?|Yes|No
-Have you ever seen a UFO?|Yes|No
-Do you have a bicycle?|Yes|No
-Do you like studying?|Yes|No
-Do you smile a lot?|Yes|No
-Do you have any pets?|Yes|No
-Are you adopted?|Yes|No
-Are you a student?|Yes|No
-Do you like hugging people?|Yes|No
-Christmas  vs  Easter?|Christmas|Easter
-Did you rate this game?|Yes|No
-Do you count with your fingers?|Yes|No
-Do you about what people think?|Yes|No
-Have you ever been rejected?|Yes|No
-Can you speak French?|Yes|No
-Have you ever failed a test?|Yes|No
-Have you achieved any of your recent goals?|Yes|No
-Do you think you will be able to finish all these question?|Yes|No
-Kanye West vs Taylor Swift|Kanye|Taylor
-Are Dogs better than Cats|Yes|No
-Tea vs Coffee|Tea|Cofee
-Bananas vs Apples|Bananas|Apples
-Live in Paris vs Live in London|Paris|London
-Drake vs A$AP Rocky|Drake|A$AP
-Nirvana vs Metallica|Nirvana|Metallica
-Do you work night shifts?|Yes|No
-Do you enjoy sleeping?|Yes|No
-Do you get enough sleep?|Yes|No
-Do you like cleaning your room?|Yes|No
-Have you ever been on a roller coaster?|Yes|No
-Have you ever forgotten to lock the door?|Yes|No
-Would you like to live 100 years?|Yes|No
-Have you ever eaten in McDonalds?|Yes|No
-Do you regularly watch TV?|Yes|No
-Do you like to travel?|Yes|No
-Do you eat meat?|Yes|No
-Do you have pets?|Yes|No
-Do you like flowers?|Yes|No
-Do you live with your parents?|Yes|No
-Winter vs Summer|Winter|Summer
-Brad Pitt vs Leonardo DiCaprio?|Brad|Leonardo
-iOS vs Android|iOS|Android
-Windows vs MacOS|Windows|MacOS
-Homeless man comes to you and wants $2. Do you give it to him?|Yes|No
-Do you brush your teeth regularly?|Yes|No
-Do you prefer an electronic version of books instead of paper?|Paper|Digital
-Do you have a brother?|Yes|No
-Skies vs Snowboard?|Skies|Snowboard
-Do you like pancakes?|Yes|No
-Be a Jedi or be a wizard?|Jedi|Wizard
-Always say Yes vs Always say No?|Yes|No
-KFC vs McDonalds?|KFC|McDonalds
-Boys vs Girls|Boys|Girls
-Napoleon or Julius Caesar?|Napoleon|Caesar
-Computer vs Phone?|Computer|Phone
-Find true love or get one million dollars?|Love|Dollars
-History vs Math?|History|Math
-Be super famous or be completely anonymous?|Famous|Anonymous
-Win Oscar or win the Nobel prize?|Oscar|Nobel prize
-WhatsApp vs Facebook?|WhatsApp|Facebook
-Go to school vs Go to work?|School|Work
-Baseball vs Football?|Baseball|Football
-Fire vs Water?|Fire|Water
-Free tickets for life vs free lunches for life?|Tickets|Lunches
-Marry your soulmate vs marry a millionaire?|Soulmate|Millionaire
-Do you play FIFA?|Yes|No
-Can you play a musical instrument?|Yes|No
-Do you listen to the radio everyday?|Yes|No
-Do your friends have this app?|Yes|No
-Do you sleep with the lights on?|Yes|No
-Coffee vs Tea|Coffee|Tea
-Have you ever played monopoly?|Yes|No
-Are you shy?|Yes|No
-Do you wash your hands after using the toilet?|Yes|No
-Would you like to have a movie about you?|Yes|No
-Control fire vs Control water|Fire|Water
-Lose forefinger vs Lose thumb|Forefinger|Thumb
-Have brother vs Have sister|Brother|Sister
-Be rich vs Be famous|Rich|Famous
-Be in prison vs Be homeless|Prison|Homeless
-Brad Pitt vs Bradley Copper|Pitt|Copper
-Go to the moon vs Go to the Mars|Moon|Mars
-Waffles vs Pancakes|Waffles|Pancakes
-Be American vs Be Australian|American|Australian
-Jeans vs Shorts|Jeans|Shorts
-Pizza vs Sushi|Pizza|Sushi
-Navy vs Army|Navy|Army
-Have you ever cheated on an exam?|Yes|No
-Do you hate your job?|Yes|No
-Do you have a fear of heights?|Yes|No
-Do you enjoy driving fast?|Yes|No
-Would you like to be able to walk through walls?|Yes|No
-Do you use Emoji?|Yes|No
-Do you have a dog?|Yes|No
-Do you party regularly?|Yes|No
-Do you like volleyball?|Yes|No
-Be Gandalf vs Be Dumbledore|Gandalf|Dumbledore
-Call of Duty vs Battlefield|Call of Duty|Battlefield
-Glasses vs Contacts|Glasses|Contacts
-Have 8 pets vs Have no pets at all|8 pets|No pets
-Be a doctor vs Be a lawyer|Doctor|Lawyer
-Chess vs Checkers|Chess|Checkers
-Run fast vs Jump high|Run fast|Jump high
-Godzilla vs King kong|Godzilla|King kong
-Chinese food vs Mexican food|Chinese|Mexican
-Summer Olympics vs Winter Olympics|Summer|Winter
-Skydive vs Bungie Jump|Skydive|Bungie Jump
-Be eaten by a lion vs Be eaten by ants|Lion|Ants
-Be painted by Picasso vs Be painted by Da Vinci|Picasso|Da Vinci
-Work out at home vs Work out at the gym?|Home|Gym
-Hike 10 miles vs Swim 10 miles?|Hike|Swim
-Career vs Family|Career|Family
-Be a horse jockey vs Be a nascar driver|Jockey|Driver
-Go to school vs Go to work|School|Work
-Run a mile vs Do 100 push ups|Mile|Push ups
-Be a scientist vs be a politician|Scientist|Politician
-Animal Planet vs Discovery Science|Animal Planet|Discovery Science
-Private car vs public transport|Car|Transport
-Hoodie vs Sweatshirt|Hoodie|Sweatshirt
-Dad vs Mom|Dad|Mom
-Love somebody vs Be Loved|Love|Be loved
-Mercedes vs BMW|Mercedes|BMW
-Own a private jet vs Own a yacht|Private jet|Yacht
-Penthouse vs Mansion|Penthouse|Mansion
-Burning to death vs Freezing to death|Burning|Freezing
-Touchpad vs Mouse|Touchpad|Mouse
-Sleep on the floor vs Sleep on the bed|Floor|Bed
-Eat only junk food vs Eat only healthy food|Junk food|Healthy food
-USA vs China|USA|China
-No speed limit on highway vs You can drive through a red light|No speed limit|Drive through
-Lack of food vs Lack of water|Food|Water
-Kick scooter vs Bike|Kick scooter|Bike
-Math vs History|Math|History
-EarPods vs AirPods|Earpods|Airpods
-Notebook vs PC|Notebook|PC
-Xbox vs Playstation|Xbox|Playstation
-Invisibility vs Eternal life|Invisibility|Eternal life
-Eat only bananas vs Eat only apples|Bananas|Apples
-Lamborghini vs Ferrari|Lamborghini|Ferrari
-Be deaf vs Be blind|Deaf|Blind
-Game of Thrones vs Breaking Bad|GoT|BrBa
-Message somebody vs Call somebody|Message|Call
-Yakuza vs Mafia|Yakuza|Mafia
-Be French vs Be American|French|American
-Hamburgers vs Sushi|Hamburgers|Sushi
-Burger King vs KFC|Burger King|KFC
-Chicken vs Beef|Chicken|Beef
-Free airline tickets vs Free taxi|Airline|Taxi
-Be prettiest human on the earth vs Be smartest human on the earth|Prettiest|Smartest
-Eat only fish vs Eat only meat|Fish|Meat
-Be a dog vs Be a cat|Dog|Cat
-Bill Gates vs Elon Musk|Bill Gates|Elon Musk
-Tim Cook vs Elon Musk|Tim Cook|Elon Musk
-Be a waiter vs Be a taxi driver|Waiter|Taxi driver
-Be a policeman vs Be a fireman|Policeman|Fireman
-Weather is always cold vs Weather is always hot|Cold|Hot
-Live in desert vs Live in the Arctic Circle|Desert|Arctic Circle
-Have a Heetah vs Have a Jaguar|Cheetah|Jaguar
-CNN vs Fox channel|CNN|Fox
-Have mustache vs Have beard|Mustache|Beard
-Zeus vs Neptun|Zeus|Neptun
-Do you like ketchup?|Yes|No
-Have you ever been in a hospital?|Yes|No
-Have you ever tried to cut your own hair?|Yes|No
-Can you speak more than one language?|Yes|No
-Do you have an annoying sibling?|Yes|No
-Do you have more than 10 video games?|Yes|No
-Can you sleep standing up?|Yes|No
-Do you like Clash of Clans?|Yes|No
-Do you like cakes?|Yes|No
-Do you play video games everyday?|Yes|No
-Do you trust your friends?|Yes|No
-Do you like Star Wars?|Yes|No
-Have you ever played "Flappy bird"?|Yes|No
-Would you like to go to space?|Yes|No
-Have you ever danced in the rain?|Yes|No
-Have you read any of Stephen King's books?|Yes|No
-Do monsters exist?|Yes|No
-Simpsons vs Futurama|Simpsons|Futurama
-Documentary vs Drama|Documentary|Drama
-Have no children at all vs 5 children|No children|5 children
-Travel by plane vs Travel by train|Plane|Train
-Barcelona vs Real Madrid|Barcelona|Real Madrid
-Live with parents vs Live independently|With parents|Independently
-Spend time at home vs Spend time in nightclub|Home|Nightclub
-Wear corset for 10 years vs Wear braces for 10 years|Corset|Braces
-Horror vs Comedy|Horror|Comedy
-Celebrate New Year with friends vs Celebrate New Year with family|With friends|With family
-TV vs Internet|TV|Internet
-Domestic tourism vs Foreign tourism|Domestic|Foreign
-Visit China vs Visit India|China|India
-Have pierced ears vs Have pierced nose|Ears|Nose
-Have no fear vs Can't feel the pain|No fear|No pain
-Have extremely low self-esteem vs Have extremely high self-esteem|Low|Hight
-Beyond meat burger vs Regular burger|Beyond meat|Regular
-Natural flowers vs Artificial flowers|Natural|Artificial
-Become a journalist vs Become a TV host|Journalist|TV host
-School life vs College life|School|College
-Tomatoes vs Cucumbers|Tomatoes|Cucumbers
-Spongebob Squarepants vs Patrick|Spongebob|Patrick
-Fall vs Spring|Fall|Spring
-Become a programmer vs Become a designer|Programmer|Designer
-Win an Oscar vs Win a Nobel prize|Oscar|Nobel prize
-Lose the one you love vs Let 100 000 people die|One you love|100k die
-Be a girl vs Be a boy|Girl|Boy
-Uber vs Lyft|Uber|Lyft
-Sleep for 15 hours a day vs Sleep for 3 hours a day|15 hours|3 hours 
-Justin Bieber vs Harry Styles|Justin|Harry
-Be a famous rapper vs Be a notorious mobster|Rapper|mobster
-Have shark teeth vs Have no teeth|Shark teeth|No teeth
-Never have any homework vs Never have any exams|No homework|No exams
-Live next to a garbage dump vs Live next to a cemetery|Dump|Cemetery
-Give up your phone vs Give up your ability to sleep|Phone|Sleep
-Have super sensitive taste vs Have super sensitive hearing|Taste|Hearing
-Meet with Putin vs Meet with Donald Trump|Putin|Donal Trump
-Orange juice vs Apple juice|Orange|Apple
-Become a President vs Become a successful entrepreneur|President|Entrepreneur
-Be able to cook nicely vs Be able to sing nicely|Cook|Sing
-Have extremely big ears vs Have an extremely big nose|Ears|Nose
-Google Assistant vs Siri|Google|Siri
-Watch films for 12 hours vs Play video games for 12 hours|Films|Video games
-Own an electric car vs Own a gas car|Electric|Gas
-Up or Down|Up|Down
+﻿|2|Find area of square with diagonal = √2|1<$>one| exp1
+|6|M, V, E, M, J, S …|U|exp2
+|2|Car, bee, plane, butterfly, bird|car|exp3
+|2|fork, spoon, hat, knife, cup|hat|exp4
+|7|240, 360, 480, 720, ?|1080|exp5
+|1|6/2*(1+2)|9|exp6
+|7|W, S, S, ?|F<$>A|exp7
+|2|uʍopǝpᴉsdn|upside down|exp
+|4|What is the probability of rolling an odd number on dice?|1/2<$>0.5<$>0,5|exp8
+|5|How many Newton laws are there?|3<$>three|exp9
+|5|Name the world's biggest island.|greenland|exp10
+|6|There are 60 marbles in a bowl. Their colors are red, blue, and yellow. 1/3 of the marbles are yellow, 1/4 of the marbles are blue. How many red marbles are there in the bowl?|25|exp11
+|2|4 16 5 25 6 36 7 49 8 ? |64|exp12
+|4|How many legs (total ) does 4 dogs, 2 elephants, 15 cats, and 26 people have?|136|exp13
+|3|If a $20 shirt is 15% off, what is the final price of the shirt?|17|exp14
+|7|If X=24 and P =16, what is X-P-A?|7|exp15
+|6|I am followed by 25 others and represent the number 1. What am I?|A|exp16
+|4|If I use a quarter of a dozen eggs, how many eggs do I have left?|9|exp17
+|1|1000, 200, 40, _____ |8|exp18
+|2|The day before yesterday was Monday and the day after tomorrow is Friday. What is today?|Wednesday|exp19
+|7|It occurs once in a minute, twice in a moment, but never in an hour.|m|exp20
+|3|An average person has how many birthdays in his entire life?|1|exp21
+|4|I have one eye but still, I can’t see. Who I am?|needle|exp22
+|5|Name the number that is three more than one-fifth of one-tenth of one-half of 5,000.|53|exp23
+|6|Two people are standing back to back. They each walk away from each other for three feet. Then they both turn left and walk for another four feet, and then stop. Now, how many feet apart are they standing?|10|exp24
+|7|The number whose first digit is one-fourth of the last digit; the second digit is six times the first digit; and the third digit is the second digit plus three.|1694|exp25
+|7|Skip me|skip|exp26
+|7|ON/OFF|switch|exp27
+|4|5,5s,6,6s,7,8, ?|x|exp28
+|7|Bill is 12 years old, and Professor Peterson is 42. In how many years will  Bill be half the age of the professor?|18, eighteen|exp29
+|2|2G, 3G, ?(LTE)|lte<$>4g|exp30
+|4|3 wishes|genie|exp31
+|6|The most famous lady|lady gaga<$>gaga|exp32
+|4|15 kg = ?/4 g|60 000<$>60000|exp33
+|4|Golden state|california|exp34
+|6|Invert !|i|exp35
+|6|Invert !|i|exp35
+|7|Where does today come before yesterday?|dictionary|exp36
+|7|I am an odd number. Take away a letter and I become even. What number am I?|seven<$>7|exp37
+|8|The day before yesterday I was 21, and next year I will be 24. When is my birthday?|december 31<$>31 december<$>31.12<$>12.31<$>31|exp38
+|6|What five-letter word becomes shorter when you add two letters to it?|short|exp39
+|4|What is 3/7 chicken, 2/3 cat and 2/4 goat?|chicago|exp40
+|6|What is the end of everything?|g|exp41
+|6|The more you take, the more you leave behind. What are they?|footsteps|exp42
+|6|I have no life, but I can die, what am I?|battery|exp43
+|8|What is the coldest country in the world?|chile|exp44
+|8|Knock knock |who is there?<$>who is there|who is there|exp45
+|7|What do you call a FISH with no Eyes?|fsh|exp46
+|9|Black, Red, Yellow, White |Sea|exp47
+|9|4x2 - 22  = 5 + x2 , x > 0, x = ?|3|exp48
+|4|-8 = 2-5x|2|exp49
+|7|Good cop|bad cop|exp50
+|5|0,99999… = ? |1, 0.(9),|exp51 |5|If you divide 30 by half and add 30, what do you get|90|exp52
+|9|СО2 + 6Н2О + Qlight → С6Н12О6 + 6О2.|photosynthesis|exp53
+|7|All i want for Christmas |is you|exp54
+|7|Chinese, English, Hindi, ? |spanish|exp55
+|5|The bill with Andrew Jackson on it|20 dollars<$>20<$>20$|exp56
+|5|The best-selling book of all time|bible|exp57
+|7|The graph of quadratic equation|parabola|exp58
+|3|Count 9 with fingers. What finger remain?|thumb|exp59
+|4|(The tech company) & (River)|amazon|exp60
+|1|Bows + ball |bowling|exp61
+|1|Oscar of science |nobel prize<$>nobel|exp62
+|9|Cube → square → ? |line|exp63
+|6|Four leaf clovers|luck|exp64
+|5|Anything is the answer|anything|exp65
+|6|Plastic bricks|lego|exp66
+|4|Mickey Mouse dad|walt disney<$>disney|exp67
+|7|Page not found|404|exp68
+|9|(Scientist) & (Car)|tesla|exp69
+|7|The bread-enclosed convenience food|sandwich|exp70
+|3|A small exam|test|exp71
+|5|(Bird) & (Fruit) |kiwi|exp73
+|3|Orange - yellow = ?|red|exp74
+|1|Who is the president of USA?|trump|exp75
+|7|Love is|Gum|exp76
+|8|How many times can you fold a a4 paper|7|exp77
+|7|James Bond|007|exp78
+|1|Black|white|Opposite
+|0|One two ...  |three<$>3|Obvious sequence
+|0|Which leter is missing?|t|Letter
+|1|😴|sleep<$>sleepy<$>snooze<$>zzz|You do that in the bed
+|3|Red + orange + yellow + green + blue+ indigo+ violet|rainbow|Multicoloured arc appearing in the sky
+|3|1 1 2 3 5 8 ?|13|The next number is found by adding up the two numbers before it
+|2|Yellow + blue|green|Mix them
+|7|Quantity matters|15|Count the letters
+|4|Just do it|nike|Famous sport brand
+|5|•••---•••|sos|Morse code
+|2|First letter|f|Literally first letter of the word 'First'
+|8|Half|ha|Half of the word 'Half'
+|2|1 2 6 24 ?|120|1 * 2 = 2, 2 * 3 = 6, 6 * 4 = 24
+|1|Backwards|sdrawkcab|Just backwards backwards
+|7||Rate us| 5 stars<$>1 star<$>2 stars<$>3 stars,<$>4 stars<$>5<$>4<$>3<$>2<$>1|1-5 stars
+|3|F E D C B ?|a|Alphabet
+|6|Triangle Square ...|pentagon|3 angles, 4 angles ...
+|1||ЯOЯЯIM|mirror|Mirror the written text
+|6|3 7 15 31 ?|63|3 + 4 = 7 , 7 + 8 = 15, ...
+|7|Right down left down right|2<$>two|Draw it on a sheet of paper
+|7|N S W|e|Compass
+|4|Eiffel Tower|paris|Where is it located?
+|7|dough + sauce + cheese + sausage + tomato|pizza|Dish of italian origin
+|6|A + B = -2, A - B = 8, B * A = ?|-15|A = 3
+|6|🔥 + 💧|steam, vapor|Water boils and turns into ...
+|8|A + B = 3 , B + C = 5 , E + F = ?|11|Each letter corresponds to its number in  the alphabet A = 1, B = 2, C = 3 ...
+|8|RGB(255,255,255)|white|It's a color
+|4|xyz zxy yxz xzy yzx ?|zyx|From 3 letters you can make 6 combinations, which combitaion is left?
+|3|I'm loving it|mcdonald's|The slogan of the famous fastfood company
+|6|Au|gold| A chemical element with symbol Au
+|2|Stone(ot) window(ni) sand(?)|na|The third and the second letters of each word swapped places
+|8|Too much space|toomuchspace| Get rid of the space, literally
+|9|I6 06 68 88 ? 98|87|Turn your phone upside down
+|9|220|volt|common voltage
+|9|16,4 = 0  7,2 = 1 19,5 = 4  25,7 = ?|4|  Remainder
+|8|What's the same between you and us?|u|  Letter
+|8|O T T F F S S E N ?|t| Count letters aloud
+|7|CTRL + C|ctrl + v|COPY PASTE
+|5|Write the answer|answer<$>the answer|  Be simple
+|3|₿|bitcoin|Cryptocurrency
+|8|Low battery|charge|What do you do with the phone then?
+|6|The most famous fruit|apple|It's on the back of your phone
+|8|A = Z, B = Y, E = ?|v| Atbash code
+|7|A(9,36) = 4, B(12,52) = 40, B(A(5,30),7) = ?| 1|A(5,30) = 6, B(6,7) = ?
+|7|Who lives in pineapple under the sea?|spongebob<$>spongebob squarepants|Bikini bottom
+|6|Square with cut corners|octagon|It will 8 angles, so it is ...
+|9|Silver Bronze Gold|231|Each place corresponds to a number
+|7|541 = 10, 358 = 16, 139 = ?|13|5 + 4 + 1 = 10
+|5|Des pa ...|cito| Famous song by Louis Fonsi
+|5|Roman Zeus|jupiter|King of the Gods
+|7|sinα * sinβ * sinγ * ... * sinω|0|sinπ = 0
+|4|Coca-Cola,|pepsi<$>pepsi-cola|Could you distinguish them?
+|9|WTR -> 254,       UOI -> ?|798| Quickly switch between number and regular keyboards
+|8|Hello World!|program|The most famous program among programmers
+|5|The question is locked|key<$>unlock|Find key to this question
+|5|🤵🏻🤵🏾⚫️👽 (film)|men in black<$>mib| Will Smith starrs in this film
+|7|March 14|pi|3.14, doesn't remind anything?
+|7|\u{221E} + 90\u{B0}|8| Turn infinity by 90 degrees
+|2|IS THERE SOMETHING WR0NG?|0|One letter is replaced
+|7|A K Q J ?|10|Cards
+|8|J F M A M J J A S O N ?|d| J - January
+|8|3,2 = 25  2,6 = 64   1,3 = 16  3,7 = ?|100|(3+2)^2 = 25
+|1|Ins?a?r?m|tga<$>Instagram|Famous social network
+|4|NaOH + HCl = NaCl + ?|h2o<$>water| H + OH
+|8|A = 1, B = 2, C = 0, D = ?|1|B has 2 closed contours, A has 1
+|8|12 30 7 24 ?|60|How many months in year, days in month?
+|8|I + 💡|pixar|Lamp jumps on I

@@ -3,7 +3,7 @@ package server
 import (
 	"fmt"
 	"io/ioutil"
-	"math/rand"
+	"strconv"
 	"strings"
 
 	"github.com/jinzhu/gorm"
@@ -18,6 +18,7 @@ type Server struct {
 
 func StartUp(db *gorm.DB) *Server {
 	server := Server{DB: db}
+	server.ClearBase()
 	server.DB.AutoMigrate(&Question{})
 	server.DB.AutoMigrate(&User{})
 	server.DB.AutoMigrate(&AnswerInf{})
@@ -222,15 +223,17 @@ func (s *Server) UpdateData() {
 	data, _ := ioutil.ReadFile("./data/questions.txt")
 	lines := strings.Split(string(data), "\n")
 	for _, line := range lines {
+		fmt.Println(line)
 		parts := strings.Split(line, "|")
 		if len(parts) < 3 {
 			continue
 		}
 		var question Question
-		question.MMR = rand.Intn(10000)
-		question.Question = parts[0]
-		question.Explanation = parts[1]
-		question.Answers = parts[2]
+		mmr, _ := strconv.Atoi(parts[1])
+		question.MMR = mmr * 1000
+		question.Question = parts[2]
+		question.Explanation = parts[4]
+		question.Answers = parts[3]
 		s.UpdateQuestion(&question)
 	}
 }

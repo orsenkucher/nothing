@@ -63,7 +63,7 @@ func (a *AnswerInf) Print() {
 }
 
 func (q *Question) Print() {
-	fmt.Println(q.ID, " dif: ", q.MMR, " ", q.Question)
+	fmt.Println(q.ID, "\tdif:\t", q.MMR, "\t", q.Question)
 }
 
 func (u *User) Print() {
