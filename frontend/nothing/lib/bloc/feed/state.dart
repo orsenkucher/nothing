@@ -7,8 +7,9 @@ part 'state.freezed.dart';
 part 'state.g.dart';
 
 @freezed
-abstract class Feed with _$Feed {
-  const factory Feed({QTree tree, int current}) = _Feed;
-  static Feed get empty => Feed(current: 0, tree: QTree());
-  factory Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
+abstract class FeedState with _$FeedState {
+  const factory FeedState({QTree tree}) = _FeedState;
+  static FeedState get empty => FeedState(tree: QTree());
+  factory FeedState.fromJson(Map<String, dynamic> json) =>
+      _$FeedStateFromJson(json);
 }

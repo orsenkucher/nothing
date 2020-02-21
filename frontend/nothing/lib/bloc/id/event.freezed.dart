@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'event.dart';
 
@@ -140,13 +140,13 @@ class _$_IssueID with DiagnosticableTreeMixin implements _IssueID {
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ state.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(state);
 
   @override
   _$_IssueID copyWith({
     Object state = freezed,
   }) {
-    assert(state != null);
     return _$_IssueID(
       state == freezed ? this.state : state as IdState,
     );

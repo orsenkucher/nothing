@@ -9,11 +9,17 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
+import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/home.dart';
 
+// TODOs
+// currentid is always -1
+// SummaryState does not hydrate
+// add seconds, tries to ValidationBloc
+// calc where to move (left|right)
 void main() async {
   await _hydrateAsync();
   if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
@@ -32,25 +38,28 @@ class App extends StatelessWidget with PortraitLock {
     super.build(context);
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SummaryBloc>(
-          create: (context) => SummaryBloc(),
-        ),
         BlocProvider<IdBloc>(
           create: (context) => IdBloc(),
+        ),
+        BlocProvider<FeedBloc>(
+          create: (context) => FeedBloc(),
+        ),
+        BlocProvider<ValidationBloc>(
+          create: (context) => ValidationBloc(
+            feed: BlocProvider.of<FeedBloc>(context),
+          ),
+        ),
+        BlocProvider<SummaryBloc>(
+          create: (context) => SummaryBloc(
+            validation: BlocProvider.of<ValidationBloc>(context),
+          ),
         ),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             summaryBloc: BlocProvider.of<SummaryBloc>(context),
-            repo: CloudQuestionsRepo(
-              BlocProvider.of<IdBloc>(context),
-            ), // CloudQuestionsRepo LocalQuestionsRepo
-            loadCount: 12,
-          ),
-        ),
-        BlocProvider<FeedBloc>(
-          create: (context) => FeedBloc(
-            questionsBloc: BlocProvider.of<QuestionsBloc>(context),
-            threshold: 8,
+            idBloc: BlocProvider.of<IdBloc>(context),
+            feed: BlocProvider.of<FeedBloc>(context),
+            repo: CloudQuestionsRepo(), // CloudQuestionsRepo LocalQuestionsRepo
           ),
         ),
       ],

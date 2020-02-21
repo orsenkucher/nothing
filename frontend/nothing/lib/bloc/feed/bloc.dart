@@ -1,44 +1,42 @@
 import 'dart:async';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:meta/meta.dart';
+// import 'package:meta/meta.dart';
 import 'package:nothing/bloc/feed/event.dart';
 import 'package:nothing/bloc/feed/state.dart';
-import 'package:nothing/bloc/questions/bloc.dart';
+import 'package:nothing/domain/domain.dart';
 
 export 'event.dart';
 export 'state.dart';
 
-class FeedBloc extends HydratedBloc<FeedEvent, Feed> {
-  final int threshold;
-  final QuestionsBloc questionsBloc;
-  StreamSubscription _questionsSub;
+class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
+  // final QuestionsBloc questionsBloc;
+  // StreamSubscription _questionsSub;
 
-  FeedBloc({
-    @required this.questionsBloc,
-    this.threshold = 6,
-  }) {
-    _makeQuestionsSub();
+  FeedBloc(
+      // {@required this.questionsBloc,}
+      ) {
+    // _makeQuestionsSub();
   }
 
-  void _makeQuestionsSub() {
-    _questionsSub = questionsBloc.listen((state) {
-      if (state is Loaded) {
-        add(FeedEvent.newArrived(state.questions));
-      }
-    });
-  }
+  // void _makeQuestionsSub() {
+  //   _questionsSub = questionsBloc.listen((state) {
+  //     if (state is Loaded) {
+  //       add(FeedEvent.newArrived(state.questions));
+  //     }
+  //   });
+  // }
+
+  // @override
+  // Future<void> close() {
+  //   // _questionsSub.cancel();
+  //   return super.close();
+  // }
 
   @override
-  Future<void> close() {
-    _questionsSub.cancel();
-    return super.close();
-  }
+  FeedState get initialState => super.initialState ?? FeedState.empty;
 
   @override
-  Feed get initialState => super.initialState ?? Feed.empty;
-
-  @override
-  Stream<Feed> mapEventToState(FeedEvent event) async* {
+  Stream<FeedState> mapEventToState(FeedEvent event) async* {
     yield* event.map(newArrived: _mapNewArrived, moveNext: _mapMoveNext);
     // if (event is NewArrived) {
     //   yield* _mapNewArrived(event);
@@ -47,7 +45,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, Feed> {
     // }
   }
 
-  Stream<Feed> _mapNewArrived(NewArrived event) async* {
+  Stream<FeedState> _mapNewArrived(NewArrived event) async* {
     // final feed = state.batch.toList()..addAll(event.batch);
     // var cur = state.current;
     // if (cur > threshold) {
@@ -55,9 +53,13 @@ class FeedBloc extends HydratedBloc<FeedEvent, Feed> {
     //   cur = threshold;
     // }
     // yield Feed(feed, cur);
+
+    yield FeedState(tree: event.tree);
+    //     final tree = state.tree.
+    // yield FeedState(tree: )
   }
 
-  Stream<Feed> _mapMoveNext(MoveNext _) async* {
+  Stream<FeedState> _mapMoveNext(MoveNext event) async* {
     // final next = state.current + 1;
     // final feed = state.batch.toList();
     // if (next <= feed.length) {
@@ -67,12 +69,19 @@ class FeedBloc extends HydratedBloc<FeedEvent, Feed> {
     // if (next + threshold > state.batch.length) {
     //   questionsBloc.add(const FetchQuestions());
     // }
+
+    yield FeedState(
+      tree: event.dir.when<QTree>(
+        left: () => state.tree.left,
+        right: () => state.tree.right,
+      ),
+    );
   }
 
   @override
-  Feed fromJson(Map<String, dynamic> json) {
+  FeedState fromJson(Map<String, dynamic> json) {
     try {
-      return Feed.fromJson(json);
+      return FeedState.fromJson(json);
     } catch (_) {
       print('Feed: fromJson error');
       return null;
@@ -80,7 +89,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, Feed> {
   }
 
   @override
-  Map<String, dynamic> toJson(Feed feed) {
+  Map<String, dynamic> toJson(FeedState feed) {
     try {
       return feed.toJson();
     } catch (_) {

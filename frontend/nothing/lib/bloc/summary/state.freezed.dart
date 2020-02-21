@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'state.dart';
 
@@ -12,31 +12,35 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
 }
 
 mixin _$Summary {
-  int get id;
-  Map<int, bool> get summary;
+  int get salt;
+  @JsonKey(toJson: _to)
+  List<SummaryAnswer> get answers;
 
-  Summary copyWith({int id, Map<int, bool> summary});
+  Summary copyWith(
+      {int salt, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
 
   Map<String, dynamic> toJson();
 }
 
 @JsonSerializable()
 class _$_Summary with DiagnosticableTreeMixin implements _Summary {
-  const _$_Summary({@required this.id, @required this.summary})
-      : assert(id != null),
-        assert(summary != null);
+  const _$_Summary(
+      {@required this.salt, @required @JsonKey(toJson: _to) this.answers})
+      : assert(salt != null),
+        assert(answers != null);
 
   factory _$_Summary.fromJson(Map<String, dynamic> json) =>
       _$_$_SummaryFromJson(json);
 
   @override
-  final int id;
+  final int salt;
   @override
-  final Map<int, bool> summary;
+  @JsonKey(toJson: _to)
+  final List<SummaryAnswer> answers;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Summary(id: $id, summary: $summary)';
+    return 'Summary(salt: $salt, answers: $answers)';
   }
 
   @override
@@ -44,33 +48,35 @@ class _$_Summary with DiagnosticableTreeMixin implements _Summary {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Summary'))
-      ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('summary', summary));
+      ..add(DiagnosticsProperty('salt', salt))
+      ..add(DiagnosticsProperty('answers', answers));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Summary &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.summary, summary) ||
-                const DeepCollectionEquality().equals(other.summary, summary)));
+            (identical(other.salt, salt) ||
+                const DeepCollectionEquality().equals(other.salt, salt)) &&
+            (identical(other.answers, answers) ||
+                const DeepCollectionEquality().equals(other.answers, answers)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ id.hashCode ^ summary.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(salt) ^
+      const DeepCollectionEquality().hash(answers);
 
   @override
   _$_Summary copyWith({
-    Object id = freezed,
-    Object summary = freezed,
+    Object salt = freezed,
+    Object answers = freezed,
   }) {
-    assert(id != null);
-    assert(summary != null);
     return _$_Summary(
-      id: id == freezed ? this.id : id as int,
-      summary: summary == freezed ? this.summary : summary as Map<int, bool>,
+      salt: salt == freezed ? this.salt : salt as int,
+      answers:
+          answers == freezed ? this.answers : answers as List<SummaryAnswer>,
     );
   }
 
@@ -81,16 +87,119 @@ class _$_Summary with DiagnosticableTreeMixin implements _Summary {
 }
 
 abstract class _Summary implements Summary {
-  const factory _Summary({@required int id, @required Map<int, bool> summary}) =
+  const factory _Summary(
+          {@required int salt,
+          @required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) =
       _$_Summary;
 
   factory _Summary.fromJson(Map<String, dynamic> json) = _$_Summary.fromJson;
 
   @override
-  int get id;
+  int get salt;
   @override
-  Map<int, bool> get summary;
+  @JsonKey(toJson: _to)
+  List<SummaryAnswer> get answers;
 
   @override
-  _Summary copyWith({int id, Map<int, bool> summary});
+  _Summary copyWith(
+      {int salt, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
+}
+
+SummaryAnswer _$SummaryAnswerFromJson(Map<String, dynamic> json) {
+  return _SummaryAnswer.fromJson(json);
+}
+
+mixin _$SummaryAnswer {
+  int get qid;
+  int get tries;
+  int get seconds;
+
+  SummaryAnswer copyWith({int qid, int tries, int seconds});
+
+  Map<String, dynamic> toJson();
+}
+
+@JsonSerializable()
+class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
+  const _$_SummaryAnswer({this.qid, this.tries, this.seconds});
+
+  factory _$_SummaryAnswer.fromJson(Map<String, dynamic> json) =>
+      _$_$_SummaryAnswerFromJson(json);
+
+  @override
+  final int qid;
+  @override
+  final int tries;
+  @override
+  final int seconds;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'SummaryAnswer(qid: $qid, tries: $tries, seconds: $seconds)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SummaryAnswer'))
+      ..add(DiagnosticsProperty('qid', qid))
+      ..add(DiagnosticsProperty('tries', tries))
+      ..add(DiagnosticsProperty('seconds', seconds));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _SummaryAnswer &&
+            (identical(other.qid, qid) ||
+                const DeepCollectionEquality().equals(other.qid, qid)) &&
+            (identical(other.tries, tries) ||
+                const DeepCollectionEquality().equals(other.tries, tries)) &&
+            (identical(other.seconds, seconds) ||
+                const DeepCollectionEquality().equals(other.seconds, seconds)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(qid) ^
+      const DeepCollectionEquality().hash(tries) ^
+      const DeepCollectionEquality().hash(seconds);
+
+  @override
+  _$_SummaryAnswer copyWith({
+    Object qid = freezed,
+    Object tries = freezed,
+    Object seconds = freezed,
+  }) {
+    return _$_SummaryAnswer(
+      qid: qid == freezed ? this.qid : qid as int,
+      tries: tries == freezed ? this.tries : tries as int,
+      seconds: seconds == freezed ? this.seconds : seconds as int,
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_SummaryAnswerToJson(this);
+  }
+}
+
+abstract class _SummaryAnswer implements SummaryAnswer {
+  const factory _SummaryAnswer({int qid, int tries, int seconds}) =
+      _$_SummaryAnswer;
+
+  factory _SummaryAnswer.fromJson(Map<String, dynamic> json) =
+      _$_SummaryAnswer.fromJson;
+
+  @override
+  int get qid;
+  @override
+  int get tries;
+  @override
+  int get seconds;
+
+  @override
+  _SummaryAnswer copyWith({int qid, int tries, int seconds});
 }

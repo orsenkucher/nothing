@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'state.dart';
 
@@ -7,85 +7,77 @@ part of 'state.dart';
 // FreezedGenerator
 // **************************************************************************
 
-Feed _$FeedFromJson(Map<String, dynamic> json) {
-  return _Feed.fromJson(json);
+FeedState _$FeedStateFromJson(Map<String, dynamic> json) {
+  return _FeedState.fromJson(json);
 }
 
-mixin _$Feed {
+mixin _$FeedState {
   QTree get tree;
-  int get current;
 
-  Feed copyWith({QTree tree, int current});
+  FeedState copyWith({QTree tree});
 
   Map<String, dynamic> toJson();
 }
 
 @JsonSerializable()
-class _$_Feed with DiagnosticableTreeMixin implements _Feed {
-  const _$_Feed({this.tree, this.current});
+class _$_FeedState with DiagnosticableTreeMixin implements _FeedState {
+  const _$_FeedState({this.tree});
 
-  factory _$_Feed.fromJson(Map<String, dynamic> json) =>
-      _$_$_FeedFromJson(json);
+  factory _$_FeedState.fromJson(Map<String, dynamic> json) =>
+      _$_$_FeedStateFromJson(json);
 
   @override
   final QTree tree;
-  @override
-  final int current;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Feed(tree: $tree, current: $current)';
+    return 'FeedState(tree: $tree)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Feed'))
-      ..add(DiagnosticsProperty('tree', tree))
-      ..add(DiagnosticsProperty('current', current));
+      ..add(DiagnosticsProperty('type', 'FeedState'))
+      ..add(DiagnosticsProperty('tree', tree));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Feed &&
+        (other is _FeedState &&
             (identical(other.tree, tree) ||
-                const DeepCollectionEquality().equals(other.tree, tree)) &&
-            (identical(other.current, current) ||
-                const DeepCollectionEquality().equals(other.current, current)));
+                const DeepCollectionEquality().equals(other.tree, tree)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ tree.hashCode ^ current.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(tree);
 
   @override
-  _$_Feed copyWith({
+  _$_FeedState copyWith({
     Object tree = freezed,
-    Object current = freezed,
   }) {
-    return _$_Feed(
+    return _$_FeedState(
       tree: tree == freezed ? this.tree : tree as QTree,
-      current: current == freezed ? this.current : current as int,
     );
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_FeedToJson(this);
+    return _$_$_FeedStateToJson(this);
   }
 }
 
-abstract class _Feed implements Feed {
-  const factory _Feed({QTree tree, int current}) = _$_Feed;
+abstract class _FeedState implements FeedState {
+  const factory _FeedState({QTree tree}) = _$_FeedState;
 
-  factory _Feed.fromJson(Map<String, dynamic> json) = _$_Feed.fromJson;
+  factory _FeedState.fromJson(Map<String, dynamic> json) =
+      _$_FeedState.fromJson;
 
   @override
   QTree get tree;
-  @override
-  int get current;
 
   @override
-  _Feed copyWith({QTree tree, int current});
+  _FeedState copyWith({QTree tree});
 }

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'state.dart';
 
@@ -59,15 +59,16 @@ class _$_IdState with DiagnosticableTreeMixin implements _IdState {
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ id.hashCode ^ salt.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(salt);
 
   @override
   _$_IdState copyWith({
     Object id = freezed,
     Object salt = freezed,
   }) {
-    assert(id != null);
-    assert(salt != null);
     return _$_IdState(
       id == freezed ? this.id : id as String,
       salt == freezed ? this.salt : salt as String,

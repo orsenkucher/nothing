@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'domain.dart';
 
@@ -26,7 +26,7 @@ mixin _$Question {
 
 @JsonSerializable()
 class _$_Question with DiagnosticableTreeMixin implements _Question {
-  const _$_Question(
+  _$_Question(
       {this.id, this.question, this.explanation, this.answers, this.mmr});
 
   factory _$_Question.fromJson(Map<String, dynamic> json) =>
@@ -42,10 +42,21 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
   final String answers;
   @override
   final int mmr;
+  bool _didsplitted = false;
+  List<String> _splitted;
+
+  @override
+  List<String> get splitted {
+    if (_didsplitted == false) {
+      _didsplitted = true;
+      _splitted = answers.split(r'<$>');
+    }
+    return _splitted;
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Question(id: $id, question: $question, explanation: $explanation, answers: $answers, mmr: $mmr)';
+    return 'Question(id: $id, question: $question, explanation: $explanation, answers: $answers, mmr: $mmr, splitted: $splitted)';
   }
 
   @override
@@ -57,7 +68,8 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
       ..add(DiagnosticsProperty('question', question))
       ..add(DiagnosticsProperty('explanation', explanation))
       ..add(DiagnosticsProperty('answers', answers))
-      ..add(DiagnosticsProperty('mmr', mmr));
+      ..add(DiagnosticsProperty('mmr', mmr))
+      ..add(DiagnosticsProperty('splitted', splitted));
   }
 
   @override
@@ -82,11 +94,11 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      id.hashCode ^
-      question.hashCode ^
-      explanation.hashCode ^
-      answers.hashCode ^
-      mmr.hashCode;
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(question) ^
+      const DeepCollectionEquality().hash(explanation) ^
+      const DeepCollectionEquality().hash(answers) ^
+      const DeepCollectionEquality().hash(mmr);
 
   @override
   _$_Question copyWith({
@@ -113,7 +125,7 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
 }
 
 abstract class _Question implements Question {
-  const factory _Question(
+  factory _Question(
       {int id,
       String question,
       String explanation,
@@ -196,7 +208,10 @@ class _$_QTree with DiagnosticableTreeMixin implements _QTree {
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ question.hashCode ^ left.hashCode ^ right.hashCode;
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(question) ^
+      const DeepCollectionEquality().hash(left) ^
+      const DeepCollectionEquality().hash(right);
 
   @override
   _$_QTree copyWith({

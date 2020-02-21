@@ -7,5 +7,11 @@ part 'event.freezed.dart';
 @freezed
 abstract class FeedEvent with _$FeedEvent {
   const factory FeedEvent.newArrived(QTree tree) = NewArrived;
-  factory FeedEvent.moveNext() = MoveNext;
+  const factory FeedEvent.moveNext(MoveDir dir) = MoveNext;
+}
+
+@freezed
+abstract class MoveDir with _$MoveDir {
+  const factory MoveDir.left() = _Left;
+  const factory MoveDir.right() = _Right;
 }

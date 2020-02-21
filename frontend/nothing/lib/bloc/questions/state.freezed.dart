@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'state.dart';
 
@@ -72,13 +72,13 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ questions.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(questions);
 
   @override
   _$Loaded copyWith({
     Object questions = freezed,
   }) {
-    assert(questions != null);
     return _$Loaded(
       questions == freezed ? this.questions : questions as QTree,
     );
@@ -361,13 +361,13 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ error.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
 
   @override
   _$Error copyWith({
     Object error = freezed,
   }) {
-    assert(error != null);
     return _$Error(
       error == freezed ? this.error : error as CloudError,
     );

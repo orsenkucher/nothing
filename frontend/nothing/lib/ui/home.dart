@@ -5,7 +5,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
+import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -56,7 +58,18 @@ class _HomeState extends State<Home> {
             children: [
               Game(),
               _gestureDetector(),
-              _inputPoint(model),
+              BlocListener<ValidationBloc, ValidationState>(
+                listener: (context, state) {
+                  state.maybeMap(
+                    correct: (_) {
+                      _controller.clear();
+                      model.update('');
+                    },
+                    orElse: () {},
+                  );
+                },
+                child: _inputPoint(model),
+              ),
             ],
           ),
         ),
@@ -92,20 +105,26 @@ class _HomeState extends State<Home> {
         keyboardType: TextInputType.text,
         onSubmitted: (s) async {
           print(s);
-          model.update(s);
           _focusNode.requestFocus();
-          if (true) {
-            // clear
-            _controller.clear();
-            model.update('');
-            // Vibrate.feedback(FeedbackType.success);
-          } else {
-            // dont clear
-            // Vibrate.feedback(FeedbackType.warning);
+          if (s.isNotEmpty) {
+            BlocProvider.of<ValidationBloc>(context).add(
+              ValidationEvent.check(s),
+            );
           }
+          // model.update(s);
+          // if (true) {
+          //   // clear
+          //   _controller.clear();
+          //   model.update('');
+          //   // Vibrate.feedback(FeedbackType.success);
+          // } else {
+          //   // dont clear
+          //   // Vibrate.feedback(FeedbackType.warning);
+          // }
         },
         textInputAction: TextInputAction.go,
         onChanged: (s) {
+          BlocProvider.of<ValidationBloc>(context).add(ValidationEvent.purge());
           model.update(s);
           print(s);
         },
@@ -197,44 +216,50 @@ class Answer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.symmetric(horizontal: 32),
-      child: Material(
-        elevation: 6,
-        shadowColor: Color(0x88fdcf3c),
-        color: Color(0xfffdcf3c),
-        borderRadius: BorderRadius.circular(28),
-        clipBehavior: Clip.antiAlias,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 4),
-                child: IconButton(
-                  onPressed: () => print("Press"),
-                  // tooltip: "hint",
-                  splashColor: Colors.red,
-                  highlightColor: Colors.transparent,
-                  icon: Icon(
-                    Icons.lightbulb_outline,
-                    color: Colors.black,
-                    size: 32,
+      child: BlocBuilder<ValidationBloc, ValidationState>(
+        builder: (BuildContext context, state) => Material(
+          elevation: 6,
+          shadowColor: Color(0x88fdcf3c),
+          color: state.when(
+            correct: () => Color(0xff88bb33),
+            neutral: () => Color(0xfffdcf3c),
+            wrong: () => Color(0xffc02030),
+          ),
+          borderRadius: BorderRadius.circular(28),
+          clipBehavior: Clip.antiAlias,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: IconButton(
+                    onPressed: () => print("Press"),
+                    // tooltip: "hint",
+                    splashColor: Colors.red,
+                    highlightColor: Colors.transparent,
+                    icon: Icon(
+                      Icons.lightbulb_outline,
+                      color: Colors.black,
+                      size: 32,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              child: AutoSizeText(
-                TextModel.of(context).text ?? '',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: NothingScheme.of(context).question,
+              Expanded(
+                child: AutoSizeText(
+                  TextModel.of(context).text ?? '',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: NothingScheme.of(context).question,
+                  ),
+                  maxLines: 2,
                 ),
-                maxLines: 2,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -253,14 +278,16 @@ class Question extends StatelessWidget {
         horizontal: 24,
         vertical: 8,
       ),
-      child: AutoSizeText(
-        "Two people are standing back Two people are standing?",
-        maxLines: 6,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 44,
-          fontWeight: FontWeight.bold,
-          color: NothingScheme.of(context).previoustext,
+      child: BlocBuilder<FeedBloc, FeedState>(
+        builder: (context, state) => AutoSizeText(
+          state.tree?.question?.question ?? '',
+          maxLines: 6,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 44,
+            fontWeight: FontWeight.bold,
+            color: NothingScheme.of(context).previoustext,
+          ),
         ),
       ),
     );

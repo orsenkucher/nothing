@@ -6,16 +6,15 @@ part of 'state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Feed _$_$_FeedFromJson(Map<String, dynamic> json) {
-  return _$_Feed(
+_$_FeedState _$_$_FeedStateFromJson(Map<String, dynamic> json) {
+  return _$_FeedState(
     tree: json['tree'] == null
         ? null
         : QTree.fromJson(json['tree'] as Map<String, dynamic>),
-    current: json['current'] as int,
   );
 }
 
-Map<String, dynamic> _$_$_FeedToJson(_$_Feed instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_FeedStateToJson(_$_FeedState instance) =>
+    <String, dynamic>{
       'tree': instance.tree,
-      'current': instance.current,
     };

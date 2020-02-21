@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'event.dart';
 
@@ -11,13 +11,16 @@ mixin _$SummaryEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result reset(),
-    @required Result answer(@required int id, @required bool answer),
+    @required
+        Result answer(
+            @required int qid, @required int tries, @required int seconds),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result reset(),
-    Result answer(@required int id, @required bool answer),
+    Result answer(
+        @required int qid, @required int tries, @required int seconds),
     @required Result orElse(),
   });
 
@@ -61,7 +64,9 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result reset(),
-    @required Result answer(@required int id, @required bool answer),
+    @required
+        Result answer(
+            @required int qid, @required int tries, @required int seconds),
   }) {
     assert(reset != null);
     assert(answer != null);
@@ -72,7 +77,8 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result reset(),
-    Result answer(@required int id, @required bool answer),
+    Result answer(
+        @required int qid, @required int tries, @required int seconds),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -113,18 +119,22 @@ abstract class Reset implements SummaryEvent {
 }
 
 class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
-  const _$NewAnswer({@required this.id, @required this.answer})
-      : assert(id != null),
-        assert(answer != null);
+  const _$NewAnswer(
+      {@required this.qid, @required this.tries, @required this.seconds})
+      : assert(qid != null),
+        assert(tries != null),
+        assert(seconds != null);
 
   @override
-  final int id;
+  final int qid;
   @override
-  final bool answer;
+  final int tries;
+  @override
+  final int seconds;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SummaryEvent.answer(id: $id, answer: $answer)';
+    return 'SummaryEvent.answer(qid: $qid, tries: $tries, seconds: $seconds)';
   }
 
   @override
@@ -132,33 +142,40 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'SummaryEvent.answer'))
-      ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('answer', answer));
+      ..add(DiagnosticsProperty('qid', qid))
+      ..add(DiagnosticsProperty('tries', tries))
+      ..add(DiagnosticsProperty('seconds', seconds));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is NewAnswer &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.answer, answer) ||
-                const DeepCollectionEquality().equals(other.answer, answer)));
+            (identical(other.qid, qid) ||
+                const DeepCollectionEquality().equals(other.qid, qid)) &&
+            (identical(other.tries, tries) ||
+                const DeepCollectionEquality().equals(other.tries, tries)) &&
+            (identical(other.seconds, seconds) ||
+                const DeepCollectionEquality().equals(other.seconds, seconds)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ id.hashCode ^ answer.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(qid) ^
+      const DeepCollectionEquality().hash(tries) ^
+      const DeepCollectionEquality().hash(seconds);
 
   @override
   _$NewAnswer copyWith({
-    Object id = freezed,
-    Object answer = freezed,
+    Object qid = freezed,
+    Object tries = freezed,
+    Object seconds = freezed,
   }) {
-    assert(id != null);
-    assert(answer != null);
     return _$NewAnswer(
-      id: id == freezed ? this.id : id as int,
-      answer: answer == freezed ? this.answer : answer as bool,
+      qid: qid == freezed ? this.qid : qid as int,
+      tries: tries == freezed ? this.tries : tries as int,
+      seconds: seconds == freezed ? this.seconds : seconds as int,
     );
   }
 
@@ -166,23 +183,26 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result reset(),
-    @required Result answer(@required int id, @required bool answer),
+    @required
+        Result answer(
+            @required int qid, @required int tries, @required int seconds),
   }) {
     assert(reset != null);
     assert(answer != null);
-    return answer(id, this.answer);
+    return answer(qid, tries, seconds);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result reset(),
-    Result answer(@required int id, @required bool answer),
+    Result answer(
+        @required int qid, @required int tries, @required int seconds),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (answer != null) {
-      return answer(id, this.answer);
+      return answer(qid, tries, seconds);
     }
     return orElse();
   }
@@ -214,11 +234,14 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
 }
 
 abstract class NewAnswer implements SummaryEvent {
-  const factory NewAnswer({@required int id, @required bool answer}) =
-      _$NewAnswer;
+  const factory NewAnswer(
+      {@required int qid,
+      @required int tries,
+      @required int seconds}) = _$NewAnswer;
 
-  int get id;
-  bool get answer;
+  int get qid;
+  int get tries;
+  int get seconds;
 
-  NewAnswer copyWith({int id, bool answer});
+  NewAnswer copyWith({int qid, int tries, int seconds});
 }

@@ -7,13 +7,16 @@ part 'domain.g.dart';
 
 @freezed
 abstract class Question with _$Question {
-  const factory Question({
+  factory Question({
     int id,
     String question,
     String explanation,
     String answers,
-    int mmr,
+    int mmr, // А зочем мне ммр?
   }) = _Question;
+
+  @late
+  List<String> get splitted => answers.split(r'<$>');
 
   factory Question.fromJson(Map<String, dynamic> json) =>
       _$QuestionFromJson(json);
@@ -29,6 +32,8 @@ abstract class QTree with _$QTree {
     QTree left,
     QTree right,
   }) = _QTree;
+
+  // const factory QTree.nil() = _NilQTree;
 
   factory QTree.fromJson(Map<String, dynamic> json) => _$QTreeFromJson(json);
 }
