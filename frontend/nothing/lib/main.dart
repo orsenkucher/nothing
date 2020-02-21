@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/bloc/id/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
@@ -34,10 +35,15 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<SummaryBloc>(
           create: (context) => SummaryBloc(),
         ),
+        BlocProvider<IdBloc>(
+          create: (context) => IdBloc(),
+        ),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             summaryBloc: BlocProvider.of<SummaryBloc>(context),
-            repo: LocalQuestionsRepo(), // CloudQuestionsRepo LocalQuestionsRepo
+            repo: CloudQuestionsRepo(
+              BlocProvider.of<IdBloc>(context),
+            ), // CloudQuestionsRepo LocalQuestionsRepo
             loadCount: 12,
           ),
         ),

@@ -39,7 +39,7 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
   const _$Fetch();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'QuestionsEvent.fetch()';
   }
 
@@ -51,7 +51,7 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
 
   @override
   bool operator ==(dynamic other) {
-    return other is Fetch;
+    return identical(this, other) || (other is Fetch);
   }
 
   @override
@@ -116,7 +116,7 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
   const _$Refetch();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'QuestionsEvent.refetch()';
   }
 
@@ -128,7 +128,7 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
 
   @override
   bool operator ==(dynamic other) {
-    return other is Refetch;
+    return identical(this, other) || (other is Refetch);
   }
 
   @override

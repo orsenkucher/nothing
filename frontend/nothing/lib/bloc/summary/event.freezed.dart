@@ -39,7 +39,7 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
   const _$Reset();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SummaryEvent.reset()';
   }
 
@@ -51,7 +51,7 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
 
   @override
   bool operator ==(dynamic other) {
-    return other is Reset;
+    return identical(this, other) || (other is Reset);
   }
 
   @override
@@ -113,7 +113,9 @@ abstract class Reset implements SummaryEvent {
 }
 
 class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
-  const _$NewAnswer({@required this.id, @required this.answer});
+  const _$NewAnswer({@required this.id, @required this.answer})
+      : assert(id != null),
+        assert(answer != null);
 
   @override
   final int id;
@@ -121,7 +123,7 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   final bool answer;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SummaryEvent.answer(id: $id, answer: $answer)';
   }
 
@@ -136,9 +138,12 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
 
   @override
   bool operator ==(dynamic other) {
-    return other is NewAnswer &&
-        (identical(other.id, id) || other.id == id) &&
-        (identical(other.answer, answer) || other.answer == answer);
+    return identical(this, other) ||
+        (other is NewAnswer &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.answer, answer) ||
+                const DeepCollectionEquality().equals(other.answer, answer)));
   }
 
   @override
@@ -146,12 +151,14 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
 
   @override
   _$NewAnswer copyWith({
-    Object id = immutable,
-    Object answer = immutable,
+    Object id = freezed,
+    Object answer = freezed,
   }) {
+    assert(id != null);
+    assert(answer != null);
     return _$NewAnswer(
-      id: id == immutable ? this.id : id as int,
-      answer: answer == immutable ? this.answer : answer as bool,
+      id: id == freezed ? this.id : id as int,
+      answer: answer == freezed ? this.answer : answer as bool,
     );
   }
 

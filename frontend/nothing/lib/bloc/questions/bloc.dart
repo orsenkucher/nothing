@@ -23,7 +23,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   });
 
   @override
-  QuestionsState get initialState => QuestionsState.loaded(QTree());
+  QuestionsState get initialState => QuestionsState.empty;
 
   @override
   Stream<QuestionsState> mapEventToState(QuestionsEvent event) async* {
