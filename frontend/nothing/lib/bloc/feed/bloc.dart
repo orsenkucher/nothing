@@ -1,36 +1,36 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 // import 'package:meta/meta.dart';
 import 'package:nothing/bloc/feed/event.dart';
 import 'package:nothing/bloc/feed/state.dart';
+import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/domain/domain.dart';
 
 export 'event.dart';
 export 'state.dart';
 
 class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
-  // final QuestionsBloc questionsBloc;
-  // StreamSubscription _questionsSub;
+  final QuestionsBloc questionsBloc;
+  StreamSubscription _questionsSub;
 
-  FeedBloc(
-      // {@required this.questionsBloc,}
-      ) {
-    // _makeQuestionsSub();
+  FeedBloc({@required this.questionsBloc}) {
+    _makeQuestionsSub();
   }
 
-  // void _makeQuestionsSub() {
-  //   _questionsSub = questionsBloc.listen((state) {
-  //     if (state is Loaded) {
-  //       add(FeedEvent.newArrived(state.questions));
-  //     }
-  //   });
-  // }
+  void _makeQuestionsSub() {
+    _questionsSub = questionsBloc.listen((state) {
+      if (state is Loaded) {
+        add(FeedEvent.newArrived(state.questions));
+      }
+    });
+  }
 
-  // @override
-  // Future<void> close() {
-  //   // _questionsSub.cancel();
-  //   return super.close();
-  // }
+  @override
+  Future<void> close() {
+    _questionsSub.cancel();
+    return super.close();
+  }
 
   @override
   FeedState get initialState => super.initialState ?? FeedState.empty;
@@ -69,13 +69,14 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     // if (next + threshold > state.batch.length) {
     //   questionsBloc.add(const FetchQuestions());
     // }
-
+    final currentid = state?.tree?.question?.id;
     yield FeedState(
       tree: event.dir.when<QTree>(
         left: () => state.tree.left,
         right: () => state.tree.right,
       ),
     );
+    questionsBloc.add(QuestionsEvent.fetch(currentid));
   }
 
   @override

@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // if (BlocProvider.of<FeedBloc>(context).state.current < 36) { // REDO HERE
-    BlocProvider.of<QuestionsBloc>(context).add(const QuestionsEvent.fetch());
+    BlocProvider.of<QuestionsBloc>(context).add(QuestionsEvent.fetch());
     // }
   }
 
@@ -192,7 +192,10 @@ class Game extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [_yellowThing(), _yellowThing()],
+                children: [
+                  _yellowThing(Icons.add_shopping_cart),
+                  _yellowThing(Icons.history),
+                ],
               ),
               SizedBox(
                 height: labelH,
@@ -219,7 +222,7 @@ class Game extends StatelessWidget {
     );
   }
 
-  Widget _yellowThing() {
+  Widget _yellowThing(IconData icon) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 24,
@@ -233,7 +236,7 @@ class Game extends StatelessWidget {
         ),
         width: 50,
         height: 28,
-        child: Icon(Icons.add_shopping_cart),
+        child: Icon(icon),
       ),
     );
   }

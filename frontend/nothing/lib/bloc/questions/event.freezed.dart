@@ -8,16 +8,20 @@ part of 'event.dart';
 // **************************************************************************
 
 mixin _$QuestionsEvent {
+  int get currentid;
+
+  QuestionsEvent copyWith({int currentid});
+
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fetch(),
-    @required Result refetch(),
+    @required Result fetch(int currentid),
+    @required Result refetch(int currentid),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fetch(),
-    Result refetch(),
+    Result fetch(int currentid),
+    Result refetch(int currentid),
     @required Result orElse(),
   });
 
@@ -36,48 +40,67 @@ mixin _$QuestionsEvent {
 }
 
 class _$Fetch with DiagnosticableTreeMixin implements Fetch {
-  const _$Fetch();
+  const _$Fetch([this.currentid]);
+
+  @override
+  final int currentid;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'QuestionsEvent.fetch()';
+    return 'QuestionsEvent.fetch(currentid: $currentid)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'QuestionsEvent.fetch'));
+    properties
+      ..add(DiagnosticsProperty('type', 'QuestionsEvent.fetch'))
+      ..add(DiagnosticsProperty('currentid', currentid));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Fetch);
+    return identical(this, other) ||
+        (other is Fetch &&
+            (identical(other.currentid, currentid) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentid, currentid)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(currentid);
+
+  @override
+  _$Fetch copyWith({
+    Object currentid = freezed,
+  }) {
+    return _$Fetch(
+      currentid == freezed ? this.currentid : currentid as int,
+    );
+  }
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fetch(),
-    @required Result refetch(),
+    @required Result fetch(int currentid),
+    @required Result refetch(int currentid),
   }) {
     assert(fetch != null);
     assert(refetch != null);
-    return fetch();
+    return fetch(currentid);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fetch(),
-    Result refetch(),
+    Result fetch(int currentid),
+    Result refetch(int currentid),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (fetch != null) {
-      return fetch();
+      return fetch(currentid);
     }
     return orElse();
   }
@@ -109,52 +132,77 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
 }
 
 abstract class Fetch implements QuestionsEvent {
-  const factory Fetch() = _$Fetch;
+  const factory Fetch([int currentid]) = _$Fetch;
+
+  @override
+  int get currentid;
+
+  @override
+  Fetch copyWith({int currentid});
 }
 
 class _$Refetch with DiagnosticableTreeMixin implements Refetch {
-  const _$Refetch();
+  const _$Refetch(this.currentid) : assert(currentid != null);
+
+  @override
+  final int currentid;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'QuestionsEvent.refetch()';
+    return 'QuestionsEvent.refetch(currentid: $currentid)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'QuestionsEvent.refetch'));
+    properties
+      ..add(DiagnosticsProperty('type', 'QuestionsEvent.refetch'))
+      ..add(DiagnosticsProperty('currentid', currentid));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Refetch);
+    return identical(this, other) ||
+        (other is Refetch &&
+            (identical(other.currentid, currentid) ||
+                const DeepCollectionEquality()
+                    .equals(other.currentid, currentid)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(currentid);
+
+  @override
+  _$Refetch copyWith({
+    Object currentid = freezed,
+  }) {
+    return _$Refetch(
+      currentid == freezed ? this.currentid : currentid as int,
+    );
+  }
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result fetch(),
-    @required Result refetch(),
+    @required Result fetch(int currentid),
+    @required Result refetch(int currentid),
   }) {
     assert(fetch != null);
     assert(refetch != null);
-    return refetch();
+    return refetch(currentid);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result fetch(),
-    Result refetch(),
+    Result fetch(int currentid),
+    Result refetch(int currentid),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (refetch != null) {
-      return refetch();
+      return refetch(currentid);
     }
     return orElse();
   }
@@ -186,5 +234,11 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
 }
 
 abstract class Refetch implements QuestionsEvent {
-  const factory Refetch() = _$Refetch;
+  const factory Refetch(int currentid) = _$Refetch;
+
+  @override
+  int get currentid;
+
+  @override
+  Refetch copyWith({int currentid});
 }
