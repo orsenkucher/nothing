@@ -212,18 +212,23 @@ abstract class _Purge implements ValidationEvent {
 }
 
 mixin _$ValidationState {
+  int get qid;
+  int get tries;
+
+  ValidationState copyWith({int qid, int tries});
+
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result correct(),
-    @required Result neutral(),
-    @required Result wrong(),
+    @required Result correct(int qid, int tries, Duration duration),
+    @required Result neutral(int qid, int tries, DateTime time),
+    @required Result wrong(int qid, int tries, DateTime time),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result correct(),
-    Result neutral(),
-    Result wrong(),
+    Result correct(int qid, int tries, Duration duration),
+    Result neutral(int qid, int tries, DateTime time),
+    Result wrong(int qid, int tries, DateTime time),
     @required Result orElse(),
   });
 
@@ -244,51 +249,90 @@ mixin _$ValidationState {
 }
 
 class _$_Correct with DiagnosticableTreeMixin implements _Correct {
-  const _$_Correct();
+  const _$_Correct(this.qid, this.tries, this.duration)
+      : assert(qid != null),
+        assert(tries != null),
+        assert(duration != null);
+
+  @override
+  final int qid;
+  @override
+  final int tries;
+  @override
+  final Duration duration;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ValidationState.correct()';
+    return 'ValidationState.correct(qid: $qid, tries: $tries, duration: $duration)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'ValidationState.correct'));
+    properties
+      ..add(DiagnosticsProperty('type', 'ValidationState.correct'))
+      ..add(DiagnosticsProperty('qid', qid))
+      ..add(DiagnosticsProperty('tries', tries))
+      ..add(DiagnosticsProperty('duration', duration));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Correct);
+    return identical(this, other) ||
+        (other is _Correct &&
+            (identical(other.qid, qid) ||
+                const DeepCollectionEquality().equals(other.qid, qid)) &&
+            (identical(other.tries, tries) ||
+                const DeepCollectionEquality().equals(other.tries, tries)) &&
+            (identical(other.duration, duration) ||
+                const DeepCollectionEquality()
+                    .equals(other.duration, duration)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(qid) ^
+      const DeepCollectionEquality().hash(tries) ^
+      const DeepCollectionEquality().hash(duration);
+
+  @override
+  _$_Correct copyWith({
+    Object qid = freezed,
+    Object tries = freezed,
+    Object duration = freezed,
+  }) {
+    return _$_Correct(
+      qid == freezed ? this.qid : qid as int,
+      tries == freezed ? this.tries : tries as int,
+      duration == freezed ? this.duration : duration as Duration,
+    );
+  }
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result correct(),
-    @required Result neutral(),
-    @required Result wrong(),
+    @required Result correct(int qid, int tries, Duration duration),
+    @required Result neutral(int qid, int tries, DateTime time),
+    @required Result wrong(int qid, int tries, DateTime time),
   }) {
     assert(correct != null);
     assert(neutral != null);
     assert(wrong != null);
-    return correct();
+    return correct(qid, tries, duration);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result correct(),
-    Result neutral(),
-    Result wrong(),
+    Result correct(int qid, int tries, Duration duration),
+    Result neutral(int qid, int tries, DateTime time),
+    Result wrong(int qid, int tries, DateTime time),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (correct != null) {
-      return correct();
+      return correct(qid, tries, duration);
     }
     return orElse();
   }
@@ -323,55 +367,102 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
 }
 
 abstract class _Correct implements ValidationState {
-  const factory _Correct() = _$_Correct;
+  const factory _Correct(int qid, int tries, Duration duration) = _$_Correct;
+
+  @override
+  int get qid;
+  @override
+  int get tries;
+  Duration get duration;
+
+  @override
+  _Correct copyWith({int qid, int tries, Duration duration});
 }
 
 class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
-  const _$_Neutral();
+  const _$_Neutral(this.qid, this.tries, this.time)
+      : assert(qid != null),
+        assert(tries != null),
+        assert(time != null);
+
+  @override
+  final int qid;
+  @override
+  final int tries;
+  @override
+  final DateTime time;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ValidationState.neutral()';
+    return 'ValidationState.neutral(qid: $qid, tries: $tries, time: $time)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'ValidationState.neutral'));
+    properties
+      ..add(DiagnosticsProperty('type', 'ValidationState.neutral'))
+      ..add(DiagnosticsProperty('qid', qid))
+      ..add(DiagnosticsProperty('tries', tries))
+      ..add(DiagnosticsProperty('time', time));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Neutral);
+    return identical(this, other) ||
+        (other is _Neutral &&
+            (identical(other.qid, qid) ||
+                const DeepCollectionEquality().equals(other.qid, qid)) &&
+            (identical(other.tries, tries) ||
+                const DeepCollectionEquality().equals(other.tries, tries)) &&
+            (identical(other.time, time) ||
+                const DeepCollectionEquality().equals(other.time, time)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(qid) ^
+      const DeepCollectionEquality().hash(tries) ^
+      const DeepCollectionEquality().hash(time);
+
+  @override
+  _$_Neutral copyWith({
+    Object qid = freezed,
+    Object tries = freezed,
+    Object time = freezed,
+  }) {
+    return _$_Neutral(
+      qid == freezed ? this.qid : qid as int,
+      tries == freezed ? this.tries : tries as int,
+      time == freezed ? this.time : time as DateTime,
+    );
+  }
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result correct(),
-    @required Result neutral(),
-    @required Result wrong(),
+    @required Result correct(int qid, int tries, Duration duration),
+    @required Result neutral(int qid, int tries, DateTime time),
+    @required Result wrong(int qid, int tries, DateTime time),
   }) {
     assert(correct != null);
     assert(neutral != null);
     assert(wrong != null);
-    return neutral();
+    return neutral(qid, tries, time);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result correct(),
-    Result neutral(),
-    Result wrong(),
+    Result correct(int qid, int tries, Duration duration),
+    Result neutral(int qid, int tries, DateTime time),
+    Result wrong(int qid, int tries, DateTime time),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (neutral != null) {
-      return neutral();
+      return neutral(qid, tries, time);
     }
     return orElse();
   }
@@ -406,55 +497,102 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
 }
 
 abstract class _Neutral implements ValidationState {
-  const factory _Neutral() = _$_Neutral;
+  const factory _Neutral(int qid, int tries, DateTime time) = _$_Neutral;
+
+  @override
+  int get qid;
+  @override
+  int get tries;
+  DateTime get time;
+
+  @override
+  _Neutral copyWith({int qid, int tries, DateTime time});
 }
 
 class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
-  const _$_Wrong();
+  const _$_Wrong(this.qid, this.tries, this.time)
+      : assert(qid != null),
+        assert(tries != null),
+        assert(time != null);
+
+  @override
+  final int qid;
+  @override
+  final int tries;
+  @override
+  final DateTime time;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ValidationState.wrong()';
+    return 'ValidationState.wrong(qid: $qid, tries: $tries, time: $time)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'ValidationState.wrong'));
+    properties
+      ..add(DiagnosticsProperty('type', 'ValidationState.wrong'))
+      ..add(DiagnosticsProperty('qid', qid))
+      ..add(DiagnosticsProperty('tries', tries))
+      ..add(DiagnosticsProperty('time', time));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Wrong);
+    return identical(this, other) ||
+        (other is _Wrong &&
+            (identical(other.qid, qid) ||
+                const DeepCollectionEquality().equals(other.qid, qid)) &&
+            (identical(other.tries, tries) ||
+                const DeepCollectionEquality().equals(other.tries, tries)) &&
+            (identical(other.time, time) ||
+                const DeepCollectionEquality().equals(other.time, time)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(qid) ^
+      const DeepCollectionEquality().hash(tries) ^
+      const DeepCollectionEquality().hash(time);
+
+  @override
+  _$_Wrong copyWith({
+    Object qid = freezed,
+    Object tries = freezed,
+    Object time = freezed,
+  }) {
+    return _$_Wrong(
+      qid == freezed ? this.qid : qid as int,
+      tries == freezed ? this.tries : tries as int,
+      time == freezed ? this.time : time as DateTime,
+    );
+  }
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result correct(),
-    @required Result neutral(),
-    @required Result wrong(),
+    @required Result correct(int qid, int tries, Duration duration),
+    @required Result neutral(int qid, int tries, DateTime time),
+    @required Result wrong(int qid, int tries, DateTime time),
   }) {
     assert(correct != null);
     assert(neutral != null);
     assert(wrong != null);
-    return wrong();
+    return wrong(qid, tries, time);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result correct(),
-    Result neutral(),
-    Result wrong(),
+    Result correct(int qid, int tries, Duration duration),
+    Result neutral(int qid, int tries, DateTime time),
+    Result wrong(int qid, int tries, DateTime time),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (wrong != null) {
-      return wrong();
+      return wrong(qid, tries, time);
     }
     return orElse();
   }
@@ -489,5 +627,14 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
 }
 
 abstract class _Wrong implements ValidationState {
-  const factory _Wrong() = _$_Wrong;
+  const factory _Wrong(int qid, int tries, DateTime time) = _$_Wrong;
+
+  @override
+  int get qid;
+  @override
+  int get tries;
+  DateTime get time;
+
+  @override
+  _Wrong copyWith({int qid, int tries, DateTime time});
 }

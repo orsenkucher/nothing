@@ -59,22 +59,7 @@ class _HomeState extends State<Home> {
             children: [
               Game(),
               _gestureDetector(),
-              BlocBuilder<TestBloc, TestState>(
-                condition: (previous, current) {
-                  print("************************");
-                  print(current);
-                  return true;
-                },
-                builder: (context, state) => Center(
-                  child: Text(
-                    state.names.join('*'),
-                    style: TextStyle(
-                      fontSize: 40,
-                      color: Colors.deepPurpleAccent,
-                    ),
-                  ),
-                ),
-              ),
+              // Test(),
               BlocListener<ValidationBloc, ValidationState>(
                 listener: (context, state) {
                   state.maybeMap(
@@ -148,6 +133,32 @@ class _HomeState extends State<Home> {
           model.update(s);
           print(s);
         },
+      ),
+    );
+  }
+}
+
+class Test extends StatelessWidget {
+  const Test({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TestBloc, TestState>(
+      condition: (previous, current) {
+        print("************************");
+        print(current);
+        return true;
+      },
+      builder: (context, state) => Center(
+        child: Text(
+          state.names.join('*'),
+          style: TextStyle(
+            fontSize: 40,
+            color: Colors.deepPurpleAccent,
+          ),
+        ),
       ),
     );
   }
@@ -240,10 +251,10 @@ class Answer extends StatelessWidget {
         builder: (BuildContext context, state) => Material(
           elevation: 6,
           shadowColor: Color(0x88fdcf3c),
-          color: state.when(
-            correct: () => Color(0xff88bb33),
-            neutral: () => Color(0xfffdcf3c),
-            wrong: () => Color(0xffc02030),
+          color: state.map(
+            correct: (_) => Color(0xff88bb33),
+            neutral: (_) => Color(0xfffdcf3c),
+            wrong: (_) => Color(0xffc02030),
           ),
           borderRadius: BorderRadius.circular(28),
           clipBehavior: Clip.antiAlias,

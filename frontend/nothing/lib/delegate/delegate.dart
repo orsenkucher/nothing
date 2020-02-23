@@ -17,7 +17,7 @@ class NothingBlocDelegate extends HydratedBlocDelegate {
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
-    print('$bloc -> $transition');
+    // print('$bloc -> $transition');
     super.onTransition(bloc, transition);
   }
 }

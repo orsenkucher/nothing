@@ -17,10 +17,12 @@ import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/home.dart';
 
 // TODOs
-// currentid is always -1
-// SummaryState does not hydrate
-// add seconds, tries to ValidationBloc
-// calc where to move (left|right)
+// [.] currentid is always -1
+// [+] fix qid
+// [+] SummaryState does not hydrate
+// [+] add seconds, tries to ValidationBloc
+// [+] calc where to move (left|right)
+// [.] remove summary salt
 void main() async {
   await _hydrateAsync();
   if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
