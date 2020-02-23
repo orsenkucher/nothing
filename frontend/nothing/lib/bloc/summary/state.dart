@@ -21,7 +21,8 @@ abstract class Summary with _$Summary {
       _$SummaryFromJson(json);
 }
 
-List<dynamic> _to(List<SummaryAnswer> ss) => ss.map((s) => s.toJson()).toList();
+List<dynamic> _to(List<SummaryAnswer> ss) =>
+    ss?.map((s) => s.toJson())?.toList();
 
 @freezed
 abstract class SummaryAnswer with _$SummaryAnswer {

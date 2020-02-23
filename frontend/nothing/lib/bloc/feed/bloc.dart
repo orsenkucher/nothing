@@ -81,7 +81,8 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   @override
   FeedState fromJson(Map<String, dynamic> json) {
     try {
-      return FeedState.fromJson(json);
+      final state = FeedState.fromJson(json);
+      return state;
     } catch (_) {
       print('Feed: fromJson error');
       return null;
@@ -91,7 +92,8 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   @override
   Map<String, dynamic> toJson(FeedState feed) {
     try {
-      return feed.toJson();
+      final json = feed.toJson();
+      return json;
     } catch (_) {
       print('Feed: toJson error');
       return null;

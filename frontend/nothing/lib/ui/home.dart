@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
+import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -58,6 +59,22 @@ class _HomeState extends State<Home> {
             children: [
               Game(),
               _gestureDetector(),
+              BlocBuilder<TestBloc, TestState>(
+                condition: (previous, current) {
+                  print("************************");
+                  print(current);
+                  return true;
+                },
+                builder: (context, state) => Center(
+                  child: Text(
+                    state.names.join('*'),
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                  ),
+                ),
+              ),
               BlocListener<ValidationBloc, ValidationState>(
                 listener: (context, state) {
                   state.maybeMap(
@@ -109,6 +126,9 @@ class _HomeState extends State<Home> {
           if (s.isNotEmpty) {
             BlocProvider.of<ValidationBloc>(context).add(
               ValidationEvent.check(s),
+            );
+            BlocProvider.of<TestBloc>(context).add(
+              TestEvent.name(s),
             );
           }
           // model.update(s);

@@ -155,27 +155,39 @@ QTree _$QTreeFromJson(Map<String, dynamic> json) {
 }
 
 mixin _$QTree {
+  @JsonKey(toJson: _toQ)
   Question get question;
+  @JsonKey(toJson: _toT)
   QTree get left;
+  @JsonKey(toJson: _toT)
   QTree get right;
 
-  QTree copyWith({Question question, QTree left, QTree right});
+  QTree copyWith(
+      {@JsonKey(toJson: _toQ) Question question,
+      @JsonKey(toJson: _toT) QTree left,
+      @JsonKey(toJson: _toT) QTree right});
 
   Map<String, dynamic> toJson();
 }
 
 @JsonSerializable()
 class _$_QTree with DiagnosticableTreeMixin implements _QTree {
-  const _$_QTree({this.question, this.left, this.right});
+  const _$_QTree(
+      {@JsonKey(toJson: _toQ) this.question,
+      @JsonKey(toJson: _toT) this.left,
+      @JsonKey(toJson: _toT) this.right});
 
   factory _$_QTree.fromJson(Map<String, dynamic> json) =>
       _$_$_QTreeFromJson(json);
 
   @override
+  @JsonKey(toJson: _toQ)
   final Question question;
   @override
+  @JsonKey(toJson: _toT)
   final QTree left;
   @override
+  @JsonKey(toJson: _toT)
   final QTree right;
 
   @override
@@ -233,17 +245,26 @@ class _$_QTree with DiagnosticableTreeMixin implements _QTree {
 }
 
 abstract class _QTree implements QTree {
-  const factory _QTree({Question question, QTree left, QTree right}) = _$_QTree;
+  const factory _QTree(
+      {@JsonKey(toJson: _toQ) Question question,
+      @JsonKey(toJson: _toT) QTree left,
+      @JsonKey(toJson: _toT) QTree right}) = _$_QTree;
 
   factory _QTree.fromJson(Map<String, dynamic> json) = _$_QTree.fromJson;
 
   @override
+  @JsonKey(toJson: _toQ)
   Question get question;
   @override
+  @JsonKey(toJson: _toT)
   QTree get left;
   @override
+  @JsonKey(toJson: _toT)
   QTree get right;
 
   @override
-  _QTree copyWith({Question question, QTree left, QTree right});
+  _QTree copyWith(
+      {@JsonKey(toJson: _toQ) Question question,
+      @JsonKey(toJson: _toT) QTree left,
+      @JsonKey(toJson: _toT) QTree right});
 }

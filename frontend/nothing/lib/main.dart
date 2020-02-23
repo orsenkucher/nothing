@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
+import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/delegate/delegate.dart';
 import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/home.dart';
@@ -28,7 +29,7 @@ void main() async {
 
 Future _hydrateAsync() async {
   WidgetsFlutterBinding.ensureInitialized();
-  BlocSupervisor.delegate = await HydratedBlocDelegate.build();
+  BlocSupervisor.delegate = await NothingBlocDelegate.build();
 }
 
 class App extends StatelessWidget with PortraitLock {
@@ -38,6 +39,9 @@ class App extends StatelessWidget with PortraitLock {
     super.build(context);
     return MultiBlocProvider(
       providers: [
+        BlocProvider<TestBloc>(
+          create: (context) => TestBloc(),
+        ),
         BlocProvider<IdBloc>(
           create: (context) => IdBloc(),
         ),

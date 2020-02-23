@@ -16,5 +16,5 @@ _$_FeedState _$_$_FeedStateFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_FeedStateToJson(_$_FeedState instance) =>
     <String, dynamic>{
-      'tree': instance.tree,
+      'tree': _toT(instance.tree),
     };

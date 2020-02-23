@@ -333,6 +333,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.6+3"
+  mutex:
+    dependency: "direct main"
+    description:
+      name: mutex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   nested:
     dependency: transitive
     description:

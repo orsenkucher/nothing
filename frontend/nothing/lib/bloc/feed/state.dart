@@ -8,8 +8,10 @@ part 'state.g.dart';
 
 @freezed
 abstract class FeedState with _$FeedState {
-  const factory FeedState({QTree tree}) = _FeedState;
+  const factory FeedState({@JsonKey(toJson: _toT) QTree tree}) = _FeedState;
   static FeedState get empty => FeedState(tree: QTree());
   factory FeedState.fromJson(Map<String, dynamic> json) =>
       _$FeedStateFromJson(json);
 }
+
+Map<String, dynamic> _toT(QTree t) => t?.toJson();

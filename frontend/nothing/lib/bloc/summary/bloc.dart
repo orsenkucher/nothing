@@ -15,7 +15,7 @@ export 'state.dart';
 class SummaryBloc extends HydratedBloc<SummaryEvent, Summary> {
   final ValidationBloc validation;
   StreamSubscription _sub;
-  SummaryBloc({@required this.validation}) : super() {
+  SummaryBloc({@required this.validation}) {
     _sub = validation.listen(
       (state) {
         state.maybeWhen(
@@ -37,8 +37,8 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, Summary> {
   @override
   Summary get initialState => super.initialState ?? Summary.empty();
 
-  @override
-  String get id => 'Жизнь, сука, дразнит';
+  // @override
+  // String get id => 'Жизнь, сука, дразнит';
 
   // @override
   // Stream<Summary> transformEvents(
@@ -78,7 +78,7 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, Summary> {
     yield event.map(
       reset: (_) => Summary.empty(),
       answer: (e) {
-        return state.copyWith(salt: state.salt + 1)
+        final next = state.copyWith(salt: state.salt + 1)
           //currentid: feed.state.tree.question.id)
           ..answers.add(
             SummaryAnswer(
@@ -87,10 +87,10 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, Summary> {
               qid: e.qid,
             ),
           );
+        return next;
         // return state.copyWith(currentid: )..summary.add();
       },
     );
-    print(state);
   }
 
   @override

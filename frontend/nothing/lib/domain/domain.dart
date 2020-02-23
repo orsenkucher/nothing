@@ -28,12 +28,15 @@ abstract class Question with _$Question {
 @freezed
 abstract class QTree with _$QTree {
   const factory QTree({
-    Question question,
-    QTree left,
-    QTree right,
+    @JsonKey(toJson: _toQ) Question question,
+    @JsonKey(toJson: _toT) QTree left,
+    @JsonKey(toJson: _toT) QTree right,
   }) = _QTree;
 
   // const factory QTree.nil() = _NilQTree;
 
   factory QTree.fromJson(Map<String, dynamic> json) => _$QTreeFromJson(json);
 }
+
+Map<String, dynamic> _toQ(Question q) => q?.toJson();
+Map<String, dynamic> _toT(QTree t) => t?.toJson();

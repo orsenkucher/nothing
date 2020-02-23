@@ -12,21 +12,23 @@ FeedState _$FeedStateFromJson(Map<String, dynamic> json) {
 }
 
 mixin _$FeedState {
+  @JsonKey(toJson: _toT)
   QTree get tree;
 
-  FeedState copyWith({QTree tree});
+  FeedState copyWith({@JsonKey(toJson: _toT) QTree tree});
 
   Map<String, dynamic> toJson();
 }
 
 @JsonSerializable()
 class _$_FeedState with DiagnosticableTreeMixin implements _FeedState {
-  const _$_FeedState({this.tree});
+  const _$_FeedState({@JsonKey(toJson: _toT) this.tree});
 
   factory _$_FeedState.fromJson(Map<String, dynamic> json) =>
       _$_$_FeedStateFromJson(json);
 
   @override
+  @JsonKey(toJson: _toT)
   final QTree tree;
 
   @override
@@ -70,14 +72,15 @@ class _$_FeedState with DiagnosticableTreeMixin implements _FeedState {
 }
 
 abstract class _FeedState implements FeedState {
-  const factory _FeedState({QTree tree}) = _$_FeedState;
+  const factory _FeedState({@JsonKey(toJson: _toT) QTree tree}) = _$_FeedState;
 
   factory _FeedState.fromJson(Map<String, dynamic> json) =
       _$_FeedState.fromJson;
 
   @override
+  @JsonKey(toJson: _toT)
   QTree get tree;
 
   @override
-  _FeedState copyWith({QTree tree});
+  _FeedState copyWith({@JsonKey(toJson: _toT) QTree tree});
 }
