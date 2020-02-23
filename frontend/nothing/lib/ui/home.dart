@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
-import 'package:nothing/bloc/questions/bloc.dart';
+// import 'package:nothing/bloc/id/bloc.dart';
+// import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
@@ -39,8 +40,9 @@ class _HomeState extends State<Home> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // if (BlocProvider.of<FeedBloc>(context).state.current < 36) { // REDO HERE
-    BlocProvider.of<QuestionsBloc>(context).add(QuestionsEvent.fetch());
+    // BlocProvider.of<QuestionsBloc>(context).add(QuestionsEvent.fetch());
     // }
+    // BlocProvider.of<IdBloc>(context).add(IdEvent.revoke());
   }
 
   @override
@@ -253,10 +255,14 @@ class Answer extends StatelessWidget {
       child: BlocBuilder<ValidationBloc, ValidationState>(
         builder: (BuildContext context, state) => Material(
           elevation: 6,
-          shadowColor: Color(0x88fdcf3c),
+          shadowColor: state.map(
+            correct: (_) => Color(0x8888bb33),
+            neutral: (s) => s.green ? Color(0x8888bb33) : Color(0x88fdcf3c),
+            wrong: (_) => Color(0x88c02030),
+          ),
           color: state.map(
             correct: (_) => Color(0xff88bb33),
-            neutral: (_) => Color(0xfffdcf3c),
+            neutral: (s) => s.green ? Color(0xff88bb33) : Color(0xfffdcf3c),
             wrong: (_) => Color(0xffc02030),
           ),
           borderRadius: BorderRadius.circular(28),

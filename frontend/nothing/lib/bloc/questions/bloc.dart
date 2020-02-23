@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:bloc/bloc.dart';
-import 'package:nothing/bloc/feed/bloc.dart';
+// import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 
 import 'package:nothing/bloc/questions/state.dart';
@@ -66,7 +66,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
       // feed.add(NewArrived(problems));
     } on CloudError catch (error) {
       yield QuestionsState.error(error);
-      add(QuestionsEvent.refetch(event.currentid));
+      add(QuestionsEvent.refetch(event.currentid ?? -1));
     }
   }
 

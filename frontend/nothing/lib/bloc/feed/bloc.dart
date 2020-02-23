@@ -5,17 +5,29 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/bloc/feed/event.dart';
 import 'package:nothing/bloc/feed/state.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
+import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/domain/domain.dart';
 
 export 'event.dart';
 export 'state.dart';
 
 class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
+  final ValidationBloc validationBloc;
   final QuestionsBloc questionsBloc;
   StreamSubscription _questionsSub;
+  StreamSubscription _validationSub;
+  StreamSubscription _selfSub;
 
-  FeedBloc({@required this.questionsBloc}) {
+  FeedBloc({
+    @required this.questionsBloc,
+    @required this.validationBloc,
+  }) {
     _makeQuestionsSub();
+    _makeValidationSub();
+    _makeSelfSub();
+    if (state?.tree?.question == null) {
+      questionsBloc.add(QuestionsEvent.fetch());
+    }
   }
 
   void _makeQuestionsSub() {
@@ -26,9 +38,31 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     });
   }
 
+  void _makeValidationSub() {
+    _validationSub = validationBloc.listen((state) {
+      state.maybeWhen(
+        correct: (question, tries, duration) => add(
+          FeedEvent.moveNext(
+            duration.inSeconds > 90 ? MoveDir.left() : MoveDir.right(),
+          ),
+        ),
+        orElse: () {},
+      );
+    });
+  }
+
+  void _makeSelfSub() {
+    _selfSub = listen((state) {
+      final q = state?.tree?.question;
+      if (q != null) validationBloc.add(ValidationEvent.focus(q));
+    });
+  }
+
   @override
   Future<void> close() {
     _questionsSub.cancel();
+    _validationSub.cancel();
+    _selfSub.cancel();
     return super.close();
   }
 
@@ -70,13 +104,16 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     //   questionsBloc.add(const FetchQuestions());
     // }
     final currentid = state?.tree?.question?.id;
-    yield FeedState(
+    final next = FeedState(
       tree: event.dir.when<QTree>(
         left: () => state.tree.left,
         right: () => state.tree.right,
       ),
     );
-    questionsBloc.add(QuestionsEvent.fetch(currentid));
+    yield next;
+    if (next?.tree?.question == null) {
+      questionsBloc.add(QuestionsEvent.fetch(currentid));
+    }
   }
 
   @override

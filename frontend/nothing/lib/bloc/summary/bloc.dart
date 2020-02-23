@@ -19,9 +19,9 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, Summary> {
     _sub = validation.listen(
       (state) {
         state.maybeWhen(
-          correct: (qid, tries, duration) {
+          correct: (question, tries, duration) {
             add(SummaryEvent.answer(
-              qid: qid,
+              qid: question.id,
               tries: tries,
               seconds: duration.inSeconds,
             ));

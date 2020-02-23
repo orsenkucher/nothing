@@ -17,7 +17,7 @@ import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/home.dart';
 
 // TODOs
-// [.] currentid is always -1
+// [+] currentid is always -1
 // [+] fix qid
 // [+] SummaryState does not hydrate
 // [+] add seconds, tries to ValidationBloc
@@ -49,8 +49,8 @@ class App extends StatelessWidget with PortraitLock {
         ),
         BlocProvider<ValidationBloc>(
           create: (context) => ValidationBloc(
-            feed: BlocProvider.of<FeedBloc>(context),
-          ),
+              // feed: BlocProvider.of<FeedBloc>(context),
+              ),
         ),
         BlocProvider<SummaryBloc>(
           create: (context) => SummaryBloc(
@@ -68,6 +68,7 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<FeedBloc>(
           create: (context) => FeedBloc(
             questionsBloc: BlocProvider.of<QuestionsBloc>(context),
+            validationBloc: BlocProvider.of<ValidationBloc>(context),
           ),
         ),
       ],
