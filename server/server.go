@@ -141,9 +141,19 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	}
 	user := s.Users[userid]
 
+	if current != -1 {
+		for i := 0; i < len(possibleQue); i++ {
+			if possibleQue[i].ID == current {
+				current = i
+				break
+			}
+		}
+	}
+
 	if current == -1 {
 		current = getClosest(possibleQue, user.MMR)
 	}
+
 	toSend = append(toSend, possibleQue[current])
 	toSendInd = append(toSendInd, current)
 	ToSendMMR = append(ToSendMMR, user.MMR)
