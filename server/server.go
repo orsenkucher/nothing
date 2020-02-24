@@ -76,7 +76,6 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 }
 
 func getClosest(sortedq []Question, mmr int) int {
-	fmt.Println("getClosest mmr:", mmr)
 	i := 0
 	j := 0
 	for k := range sortedq {
@@ -109,7 +108,6 @@ func getClosest(sortedq []Question, mmr int) int {
 }
 
 func getNextQuestions(sortedq []Question, user *User, current int) (int, int, int, int) {
-	fmt.Println("current: ", current)
 	ud1, _ := CountRateChange(&sortedq[current], user, &AnswerInf{AnswerStats: AnswerStats{Seconds: 150}})
 	ud2, _ := CountRateChange(&sortedq[current], user, &AnswerInf{AnswerStats: AnswerStats{Seconds: 50}})
 	//println(int(ud1))
