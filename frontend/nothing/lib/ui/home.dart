@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
             children: [
               Game(),
               _gestureDetector(),
-              // Test(),
+              Test(),
               BlocListener<ValidationBloc, ValidationState>(
                 listener: (context, state) {
                   state.maybeMap(
@@ -147,18 +147,21 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TestBloc, TestState>(
+    return BlocBuilder<FeedBloc, FeedState>(
       condition: (previous, current) {
         print("************************");
         print(current);
         return true;
       },
-      builder: (context, state) => Center(
+      builder: (context, state) => Align(
+        alignment: Alignment.center,
         child: Text(
-          state.names.join('*'),
+          // state.names.join('*'),
+          '${state?.tree?.question?.id?.toString() ?? "no id"}, ${state?.tree?.question?.mmr?.toString() ?? "no mmr"}',
           style: TextStyle(
             fontSize: 40,
-            color: Colors.deepPurpleAccent,
+            color: Color(0xffc02030),
+            backgroundColor: Colors.black.withOpacity(0.2),
           ),
         ),
       ),

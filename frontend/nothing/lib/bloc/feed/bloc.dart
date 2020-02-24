@@ -33,7 +33,9 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   void _makeQuestionsSub() {
     _questionsSub = questionsBloc.listen((state) {
       if (state is Loaded) {
-        add(FeedEvent.newArrived(state.questions));
+        if (state?.questions?.question != null) {
+          add(FeedEvent.newArrived(state.questions));
+        }
       }
     });
   }
