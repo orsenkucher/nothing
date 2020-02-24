@@ -55,7 +55,7 @@ func (qt *QBTreeNode) Print(st string) {
 		qt.Left.Print(st + "\t")
 	}
 	if qt.Right != nil {
-		qt.Left.Print(st + "\t")
+		qt.Right.Print(st + "\t")
 	}
 }
 
