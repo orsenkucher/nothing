@@ -113,9 +113,9 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
       ),
     );
     yield next;
-    if (next?.tree?.question == null) {
-      questionsBloc.add(QuestionsEvent.fetch(currentid));
-    }
+    // if (next?.tree?.question == null) {
+    questionsBloc.add(QuestionsEvent.fetch(currentid));
+    // }
   }
 
   @override
