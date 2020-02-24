@@ -25,6 +25,7 @@ func StartUp(db *gorm.DB) *Server {
 	server.DB.Find(&server.Questions)
 	server.Users = map[string]*User{}
 	var usersList []User
+	fmt.Println("ulist", usersList)
 	server.DB.Find(&usersList)
 
 	for i := range usersList {
