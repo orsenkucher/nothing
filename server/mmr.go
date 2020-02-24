@@ -34,7 +34,7 @@ func ChangeRate(q *Question, u *User, a *AnswerInf) {
 func CountRateChange(q *Question, u *User, a *AnswerInf) (ud float64, qd float64) {
 	result := countResult(a)
 	diffCoeff := countRateDiffCoeff(q.MMR, u.MMR)
-	fmt.Println("diffCoeff:", diffCoeff)
+	//fmt.Println("diffCoeff:", diffCoeff)
 	// fmt.Println(u)
 	// fmt.Println(q)
 
@@ -66,7 +66,7 @@ func countResult(answer *AnswerInf) float64 {
 
 func countRateDiffCoeff(qmmr int, ummr int) float64 {
 	dif := float64(qmmr - ummr)
-	fmt.Println("dif: ", dif)
+	//fmt.Println("dif: ", dif)
 	fmt.Println(1 / math.Pow(math.E, dif*dif/maxUserDif/maxUserDif))
 	return 1 / math.Pow(math.E, dif*dif/maxUserDif/maxUserDif)
 }
