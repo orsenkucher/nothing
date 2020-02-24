@@ -105,7 +105,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     // if (next + threshold > state.batch.length) {
     //   questionsBloc.add(const FetchQuestions());
     // }
-    final currentid = state?.tree?.question?.id;
+    // final currentid = state?.tree?.question?.id;
     final next = FeedState(
       tree: event.dir.when<QTree>(
         left: () => state.tree.left,
@@ -114,7 +114,10 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     );
     yield next;
     // if (next?.tree?.question == null) {
-    questionsBloc.add(QuestionsEvent.fetch(currentid));
+    // questionsBloc.add(QuestionsEvent.fetch(currentid));
+    if (next?.tree?.question != null) {
+      questionsBloc.add(QuestionsEvent.fetch(next.tree.question.id));
+    }
     // }
   }
 
