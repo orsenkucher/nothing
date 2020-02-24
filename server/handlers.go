@@ -17,6 +17,7 @@ func (s *Server) GetQues(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var req QRequest
 	err = json.Unmarshal(body, &req)
+	req.Print()
 	if err != nil {
 		log.Println(err)
 	}

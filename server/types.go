@@ -58,8 +58,20 @@ func (qt *QBTreeNode) Print() {
 	}
 }
 
+func (q *QRequest) Print() {
+	fmt.Println("QRequest")
+	fmt.Println("current:", q.CurrentID, "userid:", q.UserID)
+	for _, ans := range q.Answers {
+		ans.Print()
+	}
+}
+
 func (a *AnswerInf) Print() {
 	fmt.Print("uid: ", a.UserID, " qid: ", a.QID, " sec: ", a.Seconds)
+}
+
+func (a *AnswerStats) Print() {
+	fmt.Print("qid: ", a.QID, " sec: ", a.Seconds)
 }
 
 func (q *Question) Print() {
