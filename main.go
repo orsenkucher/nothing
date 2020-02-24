@@ -43,9 +43,10 @@ func main() {
 	defer db.Close()
 
 	s := server.StartUp(db)
-	s.ShowStatus()
-
 	//s.ClearBase()
+	s.ShowStatus()
+	// fmt.Println("cleared")
+	// fmt.Scanln()
 
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)

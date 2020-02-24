@@ -21,7 +21,6 @@ func (s *Server) GetQues(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	log.Println(req)
 
 	s.ReceiveAns(req.Answers, req.UserID)
 	ques := s.GiveQuestions(req.UserID, req.CurrentID)
