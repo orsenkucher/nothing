@@ -18,7 +18,7 @@ type Server struct {
 
 func StartUp(db *gorm.DB) *Server {
 	server := Server{DB: db}
-	server.ClearBase()
+	//server.ClearBase()
 	server.DB.AutoMigrate(&Question{})
 	server.DB.AutoMigrate(&User{})
 	server.DB.AutoMigrate(&AnswerInf{})
