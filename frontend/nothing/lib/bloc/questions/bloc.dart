@@ -20,7 +20,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   final IdBloc idBloc;
   // final FeedBloc feed;
 
-  StreamSubscription _sub;
+  // StreamSubscription _sub;
 
   QuestionsBloc({
     @required this.repo,
@@ -37,7 +37,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
 
   @override
   Future<void> close() async {
-    await _sub.cancel();
+    // await _sub.cancel();
     return super.close();
   }
 
