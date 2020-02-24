@@ -64,6 +64,10 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 		s.UsersAns(userid)
 	}
 	for _, answer := range answers {
+		if answer.QID < 0 || answer.QID >= len(s.Questions) {
+			fmt.Println("PANIC qid is not valid")
+			continue
+		}
 		user := s.Users[userid]
 		question := s.Qiters[answer.QID]
 		ansinf := AnswerInf{AnswerStats: answer, UserID: userid}

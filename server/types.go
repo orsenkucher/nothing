@@ -48,13 +48,14 @@ type AnswerInf struct {
 	UserID string
 }
 
-func (qt *QBTreeNode) Print() {
+func (qt *QBTreeNode) Print(st string) {
+	fmt.Print(st)
 	qt.Question.Print()
 	if qt.Left != nil {
-		qt.Left.Print()
+		qt.Left.Print(st + "\t")
 	}
 	if qt.Right != nil {
-		qt.Left.Print()
+		qt.Left.Print(st + "\t")
 	}
 }
 
