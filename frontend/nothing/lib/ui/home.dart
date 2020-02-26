@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 // import 'package:nothing/bloc/id/bloc.dart';
+// import 'package:nothing/bloc/summary/bloc.dart';
+// import 'package:nothing/bloc/id/bloc.dart';
 // import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
@@ -43,6 +45,7 @@ class _HomeState extends State<Home> {
     // BlocProvider.of<QuestionsBloc>(context).add(QuestionsEvent.fetch());
     // }
     // BlocProvider.of<IdBloc>(context).add(IdEvent.revoke());
+    // BlocProvider.of<SummaryBloc>(context).add(SummaryEvent.reset());
   }
 
   @override
@@ -61,7 +64,7 @@ class _HomeState extends State<Home> {
             children: [
               Game(),
               _gestureDetector(),
-              Test(),
+              // Test(),
               BlocListener<ValidationBloc, ValidationState>(
                 listener: (context, state) {
                   state.maybeMap(
@@ -154,14 +157,14 @@ class Test extends StatelessWidget {
         return true;
       },
       builder: (context, state) => Align(
-        alignment: Alignment.center,
+        alignment: Alignment.centerRight,
         child: Text(
           // state.names.join('*'),
           '${state?.tree?.question?.id?.toString() ?? "no id"}, ${state?.tree?.question?.mmr?.toString() ?? "no mmr"}',
           style: TextStyle(
-            fontSize: 40,
-            color: Color(0xffc02030),
-            backgroundColor: Colors.black.withOpacity(0.2),
+            fontSize: 16,
+            color: Color(0x88c02030),
+            // backgroundColor: Colors.white.withOpacity(0.2),
           ),
         ),
       ),
@@ -199,12 +202,13 @@ class Game extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _yellowThing(Icons.add_shopping_cart),
+                  // Test(),
                   _yellowThing(Icons.history),
                 ],
               ),
               SizedBox(
                 height: labelH,
-                child: Label(),
+                child: Stack(children: [Label(), Test()]),
               ),
               SizedBox(
                 height: min(
