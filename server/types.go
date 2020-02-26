@@ -68,11 +68,11 @@ func (q *QRequest) Print() {
 }
 
 func (a *AnswerInf) Print() {
-	fmt.Print("uid: ", a.UserID, " qid: ", a.QID, " sec: ", a.Seconds)
+	fmt.Println("uid: ", a.UserID, " qid: ", a.QID, " sec: ", a.Seconds)
 }
 
 func (a *AnswerStats) Print() {
-	fmt.Print("qid: ", a.QID, " sec: ", a.Seconds)
+	fmt.Println("qid: ", a.QID, " sec: ", a.Seconds)
 }
 
 func (q *Question) Print() {

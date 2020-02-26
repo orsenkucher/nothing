@@ -18,7 +18,11 @@ type Server struct {
 
 func StartUp(db *gorm.DB) *Server {
 	server := Server{DB: db}
-	//server.ClearBase()
+	var s string
+	fmt.Scanln(&s)
+	if s == "clear" {
+		server.ClearBase()
+	}
 	server.DB.AutoMigrate(&Question{})
 	server.DB.AutoMigrate(&User{})
 	server.DB.AutoMigrate(&AnswerInf{})
@@ -65,7 +69,7 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 		s.UsersAns(userid)
 	}
 	for _, answer := range answers {
-		if answer.QID < 0 || answer.QID >= len(s.Questions) {
+		if answer.QID < 0 || answer.QID >= len(s.Qiters) {
 			fmt.Println("PANIC qid is not valid")
 			continue
 		}
@@ -136,7 +140,8 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	toSendInd := make([]int, 0, 7)
 	ToSendMMR := make([]int, 0, 7)
 	possibleQue := make([]Question, 0, len(s.Questions)-len(ans))
-	for _, q := range s.Questions {
+	for i := range s.Questions {
+		q := s.Questions[i]
 		for _, a := range ans {
 			if a.QID == q.ID {
 				q.ID = -1
@@ -151,6 +156,9 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 			if possibleQue[i].ID == current {
 				current = i
 				break
+			}
+			if i == len(possibleQue)-1 {
+				current = -1
 			}
 		}
 	}

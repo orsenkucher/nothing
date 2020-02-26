@@ -42,17 +42,9 @@ func main() {
 	db := NewDB(key, cfg)
 	defer db.Close()
 
-	anss := []server.User{}
-
-	db.Find(&anss)
-	fmt.Print(anss)
-	fmt.Println("cleared")
-	fmt.Scanln()
-
 	s := server.StartUp(db)
 	//s.ClearBase()
 	//fmt.Println("cleared")
-	fmt.Scanln()
 
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
