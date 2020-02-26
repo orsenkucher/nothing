@@ -20,6 +20,7 @@ func StartUp(db *gorm.DB) *Server {
 	server := Server{DB: db}
 	var s string
 	fmt.Scanln(&s)
+	fmt.Println(s)
 	if s == "clear" {
 		server.ClearBase()
 	}
