@@ -39,12 +39,7 @@ func StartUp(db *gorm.DB) *Server {
 
 	server.Que = make([]*Question, len(server.Que))
 	for i := range server.Questions {
-		server.Questions[i].Print()
 		server.Que = append(server.Que, &server.Questions[i])
-	}
-	fmt.Println("Que:")
-	for i := range server.Que {
-		server.Que[i].Print()
 	}
 	sort(server.Que, 0, len(server.Que))
 
@@ -213,8 +208,6 @@ func sort(que []*Question, a int, b int) {
 				i++
 				continue
 			}
-			println(i)
-			println(j)
 			if que[i].MMR < que[j].MMR {
 				questions[t] = que[i]
 				i++
