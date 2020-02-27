@@ -41,7 +41,10 @@ func main() {
 	}
 	db := NewDB(key, cfg)
 	defer db.Close()
+	StartServer(db)
+}
 
+func StartServer(db *gorm.DB) {
 	s := server.StartUp(db)
 	//s.ClearBase()
 	//fmt.Println("cleared")

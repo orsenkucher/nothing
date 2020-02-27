@@ -90,10 +90,10 @@
 |8|Half|ha|Half of the word 'Half'
 |2|1 2 6 24 ?|120|1 * 2 = 2, 2 * 3 = 6, 6 * 4 = 24
 |1|Backwards|sdrawkcab|Just backwards backwards
-|7||Rate us| 5 stars<$>1 star<$>2 stars<$>3 stars,<$>4 stars<$>5<$>4<$>3<$>2<$>1|1-5 stars
+|7|Rate us| 5 stars<$>1 star<$>2 stars<$>3 stars,<$>4 stars<$>5<$>4<$>3<$>2<$>1|1-5 stars
 |3|F E D C B ?|a|Alphabet
 |6|Triangle Square ...|pentagon|3 angles, 4 angles ...
-|1||ЯOЯЯIM|mirror|Mirror the written text
+|1|ЯOЯЯIM|mirror|Mirror the written text
 |6|3 7 15 31 ?|63|3 + 4 = 7 , 7 + 8 = 15, ...
 |7|Right down left down right|2<$>two|Draw it on a sheet of paper
 |7|N S W|e|Compass
@@ -119,7 +119,7 @@
 |8|Low battery|charge|What do you do with the phone then?
 |6|The most famous fruit|apple|It's on the back of your phone
 |8|A = Z, B = Y, E = ?|v| Atbash code
-|7|A(9,36) = 4, B(12,52) = 40, B(A(5,30),7) = ?| 1|A(5,30) = 6, B(6,7) = ?
+|7|A(9,36) = 4, B(12,52) = 40, B(A(5,30),7) = ?|1|A(5,30) = 6, B(6,7) = ?
 |7|Who lives in pineapple under the sea?|spongebob<$>spongebob squarepants|Bikini bottom
 |6|Square with cut corners|octagon|It will 8 angles, so it is ...
 |9|Silver Bronze Gold|231|Each place corresponds to a number

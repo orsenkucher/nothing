@@ -11,8 +11,8 @@ import (
 
 type Server struct {
 	DB        *gorm.DB
+	Que       []*Question
 	Questions []Question
-	Qiters    []*Question
 	Users     map[string]*User
 }
 
@@ -31,21 +31,17 @@ func StartUp(db *gorm.DB) *Server {
 	server.Users = map[string]*User{}
 	var usersList []User
 	server.DB.Find(&usersList)
-	fmt.Println("ulist", usersList)
 
 	for i := range usersList {
 		server.Users[usersList[i].ID] = &usersList[i]
 	}
-	fmt.Println(server.Users)
 	server.UpdateData()
 
-	sort(server.Questions, 0, len(server.Questions))
-	server.Qiters = make([]*Question, len(server.Questions)+1)
-	//fmt.Println(len(server.Qiters), " ", len(server.Qiters) + 1)
+	server.Que = make([]*Question, len(server.Que))
 	for i := range server.Questions {
-		//fmt.Println(i)
-		server.Qiters[server.Questions[i].ID] = &server.Questions[i]
+		server.Que = append(server.Que, &server.Questions[i])
 	}
+	sort(server.Que, 0, len(server.Que))
 
 	server.ShowStatus()
 	return &server
@@ -70,16 +66,16 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 		s.UsersAns(userid)
 	}
 	for _, answer := range answers {
-		if answer.QID < 0 || answer.QID >= len(s.Qiters) {
+		if answer.QID < 0 || answer.QID >= len(s.Questions) {
 			fmt.Println("PANIC qid is not valid")
 			continue
 		}
 		user := s.Users[userid]
-		question := s.Qiters[answer.QID]
+		question := s.Questions[answer.QID-1]
 		ansinf := AnswerInf{AnswerStats: answer, UserID: userid}
 		s.DB.Create(&ansinf)
 		//s.DB.Model(&ansinf).Update(&ansinf)
-		ChangeRate(question, user, &ansinf)
+		ChangeRate(&question, user, &ansinf)
 		s.DB.Model(user).Update(user)
 		s.DB.Model(question).Update(question)
 	}
@@ -140,26 +136,23 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	toSend := make([]Question, 0, 7)
 	toSendInd := make([]int, 0, 7)
 	ToSendMMR := make([]int, 0, 7)
-	possibleQue := make([]Question, 0, len(s.Questions)-len(ans))
-	for i := range s.Questions {
-		q := s.Questions[i]
+	possibleQue := make([]Question, 0, len(s.Que)-len(ans))
+	for i := range s.Que {
+		q := s.Que[i]
 		for _, a := range ans {
 			if a.QID == q.ID {
 				q.ID = -1
 			}
 		}
-		possibleQue = append(possibleQue, q)
+		possibleQue = append(possibleQue, *q)
 	}
 	user := s.Users[userid]
 
 	if current != -1 {
 		for i := 0; i < len(possibleQue); i++ {
-			if possibleQue[i].ID == current {
+			if s.Que[i].ID == current {
 				current = i
 				break
-			}
-			if i == len(possibleQue)-1 {
-				current = -1
 			}
 		}
 	}
@@ -197,13 +190,13 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	return &result
 }
 
-func sort(que []Question, a int, b int) {
+func sort(que []*Question, a int, b int) {
 	if a+1 != b {
 		sort(que, a, a+(b-a)/2)
 		sort(que, a+(b-a)/2, b)
 		i := a
 		j := a + (b-a)/2
-		questions := make([]Question, b-a)
+		questions := make([]*Question, b-a)
 		for t := 0; t < b-a; t++ {
 			if i == a+(b-a)/2 {
 				questions[t] = que[j]
@@ -231,12 +224,12 @@ func sort(que []Question, a int, b int) {
 
 func (s *Server) UpdateQuestion(question *Question) {
 	b := false
-	for _, q := range s.Questions {
+	for _, q := range s.Que {
 		b = b || q.Question == question.Question
 	}
 	if !b {
 		s.DB.Create(question)
-		s.Questions = append(s.Questions, *question)
+		s.Que = append(s.Que, question)
 	}
 }
 
@@ -268,7 +261,7 @@ func (s *Server) ClearBase() {
 
 func (s *Server) ShowStatus() {
 	fmt.Println("Questions")
-	for _, q := range s.Questions {
+	for _, q := range s.Que {
 		q.Print()
 	}
 	fmt.Println("Users")
