@@ -79,7 +79,13 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
         //       correct: (s) => neutral(s.question),
         //       orElse: () => state,
         //     ),
-        purge: () => neutral(state.question),
+        purge: () => ValidationState.neutral(
+            state.question,
+            state.tries,
+            state.map(
+                correct: (_) => DateTime.now(),
+                neutral: (s) => s.time,
+                wrong: (s) => s.time)), //neutral(state.question),
         check: (ans) => (state.question?.splitted
                     ?.map((s) => s.toLowerCase())
                     ?.contains(ans.toLowerCase()) ??
