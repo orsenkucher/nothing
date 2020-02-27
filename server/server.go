@@ -27,6 +27,7 @@ func StartUp(db *gorm.DB) *Server {
 	server.DB.AutoMigrate(&Question{})
 	server.DB.AutoMigrate(&User{})
 	server.DB.AutoMigrate(&AnswerInf{})
+	server.UpdateData()
 	server.DB.Find(&server.Questions)
 	server.Users = map[string]*User{}
 	var usersList []User
@@ -35,7 +36,6 @@ func StartUp(db *gorm.DB) *Server {
 	for i := range usersList {
 		server.Users[usersList[i].ID] = &usersList[i]
 	}
-	server.UpdateData()
 
 	server.Que = make([]*Question, len(server.Que))
 	for i := range server.Questions {
