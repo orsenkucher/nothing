@@ -27,7 +27,6 @@ func StartUp(db *gorm.DB) *Server {
 	server.DB.AutoMigrate(&Question{})
 	server.DB.AutoMigrate(&User{})
 	server.DB.AutoMigrate(&AnswerInf{})
-	server.UpdateData()
 	server.DB.Find(&server.Questions)
 	server.Users = map[string]*User{}
 	var usersList []User
@@ -36,10 +35,16 @@ func StartUp(db *gorm.DB) *Server {
 	for i := range usersList {
 		server.Users[usersList[i].ID] = &usersList[i]
 	}
+	server.UpdateData()
 
 	server.Que = make([]*Question, len(server.Que))
 	for i := range server.Questions {
+		server.Questions[i].Print()
 		server.Que = append(server.Que, &server.Questions[i])
+	}
+	fmt.Println("Que:")
+	for i := range server.Que {
+		server.Que[i].Print()
 	}
 	sort(server.Que, 0, len(server.Que))
 
@@ -231,7 +236,7 @@ func (s *Server) UpdateQuestion(question *Question) {
 	}
 	if !b {
 		s.DB.Create(question)
-		s.Que = append(s.Que, question)
+		s.Questions = append(s.Questions, *question)
 	}
 }
 
@@ -240,6 +245,9 @@ func (s *Server) UpdateData() {
 	data, _ := ioutil.ReadFile("./data/questions.txt")
 	lines := strings.Split(string(data), "\n")
 	for _, line := range lines {
+		if len(s.Questions) > 10 {
+			break
+		}
 		fmt.Println(line)
 		parts := strings.Split(line, "|")
 		if len(parts) < 3 {
