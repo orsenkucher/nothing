@@ -208,6 +208,8 @@ func sort(que []*Question, a int, b int) {
 				i++
 				continue
 			}
+			println(i)
+			println(i)
 			if que[i].MMR < que[j].MMR {
 				questions[t] = que[i]
 				i++
