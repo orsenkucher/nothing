@@ -224,7 +224,7 @@ func sort(que []*Question, a int, b int) {
 
 func (s *Server) UpdateQuestion(question *Question) {
 	b := false
-	for _, q := range s.Que {
+	for _, q := range s.Questions {
 		b = b || q.Question == question.Question
 	}
 	if !b {
