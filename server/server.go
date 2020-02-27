@@ -238,9 +238,6 @@ func (s *Server) UpdateData() {
 	data, _ := ioutil.ReadFile("./data/questions.txt")
 	lines := strings.Split(string(data), "\n")
 	for _, line := range lines {
-		if len(s.Questions) > 10 {
-			break
-		}
 		fmt.Println(line)
 		parts := strings.Split(line, "|")
 		if len(parts) < 3 {
