@@ -71,11 +71,11 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 			continue
 		}
 		user := s.Users[userid]
-		question := s.Questions[answer.QID-1]
+		question := &s.Questions[answer.QID-1]
 		ansinf := AnswerInf{AnswerStats: answer, UserID: userid}
 		s.DB.Create(&ansinf)
 		//s.DB.Model(&ansinf).Update(&ansinf)
-		ChangeRate(&question, user, &ansinf)
+		ChangeRate(question, user, &ansinf)
 		s.DB.Model(user).Update(user)
 		s.DB.Model(question).Update(question)
 	}
