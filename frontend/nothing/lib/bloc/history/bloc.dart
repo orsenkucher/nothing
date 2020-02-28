@@ -47,6 +47,14 @@ class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
   }
 
   @override
+  HistoryState get initialState =>
+      super.initialState ??
+      HistoryState(
+        ids: {},
+        answers: [],
+      );
+
+  @override
   Future<void> close() {
     _sub.cancel();
     return super.close();
