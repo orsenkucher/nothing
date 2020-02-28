@@ -10,6 +10,7 @@ import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
+import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/delegate/delegate.dart';
 import 'package:nothing/repository/questions.dart';
@@ -69,6 +70,11 @@ class App extends StatelessWidget with PortraitLock {
           create: (context) => FeedBloc(
             questionsBloc: BlocProvider.of<QuestionsBloc>(context),
             validationBloc: BlocProvider.of<ValidationBloc>(context),
+          ),
+        ),
+        BlocProvider<HistoryBloc>(
+          create: (context) => HistoryBloc(
+            validation: BlocProvider.of<ValidationBloc>(context),
           ),
         ),
       ],
