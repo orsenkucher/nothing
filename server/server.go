@@ -66,7 +66,7 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 		s.UsersAns(userid)
 	}
 	for _, answer := range answers {
-		if answer.QID < 0 || answer.QID >= len(s.Questions) {
+		if answer.QID <= 0 || answer.QID > len(s.Questions) {
 			fmt.Println("PANIC qid is not valid")
 			continue
 		}
@@ -147,6 +147,10 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 		possibleQue = append(possibleQue, *q)
 	}
 	user := s.Users[userid]
+
+	if current >= len(s.Questions) {
+		current = -1
+	}
 
 	if current != -1 {
 		for i := 0; i < len(possibleQue); i++ {
@@ -237,10 +241,6 @@ func (s *Server) UpdateData() {
 	fmt.Println(0)
 	data, _ := ioutil.ReadFile("./data/questions.txt")
 	lines := strings.Split(string(data), "\n")
-	fmt.Print("update data")
-	for _, q := range s.Questions {
-		q.Print()
-	}
 	for _, line := range lines {
 		fmt.Println(line)
 		parts := strings.Split(line, "|")
