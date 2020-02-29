@@ -14,6 +14,7 @@ import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/hlist.dart';
+import 'package:nothing/ui/yellowknob.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Home extends StatefulWidget {
@@ -244,21 +245,7 @@ class Game extends StatelessWidget {
         right: 24,
         top: 21,
       ),
-      child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xfffdcf3c),
-            borderRadius: BorderRadius.circular(28),
-          ),
-          width: 50,
-          height: 28,
-          // child: Icon(icon),
-          child: IconButton(
-            // splashColor: Colors.red,
-            // highlightColor: Colors.transparent,
-            padding: EdgeInsets.zero,
-            onPressed: onPress,
-            icon: Icon(icon),
-          )),
+      child: YellowKnob(icon, onPress),
     );
   }
 }
