@@ -1,20 +1,11 @@
-import 'dart:io';
-import 'dart:math';
-
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nothing/bloc/feed/bloc.dart';
-// import 'package:nothing/bloc/id/bloc.dart';
-// import 'package:nothing/bloc/summary/bloc.dart';
-// import 'package:nothing/bloc/id/bloc.dart';
-// import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-import 'package:nothing/ui/hlist.dart';
-import 'package:nothing/ui/yellowknob.dart';
+import 'package:nothing/model/textmodel.dart';
+import 'package:nothing/ui/game.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Home extends StatefulWidget {
@@ -58,7 +49,7 @@ class _HomeState extends State<Home> {
     });
     return Scaffold(
       body: Container(
-        color: NothingScheme.of(context).card,
+        color: NothingScheme.of(context).background,
         // color: Color(0xff5d26db),
         child: ScopedModel<TextModel>(
           model: model,
@@ -110,7 +101,7 @@ class _HomeState extends State<Home> {
         enableSuggestions: false,
         autocorrect: false,
         maxLength: 32,
-        keyboardAppearance: Brightness.light,
+        keyboardAppearance: NothingScheme.of(context).brightness,
         keyboardType: TextInputType.text,
         onSubmitted: (s) async {
           print(s);
@@ -140,220 +131,6 @@ class _HomeState extends State<Home> {
           model.update(s);
           print(s);
         },
-      ),
-    );
-  }
-}
-
-class Test extends StatelessWidget {
-  const Test({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<FeedBloc, FeedState>(
-      condition: (previous, current) {
-        print("************************");
-        print(current);
-        return true;
-      },
-      builder: (context, state) => Align(
-        alignment: Alignment.centerRight,
-        child: Text(
-          // state.names.join('*'),
-          '${state?.tree?.question?.id?.toString() ?? "no id"}, ${state?.tree?.question?.mmr?.toString() ?? "no mmr"}',
-          style: TextStyle(
-            fontSize: 16,
-            color: Color(0x88c02030),
-            // backgroundColor: Colors.white.withOpacity(0.2),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TextModel extends Model {
-  String _text;
-  String get text => _text;
-
-  void update(String s) {
-    _text = s;
-    notifyListeners();
-  }
-
-  static TextModel of(BuildContext context) =>
-      ScopedModel.of<TextModel>(context, rebuildOnChange: true);
-}
-
-class Game extends StatelessWidget {
-  const Game({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var safeWrap = (Widget w) => Platform.isIOS ? w : SafeArea(child: w);
-    return safeWrap(
-      LayoutBuilder(
-        builder: (context, constraints) {
-          double labelH = 50;
-          double ansH = 70;
-          return Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _yellowThing(Icons.add_shopping_cart),
-                  _yellowThing(Icons.history, () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HistoryList(),
-                        ));
-                  }),
-                ],
-              ),
-              SizedBox(
-                height: labelH,
-                child: Stack(children: [Label(), Test()]),
-              ),
-              SizedBox(
-                height: min(
-                  280,
-                  constraints.biggest.height -
-                      (labelH + ansH + 21 + 28 + 8 + 12),
-                ),
-                child: Center(
-                  child: Question(),
-                ),
-              ),
-              SizedBox(
-                height: ansH,
-                child: Answer(),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _yellowThing(IconData icon, [Function onPress]) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 24,
-        right: 24,
-        top: 21,
-      ),
-      child: YellowKnob(icon, onPress),
-    );
-  }
-}
-
-class Answer extends StatelessWidget {
-  const Answer({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.symmetric(horizontal: 32),
-      child: BlocBuilder<ValidationBloc, ValidationState>(
-        builder: (BuildContext context, state) => Material(
-          elevation: 6,
-          shadowColor: state.map(
-            correct: (_) => Color(0x8888bb33),
-            neutral: (s) => s.green ? Color(0x8888bb33) : Color(0x88fdcf3c),
-            wrong: (_) => Color(0x88c02030),
-          ),
-          color: state.map(
-            correct: (_) => Color(0xff88bb33),
-            neutral: (s) => s.green ? Color(0xff88bb33) : Color(0xfffdcf3c),
-            wrong: (_) => Color(0xffc02030),
-          ),
-          borderRadius: BorderRadius.circular(28),
-          clipBehavior: Clip.antiAlias,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 4),
-                  child: IconButton(
-                    onPressed: () => print("Press"),
-                    // tooltip: "hint",
-                    splashColor: Colors.red,
-                    highlightColor: Colors.transparent,
-                    icon: Icon(
-                      Icons.lightbulb_outline,
-                      color: Colors.black,
-                      size: 32,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: AutoSizeText(
-                  TextModel.of(context).text ?? '',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: NothingScheme.of(context).question,
-                  ),
-                  maxLines: 2,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Question extends StatelessWidget {
-  const Question({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 8,
-      ),
-      child: BlocBuilder<FeedBloc, FeedState>(
-        builder: (context, state) => AutoSizeText(
-          state.tree?.question?.question ?? '',
-          maxLines: 6,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 44,
-            fontWeight: FontWeight.bold,
-            color: NothingScheme.of(context).previoustext,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Label extends StatelessWidget {
-  const Label({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        "NOTHING PUZZLE 2",
-        style: TextStyle(
-          fontSize: 20,
-          color: NothingScheme.of(context).textbase,
-        ),
       ),
     );
   }

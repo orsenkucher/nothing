@@ -99,17 +99,3 @@ class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
     }
   }
 }
-
-// Bro, is this theme a very scecial kind of sause for your day?
-// I think I today had very tiny microdose, about something*10^-6, without any visuals all day long.
-// BUT few minutes I've opened vscode I started tripping so hard on my code, with moving layers and warping screen
-// So gotcha bro
-// I have explored hidden abstraction under this theme bro
-
-// I have explored hidden sense under your theme bro
-// With very tiny md without any visuals all day long,
-// With very tiny md and no visuals all day long,
-// When I opended vscode, I have started tripping so hard on it
-// I have passed a critical point
-// I have started tripping so hard on my code, with screen wraping and layers moving
-// Very good color choise, like it.

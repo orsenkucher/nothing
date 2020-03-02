@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 class NothingScheme extends InheritedWidget {
   static Color app = const Color(0xff2e68e9);
   Color get background => app;
-  Color get card => const Color(0xff1d2021); //fafafa
-  Color get cardborder => const Color(0x00ffffff);
-  Color get shadow => Colors.black.withAlpha(60);
-  Color get textbase => const Color(0xffdddddd);
-  Color get textleft => const Color(0xffdc1a1a);
-  Color get textright => const Color(0xff44d818);
-  Color get question => const Color(0xff000000);
-  Color get sliderleft => const Color(0xffdc1a1a);
-  Color get sliderright => const Color(0xff44d818);
-  Color get previoustext => const Color(0xffffffff);
+
+  Color get knob => const Color(0xfffdcf3c);
+  BorderRadiusGeometry get knobBorder =>
+      const BorderRadius.all(Radius.circular(28));
+
+  Color get label => const Color(0xffdddddd);
+  Color get question => const Color(0xffffffff);
+  Color get answer => const Color(0xff1d2021);
+  Color get correct => const Color(0xff88bb33);
+  Color get neutral => const Color(0xfffdcf3c);
+  Color get wrong => const Color(0xffc02030);
+
+  Brightness get brightness => Brightness.light;
 
   const NothingScheme({
     Key key,
@@ -27,4 +30,8 @@ class NothingScheme extends InheritedWidget {
   bool updateShouldNotify(InheritedWidget oldWidget) {
     return false;
   }
+}
+
+extension Shadow on Color {
+  Color get tint => this.withAlpha(0x88);
 }

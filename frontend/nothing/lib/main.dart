@@ -17,13 +17,6 @@ import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/home.dart';
 
-// TODOs
-// [+] currentid is always -1
-// [+] fix qid
-// [+] SummaryState does not hydrate
-// [+] add seconds, tries to ValidationBloc
-// [+] calc where to move (left|right)
-// [.] remove summary salt
 void main() async {
   await _hydrateAsync();
   if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
@@ -40,6 +33,22 @@ class App extends StatelessWidget with PortraitLock {
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    return _nestBlocs(
+      MaterialApp(
+        title: 'NOTHING 2',
+        theme: ThemeData(
+          fontFamily: 'Gilroy',
+        ),
+        home: NothingScheme(
+          child: Home(),
+        ),
+        color: NothingScheme.app,
+        debugShowCheckedModeBanner: false,
+      ),
+    );
+  }
+
+  Widget _nestBlocs(Widget child) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<TestBloc>(
@@ -49,9 +58,7 @@ class App extends StatelessWidget with PortraitLock {
           create: (context) => IdBloc(),
         ),
         BlocProvider<ValidationBloc>(
-          create: (context) => ValidationBloc(
-              // feed: BlocProvider.of<FeedBloc>(context),
-              ),
+          create: (context) => ValidationBloc(),
         ),
         BlocProvider<SummaryBloc>(
           create: (context) => SummaryBloc(
@@ -62,7 +69,6 @@ class App extends StatelessWidget with PortraitLock {
           create: (context) => QuestionsBloc(
             summaryBloc: BlocProvider.of<SummaryBloc>(context),
             idBloc: BlocProvider.of<IdBloc>(context),
-            // feed: BlocProvider.of<FeedBloc>(context),
             repo: CloudQuestionsRepo(), // CloudQuestionsRepo LocalQuestionsRepo
           ),
         ),
@@ -78,17 +84,7 @@ class App extends StatelessWidget with PortraitLock {
           ),
         ),
       ],
-      child: MaterialApp(
-        title: 'NOTHING 2',
-        theme: ThemeData(
-          fontFamily: 'Gilroy',
-        ),
-        home: NothingScheme(
-          child: Home(),
-        ),
-        color: NothingScheme.app,
-        debugShowCheckedModeBanner: false,
-      ),
+      child: child,
     );
   }
 }
