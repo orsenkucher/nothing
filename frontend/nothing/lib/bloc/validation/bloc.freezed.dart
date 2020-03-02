@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'bloc.dart';
 
@@ -38,6 +38,28 @@ mixin _$ValidationEvent {
     @required Result orElse(),
   });
 }
+
+class _$ValidationEventTearOff {
+  const _$ValidationEventTearOff();
+
+  _Focus focus(Question question) {
+    return _Focus(
+      question,
+    );
+  }
+
+  _Check check(String answer) {
+    return _Check(
+      answer,
+    );
+  }
+
+  _Purge purge() {
+    return const _Purge();
+  }
+}
+
+const $ValidationEvent = _$ValidationEventTearOff();
 
 class _$_Focus with DiagnosticableTreeMixin implements _Focus {
   const _$_Focus(this.question) : assert(question != null);
@@ -343,16 +365,16 @@ mixin _$ValidationState {
   Result when<Result extends Object>({
     @required Result correct(Question question, int tries, Duration duration),
     @required
-        Result neutral(@nullable Question question, int tries, DateTime time,
-            @Default(false) bool green),
+        Result neutral(
+            @nullable Question question, int tries, DateTime time, bool green),
     @required Result wrong(Question question, int tries, DateTime time),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result correct(Question question, int tries, Duration duration),
-    Result neutral(@nullable Question question, int tries, DateTime time,
-        @Default(false) bool green),
+    Result neutral(
+        @nullable Question question, int tries, DateTime time, bool green),
     Result wrong(Question question, int tries, DateTime time),
     @required Result orElse(),
   });
@@ -372,6 +394,38 @@ mixin _$ValidationState {
     @required Result orElse(),
   });
 }
+
+class _$ValidationStateTearOff {
+  const _$ValidationStateTearOff();
+
+  _Correct correct(Question question, int tries, Duration duration) {
+    return _Correct(
+      question,
+      tries,
+      duration,
+    );
+  }
+
+  _Neutral neutral(@nullable Question question, int tries, DateTime time,
+      [bool green = false]) {
+    return _Neutral(
+      question,
+      tries,
+      time,
+      green,
+    );
+  }
+
+  _Wrong wrong(Question question, int tries, DateTime time) {
+    return _Wrong(
+      question,
+      tries,
+      time,
+    );
+  }
+}
+
+const $ValidationState = _$ValidationStateTearOff();
 
 class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   const _$_Correct(this.question, this.tries, this.duration)
@@ -440,8 +494,8 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   Result when<Result extends Object>({
     @required Result correct(Question question, int tries, Duration duration),
     @required
-        Result neutral(@nullable Question question, int tries, DateTime time,
-            @Default(false) bool green),
+        Result neutral(
+            @nullable Question question, int tries, DateTime time, bool green),
     @required Result wrong(Question question, int tries, DateTime time),
   }) {
     assert(correct != null);
@@ -454,8 +508,8 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result correct(Question question, int tries, Duration duration),
-    Result neutral(@nullable Question question, int tries, DateTime time,
-        @Default(false) bool green),
+    Result neutral(
+        @nullable Question question, int tries, DateTime time, bool green),
     Result wrong(Question question, int tries, DateTime time),
     @required Result orElse(),
   }) {
@@ -511,7 +565,7 @@ abstract class _Correct implements ValidationState {
 
 class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   const _$_Neutral(@nullable this.question, this.tries, this.time,
-      [@Default(false) this.green = false])
+      [this.green = false])
       : assert(tries != null),
         assert(time != null);
 
@@ -524,7 +578,6 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   final DateTime time;
   @JsonKey(defaultValue: false)
   @override
-  @Default(false)
   final bool green;
 
   @override
@@ -586,8 +639,8 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   Result when<Result extends Object>({
     @required Result correct(Question question, int tries, Duration duration),
     @required
-        Result neutral(@nullable Question question, int tries, DateTime time,
-            @Default(false) bool green),
+        Result neutral(
+            @nullable Question question, int tries, DateTime time, bool green),
     @required Result wrong(Question question, int tries, DateTime time),
   }) {
     assert(correct != null);
@@ -600,8 +653,8 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result correct(Question question, int tries, Duration duration),
-    Result neutral(@nullable Question question, int tries, DateTime time,
-        @Default(false) bool green),
+    Result neutral(
+        @nullable Question question, int tries, DateTime time, bool green),
     Result wrong(Question question, int tries, DateTime time),
     @required Result orElse(),
   }) {
@@ -643,7 +696,7 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
 
 abstract class _Neutral implements ValidationState {
   const factory _Neutral(@nullable Question question, int tries, DateTime time,
-      [@Default(false) bool green]) = _$_Neutral;
+      [bool green]) = _$_Neutral;
 
   @override
   @nullable
@@ -651,15 +704,11 @@ abstract class _Neutral implements ValidationState {
   @override
   int get tries;
   DateTime get time;
-  @Default(false)
   bool get green;
 
   @override
   _Neutral copyWith(
-      {@nullable Question question,
-      int tries,
-      DateTime time,
-      @Default(false) bool green});
+      {@nullable Question question, int tries, DateTime time, bool green});
 }
 
 class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
@@ -728,8 +777,8 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   Result when<Result extends Object>({
     @required Result correct(Question question, int tries, Duration duration),
     @required
-        Result neutral(@nullable Question question, int tries, DateTime time,
-            @Default(false) bool green),
+        Result neutral(
+            @nullable Question question, int tries, DateTime time, bool green),
     @required Result wrong(Question question, int tries, DateTime time),
   }) {
     assert(correct != null);
@@ -742,8 +791,8 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result correct(Question question, int tries, Duration duration),
-    Result neutral(@nullable Question question, int tries, DateTime time,
-        @Default(false) bool green),
+    Result neutral(
+        @nullable Question question, int tries, DateTime time, bool green),
     Result wrong(Question question, int tries, DateTime time),
     @required Result orElse(),
   }) {

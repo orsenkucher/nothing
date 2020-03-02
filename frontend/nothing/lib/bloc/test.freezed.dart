@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'test.dart';
 
@@ -12,6 +12,18 @@ mixin _$TestEvent {
 
   TestEvent copyWith({String name});
 }
+
+class _$TestEventTearOff {
+  const _$TestEventTearOff();
+
+  _Name name(String name) {
+    return _Name(
+      name,
+    );
+  }
+}
+
+const $TestEvent = _$TestEventTearOff();
 
 class _$_Name with DiagnosticableTreeMixin implements _Name {
   const _$_Name(this.name) : assert(name != null);
@@ -75,6 +87,18 @@ mixin _$TestState {
 
   Map<String, dynamic> toJson();
 }
+
+class _$TestStateTearOff {
+  const _$TestStateTearOff();
+
+  _Data data(List<String> names) {
+    return _Data(
+      names,
+    );
+  }
+}
+
+const $TestState = _$TestStateTearOff();
 
 @JsonSerializable()
 class _$_Data with DiagnosticableTreeMixin implements _Data {

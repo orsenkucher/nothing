@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'state.dart';
 
@@ -21,6 +21,21 @@ mixin _$Summary {
 
   Map<String, dynamic> toJson();
 }
+
+class _$SummaryTearOff {
+  const _$SummaryTearOff();
+
+  _Summary call(
+      {@required int salt,
+      @required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) {
+    return _Summary(
+      salt: salt,
+      answers: answers,
+    );
+  }
+}
+
+const $Summary = _$SummaryTearOff();
 
 @JsonSerializable()
 class _$_Summary with DiagnosticableTreeMixin implements _Summary {
@@ -118,6 +133,20 @@ mixin _$SummaryAnswer {
 
   Map<String, dynamic> toJson();
 }
+
+class _$SummaryAnswerTearOff {
+  const _$SummaryAnswerTearOff();
+
+  _SummaryAnswer call({int qid, int tries, int seconds}) {
+    return _SummaryAnswer(
+      qid: qid,
+      tries: tries,
+      seconds: seconds,
+    );
+  }
+}
+
+const $SummaryAnswer = _$SummaryAnswerTearOff();
 
 @JsonSerializable()
 class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {

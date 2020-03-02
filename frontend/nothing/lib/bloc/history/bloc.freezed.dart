@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'bloc.dart';
 
@@ -12,6 +12,18 @@ mixin _$HistoryEvent {
 
   HistoryEvent copyWith({SummaryAnswer answer});
 }
+
+class _$HistoryEventTearOff {
+  const _$HistoryEventTearOff();
+
+  _Next next(SummaryAnswer answer) {
+    return _Next(
+      answer,
+    );
+  }
+}
+
+const $HistoryEvent = _$HistoryEventTearOff();
 
 class _$_Next with DiagnosticableTreeMixin implements _Next {
   const _$_Next(this.answer) : assert(answer != null);
@@ -78,6 +90,21 @@ mixin _$HistoryState {
 
   Map<String, dynamic> toJson();
 }
+
+class _$HistoryStateTearOff {
+  const _$HistoryStateTearOff();
+
+  _State call(
+      {@required Map<int, bool> ids,
+      @required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) {
+    return _State(
+      ids: ids,
+      answers: answers,
+    );
+  }
+}
+
+const $HistoryState = _$HistoryStateTearOff();
 
 @JsonSerializable()
 class _$_State with DiagnosticableTreeMixin implements _State {
