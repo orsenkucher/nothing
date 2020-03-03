@@ -21,13 +21,17 @@ func (s *Server) GetQues(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-
 	s.ReceiveAns(req.Answers, req.UserID)
-	ques := s.GiveQuestions(req.UserID, req.CurrentID)
-	ques.Print("")
-	quesj, err := json.Marshal(&ques)
-	if err != nil {
-		log.Println(err)
+
+	if req.CurrentID > len(s.Questions) || req.CurrentID < -1 {
+		w.WriteHeader(205)
+	} else {
+		ques := s.GiveQuestions(req.UserID, req.CurrentID)
+		ques.Print("")
+		quesj, err := json.Marshal(&ques)
+		if err != nil {
+			log.Println(err)
+		}
+		fmt.Fprint(w, string(quesj))
 	}
-	fmt.Fprint(w, string(quesj))
 }

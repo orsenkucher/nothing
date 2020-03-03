@@ -27,7 +27,7 @@
 |7|Skip me|skip|exp26
 |7|ON/OFF|switch|exp27
 |4|5,5s,6,6s,7,8, ?|x|exp28
-|7|Bill is 12 years old, and Professor Peterson is 42. In how many years will  Bill be half the age of the professor?|18, eighteen|exp29
+|7|Bill is 12 years old, and Professor Peterson is 42. In how many years will  Bill be half the age of the professor?|18<$>eighteen|exp29
 |2|2G, 3G, ?(LTE)|lte<$>4g|exp30
 |4|3 wishes|genie|exp31
 |6|The most famous lady|lady gaga<$>gaga|exp32
@@ -41,7 +41,7 @@
 |6|What five-letter word becomes shorter when you add two letters to it?|short|exp39
 |4|What is 3/7 chicken, 2/3 cat and 2/4 goat?|chicago|exp40
 |6|What is the end of everything?|g|exp41
-|6|The more you take, the more you leave behind. What are they?|footsteps|exp42
+|6|The more you take, the more you leave behind. What are they?|footsteps<$>steps|exp42
 |6|I have no life, but I can die, what am I?|battery|exp43
 |8|What is the coldest country in the world?|chile|exp44
 |8|Knock knock |who is there?<$>who is there|who is there|exp45
@@ -50,7 +50,7 @@
 |9|4x2 - 22  = 5 + x2 , x > 0, x = ?|3|exp48
 |4|-8 = 2-5x|2|exp49
 |7|Good cop|bad cop|exp50
-|5|0,99999… = ? |1, 0.(9),|exp51 |5|If you divide 30 by half and add 30, what do you get|90|exp52
+|5|0,99999… = ? |1|exp51 |5|If you divide 30 by half and add 30, what do you get|90|exp52
 |9|СО2 + 6Н2О + Qlight → С6Н12О6 + 6О2.|photosynthesis|exp53
 |7|All i want for Christmas |is you|exp54
 |7|Chinese, English, Hindi, ? |spanish|exp55
@@ -90,7 +90,7 @@
 |8|Half|ha|Half of the word 'Half'
 |2|1 2 6 24 ?|120|1 * 2 = 2, 2 * 3 = 6, 6 * 4 = 24
 |1|Backwards|sdrawkcab|Just backwards backwards
-|7|Rate us| 5 stars<$>1 star<$>2 stars<$>3 stars,<$>4 stars<$>5<$>4<$>3<$>2<$>1|1-5 stars
+|7|Rate us|5 stars<$>1 star<$>2 stars<$>3 stars,<$>4 stars<$>5<$>4<$>3<$>2<$>1|1-5 stars
 |3|F E D C B ?|a|Alphabet
 |6|Triangle Square ...|pentagon|3 angles, 4 angles ...
 |1|ЯOЯЯIM|mirror|Mirror the written text
@@ -100,7 +100,7 @@
 |4|Eiffel Tower|paris|Where is it located?
 |7|dough + sauce + cheese + sausage + tomato|pizza|Dish of italian origin
 |6|A + B = -2, A - B = 8, B * A = ?|-15|A = 3
-|6|🔥 + 💧|steam, vapor|Water boils and turns into ...
+|6|🔥 + 💧|steam<$>vapor|Water boils and turns into ...
 |8|A + B = 3 , B + C = 5 , E + F = ?|11|Each letter corresponds to its number in  the alphabet A = 1, B = 2, C = 3 ...
 |8|RGB(255,255,255)|white|It's a color
 |4|xyz zxy yxz xzy yzx ?|zyx|From 3 letters you can make 6 combinations, which combitaion is left?
