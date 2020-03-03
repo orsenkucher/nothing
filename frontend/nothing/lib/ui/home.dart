@@ -13,6 +13,8 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/ui/hlist.dart';
+import 'package:nothing/ui/yellowknob.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Home extends StatefulWidget {
@@ -202,8 +204,13 @@ class Game extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _yellowThing(Icons.add_shopping_cart),
-                  // Test(),
-                  _yellowThing(Icons.history),
+                  _yellowThing(Icons.history, () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HistoryList(),
+                        ));
+                  }),
                 ],
               ),
               SizedBox(
@@ -231,22 +238,14 @@ class Game extends StatelessWidget {
     );
   }
 
-  Widget _yellowThing(IconData icon) {
+  Widget _yellowThing(IconData icon, [Function onPress]) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 24,
         right: 24,
         top: 21,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color(0xfffdcf3c),
-          borderRadius: BorderRadius.circular(28),
-        ),
-        width: 50,
-        height: 28,
-        child: Icon(icon),
-      ),
+      child: YellowKnob(icon, onPress),
     );
   }
 }

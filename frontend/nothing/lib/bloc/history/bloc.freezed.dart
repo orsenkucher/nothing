@@ -7,24 +7,14 @@ part of 'bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
-HistoryEvent _$HistoryEventFromJson(Map<String, dynamic> json) {
-  return _Next.fromJson(json);
-}
-
 mixin _$HistoryEvent {
   SummaryAnswer get answer;
 
   HistoryEvent copyWith({SummaryAnswer answer});
-
-  Map<String, dynamic> toJson();
 }
 
-@JsonSerializable()
 class _$_Next with DiagnosticableTreeMixin implements _Next {
   const _$_Next(this.answer) : assert(answer != null);
-
-  factory _$_Next.fromJson(Map<String, dynamic> json) =>
-      _$_$_NextFromJson(json);
 
   @override
   final SummaryAnswer answer;
@@ -62,17 +52,10 @@ class _$_Next with DiagnosticableTreeMixin implements _Next {
       answer == freezed ? this.answer : answer as SummaryAnswer,
     );
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_NextToJson(this);
-  }
 }
 
 abstract class _Next implements HistoryEvent {
   const factory _Next(SummaryAnswer answer) = _$_Next;
-
-  factory _Next.fromJson(Map<String, dynamic> json) = _$_Next.fromJson;
 
   @override
   SummaryAnswer get answer;
@@ -81,21 +64,40 @@ abstract class _Next implements HistoryEvent {
   _Next copyWith({SummaryAnswer answer});
 }
 
-mixin _$HistoryState {
-  List<SummaryAnswer> get answers;
-
-  HistoryState copyWith({List<SummaryAnswer> answers});
+HistoryState _$HistoryStateFromJson(Map<String, dynamic> json) {
+  return _State.fromJson(json);
 }
 
+mixin _$HistoryState {
+  Map<int, bool> get ids;
+  @JsonKey(toJson: _to)
+  List<SummaryAnswer> get answers;
+
+  HistoryState copyWith(
+      {Map<int, bool> ids, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
+
+  Map<String, dynamic> toJson();
+}
+
+@JsonSerializable()
 class _$_State with DiagnosticableTreeMixin implements _State {
-  const _$_State(this.answers) : assert(answers != null);
+  const _$_State(
+      {@required this.ids, @required @JsonKey(toJson: _to) this.answers})
+      : assert(ids != null),
+        assert(answers != null);
+
+  factory _$_State.fromJson(Map<String, dynamic> json) =>
+      _$_$_StateFromJson(json);
 
   @override
+  final Map<int, bool> ids;
+  @override
+  @JsonKey(toJson: _to)
   final List<SummaryAnswer> answers;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HistoryState(answers: $answers)';
+    return 'HistoryState(ids: $ids, answers: $answers)';
   }
 
   @override
@@ -103,6 +105,7 @@ class _$_State with DiagnosticableTreeMixin implements _State {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'HistoryState'))
+      ..add(DiagnosticsProperty('ids', ids))
       ..add(DiagnosticsProperty('answers', answers));
   }
 
@@ -110,30 +113,50 @@ class _$_State with DiagnosticableTreeMixin implements _State {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _State &&
+            (identical(other.ids, ids) ||
+                const DeepCollectionEquality().equals(other.ids, ids)) &&
             (identical(other.answers, answers) ||
                 const DeepCollectionEquality().equals(other.answers, answers)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(answers);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(ids) ^
+      const DeepCollectionEquality().hash(answers);
 
   @override
   _$_State copyWith({
+    Object ids = freezed,
     Object answers = freezed,
   }) {
     return _$_State(
-      answers == freezed ? this.answers : answers as List<SummaryAnswer>,
+      ids: ids == freezed ? this.ids : ids as Map<int, bool>,
+      answers:
+          answers == freezed ? this.answers : answers as List<SummaryAnswer>,
     );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_StateToJson(this);
   }
 }
 
 abstract class _State implements HistoryState {
-  const factory _State(List<SummaryAnswer> answers) = _$_State;
+  const factory _State(
+      {@required Map<int, bool> ids,
+      @required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) = _$_State;
+
+  factory _State.fromJson(Map<String, dynamic> json) = _$_State.fromJson;
 
   @override
+  Map<int, bool> get ids;
+  @override
+  @JsonKey(toJson: _to)
   List<SummaryAnswer> get answers;
 
   @override
-  _State copyWith({List<SummaryAnswer> answers});
+  _State copyWith(
+      {Map<int, bool> ids, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
 }

@@ -8,6 +8,7 @@ require (
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.3.3 // indirect
 	github.com/jinzhu/gorm v1.9.12
+	github.com/orsenkucher/nothing/encio v0.0.0-20200229123125-317e01d1edb4
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 // indirect
 	google.golang.org/genproto v0.0.0-20200128133413-58ce757ed39b // indirect
