@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/binding/binder.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
@@ -33,18 +34,54 @@ class App extends StatelessWidget with PortraitLock {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _nestBlocs(
-      MaterialApp(
-        title: 'NOTHING 2',
-        theme: ThemeData(
-          fontFamily: 'Gilroy',
+    return _nestBlocs(_bindBlocs(
+      MultiBlocBinder(
+        binders: [
+          BlocBinder<IdBloc, IdState, FeedBloc, FeedState>(
+            f1: (BuildContext context, IdState idState, FeedBloc feedBloc) {
+              print('***************************************************');
+              print(idState);
+              print(feedBloc);
+              // feedBloc.add(FeedEvent.moveNext(MoveDir.right()));
+              return;
+            },
+          ),
+        ],
+        child: MaterialApp(
+          title: 'NOTHING 2',
+          theme: ThemeData(
+            fontFamily: 'Gilroy',
+          ),
+          home: NothingScheme(
+            child: Home(),
+          ),
+          color: NothingScheme.app,
+          debugShowCheckedModeBanner: false,
         ),
-        home: NothingScheme(
-          child: Home(),
-        ),
-        color: NothingScheme.app,
-        debugShowCheckedModeBanner: false,
       ),
+    ));
+  }
+
+  Widget _bindBlocs(Widget child) {
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<IdBloc, IdState>(
+          listener: (context, state) {
+            print("********* $state");
+          },
+        ),
+        BlocListener<FeedBloc, FeedState>(
+          listener: (context, state) {
+            print("*********2 $state");
+          },
+        ),
+        BlocListener<FeedBloc, FeedState>(
+          listener: (context, state) {
+            print("*********3 $state");
+          },
+        ),
+      ],
+      child: child,
     );
   }
 

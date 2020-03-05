@@ -8,7 +8,7 @@ export 'state.dart';
 class IdBloc extends HydratedBloc<IdEvent, IdState> {
   IdBloc() {
     add(IdEvent.issue(state));
-  }
+  } // Trigger HydratedBloc save
 
   IdState revoke() => IdState.unique();
 
