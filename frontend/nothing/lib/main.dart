@@ -58,7 +58,7 @@ class App extends StatelessWidget with PortraitLock {
 
   Widget _bindings(Widget child) {
     return MultiBlocBinder(child: child, binders: [
-      BlocBinder<ValidationBloc, ValidationState, SummaryBloc, Summary>(
+      BlocBinder<ValidationBloc, ValidationState, SummaryBloc, SummaryState>(
         direct:
             (BuildContext context, ValidationState state, SummaryBloc bloc) {
           state.maybeWhen(

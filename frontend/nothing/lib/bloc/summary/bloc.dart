@@ -7,37 +7,34 @@ import 'package:nothing/bloc/summary/state.dart';
 export 'event.dart';
 export 'state.dart';
 
-class SummaryBloc extends HydratedBloc<SummaryEvent, Summary> {
+class SummaryBloc extends HydratedBloc<SummaryEvent, SummaryState> {
   @override
-  Summary get initialState => super.initialState ?? Summary.empty();
+  SummaryState get initialState => super.initialState ?? SummaryState.empty();
 
   @override
-  Stream<Summary> mapEventToState(
+  Stream<SummaryState> mapEventToState(
     SummaryEvent event,
   ) async* {
     yield event.map(
-      reset: (_) => Summary.empty(),
+      reset: (_) => SummaryState.empty(),
       answer: (e) {
-        // TODO rm salt
-        final next = state.copyWith(salt: state.salt + 1)
-          //currentid: feed.state.tree.question.id)
-          ..answers.add(
-            SummaryAnswer(
-              seconds: e.seconds,
-              tries: e.tries,
-              qid: e.qid,
-            ),
-          );
+        final next = SummaryState(answers: [
+          ...state.answers,
+          SummaryAnswer(
+            seconds: e.seconds,
+            tries: e.tries,
+            qid: e.qid,
+          ),
+        ]);
         return next;
-        // return state.copyWith(currentid: )..summary.add();
       },
     );
   }
 
   @override
-  Summary fromJson(Map<String, dynamic> json) {
+  SummaryState fromJson(Map<String, dynamic> json) {
     try {
-      final summary = Summary.fromJson(json);
+      final summary = SummaryState.fromJson(json);
       return summary;
     } catch (_) {
       print('Summary: fromJson error');
@@ -46,7 +43,7 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, Summary> {
   }
 
   @override
-  Map<String, dynamic> toJson(Summary summary) {
+  Map<String, dynamic> toJson(SummaryState summary) {
     try {
       final json = summary.toJson();
       return json;

@@ -7,89 +7,74 @@ part of 'state.dart';
 // FreezedGenerator
 // **************************************************************************
 
-Summary _$SummaryFromJson(Map<String, dynamic> json) {
-  return _Summary.fromJson(json);
+SummaryState _$SummaryStateFromJson(Map<String, dynamic> json) {
+  return _SummaryState.fromJson(json);
 }
 
-mixin _$Summary {
-  int get salt;
+mixin _$SummaryState {
   @JsonKey(toJson: _to)
   List<SummaryAnswer> get answers;
 
-  Summary copyWith(
-      {int salt, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
+  SummaryState copyWith({@JsonKey(toJson: _to) List<SummaryAnswer> answers});
 
   Map<String, dynamic> toJson();
 }
 
-class _$SummaryTearOff {
-  const _$SummaryTearOff();
+class _$SummaryStateTearOff {
+  const _$SummaryStateTearOff();
 
-  _Summary call(
-      {@required int salt,
-      @required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) {
-    return _Summary(
-      salt: salt,
+  _SummaryState call(
+      {@required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) {
+    return _SummaryState(
       answers: answers,
     );
   }
 }
 
-const $Summary = _$SummaryTearOff();
+const $SummaryState = _$SummaryStateTearOff();
 
 @JsonSerializable()
-class _$_Summary with DiagnosticableTreeMixin implements _Summary {
-  const _$_Summary(
-      {@required this.salt, @required @JsonKey(toJson: _to) this.answers})
-      : assert(salt != null),
-        assert(answers != null);
+class _$_SummaryState with DiagnosticableTreeMixin implements _SummaryState {
+  const _$_SummaryState({@required @JsonKey(toJson: _to) this.answers})
+      : assert(answers != null);
 
-  factory _$_Summary.fromJson(Map<String, dynamic> json) =>
-      _$_$_SummaryFromJson(json);
+  factory _$_SummaryState.fromJson(Map<String, dynamic> json) =>
+      _$_$_SummaryStateFromJson(json);
 
-  @override
-  final int salt;
   @override
   @JsonKey(toJson: _to)
   final List<SummaryAnswer> answers;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Summary(salt: $salt, answers: $answers)';
+    return 'SummaryState(answers: $answers)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Summary'))
-      ..add(DiagnosticsProperty('salt', salt))
+      ..add(DiagnosticsProperty('type', 'SummaryState'))
       ..add(DiagnosticsProperty('answers', answers));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Summary &&
-            (identical(other.salt, salt) ||
-                const DeepCollectionEquality().equals(other.salt, salt)) &&
+        (other is _SummaryState &&
             (identical(other.answers, answers) ||
                 const DeepCollectionEquality().equals(other.answers, answers)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(salt) ^
-      const DeepCollectionEquality().hash(answers);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(answers);
 
   @override
-  _$_Summary copyWith({
-    Object salt = freezed,
+  _$_SummaryState copyWith({
     Object answers = freezed,
   }) {
-    return _$_Summary(
-      salt: salt == freezed ? this.salt : salt as int,
+    return _$_SummaryState(
       answers:
           answers == freezed ? this.answers : answers as List<SummaryAnswer>,
     );
@@ -97,27 +82,24 @@ class _$_Summary with DiagnosticableTreeMixin implements _Summary {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SummaryToJson(this);
+    return _$_$_SummaryStateToJson(this);
   }
 }
 
-abstract class _Summary implements Summary {
-  const factory _Summary(
-          {@required int salt,
-          @required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) =
-      _$_Summary;
+abstract class _SummaryState implements SummaryState {
+  const factory _SummaryState(
+          {@required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) =
+      _$_SummaryState;
 
-  factory _Summary.fromJson(Map<String, dynamic> json) = _$_Summary.fromJson;
+  factory _SummaryState.fromJson(Map<String, dynamic> json) =
+      _$_SummaryState.fromJson;
 
-  @override
-  int get salt;
   @override
   @JsonKey(toJson: _to)
   List<SummaryAnswer> get answers;
 
   @override
-  _Summary copyWith(
-      {int salt, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
+  _SummaryState copyWith({@JsonKey(toJson: _to) List<SummaryAnswer> answers});
 }
 
 SummaryAnswer _$SummaryAnswerFromJson(Map<String, dynamic> json) {

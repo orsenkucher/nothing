@@ -6,9 +6,8 @@ part of 'state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Summary _$_$_SummaryFromJson(Map<String, dynamic> json) {
-  return _$_Summary(
-    salt: json['salt'] as int,
+_$_SummaryState _$_$_SummaryStateFromJson(Map<String, dynamic> json) {
+  return _$_SummaryState(
     answers: (json['answers'] as List)
         ?.map((e) => e == null
             ? null
@@ -17,9 +16,8 @@ _$_Summary _$_$_SummaryFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_SummaryToJson(_$_Summary instance) =>
+Map<String, dynamic> _$_$_SummaryStateToJson(_$_SummaryState instance) =>
     <String, dynamic>{
-      'salt': instance.salt,
       'answers': _to(instance.answers),
     };
 
