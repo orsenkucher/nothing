@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:bloc/bloc.dart';
-// import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 
 import 'package:nothing/bloc/questions/state.dart';
@@ -18,25 +17,12 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   final QuestionsRepo repo;
   final SummaryBloc summaryBloc;
   final IdBloc idBloc;
-  // final FeedBloc feed;
-
-  // StreamSubscription _sub;
 
   QuestionsBloc({
     @required this.repo,
     @required this.summaryBloc,
     @required this.idBloc,
-    // @required this.feed,
-  }) {
-    print('==============================');
-    print(repo);
-    print('==============================');
-    // _sub = feed.listen((state) {
-    //   if (state.tree == null) {
-    //     add(QuestionsEvent.fetch());
-    //   }
-    // });
-  }
+  });
 
   @override
   Future<void> close() async {
@@ -77,7 +63,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
     const duration = Duration(seconds: 10);
     print("Retry in $duration");
     await Future.delayed(duration);
-    yield const QuestionsState.reloading();
+    yield const QuestionsState.reloading(); // TODO bug is somewhere here
     add(QuestionsEvent.fetch(event.currentid));
   }
 }

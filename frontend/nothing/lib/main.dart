@@ -34,77 +34,93 @@ class App extends StatelessWidget with PortraitLock {
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    return _repos(_blocs(_bindings(
+      MaterialApp(
+        title: 'NOTHING 2',
+        theme: ThemeData(
+          fontFamily: 'Gilroy',
+        ),
+        home: NothingScheme(
+          child: Home(),
+        ),
+        color: NothingScheme.app,
+        debugShowCheckedModeBanner: false,
+      ),
+    )));
+  }
 
+  Widget _repos(Widget child) {
     return RepositoryProvider<QuestionsRepo>(
-      create: (context) => // CloudQuestionsRepo|LocalQuestionsRepo
-          CloudQuestionsRepo(),
-      child: _nestBlocs(_bindBlocs(
-        MultiBlocBinder(
-          binders: [
-            BlocBinder<IdBloc, IdState, FeedBloc, FeedState>(
-              f1: (BuildContext context, IdState idState, FeedBloc feedBloc) {
-                print('***************************************************');
-                print(idState);
-                print(feedBloc);
-                // feedBloc.add(FeedEvent.moveNext(MoveDir.right()));
-                return;
-              },
-            ),
-          ],
-          child: MaterialApp(
-            title: 'NOTHING 2',
-            theme: ThemeData(
-              fontFamily: 'Gilroy',
-            ),
-            home: NothingScheme(
-              child: Home(),
-            ),
-            color: NothingScheme.app,
-            debugShowCheckedModeBanner: false,
-          ),
-        ),
-      )),
-    );
-  }
-
-  Widget _bindBlocs(Widget child) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<IdBloc, IdState>(
-          listener: (context, state) {
-            print("********* $state");
-          },
-        ),
-        BlocListener<FeedBloc, FeedState>(
-          listener: (context, state) {
-            print("*********2 $state");
-          },
-        ),
-        BlocListener<FeedBloc, FeedState>(
-          listener: (context, state) {
-            print("*********3 $state");
-          },
-        ),
-      ],
       child: child,
-    );
+      create: (context) => CloudQuestionsRepo(),
+    ); // CloudQuestionsRepo|LocalQuestionsRepo
   }
 
-  Widget _nestBlocs(Widget child) {
+  Widget _bindings(Widget child) {
+    return MultiBlocBinder(child: child, binders: [
+      BlocBinder<ValidationBloc, ValidationState, SummaryBloc, Summary>(
+        direct:
+            (BuildContext context, ValidationState state, SummaryBloc bloc) {
+          state.maybeWhen(
+            correct: (question, tries, duration) {
+              bloc.add(SummaryEvent.answer(
+                qid: question.id,
+                tries: tries,
+                seconds: duration.inSeconds,
+              ));
+            },
+            orElse: () {},
+          );
+        },
+      ),
+      BlocBinder<ValidationBloc, ValidationState, HistoryBloc, HistoryState>(
+        direct: (context, s, bloc) {
+          bloc.add(HistoryEvent.next(
+            SummaryAnswer(
+                qid: s.question.id,
+                tries: s.tries,
+                seconds: s.maybeMap(
+                  correct: (x) => x.duration.inSeconds,
+                  orElse: () => 0,
+                )),
+          ));
+        },
+      ),
+      BlocBinder<QuestionsBloc, QuestionsState, FeedBloc, FeedState>(
+          direct: (context, state, bloc) {
+        if (state is Loaded) {
+          if (state?.questions?.question != null) {
+            bloc.add(FeedEvent.newArrived(state.questions));
+          }
+        }
+      }),
+      BlocBinder<ValidationBloc, ValidationState, FeedBloc, FeedState>(
+        direct: (context, state, bloc) {
+          state.maybeWhen(
+            correct: (question, tries, duration) => bloc.add(
+              FeedEvent.moveNext(
+                duration.inSeconds > 90 ? MoveDir.left() : MoveDir.right(),
+              ),
+            ),
+            orElse: () {},
+          );
+        },
+      )
+    ]);
+  }
+
+  Widget _blocs(Widget child) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<TestBloc>(create: (context) => TestBloc()),
-        BlocProvider<IdBloc>(create: (context) => IdBloc()),
-        BlocProvider<ValidationBloc>(create: (context) => ValidationBloc()),
-        BlocProvider<SummaryBloc>(
-          create: (context) => SummaryBloc(
-            validation: context.bloc<ValidationBloc>(),
-          ),
-        ),
+        BlocProvider<TestBloc>(create: (_) => TestBloc()),
+        BlocProvider<IdBloc>(create: (_) => IdBloc()),
+        BlocProvider<ValidationBloc>(create: (_) => ValidationBloc()),
+        BlocProvider<SummaryBloc>(create: (_) => SummaryBloc()),
+        BlocProvider<HistoryBloc>(create: (_) => HistoryBloc()),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
-            summaryBloc: context.bloc<SummaryBloc>(),
             idBloc: context.bloc<IdBloc>(),
+            summaryBloc: context.bloc<SummaryBloc>(),
             repo: context.repository<QuestionsRepo>(),
           ),
         ),
@@ -112,11 +128,6 @@ class App extends StatelessWidget with PortraitLock {
           create: (context) => FeedBloc(
             questionsBloc: context.bloc<QuestionsBloc>(),
             validationBloc: context.bloc<ValidationBloc>(),
-          ),
-        ),
-        BlocProvider<HistoryBloc>(
-          create: (context) => HistoryBloc(
-            validation: context.bloc<ValidationBloc>(),
           ),
         ),
       ],

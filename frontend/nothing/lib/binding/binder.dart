@@ -10,12 +10,12 @@ typedef BlocBinderListener<S1, B2> = void Function(
 /// [BlocBinder] is helpful to bind or cross-bind two BloCs
 class BlocBinder<B1 extends Bloc<dynamic, S1>, S1, B2 extends Bloc<dynamic, S2>,
     S2> extends SingleChildStatelessWidget with BlocBinderSingleChildWidget {
-  final BlocBinderListener<S1, B2> f1;
-  final BlocBinderListener<S2, B1> f2;
+  final BlocBinderListener<S1, B2> direct;
+  final BlocBinderListener<S2, B1> reverse;
   BlocBinder({
     Key key,
-    this.f1,
-    this.f2,
+    this.direct,
+    this.reverse,
     Widget child,
   }) : super(child: child, key: key);
 
@@ -23,15 +23,15 @@ class BlocBinder<B1 extends Bloc<dynamic, S1>, S1, B2 extends Bloc<dynamic, S2>,
   Widget buildWithChild(BuildContext context, Widget child) {
     return MultiBlocListener(
       listeners: [
-        if (f1 != null)
+        if (direct != null)
           BlocListener<B1, S1>(
             listener: (context, state) =>
-                f1(context, state, context.bloc<B2>()),
+                direct(context, state, context.bloc<B2>()),
           ),
-        if (f2 != null)
+        if (reverse != null)
           BlocListener<B2, S2>(
             listener: (context, state) =>
-                f2(context, state, context.bloc<B1>()),
+                reverse(context, state, context.bloc<B1>()),
           ),
       ],
       child: child,

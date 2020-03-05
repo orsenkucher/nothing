@@ -5,7 +5,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
-import 'package:nothing/bloc/validation/bloc.dart';
 
 part 'bloc.freezed.dart';
 part 'bloc.g.dart';
@@ -30,22 +29,6 @@ List<dynamic> _to(List<SummaryAnswer> ss) =>
     ss?.map((s) => s.toJson())?.toList();
 
 class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
-  final ValidationBloc validation;
-  StreamSubscription _sub;
-
-  HistoryBloc({@required this.validation}) {
-    _sub = validation.listen((s) {
-      print('%%% HISTORY: $s');
-      add(HistoryEvent.next(SummaryAnswer(
-          qid: s.question.id,
-          tries: s.tries,
-          seconds: s.maybeMap(
-            correct: (x) => x.duration.inSeconds,
-            orElse: () => 0,
-          ))));
-    });
-  }
-
   @override
   HistoryState get initialState =>
       super.initialState ??
@@ -53,12 +36,6 @@ class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
         ids: {},
         answers: [],
       );
-
-  @override
-  Future<void> close() {
-    _sub.cancel();
-    return super.close();
-  }
 
   @override
   Stream<HistoryState> mapEventToState(HistoryEvent event) async* {
