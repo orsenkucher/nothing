@@ -34,10 +34,6 @@ class _HomeState extends State<Home> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // if (BlocProvider.of<FeedBloc>(context).state.current < 36) { // REDO HERE
-    // BlocProvider.of<QuestionsBloc>(context).add(QuestionsEvent.fetch());
-    // }
-    // BlocProvider.of<IdBloc>(context).add(IdEvent.revoke());
     // BlocProvider.of<SummaryBloc>(context).add(SummaryEvent.reset());
   }
 
@@ -107,12 +103,8 @@ class _HomeState extends State<Home> {
           print(s);
           _focusNode.requestFocus();
           if (s.isNotEmpty) {
-            BlocProvider.of<ValidationBloc>(context).add(
-              ValidationEvent.check(s),
-            );
-            BlocProvider.of<TestBloc>(context).add(
-              TestEvent.name(s),
-            );
+            context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
+            context.bloc<TestBloc>().add(TestEvent.name(s));
           }
           // model.update(s);
           // if (true) {
@@ -127,7 +119,7 @@ class _HomeState extends State<Home> {
         },
         textInputAction: TextInputAction.go,
         onChanged: (s) {
-          BlocProvider.of<ValidationBloc>(context).add(ValidationEvent.purge());
+          context.bloc<ValidationBloc>().add(ValidationEvent.purge());
           model.update(s);
           print(s);
         },

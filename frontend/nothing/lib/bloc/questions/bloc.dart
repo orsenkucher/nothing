@@ -28,6 +28,9 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
     @required this.idBloc,
     // @required this.feed,
   }) {
+    print('==============================');
+    print(repo);
+    print('==============================');
     // _sub = feed.listen((state) {
     //   if (state.tree == null) {
     //     add(QuestionsEvent.fetch());

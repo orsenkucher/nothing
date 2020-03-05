@@ -34,32 +34,37 @@ class App extends StatelessWidget with PortraitLock {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _nestBlocs(_bindBlocs(
-      MultiBlocBinder(
-        binders: [
-          BlocBinder<IdBloc, IdState, FeedBloc, FeedState>(
-            f1: (BuildContext context, IdState idState, FeedBloc feedBloc) {
-              print('***************************************************');
-              print(idState);
-              print(feedBloc);
-              // feedBloc.add(FeedEvent.moveNext(MoveDir.right()));
-              return;
-            },
+
+    return RepositoryProvider<QuestionsRepo>(
+      create: (context) => // CloudQuestionsRepo|LocalQuestionsRepo
+          CloudQuestionsRepo(),
+      child: _nestBlocs(_bindBlocs(
+        MultiBlocBinder(
+          binders: [
+            BlocBinder<IdBloc, IdState, FeedBloc, FeedState>(
+              f1: (BuildContext context, IdState idState, FeedBloc feedBloc) {
+                print('***************************************************');
+                print(idState);
+                print(feedBloc);
+                // feedBloc.add(FeedEvent.moveNext(MoveDir.right()));
+                return;
+              },
+            ),
+          ],
+          child: MaterialApp(
+            title: 'NOTHING 2',
+            theme: ThemeData(
+              fontFamily: 'Gilroy',
+            ),
+            home: NothingScheme(
+              child: Home(),
+            ),
+            color: NothingScheme.app,
+            debugShowCheckedModeBanner: false,
           ),
-        ],
-        child: MaterialApp(
-          title: 'NOTHING 2',
-          theme: ThemeData(
-            fontFamily: 'Gilroy',
-          ),
-          home: NothingScheme(
-            child: Home(),
-          ),
-          color: NothingScheme.app,
-          debugShowCheckedModeBanner: false,
         ),
-      ),
-    ));
+      )),
+    );
   }
 
   Widget _bindBlocs(Widget child) {
@@ -88,36 +93,30 @@ class App extends StatelessWidget with PortraitLock {
   Widget _nestBlocs(Widget child) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<TestBloc>(
-          create: (context) => TestBloc(),
-        ),
-        BlocProvider<IdBloc>(
-          create: (context) => IdBloc(),
-        ),
-        BlocProvider<ValidationBloc>(
-          create: (context) => ValidationBloc(),
-        ),
+        BlocProvider<TestBloc>(create: (context) => TestBloc()),
+        BlocProvider<IdBloc>(create: (context) => IdBloc()),
+        BlocProvider<ValidationBloc>(create: (context) => ValidationBloc()),
         BlocProvider<SummaryBloc>(
           create: (context) => SummaryBloc(
-            validation: BlocProvider.of<ValidationBloc>(context),
+            validation: context.bloc<ValidationBloc>(),
           ),
         ),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
-            summaryBloc: BlocProvider.of<SummaryBloc>(context),
-            idBloc: BlocProvider.of<IdBloc>(context),
-            repo: CloudQuestionsRepo(), // CloudQuestionsRepo LocalQuestionsRepo
+            summaryBloc: context.bloc<SummaryBloc>(),
+            idBloc: context.bloc<IdBloc>(),
+            repo: context.repository<QuestionsRepo>(),
           ),
         ),
         BlocProvider<FeedBloc>(
           create: (context) => FeedBloc(
-            questionsBloc: BlocProvider.of<QuestionsBloc>(context),
-            validationBloc: BlocProvider.of<ValidationBloc>(context),
+            questionsBloc: context.bloc<QuestionsBloc>(),
+            validationBloc: context.bloc<ValidationBloc>(),
           ),
         ),
         BlocProvider<HistoryBloc>(
           create: (context) => HistoryBloc(
-            validation: BlocProvider.of<ValidationBloc>(context),
+            validation: context.bloc<ValidationBloc>(),
           ),
         ),
       ],

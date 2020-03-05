@@ -25,19 +25,13 @@ class BlocBinder<B1 extends Bloc<dynamic, S1>, S1, B2 extends Bloc<dynamic, S2>,
       listeners: [
         if (f1 != null)
           BlocListener<B1, S1>(
-            listener: (context, state) => f1(
-              context,
-              state,
-              BlocProvider.of<B2>(context),
-            ),
+            listener: (context, state) =>
+                f1(context, state, context.bloc<B2>()),
           ),
         if (f2 != null)
           BlocListener<B2, S2>(
-            listener: (context, state) => f2(
-              context,
-              state,
-              BlocProvider.of<B1>(context),
-            ),
+            listener: (context, state) =>
+                f2(context, state, context.bloc<B1>()),
           ),
       ],
       child: child,
