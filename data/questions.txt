@@ -1,81 +1,104 @@
-﻿|2|Find area of square with diagonal = √2|1<$>one| exp1
-|6|M, V, E, M, J, S …|U|exp2
-|2|Car, bee, plane, butterfly, bird|car|exp3
-|2|fork, spoon, hat, knife, cup|hat|exp4
-|7|240, 360, 480, 720, ?|1080|exp5
-|1|6/2*(1+2)|9|exp6
-|7|W, S, S, ?|F<$>A|exp7
-|2|uʍopǝpᴉsdn|upside down|exp
-|4|What is the probability of rolling an odd number on dice?|1/2<$>0.5<$>0,5|exp8
-|5|How many Newton laws are there?|3<$>three|exp9
-|5|Name the world's biggest island.|greenland|exp10
-|6|There are 60 marbles in a bowl. Their colors are red, blue, and yellow. 1/3 of the marbles are yellow, 1/4 of the marbles are blue. How many red marbles are there in the bowl?|25|exp11
-|2|4 16 5 25 6 36 7 49 8 ? |64|exp12
-|4|How many legs (total ) does 4 dogs, 2 elephants, 15 cats, and 26 people have?|136|exp13
-|3|If a $20 shirt is 15% off, what is the final price of the shirt?|17|exp14
-|7|If X=24 and P =16, what is X-P-A?|7|exp15
-|6|I am followed by 25 others and represent the number 1. What am I?|A|exp16
-|4|If I use a quarter of a dozen eggs, how many eggs do I have left?|9|exp17
-|1|1000, 200, 40, _____ |8|exp18
-|2|The day before yesterday was Monday and the day after tomorrow is Friday. What is today?|Wednesday|exp19
-|7|It occurs once in a minute, twice in a moment, but never in an hour.|m|exp20
-|3|An average person has how many birthdays in his entire life?|1|exp21
-|4|I have one eye but still, I can’t see. Who I am?|needle|exp22
-|5|Name the number that is three more than one-fifth of one-tenth of one-half of 5,000.|53|exp23
-|6|Two people are standing back to back. They each walk away from each other for three feet. Then they both turn left and walk for another four feet, and then stop. Now, how many feet apart are they standing?|10|exp24
-|7|The number whose first digit is one-fourth of the last digit; the second digit is six times the first digit; and the third digit is the second digit plus three.|1694|exp25
-|7|Skip me|skip|exp26
-|7|ON/OFF|switch|exp27
-|4|5,5s,6,6s,7,8, ?|x|exp28
-|7|Bill is 12 years old, and Professor Peterson is 42. In how many years will  Bill be half the age of the professor?|18<$>eighteen|exp29
-|2|2G, 3G, ?(LTE)|lte<$>4g|exp30
-|4|3 wishes|genie|exp31
-|6|The most famous lady|lady gaga<$>gaga|exp32
-|4|15 kg = ?/4 g|60 000<$>60000|exp33
-|4|Golden state|california|exp34
-|6|Invert !|i|exp35
-|6|Invert !|i|exp35
-|7|Where does today come before yesterday?|dictionary|exp36
-|7|I am an odd number. Take away a letter and I become even. What number am I?|seven<$>7|exp37
-|8|The day before yesterday I was 21, and next year I will be 24. When is my birthday?|december 31<$>31 december<$>31.12<$>12.31<$>31|exp38
-|6|What five-letter word becomes shorter when you add two letters to it?|short|exp39
-|4|What is 3/7 chicken, 2/3 cat and 2/4 goat?|chicago|exp40
-|6|What is the end of everything?|g|exp41
-|6|The more you take, the more you leave behind. What are they?|footsteps<$>steps|exp42
-|6|I have no life, but I can die, what am I?|battery|exp43
-|8|What is the coldest country in the world?|chile|exp44
-|8|Knock knock |who is there?<$>who is there|who is there|exp45
-|7|What do you call a FISH with no Eyes?|fsh|exp46
-|9|Black, Red, Yellow, White |Sea|exp47
-|9|4x2 - 22  = 5 + x2 , x > 0, x = ?|3|exp48
-|4|-8 = 2-5x|2|exp49
-|7|Good cop|bad cop|exp50
-|5|0,99999… = ? |1|exp51 |5|If you divide 30 by half and add 30, what do you get|90|exp52
-|9|СО2 + 6Н2О + Qlight → С6Н12О6 + 6О2.|photosynthesis|exp53
-|7|All i want for Christmas |is you|exp54
-|7|Chinese, English, Hindi, ? |spanish|exp55
-|5|The bill with Andrew Jackson on it|20 dollars<$>20<$>20$|exp56
-|5|The best-selling book of all time|bible|exp57
-|7|The graph of quadratic equation|parabola|exp58
-|3|Count 9 with fingers. What finger remain?|thumb|exp59
-|4|(The tech company) & (River)|amazon|exp60
-|1|Bows + ball |bowling|exp61
-|1|Oscar of science |nobel prize<$>nobel|exp62
-|9|Cube → square → ? |line|exp63
-|6|Four leaf clovers|luck|exp64
-|5|Anything is the answer|anything|exp65
-|6|Plastic bricks|lego|exp66
-|4|Mickey Mouse dad|walt disney<$>disney|exp67
-|7|Page not found|404|exp68
-|9|(Scientist) & (Car)|tesla|exp69
-|7|The bread-enclosed convenience food|sandwich|exp70
+﻿|2|Find area of square with diagonal = √2|1<$>one| The side of square is 1
+|6|M, V, E, M, J, S …|U| Planets of solar system
+|2|Car, bee, plane, butterfly, bird|car| Plane fly, bee fly, etc.
+|2|fork, spoon, hat, knife, cup|hat| cutlery
+|7|240, 360, 480, 720, ?|1080|High definition 
+|1|6/2*(1+2)|9| (1+2) = 3, all others operations are performed from left to right
+|7|W, S, S, ?|F<$>A| W - Winter 
+|2|uʍopǝpᴉsdn|upside down| The letter are upside down
+|4|What is the probability of rolling an odd number on dice?|1/2<$>0.5<$>0,5| The dice has 6 numbers, 3 of them are odd
+|5|How many Newton laws are there?|3<$>three| First, second and third
+|5|Name the world's biggest island.|greenland| Island is located between the Arctic and Atlantic oceans, east of the Canadian Arctic Archipelago
+|6|There are 60 marbles in a bowl. Their colors are red, blue, and yellow. 1/3 of the marbles are yellow, 1/4 of the marbles are blue. How many red marbles are there in the bowl?|25| There are 60/3 = 20 yellow marbles, 60/4 = 10 blue marbles, all others are red.
+|2|4 16 5 25 6 36 7 49 8 ? |64| 4^2 = 16, 5^2 = 25
+|4|How many legs (total ) does 4 dogs, 2 elephants, 15 cats, and 26 people have?|136| Dog, elephant and cat have four legs, people have 2.
+|3|If a $20 shirt is 15% off, what is the final price of the shirt?|17| 15% from 20 is 3
+|7|If X=24 and P =16, what is X-P-A?|7| Each letter correspond to its number in the alphabet 
+|6|I am followed by 25 others and represent the number 1. What am I?|A| Alphabet has 26 letters
+|4|If I use a quarter of a dozen eggs, how many eggs do I have left?|9| Dozen is 12, quarter is 1/4
+|1|1000, 200, 40, _____ |8| 1000/5 = 200, 200/5 = 40
+|2|The day before yesterday was Monday and the day after tomorrow is Friday. What is today?|Wednesday| Yesterday was Tuesday 
+|7|It occurs once in a minute, twice in a moment, but never in an hour.|m| It’s a letter 
+|3|An average person has how many birthdays in his entire life?|1| Every person has only one birthday - the day he was born.
+|4|I have one eye but still, I can’t see. Who I am?| needle<$>tornado<$>hurricane| It is needle or tornado
+|5|Name the number that is three more than one-fifth of one-tenth of one-half of 5,000.|53| This number equals to 3 + 5000/100
+|6|Two people are standing back to back. They each walk away from each other for three feet. Then they both turn left and walk for another four feet, and then stop. Now, how many feet apart are they standing?|10<$>ten| a^2 + b^2 = c^2, a = 6, b = 8, c is your answer.
+|7|The number whose first digit is one-fourth of the last digit; the second digit is six times the first digit; and the third digit is the second digit plus three.|1694| first two digits are 1 and 6
+|7|Skip me|skip| Literally skip ‘me’ 
+|7|ON/OFF|switch<$>power<$>power button| You use it to turn off/on appliances, light
+|4|5,5s,6,6s,7,8, ?|x| Iphone 
+|7|Bill is 12 years old, and Professor Peterson is 42. In how many years will  Bill be half the age of the professor?|18<$>eighteen| 12 + x = (42 + x) / 2, x = ?
+|2|2G, 3G, ?(LTE)|lte<$>4g|4th Generation
+|4|3 wishes|genie|Spiritual creature mentioned in Ancient Arabian culture
+|6|The most famous lady|lady gaga<$>gaga| ‘Pokerface’, ‘Paparazzi’
+|4|15 kg = ?/4 g|60 000<$>60000| 1kg = 1000g
+|4|Golden state|california| Los Angeles, San Francisco 
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|6|Invert !|i| Find the letter that looks like inverted !
+|7|Where does today come before yesterday?|dictionary| A book or electronic resource that lists the words of a language (typically in alphabetical order)
+|7|I am an odd number. Take away a letter and I become even. What number am I?|seven<$>7| Snow White and the ????? Dwarfs
+|8|The day before yesterday I was 21, and next year I will be 24. When is my birthday?|december 31<$>31 december<$>31.12<$>12.31<$>31| Such statements can be made only around the year’s end.
+|6|What five-letter word becomes shorter when you add two letters to it?|short|? -> shorter -> the shortest 
+|4|What is 3/7 chicken, 2/3 cat and 2/4 goat?|chicago| 3/7 chicken = chi
+|6|What is the end of everything?|g|The end of the word ‘everything’
+|6|The more you take, the more you leave behind. What are they?|footsteps|Foot?????
+|6|I have no life, but I can die, what am I?|battery| 1% on your phone
+|8|What is the coldest country in the world?|chile| Its very chilly there)
+|8|Knock knock |who is there?<$>who is there<$>who’s there?|Who is there
+|7|What do you call a FISH with no Eyes?|fsh| Get rid of eyes in the word FISH
+|9|Black, Red, Yellow, White |Sea| Geography related question, one of them is located between mainland China and the Korean Peninsula
+|9|4x2 - 22  = 5 + x2 , x > 0, x = ?|3| 
+|4|-8 = 2-5x|2| x = 2
+|7|Good cop|bad cop|Aggressive approach.
+|5|0,99999… = ? |10<$>0,(9)<$>0.(9)|exp51 |5|If you divide 30 by half and add 30, what do you get|90| 30/0.5 = 60
+|9|СО2 + 6Н2О + Qlight → С6Н12О6 + 6О2.|photosynthesis| process used by plants and other organisms to convert light energy into chemical energy
+|7|All i want for Christmas |is you|Mariah Carey
+|7|Chinese, English, Hindi, ? |spanish| Most Spoken Languages in the World
+|5|The bill with Andrew Jackson on it|20 dollars<$>20<$>20$| 20$ bill
+|5|The best-selling book of all time|bible|The word of God
+|7|The graph of quadratic equation|parabola| It is parabola
+|3|Count 9 with fingers. What finger remain?|thumb| The biggest finger
+|4|(The tech company) & (River)|amazon| Jeff Bezos
+|1|Bows + ball |bowling| Bowl??ng
+|1|Oscar of science |nobel prize<$>nobel| Awarded each year, one in each of the following categories: literature, physics, chemistry, peace, economics, and physiology & medicine.
+|9|Cube → square → ? |line| 3D -> 2D -> 1D
+|6|Four leaf clovers|luck| Four leaf clover is a symbol of …
+|5|Anything is the answer|anything| ‘Anything’ is the answer
+|6|Plastic bricks|lego|
+|4|Mickey Mouse dad|walt disney<$>disney|The creator of mickey mouse
+|7|Page not found|404|error message is a Hypertext Transfer Protocol (HTTP) standard response code,
+|9|(Scientist) & (Car)|tesla| Elon Musk
+|7|The bread-enclosed convenience food|sandwich| Popular type of lunch food, taken to work, school, or picnics to be eaten as part of a packed lunch.
 |3|A small exam|test|exp71
 |5|(Bird) & (Fruit) |kiwi|exp73
-|3|Orange - yellow = ?|red|exp74
-|1|Who is the president of USA?|trump|exp75
-|7|Love is|Gum|exp76
-|8|How many times can you fold a a4 paper|7|exp77
-|7|James Bond|007|exp78
+|3|Orange - yellow = ?|red| Red + yellow = orange 
+|1| Who is the president of USA?|Trump| Current president of USA
+|7|Love is|Gum| Designed in order to be chewed without being swallowed.
+|8|How many times can you fold a a4 paper|7| Try it yourself 
+|7|James Bond|007|Bond is known by his code number
 |1|Black|white|Opposite
 |0|One two ...  |three<$>3|Obvious sequence
 |0|Which leter is missing?|t|Letter
@@ -90,10 +113,10 @@
 |8|Half|ha|Half of the word 'Half'
 |2|1 2 6 24 ?|120|1 * 2 = 2, 2 * 3 = 6, 6 * 4 = 24
 |1|Backwards|sdrawkcab|Just backwards backwards
-|7|Rate us|5 stars<$>1 star<$>2 stars<$>3 stars,<$>4 stars<$>5<$>4<$>3<$>2<$>1|1-5 stars
+|7||Rate us| 5 stars<$>1 star<$>2 stars<$>3 stars,<$>4 stars<$>5<$>4<$>3<$>2<$>1|1-5 stars
 |3|F E D C B ?|a|Alphabet
 |6|Triangle Square ...|pentagon|3 angles, 4 angles ...
-|1|ЯOЯЯIM|mirror|Mirror the written text
+|1||ЯOЯЯIM|mirror|Mirror the written text
 |6|3 7 15 31 ?|63|3 + 4 = 7 , 7 + 8 = 15, ...
 |7|Right down left down right|2<$>two|Draw it on a sheet of paper
 |7|N S W|e|Compass
@@ -104,7 +127,7 @@
 |8|A + B = 3 , B + C = 5 , E + F = ?|11|Each letter corresponds to its number in  the alphabet A = 1, B = 2, C = 3 ...
 |8|RGB(255,255,255)|white|It's a color
 |4|xyz zxy yxz xzy yzx ?|zyx|From 3 letters you can make 6 combinations, which combitaion is left?
-|3|I'm loving it|mcdonald's|The slogan of the famous fastfood company
+|3|I'm loving it|mcdonald's<$>mcdonalds|The slogan of the famous fastfood company
 |6|Au|gold| A chemical element with symbol Au
 |2|Stone(ot) window(ni) sand(?)|na|The third and the second letters of each word swapped places
 |8|Too much space|toomuchspace| Get rid of the space, literally
@@ -113,14 +136,14 @@
 |9|16,4 = 0  7,2 = 1 19,5 = 4  25,7 = ?|4|  Remainder
 |8|What's the same between you and us?|u|  Letter
 |8|O T T F F S S E N ?|t| Count letters aloud
-|7|CTRL + C|ctrl + v|COPY PASTE
+|7|CTRL + C|ctrl + v<$>ctrl v<$>ctrlv|COPY PASTE
 |5|Write the answer|answer<$>the answer|  Be simple
 |3|₿|bitcoin|Cryptocurrency
 |8|Low battery|charge|What do you do with the phone then?
 |6|The most famous fruit|apple|It's on the back of your phone
 |8|A = Z, B = Y, E = ?|v| Atbash code
 |7|A(9,36) = 4, B(12,52) = 40, B(A(5,30),7) = ?|1|A(5,30) = 6, B(6,7) = ?
-|7|Who lives in pineapple under the sea?|spongebob<$>spongebob squarepants|Bikini bottom
+|7|Who lives in pineapple under the sea?|spongebob<$>spongebob squarepants<$>squarepants|Bikini bottom
 |6|Square with cut corners|octagon|It will 8 angles, so it is ...
 |9|Silver Bronze Gold|231|Each place corresponds to a number
 |7|541 = 10, 358 = 16, 139 = ?|13|5 + 4 + 1 = 10
@@ -138,8 +161,80 @@
 |7|A K Q J ?|10|Cards
 |8|J F M A M J J A S O N ?|d| J - January
 |8|3,2 = 25  2,6 = 64   1,3 = 16  3,7 = ?|100|(3+2)^2 = 25
-|1|Ins?a?r?m|tga<$>Instagram|Famous social network
+|1|Ins?a?r?m|tga|Instagram
 |4|NaOH + HCl = NaCl + ?|h2o<$>water| H + OH
 |8|A = 1, B = 2, C = 0, D = ?|1|B has 2 closed contours, A has 1
 |8|12 30 7 24 ?|60|How many months in year, days in month?
 |8|I + 💡|pixar|Lamp jumps on I
+|3|One egg is boiled for 3 minutes. How many minutes will 2 eggs cook?|3<$>3 minutes<$>3m|
+|7|Where does it happen that a horse jumps over a horse?|chess| Bishop, queen, king, horse
+|4|What kind of animal do people walk on and cars drive on?|zebra| The album's cover photograph shows the four group members walking across the ? Crossing  just outside the studio entrance.
+|7|What sign should be put between 6 and 7, so that the result is less than 7 and more than 6?|,<$>.| The simple and direct answer is the good old Decimal.
+|6|he largest human organ|skin|The largest external organ, which is also the largest organ in general
+|6|A The guests came to you. In the fridge you have a bottle of lemonade, a bag of pineapple juice and a bottle of mineral water. What will you open first?|fridge| In the ‘fridge’ you have a bottle…
+|9|What the magnifying glass can not increase in a triangle?|angles| Right triangle will still be right triangle(a 90-degree angle)|
+|3|How many different digits must I use to write the number 100?|2|The digits are 1 and 0
+|8|From head to tail 12 m, and from tail to head 0 m. What is this?|year| m - month
+|2|How much water is im am empty glass that is 20cm high and has a diameter of 2cm?|0<$>none| There is no water in empty glass
+|6|What is in the center of the earth?|a<$>letter a| Letter ?
+|6|The total age of the father and son is 66 years. The age of the father is the age of the son, written from right to left. How old is the father?| 42<$>51<$>60| The son age is 24 or 15
+|8|You are sitting on a plane, a horse is in front of you, a boat is behind you.Where are you?|carousel|
+|2|What feeling is depicted by a human organ?|love| ❤️
+|6|What are the three numbers that add and multiply give the same result?( Name the first one)|1| Their sum is equal to 6 
+|4|What day begins with the letter “t” except Tuesday and Thursday?|today<$>tommorow| This day
+|8|It is black when it is bought, it is red when it is used, it is gray when it is thrown away.|charcoal<$>coal| It gets red in appearance when burning
+|7|What invention allows you to look through the walls?|window<$>windows| Microsoft 
+|6|What disappears as soon as you call her?|silence| There is ? until and unless any kind of sound is made
+|8|How old are you if you were born in the 91st?|1929<$>1928| It was about 2000 years ago, you are old 
+|2|When is the day shorter: in winter or in summer?|same<$>same length| It is always 24 hours
+|6|What does not exist, but has a name?|nothing| This puzzle, it has a name
+|7|Which year lasts just one day?|new year<$>new| 1st day of January
+|2|One corner of the square table was cut off? How many corners has the table now?|5| One more corner
+|1|2+2х2=?|6| 2 + 4
+|1|When the chicken stands on one leg, it weighs 2 kg. How much will chicken weigh if she stands on two legs?|2<$>2kg<$>2 kg| The weigh won’t change 
+|3|You have only one match. In a dark room there is a kerosene lamp, a stove and a candle. What will you light first?|match| The ? itself ! As of you have to light first it in order to light up others.
+|4|What can you see with your eyes closed?|dreams<$>dream|
+|7|Which month is shorter than all?|may| July has 4 letters, December has 8 letters
+|2|What was “tomorrow” yesterday and tomorrow will be “yesterday”?|today| This day
+|6|What happens if you combine Microsoft and the iPhone?|microphone| Combine words: micro + phone
+|4|12823^0 - 1|0| Every number Raised to Zero Equal One
+|3|What goes up and down without moving?|Stairs| 
+|8|SCD,TEF,UGH, ___, WKL|VIJ| There are two alphabetical sequences S-T-U, CD-EF-GH 
+|8|FLG, GLF, HLI, ILH,|JLK| L is constant; FG-GF; HI-IH;
+|8|EBFD, GBHD, IBJD, ____, MLNA|KBLD| B and D are constant;  EF-GH-IJ
+|8|Fresh grapes contain 60% water, while dry grapes contain 40% water. How many kgs of dry grapes can be obtained by 60 kg of fresh grapes?|40| 60 x 0.4 = p x 0.6, p - ?
+|6|Play is to actor as concert is to|musician| An actor performs in a play, on the other hand, A ? performs at a concert.
+|6|Pen is to poet as needle is to|tailor| A pen is a tool used by a poet. A ? is a tool used by a tailor.
+|6|Secretly is to openly as silently is to|noisily| Opposite of silently 
+|7|gorblflur means fan belt; pixngorbl means ceiling fan; arthtusi means tile roof; Which word could mean ceiling tile?|pixnarth| arth - tile
+|7|Migenlasan means cupboard, lasanpoen means boardwalk, cuopdansa means pullman. Which world could mean walkway?|poenforc| forc - way
+|2|Which word does not belong with the others? inch, ounce, centimeter, yard|ounce| Inch, centimeter and yard are the different units of length
+|2|Which word does not belong with the others? tire, steering wheel, engine, car|car| Tyre, steering wheel, and engine are all parts of a ?
+|2|Choose the word which is different from the rest Chicken, snake, swan, crocodile, frog|chicken| All except ? can live in water.
+|1|Choose the word which is different from the rest cap, turban, helmet, veil, hat|veil| All except ? cover the head, while veil covers the face.
+|1|Choose the word which is different from the rest. Curd, butter, oil, cheese, cream|oil| All except ? are products obtained from milk.
+|5|How many days in 4 years?|1461| 365 + 365 + 365 +  366 (leap year) =
+|4|Wimbledon|tennis| Wimbledon is the oldest ? tournament in the world, and is regarded by many as the most prestigious.
+|2|The Largest country of the World by Geographical Area is…|russia| RU
+|9|Man covers half of his journey by train at 60 km/hr, half of the remaining by bus at 30 km/hr and the rest by cycle at 10 km/hr. Find his average speed during the entire journey?|24| Take total distance = 120 km, Time taken by train = 60km/60km/hr = 1 hr. Find time taken by bus and cycle. Total distance / total time = average speed
+|5|The area of a circular base of Cylinder is 10 cm^2 and its hight is 15 cm. Then the volume of the cylinder is?|150| The formula for the volume of a cylinder is V=S*h, h = 15, S = 10 .
+|6|What carries Blood back to the Heart?|veins| Arteries or veins
+|5|Derivative of sinx?|cosx<$>cos| THE DERIVATIVE of sin x is another TRIGONOMETRIC FUNCTION.
+|3|What is 1/5 as a decimal?|0,2<$>0.2| Use calculator 
+|5|Warm is to Hot as Not so Good is to|worse|
+|7|Study of sound is called|acoustics| Those qualities of a room that, together, determine its character with respect to auditory effect
+|2|Positive divided by Negative|negative| divide  1/(-1), for instance 
+|5| 514, 470, ?, 415, 404|437| 514 - 44 = 470, 415 - 404 = 11
+|5|What “A” in DNA mean?|acid| hydrochloric ?, sulfuric ?, phosphoric ?,
+|7|I am the first on Earth, the second in Heaven. I appear two times in a week you can only see me once in a year. Although I am in the middle of the sea, l am not found in month, but l am in February, June, September, October, November & December. Who am I?|e<$>letter e| Second in the word ‘Heaven’
+|9|Penny has 5 children, 1st is January, 2nd kid February, 3rd is called march , 4th is April. What is the name of the 5th.|what|There is no question mark (?) at the end of the actual puzzle.
+|7| 3,19, 51, ?|115| 3 + 16 = 19, 19 + 32 = 51
+|9|In a box, there are four marbles of white color and five marbles of black color. Two marbles are chosen randomly. What is the probability that both are of the same color?|4/9| The probability to chose 2 white marbles is (4/9)*(3/8). The probability to chose 2 black marbles is (5/9)*(4/8). The total probability is the sum.
+|7|If a giraffe has two eyes, a monkey has two eyes, and an elephant has two eyes, how many eyes do we have?|4<$>four<$>4 eyes| Assuming there is only one writer and only one reader
+|2|What is the probability of an impossible event?|null<$>zero<$>0| Probability exists on a scale from ? to 1, with ? being defined as impossible and 1 being defined as certain.
+|3|What element is found in all organic compounds?|carbon<$>c| Fourth most abundant element in the universe by mass after hydrogen, helium, and oxygen.
+|5|Gas, liquid, ?|solid| State of matter
+|4|What percent of a day is 720 minutes ?|50<$>50%<$>fifty<$>50 percents| 720/(24*60) = ?
+|8|sinx/n|six<$>6| Against all math rules, reduce fraction
+|9|Alone I am 24th, with a friend I am 20. What am I?|x| 24th in alphabet
+|7|What is the distance around a circle called|circumference| the ? would be the length of the circle if it were opened up and straightened out to a line segment.
