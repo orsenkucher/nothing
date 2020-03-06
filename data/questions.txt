@@ -34,30 +34,6 @@
 |4|15 kg = ?/4 g|60 000<$>60000| 1kg = 1000g
 |4|Golden state|california| Los Angeles, San Francisco 
 |6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
-|6|Invert !|i| Find the letter that looks like inverted !
 |7|Where does today come before yesterday?|dictionary| A book or electronic resource that lists the words of a language (typically in alphabetical order)
 |7|I am an odd number. Take away a letter and I become even. What number am I?|seven<$>7| Snow White and the ????? Dwarfs
 |8|The day before yesterday I was 21, and next year I will be 24. When is my birthday?|december 31<$>31 december<$>31.12<$>12.31<$>31| Such statements can be made only around the year’s end.

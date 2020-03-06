@@ -77,7 +77,9 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 		ansinf := AnswerInf{AnswerStats: answer, UserID: userid}
 		s.DB.Where(AnswerInf{UserID: userid, AnswerStats: AnswerStats{QID: answer.QID}}).Assign(ansinf).FirstOrCreate(&ansinf)
 		//s.DB.Model(&ansinf).Update(&ansinf)
+		fmt.Print("user mmr:", user.MMR)
 		ChangeRate(question, user, &ansinf)
+		fmt.Print(" ->", user.MMR)
 		s.DB.Model(user).Update(user)
 		s.DB.Model(question).Update(question)
 	}
