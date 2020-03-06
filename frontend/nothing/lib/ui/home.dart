@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
@@ -22,6 +23,16 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _focusNode = FocusNode();
+
+    // WidgetsBinding.instance.addObserver(new LifecycleEventHandler(
+    //   resumeCallBack: () async {
+    //     print('RESUMING *2** *** *** ***');
+    //     WidgetsBinding.instance.addPostFrameCallback((_) {
+    //       _focusNode.unfocus();
+    //       _focusNode.requestFocus();
+    //     });
+    //   },
+    // ));
   }
 
   @override
@@ -40,13 +51,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _focusNode.unfocus();
-      _focusNode.requestFocus();
+      //   _focusNode.unfocus();
+      //   _focusNode.requestFocus();
+      context.bloc<LifecycleBloc>().add(LifecycleEvent.change(screen: 'home'));
     });
     return Scaffold(
       body: Container(
         color: NothingScheme.of(context).background,
-        // color: Color(0xff5d26db),
         child: ScopedModel<TextModel>(
           model: model,
           child: Stack(
@@ -54,16 +65,30 @@ class _HomeState extends State<Home> {
               Game(),
               _gestureDetector(),
               // Test(),
-              BlocListener<ValidationBloc, ValidationState>(
-                listener: (context, state) {
-                  state.maybeMap(
-                    correct: (_) {
-                      _controller.clear();
-                      model.update('');
+              MultiBlocListener(
+                listeners: [
+                  BlocListener<ValidationBloc, ValidationState>(
+                    listener: (context, state) {
+                      state.maybeMap(
+                        correct: (_) {
+                          _controller.clear();
+                          model.update('');
+                        },
+                        orElse: () {},
+                      );
                     },
-                    orElse: () {},
-                  );
-                },
+                  ),
+                  BlocListener<LifecycleBloc, LifecycleState>(
+                      listener: (context, state) {
+                    print(state);
+                    if (state.screen != 'home') return;
+                    print('RESUMING *2** *** *** ***');
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _focusNode.unfocus();
+                      _focusNode.requestFocus();
+                    });
+                  })
+                ],
                 child: _inputPoint(model),
               ),
             ],

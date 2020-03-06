@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
+import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/knob.dart';
 
@@ -57,7 +58,12 @@ class HistoryList extends StatelessWidget {
           safeWrap(
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Knob(Icons.arrow_back_ios, () => {Navigator.pop(context)}),
+              child: Knob(Icons.arrow_back_ios, () {
+                context // TODO do bloc screens management?
+                    .bloc<LifecycleBloc>()
+                    .add(LifecycleEvent.change(screen: 'home'));
+                Navigator.pop(context);
+              }),
             ),
           ),
         ]),

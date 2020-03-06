@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/binding/binder.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
+import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/bloc/test.dart';
@@ -15,6 +16,7 @@ import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/delegate/delegate.dart';
 import 'package:nothing/repository/questions.dart';
+import 'package:nothing/tools/lifecycle.dart';
 import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/home.dart';
 
@@ -34,7 +36,7 @@ class App extends StatelessWidget with PortraitLock {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _repos(_blocs(_bindings(
+    return _repos(_blocs(_bindings(_LifeCycle(
       MaterialApp(
         title: 'NOTHING 2',
         theme: ThemeData(
@@ -46,7 +48,7 @@ class App extends StatelessWidget with PortraitLock {
         color: NothingScheme.app,
         debugShowCheckedModeBanner: false,
       ),
-    )));
+    ))));
   }
 
   Widget _repos(Widget child) {
@@ -117,6 +119,7 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<ValidationBloc>(create: (_) => ValidationBloc()),
         BlocProvider<SummaryBloc>(create: (_) => SummaryBloc()),
         BlocProvider<HistoryBloc>(create: (_) => HistoryBloc()),
+        BlocProvider<LifecycleBloc>(create: (_) => LifecycleBloc()),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             idBloc: context.bloc<IdBloc>(),
@@ -133,5 +136,20 @@ class App extends StatelessWidget with PortraitLock {
       ],
       child: child,
     );
+  }
+}
+
+class _LifeCycle extends StatelessWidget {
+  final Widget child;
+  const _LifeCycle(this.child);
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addObserver(
+      new LifecycleEventHandler(
+          resumeCallBack: () async =>
+              context.bloc<LifecycleBloc>().add(LifecycleEvent.resume())),
+    );
+    context.bloc<LifecycleBloc>().add(LifecycleEvent.resume());
+    return child;
   }
 }

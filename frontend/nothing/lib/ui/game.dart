@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/ui/answer.dart';
 import 'package:nothing/ui/history.dart';
 import 'package:nothing/ui/knob.dart';
@@ -28,6 +29,9 @@ class Game extends StatelessWidget {
                 children: [
                   _makeKnob(Icons.add_shopping_cart),
                   _makeKnob(Icons.history, () {
+                    context
+                        .bloc<LifecycleBloc>()
+                        .add(LifecycleEvent.change(screen: 'history'));
                     Navigator.push(
                         context,
                         MaterialPageRoute(
