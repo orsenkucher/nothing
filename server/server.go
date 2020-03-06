@@ -19,10 +19,12 @@ type Server struct {
 func StartUp(db *gorm.DB) *Server {
 	server := Server{DB: db}
 	var s string
+	fmt.Println("write 'clean' to clean base")
 	fmt.Scanln(&s)
 	fmt.Println(s)
-	if s == "clear" {
-		server.ClearBase()
+	if s == "clean" {
+		fmt.Println("Cleaning base")
+		server.CleanBase()
 	}
 	server.DB.AutoMigrate(&Question{})
 	server.DB.AutoMigrate(&User{})
@@ -73,7 +75,7 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 		user := s.Users[userid]
 		question := &s.Questions[answer.QID-1]
 		ansinf := AnswerInf{AnswerStats: answer, UserID: userid}
-		s.DB.Create(&ansinf)
+		s.DB.Where(AnswerInf{UserID: userid, AnswerStats: AnswerStats{QID: answer.QID}}).Assign(ansinf).FirstOrCreate(&ansinf)
 		//s.DB.Model(&ansinf).Update(&ansinf)
 		ChangeRate(question, user, &ansinf)
 		s.DB.Model(user).Update(user)
@@ -257,7 +259,7 @@ func (s *Server) UpdateData() {
 	}
 }
 
-func (s *Server) ClearBase() {
+func (s *Server) CleanBase() {
 	s.DB.DropTableIfExists("users")
 	s.DB.DropTableIfExists("questions")
 	s.DB.DropTableIfExists("answer_infs")
