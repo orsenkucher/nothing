@@ -18,64 +18,61 @@ class HistoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var safeWrap = (Widget w) => Platform.isIOS ? w : SafeArea(child: w);
-    return NothingScheme(
-      child: WillPopScope(
-        onWillPop: () async {
-          _back(context);
-          return false;
-        },
-        child: Scaffold(
-          body: Stack(children: [
-            BlocBuilder<HistoryBloc, HistoryState>(
-              builder: (context, state) => Container(
-                color: NothingScheme.of(context).historyBg,
-                child: ListWheelScrollView(
-                  // perspective: 0.006,
-                  // offAxisFraction: .2,
-                  // squeeze: 3,
+    return WillPopScope(
+      onWillPop: () async {
+        _back(context);
+        return false;
+      },
+      child: Scaffold(
+        body: Stack(children: [
+          BlocBuilder<HistoryBloc, HistoryState>(
+            builder: (context, state) => Container(
+              color: NothingScheme.of(context).historyBg,
+              child: ListWheelScrollView(
+                // perspective: 0.006,
+                // offAxisFraction: .2,
+                // squeeze: 3,
 
-                  // perspective: 0.0001,
-                  offAxisFraction: -0.9,
-                  // offAxisFraction: -1,
-                  diameterRatio: 2.5,
-                  // useMagnifier: true,
-                  // magnification: 1.6,
-                  // overAndUnderCenterOpacity: 0.4,
+                // perspective: 0.0001,
+                offAxisFraction: -0.9,
+                // offAxisFraction: -1,
+                diameterRatio: 2.5,
+                // useMagnifier: true,
+                // magnification: 1.6,
+                // overAndUnderCenterOpacity: 0.4,
 
-                  itemExtent: 150,
-                  physics: BouncingScrollPhysics(),
-                  clipToSize: true,
-                  renderChildrenOutsideViewport: false,
-                  children: state.answers
-                      .map((x) => Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Center(
-                                child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text(
-                                  '${x.qid}',
-                                  style: TextStyle(fontSize: 40),
-                                ),
-                                // Knob(Icons.arrow_forward_ios, () => {})
-                              ],
-                            )),
-                          ))
-                      .toList(),
-                ),
+                itemExtent: 150,
+                physics: BouncingScrollPhysics(),
+                clipToSize: true,
+                renderChildrenOutsideViewport: false,
+                children: state.answers
+                    .map((x) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Center(
+                              child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text(
+                                '${x.qid}',
+                                style: TextStyle(fontSize: 40),
+                              ),
+                              // Knob(Icons.arrow_forward_ios, () => {})
+                            ],
+                          )),
+                        ))
+                    .toList(),
               ),
             ),
-            FuzzyOut(Location.up),
-            FuzzyOut(Location.down),
-            safeWrap(
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Knob(Icons.arrow_back_ios, () => _back(context)),
-              ),
+          ),
+          FuzzyOut(Location.up),
+          FuzzyOut(Location.down),
+          safeWrap(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Knob(Icons.arrow_back_ios, () => _back(context)),
             ),
-          ]),
-        ),
+          ),
+        ]),
       ),
     );
   }

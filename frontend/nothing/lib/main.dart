@@ -18,6 +18,7 @@ import 'package:nothing/delegate/delegate.dart';
 import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/lifecycle.dart';
 import 'package:nothing/tools/orientation.dart';
+import 'package:nothing/ui/history.dart';
 import 'package:nothing/ui/home.dart';
 
 void main() async {
@@ -37,16 +38,20 @@ class App extends StatelessWidget with PortraitLock {
   Widget build(BuildContext context) {
     super.build(context);
     return _repos(_blocs(_bindings(_LifeCycle(
-      MaterialApp(
-        title: 'NOTHING 2',
-        theme: ThemeData(
-          fontFamily: 'Gilroy',
+      NothingScheme(
+        child: MaterialApp(
+          title: 'NOTHING 2',
+          theme: ThemeData(
+            fontFamily: 'Gilroy',
+          ),
+          initialRoute: '/',
+          routes: {
+            '/': (_) => Home(),
+            '/history': (_) => HistoryList(),
+          },
+          color: NothingScheme.app,
+          debugShowCheckedModeBanner: false,
         ),
-        home: NothingScheme(
-          child: Home(),
-        ),
-        color: NothingScheme.app,
-        debugShowCheckedModeBanner: false,
       ),
     ))));
   }

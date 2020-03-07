@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/ui/answer.dart';
-import 'package:nothing/ui/history.dart';
 import 'package:nothing/ui/knob.dart';
 import 'package:nothing/ui/label.dart';
 import 'package:nothing/ui/question.dart';
@@ -32,11 +31,7 @@ class Game extends StatelessWidget {
                     context
                         .bloc<LifecycleBloc>()
                         .add(LifecycleEvent.change(screen: 'history'));
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HistoryList(),
-                        ));
+                    Navigator.pushNamed(context, '/history');
                   }),
                 ],
               ),
