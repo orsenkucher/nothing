@@ -8,14 +8,43 @@ part of 'state.dart';
 // **************************************************************************
 
 FeedState _$FeedStateFromJson(Map<String, dynamic> json) {
-  return _FeedState.fromJson(json);
+  switch (json['runtimeType'] as String) {
+    case 'available':
+      return _Available.fromJson(json);
+    case 'empty':
+      return _Empty.fromJson(json);
+
+    default:
+      throw FallThroughError();
+  }
 }
 
 mixin _$FeedState {
-  @JsonKey(toJson: _toT)
-  QTree get tree;
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result available(@JsonKey(toJson: _toT) QTree tree),
+    @required Result empty(),
+  });
 
-  FeedState copyWith({@JsonKey(toJson: _toT) QTree tree});
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result available(@JsonKey(toJson: _toT) QTree tree),
+    Result empty(),
+    @required Result orElse(),
+  });
+
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result available(_Available value),
+    @required Result empty(_Empty value),
+  });
+
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result available(_Available value),
+    Result empty(_Empty value),
+    @required Result orElse(),
+  });
 
   Map<String, dynamic> toJson();
 }
@@ -23,21 +52,25 @@ mixin _$FeedState {
 class _$FeedStateTearOff {
   const _$FeedStateTearOff();
 
-  _FeedState call({@JsonKey(toJson: _toT) QTree tree}) {
-    return _FeedState(
+  _Available available({@JsonKey(toJson: _toT) QTree tree}) {
+    return _Available(
       tree: tree,
     );
+  }
+
+  _Empty empty() {
+    return const _Empty();
   }
 }
 
 const $FeedState = _$FeedStateTearOff();
 
 @JsonSerializable()
-class _$_FeedState with DiagnosticableTreeMixin implements _FeedState {
-  const _$_FeedState({@JsonKey(toJson: _toT) this.tree});
+class _$_Available with DiagnosticableTreeMixin implements _Available {
+  const _$_Available({@JsonKey(toJson: _toT) this.tree});
 
-  factory _$_FeedState.fromJson(Map<String, dynamic> json) =>
-      _$_$_FeedStateFromJson(json);
+  factory _$_Available.fromJson(Map<String, dynamic> json) =>
+      _$_$_AvailableFromJson(json);
 
   @override
   @JsonKey(toJson: _toT)
@@ -45,21 +78,21 @@ class _$_FeedState with DiagnosticableTreeMixin implements _FeedState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FeedState(tree: $tree)';
+    return 'FeedState.available(tree: $tree)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'FeedState'))
+      ..add(DiagnosticsProperty('type', 'FeedState.available'))
       ..add(DiagnosticsProperty('tree', tree));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _FeedState &&
+        (other is _Available &&
             (identical(other.tree, tree) ||
                 const DeepCollectionEquality().equals(other.tree, tree)));
   }
@@ -69,30 +102,166 @@ class _$_FeedState with DiagnosticableTreeMixin implements _FeedState {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(tree);
 
   @override
-  _$_FeedState copyWith({
+  _$_Available copyWith({
     Object tree = freezed,
   }) {
-    return _$_FeedState(
+    return _$_Available(
       tree: tree == freezed ? this.tree : tree as QTree,
     );
   }
 
   @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result available(@JsonKey(toJson: _toT) QTree tree),
+    @required Result empty(),
+  }) {
+    assert(available != null);
+    assert(empty != null);
+    return available(tree);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result available(@JsonKey(toJson: _toT) QTree tree),
+    Result empty(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (available != null) {
+      return available(tree);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result available(_Available value),
+    @required Result empty(_Empty value),
+  }) {
+    assert(available != null);
+    assert(empty != null);
+    return available(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result available(_Available value),
+    Result empty(_Empty value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (available != null) {
+      return available(this);
+    }
+    return orElse();
+  }
+
+  @override
   Map<String, dynamic> toJson() {
-    return _$_$_FeedStateToJson(this);
+    return _$_$_AvailableToJson(this)..['runtimeType'] = 'available';
   }
 }
 
-abstract class _FeedState implements FeedState {
-  const factory _FeedState({@JsonKey(toJson: _toT) QTree tree}) = _$_FeedState;
+abstract class _Available implements FeedState {
+  const factory _Available({@JsonKey(toJson: _toT) QTree tree}) = _$_Available;
 
-  factory _FeedState.fromJson(Map<String, dynamic> json) =
-      _$_FeedState.fromJson;
+  factory _Available.fromJson(Map<String, dynamic> json) =
+      _$_Available.fromJson;
 
-  @override
   @JsonKey(toJson: _toT)
   QTree get tree;
 
+  _Available copyWith({@JsonKey(toJson: _toT) QTree tree});
+}
+
+@JsonSerializable()
+class _$_Empty with DiagnosticableTreeMixin implements _Empty {
+  const _$_Empty();
+
+  factory _$_Empty.fromJson(Map<String, dynamic> json) =>
+      _$_$_EmptyFromJson(json);
+
   @override
-  _FeedState copyWith({@JsonKey(toJson: _toT) QTree tree});
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'FeedState.empty()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'FeedState.empty'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Empty);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result available(@JsonKey(toJson: _toT) QTree tree),
+    @required Result empty(),
+  }) {
+    assert(available != null);
+    assert(empty != null);
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result available(@JsonKey(toJson: _toT) QTree tree),
+    Result empty(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result available(_Available value),
+    @required Result empty(_Empty value),
+  }) {
+    assert(available != null);
+    assert(empty != null);
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result available(_Available value),
+    Result empty(_Empty value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_EmptyToJson(this)..['runtimeType'] = 'empty';
+  }
+}
+
+abstract class _Empty implements FeedState {
+  const factory _Empty() = _$_Empty;
+
+  factory _Empty.fromJson(Map<String, dynamic> json) = _$_Empty.fromJson;
 }

@@ -18,7 +18,10 @@ class Question extends StatelessWidget {
       ),
       child: BlocBuilder<FeedBloc, FeedState>(
         builder: (context, state) => AutoSizeText(
-          state.tree?.question?.question ?? '',
+          state.when(
+            available: (tree) => tree.question.question,
+            empty: () => '',
+          ),
           maxLines: 6,
           textAlign: TextAlign.center,
           style: TextStyle(

@@ -88,7 +88,7 @@ class Test extends StatelessWidget {
       builder: (context, state) => Align(
         alignment: Alignment.centerRight,
         child: Text(
-          '${state?.tree?.question?.id?.toString() ?? "no id"}, ${state?.tree?.question?.mmr?.toString() ?? "no mmr"}',
+          '${state.when(available: (tree) => tree.question.id, empty: () => 'no id')}, ${state.when(available: (tree) => tree.question.mmr, empty: () => 'no mmr')}',
           style: TextStyle(
             fontSize: 16,
             color: Color(0x88c02030),

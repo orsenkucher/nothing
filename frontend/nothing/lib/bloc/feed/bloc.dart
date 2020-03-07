@@ -21,15 +21,18 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   }) {
     _makeSelfSub();
     // TODO here is the binding problem(
-    if (state?.tree?.question == null) {
+    if (state.map(available: (_) => false, empty: (_) => true)) {
       questionsBloc.add(QuestionsEvent.fetch());
     }
   }
 
   void _makeSelfSub() {
     _selfSub = listen((state) {
-      final q = state?.tree?.question;
-      if (q != null) validationBloc.add(ValidationEvent.focus(q));
+      state.when(
+        available: (tree) =>
+            validationBloc.add(ValidationEvent.focus(tree.question)),
+        empty: () {},
+      );
     });
   }
 
@@ -40,7 +43,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   }
 
   @override
-  FeedState get initialState => super.initialState ?? FeedState.empty;
+  FeedState get initialState => super.initialState ?? FeedState.empty();
 
   @override
   Stream<FeedState> mapEventToState(FeedEvent event) async* {
@@ -48,21 +51,30 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   }
 
   Stream<FeedState> _mapNewArrived(NewArrived event) async* {
-    yield FeedState(tree: event.tree);
+    yield FeedState.available(tree: event.tree);
   }
 
   Stream<FeedState> _mapMoveNext(MoveNext event) async* {
-    final next = FeedState(
-      tree: event.dir.when<QTree>(
-        left: () => state.tree.left,
-        right: () => state.tree.right,
-      ),
+    final next = state.when<FeedState>(
+      available: (tree) {
+        final next = event.dir.when(
+          left: () => tree.left,
+          right: () => tree.right,
+        );
+        return next != null
+            ? FeedState.available(tree: next)
+            : FeedState.empty();
+      },
+      empty: () => FeedState.empty(),
     );
     print(next);
     yield next;
-    if (next?.tree?.question != null) {
-      questionsBloc.add(QuestionsEvent.fetch(next.tree.question.id));
-    }
+    next.when(
+      available: (tree) => questionsBloc.add(
+        QuestionsEvent.fetch(tree.question.id),
+      ),
+      empty: () {},
+    );
   }
 
   @override
