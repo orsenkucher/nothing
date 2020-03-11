@@ -49,7 +49,7 @@
 |9|4x2 - 22  = 5 + x2 , x > 0, x = ?|3| 
 |4|-8 = 2-5x|2| x = 2
 |7|Good cop|bad cop|Aggressive approach.
-|5|0,99999… = ? |10<$>0,(9)<$>0.(9)|exp51 |5|If you divide 30 by half and add 30, what do you get|90| 30/0.5 = 60
+|5|0,99999… = ? |1<$>0,(9)<$>0.(9)|exp51 |5|If you divide 30 by half and add 30, what do you get|90| 30/0.5 = 60
 |9|СО2 + 6Н2О + Qlight → С6Н12О6 + 6О2.|photosynthesis| process used by plants and other organisms to convert light energy into chemical energy
 |7|All i want for Christmas |is you|Mariah Carey
 |7|Chinese, English, Hindi, ? |spanish| Most Spoken Languages in the World
@@ -89,10 +89,10 @@
 |8|Half|ha|Half of the word 'Half'
 |2|1 2 6 24 ?|120|1 * 2 = 2, 2 * 3 = 6, 6 * 4 = 24
 |1|Backwards|sdrawkcab|Just backwards backwards
-|7||Rate us| 5 stars<$>1 star<$>2 stars<$>3 stars,<$>4 stars<$>5<$>4<$>3<$>2<$>1|1-5 stars
+|7|Rate us| 5 stars<$>1 star<$>2 stars<$>3 stars,<$>4 stars<$>5<$>4<$>3<$>2<$>1|1-5 stars
 |3|F E D C B ?|a|Alphabet
 |6|Triangle Square ...|pentagon|3 angles, 4 angles ...
-|1||ЯOЯЯIM|mirror|Mirror the written text
+|1|ЯOЯЯIM|mirror|Mirror the written text
 |6|3 7 15 31 ?|63|3 + 4 = 7 , 7 + 8 = 15, ...
 |7|Right down left down right|2<$>two|Draw it on a sheet of paper
 |7|N S W|e|Compass
@@ -177,7 +177,7 @@
 |3|What goes up and down without moving?|Stairs| 
 |8|SCD,TEF,UGH, ___, WKL|VIJ| There are two alphabetical sequences S-T-U, CD-EF-GH 
 |8|FLG, GLF, HLI, ILH,|JLK| L is constant; FG-GF; HI-IH;
-|8|EBFD, GBHD, IBJD, ____, MLNA|KBLD| B and D are constant;  EF-GH-IJ
+|8|EBFD, GBHD, IBJD, ____, MLND|KBLD| B and D are constant;  EF-GH-IJ
 |8|Fresh grapes contain 60% water, while dry grapes contain 40% water. How many kgs of dry grapes can be obtained by 60 kg of fresh grapes?|40| 60 x 0.4 = p x 0.6, p - ?
 |6|Play is to actor as concert is to|musician| An actor performs in a play, on the other hand, A ? performs at a concert.
 |6|Pen is to poet as needle is to|tailor| A pen is a tool used by a poet. A ? is a tool used by a tailor.

@@ -142,13 +142,13 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	ToSendMMR := make([]int, 0, 7)
 	possibleQue := make([]Question, 0, len(s.Que)-len(ans))
 	for i := range s.Que {
-		q := s.Que[i]
+		q := *s.Que[i]
 		for _, a := range ans {
 			if a.QID == q.ID {
 				q.ID = -1
 			}
 		}
-		possibleQue = append(possibleQue, *q)
+		possibleQue = append(possibleQue, q)
 	}
 	user := s.Users[userid]
 
@@ -166,6 +166,7 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	}
 
 	if current == -1 {
+		fmt.Println("current -1 get Closest")
 		current = getClosest(possibleQue, user.MMR)
 	}
 
