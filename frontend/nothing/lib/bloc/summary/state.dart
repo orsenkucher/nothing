@@ -25,7 +25,7 @@ List<dynamic> _to(List<SummaryAnswer> ss) =>
 abstract class SummaryAnswer with _$SummaryAnswer {
   const factory SummaryAnswer({
     int qid,
-    int tries,
+    int tries, //List<String>
     int seconds,
   }) = _SummaryAnswer;
 

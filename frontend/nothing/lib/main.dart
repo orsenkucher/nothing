@@ -44,10 +44,10 @@ class App extends StatelessWidget with PortraitLock {
           theme: ThemeData(
             fontFamily: 'Gilroy',
           ),
-          initialRoute: '/',
+          initialRoute: Home.routeName,
           routes: {
-            '/': (_) => Home(),
-            '/history': (_) => HistoryList(),
+            Home.routeName: (_) => Home(),
+            HistoryList.routeName: (_) => HistoryList(),
           },
           color: NothingScheme.app,
           debugShowCheckedModeBanner: false,
@@ -63,6 +63,7 @@ class App extends StatelessWidget with PortraitLock {
     ); // CloudQuestionsRepo|LocalQuestionsRepo
   }
 
+// TODO: Плохо ли что это в мейне?
   Widget _bindings(Widget child) {
     return MultiBlocBinder(child: child, binders: [
       BlocBinder<ValidationBloc, ValidationState, SummaryBloc, SummaryState>(
@@ -72,7 +73,7 @@ class App extends StatelessWidget with PortraitLock {
             correct: (question, tries, duration) {
               bloc.add(SummaryEvent.answer(
                 qid: question.id,
-                tries: tries,
+                tries: tries.length,
                 seconds: duration.inSeconds,
               ));
             },
@@ -85,7 +86,7 @@ class App extends StatelessWidget with PortraitLock {
           bloc.add(HistoryEvent.next(
             SummaryAnswer(
                 qid: s.question.id,
-                tries: s.tries,
+                tries: s.tries.length,
                 seconds: s.maybeMap(
                   correct: (x) => x.duration.inSeconds,
                   orElse: () => 0,

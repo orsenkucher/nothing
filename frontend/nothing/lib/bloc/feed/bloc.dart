@@ -5,7 +5,6 @@ import 'package:nothing/bloc/feed/event.dart';
 import 'package:nothing/bloc/feed/state.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
-import 'package:nothing/domain/domain.dart';
 
 export 'event.dart';
 export 'state.dart';

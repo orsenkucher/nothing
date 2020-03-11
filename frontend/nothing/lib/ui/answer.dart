@@ -22,12 +22,12 @@ class Answer extends StatelessWidget {
           elevation: 6,
           shadowColor: state.map(
             correct: (_) => scheme.correct.tint,
-            neutral: (s) => s.green ? scheme.correct.tint : scheme.neutral.tint,
+            // neutral: (s) => s.green ? scheme.correct.tint : scheme.neutral.tint,
             wrong: (_) => scheme.wrong.tint,
           ),
           color: state.map(
             correct: (_) => scheme.correct,
-            neutral: (s) => s.green ? scheme.correct : scheme.neutral,
+            // neutral: (s) => s.green ? scheme.correct : scheme.neutral,
             wrong: (_) => scheme.wrong,
           ),
           borderRadius: BorderRadius.circular(28),

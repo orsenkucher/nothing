@@ -10,6 +10,7 @@ import 'package:nothing/ui/game.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Home extends StatefulWidget {
+  static const String routeName = '/';
   @override
   _HomeState createState() => _HomeState();
 }
@@ -144,7 +145,7 @@ class _HomeState extends State<Home> {
         },
         textInputAction: TextInputAction.go,
         onChanged: (s) {
-          context.bloc<ValidationBloc>().add(ValidationEvent.purge());
+          // context.bloc<ValidationBloc>().add(ValidationEvent.purge());
           model.update(s);
           print(s);
         },
