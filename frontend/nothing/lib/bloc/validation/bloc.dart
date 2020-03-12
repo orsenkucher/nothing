@@ -14,21 +14,21 @@ abstract class ValidationEvent with _$ValidationEvent {
 }
 
 @freezed
-abstract class ValidationState with _$ValidationState {
-  const factory ValidationState.correct(
+abstract class _ValidationState with _$_ValidationState {
+  const factory _ValidationState.correct(
     Question question,
     List<String> tries,
     Duration duration,
   ) = _Correct;
-  const factory ValidationState.wrong(
+  const factory _ValidationState.wrong(
     Question question,
     List<String> tries,
-    List<DateTime> timePoints,
+    TimePoints timePoints,
   ) = _Wrong;
-  const factory ValidationState.neutral(
+  const factory _ValidationState.neutral(
     Question question,
     List<String> tries,
-    List<DateTime> timePoints,
+    TimePoints timePoints,
   ) = _Neutral;
 
   // Вот бы задать что за nothing может идти только neutral
@@ -37,6 +37,34 @@ abstract class ValidationState with _$ValidationState {
   // Шо метро во франции в компайл тайме проверяет кучу кейсов на ошибки
   // Потому что там нельзя открыть дверь два раза, ибо открытый тип двери не открывается
   // Перескоки на станции невозможны
+  // const factory ValidationState.nothing() = _Nothing;
+}
+
+// const factory ValidationState.correct(
+//   Question question,
+//   List<String> tries,
+//   Duration duration,
+// ) = _Correct;
+// const factory ValidationState.wrong(
+//   Question question,
+//   List<String> tries,
+//   List<DateTime> timePoints,
+// ) = _Wrong;
+// const factory ValidationState.neutral(
+//   Question question,
+//   List<String> tries,
+//   List<DateTime> timePoints,
+// ) = _Neutral;
+
+// Вот бы задать что за nothing может идти только neutral
+//
+// Маркиро, [09.03.20 22:57]
+// Шо метро во франции в компайл тайме проверяет кучу кейсов на ошибки
+// Потому что там нельзя открыть дверь два раза, ибо открытый тип двери не открывается
+// Перескоки на станции невозможны
+@freezed
+abstract class ValidationState with _$ValidationState {
+  const factory ValidationState.just(_ValidationState state) = _Just;
   const factory ValidationState.nothing() = _Nothing;
 }
 
@@ -105,8 +133,10 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
   Stream<ValidationState> mapEventToState(ValidationEvent event) async* {
     // Боже, это не фп, а какой-то бред))
     yield event.when(
-      focus: (question) =>
-          ValidationState.neutral(question, [], [DateTime.now()]),
+      focus: (question) => ValidationState.just(
+        _ValidationState.neutral(
+            question, [], TimePoints()..add(DateTime.now())),
+      ),
 
       // focus: (question) => neutral(question, true),
       // focus: (question) => state.copyWith(question: question),
@@ -147,14 +177,42 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
         // }
         // state.maybeWhen( nothing: (_),orElse: ());
 
-        return state.maybeWhen<ValidationState>(
-          nothing: () => ValidationState.nothing(),
-          orElse: () {
-            // if (state is _Nothing) return;
-            // state.
-            return ValidationState.nothing();
-          },
-        );
+        return state.when<ValidationState>(
+            nothing: () => ValidationState.nothing(),
+            just: (state) {
+// (state.question?.splitted
+              //             ?.map((s) => s.toLowerCase())
+              //             ?.contains(ans.toLowerCase())
+              final question = state.question;
+              final tries = state.tries;
+              final next = state.question.splitted
+                      .map((s) => s.toLowerCase())
+                      .contains(answer.toLowerCase())
+                  ? _ValidationState.correct(
+                      question,
+                      tries,
+                      state.map(
+                        correct: (c) => c.duration, // should never invoke
+                        neutral: (n) => n.timePoints.duration,
+                        wrong: (w) =>
+                            w.timePoints.duration, // should never invoke
+                      ))
+                  : _ValidationState.wrong(
+                      question,
+                      [...tries, answer],
+                      state.map(
+                          correct: (c) => TimePoints(), // should never invoke
+                          wrong: (w) => w.timePoints,
+                          neutral: (n) => n.timePoints), // should never invoke
+                    );
+              return ValidationState.just(next);
+            }
+            // orElse: () {
+            //   // if (state is _Nothing) return;
+            //   // state.
+            //   return ValidationState.nothing();
+            // },
+            );
       },
     );
   }

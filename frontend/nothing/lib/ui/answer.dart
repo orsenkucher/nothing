@@ -20,16 +20,16 @@ class Answer extends StatelessWidget {
       child: BlocBuilder<ValidationBloc, ValidationState>(
         builder: (BuildContext context, state) => Material(
           elevation: 6,
-          shadowColor: state.map(
-            correct: (_) => scheme.correct.tint,
-            // neutral: (s) => s.green ? scheme.correct.tint : scheme.neutral.tint,
-            wrong: (_) => scheme.wrong.tint,
-          ),
-          color: state.map(
-            correct: (_) => scheme.correct,
-            // neutral: (s) => s.green ? scheme.correct : scheme.neutral,
-            wrong: (_) => scheme.wrong,
-          ),
+          // shadowColor: state.map(
+          //   correct: (_) => scheme.correct.tint,
+          //   // neutral: (s) => s.green ? scheme.correct.tint : scheme.neutral.tint,
+          //   wrong: (_) => scheme.wrong.tint,
+          // ),
+          // color: state.map(
+          //   correct: (_) => scheme.correct,
+          //   // neutral: (s) => s.green ? scheme.correct : scheme.neutral,
+          //   wrong: (_) => scheme.wrong,
+          // ),
           borderRadius: BorderRadius.circular(28),
           clipBehavior: Clip.antiAlias,
           child: Row(

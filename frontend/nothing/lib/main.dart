@@ -70,28 +70,33 @@ class App extends StatelessWidget with PortraitLock {
         direct:
             (BuildContext context, ValidationState state, SummaryBloc bloc) {
           state.maybeWhen(
-            correct: (question, tries, duration) {
-              bloc.add(SummaryEvent.answer(
-                qid: question.id,
-                tries: tries.length,
-                seconds: duration.inSeconds,
-              ));
-            },
+            just: (just) => just.maybeWhen(
+                correct: (question, tries, duration) {
+                  bloc.add(SummaryEvent.answer(
+                    qid: question.id,
+                    tries: tries.length,
+                    seconds: duration.inSeconds,
+                  ));
+                },
+                orElse: () {}),
             orElse: () {},
           );
         },
       ),
       BlocBinder<ValidationBloc, ValidationState, HistoryBloc, HistoryState>(
         direct: (context, s, bloc) {
-          bloc.add(HistoryEvent.next(
-            SummaryAnswer(
-                qid: s.question.id,
-                tries: s.tries.length,
-                seconds: s.maybeMap(
-                  correct: (x) => x.duration.inSeconds,
-                  orElse: () => 0,
-                )),
-          ));
+          s.when(
+            just: (just) => bloc.add(HistoryEvent.next(
+              SummaryAnswer(
+                  qid: just.question.id,
+                  tries: just.tries.length,
+                  seconds: just.maybeMap(
+                    correct: (x) => x.duration.inSeconds,
+                    orElse: () => 0,
+                  )),
+            )),
+            nothing: () {},
+          );
         },
       ),
       BlocBinder<QuestionsBloc, QuestionsState, FeedBloc, FeedState>(
@@ -105,10 +110,13 @@ class App extends StatelessWidget with PortraitLock {
       BlocBinder<ValidationBloc, ValidationState, FeedBloc, FeedState>(
         direct: (context, state, bloc) {
           state.maybeWhen(
-            correct: (question, tries, duration) => bloc.add(
-              FeedEvent.moveNext(
-                duration.inSeconds > 90 ? MoveDir.left() : MoveDir.right(),
+            just: (just) => just.maybeWhen(
+              correct: (question, tries, duration) => bloc.add(
+                FeedEvent.moveNext(
+                  duration.inSeconds > 90 ? MoveDir.left() : MoveDir.right(),
+                ),
               ),
+              orElse: () {},
             ),
             orElse: () {},
           );

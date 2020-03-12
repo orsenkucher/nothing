@@ -252,7 +252,12 @@ abstract class _Check implements ValidationEvent {
   _Check copyWith({String answer});
 }
 
-mixin _$ValidationState {
+mixin _$_ValidationState {
+  Question get question;
+  List<String> get tries;
+
+  _ValidationState copyWith({Question question, List<String> tries});
+
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required
@@ -260,21 +265,18 @@ mixin _$ValidationState {
             Question question, List<String> tries, Duration duration),
     @required
         Result wrong(
-            Question question, List<String> tries, List<DateTime> timePoints),
+            Question question, List<String> tries, TimePoints timePoints),
     @required
         Result neutral(
-            Question question, List<String> tries, List<DateTime> timePoints),
-    @required Result nothing(),
+            Question question, List<String> tries, TimePoints timePoints),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result correct(Question question, List<String> tries, Duration duration),
-    Result wrong(
-        Question question, List<String> tries, List<DateTime> timePoints),
+    Result wrong(Question question, List<String> tries, TimePoints timePoints),
     Result neutral(
-        Question question, List<String> tries, List<DateTime> timePoints),
-    Result nothing(),
+        Question question, List<String> tries, TimePoints timePoints),
     @required Result orElse(),
   });
 
@@ -283,7 +285,6 @@ mixin _$ValidationState {
     @required Result correct(_Correct value),
     @required Result wrong(_Wrong value),
     @required Result neutral(_Neutral value),
-    @required Result nothing(_Nothing value),
   });
 
   @optionalTypeArgs
@@ -291,13 +292,12 @@ mixin _$ValidationState {
     Result correct(_Correct value),
     Result wrong(_Wrong value),
     Result neutral(_Neutral value),
-    Result nothing(_Nothing value),
     @required Result orElse(),
   });
 }
 
-class _$ValidationStateTearOff {
-  const _$ValidationStateTearOff();
+class _$_ValidationStateTearOff {
+  const _$_ValidationStateTearOff();
 
   _Correct correct(Question question, List<String> tries, Duration duration) {
     return _Correct(
@@ -307,8 +307,7 @@ class _$ValidationStateTearOff {
     );
   }
 
-  _Wrong wrong(
-      Question question, List<String> tries, List<DateTime> timePoints) {
+  _Wrong wrong(Question question, List<String> tries, TimePoints timePoints) {
     return _Wrong(
       question,
       tries,
@@ -317,20 +316,16 @@ class _$ValidationStateTearOff {
   }
 
   _Neutral neutral(
-      Question question, List<String> tries, List<DateTime> timePoints) {
+      Question question, List<String> tries, TimePoints timePoints) {
     return _Neutral(
       question,
       tries,
       timePoints,
     );
   }
-
-  _Nothing nothing() {
-    return const _Nothing();
-  }
 }
 
-const $ValidationState = _$ValidationStateTearOff();
+const $_ValidationState = _$_ValidationStateTearOff();
 
 class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   const _$_Correct(this.question, this.tries, this.duration)
@@ -347,14 +342,14 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ValidationState.correct(question: $question, tries: $tries, duration: $duration)';
+    return '_ValidationState.correct(question: $question, tries: $tries, duration: $duration)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'ValidationState.correct'))
+      ..add(DiagnosticsProperty('type', '_ValidationState.correct'))
       ..add(DiagnosticsProperty('question', question))
       ..add(DiagnosticsProperty('tries', tries))
       ..add(DiagnosticsProperty('duration', duration));
@@ -402,16 +397,14 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
             Question question, List<String> tries, Duration duration),
     @required
         Result wrong(
-            Question question, List<String> tries, List<DateTime> timePoints),
+            Question question, List<String> tries, TimePoints timePoints),
     @required
         Result neutral(
-            Question question, List<String> tries, List<DateTime> timePoints),
-    @required Result nothing(),
+            Question question, List<String> tries, TimePoints timePoints),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
-    assert(nothing != null);
     return correct(question, tries, duration);
   }
 
@@ -419,11 +412,9 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result correct(Question question, List<String> tries, Duration duration),
-    Result wrong(
-        Question question, List<String> tries, List<DateTime> timePoints),
+    Result wrong(Question question, List<String> tries, TimePoints timePoints),
     Result neutral(
-        Question question, List<String> tries, List<DateTime> timePoints),
-    Result nothing(),
+        Question question, List<String> tries, TimePoints timePoints),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -439,12 +430,10 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
     @required Result correct(_Correct value),
     @required Result wrong(_Wrong value),
     @required Result neutral(_Neutral value),
-    @required Result nothing(_Nothing value),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
-    assert(nothing != null);
     return correct(this);
   }
 
@@ -454,7 +443,6 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
     Result correct(_Correct value),
     Result wrong(_Wrong value),
     Result neutral(_Neutral value),
-    Result nothing(_Nothing value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -465,14 +453,17 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   }
 }
 
-abstract class _Correct implements ValidationState {
+abstract class _Correct implements _ValidationState {
   const factory _Correct(
       Question question, List<String> tries, Duration duration) = _$_Correct;
 
+  @override
   Question get question;
+  @override
   List<String> get tries;
   Duration get duration;
 
+  @override
   _Correct copyWith({Question question, List<String> tries, Duration duration});
 }
 
@@ -487,18 +478,18 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   @override
   final List<String> tries;
   @override
-  final List<DateTime> timePoints;
+  final TimePoints timePoints;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ValidationState.wrong(question: $question, tries: $tries, timePoints: $timePoints)';
+    return '_ValidationState.wrong(question: $question, tries: $tries, timePoints: $timePoints)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'ValidationState.wrong'))
+      ..add(DiagnosticsProperty('type', '_ValidationState.wrong'))
       ..add(DiagnosticsProperty('question', question))
       ..add(DiagnosticsProperty('tries', tries))
       ..add(DiagnosticsProperty('timePoints', timePoints));
@@ -534,7 +525,7 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
     return _$_Wrong(
       question == freezed ? this.question : question as Question,
       tries == freezed ? this.tries : tries as List<String>,
-      timePoints == freezed ? this.timePoints : timePoints as List<DateTime>,
+      timePoints == freezed ? this.timePoints : timePoints as TimePoints,
     );
   }
 
@@ -546,16 +537,14 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
             Question question, List<String> tries, Duration duration),
     @required
         Result wrong(
-            Question question, List<String> tries, List<DateTime> timePoints),
+            Question question, List<String> tries, TimePoints timePoints),
     @required
         Result neutral(
-            Question question, List<String> tries, List<DateTime> timePoints),
-    @required Result nothing(),
+            Question question, List<String> tries, TimePoints timePoints),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
-    assert(nothing != null);
     return wrong(question, tries, timePoints);
   }
 
@@ -563,11 +552,9 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result correct(Question question, List<String> tries, Duration duration),
-    Result wrong(
-        Question question, List<String> tries, List<DateTime> timePoints),
+    Result wrong(Question question, List<String> tries, TimePoints timePoints),
     Result neutral(
-        Question question, List<String> tries, List<DateTime> timePoints),
-    Result nothing(),
+        Question question, List<String> tries, TimePoints timePoints),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -583,12 +570,10 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
     @required Result correct(_Correct value),
     @required Result wrong(_Wrong value),
     @required Result neutral(_Neutral value),
-    @required Result nothing(_Nothing value),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
-    assert(nothing != null);
     return wrong(this);
   }
 
@@ -598,7 +583,6 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
     Result correct(_Correct value),
     Result wrong(_Wrong value),
     Result neutral(_Neutral value),
-    Result nothing(_Nothing value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -609,17 +593,19 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   }
 }
 
-abstract class _Wrong implements ValidationState {
+abstract class _Wrong implements _ValidationState {
   const factory _Wrong(
-          Question question, List<String> tries, List<DateTime> timePoints) =
-      _$_Wrong;
+      Question question, List<String> tries, TimePoints timePoints) = _$_Wrong;
 
+  @override
   Question get question;
+  @override
   List<String> get tries;
-  List<DateTime> get timePoints;
+  TimePoints get timePoints;
 
+  @override
   _Wrong copyWith(
-      {Question question, List<String> tries, List<DateTime> timePoints});
+      {Question question, List<String> tries, TimePoints timePoints});
 }
 
 class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
@@ -633,18 +619,18 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   @override
   final List<String> tries;
   @override
-  final List<DateTime> timePoints;
+  final TimePoints timePoints;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ValidationState.neutral(question: $question, tries: $tries, timePoints: $timePoints)';
+    return '_ValidationState.neutral(question: $question, tries: $tries, timePoints: $timePoints)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'ValidationState.neutral'))
+      ..add(DiagnosticsProperty('type', '_ValidationState.neutral'))
       ..add(DiagnosticsProperty('question', question))
       ..add(DiagnosticsProperty('tries', tries))
       ..add(DiagnosticsProperty('timePoints', timePoints));
@@ -680,7 +666,7 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
     return _$_Neutral(
       question == freezed ? this.question : question as Question,
       tries == freezed ? this.tries : tries as List<String>,
-      timePoints == freezed ? this.timePoints : timePoints as List<DateTime>,
+      timePoints == freezed ? this.timePoints : timePoints as TimePoints,
     );
   }
 
@@ -692,16 +678,14 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
             Question question, List<String> tries, Duration duration),
     @required
         Result wrong(
-            Question question, List<String> tries, List<DateTime> timePoints),
+            Question question, List<String> tries, TimePoints timePoints),
     @required
         Result neutral(
-            Question question, List<String> tries, List<DateTime> timePoints),
-    @required Result nothing(),
+            Question question, List<String> tries, TimePoints timePoints),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
-    assert(nothing != null);
     return neutral(question, tries, timePoints);
   }
 
@@ -709,11 +693,9 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result correct(Question question, List<String> tries, Duration duration),
-    Result wrong(
-        Question question, List<String> tries, List<DateTime> timePoints),
+    Result wrong(Question question, List<String> tries, TimePoints timePoints),
     Result neutral(
-        Question question, List<String> tries, List<DateTime> timePoints),
-    Result nothing(),
+        Question question, List<String> tries, TimePoints timePoints),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -729,12 +711,10 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
     @required Result correct(_Correct value),
     @required Result wrong(_Wrong value),
     @required Result neutral(_Neutral value),
-    @required Result nothing(_Nothing value),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
-    assert(nothing != null);
     return neutral(this);
   }
 
@@ -744,7 +724,6 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
     Result correct(_Correct value),
     Result wrong(_Wrong value),
     Result neutral(_Neutral value),
-    Result nothing(_Nothing value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -755,17 +734,163 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   }
 }
 
-abstract class _Neutral implements ValidationState {
+abstract class _Neutral implements _ValidationState {
   const factory _Neutral(
-          Question question, List<String> tries, List<DateTime> timePoints) =
+          Question question, List<String> tries, TimePoints timePoints) =
       _$_Neutral;
 
+  @override
   Question get question;
+  @override
   List<String> get tries;
-  List<DateTime> get timePoints;
+  TimePoints get timePoints;
 
+  @override
   _Neutral copyWith(
-      {Question question, List<String> tries, List<DateTime> timePoints});
+      {Question question, List<String> tries, TimePoints timePoints});
+}
+
+mixin _$ValidationState {
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result just(_ValidationState state),
+    @required Result nothing(),
+  });
+
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result just(_ValidationState state),
+    Result nothing(),
+    @required Result orElse(),
+  });
+
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result just(_Just value),
+    @required Result nothing(_Nothing value),
+  });
+
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result just(_Just value),
+    Result nothing(_Nothing value),
+    @required Result orElse(),
+  });
+}
+
+class _$ValidationStateTearOff {
+  const _$ValidationStateTearOff();
+
+  _Just just(_ValidationState state) {
+    return _Just(
+      state,
+    );
+  }
+
+  _Nothing nothing() {
+    return const _Nothing();
+  }
+}
+
+const $ValidationState = _$ValidationStateTearOff();
+
+class _$_Just with DiagnosticableTreeMixin implements _Just {
+  const _$_Just(this.state) : assert(state != null);
+
+  @override
+  final _ValidationState state;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ValidationState.just(state: $state)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValidationState.just'))
+      ..add(DiagnosticsProperty('state', state));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Just &&
+            (identical(other.state, state) ||
+                const DeepCollectionEquality().equals(other.state, state)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(state);
+
+  @override
+  _$_Just copyWith({
+    Object state = freezed,
+  }) {
+    return _$_Just(
+      state == freezed ? this.state : state as _ValidationState,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result just(_ValidationState state),
+    @required Result nothing(),
+  }) {
+    assert(just != null);
+    assert(nothing != null);
+    return just(state);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result just(_ValidationState state),
+    Result nothing(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (just != null) {
+      return just(state);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result just(_Just value),
+    @required Result nothing(_Nothing value),
+  }) {
+    assert(just != null);
+    assert(nothing != null);
+    return just(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result just(_Just value),
+    Result nothing(_Nothing value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (just != null) {
+      return just(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Just implements ValidationState {
+  const factory _Just(_ValidationState state) = _$_Just;
+
+  _ValidationState get state;
+
+  _Just copyWith({_ValidationState state});
 }
 
 class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
@@ -793,20 +918,10 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required
-        Result correct(
-            Question question, List<String> tries, Duration duration),
-    @required
-        Result wrong(
-            Question question, List<String> tries, List<DateTime> timePoints),
-    @required
-        Result neutral(
-            Question question, List<String> tries, List<DateTime> timePoints),
+    @required Result just(_ValidationState state),
     @required Result nothing(),
   }) {
-    assert(correct != null);
-    assert(wrong != null);
-    assert(neutral != null);
+    assert(just != null);
     assert(nothing != null);
     return nothing();
   }
@@ -814,11 +929,7 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result correct(Question question, List<String> tries, Duration duration),
-    Result wrong(
-        Question question, List<String> tries, List<DateTime> timePoints),
-    Result neutral(
-        Question question, List<String> tries, List<DateTime> timePoints),
+    Result just(_ValidationState state),
     Result nothing(),
     @required Result orElse(),
   }) {
@@ -832,14 +943,10 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result correct(_Correct value),
-    @required Result wrong(_Wrong value),
-    @required Result neutral(_Neutral value),
+    @required Result just(_Just value),
     @required Result nothing(_Nothing value),
   }) {
-    assert(correct != null);
-    assert(wrong != null);
-    assert(neutral != null);
+    assert(just != null);
     assert(nothing != null);
     return nothing(this);
   }
@@ -847,9 +954,7 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result correct(_Correct value),
-    Result wrong(_Wrong value),
-    Result neutral(_Neutral value),
+    Result just(_Just value),
     Result nothing(_Nothing value),
     @required Result orElse(),
   }) {

@@ -70,11 +70,14 @@ class _HomeState extends State<Home> {
                 listeners: [
                   BlocListener<ValidationBloc, ValidationState>(
                     listener: (context, state) {
-                      state.maybeMap(
-                        correct: (_) {
-                          _controller.clear();
-                          model.update('');
-                        },
+                      state.maybeWhen(
+                        just: (just) => just.maybeMap(
+                          orElse: () {},
+                          correct: (_) {
+                            _controller.clear();
+                            model.update('');
+                          },
+                        ),
                         orElse: () {},
                       );
                     },
