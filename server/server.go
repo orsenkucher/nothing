@@ -155,7 +155,7 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	}
 	user := s.Users[userid]
 
-	if current >= len(s.Questions) {
+	if current > len(s.Questions) {
 		current = -1
 	}
 
