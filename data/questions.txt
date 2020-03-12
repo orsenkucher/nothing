@@ -1,21 +1,21 @@
 ﻿|2|Find area of square with diagonal = √2|1<$>one| The side of square is 1
-|6|M, V, E, M, J, S …|U| Planets of solar system
-|2|Car, bee, plane, butterfly, bird|car| Plane fly, bee fly, etc.
-|2|fork, spoon, hat, knife, cup|hat| cutlery
+|6|M, V, E, M, J, S …|U|Planets of solar system
+|2|Car, bee, plane, butterfly, bird|car|Plane fly, bee fly, etc.
+|2|fork, spoon, hat, knife, cup|hat|cutlery
 |7|240, 360, 480, 720, ?|1080|High definition 
-|1|6/2*(1+2)|9| (1+2) = 3, all others operations are performed from left to right
-|7|W, S, S, ?|F<$>A| W - Winter 
-|2|uʍopǝpᴉsdn|upside down| The letter are upside down
-|4|What is the probability of rolling an odd number on dice?|1/2<$>0.5<$>0,5| The dice has 6 numbers, 3 of them are odd
-|5|How many Newton laws are there?|3<$>three| First, second and third
+|1|6/2*(1+2)|9|(1+2) = 3, all others operations are performed from left to right
+|7|W, S, S, ?|F<$>A|W - Winter 
+|2|uʍopǝpᴉsdn|upside down|The letter are upside down
+|4|What is the probability of rolling an odd number on dice?|1/2<$>0.5<$>0,5|The dice has 6 numbers, 3 of them are odd
+|5|How many Newton laws are there?|3<$>three|First, second and third
 |5|Name the world's biggest island.|greenland| Island is located between the Arctic and Atlantic oceans, east of the Canadian Arctic Archipelago
 |6|There are 60 marbles in a bowl. Their colors are red, blue, and yellow. 1/3 of the marbles are yellow, 1/4 of the marbles are blue. How many red marbles are there in the bowl?|25| There are 60/3 = 20 yellow marbles, 60/4 = 10 blue marbles, all others are red.
-|2|4 16 5 25 6 36 7 49 8 ? |64| 4^2 = 16, 5^2 = 25
+|2|4 16 5 25 6 36 7 49 8 ?|64|4^2 = 16, 5^2 = 25
 |4|How many legs (total ) does 4 dogs, 2 elephants, 15 cats, and 26 people have?|136| Dog, elephant and cat have four legs, people have 2.
-|3|If a $20 shirt is 15% off, what is the final price of the shirt?|17| 15% from 20 is 3
-|7|If X=24 and P =16, what is X-P-A?|7| Each letter correspond to its number in the alphabet 
-|6|I am followed by 25 others and represent the number 1. What am I?|A| Alphabet has 26 letters
-|4|If I use a quarter of a dozen eggs, how many eggs do I have left?|9| Dozen is 12, quarter is 1/4
+|3|If a $20 shirt is 15% off, what is the final price of the shirt?|17|15% from 20 is 3
+|7|If X=24 and P =16, what is X-P-A?|7|Each letter correspond to its number in the alphabet 
+|6|I am followed by 25 others and represent the number 1. What am I?|A|Alphabet has 26 letters
+|4|If I use a quarter of a dozen eggs, how many eggs do I have left?|9|Dozen is 12, quarter is 1/4
 |1|1000, 200, 40, _____ |8| 1000/5 = 200, 200/5 = 40
 |2|The day before yesterday was Monday and the day after tomorrow is Friday. What is today?|Wednesday| Yesterday was Tuesday 
 |7|It occurs once in a minute, twice in a moment, but never in an hour.|m| It’s a letter 
@@ -24,17 +24,17 @@
 |5|Name the number that is three more than one-fifth of one-tenth of one-half of 5,000.|53| This number equals to 3 + 5000/100
 |6|Two people are standing back to back. They each walk away from each other for three feet. Then they both turn left and walk for another four feet, and then stop. Now, how many feet apart are they standing?|10<$>ten| a^2 + b^2 = c^2, a = 6, b = 8, c is your answer.
 |7|The number whose first digit is one-fourth of the last digit; the second digit is six times the first digit; and the third digit is the second digit plus three.|1694| first two digits are 1 and 6
-|7|Skip me|skip| Literally skip ‘me’ 
+|7|Skip me|skip|Literally skip ‘me’
 |7|ON/OFF|switch<$>power<$>power button| You use it to turn off/on appliances, light
-|4|5,5s,6,6s,7,8, ?|x| Iphone 
+|4|5,5s,6,6s,7,8, ?|x|Iphone
 |7|Bill is 12 years old, and Professor Peterson is 42. In how many years will  Bill be half the age of the professor?|18<$>eighteen| 12 + x = (42 + x) / 2, x = ?
 |2|2G, 3G, ?(LTE)|lte<$>4g|4th Generation
 |4|3 wishes|genie|Spiritual creature mentioned in Ancient Arabian culture
-|6|The most famous lady|lady gaga<$>gaga| ‘Pokerface’, ‘Paparazzi’
-|4|15 kg = ?/4 g|60 000<$>60000| 1kg = 1000g
-|4|Golden state|california| Los Angeles, San Francisco 
-|6|Invert !|i| Find the letter that looks like inverted !
-|7|Where does today come before yesterday?|dictionary| A book or electronic resource that lists the words of a language (typically in alphabetical order)
+|6|The most famous lady|lady gaga<$>gaga|‘Pokerface’, ‘Paparazzi’
+|4|15 kg = ?/4 g|60 000<$>60000|1kg = 1000g
+|4|Golden state|california| Los Angeles, San Francisco
+|6|Invert !|i<$>і|Find the letter that looks like inverted!
+|7|Where does today come before yesterday?|dictionary|A book or electronic resource that lists the words of a language (typically in alphabetical order)
 |7|I am an odd number. Take away a letter and I become even. What number am I?|seven<$>7| Snow White and the ????? Dwarfs
 |8|The day before yesterday I was 21, and next year I will be 24. When is my birthday?|december 31<$>31 december<$>31.12<$>12.31<$>31| Such statements can be made only around the year’s end.
 |6|What five-letter word becomes shorter when you add two letters to it?|short|? -> shorter -> the shortest 
@@ -45,22 +45,22 @@
 |8|What is the coldest country in the world?|chile| Its very chilly there)
 |8|Knock knock |who is there?<$>who is there<$>who’s there?|Who is there
 |7|What do you call a FISH with no Eyes?|fsh| Get rid of eyes in the word FISH
-|9|Black, Red, Yellow, White |Sea| Geography related question, one of them is located between mainland China and the Korean Peninsula
-|9|4x2 - 22  = 5 + x2 , x > 0, x = ?|3| 
-|4|-8 = 2-5x|2| x = 2
+|9|Black, Red, Yellow, White|Sea|Geography related question, one of them is located between mainland China and the Korean Peninsula
+|9|4x2 - 22  = 5 + x2, x > 0, x = ?|3|
+|4|-8 = 2-5x|2|x = 2
 |7|Good cop|bad cop|Aggressive approach.
 |5|0,99999… = ? |1<$>0,(9)<$>0.(9)|exp51 |5|If you divide 30 by half and add 30, what do you get|90| 30/0.5 = 60
-|9|СО2 + 6Н2О + Qlight → С6Н12О6 + 6О2.|photosynthesis| process used by plants and other organisms to convert light energy into chemical energy
-|7|All i want for Christmas |is you|Mariah Carey
-|7|Chinese, English, Hindi, ? |spanish| Most Spoken Languages in the World
+|9|СО2 + 6Н2О + Qlight → С6Н12О6 + 6О2.|photosynthesis|process used by plants and other organisms to convert light energy into chemical energy
+|7|All i want for Christmas|is you|Mariah Carey
+|7|Chinese, English, Hindi, ?|spanish|Most Spoken Languages in the World
 |5|The bill with Andrew Jackson on it|20 dollars<$>20<$>20$| 20$ bill
 |5|The best-selling book of all time|bible|The word of God
 |7|The graph of quadratic equation|parabola| It is parabola
 |3|Count 9 with fingers. What finger remain?|thumb| The biggest finger
 |4|(The tech company) & (River)|amazon| Jeff Bezos
-|1|Bows + ball |bowling| Bowl??ng
-|1|Oscar of science |nobel prize<$>nobel| Awarded each year, one in each of the following categories: literature, physics, chemistry, peace, economics, and physiology & medicine.
-|9|Cube → square → ? |line| 3D -> 2D -> 1D
+|1|Bows + ball|bowling|Bowl?ng
+|1|Oscar of science|nobel prize<$>nobel| Awarded each year, one in each of the following categories: literature, physics, chemistry, peace, economics, and physiology & medicine.
+|9|Cube → square → ?|line| 3D -> 2D -> 1D
 |6|Four leaf clovers|luck| Four leaf clover is a symbol of …
 |5|Anything is the answer|anything| ‘Anything’ is the answer
 |6|Plastic bricks|lego|
@@ -71,7 +71,7 @@
 |3|A small exam|test|exp71
 |5|(Bird) & (Fruit) |kiwi|exp73
 |3|Orange - yellow = ?|red| Red + yellow = orange 
-|1| Who is the president of USA?|Trump| Current president of USA
+|1|Who is the president of USA?|Trump| Current president of USA
 |7|Love is|Gum| Designed in order to be chewed without being swallowed.
 |8|How many times can you fold a a4 paper|7| Try it yourself 
 |7|James Bond|007|Bond is known by his code number
@@ -117,7 +117,7 @@
 |3|₿|bitcoin|Cryptocurrency
 |8|Low battery|charge|What do you do with the phone then?
 |6|The most famous fruit|apple|It's on the back of your phone
-|8|A = Z, B = Y, E = ?|v| Atbash code
+|8|A = Z, B = Y, E = ?|v|Atbash code
 |7|A(9,36) = 4, B(12,52) = 40, B(A(5,30),7) = ?|1|A(5,30) = 6, B(6,7) = ?
 |7|Who lives in pineapple under the sea?|spongebob<$>spongebob squarepants<$>squarepants|Bikini bottom
 |6|Square with cut corners|octagon|It will 8 angles, so it is ...
@@ -146,7 +146,7 @@
 |7|Where does it happen that a horse jumps over a horse?|chess| Bishop, queen, king, horse
 |4|What kind of animal do people walk on and cars drive on?|zebra| The album's cover photograph shows the four group members walking across the ? Crossing  just outside the studio entrance.
 |7|What sign should be put between 6 and 7, so that the result is less than 7 and more than 6?|,<$>.| The simple and direct answer is the good old Decimal.
-|6|he largest human organ|skin|The largest external organ, which is also the largest organ in general
+|6|The largest human organ|skin|The largest external organ, which is also the largest organ in general
 |6|A The guests came to you. In the fridge you have a bottle of lemonade, a bag of pineapple juice and a bottle of mineral water. What will you open first?|fridge| In the ‘fridge’ you have a bottle…
 |9|What the magnifying glass can not increase in a triangle?|angles| Right triangle will still be right triangle(a 90-degree angle)|
 |3|How many different digits must I use to write the number 100?|2|The digits are 1 and 0
@@ -200,11 +200,11 @@
 |5|Warm is to Hot as Not so Good is to|worse|
 |7|Study of sound is called|acoustics| Those qualities of a room that, together, determine its character with respect to auditory effect
 |2|Positive divided by Negative|negative| divide  1/(-1), for instance 
-|5| 514, 470, ?, 415, 404|437| 514 - 44 = 470, 415 - 404 = 11
+|5|514, 470, ?, 415, 404|437| 514 - 44 = 470, 415 - 404 = 11
 |5|What “A” in DNA mean?|acid| hydrochloric ?, sulfuric ?, phosphoric ?,
 |7|I am the first on Earth, the second in Heaven. I appear two times in a week you can only see me once in a year. Although I am in the middle of the sea, l am not found in month, but l am in February, June, September, October, November & December. Who am I?|e<$>letter e| Second in the word ‘Heaven’
 |9|Penny has 5 children, 1st is January, 2nd kid February, 3rd is called march , 4th is April. What is the name of the 5th.|what|There is no question mark (?) at the end of the actual puzzle.
-|7| 3,19, 51, ?|115| 3 + 16 = 19, 19 + 32 = 51
+|7|3,19, 51, ?|115|3 + 16 = 19, 19 + 32 = 51
 |9|In a box, there are four marbles of white color and five marbles of black color. Two marbles are chosen randomly. What is the probability that both are of the same color?|4/9| The probability to chose 2 white marbles is (4/9)*(3/8). The probability to chose 2 black marbles is (5/9)*(4/8). The total probability is the sum.
 |7|If a giraffe has two eyes, a monkey has two eyes, and an elephant has two eyes, how many eyes do we have?|4<$>four<$>4 eyes| Assuming there is only one writer and only one reader
 |2|What is the probability of an impossible event?|null<$>zero<$>0| Probability exists on a scale from ? to 1, with ? being defined as impossible and 1 being defined as certain.
