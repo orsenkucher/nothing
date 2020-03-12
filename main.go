@@ -14,6 +14,7 @@ import (
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/postgres"
 	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/proxy"
 	"github.com/jinzhu/gorm"
+	"github.com/orsenkucher/nothing/dataChecker"
 	"github.com/orsenkucher/nothing/encio"
 	"github.com/orsenkucher/nothing/server"
 
@@ -41,7 +42,11 @@ func main() {
 	}
 	db := NewDB(key, cfg)
 	defer db.Close()
-	StartServer(db)
+
+	s := server.StartUp(db)
+	d := dataChecker.DataChecker{Server: s}
+	d.ShowUesrsAns("3c37a797-6c33-4681-9d46-c6662a21c2f0")
+	//StartServer(db)
 }
 
 func StartServer(db *gorm.DB) {

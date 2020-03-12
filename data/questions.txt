@@ -214,3 +214,4 @@
 |8|sinx/n|six<$>6| Against all math rules, reduce fraction
 |9|Alone I am 24th, with a friend I am 20. What am I?|x| 24th in alphabet
 |7|What is the distance around a circle called|circumference| the ? would be the length of the circle if it were opened up and straightened out to a line segment.
+|6|2B O N2B|shakespeare<$>to be or not to be|to bi o no to bi
