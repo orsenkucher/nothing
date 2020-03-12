@@ -149,7 +149,6 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 		for _, a := range ans {
 			if a.QID == q.ID {
 				q.ID = -1
-				fmt.Println("test GiveQ q.ID:", q.ID, "s.Que[i].ID:", s.Que[i].ID)
 			}
 		}
 		possibleQue = append(possibleQue, q)
