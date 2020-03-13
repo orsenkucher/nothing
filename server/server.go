@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/jinzhu/gorm"
 )
@@ -15,6 +16,7 @@ type Server struct {
 	Que       []*Question
 	Questions []Question
 	Users     map[string]*User
+	queMutex  sync.Mutex
 }
 
 func StartUp(db *gorm.DB) *Server {
@@ -91,6 +93,22 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 		fmt.Println(" ->", user.MMR)
 		s.DB.Model(user).Update(user)
 		s.DB.Model(question).Update(question)
+
+		s.queMutex.Lock()
+		for i := 0; i < len(s.Que); i++ {
+			if s.Que[i].ID == question.ID {
+				j := i
+				for j > 0 && s.Que[j].MMR < s.Que[j-1].MMR {
+					s.Que[j], s.Que[j-1] = s.Que[j-1], s.Que[j]
+					j--
+				}
+				for j < len(s.Que)-1 && s.Que[j+1].MMR < s.Que[j].MMR {
+					s.Que[j], s.Que[j+1] = s.Que[j+1], s.Que[j]
+					j++
+				}
+			}
+		}
+		s.queMutex.Unlock()
 	}
 }
 
@@ -151,6 +169,7 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	toSendInd := make([]int, 0, 7)
 	ToSendMMR := make([]int, 0, 7)
 	possibleQue := make([]Question, 0, len(s.Que)-len(ans))
+	s.queMutex.Lock()
 	for i := range s.Que {
 		q := *s.Que[i]
 		for _, a := range ans {
@@ -174,6 +193,7 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 			}
 		}
 	}
+	s.queMutex.Unlock()
 
 	if current == -1 {
 		fmt.Println("current -1 get Closest")
