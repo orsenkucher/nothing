@@ -316,7 +316,7 @@ func (s *Server) ShowStatus() {
 func (s *Server) ShowQue() {
 	fmt.Println("Que:")
 	for _, q := range s.Que {
-		fmt.Print(q.ID, "")
+		fmt.Print(q.ID, " ")
 	}
 	fmt.Println()
 }
