@@ -57,7 +57,7 @@ func StartUp(db *gorm.DB) *Server {
 func (s *Server) UsersAns(id string) []AnswerInf {
 	user, ok := s.Users[id]
 	if !ok {
-		user = &User{ID: id, MMR: 3000}
+		user = &User{ID: id, MMR: 5000}
 		s.DB.Create(&user)
 		s.Users[id] = user
 		return []AnswerInf{}
