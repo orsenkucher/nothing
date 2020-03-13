@@ -312,3 +312,11 @@ func (s *Server) ShowStatus() {
 		u.Print()
 	}
 }
+
+func (s *Server) ShowQue() {
+	fmt.Println("Que:")
+	for _, q := range s.Que {
+		fmt.Print(q.ID, "")
+	}
+	fmt.Println()
+}
