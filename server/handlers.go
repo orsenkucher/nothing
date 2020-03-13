@@ -34,5 +34,4 @@ func (s *Server) GetQues(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Fprint(w, string(quesj))
 	}
-	s.ShowQue()
 }
