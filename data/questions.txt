@@ -16,19 +16,18 @@
 |7|If X=24 and P =16, what is X-P-A?|7|Each letter correspond to its number in the alphabet 
 |6|I am followed by 25 others and represent the number 1. What am I?|A|Alphabet has 26 letters
 |4|If I use a quarter of a dozen eggs, how many eggs do I have left?|9|Dozen is 12, quarter is 1/4
-|1|1000, 200, 40, _____ |8| 1000/5 = 200, 200/5 = 40
+|1|1000, 200, 40, _____ |8|1000/5 = 200, 200/5 = 40
 |2|The day before yesterday was Monday and the day after tomorrow is Friday. What is today?|Wednesday| Yesterday was Tuesday 
 |7|It occurs once in a minute, twice in a moment, but never in an hour.|m| It’s a letter 
 |3|An average person has how many birthdays in his entire life?|1| Every person has only one birthday - the day he was born.
-|4|I have one eye but still, I can’t see. Who I am?| needle<$>tornado<$>hurricane| It is needle or tornado
-|5|Name the number that is three more than one-fifth of one-tenth of one-half of 5,000.|53| This number equals to 3 + 5000/100
+|4|I have one eye but still, I can’t see. Who I am?|needle<$>tornado<$>hurricane| It is needle or tornado
 |6|Two people are standing back to back. They each walk away from each other for three feet. Then they both turn left and walk for another four feet, and then stop. Now, how many feet apart are they standing?|10<$>ten| a^2 + b^2 = c^2, a = 6, b = 8, c is your answer.
-|7|The number whose first digit is one-fourth of the last digit; the second digit is six times the first digit; and the third digit is the second digit plus three.|1694| first two digits are 1 and 6
+|3|The number whose first digit is one-fourth of the last digit; the second digit is six times the first digit; and the third digit is the second digit plus three.|1694| first two digits are 1 and 6
 |7|Skip me|skip|Literally skip ‘me’
 |7|ON/OFF|switch<$>power<$>power button| You use it to turn off/on appliances, light
 |4|5,5s,6,6s,7,8, ?|x|Iphone
 |7|Bill is 12 years old, and Professor Peterson is 42. In how many years will  Bill be half the age of the professor?|18<$>eighteen| 12 + x = (42 + x) / 2, x = ?
-|2|2G, 3G, ?(LTE)|lte<$>4g|4th Generation
+|2|2G, 3G, ?|lte<$>4g|4th Generation
 |4|3 wishes|genie|Spiritual creature mentioned in Ancient Arabian culture
 |6|The most famous lady|lady gaga<$>gaga|‘Pokerface’, ‘Paparazzi’
 |4|15 kg = ?/4 g|60 000<$>60000|1kg = 1000g
@@ -53,7 +52,6 @@
 |9|СО2 + 6Н2О + Qlight → С6Н12О6 + 6О2.|photosynthesis|process used by plants and other organisms to convert light energy into chemical energy
 |7|All i want for Christmas|is you|Mariah Carey
 |7|Chinese, English, Hindi, ?|spanish|Most Spoken Languages in the World
-|5|The bill with Andrew Jackson on it|20 dollars<$>20<$>20$| 20$ bill
 |5|The best-selling book of all time|bible|The word of God
 |7|The graph of quadratic equation|parabola| It is parabola
 |3|Count 9 with fingers. What finger remain?|thumb| The biggest finger
