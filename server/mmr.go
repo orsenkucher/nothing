@@ -8,7 +8,7 @@ var max int = 10000
 var min int = 0
 var maxUserDif float64 = 1500
 var maxQuestionDif float64 = 100
-var secNorm float64 = 40
+var secNorm float64 = 60
 var smoothness float64 = 4
 var winRate float64 = 0.6
 
