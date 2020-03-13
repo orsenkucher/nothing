@@ -209,5 +209,6 @@
 |5|Gas, liquid, ?|solid| State of matter
 |4|What percent of a day is 720 minutes ?|50<$>50%<$>fifty<$>50 percents| 720/(24*60) = ?
 |8|sinx/n|six<$>6| Against all math rules, reduce fraction
-|9|Alone I am 24th, with a friend I am 20. What am I?|x| 24th in alphabet
+|9|Alone I am 24th, with a friend I am 20. What am I?|x|24th in alphabet
 |6|2B O N2B|shakespeare<$>to be or not to be|to bi o no to bi
+|8|Starts with an e, ends with an e and contain fust one letter|envelope|You should think more about letters we send
