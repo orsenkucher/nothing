@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"strconv"
 	"strings"
 
@@ -267,7 +268,7 @@ func (s *Server) UpdateData() {
 		}
 		var question Question
 		mmr, _ := strconv.Atoi(parts[1])
-		question.MMR = mmr * 1000
+		question.MMR = mmr*1000 + rand.Intn(200) - 50
 		question.Question = parts[2]
 		question.Explanation = parts[4]
 		question.Answers = parts[3]

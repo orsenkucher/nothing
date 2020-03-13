@@ -195,7 +195,6 @@
 |9|Man covers half of his journey by train at 60 km/hr, half of the remaining by bus at 30 km/hr and the rest by cycle at 10 km/hr. Find his average speed during the entire journey?|24| Take total distance = 120 km, Time taken by train = 60km/60km/hr = 1 hr. Find time taken by bus and cycle. Total distance / total time = average speed
 |5|The area of a circular base of Cylinder is 10 cm^2 and its hight is 15 cm. Then the volume of the cylinder is?|150| The formula for the volume of a cylinder is V=S*h, h = 15, S = 10 .
 |6|What carries Blood back to the Heart?|veins| Arteries or veins
-|5|Derivative of sinx?|cosx<$>cos| THE DERIVATIVE of sin x is another TRIGONOMETRIC FUNCTION.
 |3|What is 1/5 as a decimal?|0,2<$>0.2| Use calculator 
 |5|Warm is to Hot as Not so Good is to|worse|
 |7|Study of sound is called|acoustics| Those qualities of a room that, together, determine its character with respect to auditory effect
@@ -206,12 +205,11 @@
 |9|Penny has 5 children, 1st is January, 2nd kid February, 3rd is called march , 4th is April. What is the name of the 5th.|what|There is no question mark (?) at the end of the actual puzzle.
 |7|3,19, 51, ?|115|3 + 16 = 19, 19 + 32 = 51
 |9|In a box, there are four marbles of white color and five marbles of black color. Two marbles are chosen randomly. What is the probability that both are of the same color?|4/9| The probability to chose 2 white marbles is (4/9)*(3/8). The probability to chose 2 black marbles is (5/9)*(4/8). The total probability is the sum.
-|7|If a giraffe has two eyes, a monkey has two eyes, and an elephant has two eyes, how many eyes do we have?|4<$>four<$>4 eyes| Assuming there is only one writer and only one reader
+|7|If a giraffe has two eyes, a monkey has two eyes, and an elephant has two eyes, how many eyes do we have?|4<$>four<$>4 eyes|Assuming there is only one writer and only one reader
 |2|What is the probability of an impossible event?|null<$>zero<$>0| Probability exists on a scale from ? to 1, with ? being defined as impossible and 1 being defined as certain.
 |3|What element is found in all organic compounds?|carbon<$>c| Fourth most abundant element in the universe by mass after hydrogen, helium, and oxygen.
 |5|Gas, liquid, ?|solid| State of matter
 |4|What percent of a day is 720 minutes ?|50<$>50%<$>fifty<$>50 percents| 720/(24*60) = ?
 |8|sinx/n|six<$>6| Against all math rules, reduce fraction
 |9|Alone I am 24th, with a friend I am 20. What am I?|x| 24th in alphabet
-|7|What is the distance around a circle called|circumference| the ? would be the length of the circle if it were opened up and straightened out to a line segment.
 |6|2B O N2B|shakespeare<$>to be or not to be|to bi o no to bi
