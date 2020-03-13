@@ -29,7 +29,12 @@ func StartUp(db *gorm.DB) *Server {
 	server.DB.AutoMigrate(&Question{})
 	server.DB.AutoMigrate(&User{})
 	server.DB.AutoMigrate(&AnswerInf{})
-	server.DB.Find(&server.Questions)
+	var questions []Question
+	server.DB.Find(&questions)
+	server.Questions = make([]Question, len(questions))
+	for _, q := range questions {
+		server.Questions[q.ID-1] = q
+	}
 	server.Users = map[string]*User{}
 	var usersList []User
 	server.DB.Find(&usersList)
@@ -138,6 +143,7 @@ Give tree of question
 move left for bad ans and move right for good answer
 answer is bad if it took over 100 seconds
 */
+
 func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	ans := s.UsersAns(userid)
 	toSend := make([]Question, 0, 7)
@@ -253,7 +259,7 @@ func (s *Server) UpdateData() {
 		// if len(s.Questions) > 10 {
 		// 	break
 		// }
-		fmt.Println(line)
+		//fmt.Println(line)
 		parts := strings.Split(line, "|")
 		if len(parts) < 3 {
 			fmt.Println("PANIC ............ bad data", line)

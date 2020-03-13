@@ -42,13 +42,18 @@ func main() {
 	db := NewDB(key, cfg)
 	defer db.Close()
 
+	// s := server.StartUp(db)
+	// fmt.Scanln()
+	// d := dataChecker.DataChecker{Server: s}
+	// d.ShowUesrsAns("ef360dec-2fa0-4e42-a1d7-be1c74c80822")
+	// d.ShowQuestions()
+
 	StartServer(db)
+	log.Print("Server Exited Properly")
 }
 
 func StartServer(db *gorm.DB) {
 	s := server.StartUp(db)
-	//s.ClearBase()
-	//fmt.Println("cleared")
 
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
@@ -70,7 +75,6 @@ func StartServer(db *gorm.DB) {
 	if err := hsrv.Shutdown(ctx); err != nil {
 		log.Fatalf("Server Shutdown Failed:%+v", err)
 	}
-	log.Print("Server Exited Properly")
 }
 
 //NewDB is public
