@@ -148,7 +148,7 @@
 |3|How many different digits must I use to write the number 100?|2|The digits are 1 and 0
 |8|From head to tail 12 m, and from tail to head 0 m. What is this?|year| m - month
 |2|How much water is im am empty glass that is 20cm high and has a diameter of 2cm?|0<$>none| There is no water in empty glass
-|6|What is in the center of the earth?|a<$>letter a| Letter ?
+|6|What is in the center of the earth?|r<$>letter r|Letter ?
 |6|The total age of the father and son is 66 years. The age of the father is the age of the son, written from right to left. How old is the father?| 42<$>51<$>60| The son age is 24 or 15
 |8|You are sitting on a plane, a horse is in front of you, a boat is behind you.Where are you?|carousel|
 |2|What feeling is depicted by a human organ?|love| ❤️
