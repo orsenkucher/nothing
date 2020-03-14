@@ -54,9 +54,10 @@ class _HomeState extends State<Home> {
       //   _focusNode.unfocus();
       //   _focusNode.requestFocus();
       // context.bloc<RoutingBloc>().add(RoutingEvent.push(to: 'home'));
+
       context
           .bloc<RoutingBloc>() // TODO check it
-          .add(RoutingEvent.push(from: Routes.home, to: Routes.home));
+          .add(RoutingEvent.resume());
     });
     return Scaffold(
       body: Container(

@@ -50,6 +50,33 @@ void _lifecycle(LifecycleBloc lifecycle) {
   WidgetsBinding.instance.addObserver(observer);
 }
 
+class Navigatable extends StatelessWidget {
+  final Widget child;
+  const Navigatable(this.child);
+  @override
+  Widget build(BuildContext context) {
+    print("BUILDING NAVIGATABLE!Q");
+    return MultiBlocListener(
+      child: child,
+      listeners: [
+        BlocListener<RoutingBloc, RoutingState>(
+          listener: (context, state) => state.map(
+            push: (s) {
+              print('PUSHINGG');
+              return Navigator.pushNamed(context, s.route);
+            },
+            pop: (_) {
+              print('POPPINGGG');
+              return Navigator.pop(context);
+            },
+            resume: (_) => {},
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class App extends StatelessWidget with PortraitLock {
   final LifecycleBloc lifecycleBloc;
   const App(this.lifecycleBloc);
@@ -57,7 +84,7 @@ class App extends StatelessWidget with PortraitLock {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _repos(_blocs(_bindings(_listeners(Builder(
+    return _repos(_blocs(_bindings(Builder(
       builder: (context) => NothingScheme(
         child: MaterialApp(
           title: 'NOTHING 2',
@@ -66,14 +93,14 @@ class App extends StatelessWidget with PortraitLock {
           ),
           initialRoute: context.bloc<RoutingBloc>().initialState.route,
           routes: {
-            Routes.home: (_) => Home(),
-            Routes.history: (_) => HistoryList(),
+            Routes.home: (_) => Navigatable(Home()),
+            Routes.history: (_) => Navigatable(HistoryList()),
           }, // TODO wrap in navigatable widget
           color: NothingScheme.app,
           debugShowCheckedModeBanner: false,
         ),
       ),
-    )))));
+    ))));
   }
 
   Widget _repos(Widget child) {
