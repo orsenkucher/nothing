@@ -11,6 +11,7 @@ part 'bloc.freezed.dart';
 abstract class ValidationEvent with _$ValidationEvent {
   const factory ValidationEvent.focus(Question question) = _Focus;
   const factory ValidationEvent.check(String answer) = _Check;
+  // const factory ValidationEvent.lifecycle
 }
 
 @freezed

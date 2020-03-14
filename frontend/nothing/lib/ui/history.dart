@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
-import 'package:nothing/bloc/lifecycle/bloc.dart';
+import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/knob.dart';
 
@@ -11,8 +11,8 @@ class HistoryList extends StatelessWidget {
   static const String routeName = '/history';
   void _back(BuildContext context) {
     context // TODO do bloc screens management?
-        .bloc<LifecycleBloc>()
-        .add(LifecycleEvent.change(screen: 'home')); // TODO use RoutingBloC
+        .bloc<RoutingBloc>()
+        .add(RoutingEvent.change(screen: 'home')); // TODO use RoutingBloC
     Navigator.pop(context);
   }
 

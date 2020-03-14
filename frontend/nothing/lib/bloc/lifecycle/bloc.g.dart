@@ -25,11 +25,11 @@ _$_Just _$_$_JustFromJson(Map<String, dynamic> json) {
     log: (json['log'] as List)
         ?.map((e) => e == null
             ? null
-            : TrueLifecycleEvent.fromJson(e as Map<String, dynamic>))
+            : LifecycleEvent.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     current: json['current'] == null
         ? null
-        : TrueLifecycleEvent.fromJson(json['current'] as Map<String, dynamic>),
+        : LifecycleEvent.fromJson(json['current'] as Map<String, dynamic>),
   );
 }
 

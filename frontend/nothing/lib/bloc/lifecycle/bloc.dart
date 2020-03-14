@@ -1,39 +1,66 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:uuid/uuid.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'bloc.freezed.dart';
+part 'bloc.g.dart';
 
 @freezed
 abstract class LifecycleEvent with _$LifecycleEvent {
-  const factory LifecycleEvent.change({@required String screen}) = _Change;
   const factory LifecycleEvent.resume() = _Resume;
+  const factory LifecycleEvent.suspend() = _Suspend;
+
+  factory LifecycleEvent.fromJson(Map<String, dynamic> json) =>
+      _$LifecycleEventFromJson(json);
 }
 
 @freezed
 abstract class LifecycleState with _$LifecycleState {
-  const factory LifecycleState._({
-    @required String screen,
-    @required String salt,
-  }) = _LifecycleState;
+  const factory LifecycleState.just({
+    @required List<LifecycleEvent> log,
+    @required LifecycleEvent current,
+  }) = _Just;
 
-  factory LifecycleState.salted({@required String screen}) => LifecycleState._(
-        screen: screen,
-        salt: Uuid().v4(),
-      );
+  const factory LifecycleState.nothing() = _Nothing;
+
+  factory LifecycleState.fromJson(Map<String, dynamic> json) =>
+      _$LifecycleStateFromJson(json);
 }
 
-class LifecycleBloc extends Bloc<LifecycleEvent, LifecycleState> {
+class LifecycleBloc extends HydratedBloc<LifecycleEvent, LifecycleState> {
   @override
-  LifecycleState get initialState => LifecycleState.salted(screen: 'home');
+  LifecycleState get initialState =>
+      super.initialState ?? LifecycleState.nothing();
 
   @override
   Stream<LifecycleState> mapEventToState(LifecycleEvent event) async* {
-    yield LifecycleState.salted(
-        screen: event.when(
-      change: (s) => s,
-      resume: () => state.screen,
-    ));
+    final log = state.map(
+      just: (s) => [...s.log, event],
+      nothing: (_) => <LifecycleEvent>[],
+    );
+    yield LifecycleState.just(log: log, current: event);
+  }
+
+  @override
+  LifecycleState fromJson(Map<String, dynamic> json) {
+    try {
+      final history = LifecycleState.fromJson(json);
+      return history;
+    } catch (_) {
+      print('$this: fromJson error');
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic> toJson(LifecycleState state) {
+    try {
+      final json = state.toJson();
+      return json;
+    } catch (_) {
+      print('$this: toJson error');
+      return null;
+    }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nothing/bloc/lifecycle/bloc.dart';
+import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       //   _focusNode.unfocus();
       //   _focusNode.requestFocus();
-      context.bloc<LifecycleBloc>().add(LifecycleEvent.change(screen: 'home'));
+      context.bloc<RoutingBloc>().add(RoutingEvent.change(screen: 'home'));
     });
     return Scaffold(
       body: Container(
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
                       );
                     },
                   ),
-                  BlocListener<LifecycleBloc, LifecycleState>(
+                  BlocListener<RoutingBloc, RoutingState>(
                       listener: (context, state) {
                     print(state);
                     if (state.screen != 'home') return;

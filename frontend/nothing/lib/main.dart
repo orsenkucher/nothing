@@ -7,11 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/binding/binder.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
-import 'package:nothing/bloc/lifecycle/bloc.dart';
+import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/bloc/test.dart';
-import 'package:nothing/bloc/truelifecycle/bloc.dart';
+import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
@@ -26,7 +26,7 @@ void main() async {
   await _hydrateAsync();
   if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
   //ignore: close_sinks
-  final lifecycle = TrueLifecycleBloc();
+  final lifecycle = LifecycleBloc();
   _lifecycle(lifecycle);
   runApp(App(lifecycle));
 }
@@ -36,22 +36,22 @@ Future _hydrateAsync() async {
   BlocSupervisor.delegate = await NothingBlocDelegate.build();
 }
 
-void _lifecycle(TrueLifecycleBloc lifecycle) {
+void _lifecycle(LifecycleBloc lifecycle) {
   final observer = LifecycleEventHandler(
     suspendingCallBack: () async {
       print('lifecycle: suspending');
-      lifecycle.add(TrueLifecycleEvent.suspend());
+      lifecycle.add(LifecycleEvent.suspend());
     },
     resumeCallBack: () async {
       print('lifecycle: resuming');
-      lifecycle.add(TrueLifecycleEvent.resume());
+      lifecycle.add(LifecycleEvent.resume());
     },
   );
   WidgetsBinding.instance.addObserver(observer);
 }
 
 class App extends StatelessWidget with PortraitLock {
-  final TrueLifecycleBloc lifecycleBloc;
+  final LifecycleBloc lifecycleBloc;
   const App(this.lifecycleBloc);
 
   @override
@@ -141,11 +141,10 @@ class App extends StatelessWidget with PortraitLock {
           );
         },
       ),
-      BlocBinder<TrueLifecycleBloc, TrueLifecycleState, LifecycleBloc,
-          LifecycleState>(
+      BlocBinder<LifecycleBloc, LifecycleState, RoutingBloc, RoutingState>(
         direct: (context, state, bloc) => state.when(
             just: (_, e) => e.when(
-                resume: () => bloc.add(LifecycleEvent.resume()),
+                resume: () => bloc.add(RoutingEvent.resume()),
                 suspend: () => {}),
             nothing: () => {}),
       ),
@@ -155,13 +154,13 @@ class App extends StatelessWidget with PortraitLock {
   Widget _blocs(Widget child) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<TestBloc>(create: (_) => TestBloc()),
-        BlocProvider<IdBloc>(create: (_) => IdBloc()),
+        BlocProvider<LifecycleBloc>(create: (_) => lifecycleBloc),
         BlocProvider<ValidationBloc>(create: (_) => ValidationBloc()),
         BlocProvider<SummaryBloc>(create: (_) => SummaryBloc()),
         BlocProvider<HistoryBloc>(create: (_) => HistoryBloc()),
-        BlocProvider<LifecycleBloc>(create: (_) => LifecycleBloc()),
-        BlocProvider<TrueLifecycleBloc>(create: (_) => lifecycleBloc),
+        BlocProvider<RoutingBloc>(create: (_) => RoutingBloc()),
+        BlocProvider<TestBloc>(create: (_) => TestBloc()),
+        BlocProvider<IdBloc>(create: (_) => IdBloc()),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             idBloc: context.bloc<IdBloc>(),
