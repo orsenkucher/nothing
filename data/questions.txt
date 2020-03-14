@@ -19,7 +19,7 @@
 |1|1000, 200, 40, _____ |8|1000/5 = 200, 200/5 = 40
 |2|The day before yesterday was Monday and the day after tomorrow is Friday. What is today?|Wednesday| Yesterday was Tuesday 
 |7|It occurs once in a minute, twice in a moment, but never in an hour.|m| It’s a letter 
-|3|An average person has how many birthdays in his entire life?|1| Every person has only one birthday - the day he was born.
+|3|An average person has how many birthdays in his entire life?|1|Every person has only one birthday - the day he was born.
 |4|I have one eye but still, I can’t see. Who I am?|needle<$>tornado<$>hurricane| It is needle or tornado
 |6|Two people are standing back to back. They each walk away from each other for three feet. Then they both turn left and walk for another four feet, and then stop. Now, how many feet apart are they standing?|10<$>ten| a^2 + b^2 = c^2, a = 6, b = 8, c is your answer.
 |3|The number whose first digit is one-fourth of the last digit; the second digit is six times the first digit; and the third digit is the second digit plus three.|1694| first two digits are 1 and 6
@@ -54,7 +54,6 @@
 |7|Chinese, English, Hindi, ?|spanish|Most Spoken Languages in the World
 |5|The best-selling book of all time|bible|The word of God
 |7|The graph of quadratic equation|parabola| It is parabola
-|3|Count 9 with fingers. What finger remain?|thumb| The biggest finger
 |4|(The tech company) & (River)|amazon| Jeff Bezos
 |1|Bows + ball|bowling|Bowl?ng
 |1|Oscar of science|nobel prize<$>nobel| Awarded each year, one in each of the following categories: literature, physics, chemistry, peace, economics, and physiology & medicine.
@@ -71,7 +70,6 @@
 |3|Orange - yellow = ?|red| Red + yellow = orange 
 |1|Who is the president of USA?|Trump| Current president of USA
 |7|Love is|Gum| Designed in order to be chewed without being swallowed.
-|8|How many times can you fold a a4 paper|7| Try it yourself 
 |7|James Bond|007|Bond is known by his code number
 |1|Black|white|Opposite
 |0|One two ...  |three<$>3|Obvious sequence
@@ -207,8 +205,13 @@
 |2|What is the probability of an impossible event?|null<$>zero<$>0| Probability exists on a scale from ? to 1, with ? being defined as impossible and 1 being defined as certain.
 |3|What element is found in all organic compounds?|carbon<$>c| Fourth most abundant element in the universe by mass after hydrogen, helium, and oxygen.
 |5|Gas, liquid, ?|solid| State of matter
-|4|What percent of a day is 720 minutes ?|50<$>50%<$>fifty<$>50 percents| 720/(24*60) = ?
+|4|What percent of a day is 720 minutes ?|50<$>50%<$>fifty<$>50 percents|720/(24*60) = ?
 |8|sinx/n|six<$>6| Against all math rules, reduce fraction
 |9|Alone I am 24th, with a friend I am 20. What am I?|x|24th in alphabet
 |6|2B O N2B|shakespeare<$>to be or not to be|to bi o no to bi
-|8|Starts with an e, ends with an e and contain fust one letter|envelope|You should think more about letters we send
+|8|Starts with an e, ends with an e and contain just one letter|envelope|You should think more about letters we send
+|4|4 6 9 6 14 6 _|19|Every second is 6, others are 4+5 -> 9+5 -> 14+5 -> ?
+|3|Water is to a pipe as ? is to a wire|electricity
+|6|7 10 16 28 52 _|100|
+|7|3 9 81 15 21 71 _ 33 61|27|81-10->71-10->61 9+12->21+12->33 3+12->15+12->27
+|4|7 12 19 _ 39 52|28|+5 +7 +9 + 11 + 13 ans:28
