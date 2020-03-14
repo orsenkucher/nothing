@@ -113,7 +113,7 @@ class App extends StatelessWidget with PortraitLock {
             just: (just) => just.maybeWhen(
               correct: (question, tries, duration) => bloc.add(
                 FeedEvent.moveNext(
-                  duration.inSeconds > 90 ? MoveDir.left() : MoveDir.right(),
+                  duration.inSeconds > 60 ? MoveDir.left() : MoveDir.right(),
                 ),
               ),
               orElse: () {},
@@ -159,7 +159,7 @@ class _LifeCycle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addObserver(
-      new LifecycleEventHandler(
+      LifecycleEventHandler(
           resumeCallBack: () async =>
               context.bloc<LifecycleBloc>().add(LifecycleEvent.resume())),
     );

@@ -969,3 +969,72 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 abstract class _Nothing implements ValidationState {
   const factory _Nothing() = _$_Nothing;
 }
+
+mixin _$TimePoints {
+  List<DateTime> get points;
+
+  TimePoints copyWith({List<DateTime> points});
+}
+
+class _$TimePointsTearOff {
+  const _$TimePointsTearOff();
+
+  _TimePoints call(List<DateTime> points) {
+    return _TimePoints(
+      points,
+    );
+  }
+}
+
+const $TimePoints = _$TimePointsTearOff();
+
+class _$_TimePoints with DiagnosticableTreeMixin implements _TimePoints {
+  const _$_TimePoints(this.points) : assert(points != null);
+
+  @override
+  final List<DateTime> points;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'TimePoints(points: $points)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TimePoints'))
+      ..add(DiagnosticsProperty('points', points));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _TimePoints &&
+            (identical(other.points, points) ||
+                const DeepCollectionEquality().equals(other.points, points)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(points);
+
+  @override
+  _$_TimePoints copyWith({
+    Object points = freezed,
+  }) {
+    return _$_TimePoints(
+      points == freezed ? this.points : points as List<DateTime>,
+    );
+  }
+}
+
+abstract class _TimePoints implements TimePoints {
+  const factory _TimePoints(List<DateTime> points) = _$_TimePoints;
+
+  @override
+  List<DateTime> get points;
+
+  @override
+  _TimePoints copyWith({List<DateTime> points});
+}

@@ -30,189 +30,72 @@ abstract class _ValidationState with _$_ValidationState {
     List<String> tries,
     TimePoints timePoints,
   ) = _Neutral;
-
-  // Вот бы задать что за nothing может идти только neutral
-  //
-  // Маркиро, [09.03.20 22:57]
-  // Шо метро во франции в компайл тайме проверяет кучу кейсов на ошибки
-  // Потому что там нельзя открыть дверь два раза, ибо открытый тип двери не открывается
-  // Перескоки на станции невозможны
-  // const factory ValidationState.nothing() = _Nothing;
 }
 
-// const factory ValidationState.correct(
-//   Question question,
-//   List<String> tries,
-//   Duration duration,
-// ) = _Correct;
-// const factory ValidationState.wrong(
-//   Question question,
-//   List<String> tries,
-//   List<DateTime> timePoints,
-// ) = _Wrong;
-// const factory ValidationState.neutral(
-//   Question question,
-//   List<String> tries,
-//   List<DateTime> timePoints,
-// ) = _Neutral;
-
-// Вот бы задать что за nothing может идти только neutral
-//
-// Маркиро, [09.03.20 22:57]
-// Шо метро во франции в компайл тайме проверяет кучу кейсов на ошибки
-// Потому что там нельзя открыть дверь два раза, ибо открытый тип двери не открывается
-// Перескоки на станции невозможны
 @freezed
 abstract class ValidationState with _$ValidationState {
   const factory ValidationState.just(_ValidationState state) = _Just;
   const factory ValidationState.nothing() = _Nothing;
 }
 
-class TimePoints {
-  final List<DateTime> _points = List<DateTime>();
-  void add(DateTime point) {
-    _points.add(point);
-  }
+@freezed
+abstract class TimePoints with _$TimePoints {
+  const factory TimePoints(List<DateTime> points) = _TimePoints;
+  static TimePoints empty() => TimePoints([]);
+}
 
+extension $_TimePoints on TimePoints {
   Duration get duration {
-    // assert(_points.length % 2 == 0);
     var acc = Duration.zero;
-    for (var i = 0; i < _points.length; i += 2) {
-      acc += _points[i + 1].difference(_points[i]);
+    for (var i = 0; i < this.points.length; i += 2) {
+      acc += this.points[i + 1].difference(this.points[i]);
     }
     return acc;
+  }
+
+  TimePoints add(DateTime point) {
+    return this.copyWith(points: [...this.points, point]);
   }
 }
 
 class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
-  // final FeedBloc feed;
-  // StreamSubscription _sub;
-
-  // ValidationBloc() {
-  //   //{@required this.feed}) {
-  //   _sub = listen(
-  //     (state) {
-  //       state.maybeWhen<Function>(
-  //         correct: (qid, tries, duration) => () {
-  //           // feed.add(
-  //           //   FeedEvent.moveNext(
-  //           //       duration.inSeconds > 90 ? MoveDir.left() : MoveDir.right()),
-  //           // );
-  //           // ==================
-  //           Future.delayed(const Duration(seconds: 3), () {
-  //             state.maybeMap(
-  //               correct: (_) => add(ValidationEvent.purge()),
-  //               orElse: () {},
-  //             );
-  //           });
-  //         },
-  //         orElse: () => () {},
-  //       )();
-  //     },
-  //   );
-  // }
-
-  // @override
-  // Future<void> close() async {
-  //   await _sub.cancel();
-  //   return super.close();
-  // }
-
   @override
-  ValidationState get initialState =>
-      // ValidationState.neutral(feed.state?.tree?.question?.id ?? -1, 0, DateTime.now());
-      // ValidationState.neutral(0, 0, DateTime.now());
-      // neutral();
-      // ValidationState.neutral(null, [], [DateTime.now()]);
-      ValidationState.nothing();
-
-  // ValidationState neutral([Question q, bool green = false]) =>
-  //     ValidationState.neutral(q, 0, DateTime.now(), green);
+  ValidationState get initialState => ValidationState.nothing();
 
   @override
   Stream<ValidationState> mapEventToState(ValidationEvent event) async* {
-    // Боже, это не фп, а какой-то бред))
     yield event.when(
       focus: (question) => ValidationState.just(
-        _ValidationState.neutral(
-            question, [], TimePoints()..add(DateTime.now())),
+        _ValidationState.neutral(question, [], TimePoints([DateTime.now()])),
       ),
-
-      // focus: (question) => neutral(question, true),
-      // focus: (question) => state.copyWith(question: question),
-      // purge: () => state.maybeMap(
-      //       correct: (s) => neutral(s.question),
-      //       orElse: () => state,
-      //     ),
-      // purge: () => ValidationState.neutral(
-      //     state.question,
-      //     state.tries,
-      //     state.map(
-      //         correct: (_) => DateTime.now(),
-      //         neutral: (s) => s.time,
-      //         wrong: (s) => s.time)), //neutral(state.question),
-      // check: (ans) => (state.question?.splitted
-      //             ?.map((s) => s.toLowerCase())
-      //             ?.contains(ans.toLowerCase()) ??
-      //         false)
-      //     ? ValidationState.correct(
-      //         state.question,
-      //         state.tries,
-      //         DateTime.now().difference(state.when(
-      //           correct: (_, __, ____) => DateTime.now(),
-      //           neutral: (_, __, t, ____) => t,
-      //           wrong: (_, __, t) => t,
-      //         )))
-      //     : ValidationState.wrong(
-      //         state.question,
-      //         state.tries + 1,
-      //         state.when(
-      //           correct: (_, __, ___) => DateTime.now(),
-      //           neutral: (_, __, t, ____) => t,
-      //           wrong: (_, __, t) => t,
       check: (answer) {
-        // if (state.maybeWhen(nothing: () => true, orElse: () => false)) return;
-        // check(ValidationState){
-
-        // }
-        // state.maybeWhen( nothing: (_),orElse: ());
-
         return state.when<ValidationState>(
-            nothing: () => ValidationState.nothing(),
-            just: (state) {
-// (state.question?.splitted
-              //             ?.map((s) => s.toLowerCase())
-              //             ?.contains(ans.toLowerCase())
-              final question = state.question;
-              final tries = state.tries;
-              final next = state.question.splitted
-                      .map((s) => s.toLowerCase())
-                      .contains(answer.toLowerCase())
-                  ? _ValidationState.correct(
-                      question,
-                      tries,
-                      state.map(
-                        correct: (c) => c.duration, // should never invoke
-                        neutral: (n) => n.timePoints.duration,
-                        wrong: (w) =>
-                            w.timePoints.duration, // should never invoke
-                      ))
-                  : _ValidationState.wrong(
-                      question,
-                      [...tries, answer],
-                      state.map(
-                          correct: (c) => TimePoints(), // should never invoke
-                          wrong: (w) => w.timePoints,
-                          neutral: (n) => n.timePoints), // should never invoke
-                    );
-              return ValidationState.just(next);
-            }
-            // orElse: () {
-            //   // if (state is _Nothing) return;
-            //   // state.
-            //   return ValidationState.nothing();
-            // },
-            );
+          nothing: () => ValidationState.nothing(),
+          just: (state) {
+            final question = state.question;
+            final tries = state.tries;
+            final next = state.question.splitted
+                    .map((s) => s.toLowerCase())
+                    .contains(answer.toLowerCase())
+                ? _ValidationState.correct(
+                    question,
+                    tries,
+                    state.map(
+                      correct: (c) => throw UnimplementedError(),
+                      neutral: (n) => n.timePoints.add(DateTime.now()).duration,
+                      wrong: (w) => w.timePoints.add(DateTime.now()).duration,
+                    ))
+                : _ValidationState.wrong(
+                    question,
+                    [...tries, answer],
+                    state.map(
+                      correct: (c) => throw UnimplementedError(),
+                      wrong: (w) => w.timePoints,
+                      neutral: (n) => n.timePoints,
+                    ));
+            return ValidationState.just(next);
+          },
+        );
       },
     );
   }
