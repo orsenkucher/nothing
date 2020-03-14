@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -14,6 +15,7 @@ var winRate float64 = 0.6
 
 func ChangeRate(q *Question, u *User, a *AnswerInf) {
 	ud, qd := CountRateChange(q, u, a)
+	fmt.Print("u.mmr: ", u.MMR, " qmmr: ", q.MMR, " change to u.mmr:")
 	q.MMR += int(qd)
 	u.MMR += int(ud)
 	if u.MMR > max {
@@ -28,6 +30,7 @@ func ChangeRate(q *Question, u *User, a *AnswerInf) {
 	if q.MMR < min {
 		q.MMR = min
 	}
+	fmt.Println(u.MMR, " q.mmr: ", q.MMR)
 }
 
 func CountRateChange(q *Question, u *User, a *AnswerInf) (ud float64, qd float64) {
