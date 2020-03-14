@@ -19,11 +19,13 @@ class LifecycleEventHandler extends WidgetsBindingObserver {
         }
         break;
       case AppLifecycleState.inactive:
-      case AppLifecycleState.paused:
-      case AppLifecycleState.detached:
         if (suspendingCallBack != null) {
           await suspendingCallBack();
         }
+        break;
+      case AppLifecycleState.paused:
+        break;
+      case AppLifecycleState.detached:
         break;
     }
   }

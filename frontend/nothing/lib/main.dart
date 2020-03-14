@@ -11,6 +11,7 @@ import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/bloc/test.dart';
+import 'package:nothing/bloc/truelifecycle/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
@@ -24,7 +25,20 @@ import 'package:nothing/ui/home.dart';
 void main() async {
   await _hydrateAsync();
   if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
-  runApp(const App());
+  final trueLifecycle = TrueLifecycleBloc();
+  final observer = LifecycleEventHandler(
+    suspendingCallBack: () async {
+      print('2suspending');
+      trueLifecycle.add(TrueLifecycleEvent.suspend());
+    },
+    resumeCallBack: () async {
+      print('2resuming');
+      trueLifecycle.add(TrueLifecycleEvent.resume());
+    },
+  );
+  WidgetsBinding.instance.addObserver(observer);
+  runApp(App(trueLifecycle));
+  // trueLifecycle.close();
 }
 
 Future _hydrateAsync() async {
@@ -33,11 +47,13 @@ Future _hydrateAsync() async {
 }
 
 class App extends StatelessWidget with PortraitLock {
-  const App();
+  final TrueLifecycleBloc lifecycleBloc;
+  const App(this.lifecycleBloc);
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _repos(_blocs(_bindings(_LifeCycle(
+    return _repos(_blocs(_bindings(
       NothingScheme(
         child: MaterialApp(
           title: 'NOTHING 2',
@@ -53,7 +69,7 @@ class App extends StatelessWidget with PortraitLock {
           debugShowCheckedModeBanner: false,
         ),
       ),
-    ))));
+    )));
   }
 
   Widget _repos(Widget child) {
@@ -121,7 +137,18 @@ class App extends StatelessWidget with PortraitLock {
             orElse: () {},
           );
         },
-      )
+      ),
+      BlocBinder<TrueLifecycleBloc, TrueLifecycleState, LifecycleBloc,
+          LifecycleState>(
+        direct: (context, state, bloc) => state.when(
+            just: (_, e) => e.when(
+                resume: () => bloc.add(LifecycleEvent.resume()),
+                suspend: () => {
+                      print(
+                          "****suspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspend")
+                    }),
+            nothing: () => {}),
+      ),
     ]);
   }
 
@@ -134,6 +161,7 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<SummaryBloc>(create: (_) => SummaryBloc()),
         BlocProvider<HistoryBloc>(create: (_) => HistoryBloc()),
         BlocProvider<LifecycleBloc>(create: (_) => LifecycleBloc()),
+        BlocProvider<TrueLifecycleBloc>(create: (_) => lifecycleBloc),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             idBloc: context.bloc<IdBloc>(),
@@ -153,17 +181,23 @@ class App extends StatelessWidget with PortraitLock {
   }
 }
 
-class _LifeCycle extends StatelessWidget {
-  final Widget child;
-  const _LifeCycle(this.child);
-  @override
-  Widget build(BuildContext context) {
-    WidgetsBinding.instance.addObserver(
-      LifecycleEventHandler(
-          resumeCallBack: () async =>
-              context.bloc<LifecycleBloc>().add(LifecycleEvent.resume())),
-    );
-    context.bloc<LifecycleBloc>().add(LifecycleEvent.resume());
-    return child;
-  }
-}
+// class _LifeCycle extends StatelessWidget {
+//   final Widget child;
+//   const _LifeCycle(this.child);
+//   @override
+//   Widget build(BuildContext context) {
+//     final observer = LifecycleEventHandler(
+//       suspendingCallBack: () async {
+//         print('suspending!!!!!!!!!!');
+//       },
+//       resumeCallBack: () async {
+//         print('resuming!!!!!!!!!!');
+//         context.bloc<LifecycleBloc>().add(LifecycleEvent.resume());
+//       },
+//     );
+//     WidgetsBinding.instance.removeObserver(observer);
+//     WidgetsBinding.instance.addObserver(observer);
+//     context.bloc<LifecycleBloc>().add(LifecycleEvent.resume());
+//     return child;
+//   }
+// }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-import 'package:nothing/model/textmodel.dart';
+import 'package:nothing/model/text.dart';
 
 // TODO omg this colors
 // TODO green ans on stratup bug

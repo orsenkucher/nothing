@@ -5,7 +5,7 @@ import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-import 'package:nothing/model/textmodel.dart';
+import 'package:nothing/model/text.dart';
 import 'package:nothing/ui/game.dart';
 import 'package:scoped_model/scoped_model.dart';
 
