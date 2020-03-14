@@ -25,25 +25,29 @@ import 'package:nothing/ui/home.dart';
 void main() async {
   await _hydrateAsync();
   if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
-  final trueLifecycle = TrueLifecycleBloc();
-  final observer = LifecycleEventHandler(
-    suspendingCallBack: () async {
-      print('2suspending');
-      trueLifecycle.add(TrueLifecycleEvent.suspend());
-    },
-    resumeCallBack: () async {
-      print('2resuming');
-      trueLifecycle.add(TrueLifecycleEvent.resume());
-    },
-  );
-  WidgetsBinding.instance.addObserver(observer);
-  runApp(App(trueLifecycle));
-  // trueLifecycle.close();
+  //ignore: close_sinks
+  final lifecycle = TrueLifecycleBloc();
+  _lifecycle(lifecycle);
+  runApp(App(lifecycle));
 }
 
 Future _hydrateAsync() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = await NothingBlocDelegate.build();
+}
+
+void _lifecycle(TrueLifecycleBloc lifecycle) {
+  final observer = LifecycleEventHandler(
+    suspendingCallBack: () async {
+      print('lifecycle: suspending');
+      lifecycle.add(TrueLifecycleEvent.suspend());
+    },
+    resumeCallBack: () async {
+      print('lifecycle: resuming');
+      lifecycle.add(TrueLifecycleEvent.resume());
+    },
+  );
+  WidgetsBinding.instance.addObserver(observer);
 }
 
 class App extends StatelessWidget with PortraitLock {
@@ -79,7 +83,6 @@ class App extends StatelessWidget with PortraitLock {
     ); // CloudQuestionsRepo|LocalQuestionsRepo
   }
 
-// TODO: Плохо ли что это в мейне?
   Widget _bindings(Widget child) {
     return MultiBlocBinder(child: child, binders: [
       BlocBinder<ValidationBloc, ValidationState, SummaryBloc, SummaryState>(
@@ -143,10 +146,7 @@ class App extends StatelessWidget with PortraitLock {
         direct: (context, state, bloc) => state.when(
             just: (_, e) => e.when(
                 resume: () => bloc.add(LifecycleEvent.resume()),
-                suspend: () => {
-                      print(
-                          "****suspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspendsuspend")
-                    }),
+                suspend: () => {}),
             nothing: () => {}),
       ),
     ]);
@@ -180,24 +180,3 @@ class App extends StatelessWidget with PortraitLock {
     );
   }
 }
-
-// class _LifeCycle extends StatelessWidget {
-//   final Widget child;
-//   const _LifeCycle(this.child);
-//   @override
-//   Widget build(BuildContext context) {
-//     final observer = LifecycleEventHandler(
-//       suspendingCallBack: () async {
-//         print('suspending!!!!!!!!!!');
-//       },
-//       resumeCallBack: () async {
-//         print('resuming!!!!!!!!!!');
-//         context.bloc<LifecycleBloc>().add(LifecycleEvent.resume());
-//       },
-//     );
-//     WidgetsBinding.instance.removeObserver(observer);
-//     WidgetsBinding.instance.addObserver(observer);
-//     context.bloc<LifecycleBloc>().add(LifecycleEvent.resume());
-//     return child;
-//   }
-// }
