@@ -28,10 +28,12 @@ class Game extends StatelessWidget {
                 children: [
                   _makeKnob(Icons.add_shopping_cart),
                   _makeKnob(Icons.history, () {
-                    context
-                        .bloc<RoutingBloc>()
-                        .add(RoutingEvent.change(screen: 'history'));
-                    Navigator.pushNamed(context, '/history');
+                    // context
+                    //     .bloc<RoutingBloc>()
+                    //     .add(RoutingEvent.push(to: 'history'));
+                    // Navigator.pushNamed(context, '/history');
+                    context.bloc<RoutingBloc>().add(RoutingEvent.push(
+                        from: Routes.home, to: Routes.history));
                   }),
                 ],
               ),

@@ -57,23 +57,23 @@ class App extends StatelessWidget with PortraitLock {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _repos(_blocs(_bindings(
-      NothingScheme(
+    return _repos(_blocs(_bindings(_listeners(Builder(
+      builder: (context) => NothingScheme(
         child: MaterialApp(
           title: 'NOTHING 2',
           theme: ThemeData(
             fontFamily: 'Gilroy',
           ),
-          initialRoute: Home.routeName,
+          initialRoute: context.bloc<RoutingBloc>().initialState.route,
           routes: {
-            Home.routeName: (_) => Home(),
-            HistoryList.routeName: (_) => HistoryList(),
-          },
+            Routes.home: (_) => Home(),
+            Routes.history: (_) => HistoryList(),
+          }, // TODO wrap in navigatable widget
           color: NothingScheme.app,
           debugShowCheckedModeBanner: false,
         ),
       ),
-    )));
+    )))));
   }
 
   Widget _repos(Widget child) {
@@ -81,6 +81,21 @@ class App extends StatelessWidget with PortraitLock {
       child: child,
       create: (context) => CloudQuestionsRepo(),
     ); // CloudQuestionsRepo|LocalQuestionsRepo
+  }
+
+  Widget _listeners(Widget child) {
+    return MultiBlocListener(
+      child: child,
+      listeners: [
+        BlocListener<RoutingBloc, RoutingState>(
+          listener: (context, state) => state.map(
+            push: (s) => Navigator.pushNamed(context, s.route),
+            pop: (_) => Navigator.pop(context),
+            resume: (_) => {},
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _bindings(Widget child) {

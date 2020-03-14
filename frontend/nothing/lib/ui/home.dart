@@ -10,7 +10,6 @@ import 'package:nothing/ui/game.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Home extends StatefulWidget {
-  static const String routeName = '/';
   @override
   _HomeState createState() => _HomeState();
 }
@@ -54,7 +53,10 @@ class _HomeState extends State<Home> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       //   _focusNode.unfocus();
       //   _focusNode.requestFocus();
-      context.bloc<RoutingBloc>().add(RoutingEvent.change(screen: 'home'));
+      // context.bloc<RoutingBloc>().add(RoutingEvent.push(to: 'home'));
+      context
+          .bloc<RoutingBloc>() // TODO check it
+          .add(RoutingEvent.push(from: Routes.home, to: Routes.home));
     });
     return Scaffold(
       body: Container(
@@ -85,7 +87,7 @@ class _HomeState extends State<Home> {
                   BlocListener<RoutingBloc, RoutingState>(
                       listener: (context, state) {
                     print(state);
-                    if (state.screen != 'home') return;
+                    if (state.route != Routes.home) return;
                     print('RESUMING *2** *** *** ***');
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       _focusNode.unfocus();

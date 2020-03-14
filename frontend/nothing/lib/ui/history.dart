@@ -8,12 +8,12 @@ import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/knob.dart';
 
 class HistoryList extends StatelessWidget {
-  static const String routeName = '/history';
   void _back(BuildContext context) {
-    context // TODO do bloc screens management?
-        .bloc<RoutingBloc>()
-        .add(RoutingEvent.change(screen: 'home')); // TODO use RoutingBloC
-    Navigator.pop(context);
+    // context // TODO do bloc screens management?
+    //     .bloc<RoutingBloc>()
+    //     .add(RoutingEvent.push(to: 'home')); // TODO use RoutingBloC
+    // Navigator.pop(context);
+    context.bloc<RoutingBloc>().add(RoutingEvent.pop(from: Routes.history));
   }
 
   @override

@@ -10,27 +10,31 @@ part of 'bloc.dart';
 mixin _$RoutingEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result change(@required String screen),
+    @required Result push(@required String from, @required String to),
     @required Result resume(),
+    @required Result pop(@required String from),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result change(@required String screen),
+    Result push(@required String from, @required String to),
     Result resume(),
+    Result pop(@required String from),
     @required Result orElse(),
   });
 
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result change(_Change value),
+    @required Result push(_Push value),
     @required Result resume(_Resume value),
+    @required Result pop(_Pop value),
   });
 
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result change(_Change value),
+    Result push(_Push value),
     Result resume(_Resume value),
+    Result pop(_Pop value),
     @required Result orElse(),
   });
 }
@@ -38,80 +42,101 @@ mixin _$RoutingEvent {
 class _$RoutingEventTearOff {
   const _$RoutingEventTearOff();
 
-  _Change change({@required String screen}) {
-    return _Change(
-      screen: screen,
+  _Push push({@required String from, @required String to}) {
+    return _Push(
+      from: from,
+      to: to,
     );
   }
 
   _Resume resume() {
     return const _Resume();
   }
+
+  _Pop pop({@required String from}) {
+    return _Pop(
+      from: from,
+    );
+  }
 }
 
 const $RoutingEvent = _$RoutingEventTearOff();
 
-class _$_Change with DiagnosticableTreeMixin implements _Change {
-  const _$_Change({@required this.screen}) : assert(screen != null);
+class _$_Push with DiagnosticableTreeMixin implements _Push {
+  const _$_Push({@required this.from, @required this.to})
+      : assert(from != null),
+        assert(to != null);
 
   @override
-  final String screen;
+  final String from;
+  @override
+  final String to;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RoutingEvent.change(screen: $screen)';
+    return 'RoutingEvent.push(from: $from, to: $to)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'RoutingEvent.change'))
-      ..add(DiagnosticsProperty('screen', screen));
+      ..add(DiagnosticsProperty('type', 'RoutingEvent.push'))
+      ..add(DiagnosticsProperty('from', from))
+      ..add(DiagnosticsProperty('to', to));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Change &&
-            (identical(other.screen, screen) ||
-                const DeepCollectionEquality().equals(other.screen, screen)));
+        (other is _Push &&
+            (identical(other.from, from) ||
+                const DeepCollectionEquality().equals(other.from, from)) &&
+            (identical(other.to, to) ||
+                const DeepCollectionEquality().equals(other.to, to)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(screen);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(from) ^
+      const DeepCollectionEquality().hash(to);
 
   @override
-  _$_Change copyWith({
-    Object screen = freezed,
+  _$_Push copyWith({
+    Object from = freezed,
+    Object to = freezed,
   }) {
-    return _$_Change(
-      screen: screen == freezed ? this.screen : screen as String,
+    return _$_Push(
+      from: from == freezed ? this.from : from as String,
+      to: to == freezed ? this.to : to as String,
     );
   }
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result change(@required String screen),
+    @required Result push(@required String from, @required String to),
     @required Result resume(),
+    @required Result pop(@required String from),
   }) {
-    assert(change != null);
+    assert(push != null);
     assert(resume != null);
-    return change(screen);
+    assert(pop != null);
+    return push(from, to);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result change(@required String screen),
+    Result push(@required String from, @required String to),
     Result resume(),
+    Result pop(@required String from),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (change != null) {
-      return change(screen);
+    if (push != null) {
+      return push(from, to);
     }
     return orElse();
   }
@@ -119,35 +144,39 @@ class _$_Change with DiagnosticableTreeMixin implements _Change {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result change(_Change value),
+    @required Result push(_Push value),
     @required Result resume(_Resume value),
+    @required Result pop(_Pop value),
   }) {
-    assert(change != null);
+    assert(push != null);
     assert(resume != null);
-    return change(this);
+    assert(pop != null);
+    return push(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result change(_Change value),
+    Result push(_Push value),
     Result resume(_Resume value),
+    Result pop(_Pop value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (change != null) {
-      return change(this);
+    if (push != null) {
+      return push(this);
     }
     return orElse();
   }
 }
 
-abstract class _Change implements RoutingEvent {
-  const factory _Change({@required String screen}) = _$_Change;
+abstract class _Push implements RoutingEvent {
+  const factory _Push({@required String from, @required String to}) = _$_Push;
 
-  String get screen;
+  String get from;
+  String get to;
 
-  _Change copyWith({String screen});
+  _Push copyWith({String from, String to});
 }
 
 class _$_Resume with DiagnosticableTreeMixin implements _Resume {
@@ -175,19 +204,22 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result change(@required String screen),
+    @required Result push(@required String from, @required String to),
     @required Result resume(),
+    @required Result pop(@required String from),
   }) {
-    assert(change != null);
+    assert(push != null);
     assert(resume != null);
+    assert(pop != null);
     return resume();
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result change(@required String screen),
+    Result push(@required String from, @required String to),
     Result resume(),
+    Result pop(@required String from),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -200,19 +232,22 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result change(_Change value),
+    @required Result push(_Push value),
     @required Result resume(_Resume value),
+    @required Result pop(_Pop value),
   }) {
-    assert(change != null);
+    assert(push != null);
     assert(resume != null);
+    assert(pop != null);
     return resume(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result change(_Change value),
+    Result push(_Push value),
     Result resume(_Resume value),
+    Result pop(_Pop value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -227,19 +262,165 @@ abstract class _Resume implements RoutingEvent {
   const factory _Resume() = _$_Resume;
 }
 
-mixin _$RoutingState {
-  String get screen;
-  String get salt;
+class _$_Pop with DiagnosticableTreeMixin implements _Pop {
+  const _$_Pop({@required this.from}) : assert(from != null);
 
-  RoutingState copyWith({String screen, String salt});
+  @override
+  final String from;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'RoutingEvent.pop(from: $from)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RoutingEvent.pop'))
+      ..add(DiagnosticsProperty('from', from));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Pop &&
+            (identical(other.from, from) ||
+                const DeepCollectionEquality().equals(other.from, from)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(from);
+
+  @override
+  _$_Pop copyWith({
+    Object from = freezed,
+  }) {
+    return _$_Pop(
+      from: from == freezed ? this.from : from as String,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result push(@required String from, @required String to),
+    @required Result resume(),
+    @required Result pop(@required String from),
+  }) {
+    assert(push != null);
+    assert(resume != null);
+    assert(pop != null);
+    return pop(from);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result push(@required String from, @required String to),
+    Result resume(),
+    Result pop(@required String from),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (pop != null) {
+      return pop(from);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result push(_Push value),
+    @required Result resume(_Resume value),
+    @required Result pop(_Pop value),
+  }) {
+    assert(push != null);
+    assert(resume != null);
+    assert(pop != null);
+    return pop(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result push(_Push value),
+    Result resume(_Resume value),
+    Result pop(_Pop value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (pop != null) {
+      return pop(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Pop implements RoutingEvent {
+  const factory _Pop({@required String from}) = _$_Pop;
+
+  String get from;
+
+  _Pop copyWith({String from});
+}
+
+mixin _$RoutingState {
+  List<String> get log;
+
+  RoutingState copyWith({List<String> log});
+
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result push(@required List<String> log),
+    @required Result pop(@required List<String> log),
+    @required Result resume(@required List<String> log, @required String salt),
+  });
+
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result push(@required List<String> log),
+    Result pop(@required List<String> log),
+    Result resume(@required List<String> log, @required String salt),
+    @required Result orElse(),
+  });
+
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result push(_PushState value),
+    @required Result pop(_PopState value),
+    @required Result resume(_ResumeState value),
+  });
+
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result push(_PushState value),
+    Result pop(_PopState value),
+    Result resume(_ResumeState value),
+    @required Result orElse(),
+  });
 }
 
 class _$RoutingStateTearOff {
   const _$RoutingStateTearOff();
 
-  _RoutingState _({@required String screen, @required String salt}) {
-    return _RoutingState(
-      screen: screen,
+  _PushState push({@required List<String> log}) {
+    return _PushState(
+      log: log,
+    );
+  }
+
+  _PopState pop({@required List<String> log}) {
+    return _PopState(
+      log: log,
+    );
+  }
+
+  _ResumeState resume({@required List<String> log, @required String salt}) {
+    return _ResumeState(
+      log: log,
       salt: salt,
     );
   }
@@ -247,36 +428,250 @@ class _$RoutingStateTearOff {
 
 const $RoutingState = _$RoutingStateTearOff();
 
-class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
-  const _$_RoutingState({@required this.screen, @required this.salt})
-      : assert(screen != null),
-        assert(salt != null);
+class _$_PushState with DiagnosticableTreeMixin implements _PushState {
+  const _$_PushState({@required this.log}) : assert(log != null);
 
   @override
-  final String screen;
-  @override
-  final String salt;
+  final List<String> log;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RoutingState._(screen: $screen, salt: $salt)';
+    return 'RoutingState.push(log: $log)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'RoutingState._'))
-      ..add(DiagnosticsProperty('screen', screen))
+      ..add(DiagnosticsProperty('type', 'RoutingState.push'))
+      ..add(DiagnosticsProperty('log', log));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _PushState &&
+            (identical(other.log, log) ||
+                const DeepCollectionEquality().equals(other.log, log)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(log);
+
+  @override
+  _$_PushState copyWith({
+    Object log = freezed,
+  }) {
+    return _$_PushState(
+      log: log == freezed ? this.log : log as List<String>,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result push(@required List<String> log),
+    @required Result pop(@required List<String> log),
+    @required Result resume(@required List<String> log, @required String salt),
+  }) {
+    assert(push != null);
+    assert(pop != null);
+    assert(resume != null);
+    return push(log);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result push(@required List<String> log),
+    Result pop(@required List<String> log),
+    Result resume(@required List<String> log, @required String salt),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (push != null) {
+      return push(log);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result push(_PushState value),
+    @required Result pop(_PopState value),
+    @required Result resume(_ResumeState value),
+  }) {
+    assert(push != null);
+    assert(pop != null);
+    assert(resume != null);
+    return push(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result push(_PushState value),
+    Result pop(_PopState value),
+    Result resume(_ResumeState value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (push != null) {
+      return push(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PushState implements RoutingState {
+  const factory _PushState({@required List<String> log}) = _$_PushState;
+
+  @override
+  List<String> get log;
+
+  @override
+  _PushState copyWith({List<String> log});
+}
+
+class _$_PopState with DiagnosticableTreeMixin implements _PopState {
+  const _$_PopState({@required this.log}) : assert(log != null);
+
+  @override
+  final List<String> log;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'RoutingState.pop(log: $log)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RoutingState.pop'))
+      ..add(DiagnosticsProperty('log', log));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _PopState &&
+            (identical(other.log, log) ||
+                const DeepCollectionEquality().equals(other.log, log)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(log);
+
+  @override
+  _$_PopState copyWith({
+    Object log = freezed,
+  }) {
+    return _$_PopState(
+      log: log == freezed ? this.log : log as List<String>,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result push(@required List<String> log),
+    @required Result pop(@required List<String> log),
+    @required Result resume(@required List<String> log, @required String salt),
+  }) {
+    assert(push != null);
+    assert(pop != null);
+    assert(resume != null);
+    return pop(log);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result push(@required List<String> log),
+    Result pop(@required List<String> log),
+    Result resume(@required List<String> log, @required String salt),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (pop != null) {
+      return pop(log);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result push(_PushState value),
+    @required Result pop(_PopState value),
+    @required Result resume(_ResumeState value),
+  }) {
+    assert(push != null);
+    assert(pop != null);
+    assert(resume != null);
+    return pop(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result push(_PushState value),
+    Result pop(_PopState value),
+    Result resume(_ResumeState value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (pop != null) {
+      return pop(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PopState implements RoutingState {
+  const factory _PopState({@required List<String> log}) = _$_PopState;
+
+  @override
+  List<String> get log;
+
+  @override
+  _PopState copyWith({List<String> log});
+}
+
+class _$_ResumeState with DiagnosticableTreeMixin implements _ResumeState {
+  const _$_ResumeState({@required this.log, @required this.salt})
+      : assert(log != null),
+        assert(salt != null);
+
+  @override
+  final List<String> log;
+  @override
+  final String salt;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'RoutingState.resume(log: $log, salt: $salt)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RoutingState.resume'))
+      ..add(DiagnosticsProperty('log', log))
       ..add(DiagnosticsProperty('salt', salt));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _RoutingState &&
-            (identical(other.screen, screen) ||
-                const DeepCollectionEquality().equals(other.screen, screen)) &&
+        (other is _ResumeState &&
+            (identical(other.log, log) ||
+                const DeepCollectionEquality().equals(other.log, log)) &&
             (identical(other.salt, salt) ||
                 const DeepCollectionEquality().equals(other.salt, salt)));
   }
@@ -284,30 +679,85 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(screen) ^
+      const DeepCollectionEquality().hash(log) ^
       const DeepCollectionEquality().hash(salt);
 
   @override
-  _$_RoutingState copyWith({
-    Object screen = freezed,
+  _$_ResumeState copyWith({
+    Object log = freezed,
     Object salt = freezed,
   }) {
-    return _$_RoutingState(
-      screen: screen == freezed ? this.screen : screen as String,
+    return _$_ResumeState(
+      log: log == freezed ? this.log : log as List<String>,
       salt: salt == freezed ? this.salt : salt as String,
     );
   }
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result push(@required List<String> log),
+    @required Result pop(@required List<String> log),
+    @required Result resume(@required List<String> log, @required String salt),
+  }) {
+    assert(push != null);
+    assert(pop != null);
+    assert(resume != null);
+    return resume(log, salt);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result push(@required List<String> log),
+    Result pop(@required List<String> log),
+    Result resume(@required List<String> log, @required String salt),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (resume != null) {
+      return resume(log, salt);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result push(_PushState value),
+    @required Result pop(_PopState value),
+    @required Result resume(_ResumeState value),
+  }) {
+    assert(push != null);
+    assert(pop != null);
+    assert(resume != null);
+    return resume(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result push(_PushState value),
+    Result pop(_PopState value),
+    Result resume(_ResumeState value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (resume != null) {
+      return resume(this);
+    }
+    return orElse();
+  }
 }
 
-abstract class _RoutingState implements RoutingState {
-  const factory _RoutingState(
-      {@required String screen, @required String salt}) = _$_RoutingState;
+abstract class _ResumeState implements RoutingState {
+  const factory _ResumeState(
+      {@required List<String> log, @required String salt}) = _$_ResumeState;
 
   @override
-  String get screen;
-  @override
+  List<String> get log;
   String get salt;
 
   @override
-  _RoutingState copyWith({String screen, String salt});
+  _ResumeState copyWith({List<String> log, String salt});
 }
