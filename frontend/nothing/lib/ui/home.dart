@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
                       listener: (context, state) {
                     print(state);
                     if (state.route != Routes.home()) return;
-                    print('RESUMING *2** *** *** ***');
+                    print('focusing keyboard');
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       _focusNode.unfocus();
                       _focusNode.requestFocus();

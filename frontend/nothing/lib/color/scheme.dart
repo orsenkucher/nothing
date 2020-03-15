@@ -34,6 +34,6 @@ class NothingScheme extends InheritedWidget {
   }
 }
 
-extension Shadow on Color {
+extension Shadow$ on Color {
   Color get tint => this.withAlpha(0x88);
 }

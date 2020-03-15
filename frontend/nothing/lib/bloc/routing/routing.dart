@@ -4,7 +4,7 @@ import 'package:nothing/bloc/routing/routes.dart';
 
 typedef Build = Widget Function(BuildContext);
 
-extension Routing on Map<Routes, Build> {
+extension Routing$ on Map<Routes, Build> {
   Map<String, Build> get routed => this.map(
         (route, build) => MapEntry(
           route.name,

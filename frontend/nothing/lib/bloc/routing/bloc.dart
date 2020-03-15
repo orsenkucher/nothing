@@ -37,7 +37,7 @@ abstract class RoutingState with _$RoutingState {
   }
 }
 
-extension $_RoutingState on RoutingState {
+extension RoutingState$ on RoutingState {
   Routes get route => this.log.last;
   String get name => this.route.name;
 }

@@ -42,10 +42,10 @@ abstract class ValidationState with _$ValidationState {
 @freezed
 abstract class TimePoints with _$TimePoints {
   const factory TimePoints(List<DateTime> points) = _TimePoints;
-  static TimePoints empty() => TimePoints([]);
+  factory TimePoints.empty() => TimePoints([]);
 }
 
-extension $_TimePoints on TimePoints {
+extension TimePoints$ on TimePoints {
   Duration get duration {
     var acc = Duration.zero;
     for (var i = 0; i < this.points.length; i += 2) {

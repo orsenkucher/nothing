@@ -78,7 +78,7 @@ class HistoryList extends StatelessWidget {
 
 enum Location { up, down }
 
-extension $Location on Location {
+extension Location$ on Location {
   static const align = {
     Location.up: Alignment.topCenter,
     Location.down: Alignment.bottomCenter,
