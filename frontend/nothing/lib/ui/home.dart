@@ -88,7 +88,8 @@ class _HomeState extends State<Home> {
                   BlocListener<RoutingBloc, RoutingState>(
                       listener: (context, state) {
                     print(state);
-                    if (state.route != Routes.home) return;
+                    if (state.route != Routes.home().name)
+                      return; // TODO Consider just Route
                     print('RESUMING *2** *** *** ***');
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       _focusNode.unfocus();

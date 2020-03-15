@@ -9,6 +9,7 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
+import 'package:nothing/bloc/routing/mapping.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/lifecycle/bloc.dart';
@@ -50,35 +51,6 @@ void _lifecycle(LifecycleBloc lifecycle) {
   WidgetsBinding.instance.addObserver(observer);
 }
 
-class Navigatable extends StatelessWidget {
-  final Widget child;
-  final String route;
-  const Navigatable({
-    @required this.route,
-    @required this.child,
-  });
-  @override
-  Widget build(BuildContext context) {
-    print("BUILDING NAVIGATABLE!Q");
-    return MultiBlocListener(
-      child: child,
-      listeners: [
-        BlocListener<RoutingBloc, RoutingState>(
-          listener: (context, state) => state.event.when(
-            push: (from, to) => {
-              if (from == route) Navigator.pushNamed(context, to),
-            },
-            pop: (from) => {
-              if (from == route) Navigator.pop(context),
-            },
-            resume: () => {},
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class App extends StatelessWidget with PortraitLock {
   final LifecycleBloc lifecycleBloc;
   const App(this.lifecycleBloc);
@@ -94,16 +66,7 @@ class App extends StatelessWidget with PortraitLock {
             fontFamily: 'Gilroy',
           ),
           initialRoute: context.bloc<RoutingBloc>().initialState.route,
-          routes: {
-            Routes.home: (_) => Navigatable(
-                  route: Routes.home,
-                  child: Home(),
-                ),
-            Routes.history: (_) => Navigatable(
-                  route: Routes.history,
-                  child: HistoryList(),
-                ),
-          }, // TODO wrap in navigatable widget
+          routes: Mapping.mapped,
           color: NothingScheme.app,
           debugShowCheckedModeBanner: false,
         ),

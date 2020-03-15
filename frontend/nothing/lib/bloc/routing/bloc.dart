@@ -44,7 +44,7 @@ extension $_RoutingState on RoutingState {
 class RoutingBloc extends Bloc<RoutingEvent, RoutingState> {
   @override
   RoutingState get initialState => RoutingState(
-        log: [Routes.home],
+        log: [Routes.home().name], // TODO consider List<Routes>
         event: RoutingEvent.resume(),
       );
 

@@ -33,7 +33,7 @@ class Game extends StatelessWidget {
                     //     .add(RoutingEvent.push(to: 'history'));
                     // Navigator.pushNamed(context, '/history');
                     context.bloc<RoutingBloc>().add(RoutingEvent.push(
-                        from: Routes.home, to: Routes.history));
+                        from: Routes.home().name, to: Routes.history().name));
                   }),
                 ],
               ),

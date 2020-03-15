@@ -13,7 +13,9 @@ class HistoryList extends StatelessWidget {
     //     .bloc<RoutingBloc>()
     //     .add(RoutingEvent.push(to: 'home')); // TODO use RoutingBloC
     // Navigator.pop(context);
-    context.bloc<RoutingBloc>().add(RoutingEvent.pop(from: Routes.history));
+    context
+        .bloc<RoutingBloc>()
+        .add(RoutingEvent.pop(from: Routes.history().name));
   }
 
   @override
