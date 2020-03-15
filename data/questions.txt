@@ -1,5 +1,5 @@
 ﻿|3|Hello|hi<$>hello|Be polite;)
-|2|Find area of square with diagonal = √2|1<$>one| The side of square is 1
+|2|Find area of square with diagonal = √2|1<$>one|The side of square is 1
 |6|M, V, E, M, J, S …|U|Planets of solar system
 |2|Car, bee, plane, butterfly, bird|car|Plane fly, bee fly, etc.
 |2|fork, spoon, hat, knife, cup|hat|cutlery

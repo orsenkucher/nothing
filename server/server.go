@@ -277,6 +277,7 @@ func LineToQuestion(line string) Question {
 	parts := strings.Split(line, "|")
 	if len(parts) < 3 {
 		fmt.Println("PANIC ............ bad data", line)
+		fmt.Println(line)
 	}
 	var question Question
 	mmr, _ := strconv.Atoi(parts[1])
