@@ -20,18 +20,21 @@ abstract class RoutingEvent with _$RoutingEvent {
 
 @freezed
 abstract class RoutingState with _$RoutingState {
-  const factory RoutingState.push({
-    @required List<String> log,
-  }) = _PushState;
-  const factory RoutingState.pop({
-    @required List<String> log,
-  }) = _PopState;
-  const factory RoutingState.resume({
+  const factory RoutingState._({
+    @required RoutingEvent event,
     @required List<String> log,
     @required String salt,
-  }) = _ResumeState;
-  factory RoutingState.resumeS({@required List<String> log}) =>
-      RoutingState.resume(log: log, salt: Uuid().v4());
+  }) = _RoutingState;
+  factory RoutingState({
+    @required RoutingEvent event,
+    @required List<String> log,
+  }) {
+    return RoutingState._(
+      event: event,
+      log: log,
+      salt: Uuid().v4(),
+    );
+  }
 }
 
 extension $_RoutingState on RoutingState {
@@ -40,14 +43,26 @@ extension $_RoutingState on RoutingState {
 
 class RoutingBloc extends Bloc<RoutingEvent, RoutingState> {
   @override
-  RoutingState get initialState => RoutingState.push(log: [Routes.home]);
+  RoutingState get initialState => RoutingState(
+        log: [Routes.home],
+        event: RoutingEvent.resume(),
+      );
 
   @override
   Stream<RoutingState> mapEventToState(RoutingEvent event) async* {
     yield event.when(
-      push: (from, to) => RoutingState.push(log: [...state.log, to]),
-      pop: (from) => RoutingState.pop(log: [...state.log]..removeLast()),
-      resume: () => RoutingState.resumeS(log: state.log),
+      push: (from, to) => RoutingState(
+        log: [...state.log, to],
+        event: event,
+      ),
+      pop: (from) => RoutingState(
+        log: [...state.log]..removeLast(),
+        event: event,
+      ),
+      resume: () => RoutingState(
+        log: state.log,
+        event: event,
+      ),
     );
   }
 }

@@ -52,7 +52,11 @@ void _lifecycle(LifecycleBloc lifecycle) {
 
 class Navigatable extends StatelessWidget {
   final Widget child;
-  const Navigatable(this.child);
+  final String route;
+  const Navigatable({
+    @required this.route,
+    @required this.child,
+  });
   @override
   Widget build(BuildContext context) {
     print("BUILDING NAVIGATABLE!Q");
@@ -60,16 +64,14 @@ class Navigatable extends StatelessWidget {
       child: child,
       listeners: [
         BlocListener<RoutingBloc, RoutingState>(
-          listener: (context, state) => state.map(
-            push: (s) {
-              print('PUSHINGG');
-              return Navigator.pushNamed(context, s.route);
+          listener: (context, state) => state.event.when(
+            push: (from, to) => {
+              if (from == route) Navigator.pushNamed(context, to),
             },
-            pop: (_) {
-              print('POPPINGGG');
-              return Navigator.pop(context);
+            pop: (from) => {
+              if (from == route) Navigator.pop(context),
             },
-            resume: (_) => {},
+            resume: () => {},
           ),
         ),
       ],
@@ -93,8 +95,14 @@ class App extends StatelessWidget with PortraitLock {
           ),
           initialRoute: context.bloc<RoutingBloc>().initialState.route,
           routes: {
-            Routes.home: (_) => Navigatable(Home()),
-            Routes.history: (_) => Navigatable(HistoryList()),
+            Routes.home: (_) => Navigatable(
+                  route: Routes.home,
+                  child: Home(),
+                ),
+            Routes.history: (_) => Navigatable(
+                  route: Routes.history,
+                  child: HistoryList(),
+                ),
           }, // TODO wrap in navigatable widget
           color: NothingScheme.app,
           debugShowCheckedModeBanner: false,
@@ -108,21 +116,6 @@ class App extends StatelessWidget with PortraitLock {
       child: child,
       create: (context) => CloudQuestionsRepo(),
     ); // CloudQuestionsRepo|LocalQuestionsRepo
-  }
-
-  Widget _listeners(Widget child) {
-    return MultiBlocListener(
-      child: child,
-      listeners: [
-        BlocListener<RoutingBloc, RoutingState>(
-          listener: (context, state) => state.map(
-            push: (s) => Navigator.pushNamed(context, s.route),
-            pop: (_) => Navigator.pop(context),
-            resume: (_) => {},
-          ),
-        ),
-      ],
-    );
   }
 
   Widget _bindings(Widget child) {
