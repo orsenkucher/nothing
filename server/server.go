@@ -60,7 +60,7 @@ func StartUp(db *gorm.DB) *Server {
 func (s *Server) UsersAns(id string) []AnswerInf {
 	user, ok := s.Users[id]
 	if !ok {
-		user = &User{ID: id, MMR: 5000}
+		user = &User{ID: id, MMR: start}
 		s.DB.Create(&user)
 		s.Users[id] = user
 		return []AnswerInf{}
@@ -84,6 +84,9 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 			continue
 		}
 		user := s.Users[userid]
+		if answer.QID == 1 {
+			s.Questions[0].MMR = user.MMR
+		}
 		question := &s.Questions[answer.QID-1]
 		ansinf := AnswerInf{AnswerStats: answer, UserID: userid}
 		s.DB.Where(AnswerInf{UserID: userid, AnswerStats: AnswerStats{QID: answer.QID}}).Assign(ansinf).FirstOrCreate(&ansinf)
@@ -270,6 +273,20 @@ func (s *Server) UpdateQuestion(question *Question) {
 	}
 }
 
+func LineToQuestion(line string) Question {
+	parts := strings.Split(line, "|")
+	if len(parts) < 3 {
+		fmt.Println("PANIC ............ bad data", line)
+	}
+	var question Question
+	mmr, _ := strconv.Atoi(parts[1])
+	question.MMR = mmr*1000 + rand.Intn(300) - 150
+	question.Question = parts[2]
+	question.Explanation = parts[4]
+	question.Answers = parts[3]
+	return question
+}
+
 func (s *Server) UpdateData() {
 	fmt.Println(0)
 	data, _ := ioutil.ReadFile("./data/questions.txt")
@@ -279,17 +296,7 @@ func (s *Server) UpdateData() {
 		// 	break
 		// }
 		//fmt.Println(line)
-		parts := strings.Split(line, "|")
-		if len(parts) < 3 {
-			fmt.Println("PANIC ............ bad data", line)
-			continue
-		}
-		var question Question
-		mmr, _ := strconv.Atoi(parts[1])
-		question.MMR = mmr*1000 + rand.Intn(300) - 150
-		question.Question = parts[2]
-		question.Explanation = parts[4]
-		question.Answers = parts[3]
+		question := LineToQuestion(line)
 		s.UpdateQuestion(&question)
 	}
 }

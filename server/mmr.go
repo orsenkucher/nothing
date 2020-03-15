@@ -5,6 +5,7 @@ import (
 	"math"
 )
 
+var start int = 5000
 var max int = 10000
 var min int = 0
 var maxUserDif float64 = 1500

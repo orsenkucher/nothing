@@ -1,4 +1,5 @@
-﻿|2|Find area of square with diagonal = √2|1<$>one| The side of square is 1
+﻿|3|Hello|hi<$>hello|Be polite;)
+|2|Find area of square with diagonal = √2|1<$>one| The side of square is 1
 |6|M, V, E, M, J, S …|U|Planets of solar system
 |2|Car, bee, plane, butterfly, bird|car|Plane fly, bee fly, etc.
 |2|fork, spoon, hat, knife, cup|hat|cutlery
@@ -162,14 +163,14 @@
 |6|What does not exist, but has a name?|nothing| This puzzle, it has a name
 |7|Which year lasts just one day?|new year<$>new| 1st day of January
 |2|One corner of the square table was cut off? How many corners has the table now?|5| One more corner
-|1|2+2х2=?|6| 2 + 4
+|1|2+2х2=?|6|2 + 4
 |1|When the chicken stands on one leg, it weighs 2 kg. How much will chicken weigh if she stands on two legs?|2<$>2kg<$>2 kg| The weigh won’t change 
 |3|You have only one match. In a dark room there is a kerosene lamp, a stove and a candle. What will you light first?|match| The ? itself ! As of you have to light first it in order to light up others.
 |4|What can you see with your eyes closed?|dreams<$>dream|
 |7|Which month is shorter than all?|may| July has 4 letters, December has 8 letters
 |2|What was “tomorrow” yesterday and tomorrow will be “yesterday”?|today| This day
 |6|What happens if you combine Microsoft and the iPhone?|microphone| Combine words: micro + phone
-|4|12823^0 - 1|0| Every number Raised to Zero Equal One
+|4|12823^0 - 1|0|Every number Raised to Zero Equal One
 |3|What goes up and down without moving?|Stairs| 
 |8|SCD,TEF,UGH, ___, WKL|VIJ| There are two alphabetical sequences S-T-U, CD-EF-GH 
 |8|FLG, GLF, HLI, ILH,|JLK| L is constant; FG-GF; HI-IH;
@@ -190,9 +191,9 @@
 |2|The Largest country of the World by Geographical Area is…|russia| RU
 |9|Man covers half of his journey by train at 60 km/hr, half of the remaining by bus at 30 km/hr and the rest by cycle at 10 km/hr. Find his average speed during the entire journey?|24| Take total distance = 120 km, Time taken by train = 60km/60km/hr = 1 hr. Find time taken by bus and cycle. Total distance / total time = average speed
 |5|The area of a circular base of Cylinder is 10 cm^2 and its hight is 15 cm. Then the volume of the cylinder is?|150| The formula for the volume of a cylinder is V=S*h, h = 15, S = 10 .
-|6|What carries Blood back to the Heart?|veins| Arteries or veins
-|3|What is 1/5 as a decimal?|0,2<$>0.2| Use calculator 
-|5|Warm is to Hot as Not so Good is to|worse|
+|6|What carries Blood back to the Heart?|veins|Arteries or veins
+|3|What is 1/5 as a decimal?|0,2<$>0.2|Use calculator
+|5|Warm is to Hot as Not so Good is to|worse|worse
 |7|Study of sound is called|acoustics| Those qualities of a room that, together, determine its character with respect to auditory effect
 |2|Positive divided by Negative|negative| divide  1/(-1), for instance 
 |5|514, 470, ?, 415, 404|437| 514 - 44 = 470, 415 - 404 = 11
@@ -211,6 +212,9 @@
 |8|Starts with an e, ends with an e and contain just one letter|envelope|You should think more about letters we send
 |4|4 6 9 6 14 6 _|19|Every second is 6, others are 4+5 -> 9+5 -> 14+5 -> ?
 |3|Water is to a pipe as ? is to a wire|electricity|electricity
-|6|7 10 16 28 52 _|100|exp
+|6|7 10 16 28 52 _|100|+3 +3*2(+6) +6*2(+12)...
 |7|3 9 81 15 21 71 _ 33 61|27|81-10->71-10->61 9+12->21+12->33 3+12->15+12->27
-|4|7 12 19 _ 39 52|28|+5 +7 +9 + 11 + 13 ans:28
+|4|7 12 19 _ 39 52|28|+5 +7 +9 + 11 + 13 answer: 28
+|4|5 bots create 5 cups in 5 mins. How long would it take to 100 bots create 100 cups?|5 mins<$>5<$>5 minutes|One bot make one cup by 5 minutes, so answer is 5
+|6|Magic grass doubles size each day. It takes 12 days to cover loan whith one patch. How long would it take to cover at list half of this loan with same patch?|11<$>11 days<$>eleven days<$>eleven|It will take one day less than time you need to cover whole
+|4|Why?|because|just because
