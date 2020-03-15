@@ -11,23 +11,23 @@ part 'bloc.freezed.dart';
 @freezed
 abstract class RoutingEvent with _$RoutingEvent {
   const factory RoutingEvent.push({
-    @required String from,
-    @required String to,
+    @required Routes from,
+    @required Routes to,
   }) = _Push;
   const factory RoutingEvent.resume() = _Resume;
-  const factory RoutingEvent.pop({@required String from}) = _Pop;
+  const factory RoutingEvent.pop({@required Routes from}) = _Pop;
 }
 
 @freezed
 abstract class RoutingState with _$RoutingState {
   const factory RoutingState._({
     @required RoutingEvent event,
-    @required List<String> log,
+    @required List<Routes> log,
     @required String salt,
   }) = _RoutingState;
   factory RoutingState({
     @required RoutingEvent event,
-    @required List<String> log,
+    @required List<Routes> log,
   }) {
     return RoutingState._(
       event: event,
@@ -38,13 +38,14 @@ abstract class RoutingState with _$RoutingState {
 }
 
 extension $_RoutingState on RoutingState {
-  String get route => this.log.last;
+  Routes get route => this.log.last;
+  String get name => this.route.name;
 }
 
 class RoutingBloc extends Bloc<RoutingEvent, RoutingState> {
   @override
   RoutingState get initialState => RoutingState(
-        log: [Routes.home().name], // TODO consider List<Routes>
+        log: [Routes.home()],
         event: RoutingEvent.resume(),
       );
 

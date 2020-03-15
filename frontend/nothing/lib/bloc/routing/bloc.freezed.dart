@@ -10,16 +10,16 @@ part of 'bloc.dart';
 mixin _$RoutingEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result push(@required String from, @required String to),
+    @required Result push(@required Routes from, @required Routes to),
     @required Result resume(),
-    @required Result pop(@required String from),
+    @required Result pop(@required Routes from),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result push(@required String from, @required String to),
+    Result push(@required Routes from, @required Routes to),
     Result resume(),
-    Result pop(@required String from),
+    Result pop(@required Routes from),
     @required Result orElse(),
   });
 
@@ -42,7 +42,7 @@ mixin _$RoutingEvent {
 class _$RoutingEventTearOff {
   const _$RoutingEventTearOff();
 
-  _Push push({@required String from, @required String to}) {
+  _Push push({@required Routes from, @required Routes to}) {
     return _Push(
       from: from,
       to: to,
@@ -53,7 +53,7 @@ class _$RoutingEventTearOff {
     return const _Resume();
   }
 
-  _Pop pop({@required String from}) {
+  _Pop pop({@required Routes from}) {
     return _Pop(
       from: from,
     );
@@ -68,9 +68,9 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
         assert(to != null);
 
   @override
-  final String from;
+  final Routes from;
   @override
-  final String to;
+  final Routes to;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -108,17 +108,17 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
     Object to = freezed,
   }) {
     return _$_Push(
-      from: from == freezed ? this.from : from as String,
-      to: to == freezed ? this.to : to as String,
+      from: from == freezed ? this.from : from as Routes,
+      to: to == freezed ? this.to : to as Routes,
     );
   }
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result push(@required String from, @required String to),
+    @required Result push(@required Routes from, @required Routes to),
     @required Result resume(),
-    @required Result pop(@required String from),
+    @required Result pop(@required Routes from),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -129,9 +129,9 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result push(@required String from, @required String to),
+    Result push(@required Routes from, @required Routes to),
     Result resume(),
-    Result pop(@required String from),
+    Result pop(@required Routes from),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -171,12 +171,12 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
 }
 
 abstract class _Push implements RoutingEvent {
-  const factory _Push({@required String from, @required String to}) = _$_Push;
+  const factory _Push({@required Routes from, @required Routes to}) = _$_Push;
 
-  String get from;
-  String get to;
+  Routes get from;
+  Routes get to;
 
-  _Push copyWith({String from, String to});
+  _Push copyWith({Routes from, Routes to});
 }
 
 class _$_Resume with DiagnosticableTreeMixin implements _Resume {
@@ -204,9 +204,9 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result push(@required String from, @required String to),
+    @required Result push(@required Routes from, @required Routes to),
     @required Result resume(),
-    @required Result pop(@required String from),
+    @required Result pop(@required Routes from),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -217,9 +217,9 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result push(@required String from, @required String to),
+    Result push(@required Routes from, @required Routes to),
     Result resume(),
-    Result pop(@required String from),
+    Result pop(@required Routes from),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -266,7 +266,7 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
   const _$_Pop({@required this.from}) : assert(from != null);
 
   @override
-  final String from;
+  final Routes from;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -298,16 +298,16 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
     Object from = freezed,
   }) {
     return _$_Pop(
-      from: from == freezed ? this.from : from as String,
+      from: from == freezed ? this.from : from as Routes,
     );
   }
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result push(@required String from, @required String to),
+    @required Result push(@required Routes from, @required Routes to),
     @required Result resume(),
-    @required Result pop(@required String from),
+    @required Result pop(@required Routes from),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -318,9 +318,9 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result push(@required String from, @required String to),
+    Result push(@required Routes from, @required Routes to),
     Result resume(),
-    Result pop(@required String from),
+    Result pop(@required Routes from),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -360,19 +360,19 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
 }
 
 abstract class _Pop implements RoutingEvent {
-  const factory _Pop({@required String from}) = _$_Pop;
+  const factory _Pop({@required Routes from}) = _$_Pop;
 
-  String get from;
+  Routes get from;
 
-  _Pop copyWith({String from});
+  _Pop copyWith({Routes from});
 }
 
 mixin _$RoutingState {
   RoutingEvent get event;
-  List<String> get log;
+  List<Routes> get log;
   String get salt;
 
-  RoutingState copyWith({RoutingEvent event, List<String> log, String salt});
+  RoutingState copyWith({RoutingEvent event, List<Routes> log, String salt});
 }
 
 class _$RoutingStateTearOff {
@@ -380,7 +380,7 @@ class _$RoutingStateTearOff {
 
   _RoutingState _(
       {@required RoutingEvent event,
-      @required List<String> log,
+      @required List<Routes> log,
       @required String salt}) {
     return _RoutingState(
       event: event,
@@ -402,7 +402,7 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
   @override
   final RoutingEvent event;
   @override
-  final List<String> log;
+  final List<Routes> log;
   @override
   final String salt;
 
@@ -448,7 +448,7 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
   }) {
     return _$_RoutingState(
       event: event == freezed ? this.event : event as RoutingEvent,
-      log: log == freezed ? this.log : log as List<String>,
+      log: log == freezed ? this.log : log as List<Routes>,
       salt: salt == freezed ? this.salt : salt as String,
     );
   }
@@ -457,16 +457,16 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
 abstract class _RoutingState implements RoutingState {
   const factory _RoutingState(
       {@required RoutingEvent event,
-      @required List<String> log,
+      @required List<Routes> log,
       @required String salt}) = _$_RoutingState;
 
   @override
   RoutingEvent get event;
   @override
-  List<String> get log;
+  List<Routes> get log;
   @override
   String get salt;
 
   @override
-  _RoutingState copyWith({RoutingEvent event, List<String> log, String salt});
+  _RoutingState copyWith({RoutingEvent event, List<Routes> log, String salt});
 }

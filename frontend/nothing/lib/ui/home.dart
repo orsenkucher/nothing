@@ -10,6 +10,7 @@ import 'package:nothing/ui/game.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Home extends StatefulWidget {
+  const Home();
   @override
   _HomeState createState() => _HomeState();
 }
@@ -23,16 +24,6 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _focusNode = FocusNode();
-
-    // WidgetsBinding.instance.addObserver(new LifecycleEventHandler(
-    //   resumeCallBack: () async {
-    //     print('RESUMING *2** *** *** ***');
-    //     WidgetsBinding.instance.addPostFrameCallback((_) {
-    //       _focusNode.unfocus();
-    //       _focusNode.requestFocus();
-    //     });
-    //   },
-    // ));
   }
 
   @override
@@ -45,19 +36,12 @@ class _HomeState extends State<Home> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // BlocProvider.of<SummaryBloc>(context).add(SummaryEvent.reset());
   }
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //   _focusNode.unfocus();
-      //   _focusNode.requestFocus();
-      // context.bloc<RoutingBloc>().add(RoutingEvent.push(to: 'home'));
-
-      context
-          .bloc<RoutingBloc>() // TODO check it
-          .add(RoutingEvent.resume());
+      context.bloc<RoutingBloc>().add(RoutingEvent.resume());
     });
     return Scaffold(
       body: Container(
@@ -88,8 +72,7 @@ class _HomeState extends State<Home> {
                   BlocListener<RoutingBloc, RoutingState>(
                       listener: (context, state) {
                     print(state);
-                    if (state.route != Routes.home().name)
-                      return; // TODO Consider just Route
+                    if (state.route != Routes.home()) return;
                     print('RESUMING *2** *** *** ***');
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       _focusNode.unfocus();

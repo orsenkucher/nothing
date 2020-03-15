@@ -9,7 +9,7 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
-import 'package:nothing/bloc/routing/mapping.dart';
+import 'package:nothing/bloc/routing/routing.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/lifecycle/bloc.dart';
@@ -65,8 +65,11 @@ class App extends StatelessWidget with PortraitLock {
           theme: ThemeData(
             fontFamily: 'Gilroy',
           ),
-          initialRoute: context.bloc<RoutingBloc>().initialState.route,
-          routes: Mapping.mapped,
+          initialRoute: context.bloc<RoutingBloc>().initialState.name,
+          routes: {
+            Routes.home(): (_) => Home(),
+            Routes.history(): (_) => HistoryList(),
+          }.routed,
           color: NothingScheme.app,
           debugShowCheckedModeBanner: false,
         ),
