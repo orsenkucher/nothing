@@ -8,9 +8,10 @@ part 'bloc.g.dart';
 
 @freezed
 abstract class LifecycleEvent with _$LifecycleEvent {
-  const factory LifecycleEvent.resume() = _Resume;
-  const factory LifecycleEvent.suspend() = _Suspend;
-
+  const factory LifecycleEvent.resume(DateTime point) = _Resume;
+  const factory LifecycleEvent.suspend(DateTime point) = _Suspend;
+  factory LifecycleEvent.resume$() => LifecycleEvent.resume(DateTime.now());
+  factory LifecycleEvent.suspend$() => LifecycleEvent.suspend(DateTime.now());
   factory LifecycleEvent.fromJson(Map<String, dynamic> json) =>
       _$LifecycleEventFromJson(json);
 }
@@ -37,7 +38,7 @@ class LifecycleBloc extends HydratedBloc<LifecycleEvent, LifecycleState> {
   Stream<LifecycleState> mapEventToState(LifecycleEvent event) async* {
     final log = state.map(
       just: (s) => [...s.log, event],
-      nothing: (_) => <LifecycleEvent>[],
+      nothing: (_) => [event],
     );
     yield LifecycleState.just(log: log, current: event);
   }

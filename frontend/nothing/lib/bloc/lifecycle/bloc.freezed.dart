@@ -20,16 +20,20 @@ LifecycleEvent _$LifecycleEventFromJson(Map<String, dynamic> json) {
 }
 
 mixin _$LifecycleEvent {
+  DateTime get point;
+
+  LifecycleEvent copyWith({DateTime point});
+
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result resume(),
-    @required Result suspend(),
+    @required Result resume(DateTime point),
+    @required Result suspend(DateTime point),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result resume(),
-    Result suspend(),
+    Result resume(DateTime point),
+    Result suspend(DateTime point),
     @required Result orElse(),
   });
 
@@ -52,12 +56,16 @@ mixin _$LifecycleEvent {
 class _$LifecycleEventTearOff {
   const _$LifecycleEventTearOff();
 
-  _Resume resume() {
-    return const _Resume();
+  _Resume resume(DateTime point) {
+    return _Resume(
+      point,
+    );
   }
 
-  _Suspend suspend() {
-    return const _Suspend();
+  _Suspend suspend(DateTime point) {
+    return _Suspend(
+      point,
+    );
   }
 }
 
@@ -65,51 +73,69 @@ const $LifecycleEvent = _$LifecycleEventTearOff();
 
 @JsonSerializable()
 class _$_Resume with DiagnosticableTreeMixin implements _Resume {
-  const _$_Resume();
+  const _$_Resume(this.point) : assert(point != null);
 
   factory _$_Resume.fromJson(Map<String, dynamic> json) =>
       _$_$_ResumeFromJson(json);
 
   @override
+  final DateTime point;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LifecycleEvent.resume()';
+    return 'LifecycleEvent.resume(point: $point)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'LifecycleEvent.resume'));
+    properties
+      ..add(DiagnosticsProperty('type', 'LifecycleEvent.resume'))
+      ..add(DiagnosticsProperty('point', point));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Resume);
+    return identical(this, other) ||
+        (other is _Resume &&
+            (identical(other.point, point) ||
+                const DeepCollectionEquality().equals(other.point, point)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(point);
+
+  @override
+  _$_Resume copyWith({
+    Object point = freezed,
+  }) {
+    return _$_Resume(
+      point == freezed ? this.point : point as DateTime,
+    );
+  }
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result resume(),
-    @required Result suspend(),
+    @required Result resume(DateTime point),
+    @required Result suspend(DateTime point),
   }) {
     assert(resume != null);
     assert(suspend != null);
-    return resume();
+    return resume(point);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result resume(),
-    Result suspend(),
+    Result resume(DateTime point),
+    Result suspend(DateTime point),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (resume != null) {
-      return resume();
+      return resume(point);
     }
     return orElse();
   }
@@ -146,58 +172,82 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 }
 
 abstract class _Resume implements LifecycleEvent {
-  const factory _Resume() = _$_Resume;
+  const factory _Resume(DateTime point) = _$_Resume;
 
   factory _Resume.fromJson(Map<String, dynamic> json) = _$_Resume.fromJson;
+
+  @override
+  DateTime get point;
+
+  @override
+  _Resume copyWith({DateTime point});
 }
 
 @JsonSerializable()
 class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
-  const _$_Suspend();
+  const _$_Suspend(this.point) : assert(point != null);
 
   factory _$_Suspend.fromJson(Map<String, dynamic> json) =>
       _$_$_SuspendFromJson(json);
 
   @override
+  final DateTime point;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LifecycleEvent.suspend()';
+    return 'LifecycleEvent.suspend(point: $point)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'LifecycleEvent.suspend'));
+    properties
+      ..add(DiagnosticsProperty('type', 'LifecycleEvent.suspend'))
+      ..add(DiagnosticsProperty('point', point));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Suspend);
+    return identical(this, other) ||
+        (other is _Suspend &&
+            (identical(other.point, point) ||
+                const DeepCollectionEquality().equals(other.point, point)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(point);
+
+  @override
+  _$_Suspend copyWith({
+    Object point = freezed,
+  }) {
+    return _$_Suspend(
+      point == freezed ? this.point : point as DateTime,
+    );
+  }
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result resume(),
-    @required Result suspend(),
+    @required Result resume(DateTime point),
+    @required Result suspend(DateTime point),
   }) {
     assert(resume != null);
     assert(suspend != null);
-    return suspend();
+    return suspend(point);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result resume(),
-    Result suspend(),
+    Result resume(DateTime point),
+    Result suspend(DateTime point),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (suspend != null) {
-      return suspend();
+      return suspend(point);
     }
     return orElse();
   }
@@ -234,9 +284,15 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 }
 
 abstract class _Suspend implements LifecycleEvent {
-  const factory _Suspend() = _$_Suspend;
+  const factory _Suspend(DateTime point) = _$_Suspend;
 
   factory _Suspend.fromJson(Map<String, dynamic> json) = _$_Suspend.fromJson;
+
+  @override
+  DateTime get point;
+
+  @override
+  _Suspend copyWith({DateTime point});
 }
 
 LifecycleState _$LifecycleStateFromJson(Map<String, dynamic> json) {

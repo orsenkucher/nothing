@@ -41,11 +41,11 @@ void _lifecycle(LifecycleBloc lifecycle) {
   final observer = LifecycleEventHandler(
     suspendingCallBack: () async {
       print('lifecycle: suspending');
-      lifecycle.add(LifecycleEvent.suspend());
+      lifecycle.add(LifecycleEvent.suspend$());
     },
     resumeCallBack: () async {
       print('lifecycle: resuming');
-      lifecycle.add(LifecycleEvent.resume());
+      lifecycle.add(LifecycleEvent.resume$());
     },
   );
   WidgetsBinding.instance.addObserver(observer);
@@ -144,9 +144,9 @@ class App extends StatelessWidget with PortraitLock {
       ),
       BlocBinder<LifecycleBloc, LifecycleState, RoutingBloc, RoutingState>(
         direct: (context, state, bloc) => state.when(
-            just: (_, e) => e.when(
-                resume: () => bloc.add(RoutingEvent.resume()),
-                suspend: () => {}),
+            just: (_, e) => e.map(
+                resume: (_) => bloc.add(RoutingEvent.resume()),
+                suspend: (_) => {}),
             nothing: () => {}),
       ),
     ]);

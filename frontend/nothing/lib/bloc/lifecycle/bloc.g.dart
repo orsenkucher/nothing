@@ -7,18 +7,25 @@ part of 'bloc.dart';
 // **************************************************************************
 
 _$_Resume _$_$_ResumeFromJson(Map<String, dynamic> json) {
-  return _$_Resume();
+  return _$_Resume(
+    json['point'] == null ? null : DateTime.parse(json['point'] as String),
+  );
 }
 
-Map<String, dynamic> _$_$_ResumeToJson(_$_Resume instance) =>
-    <String, dynamic>{};
+Map<String, dynamic> _$_$_ResumeToJson(_$_Resume instance) => <String, dynamic>{
+      'point': instance.point?.toIso8601String(),
+    };
 
 _$_Suspend _$_$_SuspendFromJson(Map<String, dynamic> json) {
-  return _$_Suspend();
+  return _$_Suspend(
+    json['point'] == null ? null : DateTime.parse(json['point'] as String),
+  );
 }
 
 Map<String, dynamic> _$_$_SuspendToJson(_$_Suspend instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'point': instance.point?.toIso8601String(),
+    };
 
 _$_Just _$_$_JustFromJson(Map<String, dynamic> json) {
   return _$_Just(
