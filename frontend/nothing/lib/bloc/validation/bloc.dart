@@ -59,6 +59,7 @@ extension TimePoints$ on TimePoints {
     for (var i = 0; i < this.points.length; i += 2) {
       acc += this.points[i + 1].time.difference(this.points[i].time);
     }
+    print('TIME: ${acc.inSeconds}s, ${this.points.length} points');
     return acc;
   }
 
@@ -97,7 +98,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
                   .contains(answer.toLowerCase())
               ? _ValidationState.correct(
                   question,
-                  tries,
+                  [...tries, answer],
                   state.map(
                     correct: (c) => throw UnimplementedError(),
                     neutral: (n) =>

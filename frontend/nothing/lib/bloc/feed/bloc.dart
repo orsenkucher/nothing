@@ -31,7 +31,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
         available: (tree) =>
             validationBloc.add(ValidationEvent.focus(tree.question)),
         empty: () {},
-      );
+      ); // TODO this is also ok to move to bindings
     });
   }
 
@@ -68,11 +68,14 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     );
     print(next);
     yield next;
+    // TODO move this into binding
     next.when(
       available: (tree) => questionsBloc.add(
         QuestionsEvent.fetch(tree.question.id),
       ),
-      empty: () {},
+      empty: () => questionsBloc.add(
+        QuestionsEvent.fetch(),
+      ),
     );
   }
 

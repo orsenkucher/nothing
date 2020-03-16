@@ -177,6 +177,7 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             idBloc: context.bloc<IdBloc>(),
+            historyBloc: context.bloc<HistoryBloc>(),
             summaryBloc: context.bloc<SummaryBloc>(),
             repo: context.repository<QuestionsRepo>(),
           ),

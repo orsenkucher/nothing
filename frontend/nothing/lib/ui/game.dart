@@ -81,8 +81,7 @@ class Test extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FeedBloc, FeedState>(
       condition: (previous, current) {
-        print("************************");
-        print(current);
+        // print('current in test: $current');
         return true;
       },
       builder: (context, state) => Align(
