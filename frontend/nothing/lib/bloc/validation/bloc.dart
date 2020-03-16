@@ -11,7 +11,7 @@ part 'bloc.freezed.dart';
 abstract class ValidationEvent with _$ValidationEvent {
   const factory ValidationEvent.focus(Question question) = _Focus;
   const factory ValidationEvent.check(String answer) = _Check;
-  // const factory ValidationEvent.lifecycle
+  const factory ValidationEvent.lifecycle(TimePoint point) = _Lifecycle;
 }
 
 @freezed
@@ -40,22 +40,40 @@ abstract class ValidationState with _$ValidationState {
 }
 
 @freezed
+abstract class TimePoint with _$TimePoint {
+  const factory TimePoint.resume(DateTime time) = _Resume;
+  const factory TimePoint.suspend(DateTime time) = _Suspend;
+  factory TimePoint.resumeNow() => TimePoint.resume(DateTime.now());
+  factory TimePoint.suspendNow() => TimePoint.suspend(DateTime.now());
+}
+
+@freezed
 abstract class TimePoints with _$TimePoints {
-  const factory TimePoints(List<DateTime> points) = _TimePoints;
-  factory TimePoints.empty() => TimePoints([]);
+  const factory TimePoints(List<TimePoint> points) = _TimePoints;
+  factory TimePoints.fromNow() => TimePoints([TimePoint.resumeNow()]);
 }
 
 extension TimePoints$ on TimePoints {
   Duration get duration {
     var acc = Duration.zero;
     for (var i = 0; i < this.points.length; i += 2) {
-      acc += this.points[i + 1].difference(this.points[i]);
+      acc += this.points[i + 1].time.difference(this.points[i].time);
     }
     return acc;
   }
 
-  TimePoints add(DateTime point) {
-    return this.copyWith(points: [...this.points, point]);
+  TimePoints add(TimePoint point) {
+    if (this.points.isEmpty) {
+      if (point is _Resume) {
+        return this.copyWith(points: [point]);
+      } else {
+        return this;
+      }
+    }
+    if (this.points.last.runtimeType != point.runtimeType) {
+      return this.copyWith(points: [...this.points, point]);
+    }
+    return this;
   }
 }
 
@@ -67,37 +85,45 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
   Stream<ValidationState> mapEventToState(ValidationEvent event) async* {
     yield event.when(
       focus: (question) => ValidationState.just(
-        _ValidationState.neutral(question, [], TimePoints([DateTime.now()])),
+        _ValidationState.neutral(question, [], TimePoints.fromNow()),
       ),
-      check: (answer) {
-        return state.when<ValidationState>(
-          nothing: () => ValidationState.nothing(),
-          just: (state) {
-            final question = state.question;
-            final tries = state.tries;
-            final next = state.question.splitted
-                    .map((s) => s.toLowerCase())
-                    .contains(answer.toLowerCase())
-                ? _ValidationState.correct(
-                    question,
-                    tries,
-                    state.map(
-                      correct: (c) => throw UnimplementedError(),
-                      neutral: (n) => n.timePoints.add(DateTime.now()).duration,
-                      wrong: (w) => w.timePoints.add(DateTime.now()).duration,
-                    ))
-                : _ValidationState.wrong(
-                    question,
-                    [...tries, answer],
-                    state.map(
-                      correct: (c) => throw UnimplementedError(),
-                      wrong: (w) => w.timePoints,
-                      neutral: (n) => n.timePoints,
-                    ));
-            return ValidationState.just(next);
-          },
-        );
-      },
+      check: (answer) => state.when<ValidationState>(
+        nothing: () => ValidationState.nothing(),
+        just: (state) {
+          final question = state.question;
+          final tries = state.tries;
+          final next = state.question.splitted
+                  .map((s) => s.toLowerCase())
+                  .contains(answer.toLowerCase())
+              ? _ValidationState.correct(
+                  question,
+                  tries,
+                  state.map(
+                    correct: (c) => throw UnimplementedError(),
+                    neutral: (n) =>
+                        n.timePoints.add(TimePoint.suspendNow()).duration,
+                    wrong: (w) =>
+                        w.timePoints.add(TimePoint.suspendNow()).duration,
+                  ))
+              : _ValidationState.wrong(
+                  question,
+                  [...tries, answer],
+                  state.map(
+                    correct: (c) => throw UnimplementedError(),
+                    neutral: (n) => n.timePoints,
+                    wrong: (w) => w.timePoints,
+                  ));
+          return ValidationState.just(next);
+        },
+      ),
+      lifecycle: (point) => state.when(
+        nothing: () => ValidationState.nothing(),
+        just: (state) => ValidationState.just(state.map(
+          correct: (_) => state,
+          wrong: (w) => w.copyWith(timePoints: w.timePoints.add(point)),
+          neutral: (n) => n.copyWith(timePoints: n.timePoints.add(point)),
+        )),
+      ),
     );
   }
 }

@@ -18,12 +18,12 @@ class Navigatable extends StatelessWidget {
           listener: (context, state) => state.event.when(
             push: (from, to) => {
               if (from == route) Navigator.pushNamed(context, to.name),
-            },
+            }, // did you know I'm returning a Set here? Spawned from {} literal?
             pop: (from) => {
               if (from == route) Navigator.pop(context),
-            },
+            }, // omg what a language) Use only for side-effects!
             resume: () => {},
-          ),
+          ), // and this is empty Set
         ),
       ],
     );

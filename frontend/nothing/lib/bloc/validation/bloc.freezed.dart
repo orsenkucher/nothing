@@ -12,12 +12,14 @@ mixin _$ValidationEvent {
   Result when<Result extends Object>({
     @required Result focus(Question question),
     @required Result check(String answer),
+    @required Result lifecycle(TimePoint point),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result focus(Question question),
     Result check(String answer),
+    Result lifecycle(TimePoint point),
     @required Result orElse(),
   });
 
@@ -25,12 +27,14 @@ mixin _$ValidationEvent {
   Result map<Result extends Object>({
     @required Result focus(_Focus value),
     @required Result check(_Check value),
+    @required Result lifecycle(_Lifecycle value),
   });
 
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result focus(_Focus value),
     Result check(_Check value),
+    Result lifecycle(_Lifecycle value),
     @required Result orElse(),
   });
 }
@@ -47,6 +51,12 @@ class _$ValidationEventTearOff {
   _Check check(String answer) {
     return _Check(
       answer,
+    );
+  }
+
+  _Lifecycle lifecycle(TimePoint point) {
+    return _Lifecycle(
+      point,
     );
   }
 }
@@ -99,9 +109,11 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
   Result when<Result extends Object>({
     @required Result focus(Question question),
     @required Result check(String answer),
+    @required Result lifecycle(TimePoint point),
   }) {
     assert(focus != null);
     assert(check != null);
+    assert(lifecycle != null);
     return focus(question);
   }
 
@@ -110,6 +122,7 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
   Result maybeWhen<Result extends Object>({
     Result focus(Question question),
     Result check(String answer),
+    Result lifecycle(TimePoint point),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -124,9 +137,11 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
   Result map<Result extends Object>({
     @required Result focus(_Focus value),
     @required Result check(_Check value),
+    @required Result lifecycle(_Lifecycle value),
   }) {
     assert(focus != null);
     assert(check != null);
+    assert(lifecycle != null);
     return focus(this);
   }
 
@@ -135,6 +150,7 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
   Result maybeMap<Result extends Object>({
     Result focus(_Focus value),
     Result check(_Check value),
+    Result lifecycle(_Lifecycle value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -198,9 +214,11 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
   Result when<Result extends Object>({
     @required Result focus(Question question),
     @required Result check(String answer),
+    @required Result lifecycle(TimePoint point),
   }) {
     assert(focus != null);
     assert(check != null);
+    assert(lifecycle != null);
     return check(answer);
   }
 
@@ -209,6 +227,7 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
   Result maybeWhen<Result extends Object>({
     Result focus(Question question),
     Result check(String answer),
+    Result lifecycle(TimePoint point),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -223,9 +242,11 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
   Result map<Result extends Object>({
     @required Result focus(_Focus value),
     @required Result check(_Check value),
+    @required Result lifecycle(_Lifecycle value),
   }) {
     assert(focus != null);
     assert(check != null);
+    assert(lifecycle != null);
     return check(this);
   }
 
@@ -234,6 +255,7 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
   Result maybeMap<Result extends Object>({
     Result focus(_Focus value),
     Result check(_Check value),
+    Result lifecycle(_Lifecycle value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -250,6 +272,111 @@ abstract class _Check implements ValidationEvent {
   String get answer;
 
   _Check copyWith({String answer});
+}
+
+class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
+  const _$_Lifecycle(this.point) : assert(point != null);
+
+  @override
+  final TimePoint point;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ValidationEvent.lifecycle(point: $point)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ValidationEvent.lifecycle'))
+      ..add(DiagnosticsProperty('point', point));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Lifecycle &&
+            (identical(other.point, point) ||
+                const DeepCollectionEquality().equals(other.point, point)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(point);
+
+  @override
+  _$_Lifecycle copyWith({
+    Object point = freezed,
+  }) {
+    return _$_Lifecycle(
+      point == freezed ? this.point : point as TimePoint,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result focus(Question question),
+    @required Result check(String answer),
+    @required Result lifecycle(TimePoint point),
+  }) {
+    assert(focus != null);
+    assert(check != null);
+    assert(lifecycle != null);
+    return lifecycle(point);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result focus(Question question),
+    Result check(String answer),
+    Result lifecycle(TimePoint point),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (lifecycle != null) {
+      return lifecycle(point);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result focus(_Focus value),
+    @required Result check(_Check value),
+    @required Result lifecycle(_Lifecycle value),
+  }) {
+    assert(focus != null);
+    assert(check != null);
+    assert(lifecycle != null);
+    return lifecycle(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result focus(_Focus value),
+    Result check(_Check value),
+    Result lifecycle(_Lifecycle value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (lifecycle != null) {
+      return lifecycle(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Lifecycle implements ValidationEvent {
+  const factory _Lifecycle(TimePoint point) = _$_Lifecycle;
+
+  TimePoint get point;
+
+  _Lifecycle copyWith({TimePoint point});
 }
 
 mixin _$_ValidationState {
@@ -970,16 +1097,268 @@ abstract class _Nothing implements ValidationState {
   const factory _Nothing() = _$_Nothing;
 }
 
-mixin _$TimePoints {
-  List<DateTime> get points;
+mixin _$TimePoint {
+  DateTime get time;
 
-  TimePoints copyWith({List<DateTime> points});
+  TimePoint copyWith({DateTime time});
+
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result resume(DateTime time),
+    @required Result suspend(DateTime time),
+  });
+
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result resume(DateTime time),
+    Result suspend(DateTime time),
+    @required Result orElse(),
+  });
+
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result resume(_Resume value),
+    @required Result suspend(_Suspend value),
+  });
+
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result resume(_Resume value),
+    Result suspend(_Suspend value),
+    @required Result orElse(),
+  });
+}
+
+class _$TimePointTearOff {
+  const _$TimePointTearOff();
+
+  _Resume resume(DateTime time) {
+    return _Resume(
+      time,
+    );
+  }
+
+  _Suspend suspend(DateTime time) {
+    return _Suspend(
+      time,
+    );
+  }
+}
+
+const $TimePoint = _$TimePointTearOff();
+
+class _$_Resume with DiagnosticableTreeMixin implements _Resume {
+  const _$_Resume(this.time) : assert(time != null);
+
+  @override
+  final DateTime time;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'TimePoint.resume(time: $time)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TimePoint.resume'))
+      ..add(DiagnosticsProperty('time', time));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Resume &&
+            (identical(other.time, time) ||
+                const DeepCollectionEquality().equals(other.time, time)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(time);
+
+  @override
+  _$_Resume copyWith({
+    Object time = freezed,
+  }) {
+    return _$_Resume(
+      time == freezed ? this.time : time as DateTime,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result resume(DateTime time),
+    @required Result suspend(DateTime time),
+  }) {
+    assert(resume != null);
+    assert(suspend != null);
+    return resume(time);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result resume(DateTime time),
+    Result suspend(DateTime time),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (resume != null) {
+      return resume(time);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result resume(_Resume value),
+    @required Result suspend(_Suspend value),
+  }) {
+    assert(resume != null);
+    assert(suspend != null);
+    return resume(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result resume(_Resume value),
+    Result suspend(_Suspend value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (resume != null) {
+      return resume(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Resume implements TimePoint {
+  const factory _Resume(DateTime time) = _$_Resume;
+
+  @override
+  DateTime get time;
+
+  @override
+  _Resume copyWith({DateTime time});
+}
+
+class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
+  const _$_Suspend(this.time) : assert(time != null);
+
+  @override
+  final DateTime time;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'TimePoint.suspend(time: $time)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TimePoint.suspend'))
+      ..add(DiagnosticsProperty('time', time));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Suspend &&
+            (identical(other.time, time) ||
+                const DeepCollectionEquality().equals(other.time, time)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(time);
+
+  @override
+  _$_Suspend copyWith({
+    Object time = freezed,
+  }) {
+    return _$_Suspend(
+      time == freezed ? this.time : time as DateTime,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result resume(DateTime time),
+    @required Result suspend(DateTime time),
+  }) {
+    assert(resume != null);
+    assert(suspend != null);
+    return suspend(time);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result resume(DateTime time),
+    Result suspend(DateTime time),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (suspend != null) {
+      return suspend(time);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result resume(_Resume value),
+    @required Result suspend(_Suspend value),
+  }) {
+    assert(resume != null);
+    assert(suspend != null);
+    return suspend(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result resume(_Resume value),
+    Result suspend(_Suspend value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (suspend != null) {
+      return suspend(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Suspend implements TimePoint {
+  const factory _Suspend(DateTime time) = _$_Suspend;
+
+  @override
+  DateTime get time;
+
+  @override
+  _Suspend copyWith({DateTime time});
+}
+
+mixin _$TimePoints {
+  List<TimePoint> get points;
+
+  TimePoints copyWith({List<TimePoint> points});
 }
 
 class _$TimePointsTearOff {
   const _$TimePointsTearOff();
 
-  _TimePoints call(List<DateTime> points) {
+  _TimePoints call(List<TimePoint> points) {
     return _TimePoints(
       points,
     );
@@ -992,7 +1371,7 @@ class _$_TimePoints with DiagnosticableTreeMixin implements _TimePoints {
   const _$_TimePoints(this.points) : assert(points != null);
 
   @override
-  final List<DateTime> points;
+  final List<TimePoint> points;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -1024,17 +1403,17 @@ class _$_TimePoints with DiagnosticableTreeMixin implements _TimePoints {
     Object points = freezed,
   }) {
     return _$_TimePoints(
-      points == freezed ? this.points : points as List<DateTime>,
+      points == freezed ? this.points : points as List<TimePoint>,
     );
   }
 }
 
 abstract class _TimePoints implements TimePoints {
-  const factory _TimePoints(List<DateTime> points) = _$_TimePoints;
+  const factory _TimePoints(List<TimePoint> points) = _$_TimePoints;
 
   @override
-  List<DateTime> get points;
+  List<TimePoint> get points;
 
   @override
-  _TimePoints copyWith({List<DateTime> points});
+  _TimePoints copyWith({List<TimePoint> points});
 }

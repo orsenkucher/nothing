@@ -10,8 +10,8 @@ part 'bloc.g.dart';
 abstract class LifecycleEvent with _$LifecycleEvent {
   const factory LifecycleEvent.resume(DateTime point) = _Resume;
   const factory LifecycleEvent.suspend(DateTime point) = _Suspend;
-  factory LifecycleEvent.resume$() => LifecycleEvent.resume(DateTime.now());
-  factory LifecycleEvent.suspend$() => LifecycleEvent.suspend(DateTime.now());
+  factory LifecycleEvent.resumeNow() => LifecycleEvent.resume(DateTime.now());
+  factory LifecycleEvent.suspendNow() => LifecycleEvent.suspend(DateTime.now());
   factory LifecycleEvent.fromJson(Map<String, dynamic> json) =>
       _$LifecycleEventFromJson(json);
 }
