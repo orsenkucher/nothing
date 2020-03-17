@@ -38,9 +38,10 @@ type User struct {
 
 type AnswerStats struct {
 	gorm.Model
-	QID     int `json:"qid"`
-	Tries   int `json:"tries"`
-	Seconds int `json:"seconds"`
+	QID     int    `json:"qid"`
+	Tries   int    `json:"tries"`
+	Seconds int    `json:"seconds"`
+	Answers string `json:"answers"`
 }
 
 type AnswerInf struct {
