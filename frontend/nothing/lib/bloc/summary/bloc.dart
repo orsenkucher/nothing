@@ -21,6 +21,7 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, SummaryState> {
         final next = SummaryState(answers: [
           ...state.answers,
           SummaryAnswer(
+            answers: e.answers,
             seconds: e.seconds,
             tries: e.tries,
             qid: e.qid,

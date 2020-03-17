@@ -110,8 +110,14 @@ mixin _$SummaryAnswer {
   int get qid;
   int get tries;
   int get seconds;
+  @JsonKey(toJson: _toS)
+  List<String> get answers;
 
-  SummaryAnswer copyWith({int qid, int tries, int seconds});
+  SummaryAnswer copyWith(
+      {int qid,
+      int tries,
+      int seconds,
+      @JsonKey(toJson: _toS) List<String> answers});
 
   Map<String, dynamic> toJson();
 }
@@ -119,11 +125,16 @@ mixin _$SummaryAnswer {
 class _$SummaryAnswerTearOff {
   const _$SummaryAnswerTearOff();
 
-  _SummaryAnswer call({int qid, int tries, int seconds}) {
+  _SummaryAnswer call(
+      {@required int qid,
+      @required int tries,
+      @required int seconds,
+      @required @JsonKey(toJson: _toS) List<String> answers}) {
     return _SummaryAnswer(
       qid: qid,
       tries: tries,
       seconds: seconds,
+      answers: answers,
     );
   }
 }
@@ -132,7 +143,15 @@ const $SummaryAnswer = _$SummaryAnswerTearOff();
 
 @JsonSerializable()
 class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
-  const _$_SummaryAnswer({this.qid, this.tries, this.seconds});
+  const _$_SummaryAnswer(
+      {@required this.qid,
+      @required this.tries,
+      @required this.seconds,
+      @required @JsonKey(toJson: _toS) this.answers})
+      : assert(qid != null),
+        assert(tries != null),
+        assert(seconds != null),
+        assert(answers != null);
 
   factory _$_SummaryAnswer.fromJson(Map<String, dynamic> json) =>
       _$_$_SummaryAnswerFromJson(json);
@@ -143,10 +162,13 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
   final int tries;
   @override
   final int seconds;
+  @override
+  @JsonKey(toJson: _toS)
+  final List<String> answers;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SummaryAnswer(qid: $qid, tries: $tries, seconds: $seconds)';
+    return 'SummaryAnswer(qid: $qid, tries: $tries, seconds: $seconds, answers: $answers)';
   }
 
   @override
@@ -156,7 +178,8 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
       ..add(DiagnosticsProperty('type', 'SummaryAnswer'))
       ..add(DiagnosticsProperty('qid', qid))
       ..add(DiagnosticsProperty('tries', tries))
-      ..add(DiagnosticsProperty('seconds', seconds));
+      ..add(DiagnosticsProperty('seconds', seconds))
+      ..add(DiagnosticsProperty('answers', answers));
   }
 
   @override
@@ -168,7 +191,10 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
             (identical(other.tries, tries) ||
                 const DeepCollectionEquality().equals(other.tries, tries)) &&
             (identical(other.seconds, seconds) ||
-                const DeepCollectionEquality().equals(other.seconds, seconds)));
+                const DeepCollectionEquality()
+                    .equals(other.seconds, seconds)) &&
+            (identical(other.answers, answers) ||
+                const DeepCollectionEquality().equals(other.answers, answers)));
   }
 
   @override
@@ -176,18 +202,21 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(qid) ^
       const DeepCollectionEquality().hash(tries) ^
-      const DeepCollectionEquality().hash(seconds);
+      const DeepCollectionEquality().hash(seconds) ^
+      const DeepCollectionEquality().hash(answers);
 
   @override
   _$_SummaryAnswer copyWith({
     Object qid = freezed,
     Object tries = freezed,
     Object seconds = freezed,
+    Object answers = freezed,
   }) {
     return _$_SummaryAnswer(
       qid: qid == freezed ? this.qid : qid as int,
       tries: tries == freezed ? this.tries : tries as int,
       seconds: seconds == freezed ? this.seconds : seconds as int,
+      answers: answers == freezed ? this.answers : answers as List<String>,
     );
   }
 
@@ -198,7 +227,11 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
 }
 
 abstract class _SummaryAnswer implements SummaryAnswer {
-  const factory _SummaryAnswer({int qid, int tries, int seconds}) =
+  const factory _SummaryAnswer(
+          {@required int qid,
+          @required int tries,
+          @required int seconds,
+          @required @JsonKey(toJson: _toS) List<String> answers}) =
       _$_SummaryAnswer;
 
   factory _SummaryAnswer.fromJson(Map<String, dynamic> json) =
@@ -210,7 +243,14 @@ abstract class _SummaryAnswer implements SummaryAnswer {
   int get tries;
   @override
   int get seconds;
+  @override
+  @JsonKey(toJson: _toS)
+  List<String> get answers;
 
   @override
-  _SummaryAnswer copyWith({int qid, int tries, int seconds});
+  _SummaryAnswer copyWith(
+      {int qid,
+      int tries,
+      int seconds,
+      @JsonKey(toJson: _toS) List<String> answers});
 }

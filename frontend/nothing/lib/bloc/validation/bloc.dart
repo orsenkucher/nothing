@@ -18,17 +18,17 @@ abstract class ValidationEvent with _$ValidationEvent {
 abstract class _ValidationState with _$_ValidationState {
   const factory _ValidationState.correct(
     Question question,
-    List<String> tries,
+    List<String> answers,
     Duration duration,
   ) = _Correct;
   const factory _ValidationState.wrong(
     Question question,
-    List<String> tries,
+    List<String> answers,
     TimePoints timePoints,
   ) = _Wrong;
   const factory _ValidationState.neutral(
     Question question,
-    List<String> tries,
+    List<String> answers,
     TimePoints timePoints,
   ) = _Neutral;
 }
@@ -92,13 +92,13 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
         nothing: () => ValidationState.nothing(),
         just: (state) {
           final question = state.question;
-          final tries = state.tries;
+          final answers = state.answers;
           final next = state.question.splitted
                   .map((s) => s.toLowerCase())
                   .contains(answer.toLowerCase())
               ? _ValidationState.correct(
                   question,
-                  [...tries, answer],
+                  [...answers, answer],
                   state.map(
                     correct: (c) => throw UnimplementedError(),
                     neutral: (n) =>
@@ -108,7 +108,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
                   ))
               : _ValidationState.wrong(
                   question,
-                  [...tries, answer],
+                  [...answers, answer],
                   state.map(
                     correct: (c) => throw UnimplementedError(),
                     neutral: (n) => n.timePoints,

@@ -12,15 +12,15 @@ mixin _$SummaryEvent {
   Result when<Result extends Object>({
     @required Result reset(),
     @required
-        Result answer(
-            @required int qid, @required int tries, @required int seconds),
+        Result answer(@required int qid, @required int tries,
+            @required int seconds, @required List<String> answers),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result reset(),
-    Result answer(
-        @required int qid, @required int tries, @required int seconds),
+    Result answer(@required int qid, @required int tries, @required int seconds,
+        @required List<String> answers),
     @required Result orElse(),
   });
 
@@ -46,11 +46,15 @@ class _$SummaryEventTearOff {
   }
 
   NewAnswer answer(
-      {@required int qid, @required int tries, @required int seconds}) {
+      {@required int qid,
+      @required int tries,
+      @required int seconds,
+      @required List<String> answers}) {
     return NewAnswer(
       qid: qid,
       tries: tries,
       seconds: seconds,
+      answers: answers,
     );
   }
 }
@@ -84,8 +88,8 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
   Result when<Result extends Object>({
     @required Result reset(),
     @required
-        Result answer(
-            @required int qid, @required int tries, @required int seconds),
+        Result answer(@required int qid, @required int tries,
+            @required int seconds, @required List<String> answers),
   }) {
     assert(reset != null);
     assert(answer != null);
@@ -96,8 +100,8 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result reset(),
-    Result answer(
-        @required int qid, @required int tries, @required int seconds),
+    Result answer(@required int qid, @required int tries, @required int seconds,
+        @required List<String> answers),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -139,10 +143,14 @@ abstract class Reset implements SummaryEvent {
 
 class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   const _$NewAnswer(
-      {@required this.qid, @required this.tries, @required this.seconds})
+      {@required this.qid,
+      @required this.tries,
+      @required this.seconds,
+      @required this.answers})
       : assert(qid != null),
         assert(tries != null),
-        assert(seconds != null);
+        assert(seconds != null),
+        assert(answers != null);
 
   @override
   final int qid;
@@ -150,10 +158,12 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   final int tries;
   @override
   final int seconds;
+  @override
+  final List<String> answers;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SummaryEvent.answer(qid: $qid, tries: $tries, seconds: $seconds)';
+    return 'SummaryEvent.answer(qid: $qid, tries: $tries, seconds: $seconds, answers: $answers)';
   }
 
   @override
@@ -163,7 +173,8 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
       ..add(DiagnosticsProperty('type', 'SummaryEvent.answer'))
       ..add(DiagnosticsProperty('qid', qid))
       ..add(DiagnosticsProperty('tries', tries))
-      ..add(DiagnosticsProperty('seconds', seconds));
+      ..add(DiagnosticsProperty('seconds', seconds))
+      ..add(DiagnosticsProperty('answers', answers));
   }
 
   @override
@@ -175,7 +186,10 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
             (identical(other.tries, tries) ||
                 const DeepCollectionEquality().equals(other.tries, tries)) &&
             (identical(other.seconds, seconds) ||
-                const DeepCollectionEquality().equals(other.seconds, seconds)));
+                const DeepCollectionEquality()
+                    .equals(other.seconds, seconds)) &&
+            (identical(other.answers, answers) ||
+                const DeepCollectionEquality().equals(other.answers, answers)));
   }
 
   @override
@@ -183,18 +197,21 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(qid) ^
       const DeepCollectionEquality().hash(tries) ^
-      const DeepCollectionEquality().hash(seconds);
+      const DeepCollectionEquality().hash(seconds) ^
+      const DeepCollectionEquality().hash(answers);
 
   @override
   _$NewAnswer copyWith({
     Object qid = freezed,
     Object tries = freezed,
     Object seconds = freezed,
+    Object answers = freezed,
   }) {
     return _$NewAnswer(
       qid: qid == freezed ? this.qid : qid as int,
       tries: tries == freezed ? this.tries : tries as int,
       seconds: seconds == freezed ? this.seconds : seconds as int,
+      answers: answers == freezed ? this.answers : answers as List<String>,
     );
   }
 
@@ -203,25 +220,25 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   Result when<Result extends Object>({
     @required Result reset(),
     @required
-        Result answer(
-            @required int qid, @required int tries, @required int seconds),
+        Result answer(@required int qid, @required int tries,
+            @required int seconds, @required List<String> answers),
   }) {
     assert(reset != null);
     assert(answer != null);
-    return answer(qid, tries, seconds);
+    return answer(qid, tries, seconds, answers);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result reset(),
-    Result answer(
-        @required int qid, @required int tries, @required int seconds),
+    Result answer(@required int qid, @required int tries, @required int seconds,
+        @required List<String> answers),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (answer != null) {
-      return answer(qid, tries, seconds);
+      return answer(qid, tries, seconds, answers);
     }
     return orElse();
   }
@@ -256,11 +273,13 @@ abstract class NewAnswer implements SummaryEvent {
   const factory NewAnswer(
       {@required int qid,
       @required int tries,
-      @required int seconds}) = _$NewAnswer;
+      @required int seconds,
+      @required List<String> answers}) = _$NewAnswer;
 
   int get qid;
   int get tries;
   int get seconds;
+  List<String> get answers;
 
-  NewAnswer copyWith({int qid, int tries, int seconds});
+  NewAnswer copyWith({int qid, int tries, int seconds, List<String> answers});
 }

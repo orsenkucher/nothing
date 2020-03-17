@@ -381,29 +381,30 @@ abstract class _Lifecycle implements ValidationEvent {
 
 mixin _$_ValidationState {
   Question get question;
-  List<String> get tries;
+  List<String> get answers;
 
-  _ValidationState copyWith({Question question, List<String> tries});
+  _ValidationState copyWith({Question question, List<String> answers});
 
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required
         Result correct(
-            Question question, List<String> tries, Duration duration),
+            Question question, List<String> answers, Duration duration),
     @required
         Result wrong(
-            Question question, List<String> tries, TimePoints timePoints),
+            Question question, List<String> answers, TimePoints timePoints),
     @required
         Result neutral(
-            Question question, List<String> tries, TimePoints timePoints),
+            Question question, List<String> answers, TimePoints timePoints),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result correct(Question question, List<String> tries, Duration duration),
-    Result wrong(Question question, List<String> tries, TimePoints timePoints),
+    Result correct(Question question, List<String> answers, Duration duration),
+    Result wrong(
+        Question question, List<String> answers, TimePoints timePoints),
     Result neutral(
-        Question question, List<String> tries, TimePoints timePoints),
+        Question question, List<String> answers, TimePoints timePoints),
     @required Result orElse(),
   });
 
@@ -426,27 +427,27 @@ mixin _$_ValidationState {
 class _$_ValidationStateTearOff {
   const _$_ValidationStateTearOff();
 
-  _Correct correct(Question question, List<String> tries, Duration duration) {
+  _Correct correct(Question question, List<String> answers, Duration duration) {
     return _Correct(
       question,
-      tries,
+      answers,
       duration,
     );
   }
 
-  _Wrong wrong(Question question, List<String> tries, TimePoints timePoints) {
+  _Wrong wrong(Question question, List<String> answers, TimePoints timePoints) {
     return _Wrong(
       question,
-      tries,
+      answers,
       timePoints,
     );
   }
 
   _Neutral neutral(
-      Question question, List<String> tries, TimePoints timePoints) {
+      Question question, List<String> answers, TimePoints timePoints) {
     return _Neutral(
       question,
-      tries,
+      answers,
       timePoints,
     );
   }
@@ -455,21 +456,21 @@ class _$_ValidationStateTearOff {
 const $_ValidationState = _$_ValidationStateTearOff();
 
 class _$_Correct with DiagnosticableTreeMixin implements _Correct {
-  const _$_Correct(this.question, this.tries, this.duration)
+  const _$_Correct(this.question, this.answers, this.duration)
       : assert(question != null),
-        assert(tries != null),
+        assert(answers != null),
         assert(duration != null);
 
   @override
   final Question question;
   @override
-  final List<String> tries;
+  final List<String> answers;
   @override
   final Duration duration;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return '_ValidationState.correct(question: $question, tries: $tries, duration: $duration)';
+    return '_ValidationState.correct(question: $question, answers: $answers, duration: $duration)';
   }
 
   @override
@@ -478,7 +479,7 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
     properties
       ..add(DiagnosticsProperty('type', '_ValidationState.correct'))
       ..add(DiagnosticsProperty('question', question))
-      ..add(DiagnosticsProperty('tries', tries))
+      ..add(DiagnosticsProperty('answers', answers))
       ..add(DiagnosticsProperty('duration', duration));
   }
 
@@ -489,8 +490,9 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
             (identical(other.question, question) ||
                 const DeepCollectionEquality()
                     .equals(other.question, question)) &&
-            (identical(other.tries, tries) ||
-                const DeepCollectionEquality().equals(other.tries, tries)) &&
+            (identical(other.answers, answers) ||
+                const DeepCollectionEquality()
+                    .equals(other.answers, answers)) &&
             (identical(other.duration, duration) ||
                 const DeepCollectionEquality()
                     .equals(other.duration, duration)));
@@ -500,18 +502,18 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(question) ^
-      const DeepCollectionEquality().hash(tries) ^
+      const DeepCollectionEquality().hash(answers) ^
       const DeepCollectionEquality().hash(duration);
 
   @override
   _$_Correct copyWith({
     Object question = freezed,
-    Object tries = freezed,
+    Object answers = freezed,
     Object duration = freezed,
   }) {
     return _$_Correct(
       question == freezed ? this.question : question as Question,
-      tries == freezed ? this.tries : tries as List<String>,
+      answers == freezed ? this.answers : answers as List<String>,
       duration == freezed ? this.duration : duration as Duration,
     );
   }
@@ -521,32 +523,33 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   Result when<Result extends Object>({
     @required
         Result correct(
-            Question question, List<String> tries, Duration duration),
+            Question question, List<String> answers, Duration duration),
     @required
         Result wrong(
-            Question question, List<String> tries, TimePoints timePoints),
+            Question question, List<String> answers, TimePoints timePoints),
     @required
         Result neutral(
-            Question question, List<String> tries, TimePoints timePoints),
+            Question question, List<String> answers, TimePoints timePoints),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
-    return correct(question, tries, duration);
+    return correct(question, answers, duration);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result correct(Question question, List<String> tries, Duration duration),
-    Result wrong(Question question, List<String> tries, TimePoints timePoints),
+    Result correct(Question question, List<String> answers, Duration duration),
+    Result wrong(
+        Question question, List<String> answers, TimePoints timePoints),
     Result neutral(
-        Question question, List<String> tries, TimePoints timePoints),
+        Question question, List<String> answers, TimePoints timePoints),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (correct != null) {
-      return correct(question, tries, duration);
+      return correct(question, answers, duration);
     }
     return orElse();
   }
@@ -582,34 +585,35 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
 
 abstract class _Correct implements _ValidationState {
   const factory _Correct(
-      Question question, List<String> tries, Duration duration) = _$_Correct;
+      Question question, List<String> answers, Duration duration) = _$_Correct;
 
   @override
   Question get question;
   @override
-  List<String> get tries;
+  List<String> get answers;
   Duration get duration;
 
   @override
-  _Correct copyWith({Question question, List<String> tries, Duration duration});
+  _Correct copyWith(
+      {Question question, List<String> answers, Duration duration});
 }
 
 class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
-  const _$_Wrong(this.question, this.tries, this.timePoints)
+  const _$_Wrong(this.question, this.answers, this.timePoints)
       : assert(question != null),
-        assert(tries != null),
+        assert(answers != null),
         assert(timePoints != null);
 
   @override
   final Question question;
   @override
-  final List<String> tries;
+  final List<String> answers;
   @override
   final TimePoints timePoints;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return '_ValidationState.wrong(question: $question, tries: $tries, timePoints: $timePoints)';
+    return '_ValidationState.wrong(question: $question, answers: $answers, timePoints: $timePoints)';
   }
 
   @override
@@ -618,7 +622,7 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
     properties
       ..add(DiagnosticsProperty('type', '_ValidationState.wrong'))
       ..add(DiagnosticsProperty('question', question))
-      ..add(DiagnosticsProperty('tries', tries))
+      ..add(DiagnosticsProperty('answers', answers))
       ..add(DiagnosticsProperty('timePoints', timePoints));
   }
 
@@ -629,8 +633,9 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
             (identical(other.question, question) ||
                 const DeepCollectionEquality()
                     .equals(other.question, question)) &&
-            (identical(other.tries, tries) ||
-                const DeepCollectionEquality().equals(other.tries, tries)) &&
+            (identical(other.answers, answers) ||
+                const DeepCollectionEquality()
+                    .equals(other.answers, answers)) &&
             (identical(other.timePoints, timePoints) ||
                 const DeepCollectionEquality()
                     .equals(other.timePoints, timePoints)));
@@ -640,18 +645,18 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(question) ^
-      const DeepCollectionEquality().hash(tries) ^
+      const DeepCollectionEquality().hash(answers) ^
       const DeepCollectionEquality().hash(timePoints);
 
   @override
   _$_Wrong copyWith({
     Object question = freezed,
-    Object tries = freezed,
+    Object answers = freezed,
     Object timePoints = freezed,
   }) {
     return _$_Wrong(
       question == freezed ? this.question : question as Question,
-      tries == freezed ? this.tries : tries as List<String>,
+      answers == freezed ? this.answers : answers as List<String>,
       timePoints == freezed ? this.timePoints : timePoints as TimePoints,
     );
   }
@@ -661,32 +666,33 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   Result when<Result extends Object>({
     @required
         Result correct(
-            Question question, List<String> tries, Duration duration),
+            Question question, List<String> answers, Duration duration),
     @required
         Result wrong(
-            Question question, List<String> tries, TimePoints timePoints),
+            Question question, List<String> answers, TimePoints timePoints),
     @required
         Result neutral(
-            Question question, List<String> tries, TimePoints timePoints),
+            Question question, List<String> answers, TimePoints timePoints),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
-    return wrong(question, tries, timePoints);
+    return wrong(question, answers, timePoints);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result correct(Question question, List<String> tries, Duration duration),
-    Result wrong(Question question, List<String> tries, TimePoints timePoints),
+    Result correct(Question question, List<String> answers, Duration duration),
+    Result wrong(
+        Question question, List<String> answers, TimePoints timePoints),
     Result neutral(
-        Question question, List<String> tries, TimePoints timePoints),
+        Question question, List<String> answers, TimePoints timePoints),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (wrong != null) {
-      return wrong(question, tries, timePoints);
+      return wrong(question, answers, timePoints);
     }
     return orElse();
   }
@@ -722,35 +728,36 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
 
 abstract class _Wrong implements _ValidationState {
   const factory _Wrong(
-      Question question, List<String> tries, TimePoints timePoints) = _$_Wrong;
+          Question question, List<String> answers, TimePoints timePoints) =
+      _$_Wrong;
 
   @override
   Question get question;
   @override
-  List<String> get tries;
+  List<String> get answers;
   TimePoints get timePoints;
 
   @override
   _Wrong copyWith(
-      {Question question, List<String> tries, TimePoints timePoints});
+      {Question question, List<String> answers, TimePoints timePoints});
 }
 
 class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
-  const _$_Neutral(this.question, this.tries, this.timePoints)
+  const _$_Neutral(this.question, this.answers, this.timePoints)
       : assert(question != null),
-        assert(tries != null),
+        assert(answers != null),
         assert(timePoints != null);
 
   @override
   final Question question;
   @override
-  final List<String> tries;
+  final List<String> answers;
   @override
   final TimePoints timePoints;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return '_ValidationState.neutral(question: $question, tries: $tries, timePoints: $timePoints)';
+    return '_ValidationState.neutral(question: $question, answers: $answers, timePoints: $timePoints)';
   }
 
   @override
@@ -759,7 +766,7 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
     properties
       ..add(DiagnosticsProperty('type', '_ValidationState.neutral'))
       ..add(DiagnosticsProperty('question', question))
-      ..add(DiagnosticsProperty('tries', tries))
+      ..add(DiagnosticsProperty('answers', answers))
       ..add(DiagnosticsProperty('timePoints', timePoints));
   }
 
@@ -770,8 +777,9 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
             (identical(other.question, question) ||
                 const DeepCollectionEquality()
                     .equals(other.question, question)) &&
-            (identical(other.tries, tries) ||
-                const DeepCollectionEquality().equals(other.tries, tries)) &&
+            (identical(other.answers, answers) ||
+                const DeepCollectionEquality()
+                    .equals(other.answers, answers)) &&
             (identical(other.timePoints, timePoints) ||
                 const DeepCollectionEquality()
                     .equals(other.timePoints, timePoints)));
@@ -781,18 +789,18 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(question) ^
-      const DeepCollectionEquality().hash(tries) ^
+      const DeepCollectionEquality().hash(answers) ^
       const DeepCollectionEquality().hash(timePoints);
 
   @override
   _$_Neutral copyWith({
     Object question = freezed,
-    Object tries = freezed,
+    Object answers = freezed,
     Object timePoints = freezed,
   }) {
     return _$_Neutral(
       question == freezed ? this.question : question as Question,
-      tries == freezed ? this.tries : tries as List<String>,
+      answers == freezed ? this.answers : answers as List<String>,
       timePoints == freezed ? this.timePoints : timePoints as TimePoints,
     );
   }
@@ -802,32 +810,33 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   Result when<Result extends Object>({
     @required
         Result correct(
-            Question question, List<String> tries, Duration duration),
+            Question question, List<String> answers, Duration duration),
     @required
         Result wrong(
-            Question question, List<String> tries, TimePoints timePoints),
+            Question question, List<String> answers, TimePoints timePoints),
     @required
         Result neutral(
-            Question question, List<String> tries, TimePoints timePoints),
+            Question question, List<String> answers, TimePoints timePoints),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
-    return neutral(question, tries, timePoints);
+    return neutral(question, answers, timePoints);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result correct(Question question, List<String> tries, Duration duration),
-    Result wrong(Question question, List<String> tries, TimePoints timePoints),
+    Result correct(Question question, List<String> answers, Duration duration),
+    Result wrong(
+        Question question, List<String> answers, TimePoints timePoints),
     Result neutral(
-        Question question, List<String> tries, TimePoints timePoints),
+        Question question, List<String> answers, TimePoints timePoints),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (neutral != null) {
-      return neutral(question, tries, timePoints);
+      return neutral(question, answers, timePoints);
     }
     return orElse();
   }
@@ -863,18 +872,18 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
 
 abstract class _Neutral implements _ValidationState {
   const factory _Neutral(
-          Question question, List<String> tries, TimePoints timePoints) =
+          Question question, List<String> answers, TimePoints timePoints) =
       _$_Neutral;
 
   @override
   Question get question;
   @override
-  List<String> get tries;
+  List<String> get answers;
   TimePoints get timePoints;
 
   @override
   _Neutral copyWith(
-      {Question question, List<String> tries, TimePoints timePoints});
+      {Question question, List<String> answers, TimePoints timePoints});
 }
 
 mixin _$ValidationState {

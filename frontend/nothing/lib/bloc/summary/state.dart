@@ -24,11 +24,14 @@ List<dynamic> _to(List<SummaryAnswer> ss) =>
 @freezed
 abstract class SummaryAnswer with _$SummaryAnswer {
   const factory SummaryAnswer({
-    int qid,
-    int tries, //List<String>
-    int seconds,
+    @required int qid,
+    @required int tries,
+    @required int seconds,
+    @required @JsonKey(toJson: _toS) List<String> answers,
   }) = _SummaryAnswer;
 
   factory SummaryAnswer.fromJson(Map<String, dynamic> json) =>
       _$SummaryAnswerFromJson(json);
 }
+
+String _toS(List<String> ans) => ans.join(r'<$>');

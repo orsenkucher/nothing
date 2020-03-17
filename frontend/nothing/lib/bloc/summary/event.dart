@@ -10,5 +10,6 @@ abstract class SummaryEvent with _$SummaryEvent {
     @required int qid,
     @required int tries,
     @required int seconds,
+    @required List<String> answers,
   }) = NewAnswer;
 }
