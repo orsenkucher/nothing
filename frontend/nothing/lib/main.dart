@@ -143,6 +143,28 @@ class App extends StatelessWidget with PortraitLock {
             orElse: () {},
           );
         },
+        directCondition: (previous, current) {
+          print("HOGWHOWEHHGWOHGEHWOEG");
+          print("$previous");
+          print("HOGWHOWEHHGWOHGEHWOEG");
+          print("$current");
+          print("HOGWHOWEHHGWOHGEHWOEG");
+          return true;
+        },
+        reverseCondition: (previous, current) {
+          print("OJHOJOHOHOHOHOHOOHHO");
+          print("$previous");
+          print("OJHOJOHOHOHOHOHOOHHO");
+          print("$current");
+          print("OJHOJOHOHOHOHOHOOHHO");
+          return true;
+        },
+        reverse: (context, state, bloc) {
+          state.when(
+            available: (tree) => bloc.add(ValidationEvent.focus(tree.question)),
+            empty: () {},
+          );
+        },
       ),
       BlocBinder<LifecycleBloc, LifecycleState, RoutingBloc, RoutingState>(
         direct: (context, state, bloc) => state.when(

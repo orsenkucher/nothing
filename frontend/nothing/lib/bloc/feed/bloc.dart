@@ -12,33 +12,22 @@ export 'state.dart';
 class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   final ValidationBloc validationBloc;
   final QuestionsBloc questionsBloc;
-  StreamSubscription _selfSub;
 
   FeedBloc({
     @required this.questionsBloc,
     @required this.validationBloc,
   }) {
-    _makeSelfSub();
     // TODO here is the binding problem(
-    if (state.map(available: (_) => false, empty: (_) => true)) {
-      questionsBloc.add(QuestionsEvent.fetch());
-    }
-  }
-
-  void _makeSelfSub() {
-    _selfSub = listen((state) {
-      state.when(
-        available: (tree) =>
-            validationBloc.add(ValidationEvent.focus(tree.question)),
-        empty: () {},
-      ); // TODO this is also ok to move to bindings
-    });
-  }
-
-  @override
-  Future<void> close() {
-    _selfSub.cancel();
-    return super.close();
+    // if (state.map(available: (_) => false, empty: (_) => true)) {
+    //   questionsBloc.add(QuestionsEvent.fetch());
+    // }
+    // // Need to trigger state update with default value
+    // // add()// FUUUUUUUUUUUCKKKK
+    // add(FeedEvent.newArrived(state.));
+    state.when(
+      available: (tree) => add(FeedEvent.newArrived(tree)),
+      empty: () => questionsBloc.add(QuestionsEvent.fetch()),
+    );
   }
 
   @override
