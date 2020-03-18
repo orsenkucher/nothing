@@ -122,13 +122,20 @@ class App extends StatelessWidget with PortraitLock {
         },
       ),
       BlocBinder<QuestionsBloc, QuestionsState, FeedBloc, FeedState>(
-          direct: (context, state, bloc) {
-        if (state is Loaded) {
-          if (state?.questions?.question != null) {
-            bloc.add(FeedEvent.newArrived(state.questions));
+        direct: (context, state, bloc) {
+          if (state is Loaded) {
+            if (state?.questions?.question != null) {
+              bloc.add(FeedEvent.newArrived(state.questions));
+            }
           }
-        }
-      }),
+        },
+        reverse: (context, state, bloc) => state.when(
+          available: (tree) => bloc.add(
+            QuestionsEvent.fetch(tree.question.id),
+          ),
+          empty: () => bloc.add(QuestionsEvent.fetch()),
+        ),
+      ),
       BlocBinder<ValidationBloc, ValidationState, FeedBloc, FeedState>(
         direct: (context, state, bloc) {
           state.maybeWhen(

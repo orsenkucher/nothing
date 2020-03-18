@@ -65,15 +65,6 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState>
     );
     print(next);
     yield next;
-    // TODO move this into binding
-    next.when(
-      available: (tree) => questionsBloc.add(
-        QuestionsEvent.fetch(tree.question.id),
-      ),
-      empty: () => questionsBloc.add(
-        QuestionsEvent.fetch(),
-      ),
-    );
   }
 
   @override
