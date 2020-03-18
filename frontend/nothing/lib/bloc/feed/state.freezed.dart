@@ -22,13 +22,13 @@ FeedState _$FeedStateFromJson(Map<String, dynamic> json) {
 mixin _$FeedState {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result available(@JsonKey(toJson: _toT) QTree tree),
+    @required Result available(@required @JsonKey(toJson: _toT) QTree tree),
     @required Result empty(),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result available(@JsonKey(toJson: _toT) QTree tree),
+    Result available(@required @JsonKey(toJson: _toT) QTree tree),
     Result empty(),
     @required Result orElse(),
   });
@@ -52,7 +52,7 @@ mixin _$FeedState {
 class _$FeedStateTearOff {
   const _$FeedStateTearOff();
 
-  _Available available({@JsonKey(toJson: _toT) QTree tree}) {
+  _Available available({@required @JsonKey(toJson: _toT) QTree tree}) {
     return _Available(
       tree: tree,
     );
@@ -67,7 +67,8 @@ const $FeedState = _$FeedStateTearOff();
 
 @JsonSerializable()
 class _$_Available with DiagnosticableTreeMixin implements _Available {
-  const _$_Available({@JsonKey(toJson: _toT) this.tree});
+  const _$_Available({@required @JsonKey(toJson: _toT) this.tree})
+      : assert(tree != null);
 
   factory _$_Available.fromJson(Map<String, dynamic> json) =>
       _$_$_AvailableFromJson(json);
@@ -113,7 +114,7 @@ class _$_Available with DiagnosticableTreeMixin implements _Available {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result available(@JsonKey(toJson: _toT) QTree tree),
+    @required Result available(@required @JsonKey(toJson: _toT) QTree tree),
     @required Result empty(),
   }) {
     assert(available != null);
@@ -124,7 +125,7 @@ class _$_Available with DiagnosticableTreeMixin implements _Available {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result available(@JsonKey(toJson: _toT) QTree tree),
+    Result available(@required @JsonKey(toJson: _toT) QTree tree),
     Result empty(),
     @required Result orElse(),
   }) {
@@ -167,7 +168,8 @@ class _$_Available with DiagnosticableTreeMixin implements _Available {
 }
 
 abstract class _Available implements FeedState {
-  const factory _Available({@JsonKey(toJson: _toT) QTree tree}) = _$_Available;
+  const factory _Available({@required @JsonKey(toJson: _toT) QTree tree}) =
+      _$_Available;
 
   factory _Available.fromJson(Map<String, dynamic> json) =
       _$_Available.fromJson;
@@ -207,7 +209,7 @@ class _$_Empty with DiagnosticableTreeMixin implements _Empty {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result available(@JsonKey(toJson: _toT) QTree tree),
+    @required Result available(@required @JsonKey(toJson: _toT) QTree tree),
     @required Result empty(),
   }) {
     assert(available != null);
@@ -218,7 +220,7 @@ class _$_Empty with DiagnosticableTreeMixin implements _Empty {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result available(@JsonKey(toJson: _toT) QTree tree),
+    Result available(@required @JsonKey(toJson: _toT) QTree tree),
     Result empty(),
     @required Result orElse(),
   }) {

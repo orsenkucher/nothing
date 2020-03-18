@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/bloc/feed/event.dart';
 import 'package:nothing/bloc/feed/state.dart';
@@ -9,7 +10,21 @@ import 'package:nothing/bloc/validation/bloc.dart';
 export 'event.dart';
 export 'state.dart';
 
-class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
+mixin Ignitor<Event, State> on Bloc<Event, State> {
+  // @override
+  // Stream mapEventToState(event) {
+  //   return super.mapEventToState(event);
+  // }
+
+  @override
+  Stream<State> transformEvents(events, next) {
+    return super.transformEvents(events, next);
+  }
+}
+
+// with Ignitor
+class FeedBloc extends HydratedBloc<FeedEvent, FeedState>
+    with Ignitor<FeedEvent, FeedState> {
   final ValidationBloc validationBloc;
   final QuestionsBloc questionsBloc;
 
@@ -17,13 +32,6 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     @required this.questionsBloc,
     @required this.validationBloc,
   }) {
-    // TODO here is the binding problem(
-    // if (state.map(available: (_) => false, empty: (_) => true)) {
-    //   questionsBloc.add(QuestionsEvent.fetch());
-    // }
-    // // Need to trigger state update with default value
-    // // add()// FUUUUUUUUUUUCKKKK
-    // add(FeedEvent.newArrived(state.));
     state.when(
       available: (tree) => add(FeedEvent.newArrived(tree)),
       empty: () => questionsBloc.add(QuestionsEvent.fetch()),
