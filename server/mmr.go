@@ -61,7 +61,7 @@ func CountRateChange(q *Question, u *User, a *AnswerInf) (ud float64, qd float64
 
 //checked
 func countResult(answer *AnswerInf) float64 {
-	if answer.Tries <= 0 {
+	if answer.Tries < 0 {
 		return -1
 	}
 	return -sigmoidRemake(smoothness*float64(answer.Seconds)/secNorm - smoothness)
