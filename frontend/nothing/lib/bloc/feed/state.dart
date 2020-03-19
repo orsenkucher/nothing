@@ -29,7 +29,7 @@ abstract class IgnitedState<S> {
 
 class IgnitedAvailable extends _$_Available implements IgnitedState {
   final _Available available;
-  IgnitedAvailable(this.available) : super(tree: available.tree);
+  IgnitedAvailable(this.available) : super(tree: QTree());
 
 // TODO
 // Not so fast..

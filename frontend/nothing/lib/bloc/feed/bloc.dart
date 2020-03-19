@@ -12,13 +12,23 @@ export 'state.dart';
 
 mixin Ignitor<Event, State> on Bloc<Event, State> {
   // @override
-  // Stream mapEventToState(event) {
+  // Stream<State> mapEventToState(Event event) {
   //   return super.mapEventToState(event);
   // }
 
+  // I cant even trick it:
+  // wrap in decorator
+  // pass == check
+  // and then unwrap before it is emmited
   @override
-  Stream<State> transformEvents(events, next) {
-    return super.transformEvents(events, next);
+  Stream<State> transformStates(Stream<State> states) {
+    return states.map((event) {
+      if (event is IgnitedState) {
+        return event.retrieve;
+      } else {
+        return event;
+      }
+    });
   }
 }
 
