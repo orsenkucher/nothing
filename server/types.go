@@ -73,7 +73,7 @@ func (a *AnswerInf) Print() {
 }
 
 func (a *AnswerStats) Print() {
-	fmt.Println("qid: ", a.QID, " sec: ", a.Seconds)
+	fmt.Println("qid: ", a.QID, " sec: ", a.Seconds, " tries: ", a.Tries)
 }
 
 func (q *Question) Print() {
