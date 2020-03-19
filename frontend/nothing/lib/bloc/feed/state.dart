@@ -29,8 +29,13 @@ abstract class IgnitedState<S> {
 
 class IgnitedAvailable extends _$_Available implements IgnitedState {
   final _Available available;
-  IgnitedAvailable(this.available);
+  IgnitedAvailable(this.available) : super(tree: available.tree);
 
+// TODO
+// Not so fast..
+// state == nextState: true
+// nextState == state: false
+// omg, bad idea bro
   @override
   bool operator ==(dynamic other) => false;
   @override

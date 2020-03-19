@@ -33,7 +33,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState>
     @required this.validationBloc,
   }) {
     state.when(
-      available: (tree) => add(FeedEvent.newArrived(tree)),
+      available: (tree) => add(FeedEvent.ignite(tree)),
       empty: () => questionsBloc.add(QuestionsEvent.fetch()),
     );
   }
@@ -43,14 +43,15 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState>
 
   @override
   Stream<FeedState> mapEventToState(FeedEvent event) async* {
-    yield* event.map(newArrived: _mapNewArrived, moveNext: _mapMoveNext);
+    final next = event.map(
+      moveNext: _mapMoveNext,
+      newArrived: (n) => FeedState.available(tree: n.tree),
+      ignite: (i) => FeedState.ignited(i.tree),
+    );
+    yield next;
   }
 
-  Stream<FeedState> _mapNewArrived(NewArrived event) async* {
-    yield FeedState.available(tree: event.tree);
-  }
-
-  Stream<FeedState> _mapMoveNext(MoveNext event) async* {
+  FeedState _mapMoveNext(MoveNext event) {
     final next = state.when<FeedState>(
       available: (tree) {
         final next = event.dir.when(
@@ -64,7 +65,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState>
       empty: () => FeedState.empty(),
     );
     print(next);
-    yield next;
+    return next;
   }
 
   @override

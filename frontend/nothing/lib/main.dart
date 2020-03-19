@@ -156,6 +156,12 @@ class App extends StatelessWidget with PortraitLock {
             empty: () {},
           );
         },
+        reverseCondition: (previous, current) {
+          print("======******======");
+          print("======******======");
+          print("======******======");
+          return true;
+        },
       ),
       BlocBinder<LifecycleBloc, LifecycleState, RoutingBloc, RoutingState>(
         direct: (context, state, bloc) => state.when(

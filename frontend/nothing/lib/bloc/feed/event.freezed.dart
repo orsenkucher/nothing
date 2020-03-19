@@ -10,12 +10,14 @@ part of 'event.dart';
 mixin _$FeedEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result ignite(QTree tree),
     @required Result newArrived(QTree tree),
     @required Result moveNext(MoveDir dir),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result ignite(QTree tree),
     Result newArrived(QTree tree),
     Result moveNext(MoveDir dir),
     @required Result orElse(),
@@ -23,12 +25,14 @@ mixin _$FeedEvent {
 
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result ignite(Ignite value),
     @required Result newArrived(NewArrived value),
     @required Result moveNext(MoveNext value),
   });
 
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result ignite(Ignite value),
     Result newArrived(NewArrived value),
     Result moveNext(MoveNext value),
     @required Result orElse(),
@@ -37,6 +41,12 @@ mixin _$FeedEvent {
 
 class _$FeedEventTearOff {
   const _$FeedEventTearOff();
+
+  Ignite ignite(QTree tree) {
+    return Ignite(
+      tree,
+    );
+  }
 
   NewArrived newArrived(QTree tree) {
     return NewArrived(
@@ -52,6 +62,111 @@ class _$FeedEventTearOff {
 }
 
 const $FeedEvent = _$FeedEventTearOff();
+
+class _$Ignite with DiagnosticableTreeMixin implements Ignite {
+  const _$Ignite(this.tree) : assert(tree != null);
+
+  @override
+  final QTree tree;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'FeedEvent.ignite(tree: $tree)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'FeedEvent.ignite'))
+      ..add(DiagnosticsProperty('tree', tree));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is Ignite &&
+            (identical(other.tree, tree) ||
+                const DeepCollectionEquality().equals(other.tree, tree)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(tree);
+
+  @override
+  _$Ignite copyWith({
+    Object tree = freezed,
+  }) {
+    return _$Ignite(
+      tree == freezed ? this.tree : tree as QTree,
+    );
+  }
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result ignite(QTree tree),
+    @required Result newArrived(QTree tree),
+    @required Result moveNext(MoveDir dir),
+  }) {
+    assert(ignite != null);
+    assert(newArrived != null);
+    assert(moveNext != null);
+    return ignite(tree);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result ignite(QTree tree),
+    Result newArrived(QTree tree),
+    Result moveNext(MoveDir dir),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (ignite != null) {
+      return ignite(tree);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result ignite(Ignite value),
+    @required Result newArrived(NewArrived value),
+    @required Result moveNext(MoveNext value),
+  }) {
+    assert(ignite != null);
+    assert(newArrived != null);
+    assert(moveNext != null);
+    return ignite(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result ignite(Ignite value),
+    Result newArrived(NewArrived value),
+    Result moveNext(MoveNext value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (ignite != null) {
+      return ignite(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Ignite implements FeedEvent {
+  const factory Ignite(QTree tree) = _$Ignite;
+
+  QTree get tree;
+
+  Ignite copyWith({QTree tree});
+}
 
 class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
   const _$NewArrived(this.tree) : assert(tree != null);
@@ -96,9 +211,11 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result ignite(QTree tree),
     @required Result newArrived(QTree tree),
     @required Result moveNext(MoveDir dir),
   }) {
+    assert(ignite != null);
     assert(newArrived != null);
     assert(moveNext != null);
     return newArrived(tree);
@@ -107,6 +224,7 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result ignite(QTree tree),
     Result newArrived(QTree tree),
     Result moveNext(MoveDir dir),
     @required Result orElse(),
@@ -121,9 +239,11 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result ignite(Ignite value),
     @required Result newArrived(NewArrived value),
     @required Result moveNext(MoveNext value),
   }) {
+    assert(ignite != null);
     assert(newArrived != null);
     assert(moveNext != null);
     return newArrived(this);
@@ -132,6 +252,7 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result ignite(Ignite value),
     Result newArrived(NewArrived value),
     Result moveNext(MoveNext value),
     @required Result orElse(),
@@ -195,9 +316,11 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
+    @required Result ignite(QTree tree),
     @required Result newArrived(QTree tree),
     @required Result moveNext(MoveDir dir),
   }) {
+    assert(ignite != null);
     assert(newArrived != null);
     assert(moveNext != null);
     return moveNext(dir);
@@ -206,6 +329,7 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
+    Result ignite(QTree tree),
     Result newArrived(QTree tree),
     Result moveNext(MoveDir dir),
     @required Result orElse(),
@@ -220,9 +344,11 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
+    @required Result ignite(Ignite value),
     @required Result newArrived(NewArrived value),
     @required Result moveNext(MoveNext value),
   }) {
+    assert(ignite != null);
     assert(newArrived != null);
     assert(moveNext != null);
     return moveNext(this);
@@ -231,6 +357,7 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
+    Result ignite(Ignite value),
     Result newArrived(NewArrived value),
     Result moveNext(MoveNext value),
     @required Result orElse(),
