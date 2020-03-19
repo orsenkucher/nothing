@@ -45,11 +45,12 @@ class _None<A> extends OptionMonad<A> {
 }
 
 $() {
-  var some = OptionMonad<int>.some(10);
-  var some2 = OptionMonad<int>.some(20);
-  var none = OptionMonad<int>.none();
-  print(some.map2(some, none, (a, b) => a + b));
-  print(some.map2(some, some2, (a, b) => a + b));
+  var some1 = OptionMonad<int>.some(10);
+  var none2 = OptionMonad<String>.none();
+  var some2 = OptionMonad<String>.some("apples");
+  // why dart cant just infer them? <B,C>
+  print(some1.map2<String, String>(some1, none2, (a, b) => '$a $b'));
+  print(some1.map2<String, String>(some1, some2, (a, b) => '$a $b'));
 }
 
 main() => $();
