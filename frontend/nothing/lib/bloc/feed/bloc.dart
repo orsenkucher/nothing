@@ -1,49 +1,24 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/bloc/feed/event.dart';
 import 'package:nothing/bloc/feed/state.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 export 'event.dart';
 export 'state.dart';
 
-mixin Ignitor<Event, State> on Bloc<Event, State> {
-  // @override
-  // Stream<State> mapEventToState(Event event) {
-  //   return super.mapEventToState(event);
-  // }
-
-  // I cant even trick it:
-  // wrap in decorator
-  // pass == check
-  // and then unwrap before it is emmited
-  @override
-  Stream<State> transformStates(Stream<State> states) {
-    return states.map((event) {
-      if (event is IgnitedState) {
-        return event.retrieve;
-      } else {
-        return event;
-      }
-    });
-  }
-}
-
-// with Ignitor
-class FeedBloc extends HydratedBloc<FeedEvent, FeedState>
-    with Ignitor<FeedEvent, FeedState> {
+class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   final ValidationBloc validationBloc;
   final QuestionsBloc questionsBloc;
-
   FeedBloc({
     @required this.questionsBloc,
     @required this.validationBloc,
   }) {
     state.when(
-      available: (tree) => add(FeedEvent.ignite(tree)),
+      available: (tree) => add(FeedEvent.newArrived(tree)),
       empty: () => questionsBloc.add(QuestionsEvent.fetch()),
     );
   }
@@ -56,7 +31,6 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState>
     final next = event.map(
       moveNext: _mapMoveNext,
       newArrived: (n) => FeedState.available(tree: n.tree),
-      ignite: (i) => FeedState.ignited(i.tree),
     );
     yield next;
   }

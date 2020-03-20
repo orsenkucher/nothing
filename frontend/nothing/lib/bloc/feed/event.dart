@@ -6,7 +6,6 @@ part 'event.freezed.dart';
 
 @freezed
 abstract class FeedEvent with _$FeedEvent {
-  const factory FeedEvent.ignite(QTree tree) = Ignite;
   const factory FeedEvent.newArrived(QTree tree) = NewArrived;
   const factory FeedEvent.moveNext(MoveDir dir) = MoveNext;
 }
