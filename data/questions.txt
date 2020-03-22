@@ -45,7 +45,6 @@
 |8|Knock knock |who is there?<$>who is there<$>who’s there?|Who is there
 |7|What do you call a FISH with no Eyes?|fsh| Get rid of eyes in the word FISH
 |9|Black, Red, Yellow, White|Sea|Geography related question, one of them is located between mainland China and the Korean Peninsula
-|9|4x2 - 22  = 5 + x2, x > 0, x = ?|3|
 |4|-8 = 2-5x|2|x = 2
 |7|Good cop|bad cop|Aggressive approach.
 |5|0,99999… = ? |1<$>0,(9)<$>0.(9)|exp51 |5|If you divide 30 by half and add 30, what do you get|90| 30/0.5 = 60
@@ -144,7 +143,7 @@
 |7|What sign should be put between 6 and 7, so that the result is less than 7 and more than 6?|,<$>.| The simple and direct answer is the good old Decimal.
 |6|The largest human organ|skin|The largest external organ, which is also the largest organ in general
 |6|A The guests came to you. In the fridge you have a bottle of lemonade, a bag of pineapple juice and a bottle of mineral water. What will you open first?|fridge| In the ‘fridge’ you have a bottle…
-|9|What the magnifying glass can not increase in a triangle?|angles| Right triangle will still be right triangle(a 90-degree angle)|
+|9|What the magnifying glass can not increase in a triangle?|angle<$>angles| Right triangle will still be right triangle(a 90-degree angle)|
 |3|How many different digits must I use to write the number 100?|2|The digits are 1 and 0
 |8|From head to tail 12 m, and from tail to head 0 m. What is this?|year| m - month
 |2|How much water is im am empty glass that is 20cm high and has a diameter of 2cm?|0<$>none| There is no water in empty glass
@@ -165,21 +164,20 @@
 |1|2+2х2=?|6|2 + 4
 |1|When the chicken stands on one leg, it weighs 2 kg. How much will chicken weigh if she stands on two legs?|2<$>2kg<$>2 kg| The weigh won’t change 
 |3|You have only one match. In a dark room there is a kerosene lamp, a stove and a candle. What will you light first?|match| The ? itself ! As of you have to light first it in order to light up others.
-|4|What can you see with your eyes closed?|dreams<$>dream|
+|4|What can you see with your eyes closed?|dreams<$>dream|During sleep
 |7|Which month is shorter than all?|may| July has 4 letters, December has 8 letters
 |2|What was “tomorrow” yesterday and tomorrow will be “yesterday”?|today| This day
 |6|What happens if you combine Microsoft and the iPhone?|microphone| Combine words: micro + phone
 |4|12823^0 - 1|0|Every number Raised to Zero Equal One
-|3|What goes up and down without moving?|Stairs| 
-|8|SCD,TEF,UGH, ___, WKL|VIJ| There are two alphabetical sequences S-T-U, CD-EF-GH 
+|3|What goes up and down without moving?|stairs|Stairs
+|8|SCD,TEF,UGH, ___, WKL|VIJ|There are two alphabetical sequences S-T-U, CD-EF-GH
 |8|FLG, GLF, HLI, ILH,|JLK| L is constant; FG-GF; HI-IH;
-|8|EBFD, GBHD, IBJD, ____, MLND|KBLD| B and D are constant;  EF-GH-IJ
+|8|EBFD, GBHD, IBJD, ____, MBND|KBLD|B and D are constant;  EF-GH-IJ
 |8|Fresh grapes contain 60% water, while dry grapes contain 40% water. How many kgs of dry grapes can be obtained by 60 kg of fresh grapes?|40| 60 x 0.4 = p x 0.6, p - ?
 |6|Play is to actor as concert is to|musician| An actor performs in a play, on the other hand, A ? performs at a concert.
 |6|Pen is to poet as needle is to|tailor| A pen is a tool used by a poet. A ? is a tool used by a tailor.
 |6|Secretly is to openly as silently is to|noisily| Opposite of silently 
 |7|gorblflur means fan belt; pixngorbl means ceiling fan; arthtusi means tile roof; Which word could mean ceiling tile?|pixnarth| arth - tile
-|7|Migenlasan means cupboard, lasanpoen means boardwalk, cuopdansa means pullman. Which world could mean walkway?|poenforc| forc - way
 |2|Which word does not belong with the others? inch, ounce, centimeter, yard|ounce| Inch, centimeter and yard are the different units of length
 |2|Which word does not belong with the others? tire, steering wheel, engine, car|car| Tyre, steering wheel, and engine are all parts of a ?
 |2|Choose the word which is different from the rest Chicken, snake, swan, crocodile, frog|chicken| All except ? can live in water.
