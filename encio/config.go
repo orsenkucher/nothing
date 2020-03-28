@@ -8,7 +8,7 @@ import (
 
 type Config map[string]interface{}
 
-var cfgs map[string]Config
+var cfgs map[string]Config = make(map[string]Config)
 
 func (key EncIO) GetConfig(file string) (Config, error) {
 	cfg := cfgs[file]
