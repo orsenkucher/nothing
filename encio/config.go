@@ -14,20 +14,17 @@ func (key EncIO) GetConfig(file string) (Config, error) {
 	cfg := cfgs[file]
 	if cfg == nil {
 		err := key.reloadConfig(file)
-		return cfg, err
-	}
+		return cfgs[file], err
+	} // TODO: how to use map ref type
 	return cfg, nil
 }
 
 func (key EncIO) reloadConfig(file string) error {
-	cfg := cfgs[file] // map is a ref type
+	var cfg Config
 	if bytes, err := key.ReadFile(file); err == nil {
 		if err := json.Unmarshal(bytes, &cfg); err == nil {
-			keys := make([]string, 0, len(cfg))
-			for k := range cfg {
-				keys = append(keys, k)
-			}
-			log.Printf("encio: Config reloaded fields with these keys -> %v", keys)
+			cfgs[file] = cfg
+			logCfg(cfg)
 			return nil
 		} else {
 			return fmt.Errorf("encio: Your '%s' is present, but your key might be wrong.\nerr: %w", file, err)
@@ -35,4 +32,11 @@ func (key EncIO) reloadConfig(file string) error {
 	} else {
 		return err
 	}
+}
+func logCfg(cfg Config) {
+	keys := make([]string, 0, len(cfg))
+	for k := range cfg {
+		keys = append(keys, k)
+	}
+	log.Printf("encio: Config reloaded fields with these keys -> %v", keys)
 }
