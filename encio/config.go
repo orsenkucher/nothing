@@ -8,9 +8,10 @@ import (
 
 type Config map[string]interface{}
 
-var cfg Config
+var cfgs map[string]Config
 
 func (key EncIO) GetConfig(file string) (Config, error) {
+	cfg := cfgs[file]
 	if cfg == nil {
 		err := key.reloadConfig(file)
 		return cfg, err
@@ -19,6 +20,7 @@ func (key EncIO) GetConfig(file string) (Config, error) {
 }
 
 func (key EncIO) reloadConfig(file string) error {
+	cfg := cfgs[file] // map is a ref type
 	if bytes, err := key.ReadFile(file); err == nil {
 		if err := json.Unmarshal(bytes, &cfg); err == nil {
 			keys := make([]string, 0, len(cfg))
