@@ -7,6 +7,7 @@ import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/model/text.dart';
 import 'package:nothing/ui/game.dart';
+import 'package:nothing/ui/history.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Home extends StatefulWidget {
@@ -44,6 +45,13 @@ class _HomeState extends State<Home> {
       context.bloc<RoutingBloc>().add(RoutingEvent.resume());
     });
     return Scaffold(
+      drawer: Drawer(),
+      // endDrawer: HistoryList(),
+      drawerScrimColor: Colors.yellow,
+
+      endDrawer: Drawer(
+        elevation: 0,
+      ),
       body: Container(
         color: NothingScheme.of(context).background,
         child: ScopedModel<TextModel>(
