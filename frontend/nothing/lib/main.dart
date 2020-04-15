@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/binding/binder.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
@@ -16,8 +17,8 @@ import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-import 'package:nothing/delegate/delegate.dart';
 import 'package:nothing/repository/questions.dart';
+import 'package:nothing/storage/storage.dart';
 import 'package:nothing/tools/lifecycle.dart';
 import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/history.dart';
@@ -34,7 +35,8 @@ void main() async {
 
 Future _hydrateAsync() async {
   WidgetsFlutterBinding.ensureInitialized();
-  BlocSupervisor.delegate = await NothingBlocDelegate.build();
+  final storage = await NothingBlocStorage.getInstance();
+  BlocSupervisor.delegate = HydratedBlocDelegate(storage);
 }
 
 void _lifecycle(LifecycleBloc lifecycle) {
@@ -155,12 +157,6 @@ class App extends StatelessWidget with PortraitLock {
             available: (tree) => bloc.add(ValidationEvent.focus(tree.question)),
             empty: () {},
           );
-        },
-        reverseCondition: (previous, current) {
-          print("======******======");
-          print("======******======");
-          print("======******======");
-          return true;
         },
       ),
       BlocBinder<LifecycleBloc, LifecycleState, RoutingBloc, RoutingState>(
