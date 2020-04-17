@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'state.dart';
 
@@ -42,6 +42,32 @@ mixin _$QuestionsState {
     @required Result orElse(),
   });
 }
+
+class _$QuestionsStateTearOff {
+  const _$QuestionsStateTearOff();
+
+  Loaded loaded(QTree questions) {
+    return Loaded(
+      questions,
+    );
+  }
+
+  Loading loading() {
+    return const Loading();
+  }
+
+  Reloading reloading() {
+    return const Reloading();
+  }
+
+  Error error(CloudError error) {
+    return Error(
+      error,
+    );
+  }
+}
+
+const $QuestionsState = _$QuestionsStateTearOff();
 
 class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   const _$Loaded(this.questions) : assert(questions != null);

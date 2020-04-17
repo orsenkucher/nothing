@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'state.dart';
 
@@ -19,6 +19,19 @@ mixin _$IdState {
 
   Map<String, dynamic> toJson();
 }
+
+class _$IdStateTearOff {
+  const _$IdStateTearOff();
+
+  _IdState _(String id, String salt) {
+    return _IdState(
+      id,
+      salt,
+    );
+  }
+}
+
+const $IdState = _$IdStateTearOff();
 
 @JsonSerializable()
 class _$_IdState with DiagnosticableTreeMixin implements _IdState {

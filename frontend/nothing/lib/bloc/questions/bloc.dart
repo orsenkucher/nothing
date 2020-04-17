@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:bloc/bloc.dart';
-// import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 
 import 'package:nothing/bloc/questions/state.dart';
@@ -18,28 +18,14 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   final QuestionsRepo repo;
   final SummaryBloc summaryBloc;
   final IdBloc idBloc;
-  // final FeedBloc feed;
-
-  // StreamSubscription _sub;
+  final HistoryBloc historyBloc;
 
   QuestionsBloc({
     @required this.repo,
     @required this.summaryBloc,
     @required this.idBloc,
-    // @required this.feed,
-  }) {
-    // _sub = feed.listen((state) {
-    //   if (state.tree == null) {
-    //     add(QuestionsEvent.fetch());
-    //   }
-    // });
-  }
-
-  @override
-  Future<void> close() async {
-    // await _sub.cancel();
-    return super.close();
-  }
+    @required this.historyBloc,
+  });
 
   @override
   QuestionsState get initialState => QuestionsState.empty;
@@ -49,24 +35,26 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
     yield* event.map(fetch: _mapFetch, refetch: _mapRefetch);
   }
 
+  int lastid;
   Stream<QuestionsState> _mapFetch(Fetch event) async* {
-    if (state is Loading || state is Error) {
+    if (event.currentid == null) {
+      final curid = event.currentid ?? historyBloc.state.ids.isEmpty ? 1 : -1;
+      add(QuestionsEvent.fetch(curid));
       return;
-    } // Waiting for server response
+    }
     yield const QuestionsState.loading();
     try {
+      lastid = event.currentid;
       var problems = await repo.fetchQuestions(
         userID: idBloc.state.id,
-        // currentID: feed.state.tree?.question?.id ?? -1,
-        currentID: event.currentid ?? -1,
+        currentID: event.currentid,
         answers: summaryBloc.state.answers,
       );
       yield QuestionsState.loaded(problems);
       summaryBloc.add(const SummaryEvent.reset());
-      // feed.add(NewArrived(problems));
     } on CloudError catch (error) {
       yield QuestionsState.error(error);
-      add(QuestionsEvent.refetch(event.currentid ?? -1));
+      add(QuestionsEvent.refetch(event.currentid));
     }
   }
 
@@ -74,7 +62,9 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
     const duration = Duration(seconds: 10);
     print("Retry in $duration");
     await Future.delayed(duration);
-    yield const QuestionsState.reloading();
-    add(QuestionsEvent.fetch(event.currentid));
+    if (lastid == event.currentid) {
+      yield const QuestionsState.reloading();
+      add(QuestionsEvent.fetch(event.currentid));
+    }
   }
 }

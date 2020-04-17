@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'event.dart';
 
@@ -34,6 +34,24 @@ mixin _$FeedEvent {
     @required Result orElse(),
   });
 }
+
+class _$FeedEventTearOff {
+  const _$FeedEventTearOff();
+
+  NewArrived newArrived(QTree tree) {
+    return NewArrived(
+      tree,
+    );
+  }
+
+  MoveNext moveNext(MoveDir dir) {
+    return MoveNext(
+      dir,
+    );
+  }
+}
+
+const $FeedEvent = _$FeedEventTearOff();
 
 class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
   const _$NewArrived(this.tree) : assert(tree != null);
@@ -260,6 +278,20 @@ mixin _$MoveDir {
     @required Result orElse(),
   });
 }
+
+class _$MoveDirTearOff {
+  const _$MoveDirTearOff();
+
+  _Left left() {
+    return const _Left();
+  }
+
+  _Right right() {
+    return const _Right();
+  }
+}
+
+const $MoveDir = _$MoveDirTearOff();
 
 class _$_Left with DiagnosticableTreeMixin implements _Left {
   const _$_Left();

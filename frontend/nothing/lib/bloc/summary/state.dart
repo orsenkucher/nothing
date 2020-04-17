@@ -7,18 +7,15 @@ part 'state.freezed.dart';
 part 'state.g.dart';
 
 @freezed
-abstract class Summary with _$Summary {
-  const factory Summary({
-    // @required int currentid,
-    // @required String userid,
-    @required int salt,
+abstract class SummaryState with _$SummaryState {
+  const factory SummaryState({
     @required @JsonKey(toJson: _to) List<SummaryAnswer> answers,
-  }) = _Summary;
+  }) = _SummaryState;
 
-  factory Summary.empty() => Summary(salt: 0, answers: List<SummaryAnswer>());
+  factory SummaryState.empty() => SummaryState(answers: List<SummaryAnswer>());
 
-  factory Summary.fromJson(Map<String, dynamic> json) =>
-      _$SummaryFromJson(json);
+  factory SummaryState.fromJson(Map<String, dynamic> json) =>
+      _$SummaryStateFromJson(json);
 }
 
 List<dynamic> _to(List<SummaryAnswer> ss) =>
@@ -27,11 +24,14 @@ List<dynamic> _to(List<SummaryAnswer> ss) =>
 @freezed
 abstract class SummaryAnswer with _$SummaryAnswer {
   const factory SummaryAnswer({
-    int qid,
-    int tries,
-    int seconds,
+    @required int qid,
+    @required int tries,
+    @required int seconds,
+    @required @JsonKey(toJson: _toS) List<String> answers,
   }) = _SummaryAnswer;
 
   factory SummaryAnswer.fromJson(Map<String, dynamic> json) =>
       _$SummaryAnswerFromJson(json);
 }
+
+String _toS(List<String> ans) => ans.join(r'<$>');

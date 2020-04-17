@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'domain.dart';
 
@@ -23,6 +23,23 @@ mixin _$Question {
 
   Map<String, dynamic> toJson();
 }
+
+class _$QuestionTearOff {
+  const _$QuestionTearOff();
+
+  _Question call(
+      {int id, String question, String explanation, String answers, int mmr}) {
+    return _Question(
+      id: id,
+      question: question,
+      explanation: explanation,
+      answers: answers,
+      mmr: mmr,
+    );
+  }
+}
+
+const $Question = _$QuestionTearOff();
 
 @JsonSerializable()
 class _$_Question with DiagnosticableTreeMixin implements _Question {
@@ -169,6 +186,23 @@ mixin _$QTree {
 
   Map<String, dynamic> toJson();
 }
+
+class _$QTreeTearOff {
+  const _$QTreeTearOff();
+
+  _QTree call(
+      {@JsonKey(toJson: _toQ) Question question,
+      @JsonKey(toJson: _toT) QTree left,
+      @JsonKey(toJson: _toT) QTree right}) {
+    return _QTree(
+      question: question,
+      left: left,
+      right: right,
+    );
+  }
+}
+
+const $QTree = _$QTreeTearOff();
 
 @JsonSerializable()
 class _$_QTree with DiagnosticableTreeMixin implements _QTree {

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'event.dart';
 
@@ -34,6 +34,22 @@ mixin _$IdEvent {
     @required Result orElse(),
   });
 }
+
+class _$IdEventTearOff {
+  const _$IdEventTearOff();
+
+  _RevokeID revoke() {
+    return const _RevokeID();
+  }
+
+  _IssueID issue(IdState state) {
+    return _IssueID(
+      state,
+    );
+  }
+}
+
+const $IdEvent = _$IdEventTearOff();
 
 class _$_RevokeID with DiagnosticableTreeMixin implements _RevokeID {
   const _$_RevokeID();

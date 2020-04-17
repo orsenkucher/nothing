@@ -6,9 +6,8 @@ part of 'state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Summary _$_$_SummaryFromJson(Map<String, dynamic> json) {
-  return _$_Summary(
-    salt: json['salt'] as int,
+_$_SummaryState _$_$_SummaryStateFromJson(Map<String, dynamic> json) {
+  return _$_SummaryState(
     answers: (json['answers'] as List)
         ?.map((e) => e == null
             ? null
@@ -17,9 +16,8 @@ _$_Summary _$_$_SummaryFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$_$_SummaryToJson(_$_Summary instance) =>
+Map<String, dynamic> _$_$_SummaryStateToJson(_$_SummaryState instance) =>
     <String, dynamic>{
-      'salt': instance.salt,
       'answers': _to(instance.answers),
     };
 
@@ -28,6 +26,7 @@ _$_SummaryAnswer _$_$_SummaryAnswerFromJson(Map<String, dynamic> json) {
     qid: json['qid'] as int,
     tries: json['tries'] as int,
     seconds: json['seconds'] as int,
+    answers: (json['answers'] as List)?.map((e) => e as String)?.toList(),
   );
 }
 
@@ -36,4 +35,5 @@ Map<String, dynamic> _$_$_SummaryAnswerToJson(_$_SummaryAnswer instance) =>
       'qid': instance.qid,
       'tries': instance.tries,
       'seconds': instance.seconds,
+      'answers': _toS(instance.answers),
     };

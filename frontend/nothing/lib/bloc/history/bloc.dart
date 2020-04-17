@@ -5,7 +5,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
-import 'package:nothing/bloc/validation/bloc.dart';
 
 part 'bloc.freezed.dart';
 part 'bloc.g.dart';
@@ -30,22 +29,6 @@ List<dynamic> _to(List<SummaryAnswer> ss) =>
     ss?.map((s) => s.toJson())?.toList();
 
 class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
-  final ValidationBloc validation;
-  StreamSubscription _sub;
-
-  HistoryBloc({@required this.validation}) {
-    _sub = validation.listen((s) {
-      print('%%% HISTORY: $s');
-      add(HistoryEvent.next(SummaryAnswer(
-          qid: s.question.id,
-          tries: s.tries,
-          seconds: s.maybeMap(
-            correct: (x) => x.duration.inSeconds,
-            orElse: () => 0,
-          ))));
-    });
-  }
-
   @override
   HistoryState get initialState =>
       super.initialState ??
@@ -53,12 +36,6 @@ class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
         ids: {},
         answers: [],
       );
-
-  @override
-  Future<void> close() {
-    _sub.cancel();
-    return super.close();
-  }
 
   @override
   Stream<HistoryState> mapEventToState(HistoryEvent event) async* {
@@ -99,17 +76,3 @@ class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
     }
   }
 }
-
-// Bro, is this theme a very scecial kind of sause for your day?
-// I think I today had very tiny microdose, about something*10^-6, without any visuals all day long.
-// BUT few minutes I've opened vscode I started tripping so hard on my code, with moving layers and warping screen
-// So gotcha bro
-// I have explored hidden abstraction under this theme bro
-
-// I have explored hidden sense under your theme bro
-// With very tiny md without any visuals all day long,
-// With very tiny md and no visuals all day long,
-// When I opended vscode, I have started tripping so hard on it
-// I have passed a critical point
-// I have started tripping so hard on my code, with screen wraping and layers moving
-// Very good color choise, like it.
