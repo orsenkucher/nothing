@@ -35,7 +35,7 @@ abstract class LogEvent with _$LogEvent {
 
 class LogBloc extends Bloc<LogEvent, String> {
   @override
-  String get initialState => '> hello';
+  String get initialState => '>>>';
 
   @override
   Stream<String> mapEventToState(LogEvent event) async* {

@@ -23,6 +23,7 @@ abstract class ComputeState with _$ComputeState {
 class ComputeBloc extends HydratedBloc<ComputeEvent, ComputeState> {
   ComputeBloc(DataBloc db) {
     state.when(
+      //TODO break point here
       available: (data) => add(ComputeEvent.onNew(data)),
       empty: () => db.add(DataEvent.newDataPlease()),
     );
