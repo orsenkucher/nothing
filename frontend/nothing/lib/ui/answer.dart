@@ -25,11 +25,14 @@ class Answer extends StatelessWidget {
           //   // neutral: (s) => s.green ? scheme.correct.tint : scheme.neutral.tint,
           //   wrong: (_) => scheme.wrong.tint,
           // ),
-          // color: state.map(
-          //   correct: (_) => scheme.correct,
-          //   // neutral: (s) => s.green ? scheme.correct : scheme.neutral,
-          //   wrong: (_) => scheme.wrong,
-          // ),
+          color: state.when(
+            just: (state) => state.map(
+              correct: (_) => scheme.correct,
+              neutral: (_) => scheme.neutral,
+              wrong: (_) => scheme.wrong,
+            ),
+            nothing: () => scheme.neutral,
+          ),
           borderRadius: BorderRadius.circular(28),
           clipBehavior: Clip.antiAlias,
           child: Row(

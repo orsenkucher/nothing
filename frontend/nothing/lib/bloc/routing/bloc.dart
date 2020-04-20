@@ -25,6 +25,7 @@ abstract class RoutingState with _$RoutingState {
     @required List<Routes> log,
     @required String salt,
   }) = _RoutingState;
+
   factory RoutingState({
     @required RoutingEvent event,
     @required List<Routes> log,

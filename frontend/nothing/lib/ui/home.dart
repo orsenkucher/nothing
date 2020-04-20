@@ -45,65 +45,79 @@ class _HomeState extends State<Home> {
       context.bloc<RoutingBloc>().add(RoutingEvent.resume());
     });
     return Scaffold(
-      drawer: Drawer(),
-      // endDrawer: HistoryList(),
-      drawerScrimColor: Colors.yellow,
-
-      endDrawer: Drawer(
-        elevation: 0,
-      ),
-      body: Container(
-        color: NothingScheme.of(context).background,
-        child: ScopedModel<TextModel>(
-          model: model,
-          child: Stack(
-            children: [
-              Game(),
-              _gestureDetector(),
-              // Test(),
-              MultiBlocListener(
-                listeners: [
-                  BlocListener<ValidationBloc, ValidationState>(
-                    listener: (context, state) {
-                      state.maybeWhen(
-                        just: (just) => just.maybeMap(
-                          orElse: () {},
-                          correct: (_) {
-                            _controller.clear();
-                            model.update('');
-                          },
-                        ),
-                        orElse: () {},
-                      );
-                    },
-                  ),
-                  BlocListener<RoutingBloc, RoutingState>(
-                      listener: (context, state) {
-                    print(state);
-                    if (state.route != Routes.home()) return;
-                    print('focusing keyboard');
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      _focusNode.unfocus();
-                      _focusNode.requestFocus();
-                    });
-                  })
-                ],
-                child: _inputPoint(model),
-              ),
-            ],
+      body: CustomScrollView(
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter(child: Container(width: 200, color: Colors.amber)),
+          SliverFillViewport(
+            delegate: SliverChildBuilderDelegate(
+              (context, i) => i == 0 ? _buildMain(context) : null,
+            ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMain(BuildContext context) {
+    return Container(
+      color: NothingScheme.of(context).background,
+      child: ScopedModel<TextModel>(
+        model: model,
+        child: Stack(
+          children: [
+            Game(),
+            _gestureDetector(),
+            // Test(),
+            MultiBlocListener(
+              listeners: [
+                BlocListener<ValidationBloc, ValidationState>(
+                  listener: (context, state) {
+                    state.maybeWhen(
+                      just: (just) => just.maybeMap(
+                        orElse: () {},
+                        correct: (_) {
+                          _controller.clear();
+                          model.update('');
+                        },
+                      ),
+                      orElse: () {},
+                    );
+                  },
+                ),
+                BlocListener<RoutingBloc, RoutingState>(
+                    listener: (context, state) {
+                  print(state);
+                  if (state.route != Routes.home()) return;
+                  print('focusing keyboard');
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    _focusNode.unfocus();
+                    _focusNode.requestFocus();
+                  });
+                })
+              ],
+              child: _inputPoint(model),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  GestureDetector _gestureDetector() {
-    return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onHorizontalDragEnd: (_) {
-        _focusNode.unfocus();
-        _focusNode.requestFocus();
-      },
+  Widget _gestureDetector() {
+    return Center(
+      child: FractionallySizedBox(
+        widthFactor: 0.6,
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          child: Container(color: Colors.green.withOpacity(0.3)),
+          onHorizontalDragEnd: (_) {
+            _focusNode.unfocus();
+            _focusNode.requestFocus();
+          },
+        ),
+      ),
     );
   }
 

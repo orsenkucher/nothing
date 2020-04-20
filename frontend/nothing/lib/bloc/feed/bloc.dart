@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/bloc/feed/event.dart';
 import 'package:nothing/bloc/feed/state.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
@@ -18,6 +17,7 @@ class FeedBloc extends IgnitedBloc<FeedEvent, FeedState> {
     @required this.questionsBloc,
     @required this.validationBloc,
   });
+
   @override
   void ignition(FeedState paylaod) {
     paylaod.when(
