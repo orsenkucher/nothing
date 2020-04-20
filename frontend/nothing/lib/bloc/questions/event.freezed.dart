@@ -7,37 +7,7 @@ part of 'event.dart';
 // FreezedGenerator
 // **************************************************************************
 
-mixin _$QuestionsEvent {
-  int get currentid;
-
-  QuestionsEvent copyWith({int currentid});
-
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result fetch(int currentid),
-    @required Result refetch(int currentid),
-  });
-
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result fetch(int currentid),
-    Result refetch(int currentid),
-    @required Result orElse(),
-  });
-
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result fetch(Fetch value),
-    @required Result refetch(Refetch value),
-  });
-
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result fetch(Fetch value),
-    Result refetch(Refetch value),
-    @required Result orElse(),
-  });
-}
+T _$identity<T>(T value) => value;
 
 class _$QuestionsEventTearOff {
   const _$QuestionsEventTearOff();
@@ -55,7 +25,87 @@ class _$QuestionsEventTearOff {
   }
 }
 
+// ignore: unused_element
 const $QuestionsEvent = _$QuestionsEventTearOff();
+
+mixin _$QuestionsEvent {
+  int get currentid;
+
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result fetch(int currentid),
+    @required Result refetch(int currentid),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result fetch(int currentid),
+    Result refetch(int currentid),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result fetch(Fetch value),
+    @required Result refetch(Refetch value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result fetch(Fetch value),
+    Result refetch(Refetch value),
+    @required Result orElse(),
+  });
+
+  $QuestionsEventCopyWith<QuestionsEvent> get copyWith;
+}
+
+abstract class $QuestionsEventCopyWith<$Res> {
+  factory $QuestionsEventCopyWith(
+          QuestionsEvent value, $Res Function(QuestionsEvent) then) =
+      _$QuestionsEventCopyWithImpl<$Res>;
+  $Res call({int currentid});
+}
+
+class _$QuestionsEventCopyWithImpl<$Res>
+    implements $QuestionsEventCopyWith<$Res> {
+  _$QuestionsEventCopyWithImpl(this._value, this._then);
+
+  final QuestionsEvent _value;
+  // ignore: unused_field
+  final $Res Function(QuestionsEvent) _then;
+
+  @override
+  $Res call({
+    Object currentid = freezed,
+  }) {
+    return _then(_value.copyWith(
+      currentid: currentid == freezed ? _value.currentid : currentid as int,
+    ));
+  }
+}
+
+abstract class $FetchCopyWith<$Res> implements $QuestionsEventCopyWith<$Res> {
+  factory $FetchCopyWith(Fetch value, $Res Function(Fetch) then) =
+      _$FetchCopyWithImpl<$Res>;
+  @override
+  $Res call({int currentid});
+}
+
+class _$FetchCopyWithImpl<$Res> extends _$QuestionsEventCopyWithImpl<$Res>
+    implements $FetchCopyWith<$Res> {
+  _$FetchCopyWithImpl(Fetch _value, $Res Function(Fetch) _then)
+      : super(_value, (v) => _then(v as Fetch));
+
+  @override
+  Fetch get _value => super._value as Fetch;
+
+  @override
+  $Res call({
+    Object currentid = freezed,
+  }) {
+    return _then(Fetch(
+      currentid == freezed ? _value.currentid : currentid as int,
+    ));
+  }
+}
 
 class _$Fetch with DiagnosticableTreeMixin implements Fetch {
   const _$Fetch([this.currentid]);
@@ -90,13 +140,8 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(currentid);
 
   @override
-  _$Fetch copyWith({
-    Object currentid = freezed,
-  }) {
-    return _$Fetch(
-      currentid == freezed ? this.currentid : currentid as int,
-    );
-  }
+  $FetchCopyWith<Fetch> get copyWith =>
+      _$FetchCopyWithImpl<Fetch>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -154,9 +199,33 @@ abstract class Fetch implements QuestionsEvent {
 
   @override
   int get currentid;
+  @override
+  $FetchCopyWith<Fetch> get copyWith;
+}
+
+abstract class $RefetchCopyWith<$Res> implements $QuestionsEventCopyWith<$Res> {
+  factory $RefetchCopyWith(Refetch value, $Res Function(Refetch) then) =
+      _$RefetchCopyWithImpl<$Res>;
+  @override
+  $Res call({int currentid});
+}
+
+class _$RefetchCopyWithImpl<$Res> extends _$QuestionsEventCopyWithImpl<$Res>
+    implements $RefetchCopyWith<$Res> {
+  _$RefetchCopyWithImpl(Refetch _value, $Res Function(Refetch) _then)
+      : super(_value, (v) => _then(v as Refetch));
 
   @override
-  Fetch copyWith({int currentid});
+  Refetch get _value => super._value as Refetch;
+
+  @override
+  $Res call({
+    Object currentid = freezed,
+  }) {
+    return _then(Refetch(
+      currentid == freezed ? _value.currentid : currentid as int,
+    ));
+  }
 }
 
 class _$Refetch with DiagnosticableTreeMixin implements Refetch {
@@ -192,13 +261,8 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(currentid);
 
   @override
-  _$Refetch copyWith({
-    Object currentid = freezed,
-  }) {
-    return _$Refetch(
-      currentid == freezed ? this.currentid : currentid as int,
-    );
-  }
+  $RefetchCopyWith<Refetch> get copyWith =>
+      _$RefetchCopyWithImpl<Refetch>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -256,7 +320,6 @@ abstract class Refetch implements QuestionsEvent {
 
   @override
   int get currentid;
-
   @override
-  Refetch copyWith({int currentid});
+  $RefetchCopyWith<Refetch> get copyWith;
 }

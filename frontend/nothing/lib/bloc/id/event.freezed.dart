@@ -7,33 +7,7 @@ part of 'event.dart';
 // FreezedGenerator
 // **************************************************************************
 
-mixin _$IdEvent {
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result revoke(),
-    @required Result issue(IdState state),
-  });
-
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result revoke(),
-    Result issue(IdState state),
-    @required Result orElse(),
-  });
-
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result revoke(_RevokeID value),
-    @required Result issue(_IssueID value),
-  });
-
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result revoke(_RevokeID value),
-    Result issue(_IssueID value),
-    @required Result orElse(),
-  });
-}
+T _$identity<T>(T value) => value;
 
 class _$IdEventTearOff {
   const _$IdEventTearOff();
@@ -49,7 +23,60 @@ class _$IdEventTearOff {
   }
 }
 
+// ignore: unused_element
 const $IdEvent = _$IdEventTearOff();
+
+mixin _$IdEvent {
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result revoke(),
+    @required Result issue(IdState state),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result revoke(),
+    Result issue(IdState state),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result revoke(_RevokeID value),
+    @required Result issue(_IssueID value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result revoke(_RevokeID value),
+    Result issue(_IssueID value),
+    @required Result orElse(),
+  });
+}
+
+abstract class $IdEventCopyWith<$Res> {
+  factory $IdEventCopyWith(IdEvent value, $Res Function(IdEvent) then) =
+      _$IdEventCopyWithImpl<$Res>;
+}
+
+class _$IdEventCopyWithImpl<$Res> implements $IdEventCopyWith<$Res> {
+  _$IdEventCopyWithImpl(this._value, this._then);
+
+  final IdEvent _value;
+  // ignore: unused_field
+  final $Res Function(IdEvent) _then;
+}
+
+abstract class _$RevokeIDCopyWith<$Res> {
+  factory _$RevokeIDCopyWith(_RevokeID value, $Res Function(_RevokeID) then) =
+      __$RevokeIDCopyWithImpl<$Res>;
+}
+
+class __$RevokeIDCopyWithImpl<$Res> extends _$IdEventCopyWithImpl<$Res>
+    implements _$RevokeIDCopyWith<$Res> {
+  __$RevokeIDCopyWithImpl(_RevokeID _value, $Res Function(_RevokeID) _then)
+      : super(_value, (v) => _then(v as _RevokeID));
+
+  @override
+  _RevokeID get _value => super._value as _RevokeID;
+}
 
 class _$_RevokeID with DiagnosticableTreeMixin implements _RevokeID {
   const _$_RevokeID();
@@ -128,6 +155,42 @@ abstract class _RevokeID implements IdEvent {
   const factory _RevokeID() = _$_RevokeID;
 }
 
+abstract class _$IssueIDCopyWith<$Res> {
+  factory _$IssueIDCopyWith(_IssueID value, $Res Function(_IssueID) then) =
+      __$IssueIDCopyWithImpl<$Res>;
+  $Res call({IdState state});
+
+  $IdStateCopyWith<$Res> get state;
+}
+
+class __$IssueIDCopyWithImpl<$Res> extends _$IdEventCopyWithImpl<$Res>
+    implements _$IssueIDCopyWith<$Res> {
+  __$IssueIDCopyWithImpl(_IssueID _value, $Res Function(_IssueID) _then)
+      : super(_value, (v) => _then(v as _IssueID));
+
+  @override
+  _IssueID get _value => super._value as _IssueID;
+
+  @override
+  $Res call({
+    Object state = freezed,
+  }) {
+    return _then(_IssueID(
+      state == freezed ? _value.state : state as IdState,
+    ));
+  }
+
+  @override
+  $IdStateCopyWith<$Res> get state {
+    if (_value.state == null) {
+      return null;
+    }
+    return $IdStateCopyWith<$Res>(_value.state, (value) {
+      return _then(_value.copyWith(state: value));
+    });
+  }
+}
+
 class _$_IssueID with DiagnosticableTreeMixin implements _IssueID {
   const _$_IssueID(this.state) : assert(state != null);
 
@@ -160,13 +223,8 @@ class _$_IssueID with DiagnosticableTreeMixin implements _IssueID {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(state);
 
   @override
-  _$_IssueID copyWith({
-    Object state = freezed,
-  }) {
-    return _$_IssueID(
-      state == freezed ? this.state : state as IdState,
-    );
-  }
+  _$IssueIDCopyWith<_IssueID> get copyWith =>
+      __$IssueIDCopyWithImpl<_IssueID>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -223,6 +281,5 @@ abstract class _IssueID implements IdEvent {
   const factory _IssueID(IdState state) = _$_IssueID;
 
   IdState get state;
-
-  _IssueID copyWith({IdState state});
+  _$IssueIDCopyWith<_IssueID> get copyWith;
 }

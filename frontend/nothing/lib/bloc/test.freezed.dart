@@ -7,11 +7,7 @@ part of 'test.dart';
 // FreezedGenerator
 // **************************************************************************
 
-mixin _$TestEvent {
-  String get name;
-
-  TestEvent copyWith({String name});
-}
+T _$identity<T>(T value) => value;
 
 class _$TestEventTearOff {
   const _$TestEventTearOff();
@@ -23,7 +19,62 @@ class _$TestEventTearOff {
   }
 }
 
+// ignore: unused_element
 const $TestEvent = _$TestEventTearOff();
+
+mixin _$TestEvent {
+  String get name;
+
+  $TestEventCopyWith<TestEvent> get copyWith;
+}
+
+abstract class $TestEventCopyWith<$Res> {
+  factory $TestEventCopyWith(TestEvent value, $Res Function(TestEvent) then) =
+      _$TestEventCopyWithImpl<$Res>;
+  $Res call({String name});
+}
+
+class _$TestEventCopyWithImpl<$Res> implements $TestEventCopyWith<$Res> {
+  _$TestEventCopyWithImpl(this._value, this._then);
+
+  final TestEvent _value;
+  // ignore: unused_field
+  final $Res Function(TestEvent) _then;
+
+  @override
+  $Res call({
+    Object name = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: name == freezed ? _value.name : name as String,
+    ));
+  }
+}
+
+abstract class _$NameCopyWith<$Res> implements $TestEventCopyWith<$Res> {
+  factory _$NameCopyWith(_Name value, $Res Function(_Name) then) =
+      __$NameCopyWithImpl<$Res>;
+  @override
+  $Res call({String name});
+}
+
+class __$NameCopyWithImpl<$Res> extends _$TestEventCopyWithImpl<$Res>
+    implements _$NameCopyWith<$Res> {
+  __$NameCopyWithImpl(_Name _value, $Res Function(_Name) _then)
+      : super(_value, (v) => _then(v as _Name));
+
+  @override
+  _Name get _value => super._value as _Name;
+
+  @override
+  $Res call({
+    Object name = freezed,
+  }) {
+    return _then(_Name(
+      name == freezed ? _value.name : name as String,
+    ));
+  }
+}
 
 class _$_Name with DiagnosticableTreeMixin implements _Name {
   const _$_Name(this.name) : assert(name != null);
@@ -57,13 +108,8 @@ class _$_Name with DiagnosticableTreeMixin implements _Name {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(name);
 
   @override
-  _$_Name copyWith({
-    Object name = freezed,
-  }) {
-    return _$_Name(
-      name == freezed ? this.name : name as String,
-    );
-  }
+  _$NameCopyWith<_Name> get copyWith =>
+      __$NameCopyWithImpl<_Name>(this, _$identity);
 }
 
 abstract class _Name implements TestEvent {
@@ -71,21 +117,12 @@ abstract class _Name implements TestEvent {
 
   @override
   String get name;
-
   @override
-  _Name copyWith({String name});
+  _$NameCopyWith<_Name> get copyWith;
 }
 
 TestState _$TestStateFromJson(Map<String, dynamic> json) {
   return _Data.fromJson(json);
-}
-
-mixin _$TestState {
-  List<String> get names;
-
-  TestState copyWith({List<String> names});
-
-  Map<String, dynamic> toJson();
 }
 
 class _$TestStateTearOff {
@@ -98,7 +135,63 @@ class _$TestStateTearOff {
   }
 }
 
+// ignore: unused_element
 const $TestState = _$TestStateTearOff();
+
+mixin _$TestState {
+  List<String> get names;
+
+  Map<String, dynamic> toJson();
+  $TestStateCopyWith<TestState> get copyWith;
+}
+
+abstract class $TestStateCopyWith<$Res> {
+  factory $TestStateCopyWith(TestState value, $Res Function(TestState) then) =
+      _$TestStateCopyWithImpl<$Res>;
+  $Res call({List<String> names});
+}
+
+class _$TestStateCopyWithImpl<$Res> implements $TestStateCopyWith<$Res> {
+  _$TestStateCopyWithImpl(this._value, this._then);
+
+  final TestState _value;
+  // ignore: unused_field
+  final $Res Function(TestState) _then;
+
+  @override
+  $Res call({
+    Object names = freezed,
+  }) {
+    return _then(_value.copyWith(
+      names: names == freezed ? _value.names : names as List<String>,
+    ));
+  }
+}
+
+abstract class _$DataCopyWith<$Res> implements $TestStateCopyWith<$Res> {
+  factory _$DataCopyWith(_Data value, $Res Function(_Data) then) =
+      __$DataCopyWithImpl<$Res>;
+  @override
+  $Res call({List<String> names});
+}
+
+class __$DataCopyWithImpl<$Res> extends _$TestStateCopyWithImpl<$Res>
+    implements _$DataCopyWith<$Res> {
+  __$DataCopyWithImpl(_Data _value, $Res Function(_Data) _then)
+      : super(_value, (v) => _then(v as _Data));
+
+  @override
+  _Data get _value => super._value as _Data;
+
+  @override
+  $Res call({
+    Object names = freezed,
+  }) {
+    return _then(_Data(
+      names == freezed ? _value.names : names as List<String>,
+    ));
+  }
+}
 
 @JsonSerializable()
 class _$_Data with DiagnosticableTreeMixin implements _Data {
@@ -136,13 +229,8 @@ class _$_Data with DiagnosticableTreeMixin implements _Data {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(names);
 
   @override
-  _$_Data copyWith({
-    Object names = freezed,
-  }) {
-    return _$_Data(
-      names == freezed ? this.names : names as List<String>,
-    );
-  }
+  _$DataCopyWith<_Data> get copyWith =>
+      __$DataCopyWithImpl<_Data>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -157,7 +245,6 @@ abstract class _Data implements TestState {
 
   @override
   List<String> get names;
-
   @override
-  _Data copyWith({List<String> names});
+  _$DataCopyWith<_Data> get copyWith;
 }

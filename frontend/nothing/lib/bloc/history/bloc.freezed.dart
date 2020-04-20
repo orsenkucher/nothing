@@ -7,11 +7,7 @@ part of 'bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
-mixin _$HistoryEvent {
-  SummaryAnswer get answer;
-
-  HistoryEvent copyWith({SummaryAnswer answer});
-}
+T _$identity<T>(T value) => value;
 
 class _$HistoryEventTearOff {
   const _$HistoryEventTearOff();
@@ -23,7 +19,78 @@ class _$HistoryEventTearOff {
   }
 }
 
+// ignore: unused_element
 const $HistoryEvent = _$HistoryEventTearOff();
+
+mixin _$HistoryEvent {
+  SummaryAnswer get answer;
+
+  $HistoryEventCopyWith<HistoryEvent> get copyWith;
+}
+
+abstract class $HistoryEventCopyWith<$Res> {
+  factory $HistoryEventCopyWith(
+          HistoryEvent value, $Res Function(HistoryEvent) then) =
+      _$HistoryEventCopyWithImpl<$Res>;
+  $Res call({SummaryAnswer answer});
+
+  $SummaryAnswerCopyWith<$Res> get answer;
+}
+
+class _$HistoryEventCopyWithImpl<$Res> implements $HistoryEventCopyWith<$Res> {
+  _$HistoryEventCopyWithImpl(this._value, this._then);
+
+  final HistoryEvent _value;
+  // ignore: unused_field
+  final $Res Function(HistoryEvent) _then;
+
+  @override
+  $Res call({
+    Object answer = freezed,
+  }) {
+    return _then(_value.copyWith(
+      answer: answer == freezed ? _value.answer : answer as SummaryAnswer,
+    ));
+  }
+
+  @override
+  $SummaryAnswerCopyWith<$Res> get answer {
+    if (_value.answer == null) {
+      return null;
+    }
+    return $SummaryAnswerCopyWith<$Res>(_value.answer, (value) {
+      return _then(_value.copyWith(answer: value));
+    });
+  }
+}
+
+abstract class _$NextCopyWith<$Res> implements $HistoryEventCopyWith<$Res> {
+  factory _$NextCopyWith(_Next value, $Res Function(_Next) then) =
+      __$NextCopyWithImpl<$Res>;
+  @override
+  $Res call({SummaryAnswer answer});
+
+  @override
+  $SummaryAnswerCopyWith<$Res> get answer;
+}
+
+class __$NextCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
+    implements _$NextCopyWith<$Res> {
+  __$NextCopyWithImpl(_Next _value, $Res Function(_Next) _then)
+      : super(_value, (v) => _then(v as _Next));
+
+  @override
+  _Next get _value => super._value as _Next;
+
+  @override
+  $Res call({
+    Object answer = freezed,
+  }) {
+    return _then(_Next(
+      answer == freezed ? _value.answer : answer as SummaryAnswer,
+    ));
+  }
+}
 
 class _$_Next with DiagnosticableTreeMixin implements _Next {
   const _$_Next(this.answer) : assert(answer != null);
@@ -57,13 +124,8 @@ class _$_Next with DiagnosticableTreeMixin implements _Next {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(answer);
 
   @override
-  _$_Next copyWith({
-    Object answer = freezed,
-  }) {
-    return _$_Next(
-      answer == freezed ? this.answer : answer as SummaryAnswer,
-    );
-  }
+  _$NextCopyWith<_Next> get copyWith =>
+      __$NextCopyWithImpl<_Next>(this, _$identity);
 }
 
 abstract class _Next implements HistoryEvent {
@@ -71,24 +133,12 @@ abstract class _Next implements HistoryEvent {
 
   @override
   SummaryAnswer get answer;
-
   @override
-  _Next copyWith({SummaryAnswer answer});
+  _$NextCopyWith<_Next> get copyWith;
 }
 
 HistoryState _$HistoryStateFromJson(Map<String, dynamic> json) {
   return _State.fromJson(json);
-}
-
-mixin _$HistoryState {
-  Map<int, bool> get ids;
-  @JsonKey(toJson: _to)
-  List<SummaryAnswer> get answers;
-
-  HistoryState copyWith(
-      {Map<int, bool> ids, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
-
-  Map<String, dynamic> toJson();
 }
 
 class _$HistoryStateTearOff {
@@ -104,7 +154,74 @@ class _$HistoryStateTearOff {
   }
 }
 
+// ignore: unused_element
 const $HistoryState = _$HistoryStateTearOff();
+
+mixin _$HistoryState {
+  Map<int, bool> get ids;
+  @JsonKey(toJson: _to)
+  List<SummaryAnswer> get answers;
+
+  Map<String, dynamic> toJson();
+  $HistoryStateCopyWith<HistoryState> get copyWith;
+}
+
+abstract class $HistoryStateCopyWith<$Res> {
+  factory $HistoryStateCopyWith(
+          HistoryState value, $Res Function(HistoryState) then) =
+      _$HistoryStateCopyWithImpl<$Res>;
+  $Res call(
+      {Map<int, bool> ids, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
+}
+
+class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
+  _$HistoryStateCopyWithImpl(this._value, this._then);
+
+  final HistoryState _value;
+  // ignore: unused_field
+  final $Res Function(HistoryState) _then;
+
+  @override
+  $Res call({
+    Object ids = freezed,
+    Object answers = freezed,
+  }) {
+    return _then(_value.copyWith(
+      ids: ids == freezed ? _value.ids : ids as Map<int, bool>,
+      answers:
+          answers == freezed ? _value.answers : answers as List<SummaryAnswer>,
+    ));
+  }
+}
+
+abstract class _$StateCopyWith<$Res> implements $HistoryStateCopyWith<$Res> {
+  factory _$StateCopyWith(_State value, $Res Function(_State) then) =
+      __$StateCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {Map<int, bool> ids, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
+}
+
+class __$StateCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
+    implements _$StateCopyWith<$Res> {
+  __$StateCopyWithImpl(_State _value, $Res Function(_State) _then)
+      : super(_value, (v) => _then(v as _State));
+
+  @override
+  _State get _value => super._value as _State;
+
+  @override
+  $Res call({
+    Object ids = freezed,
+    Object answers = freezed,
+  }) {
+    return _then(_State(
+      ids: ids == freezed ? _value.ids : ids as Map<int, bool>,
+      answers:
+          answers == freezed ? _value.answers : answers as List<SummaryAnswer>,
+    ));
+  }
+}
 
 @JsonSerializable()
 class _$_State with DiagnosticableTreeMixin implements _State {
@@ -153,16 +270,8 @@ class _$_State with DiagnosticableTreeMixin implements _State {
       const DeepCollectionEquality().hash(answers);
 
   @override
-  _$_State copyWith({
-    Object ids = freezed,
-    Object answers = freezed,
-  }) {
-    return _$_State(
-      ids: ids == freezed ? this.ids : ids as Map<int, bool>,
-      answers:
-          answers == freezed ? this.answers : answers as List<SummaryAnswer>,
-    );
-  }
+  _$StateCopyWith<_State> get copyWith =>
+      __$StateCopyWithImpl<_State>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -182,8 +291,6 @@ abstract class _State implements HistoryState {
   @override
   @JsonKey(toJson: _to)
   List<SummaryAnswer> get answers;
-
   @override
-  _State copyWith(
-      {Map<int, bool> ids, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
+  _$StateCopyWith<_State> get copyWith;
 }

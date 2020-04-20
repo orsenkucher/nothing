@@ -18,7 +18,6 @@ import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/repository/questions.dart';
-import 'package:nothing/storage/storage.dart';
 import 'package:nothing/tools/lifecycle.dart';
 import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/history.dart';
@@ -35,8 +34,7 @@ void main() async {
 
 Future _hydrateAsync() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final storage = await NothingBlocStorage.getInstance();
-  BlocSupervisor.delegate = HydratedBlocDelegate(storage);
+  BlocSupervisor.delegate = await HydratedBlocDelegate.build();
 }
 
 void _lifecycle(LifecycleBloc lifecycle) {

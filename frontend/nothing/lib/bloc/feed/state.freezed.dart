@@ -7,6 +7,7 @@ part of 'state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+T _$identity<T>(T value) => value;
 FeedState _$FeedStateFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType'] as String) {
     case 'available':
@@ -17,36 +18,6 @@ FeedState _$FeedStateFromJson(Map<String, dynamic> json) {
     default:
       throw FallThroughError();
   }
-}
-
-mixin _$FeedState {
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result available(@required @JsonKey(toJson: _toT) QTree tree),
-    @required Result empty(),
-  });
-
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result available(@required @JsonKey(toJson: _toT) QTree tree),
-    Result empty(),
-    @required Result orElse(),
-  });
-
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result available(_Available value),
-    @required Result empty(_Empty value),
-  });
-
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result available(_Available value),
-    Result empty(_Empty value),
-    @required Result orElse(),
-  });
-
-  Map<String, dynamic> toJson();
 }
 
 class _$FeedStateTearOff {
@@ -63,7 +34,84 @@ class _$FeedStateTearOff {
   }
 }
 
+// ignore: unused_element
 const $FeedState = _$FeedStateTearOff();
+
+mixin _$FeedState {
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result available(@JsonKey(toJson: _toT) QTree tree),
+    @required Result empty(),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result available(@JsonKey(toJson: _toT) QTree tree),
+    Result empty(),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result available(_Available value),
+    @required Result empty(_Empty value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result available(_Available value),
+    Result empty(_Empty value),
+    @required Result orElse(),
+  });
+  Map<String, dynamic> toJson();
+}
+
+abstract class $FeedStateCopyWith<$Res> {
+  factory $FeedStateCopyWith(FeedState value, $Res Function(FeedState) then) =
+      _$FeedStateCopyWithImpl<$Res>;
+}
+
+class _$FeedStateCopyWithImpl<$Res> implements $FeedStateCopyWith<$Res> {
+  _$FeedStateCopyWithImpl(this._value, this._then);
+
+  final FeedState _value;
+  // ignore: unused_field
+  final $Res Function(FeedState) _then;
+}
+
+abstract class _$AvailableCopyWith<$Res> {
+  factory _$AvailableCopyWith(
+          _Available value, $Res Function(_Available) then) =
+      __$AvailableCopyWithImpl<$Res>;
+  $Res call({@JsonKey(toJson: _toT) QTree tree});
+
+  $QTreeCopyWith<$Res> get tree;
+}
+
+class __$AvailableCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
+    implements _$AvailableCopyWith<$Res> {
+  __$AvailableCopyWithImpl(_Available _value, $Res Function(_Available) _then)
+      : super(_value, (v) => _then(v as _Available));
+
+  @override
+  _Available get _value => super._value as _Available;
+
+  @override
+  $Res call({
+    Object tree = freezed,
+  }) {
+    return _then(_Available(
+      tree: tree == freezed ? _value.tree : tree as QTree,
+    ));
+  }
+
+  @override
+  $QTreeCopyWith<$Res> get tree {
+    if (_value.tree == null) {
+      return null;
+    }
+    return $QTreeCopyWith<$Res>(_value.tree, (value) {
+      return _then(_value.copyWith(tree: value));
+    });
+  }
+}
 
 @JsonSerializable()
 class _$_Available with DiagnosticableTreeMixin implements _Available {
@@ -103,18 +151,13 @@ class _$_Available with DiagnosticableTreeMixin implements _Available {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(tree);
 
   @override
-  _$_Available copyWith({
-    Object tree = freezed,
-  }) {
-    return _$_Available(
-      tree: tree == freezed ? this.tree : tree as QTree,
-    );
-  }
+  _$AvailableCopyWith<_Available> get copyWith =>
+      __$AvailableCopyWithImpl<_Available>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result available(@required @JsonKey(toJson: _toT) QTree tree),
+    @required Result available(@JsonKey(toJson: _toT) QTree tree),
     @required Result empty(),
   }) {
     assert(available != null);
@@ -125,7 +168,7 @@ class _$_Available with DiagnosticableTreeMixin implements _Available {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result available(@required @JsonKey(toJson: _toT) QTree tree),
+    Result available(@JsonKey(toJson: _toT) QTree tree),
     Result empty(),
     @required Result orElse(),
   }) {
@@ -176,8 +219,21 @@ abstract class _Available implements FeedState {
 
   @JsonKey(toJson: _toT)
   QTree get tree;
+  _$AvailableCopyWith<_Available> get copyWith;
+}
 
-  _Available copyWith({@JsonKey(toJson: _toT) QTree tree});
+abstract class _$EmptyCopyWith<$Res> {
+  factory _$EmptyCopyWith(_Empty value, $Res Function(_Empty) then) =
+      __$EmptyCopyWithImpl<$Res>;
+}
+
+class __$EmptyCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
+    implements _$EmptyCopyWith<$Res> {
+  __$EmptyCopyWithImpl(_Empty _value, $Res Function(_Empty) _then)
+      : super(_value, (v) => _then(v as _Empty));
+
+  @override
+  _Empty get _value => super._value as _Empty;
 }
 
 @JsonSerializable()
@@ -209,7 +265,7 @@ class _$_Empty with DiagnosticableTreeMixin implements _Empty {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result available(@required @JsonKey(toJson: _toT) QTree tree),
+    @required Result available(@JsonKey(toJson: _toT) QTree tree),
     @required Result empty(),
   }) {
     assert(available != null);
@@ -220,7 +276,7 @@ class _$_Empty with DiagnosticableTreeMixin implements _Empty {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result available(@required @JsonKey(toJson: _toT) QTree tree),
+    Result available(@JsonKey(toJson: _toT) QTree tree),
     Result empty(),
     @required Result orElse(),
   }) {

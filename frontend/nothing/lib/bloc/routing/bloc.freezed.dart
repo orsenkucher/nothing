@@ -7,37 +7,7 @@ part of 'bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
-mixin _$RoutingEvent {
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result push(@required Routes from, @required Routes to),
-    @required Result resume(),
-    @required Result pop(@required Routes from),
-  });
-
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result push(@required Routes from, @required Routes to),
-    Result resume(),
-    Result pop(@required Routes from),
-    @required Result orElse(),
-  });
-
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result push(_Push value),
-    @required Result resume(_Resume value),
-    @required Result pop(_Pop value),
-  });
-
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result push(_Push value),
-    Result resume(_Resume value),
-    Result pop(_Pop value),
-    @required Result orElse(),
-  });
-}
+T _$identity<T>(T value) => value;
 
 class _$RoutingEventTearOff {
   const _$RoutingEventTearOff();
@@ -60,7 +30,100 @@ class _$RoutingEventTearOff {
   }
 }
 
+// ignore: unused_element
 const $RoutingEvent = _$RoutingEventTearOff();
+
+mixin _$RoutingEvent {
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result push(Routes from, Routes to),
+    @required Result resume(),
+    @required Result pop(Routes from),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result push(Routes from, Routes to),
+    Result resume(),
+    Result pop(Routes from),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result push(_Push value),
+    @required Result resume(_Resume value),
+    @required Result pop(_Pop value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result push(_Push value),
+    Result resume(_Resume value),
+    Result pop(_Pop value),
+    @required Result orElse(),
+  });
+}
+
+abstract class $RoutingEventCopyWith<$Res> {
+  factory $RoutingEventCopyWith(
+          RoutingEvent value, $Res Function(RoutingEvent) then) =
+      _$RoutingEventCopyWithImpl<$Res>;
+}
+
+class _$RoutingEventCopyWithImpl<$Res> implements $RoutingEventCopyWith<$Res> {
+  _$RoutingEventCopyWithImpl(this._value, this._then);
+
+  final RoutingEvent _value;
+  // ignore: unused_field
+  final $Res Function(RoutingEvent) _then;
+}
+
+abstract class _$PushCopyWith<$Res> {
+  factory _$PushCopyWith(_Push value, $Res Function(_Push) then) =
+      __$PushCopyWithImpl<$Res>;
+  $Res call({Routes from, Routes to});
+
+  $RoutesCopyWith<$Res> get from;
+  $RoutesCopyWith<$Res> get to;
+}
+
+class __$PushCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
+    implements _$PushCopyWith<$Res> {
+  __$PushCopyWithImpl(_Push _value, $Res Function(_Push) _then)
+      : super(_value, (v) => _then(v as _Push));
+
+  @override
+  _Push get _value => super._value as _Push;
+
+  @override
+  $Res call({
+    Object from = freezed,
+    Object to = freezed,
+  }) {
+    return _then(_Push(
+      from: from == freezed ? _value.from : from as Routes,
+      to: to == freezed ? _value.to : to as Routes,
+    ));
+  }
+
+  @override
+  $RoutesCopyWith<$Res> get from {
+    if (_value.from == null) {
+      return null;
+    }
+    return $RoutesCopyWith<$Res>(_value.from, (value) {
+      return _then(_value.copyWith(from: value));
+    });
+  }
+
+  @override
+  $RoutesCopyWith<$Res> get to {
+    if (_value.to == null) {
+      return null;
+    }
+    return $RoutesCopyWith<$Res>(_value.to, (value) {
+      return _then(_value.copyWith(to: value));
+    });
+  }
+}
 
 class _$_Push with DiagnosticableTreeMixin implements _Push {
   const _$_Push({@required this.from, @required this.to})
@@ -103,22 +166,15 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
       const DeepCollectionEquality().hash(to);
 
   @override
-  _$_Push copyWith({
-    Object from = freezed,
-    Object to = freezed,
-  }) {
-    return _$_Push(
-      from: from == freezed ? this.from : from as Routes,
-      to: to == freezed ? this.to : to as Routes,
-    );
-  }
+  _$PushCopyWith<_Push> get copyWith =>
+      __$PushCopyWithImpl<_Push>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result push(@required Routes from, @required Routes to),
+    @required Result push(Routes from, Routes to),
     @required Result resume(),
-    @required Result pop(@required Routes from),
+    @required Result pop(Routes from),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -129,9 +185,9 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result push(@required Routes from, @required Routes to),
+    Result push(Routes from, Routes to),
     Result resume(),
-    Result pop(@required Routes from),
+    Result pop(Routes from),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -175,8 +231,21 @@ abstract class _Push implements RoutingEvent {
 
   Routes get from;
   Routes get to;
+  _$PushCopyWith<_Push> get copyWith;
+}
 
-  _Push copyWith({Routes from, Routes to});
+abstract class _$ResumeCopyWith<$Res> {
+  factory _$ResumeCopyWith(_Resume value, $Res Function(_Resume) then) =
+      __$ResumeCopyWithImpl<$Res>;
+}
+
+class __$ResumeCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
+    implements _$ResumeCopyWith<$Res> {
+  __$ResumeCopyWithImpl(_Resume _value, $Res Function(_Resume) _then)
+      : super(_value, (v) => _then(v as _Resume));
+
+  @override
+  _Resume get _value => super._value as _Resume;
 }
 
 class _$_Resume with DiagnosticableTreeMixin implements _Resume {
@@ -204,9 +273,9 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result push(@required Routes from, @required Routes to),
+    @required Result push(Routes from, Routes to),
     @required Result resume(),
-    @required Result pop(@required Routes from),
+    @required Result pop(Routes from),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -217,9 +286,9 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result push(@required Routes from, @required Routes to),
+    Result push(Routes from, Routes to),
     Result resume(),
-    Result pop(@required Routes from),
+    Result pop(Routes from),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -262,6 +331,42 @@ abstract class _Resume implements RoutingEvent {
   const factory _Resume() = _$_Resume;
 }
 
+abstract class _$PopCopyWith<$Res> {
+  factory _$PopCopyWith(_Pop value, $Res Function(_Pop) then) =
+      __$PopCopyWithImpl<$Res>;
+  $Res call({Routes from});
+
+  $RoutesCopyWith<$Res> get from;
+}
+
+class __$PopCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
+    implements _$PopCopyWith<$Res> {
+  __$PopCopyWithImpl(_Pop _value, $Res Function(_Pop) _then)
+      : super(_value, (v) => _then(v as _Pop));
+
+  @override
+  _Pop get _value => super._value as _Pop;
+
+  @override
+  $Res call({
+    Object from = freezed,
+  }) {
+    return _then(_Pop(
+      from: from == freezed ? _value.from : from as Routes,
+    ));
+  }
+
+  @override
+  $RoutesCopyWith<$Res> get from {
+    if (_value.from == null) {
+      return null;
+    }
+    return $RoutesCopyWith<$Res>(_value.from, (value) {
+      return _then(_value.copyWith(from: value));
+    });
+  }
+}
+
 class _$_Pop with DiagnosticableTreeMixin implements _Pop {
   const _$_Pop({@required this.from}) : assert(from != null);
 
@@ -294,20 +399,15 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(from);
 
   @override
-  _$_Pop copyWith({
-    Object from = freezed,
-  }) {
-    return _$_Pop(
-      from: from == freezed ? this.from : from as Routes,
-    );
-  }
+  _$PopCopyWith<_Pop> get copyWith =>
+      __$PopCopyWithImpl<_Pop>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result push(@required Routes from, @required Routes to),
+    @required Result push(Routes from, Routes to),
     @required Result resume(),
-    @required Result pop(@required Routes from),
+    @required Result pop(Routes from),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -318,9 +418,9 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result push(@required Routes from, @required Routes to),
+    Result push(Routes from, Routes to),
     Result resume(),
-    Result pop(@required Routes from),
+    Result pop(Routes from),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -363,16 +463,7 @@ abstract class _Pop implements RoutingEvent {
   const factory _Pop({@required Routes from}) = _$_Pop;
 
   Routes get from;
-
-  _Pop copyWith({Routes from});
-}
-
-mixin _$RoutingState {
-  RoutingEvent get event;
-  List<Routes> get log;
-  String get salt;
-
-  RoutingState copyWith({RoutingEvent event, List<Routes> log, String salt});
+  _$PopCopyWith<_Pop> get copyWith;
 }
 
 class _$RoutingStateTearOff {
@@ -390,7 +481,91 @@ class _$RoutingStateTearOff {
   }
 }
 
+// ignore: unused_element
 const $RoutingState = _$RoutingStateTearOff();
+
+mixin _$RoutingState {
+  RoutingEvent get event;
+  List<Routes> get log;
+  String get salt;
+
+  $RoutingStateCopyWith<RoutingState> get copyWith;
+}
+
+abstract class $RoutingStateCopyWith<$Res> {
+  factory $RoutingStateCopyWith(
+          RoutingState value, $Res Function(RoutingState) then) =
+      _$RoutingStateCopyWithImpl<$Res>;
+  $Res call({RoutingEvent event, List<Routes> log, String salt});
+
+  $RoutingEventCopyWith<$Res> get event;
+}
+
+class _$RoutingStateCopyWithImpl<$Res> implements $RoutingStateCopyWith<$Res> {
+  _$RoutingStateCopyWithImpl(this._value, this._then);
+
+  final RoutingState _value;
+  // ignore: unused_field
+  final $Res Function(RoutingState) _then;
+
+  @override
+  $Res call({
+    Object event = freezed,
+    Object log = freezed,
+    Object salt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      event: event == freezed ? _value.event : event as RoutingEvent,
+      log: log == freezed ? _value.log : log as List<Routes>,
+      salt: salt == freezed ? _value.salt : salt as String,
+    ));
+  }
+
+  @override
+  $RoutingEventCopyWith<$Res> get event {
+    if (_value.event == null) {
+      return null;
+    }
+    return $RoutingEventCopyWith<$Res>(_value.event, (value) {
+      return _then(_value.copyWith(event: value));
+    });
+  }
+}
+
+abstract class _$RoutingStateCopyWith<$Res>
+    implements $RoutingStateCopyWith<$Res> {
+  factory _$RoutingStateCopyWith(
+          _RoutingState value, $Res Function(_RoutingState) then) =
+      __$RoutingStateCopyWithImpl<$Res>;
+  @override
+  $Res call({RoutingEvent event, List<Routes> log, String salt});
+
+  @override
+  $RoutingEventCopyWith<$Res> get event;
+}
+
+class __$RoutingStateCopyWithImpl<$Res> extends _$RoutingStateCopyWithImpl<$Res>
+    implements _$RoutingStateCopyWith<$Res> {
+  __$RoutingStateCopyWithImpl(
+      _RoutingState _value, $Res Function(_RoutingState) _then)
+      : super(_value, (v) => _then(v as _RoutingState));
+
+  @override
+  _RoutingState get _value => super._value as _RoutingState;
+
+  @override
+  $Res call({
+    Object event = freezed,
+    Object log = freezed,
+    Object salt = freezed,
+  }) {
+    return _then(_RoutingState(
+      event: event == freezed ? _value.event : event as RoutingEvent,
+      log: log == freezed ? _value.log : log as List<Routes>,
+      salt: salt == freezed ? _value.salt : salt as String,
+    ));
+  }
+}
 
 class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
   const _$_RoutingState(
@@ -441,17 +616,8 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
       const DeepCollectionEquality().hash(salt);
 
   @override
-  _$_RoutingState copyWith({
-    Object event = freezed,
-    Object log = freezed,
-    Object salt = freezed,
-  }) {
-    return _$_RoutingState(
-      event: event == freezed ? this.event : event as RoutingEvent,
-      log: log == freezed ? this.log : log as List<Routes>,
-      salt: salt == freezed ? this.salt : salt as String,
-    );
-  }
+  _$RoutingStateCopyWith<_RoutingState> get copyWith =>
+      __$RoutingStateCopyWithImpl<_RoutingState>(this, _$identity);
 }
 
 abstract class _RoutingState implements RoutingState {
@@ -466,7 +632,6 @@ abstract class _RoutingState implements RoutingState {
   List<Routes> get log;
   @override
   String get salt;
-
   @override
-  _RoutingState copyWith({RoutingEvent event, List<Routes> log, String salt});
+  _$RoutingStateCopyWith<_RoutingState> get copyWith;
 }

@@ -7,6 +7,7 @@ part of 'bloc.dart';
 // FreezedGenerator
 // **************************************************************************
 
+T _$identity<T>(T value) => value;
 LifecycleEvent _$LifecycleEventFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType'] as String) {
     case 'resume':
@@ -17,40 +18,6 @@ LifecycleEvent _$LifecycleEventFromJson(Map<String, dynamic> json) {
     default:
       throw FallThroughError();
   }
-}
-
-mixin _$LifecycleEvent {
-  DateTime get point;
-
-  LifecycleEvent copyWith({DateTime point});
-
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result resume(DateTime point),
-    @required Result suspend(DateTime point),
-  });
-
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result resume(DateTime point),
-    Result suspend(DateTime point),
-    @required Result orElse(),
-  });
-
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result resume(_Resume value),
-    @required Result suspend(_Suspend value),
-  });
-
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result resume(_Resume value),
-    Result suspend(_Suspend value),
-    @required Result orElse(),
-  });
-
-  Map<String, dynamic> toJson();
 }
 
 class _$LifecycleEventTearOff {
@@ -69,7 +36,87 @@ class _$LifecycleEventTearOff {
   }
 }
 
+// ignore: unused_element
 const $LifecycleEvent = _$LifecycleEventTearOff();
+
+mixin _$LifecycleEvent {
+  DateTime get point;
+
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result resume(DateTime point),
+    @required Result suspend(DateTime point),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result resume(DateTime point),
+    Result suspend(DateTime point),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result resume(_Resume value),
+    @required Result suspend(_Suspend value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result resume(_Resume value),
+    Result suspend(_Suspend value),
+    @required Result orElse(),
+  });
+  Map<String, dynamic> toJson();
+  $LifecycleEventCopyWith<LifecycleEvent> get copyWith;
+}
+
+abstract class $LifecycleEventCopyWith<$Res> {
+  factory $LifecycleEventCopyWith(
+          LifecycleEvent value, $Res Function(LifecycleEvent) then) =
+      _$LifecycleEventCopyWithImpl<$Res>;
+  $Res call({DateTime point});
+}
+
+class _$LifecycleEventCopyWithImpl<$Res>
+    implements $LifecycleEventCopyWith<$Res> {
+  _$LifecycleEventCopyWithImpl(this._value, this._then);
+
+  final LifecycleEvent _value;
+  // ignore: unused_field
+  final $Res Function(LifecycleEvent) _then;
+
+  @override
+  $Res call({
+    Object point = freezed,
+  }) {
+    return _then(_value.copyWith(
+      point: point == freezed ? _value.point : point as DateTime,
+    ));
+  }
+}
+
+abstract class _$ResumeCopyWith<$Res> implements $LifecycleEventCopyWith<$Res> {
+  factory _$ResumeCopyWith(_Resume value, $Res Function(_Resume) then) =
+      __$ResumeCopyWithImpl<$Res>;
+  @override
+  $Res call({DateTime point});
+}
+
+class __$ResumeCopyWithImpl<$Res> extends _$LifecycleEventCopyWithImpl<$Res>
+    implements _$ResumeCopyWith<$Res> {
+  __$ResumeCopyWithImpl(_Resume _value, $Res Function(_Resume) _then)
+      : super(_value, (v) => _then(v as _Resume));
+
+  @override
+  _Resume get _value => super._value as _Resume;
+
+  @override
+  $Res call({
+    Object point = freezed,
+  }) {
+    return _then(_Resume(
+      point == freezed ? _value.point : point as DateTime,
+    ));
+  }
+}
 
 @JsonSerializable()
 class _$_Resume with DiagnosticableTreeMixin implements _Resume {
@@ -107,13 +154,8 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(point);
 
   @override
-  _$_Resume copyWith({
-    Object point = freezed,
-  }) {
-    return _$_Resume(
-      point == freezed ? this.point : point as DateTime,
-    );
-  }
+  _$ResumeCopyWith<_Resume> get copyWith =>
+      __$ResumeCopyWithImpl<_Resume>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -178,9 +220,34 @@ abstract class _Resume implements LifecycleEvent {
 
   @override
   DateTime get point;
+  @override
+  _$ResumeCopyWith<_Resume> get copyWith;
+}
+
+abstract class _$SuspendCopyWith<$Res>
+    implements $LifecycleEventCopyWith<$Res> {
+  factory _$SuspendCopyWith(_Suspend value, $Res Function(_Suspend) then) =
+      __$SuspendCopyWithImpl<$Res>;
+  @override
+  $Res call({DateTime point});
+}
+
+class __$SuspendCopyWithImpl<$Res> extends _$LifecycleEventCopyWithImpl<$Res>
+    implements _$SuspendCopyWith<$Res> {
+  __$SuspendCopyWithImpl(_Suspend _value, $Res Function(_Suspend) _then)
+      : super(_value, (v) => _then(v as _Suspend));
 
   @override
-  _Resume copyWith({DateTime point});
+  _Suspend get _value => super._value as _Suspend;
+
+  @override
+  $Res call({
+    Object point = freezed,
+  }) {
+    return _then(_Suspend(
+      point == freezed ? _value.point : point as DateTime,
+    ));
+  }
 }
 
 @JsonSerializable()
@@ -219,13 +286,8 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(point);
 
   @override
-  _$_Suspend copyWith({
-    Object point = freezed,
-  }) {
-    return _$_Suspend(
-      point == freezed ? this.point : point as DateTime,
-    );
-  }
+  _$SuspendCopyWith<_Suspend> get copyWith =>
+      __$SuspendCopyWithImpl<_Suspend>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -290,9 +352,8 @@ abstract class _Suspend implements LifecycleEvent {
 
   @override
   DateTime get point;
-
   @override
-  _Suspend copyWith({DateTime point});
+  _$SuspendCopyWith<_Suspend> get copyWith;
 }
 
 LifecycleState _$LifecycleStateFromJson(Map<String, dynamic> json) {
@@ -305,39 +366,6 @@ LifecycleState _$LifecycleStateFromJson(Map<String, dynamic> json) {
     default:
       throw FallThroughError();
   }
-}
-
-mixin _$LifecycleState {
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required
-        Result just(@required List<LifecycleEvent> log,
-            @required LifecycleEvent current),
-    @required Result nothing(),
-  });
-
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result just(
-        @required List<LifecycleEvent> log, @required LifecycleEvent current),
-    Result nothing(),
-    @required Result orElse(),
-  });
-
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result just(_Just value),
-    @required Result nothing(_Nothing value),
-  });
-
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result just(_Just value),
-    Result nothing(_Nothing value),
-    @required Result orElse(),
-  });
-
-  Map<String, dynamic> toJson();
 }
 
 class _$LifecycleStateTearOff {
@@ -356,7 +384,87 @@ class _$LifecycleStateTearOff {
   }
 }
 
+// ignore: unused_element
 const $LifecycleState = _$LifecycleStateTearOff();
+
+mixin _$LifecycleState {
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result just(List<LifecycleEvent> log, LifecycleEvent current),
+    @required Result nothing(),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result just(List<LifecycleEvent> log, LifecycleEvent current),
+    Result nothing(),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result just(_Just value),
+    @required Result nothing(_Nothing value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result just(_Just value),
+    Result nothing(_Nothing value),
+    @required Result orElse(),
+  });
+  Map<String, dynamic> toJson();
+}
+
+abstract class $LifecycleStateCopyWith<$Res> {
+  factory $LifecycleStateCopyWith(
+          LifecycleState value, $Res Function(LifecycleState) then) =
+      _$LifecycleStateCopyWithImpl<$Res>;
+}
+
+class _$LifecycleStateCopyWithImpl<$Res>
+    implements $LifecycleStateCopyWith<$Res> {
+  _$LifecycleStateCopyWithImpl(this._value, this._then);
+
+  final LifecycleState _value;
+  // ignore: unused_field
+  final $Res Function(LifecycleState) _then;
+}
+
+abstract class _$JustCopyWith<$Res> {
+  factory _$JustCopyWith(_Just value, $Res Function(_Just) then) =
+      __$JustCopyWithImpl<$Res>;
+  $Res call({List<LifecycleEvent> log, LifecycleEvent current});
+
+  $LifecycleEventCopyWith<$Res> get current;
+}
+
+class __$JustCopyWithImpl<$Res> extends _$LifecycleStateCopyWithImpl<$Res>
+    implements _$JustCopyWith<$Res> {
+  __$JustCopyWithImpl(_Just _value, $Res Function(_Just) _then)
+      : super(_value, (v) => _then(v as _Just));
+
+  @override
+  _Just get _value => super._value as _Just;
+
+  @override
+  $Res call({
+    Object log = freezed,
+    Object current = freezed,
+  }) {
+    return _then(_Just(
+      log: log == freezed ? _value.log : log as List<LifecycleEvent>,
+      current: current == freezed ? _value.current : current as LifecycleEvent,
+    ));
+  }
+
+  @override
+  $LifecycleEventCopyWith<$Res> get current {
+    if (_value.current == null) {
+      return null;
+    }
+    return $LifecycleEventCopyWith<$Res>(_value.current, (value) {
+      return _then(_value.copyWith(current: value));
+    });
+  }
+}
 
 @JsonSerializable()
 class _$_Just with DiagnosticableTreeMixin implements _Just {
@@ -403,22 +511,13 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
       const DeepCollectionEquality().hash(current);
 
   @override
-  _$_Just copyWith({
-    Object log = freezed,
-    Object current = freezed,
-  }) {
-    return _$_Just(
-      log: log == freezed ? this.log : log as List<LifecycleEvent>,
-      current: current == freezed ? this.current : current as LifecycleEvent,
-    );
-  }
+  _$JustCopyWith<_Just> get copyWith =>
+      __$JustCopyWithImpl<_Just>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required
-        Result just(@required List<LifecycleEvent> log,
-            @required LifecycleEvent current),
+    @required Result just(List<LifecycleEvent> log, LifecycleEvent current),
     @required Result nothing(),
   }) {
     assert(just != null);
@@ -429,8 +528,7 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result just(
-        @required List<LifecycleEvent> log, @required LifecycleEvent current),
+    Result just(List<LifecycleEvent> log, LifecycleEvent current),
     Result nothing(),
     @required Result orElse(),
   }) {
@@ -481,8 +579,21 @@ abstract class _Just implements LifecycleState {
 
   List<LifecycleEvent> get log;
   LifecycleEvent get current;
+  _$JustCopyWith<_Just> get copyWith;
+}
 
-  _Just copyWith({List<LifecycleEvent> log, LifecycleEvent current});
+abstract class _$NothingCopyWith<$Res> {
+  factory _$NothingCopyWith(_Nothing value, $Res Function(_Nothing) then) =
+      __$NothingCopyWithImpl<$Res>;
+}
+
+class __$NothingCopyWithImpl<$Res> extends _$LifecycleStateCopyWithImpl<$Res>
+    implements _$NothingCopyWith<$Res> {
+  __$NothingCopyWithImpl(_Nothing _value, $Res Function(_Nothing) _then)
+      : super(_value, (v) => _then(v as _Nothing));
+
+  @override
+  _Nothing get _value => super._value as _Nothing;
 }
 
 @JsonSerializable()
@@ -514,9 +625,7 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required
-        Result just(@required List<LifecycleEvent> log,
-            @required LifecycleEvent current),
+    @required Result just(List<LifecycleEvent> log, LifecycleEvent current),
     @required Result nothing(),
   }) {
     assert(just != null);
@@ -527,8 +636,7 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result just(
-        @required List<LifecycleEvent> log, @required LifecycleEvent current),
+    Result just(List<LifecycleEvent> log, LifecycleEvent current),
     Result nothing(),
     @required Result orElse(),
   }) {

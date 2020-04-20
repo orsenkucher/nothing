@@ -7,36 +7,7 @@ part of 'event.dart';
 // FreezedGenerator
 // **************************************************************************
 
-mixin _$SummaryEvent {
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result reset(),
-    @required
-        Result answer(@required int qid, @required int tries,
-            @required int seconds, @required List<String> answers),
-  });
-
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result reset(),
-    Result answer(@required int qid, @required int tries, @required int seconds,
-        @required List<String> answers),
-    @required Result orElse(),
-  });
-
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result reset(Reset value),
-    @required Result answer(NewAnswer value),
-  });
-
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result reset(Reset value),
-    Result answer(NewAnswer value),
-    @required Result orElse(),
-  });
-}
+T _$identity<T>(T value) => value;
 
 class _$SummaryEventTearOff {
   const _$SummaryEventTearOff();
@@ -59,7 +30,62 @@ class _$SummaryEventTearOff {
   }
 }
 
+// ignore: unused_element
 const $SummaryEvent = _$SummaryEventTearOff();
+
+mixin _$SummaryEvent {
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result reset(),
+    @required
+        Result answer(int qid, int tries, int seconds, List<String> answers),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result reset(),
+    Result answer(int qid, int tries, int seconds, List<String> answers),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result reset(Reset value),
+    @required Result answer(NewAnswer value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result reset(Reset value),
+    Result answer(NewAnswer value),
+    @required Result orElse(),
+  });
+}
+
+abstract class $SummaryEventCopyWith<$Res> {
+  factory $SummaryEventCopyWith(
+          SummaryEvent value, $Res Function(SummaryEvent) then) =
+      _$SummaryEventCopyWithImpl<$Res>;
+}
+
+class _$SummaryEventCopyWithImpl<$Res> implements $SummaryEventCopyWith<$Res> {
+  _$SummaryEventCopyWithImpl(this._value, this._then);
+
+  final SummaryEvent _value;
+  // ignore: unused_field
+  final $Res Function(SummaryEvent) _then;
+}
+
+abstract class $ResetCopyWith<$Res> {
+  factory $ResetCopyWith(Reset value, $Res Function(Reset) then) =
+      _$ResetCopyWithImpl<$Res>;
+}
+
+class _$ResetCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
+    implements $ResetCopyWith<$Res> {
+  _$ResetCopyWithImpl(Reset _value, $Res Function(Reset) _then)
+      : super(_value, (v) => _then(v as Reset));
+
+  @override
+  Reset get _value => super._value as Reset;
+}
 
 class _$Reset with DiagnosticableTreeMixin implements Reset {
   const _$Reset();
@@ -88,8 +114,7 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
   Result when<Result extends Object>({
     @required Result reset(),
     @required
-        Result answer(@required int qid, @required int tries,
-            @required int seconds, @required List<String> answers),
+        Result answer(int qid, int tries, int seconds, List<String> answers),
   }) {
     assert(reset != null);
     assert(answer != null);
@@ -100,8 +125,7 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result reset(),
-    Result answer(@required int qid, @required int tries, @required int seconds,
-        @required List<String> answers),
+    Result answer(int qid, int tries, int seconds, List<String> answers),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -139,6 +163,36 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
 
 abstract class Reset implements SummaryEvent {
   const factory Reset() = _$Reset;
+}
+
+abstract class $NewAnswerCopyWith<$Res> {
+  factory $NewAnswerCopyWith(NewAnswer value, $Res Function(NewAnswer) then) =
+      _$NewAnswerCopyWithImpl<$Res>;
+  $Res call({int qid, int tries, int seconds, List<String> answers});
+}
+
+class _$NewAnswerCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
+    implements $NewAnswerCopyWith<$Res> {
+  _$NewAnswerCopyWithImpl(NewAnswer _value, $Res Function(NewAnswer) _then)
+      : super(_value, (v) => _then(v as NewAnswer));
+
+  @override
+  NewAnswer get _value => super._value as NewAnswer;
+
+  @override
+  $Res call({
+    Object qid = freezed,
+    Object tries = freezed,
+    Object seconds = freezed,
+    Object answers = freezed,
+  }) {
+    return _then(NewAnswer(
+      qid: qid == freezed ? _value.qid : qid as int,
+      tries: tries == freezed ? _value.tries : tries as int,
+      seconds: seconds == freezed ? _value.seconds : seconds as int,
+      answers: answers == freezed ? _value.answers : answers as List<String>,
+    ));
+  }
 }
 
 class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
@@ -201,27 +255,15 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
       const DeepCollectionEquality().hash(answers);
 
   @override
-  _$NewAnswer copyWith({
-    Object qid = freezed,
-    Object tries = freezed,
-    Object seconds = freezed,
-    Object answers = freezed,
-  }) {
-    return _$NewAnswer(
-      qid: qid == freezed ? this.qid : qid as int,
-      tries: tries == freezed ? this.tries : tries as int,
-      seconds: seconds == freezed ? this.seconds : seconds as int,
-      answers: answers == freezed ? this.answers : answers as List<String>,
-    );
-  }
+  $NewAnswerCopyWith<NewAnswer> get copyWith =>
+      _$NewAnswerCopyWithImpl<NewAnswer>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result reset(),
     @required
-        Result answer(@required int qid, @required int tries,
-            @required int seconds, @required List<String> answers),
+        Result answer(int qid, int tries, int seconds, List<String> answers),
   }) {
     assert(reset != null);
     assert(answer != null);
@@ -232,8 +274,7 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result reset(),
-    Result answer(@required int qid, @required int tries, @required int seconds,
-        @required List<String> answers),
+    Result answer(int qid, int tries, int seconds, List<String> answers),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -280,6 +321,5 @@ abstract class NewAnswer implements SummaryEvent {
   int get tries;
   int get seconds;
   List<String> get answers;
-
-  NewAnswer copyWith({int qid, int tries, int seconds, List<String> answers});
+  $NewAnswerCopyWith<NewAnswer> get copyWith;
 }

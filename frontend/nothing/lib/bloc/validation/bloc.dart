@@ -15,18 +15,18 @@ abstract class ValidationEvent with _$ValidationEvent {
 }
 
 @freezed
-abstract class _ValidationState with _$_ValidationState {
-  const factory _ValidationState.correct(
+abstract class _ValidationState2 with _$_ValidationState2 {
+  const factory _ValidationState2.correct(
     Question question,
     List<String> answers,
     Duration duration,
   ) = _Correct;
-  const factory _ValidationState.wrong(
+  const factory _ValidationState2.wrong(
     Question question,
     List<String> answers,
     TimePoints timePoints,
   ) = _Wrong;
-  const factory _ValidationState.neutral(
+  const factory _ValidationState2.neutral(
     Question question,
     List<String> answers,
     TimePoints timePoints,
@@ -35,7 +35,7 @@ abstract class _ValidationState with _$_ValidationState {
 
 @freezed
 abstract class ValidationState with _$ValidationState {
-  const factory ValidationState.just(_ValidationState state) = _Just;
+  const factory ValidationState.just(_ValidationState2 state) = _Just;
   const factory ValidationState.nothing() = _Nothing;
 }
 
@@ -86,7 +86,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
   Stream<ValidationState> mapEventToState(ValidationEvent event) async* {
     yield event.when(
       focus: (question) => ValidationState.just(
-        _ValidationState.neutral(question, [], TimePoints.fromNow()),
+        _ValidationState2.neutral(question, [], TimePoints.fromNow()),
       ),
       check: (answer) => state.when<ValidationState>(
         nothing: () => ValidationState.nothing(),
@@ -96,7 +96,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
           final next = state.question.splitted
                   .map((s) => s.toLowerCase())
                   .contains(answer.toLowerCase())
-              ? _ValidationState.correct(
+              ? _ValidationState2.correct(
                   question,
                   [...answers, answer],
                   state.map(
@@ -106,7 +106,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
                     wrong: (w) =>
                         w.timePoints.add(TimePoint.suspendNow()).duration,
                   ))
-              : _ValidationState.wrong(
+              : _ValidationState2.wrong(
                   question,
                   [...answers, answer],
                   state.map(
