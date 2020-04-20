@@ -20,30 +20,54 @@ abstract class ComputeState with _$ComputeState {
       _$ComputeStateFromJson(json);
 }
 
-class ComputeBloc extends HydratedBloc<ComputeEvent, ComputeState> {
+// @freezed
+// abstract class Ignitable<S> with _$Ignitable<S> {
+//   factory Ignitable.ignited(S state) = Ignited<S>;
+//   factory Ignitable.pending() = Pending<S>;
+//   factory Ignitable.fromJson(Map<String, dynamic> json) =>
+//       _$IgnitableFromJson<S>(json);
+// }
+
+@freezed
+abstract class Ignitable with _$Ignitable {
+  factory Ignitable.ignited(ComputeState payload) = Ignited;
+  factory Ignitable.pending(ComputeState payload) = Pending;
+  factory Ignitable.fromJson(Map<String, dynamic> json) =>
+      _$IgnitableFromJson(json);
+}
+
+// mixin Ignitor<S extends Ignitable> on HydratedBloc {
+//   @override
+//   // State get initialState => Object as State;
+//   S get initialState => Ignitable.pending();
+// }
+
+class ComputeBloc extends HydratedBloc<ComputeEvent, Ignitable>
+// with Ignitor<Ignitable>
+{
   ComputeBloc(DataBloc db) {
-    state.when(
-      //TODO break point here
+    final initial = super.initialState ?? Ignitable.ignited(state.payload);
+    initial.payload.when(
       available: (data) => add(ComputeEvent.onNew(data)),
       empty: () => db.add(DataEvent.newDataPlease()),
     );
   }
 
   @override
-  ComputeState get initialState => super.initialState ?? ComputeState.empty();
+  Ignitable get initialState => Ignitable.pending(ComputeState.empty());
 
   @override
-  Stream<ComputeState> mapEventToState(ComputeEvent event) async* {
-    yield ComputeState.available(event.data);
+  Stream<Ignitable> mapEventToState(ComputeEvent event) async* {
+    yield Ignitable.ignited(ComputeState.available(event.data));
   }
 
   @override
-  ComputeState fromJson(Map<String, dynamic> json) {
-    return ComputeState.fromJson(json);
+  Ignitable fromJson(Map<String, dynamic> json) {
+    return Ignitable.fromJson(json);
   }
 
   @override
-  Map<String, dynamic> toJson(ComputeState state) {
+  Map<String, dynamic> toJson(Ignitable state) {
     return state.toJson();
   }
 }

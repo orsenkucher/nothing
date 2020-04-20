@@ -27,10 +27,11 @@ class MyApp extends StatelessWidget {
         ],
         child: MultiBlocListener(
           listeners: [
-            BlocListener<ComputeBloc, ComputeState>(
+            BlocListener<ComputeBloc, Ignitable>(
               listener: (context, state) {
+                // ignore: close_sinks
                 final logBloc = context.bloc<LogBloc>();
-                return state.when(
+                state.payload.when(
                   available: (data) => logBloc.add(LogEvent.logData(data)),
                   empty: () => logBloc.add(LogEvent.logBlank()),
                 );
