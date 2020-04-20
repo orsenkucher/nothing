@@ -448,29 +448,17 @@ abstract class Empty implements ComputeState {
   factory Empty.fromJson(Map<String, dynamic> json) = _$Empty.fromJson;
 }
 
-Ignitable _$IgnitableFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType'] as String) {
-    case 'ignited':
-      return Ignited.fromJson(json);
-    case 'pending':
-      return Pending.fromJson(json);
-
-    default:
-      throw FallThroughError();
-  }
-}
-
 class _$IgnitableTearOff {
   const _$IgnitableTearOff();
 
-  Ignited ignited(ComputeState payload) {
-    return Ignited(
+  Ignited<S> ignited<S>(S payload) {
+    return Ignited<S>(
       payload,
     );
   }
 
-  Pending pending(ComputeState payload) {
-    return Pending(
+  Pending<S> pending<S>(S payload) {
+    return Pending<S>(
       payload,
     );
   }
@@ -479,125 +467,108 @@ class _$IgnitableTearOff {
 // ignore: unused_element
 const $Ignitable = _$IgnitableTearOff();
 
-mixin _$Ignitable {
-  ComputeState get payload;
+mixin _$Ignitable<S> {
+  S get payload;
 
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result ignited(ComputeState payload),
-    @required Result pending(ComputeState payload),
+    @required Result ignited(S payload),
+    @required Result pending(S payload),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result ignited(ComputeState payload),
-    Result pending(ComputeState payload),
+    Result ignited(S payload),
+    Result pending(S payload),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result ignited(Ignited value),
-    @required Result pending(Pending value),
+    @required Result ignited(Ignited<S> value),
+    @required Result pending(Pending<S> value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result ignited(Ignited value),
-    Result pending(Pending value),
+    Result ignited(Ignited<S> value),
+    Result pending(Pending<S> value),
     @required Result orElse(),
   });
-  Map<String, dynamic> toJson();
-  $IgnitableCopyWith<Ignitable> get copyWith;
+
+  $IgnitableCopyWith<S, Ignitable<S>> get copyWith;
 }
 
-abstract class $IgnitableCopyWith<$Res> {
-  factory $IgnitableCopyWith(Ignitable value, $Res Function(Ignitable) then) =
-      _$IgnitableCopyWithImpl<$Res>;
-  $Res call({ComputeState payload});
-
-  $ComputeStateCopyWith<$Res> get payload;
+abstract class $IgnitableCopyWith<S, $Res> {
+  factory $IgnitableCopyWith(
+          Ignitable<S> value, $Res Function(Ignitable<S>) then) =
+      _$IgnitableCopyWithImpl<S, $Res>;
+  $Res call({S payload});
 }
 
-class _$IgnitableCopyWithImpl<$Res> implements $IgnitableCopyWith<$Res> {
+class _$IgnitableCopyWithImpl<S, $Res> implements $IgnitableCopyWith<S, $Res> {
   _$IgnitableCopyWithImpl(this._value, this._then);
 
-  final Ignitable _value;
+  final Ignitable<S> _value;
   // ignore: unused_field
-  final $Res Function(Ignitable) _then;
+  final $Res Function(Ignitable<S>) _then;
 
   @override
   $Res call({
     Object payload = freezed,
   }) {
     return _then(_value.copyWith(
-      payload: payload == freezed ? _value.payload : payload as ComputeState,
+      payload: payload == freezed ? _value.payload : payload as S,
     ));
   }
-
-  @override
-  $ComputeStateCopyWith<$Res> get payload {
-    if (_value.payload == null) {
-      return null;
-    }
-    return $ComputeStateCopyWith<$Res>(_value.payload, (value) {
-      return _then(_value.copyWith(payload: value));
-    });
-  }
 }
 
-abstract class $IgnitedCopyWith<$Res> implements $IgnitableCopyWith<$Res> {
-  factory $IgnitedCopyWith(Ignited value, $Res Function(Ignited) then) =
-      _$IgnitedCopyWithImpl<$Res>;
+abstract class $IgnitedCopyWith<S, $Res>
+    implements $IgnitableCopyWith<S, $Res> {
+  factory $IgnitedCopyWith(Ignited<S> value, $Res Function(Ignited<S>) then) =
+      _$IgnitedCopyWithImpl<S, $Res>;
   @override
-  $Res call({ComputeState payload});
-
-  @override
-  $ComputeStateCopyWith<$Res> get payload;
+  $Res call({S payload});
 }
 
-class _$IgnitedCopyWithImpl<$Res> extends _$IgnitableCopyWithImpl<$Res>
-    implements $IgnitedCopyWith<$Res> {
-  _$IgnitedCopyWithImpl(Ignited _value, $Res Function(Ignited) _then)
-      : super(_value, (v) => _then(v as Ignited));
+class _$IgnitedCopyWithImpl<S, $Res> extends _$IgnitableCopyWithImpl<S, $Res>
+    implements $IgnitedCopyWith<S, $Res> {
+  _$IgnitedCopyWithImpl(Ignited<S> _value, $Res Function(Ignited<S>) _then)
+      : super(_value, (v) => _then(v as Ignited<S>));
 
   @override
-  Ignited get _value => super._value as Ignited;
+  Ignited<S> get _value => super._value as Ignited<S>;
 
   @override
   $Res call({
     Object payload = freezed,
   }) {
-    return _then(Ignited(
-      payload == freezed ? _value.payload : payload as ComputeState,
+    return _then(Ignited<S>(
+      payload == freezed ? _value.payload : payload as S,
     ));
   }
 }
 
-@JsonSerializable()
-class _$Ignited with DiagnosticableTreeMixin implements Ignited {
+class _$Ignited<S> with DiagnosticableTreeMixin implements Ignited<S> {
   _$Ignited(this.payload) : assert(payload != null);
 
-  factory _$Ignited.fromJson(Map<String, dynamic> json) =>
-      _$_$IgnitedFromJson(json);
-
   @override
-  final ComputeState payload;
+  final S payload;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Ignitable.ignited(payload: $payload)';
+    return 'Ignitable<$S>.ignited(payload: $payload)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Ignitable.ignited'))
+      ..add(DiagnosticsProperty('type', 'Ignitable<$S>.ignited'))
       ..add(DiagnosticsProperty('payload', payload));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Ignited &&
+        (other is Ignited<S> &&
             (identical(other.payload, payload) ||
                 const DeepCollectionEquality().equals(other.payload, payload)));
   }
@@ -607,14 +578,14 @@ class _$Ignited with DiagnosticableTreeMixin implements Ignited {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(payload);
 
   @override
-  $IgnitedCopyWith<Ignited> get copyWith =>
-      _$IgnitedCopyWithImpl<Ignited>(this, _$identity);
+  $IgnitedCopyWith<S, Ignited<S>> get copyWith =>
+      _$IgnitedCopyWithImpl<S, Ignited<S>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result ignited(ComputeState payload),
-    @required Result pending(ComputeState payload),
+    @required Result ignited(S payload),
+    @required Result pending(S payload),
   }) {
     assert(ignited != null);
     assert(pending != null);
@@ -624,8 +595,8 @@ class _$Ignited with DiagnosticableTreeMixin implements Ignited {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result ignited(ComputeState payload),
-    Result pending(ComputeState payload),
+    Result ignited(S payload),
+    Result pending(S payload),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -638,8 +609,8 @@ class _$Ignited with DiagnosticableTreeMixin implements Ignited {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result ignited(Ignited value),
-    @required Result pending(Pending value),
+    @required Result ignited(Ignited<S> value),
+    @required Result pending(Pending<S> value),
   }) {
     assert(ignited != null);
     assert(pending != null);
@@ -649,8 +620,8 @@ class _$Ignited with DiagnosticableTreeMixin implements Ignited {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result ignited(Ignited value),
-    Result pending(Pending value),
+    Result ignited(Ignited<S> value),
+    Result pending(Pending<S> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -659,79 +630,66 @@ class _$Ignited with DiagnosticableTreeMixin implements Ignited {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$IgnitedToJson(this)..['runtimeType'] = 'ignited';
-  }
 }
 
-abstract class Ignited implements Ignitable {
-  factory Ignited(ComputeState payload) = _$Ignited;
-
-  factory Ignited.fromJson(Map<String, dynamic> json) = _$Ignited.fromJson;
+abstract class Ignited<S> implements Ignitable<S> {
+  factory Ignited(S payload) = _$Ignited<S>;
 
   @override
-  ComputeState get payload;
+  S get payload;
   @override
-  $IgnitedCopyWith<Ignited> get copyWith;
+  $IgnitedCopyWith<S, Ignited<S>> get copyWith;
 }
 
-abstract class $PendingCopyWith<$Res> implements $IgnitableCopyWith<$Res> {
-  factory $PendingCopyWith(Pending value, $Res Function(Pending) then) =
-      _$PendingCopyWithImpl<$Res>;
+abstract class $PendingCopyWith<S, $Res>
+    implements $IgnitableCopyWith<S, $Res> {
+  factory $PendingCopyWith(Pending<S> value, $Res Function(Pending<S>) then) =
+      _$PendingCopyWithImpl<S, $Res>;
   @override
-  $Res call({ComputeState payload});
-
-  @override
-  $ComputeStateCopyWith<$Res> get payload;
+  $Res call({S payload});
 }
 
-class _$PendingCopyWithImpl<$Res> extends _$IgnitableCopyWithImpl<$Res>
-    implements $PendingCopyWith<$Res> {
-  _$PendingCopyWithImpl(Pending _value, $Res Function(Pending) _then)
-      : super(_value, (v) => _then(v as Pending));
+class _$PendingCopyWithImpl<S, $Res> extends _$IgnitableCopyWithImpl<S, $Res>
+    implements $PendingCopyWith<S, $Res> {
+  _$PendingCopyWithImpl(Pending<S> _value, $Res Function(Pending<S>) _then)
+      : super(_value, (v) => _then(v as Pending<S>));
 
   @override
-  Pending get _value => super._value as Pending;
+  Pending<S> get _value => super._value as Pending<S>;
 
   @override
   $Res call({
     Object payload = freezed,
   }) {
-    return _then(Pending(
-      payload == freezed ? _value.payload : payload as ComputeState,
+    return _then(Pending<S>(
+      payload == freezed ? _value.payload : payload as S,
     ));
   }
 }
 
-@JsonSerializable()
-class _$Pending with DiagnosticableTreeMixin implements Pending {
+class _$Pending<S> with DiagnosticableTreeMixin implements Pending<S> {
   _$Pending(this.payload) : assert(payload != null);
 
-  factory _$Pending.fromJson(Map<String, dynamic> json) =>
-      _$_$PendingFromJson(json);
-
   @override
-  final ComputeState payload;
+  final S payload;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Ignitable.pending(payload: $payload)';
+    return 'Ignitable<$S>.pending(payload: $payload)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Ignitable.pending'))
+      ..add(DiagnosticsProperty('type', 'Ignitable<$S>.pending'))
       ..add(DiagnosticsProperty('payload', payload));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Pending &&
+        (other is Pending<S> &&
             (identical(other.payload, payload) ||
                 const DeepCollectionEquality().equals(other.payload, payload)));
   }
@@ -741,14 +699,14 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(payload);
 
   @override
-  $PendingCopyWith<Pending> get copyWith =>
-      _$PendingCopyWithImpl<Pending>(this, _$identity);
+  $PendingCopyWith<S, Pending<S>> get copyWith =>
+      _$PendingCopyWithImpl<S, Pending<S>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result ignited(ComputeState payload),
-    @required Result pending(ComputeState payload),
+    @required Result ignited(S payload),
+    @required Result pending(S payload),
   }) {
     assert(ignited != null);
     assert(pending != null);
@@ -758,8 +716,8 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result ignited(ComputeState payload),
-    Result pending(ComputeState payload),
+    Result ignited(S payload),
+    Result pending(S payload),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -772,8 +730,8 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result ignited(Ignited value),
-    @required Result pending(Pending value),
+    @required Result ignited(Ignited<S> value),
+    @required Result pending(Pending<S> value),
   }) {
     assert(ignited != null);
     assert(pending != null);
@@ -783,8 +741,8 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result ignited(Ignited value),
-    Result pending(Pending value),
+    Result ignited(Ignited<S> value),
+    Result pending(Pending<S> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -793,20 +751,13 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$PendingToJson(this)..['runtimeType'] = 'pending';
-  }
 }
 
-abstract class Pending implements Ignitable {
-  factory Pending(ComputeState payload) = _$Pending;
-
-  factory Pending.fromJson(Map<String, dynamic> json) = _$Pending.fromJson;
+abstract class Pending<S> implements Ignitable<S> {
+  factory Pending(S payload) = _$Pending<S>;
 
   @override
-  ComputeState get payload;
+  S get payload;
   @override
-  $PendingCopyWith<Pending> get copyWith;
+  $PendingCopyWith<S, Pending<S>> get copyWith;
 }
