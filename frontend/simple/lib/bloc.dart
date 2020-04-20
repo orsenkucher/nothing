@@ -54,8 +54,7 @@ abstract class Ignitable<S> with _$Ignitable<S> {
 abstract class IgnitedBloc<Event, State>
     extends HydratedBloc<Event, Ignitable<State>> {
   IgnitedBloc() {
-    final initial = super.initialState ?? Ignitable.ignited(state.payload);
-    ignition(initial.payload);
+    ignition(state.payload);
   }
 
   State get initialPayload;
@@ -67,7 +66,8 @@ abstract class IgnitedBloc<Event, State>
 
   @override
   @nonVirtual
-  Ignitable<State> get initialState => Ignitable.pending(initialPayload);
+  Ignitable<State> get initialState =>
+      Ignitable.pending(super.initialState?.payload ?? initialPayload);
 
   @override
   @nonVirtual
