@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MultiBlocListener(
           listeners: [
-            BlocListener<ComputeBloc, Ignitable>(
+            BlocListener<ComputeBloc, Ignitable<ComputeState>>(
               listener: (context, state) {
                 // ignore: close_sinks
                 final logBloc = context.bloc<LogBloc>();
