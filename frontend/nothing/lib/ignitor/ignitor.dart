@@ -18,6 +18,7 @@ abstract class IgnitedBloc<Event, State>
 
   State get initialPayload;
   void ignition(State paylaod);
+  State get payload => state.payload;
 
   dynamic payloadToJson(State payload);
   State payloadFromJson(dynamic json);

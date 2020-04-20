@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
+import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/ui/answer.dart';
 import 'package:nothing/ui/knob.dart';
 import 'package:nothing/ui/label.dart';
@@ -79,7 +80,7 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FeedBloc, FeedState>(
+    return BlocBuilder<FeedBloc, Ignitable<FeedState>>(
       condition: (previous, current) {
         // print('current in test: $current');
         return true;
@@ -87,7 +88,8 @@ class Test extends StatelessWidget {
       builder: (context, state) => Align(
         alignment: Alignment.centerRight,
         child: Text(
-          '${state.when(available: (tree) => tree.question.id, empty: () => 'no id')}, ${state.when(available: (tree) => tree.question.mmr, empty: () => 'no mmr')}',
+          '${state.payload.when(available: (tree) => tree.question.id, empty: () => 'no id')}, '
+          '${state.payload.when(available: (tree) => tree.question.mmr, empty: () => 'no mmr')}',
           style: TextStyle(
             fontSize: 16,
             color: Color(0x88c02030),

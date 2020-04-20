@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/ignitor/ignitor.dart';
 
 class Question extends StatelessWidget {
   const Question({
@@ -16,9 +17,9 @@ class Question extends StatelessWidget {
         horizontal: 24,
         vertical: 8,
       ),
-      child: BlocBuilder<FeedBloc, FeedState>(
+      child: BlocBuilder<FeedBloc, Ignitable<FeedState>>(
         builder: (context, state) => AutoSizeText(
-          state.when(
+          state.payload.when(
             available: (tree) => tree.question.question,
             empty: () => '',
           ),
