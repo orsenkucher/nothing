@@ -1,15 +1,26 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:nothing/bloc/id/event.dart';
-import 'package:nothing/bloc/id/state.dart';
+import 'package:flutter/foundation.dart';
+import 'package:uuid/uuid.dart';
 
-export 'event.dart';
-export 'state.dart';
+part 'bloc.freezed.dart';
+part 'bloc.g.dart';
+
+@freezed
+abstract class IdEvent with _$IdEvent {
+  const factory IdEvent.revoke() = _RevokeID;
+}
+
+@freezed
+abstract class IdState with _$IdState {
+  const factory IdState(String id) = _IdState;
+  factory IdState.unique() => IdState(Uuid().v4());
+  factory IdState.fromJson(Map<String, dynamic> json) =>
+      _$IdStateFromJson(json);
+}
 
 class IdBloc extends HydratedBloc<IdEvent, IdState> {
-  IdBloc() {
-    add(IdEvent.issue(state));
-  } // Trigger HydratedBloc save
-
   IdState revoke() => IdState.unique();
 
   @override
@@ -17,10 +28,7 @@ class IdBloc extends HydratedBloc<IdEvent, IdState> {
 
   @override
   Stream<IdState> mapEventToState(IdEvent event) async* {
-    yield event.when<IdState>(
-      revoke: revoke,
-      issue: (s) => IdState.salted(s.id),
-    );
+    yield revoke();
   }
 
   @override
