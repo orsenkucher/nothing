@@ -98,7 +98,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           onPageChanged: (i) {
             switch (i) {
               case 1:
-                _refocus(); //TODO(Vova)
+                _refocus();
                 break;
               default:
                 _focusNode.unfocus();
@@ -110,10 +110,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   Widget _buildMenu(BuildContext context) {
+    ontap() {
+      const duration = Duration(milliseconds: 300);
+      const curve = Curves.easeInOut;
+      _pageController.animateToPage(1, duration: duration, curve: curve);
+    }
+
     return Container(
       color: Colors.amber,
       child: Stack(
         children: [
+          GestureDetector(onTap: ontap),
           Padding(
             padding: const EdgeInsets.only(right: 100),
             child: Container(color: NothingScheme.of(context).background),
@@ -169,12 +176,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               padding: const EdgeInsets.all(40),
               child: IconButton(
                 icon: Icon(Icons.arrow_forward_ios),
-                onPressed: () {
-                  const duration = Duration(milliseconds: 300);
-                  const curve = Curves.easeInOut;
-                  _pageController.animateToPage(1,
-                      duration: duration, curve: curve);
-                },
+                onPressed: ontap,
               ),
             ),
           ),
@@ -184,10 +186,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   Widget _buildHistory(BuildContext context) {
+    ontap() {
+      const duration = Duration(milliseconds: 300);
+      const curve = Curves.easeInOut;
+      _pageController.animateToPage(1, duration: duration, curve: curve);
+    }
+
     return Container(
       color: Colors.amber,
       child: Stack(
         children: [
+          GestureDetector(onTap: ontap),
           Padding(
             padding: const EdgeInsets.only(left: 100),
             child: Container(
@@ -208,12 +217,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               padding: const EdgeInsets.all(40),
               child: IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  const duration = Duration(milliseconds: 300);
-                  const curve = Curves.easeInOut;
-                  _pageController.animateToPage(1,
-                      duration: duration, curve: curve);
-                },
+                onPressed: ontap,
               ),
             ),
           ),
@@ -232,8 +236,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         child: Stack(
           children: [
             _buildGame(context),
-            _buildTinter(context),
             _gestureDetector(context),
+            _buildTitleKnobs(context),
+            _buildHintButtons(context),
+            _buildTinter(context),
             // Test(),
             MultiBlocListener(
               listeners: [
@@ -273,8 +279,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   IgnorePointer _buildTinter(BuildContext context) {
     final anim = ColorTween(
-      // begin: Colors.transparent, // TODO(Vova)
-      // end: Colors.black.withOpacity(0.3),
       begin: Colors.black.withOpacity(0.0),
       end: Colors.black.withOpacity(0.1),
     ).animate(CurvedAnimation(
@@ -355,49 +359,127 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget _buildGame(BuildContext context) {
+  Widget _buildTitleKnobs(BuildContext context) {
     var safeWrap = (Widget w) => Platform.isIOS ? w : SafeArea(child: w);
+    const duration = Duration(milliseconds: 300);
+    const curve = Curves.easeInOut;
     return safeWrap(
-      LayoutBuilder(
-        builder: (context, constraints) {
-          double labelH = 50;
-          double ansH = 70;
-          const duration = Duration(milliseconds: 300);
-          const curve = Curves.easeInOut;
-          return Column(
-            children: [
-              Row(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _makeKnob(
+            Icons.short_text,
+            () => _pageController.animateToPage(0,
+                duration: duration, curve: curve),
+          ),
+          _makeKnob(
+            Icons.all_inclusive,
+            () => _pageController.animateToPage(2,
+                duration: duration, curve: curve),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHintButtons(BuildContext context) {
+    return SafeArea(child: LayoutBuilder(
+      builder: (context, constraints) {
+        double queH = min(
+          280,
+          constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
+        );
+        const pad = 8;
+        const hor = 40.0;
+        final top = queH + labelH + ansH + pad;
+        text(String text) =>
+            Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
+        const ll = {'hint': 'Hint', 'skip': 'Skip'};
+        final cc = {
+          'hint': NothingScheme.of(context).hint,
+          'skip': NothingScheme.of(context).skip,
+        };
+        final ii = {
+          'hint': Icons.lightbulb_outline,
+          'skip': Icons.navigate_next
+        };
+        final bb = ['hint', 'skip'].map(
+          (l) => FlatButton(
+            color: cc[l],
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  ii[l],
+                  size: 24,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 4),
+                text(ll[l])
+              ],
+            ),
+            onPressed: () {},
+            shape: RoundedRectangleBorder(
+              borderRadius: NothingScheme.of(context).hintBorder,
+            ),
+          ),
+        );
+        return Stack(
+          children: [
+            Positioned(
+              top: top,
+              left: hor,
+              right: hor,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  _makeKnob(
-                    Icons.short_text,
-                    () => _pageController.animateToPage(0,
-                        duration: duration, curve: curve),
-                  ),
-                  _makeKnob(
-                    Icons.all_inclusive,
-                    () => _pageController.animateToPage(2,
-                        duration: duration, curve: curve),
-                  ),
-                  // context.bloc<RoutingBloc>().add(RoutingEvent.push(
-                  //       from: Routes.home(),
-                  //       to: Routes.history(),
-                  //     )); // TODO no longer needed
+                  ...bb,
+                  Row(children: [
+                    CircleAvatar(
+                        backgroundColor: NothingScheme.of(context).knob,
+                        foregroundColor: Colors.black,
+                        child: Icon(Icons.vpn_key)),
+                    SizedBox(width: 4),
+                    Text(
+                      '55',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                      ),
+                    )
+                  ]),
                 ],
               ),
+            ),
+          ],
+        );
+      },
+    ));
+  }
+
+  double labelH = 50;
+  double ansH = 72;
+  Widget _buildGame(BuildContext context) {
+    return SafeArea(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          double queH = min(
+            280,
+            constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
+          );
+          return Column(
+            children: [
+              SizedBox(height: 21),
               SizedBox(
-                height: labelH,
-                child: Stack(children: [Label(), Test()]),
+                // height: labelH,
+                // child: Stack(children: [Label(), Test()]),
+                child: Label(),
               ),
+              SizedBox(height: 12),
               SizedBox(
-                height: min(
-                  280,
-                  constraints.biggest.height -
-                      (labelH + ansH + 21 + 28 + 8 + 12),
-                ),
-                child: Center(
-                  child: Question(),
-                ),
+                height: queH,
+                child: Center(child: Question()),
               ),
               SizedBox(
                 height: ansH,

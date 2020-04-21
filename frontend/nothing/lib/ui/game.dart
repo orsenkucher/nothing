@@ -15,14 +15,18 @@ class Test extends StatelessWidget {
         // print('current in test: $current');
         return true;
       },
-      builder: (context, state) => Align(
-        alignment: Alignment.centerRight,
-        child: Text(
-          '${state.payload.when(available: (tree) => tree.question.id, empty: () => 'no id')}, '
-          '${state.payload.when(available: (tree) => tree.question.mmr, empty: () => 'no mmr')}',
-          style: TextStyle(
-            fontSize: 16,
-            color: Color(0x88c02030),
+      builder: (context, state) => Positioned(
+        top: 10,
+        left: 0,
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            '${state.payload.when(available: (tree) => tree.question.id, empty: () => 'no id')}, '
+            '${state.payload.when(available: (tree) => tree.question.mmr, empty: () => 'no mmr')}',
+            style: TextStyle(
+              fontSize: 16,
+              color: Color(0x88c02030),
+            ),
           ),
         ),
       ),

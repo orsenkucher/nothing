@@ -25,33 +25,18 @@ class Answer extends StatelessWidget {
             nothing: () => scheme.neutral,
           );
           return Material(
-            elevation: 7,
+            elevation: 6,
             shadowColor: color.tint,
             color: color,
-            borderRadius: BorderRadius.circular(28),
+            borderRadius: NothingScheme.of(context).answerBorder,
             clipBehavior: Clip.antiAlias,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: IconButton(
-                      onPressed: () => print("Press"),
-                      splashColor: Colors.red,
-                      highlightColor: Colors.transparent,
-                      icon: Icon(
-                        Icons.lightbulb_outline,
-                        color: NothingScheme.of(context).answer,
-                        size: 32,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
+            child: SizedBox.expand(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Center(
                   child: AutoSizeText(
                     TextModel.of(context).text ?? '',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -60,7 +45,7 @@ class Answer extends StatelessWidget {
                     maxLines: 2,
                   ),
                 ),
-              ],
+              ),
             ),
           );
         },
