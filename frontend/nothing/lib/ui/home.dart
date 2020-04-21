@@ -98,7 +98,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           onPageChanged: (i) {
             switch (i) {
               case 1:
-                // _refocus(); //TODO(Vova)
+                _refocus(); //TODO(Vova)
                 break;
               default:
                 _focusNode.unfocus();
@@ -275,8 +275,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     final anim = ColorTween(
       // begin: Colors.transparent, // TODO(Vova)
       // end: Colors.black.withOpacity(0.3),
-      begin: Colors.amber.withOpacity(0.0),
-      end: Colors.amber.withOpacity(0.3),
+      begin: Colors.black.withOpacity(0.0),
+      end: Colors.black.withOpacity(0.1),
     ).animate(CurvedAnimation(
       curve: Curves.easeInOut,
       parent: _animController,

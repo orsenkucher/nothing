@@ -23,7 +23,7 @@ class Question extends StatelessWidget {
             available: (tree) => tree.question.question,
             empty: () => '',
           ),
-          maxLines: 6,
+          maxLines: 7,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 44,
