@@ -149,7 +149,7 @@
 |2|How much water is im am empty glass that is 20cm high and has a diameter of 2cm?|0<$>none| There is no water in empty glass
 |6|What is in the center of the earth?|r<$>letter r|Letter ?
 |6|The total age of the father and son is 66 years. The age of the father is the age of the son, written from right to left. How old is the father?| 42<$>51<$>60| The son age is 24 or 15
-|8|You are sitting on a plane, a horse is in front of you, a boat is behind you.Where are you?|carousel|
+|8|You are sitting on a plane, a horse is in front of you, a boat is behind you. Where are you?|carousel|
 |2|What feeling is depicted by a human organ?|love| ❤️
 |6|What are the three numbers that add and multiply give the same result?( Name the first one)|1| Their sum is equal to 6 
 |4|What day begins with the letter “t” except Tuesday and Thursday?|today<$>tommorow| This day
