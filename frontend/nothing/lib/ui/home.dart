@@ -186,10 +186,38 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget _buildHistory(BuildContext context) {
     return Container(
       color: Colors.amber,
-      padding: EdgeInsets.only(left: 100),
-      child: Container(
-        child: HistoryStack(),
-        color: NothingScheme.of(context).background,
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 100),
+            child: Container(
+              color: NothingScheme.of(context).background,
+              child: HistoryStack(),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: Text('Levels', style: TextStyle(fontSize: 36)),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: () {
+                  const duration = Duration(milliseconds: 300);
+                  const curve = Curves.easeInOut;
+                  _pageController.animateToPage(1,
+                      duration: duration, curve: curve);
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
