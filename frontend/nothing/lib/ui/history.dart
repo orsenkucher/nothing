@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-import 'package:nothing/ui/knob.dart';
 
 class HistoryList extends StatelessWidget {
   const HistoryList();

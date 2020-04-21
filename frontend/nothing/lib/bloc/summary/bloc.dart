@@ -33,6 +33,9 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, SummaryState> {
   }
 
   @override
+  void onError(Object error, StackTrace stacktrace) => print(error);
+
+  @override
   SummaryState fromJson(Map<String, dynamic> json) {
     try {
       final summary = SummaryState.fromJson(json);

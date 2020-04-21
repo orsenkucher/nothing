@@ -27,11 +27,12 @@ abstract class SummaryAnswer with _$SummaryAnswer {
     @required int qid,
     @required int tries,
     @required int seconds,
-    @required @JsonKey(toJson: _toS) List<String> answers,
+    @required @JsonKey(toJson: _toS, fromJson: _fromS) List<String> answers,
   }) = _SummaryAnswer;
 
   factory SummaryAnswer.fromJson(Map<String, dynamic> json) =>
       _$SummaryAnswerFromJson(json);
 }
 
-String _toS(List<String> ans) => ans.join(r'<$>');
+String _toS(List<String> aa) => aa.join(r'<$>');
+List<String> _fromS(String a) => a.split(r'<$>');

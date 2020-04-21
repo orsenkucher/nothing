@@ -158,10 +158,15 @@ class _$SummaryAnswerTearOff {
   const _$SummaryAnswerTearOff();
 
   _SummaryAnswer call(
-      {@required int qid,
-      @required int tries,
-      @required int seconds,
-      @required @JsonKey(toJson: _toS) List<String> answers}) {
+      {@required
+          int qid,
+      @required
+          int tries,
+      @required
+          int seconds,
+      @required
+      @JsonKey(toJson: _toS, fromJson: _fromS)
+          List<String> answers}) {
     return _SummaryAnswer(
       qid: qid,
       tries: tries,
@@ -178,7 +183,7 @@ mixin _$SummaryAnswer {
   int get qid;
   int get tries;
   int get seconds;
-  @JsonKey(toJson: _toS)
+  @JsonKey(toJson: _toS, fromJson: _fromS)
   List<String> get answers;
 
   Map<String, dynamic> toJson();
@@ -193,7 +198,7 @@ abstract class $SummaryAnswerCopyWith<$Res> {
       {int qid,
       int tries,
       int seconds,
-      @JsonKey(toJson: _toS) List<String> answers});
+      @JsonKey(toJson: _toS, fromJson: _fromS) List<String> answers});
 }
 
 class _$SummaryAnswerCopyWithImpl<$Res>
@@ -230,7 +235,7 @@ abstract class _$SummaryAnswerCopyWith<$Res>
       {int qid,
       int tries,
       int seconds,
-      @JsonKey(toJson: _toS) List<String> answers});
+      @JsonKey(toJson: _toS, fromJson: _fromS) List<String> answers});
 }
 
 class __$SummaryAnswerCopyWithImpl<$Res>
@@ -265,7 +270,7 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
       {@required this.qid,
       @required this.tries,
       @required this.seconds,
-      @required @JsonKey(toJson: _toS) this.answers})
+      @required @JsonKey(toJson: _toS, fromJson: _fromS) this.answers})
       : assert(qid != null),
         assert(tries != null),
         assert(seconds != null),
@@ -281,7 +286,7 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
   @override
   final int seconds;
   @override
-  @JsonKey(toJson: _toS)
+  @JsonKey(toJson: _toS, fromJson: _fromS)
   final List<String> answers;
 
   @override
@@ -335,11 +340,15 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
 
 abstract class _SummaryAnswer implements SummaryAnswer {
   const factory _SummaryAnswer(
-          {@required int qid,
-          @required int tries,
-          @required int seconds,
-          @required @JsonKey(toJson: _toS) List<String> answers}) =
-      _$_SummaryAnswer;
+      {@required
+          int qid,
+      @required
+          int tries,
+      @required
+          int seconds,
+      @required
+      @JsonKey(toJson: _toS, fromJson: _fromS)
+          List<String> answers}) = _$_SummaryAnswer;
 
   factory _SummaryAnswer.fromJson(Map<String, dynamic> json) =
       _$_SummaryAnswer.fromJson;
@@ -351,7 +360,7 @@ abstract class _SummaryAnswer implements SummaryAnswer {
   @override
   int get seconds;
   @override
-  @JsonKey(toJson: _toS)
+  @JsonKey(toJson: _toS, fromJson: _fromS)
   List<String> get answers;
   @override
   _$SummaryAnswerCopyWith<_SummaryAnswer> get copyWith;

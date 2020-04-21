@@ -26,7 +26,7 @@ _$_SummaryAnswer _$_$_SummaryAnswerFromJson(Map<String, dynamic> json) {
     qid: json['qid'] as int,
     tries: json['tries'] as int,
     seconds: json['seconds'] as int,
-    answers: (json['answers'] as List)?.map((e) => e as String)?.toList(),
+    answers: _fromS(json['answers'] as String),
   );
 }
 

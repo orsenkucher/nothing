@@ -5,9 +5,6 @@ import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/model/text.dart';
 
-// TODO omg this colors
-// TODO green ans on stratup bug
-// TODO omg purge logic is so broken
 class Answer extends StatelessWidget {
   const Answer({Key key}) : super(key: key);
 
