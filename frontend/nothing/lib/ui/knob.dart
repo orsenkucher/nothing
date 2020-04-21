@@ -8,17 +8,16 @@ class Knob extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: NothingScheme.of(context).knob,
-        borderRadius: NothingScheme.of(context).knobBorder,
-      ),
-      width: 50,
-      height: 28,
-      child: IconButton(
-        padding: EdgeInsets.zero,
-        onPressed: onPress,
-        icon: Icon(icon),
+    return GestureDetector(
+      onTap: onPress,
+      child: Container(
+        decoration: BoxDecoration(
+          color: NothingScheme.of(context).knob,
+          borderRadius: NothingScheme.of(context).knobBorder,
+        ),
+        width: 50,
+        height: 28,
+        child: Icon(icon),
       ),
     );
   }

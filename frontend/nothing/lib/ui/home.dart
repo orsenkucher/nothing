@@ -399,31 +399,36 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           'hint': NothingScheme.of(context).hint,
           'skip': NothingScheme.of(context).skip,
         };
-        final ii = {
-          'hint': Icons.lightbulb_outline,
-          'skip': Icons.navigate_next
-        };
-        final bb = ['hint', 'skip'].map(
-          (l) => FlatButton(
-            color: cc[l],
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Row(
-              children: <Widget>[
-                Icon(
-                  ii[l],
-                  size: 24,
-                  color: Colors.white,
-                ),
-                SizedBox(width: 4),
-                text(ll[l])
-              ],
-            ),
-            onPressed: () {},
-            shape: RoundedRectangleBorder(
-              borderRadius: NothingScheme.of(context).hintBorder,
+        final ii = {'hint': Icons.lightbulb_outline, 'skip': Icons.clear};
+        final bb = ['hint', 'skip']
+            .map(
+          (l) => Expanded(
+            child: FlatButton(
+              color: cc[l],
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    ii[l],
+                    size: 24,
+                    color: Colors.white,
+                  ),
+                  // SizedBox(width: 4),
+                  text(ll[l]),
+                ],
+              ),
+              onPressed: () {},
+              shape: RoundedRectangleBorder(
+                borderRadius: NothingScheme.of(context).hintBorder,
+              ),
             ),
           ),
-        );
+        )
+            .expand((w) sync* {
+          yield w;
+          yield const SizedBox(width: 20);
+          // yield Container(width: 16, height: 10, color: Colors.red);
+        });
         return Stack(
           children: [
             Positioned(
