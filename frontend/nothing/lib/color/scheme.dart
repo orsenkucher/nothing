@@ -15,7 +15,7 @@ class NothingScheme extends InheritedWidget {
   Color get neutral => const Color(0xfffdcf3c);
   Color get wrong => const Color(0xffc02030);
 
-  Color get historyBg => const Color(0xffffffff);
+  Color get historyBg => app; //const Color(0xffffffff);
 
   Brightness get brightness => Brightness.light;
 

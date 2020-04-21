@@ -10,6 +10,14 @@ import 'package:nothing/ui/game.dart';
 import 'package:nothing/ui/history.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import 'dart:io';
+import 'dart:math';
+
+import 'package:nothing/ui/answer.dart';
+import 'package:nothing/ui/knob.dart';
+import 'package:nothing/ui/label.dart';
+import 'package:nothing/ui/question.dart';
+
 class Home extends StatefulWidget {
   const Home();
   @override
@@ -19,8 +27,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   FocusNode _focusNode;
   final _textController = TextEditingController();
-  final model = TextModel();
-  final pageController = PageController(initialPage: 1);
+  final _model = TextModel();
+  final _pageController = PageController(initialPage: 1);
   AnimationController _animController;
 
   @override
@@ -79,9 +87,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           return false;
         },
         child: PageView(
-          controller: pageController,
+          controller: _pageController,
           scrollDirection: Axis.horizontal,
           physics: const BouncingScrollPhysics(),
+          children: [
+            _buildMenu(context),
+            _buildMain(context),
+            _buildHistory(context),
+          ],
           onPageChanged: (i) {
             switch (i) {
               case 1:
@@ -91,12 +104,92 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 _focusNode.unfocus();
             }
           },
-          children: [
-            Container(color: Colors.amber),
-            _buildMain(context),
-            Container(color: Colors.amber),
-          ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildMenu(BuildContext context) {
+    return Container(
+      color: Colors.amber,
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 100),
+            child: Container(color: NothingScheme.of(context).background),
+          ),
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 40, bottom: 32),
+                  child: Text('Menu', style: TextStyle(fontSize: 36)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Card(
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: () {
+                          const tt = [
+                            'Sound',
+                            'Rate us',
+                            'Feedback',
+                            'Share',
+                            'Vibration',
+                          ];
+                          return tt
+                              .map((t) =>
+                                  Text(t, style: TextStyle(fontSize: 24)))
+                              .map((w) => Padding(
+                                  child: w,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16)));
+                        }()
+                            .expand((w) sync* {
+                              yield const Divider();
+                              yield w;
+                            })
+                            .skip(1)
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: IconButton(
+                icon: Icon(Icons.arrow_forward_ios),
+                onPressed: () {
+                  const duration = Duration(milliseconds: 300);
+                  const curve = Curves.easeInOut;
+                  _pageController.animateToPage(1,
+                      duration: duration, curve: curve);
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHistory(BuildContext context) {
+    return Container(
+      color: Colors.amber,
+      padding: EdgeInsets.only(left: 100),
+      child: Container(
+        child: HistoryStack(),
+        color: NothingScheme.of(context).background,
       ),
     );
   }
@@ -107,12 +200,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return Container(
       color: NothingScheme.of(context).background,
       child: ScopedModel<TextModel>(
-        model: model,
+        model: _model,
         child: Stack(
           children: [
-            Game(),
-            _buildTinter(),
-            _gestureDetector(),
+            _buildGame(context),
+            _buildTinter(context),
+            _gestureDetector(context),
             // Test(),
             MultiBlocListener(
               listeners: [
@@ -123,7 +216,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         orElse: () {},
                         correct: (_) {
                           _textController.clear();
-                          model.update('');
+                          _model.update('');
                         },
                       ),
                       orElse: () {},
@@ -142,7 +235,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   // });
                 })
               ],
-              child: _inputPoint(model),
+              child: _inputPoint(_model),
             ),
           ],
         ),
@@ -150,7 +243,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-  IgnorePointer _buildTinter() {
+  IgnorePointer _buildTinter(BuildContext context) {
     final anim = ColorTween(
       begin: Colors.transparent,
       end: Colors.black.withOpacity(0.3),
@@ -173,7 +266,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     _focusNode.requestFocus();
   }
 
-  Widget _gestureDetector() {
+  Widget _gestureDetector(BuildContext context) {
     return Center(
       child: FractionallySizedBox(
         widthFactor: 0.6,
@@ -229,6 +322,72 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           print(s);
         },
       ),
+    );
+  }
+
+  Widget _buildGame(BuildContext context) {
+    var safeWrap = (Widget w) => Platform.isIOS ? w : SafeArea(child: w);
+    return safeWrap(
+      LayoutBuilder(
+        builder: (context, constraints) {
+          double labelH = 50;
+          double ansH = 70;
+          const duration = Duration(milliseconds: 300);
+          const curve = Curves.easeInOut;
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _makeKnob(
+                    Icons.short_text,
+                    () => _pageController.animateToPage(0,
+                        duration: duration, curve: curve),
+                  ),
+                  _makeKnob(
+                    Icons.all_inclusive,
+                    () => _pageController.animateToPage(2,
+                        duration: duration, curve: curve),
+                  ),
+                  // context.bloc<RoutingBloc>().add(RoutingEvent.push(
+                  //       from: Routes.home(),
+                  //       to: Routes.history(),
+                  //     )); // TODO no longer needed
+                ],
+              ),
+              SizedBox(
+                height: labelH,
+                child: Stack(children: [Label(), Test()]),
+              ),
+              SizedBox(
+                height: min(
+                  280,
+                  constraints.biggest.height -
+                      (labelH + ansH + 21 + 28 + 8 + 12),
+                ),
+                child: Center(
+                  child: Question(),
+                ),
+              ),
+              SizedBox(
+                height: ansH,
+                child: Answer(),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _makeKnob(IconData icon, [Function onPress]) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 24,
+        right: 24,
+        top: 21,
+      ),
+      child: Knob(icon, onPress),
     );
   }
 }
