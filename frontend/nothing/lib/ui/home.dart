@@ -57,6 +57,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _refocus();
     });
+    print(">>> >>> didChangeDependencies");
     // pageController.position.didEndScroll();
     // pageController.addListener(listener)
   }
@@ -136,7 +137,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 40, bottom: 32),
-                  child: Text('Menu', style: TextStyle(fontSize: 36)),
+                  child: Text('Меню', style: TextStyle(fontSize: 36)),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -148,11 +149,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         mainAxisSize: MainAxisSize.max,
                         children: () {
                           const tt = [
-                            'Sound',
-                            'Rate us',
-                            'Feedback',
-                            'Share',
-                            'Vibration',
+                            'Звук',
+                            'Оцените нас',
+                            'Оставить остзыв',
+                            'Поделиться',
+                            'Вибрация',
                           ];
                           return tt
                               .map((t) =>
@@ -213,7 +214,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             alignment: Alignment.topCenter,
             child: Padding(
               padding: const EdgeInsets.all(40),
-              child: Text('Levels', style: TextStyle(fontSize: 36)),
+              child: Text('Уровни', style: TextStyle(fontSize: 36)),
             ),
           ),
           Align(
@@ -482,7 +483,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         final top = queH + labelH + ansH + pad;
         text(String text) =>
             Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
-        const ll = {'hint': 'Hint', 'skip': 'Skip'};
+        const ll = {'hint': 'Хинт', 'skip': 'Скип'};
         final cc = {
           'hint': NothingScheme.of(context).hint,
           'skip': NothingScheme.of(context).skip,
@@ -490,8 +491,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         final ii = {'hint': Icons.lightbulb_outline, 'skip': Icons.clear};
         final pp = {
           'hint': () {
-            // TODO(hint)
-            print('hint');
             setState(() {
               _showHint = true;
             });

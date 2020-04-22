@@ -17,7 +17,7 @@ abstract class QuestionsRepo {
 }
 
 class CloudQuestionsRepo extends QuestionsRepo {
-  final fetchProblemsUrl = 'http://34.89.201.1:9091/';
+  static const address = 'http://34.89.201.1:9091/';
 
   const CloudQuestionsRepo();
 
@@ -39,7 +39,7 @@ class CloudQuestionsRepo extends QuestionsRepo {
           {"currentid": currentID, "userid": userID, "answers": answers});
       print('Sending request\n$body');
       var resp = await post(
-        fetchProblemsUrl,
+        address + 'getQues',
         body: body,
       );
       // print('Received response\n${resp.body}');

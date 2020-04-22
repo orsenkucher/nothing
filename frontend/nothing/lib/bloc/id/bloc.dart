@@ -21,6 +21,10 @@ abstract class IdState with _$IdState {
 }
 
 class IdBloc extends HydratedBloc<IdEvent, IdState> {
+  IdBloc() {
+    // clear();
+  }
+
   IdState revoke() => IdState.unique();
 
   @override
