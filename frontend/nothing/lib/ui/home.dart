@@ -1,12 +1,14 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/model/text.dart';
-import 'package:nothing/ui/game.dart';
 import 'package:nothing/ui/history.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -24,25 +26,28 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   FocusNode _focusNode;
   final _textController = TextEditingController();
   final _model = TextModel();
   final _pageController = PageController(initialPage: 1);
-  AnimationController _animController;
+  AnimationController _swipeTintController;
+  AnimationController _hintTintController;
 
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
-    _animController = AnimationController(vsync: this);
+    _swipeTintController = AnimationController(vsync: this);
+    _hintTintController = AnimationController(vsync: this);
   }
 
   @override
   void dispose() {
     _focusNode.dispose();
     _textController.dispose();
-    _animController.dispose();
+    _swipeTintController.dispose();
+    _hintTintController.dispose();
     super.dispose();
   }
 
@@ -81,8 +86,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             final metrics = scrollNotification.metrics;
             final offset = (metrics.viewportDimension - metrics.pixels).abs();
             final value = (offset / metrics.viewportDimension).clamp(0.0, 1.0);
-            _animController.value = value;
-            _animController.notifyListeners();
+            _swipeTintController.value = value;
+            _swipeTintController.notifyListeners();
           }
           return false;
         },
@@ -239,7 +244,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             _gestureDetector(context),
             _buildTitleKnobs(context),
             _buildHintButtons(context),
-            _buildTinter(context),
+            _buildTinter(context, _hintTintController),
+            if (_showHint)
+              _buildHint(context),
+            _buildTinter(context, _swipeTintController),
             // Test(),
             MultiBlocListener(
               listeners: [
@@ -277,17 +285,20 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-  IgnorePointer _buildTinter(BuildContext context) {
+  IgnorePointer _buildTinter(
+    BuildContext context,
+    AnimationController controller,
+  ) {
     final anim = ColorTween(
       begin: Colors.black.withOpacity(0.0),
       end: Colors.black.withOpacity(0.1),
     ).animate(CurvedAnimation(
       curve: Curves.easeInOut,
-      parent: _animController,
+      parent: controller,
     ));
     return IgnorePointer(
       child: AnimatedBuilder(
-        animation: _animController,
+        animation: controller,
         builder: (context, child) => Container(
           color: anim.value,
         ),
@@ -359,6 +370,83 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
+  var _showHint = false;
+  Widget _buildHint(BuildContext context) {
+    return SafeArea(child: LayoutBuilder(builder: (context, constraints) {
+      final top = labelH + 24; //+ 21 + 28 + 8 + 12;
+      double hei = min(
+        280,
+        constraints.biggest.height - (labelH + ansH + 21 + 28 + 12 + 8),
+      );
+      hei += labelH + ansH - 20;
+      const hor = 20.0;
+      return Stack(children: [
+        Positioned(
+          top: top,
+          left: hor,
+          right: hor,
+          child: Material(
+            elevation: 8,
+            shadowColor: Colors.black.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(16),
+            child: SizedBox(
+              height: hei,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 12),
+                        child: BlocBuilder<FeedBloc, Ignitable<FeedState>>(
+                          builder: (context, state) => AutoSizeText(
+                            state.payload.when(
+                              available: (tree) => tree.question.explanation,
+                              empty: () => '',
+                            ),
+                            maxLines: 4,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 32),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    alignment: Alignment.bottomCenter,
+                    child: FlatButton(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 36,
+                      ),
+                      color: NothingScheme.of(context).knob,
+                      child: Text('Close', style: TextStyle(fontSize: 16)),
+                      onPressed: () {
+                        //TODO(hint)
+                        setState(() {
+                          _showHint = false;
+                        });
+                        _hintTintController.fling(velocity: -1);
+                        // if (bloc.state == showHint then show)
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: NothingScheme.of(context).hintBorder,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ]);
+    }));
+  }
+
   Widget _buildTitleKnobs(BuildContext context) {
     var safeWrap = (Widget w) => Platform.isIOS ? w : SafeArea(child: w);
     const duration = Duration(milliseconds: 300);
@@ -400,6 +488,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           'skip': NothingScheme.of(context).skip,
         };
         final ii = {'hint': Icons.lightbulb_outline, 'skip': Icons.clear};
+        final pp = {
+          'hint': () {
+            // TODO(hint)
+            print('hint');
+            setState(() {
+              _showHint = true;
+            });
+            _hintTintController.fling();
+          },
+          'skip': () {},
+        };
         final bb = ['hint', 'skip']
             .map(
           (l) => Expanded(
@@ -417,7 +516,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   text(ll[l]),
                 ],
               ),
-              onPressed: () {},
+              onPressed: pp[l],
               shape: RoundedRectangleBorder(
                 borderRadius: NothingScheme.of(context).hintBorder,
               ),
