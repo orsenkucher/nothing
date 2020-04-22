@@ -8,8 +8,8 @@ import (
 	"net/http"
 )
 
-// GetQues is hello world default route handler
-func (s *Server) GetQues(w http.ResponseWriter, r *http.Request) {
+// GetQuesHandler is hello world default route handler
+func (s *Server) GetQuesHandler(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Println(err)
@@ -34,4 +34,44 @@ func (s *Server) GetQues(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Fprint(w, string(quesj))
 	}
+}
+
+func (s *Server) AdRegisterHandler(w http.ResponseWriter, r *http.Request) {
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Println(err)
+	}
+	defer r.Body.Close()
+	var req struct {
+		UserID string `json:"userid"`
+	}
+	err = json.Unmarshal(body, &req)
+	var resp struct {
+		AdMode int `json:"admode"`
+	}
+	resp.AdMode = s.AdRegister(req.UserID)
+	if err != nil {
+		log.Println(err)
+	}
+	bytes, _ := json.Marshal(resp)
+	fmt.Fprint(w, string(bytes))
+}
+
+func (s *Server) AdReportHandler(w http.ResponseWriter, r *http.Request) {
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Println(err)
+	}
+	defer r.Body.Close()
+	var req struct {
+		UserID string `json:"userid"`
+		AdType int    `json:"adtype"`
+	}
+	err = json.Unmarshal(body, &req)
+	if err != nil {
+		log.Println(err)
+	}
+	s.AdReport(req.UserID, req.AdType)
+
+	w.WriteHeader(200)
 }

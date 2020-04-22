@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/jinzhu/gorm"
 )
@@ -55,6 +56,42 @@ func StartUp(db *gorm.DB) *Server {
 
 	server.ShowStatus()
 	return &server
+}
+
+func (s *Server) AdRegister(id string) int {
+	user, ok := s.Users[id]
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	adType := r1.Intn(3)
+	if !ok {
+		user = &User{ID: id, MMR: start, AdMode: adType}
+		s.DB.Create(&user)
+		s.Users[id] = user
+		return adType
+	}
+	user.AdMode = adType
+	s.DB.Model(user).Update(user)
+	fmt.Println("AdRegister")
+	user.Print()
+	return adType
+}
+
+func (s *Server) AdReport(id string, adtype int) {
+	user, ok := s.Users[id]
+	if ok {
+		if adtype == LongAd {
+			user.LongAd++
+		}
+		if adtype == ShortAd {
+			user.ShortAd++
+		}
+		if adtype == RewardedAd {
+			user.RewardedAd++
+		}
+		s.DB.Model(user).Update(user)
+		fmt.Println("AdReport")
+		user.Print()
+	}
 }
 
 func (s *Server) UsersAns(id string) []AnswerInf {
