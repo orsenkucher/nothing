@@ -6,6 +6,12 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+const (
+	ShortAd = iota
+	LongAd
+	RewardedAd
+)
+
 type ID struct {
 	ID int
 }
@@ -31,9 +37,13 @@ type QRequest struct {
 }
 
 type User struct {
-	ID   string `gorm:"primary_key"`
-	MMR  int
-	Done []AnswerInf `gorm:"foreignkey:UserID;association_foreignkey:ID"`
+	ID         string `gorm:"primary_key"`
+	AdMode     int
+	ShortAd    int
+	LongAd     int
+	RewardedAd int
+	MMR        int
+	Done       []AnswerInf `gorm:"foreignkey:UserID;association_foreignkey:ID"`
 }
 
 type AnswerStats struct {
@@ -81,5 +91,6 @@ func (q *Question) Print() {
 }
 
 func (u *User) Print() {
-	fmt.Println("uid: ", u.ID, "mmr:", u.MMR)
+	fmt.Println("uid: ", u.ID, " mmr:", u.MMR, " admode: ", u.AdMode)
+	fmt.Println("Long: ", u.LongAd, " Short:", u.ShortAd, " Rewarded: ", u.RewardedAd)
 }

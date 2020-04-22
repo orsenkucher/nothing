@@ -178,14 +178,14 @@
 |6|Pen is to poet as needle is to|tailor| A pen is a tool used by a poet. A ? is a tool used by a tailor.
 |6|Secretly is to openly as silently is to|noisily| Opposite of silently 
 |7|gorblflur means fan belt; pixngorbl means ceiling fan; arthtusi means tile roof; Which word could mean ceiling tile?|pixnarth| arth - tile
-|2|Which word does not belong with the others? inch, ounce, centimeter, yard|ounce| Inch, centimeter and yard are the different units of length
-|2|Which word does not belong with the others? tire, steering wheel, engine, car|car| Tyre, steering wheel, and engine are all parts of a ?
-|2|Choose the word which is different from the rest Chicken, snake, swan, crocodile, frog|chicken| All except ? can live in water.
-|1|Choose the word which is different from the rest cap, turban, helmet, veil, hat|veil| All except ? cover the head, while veil covers the face.
-|1|Choose the word which is different from the rest. Curd, butter, oil, cheese, cream|oil| All except ? are products obtained from milk.
+|2|Which word does not belong with the others? inch, ounce, centimeter, yard|ounce|Inch, centimeter and yard are the different units of length
+|2|Which word does not belong with the others? tire, steering wheel, engine, car|car|Tyre, steering wheel, and engine are all parts of a ?
+|2|Choose the word which is different from the rest Chicken, snake, swan, crocodile, frog|chicken|All except ? can live in water.
+|1|Choose the word which is different from the rest cap, turban, helmet, veil, hat|veil|All except ? cover the head, while veil covers the face.
+|1|Choose the word which is different from the rest. Curd, butter, oil, cheese, cream|oil|All except ? are products obtained from milk.
 |5|How many days in 4 years?|1461| 365 + 365 + 365 +  366 (leap year) =
 |4|Wimbledon|tennis| Wimbledon is the oldest ? tournament in the world, and is regarded by many as the most prestigious.
-|2|The Largest country of the World by Geographical Area is…|russia| RU
+|2|The Largest country of the World by Geographical Area is…|russia|RU
 |9|Man covers half of his journey by train at 60 km/hr, half of the remaining by bus at 30 km/hr and the rest by cycle at 10 km/hr. Find his average speed during the entire journey?|24| Take total distance = 120 km, Time taken by train = 60km/60km/hr = 1 hr. Find time taken by bus and cycle. Total distance / total time = average speed
 |5|The area of a circular base of Cylinder is 10 cm^2 and its hight is 15 cm. Then the volume of the cylinder is?|150| The formula for the volume of a cylinder is V=S*h, h = 15, S = 10 .
 |6|What carries Blood back to the Heart?|veins|Arteries or veins

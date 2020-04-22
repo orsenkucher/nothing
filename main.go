@@ -57,7 +57,9 @@ func StartServer(db *gorm.DB) {
 
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
-	http.HandleFunc("/", s.GetQues)
+	http.HandleFunc("/getQues", s.GetQuesHandler)
+	http.HandleFunc("/adRegister", s.AdRegisterHandler)
+	http.HandleFunc("/adReport", s.AdReportHandler)
 	hsrv := &http.Server{
 		Addr:    ":9091",
 		Handler: nil, // use default mux
