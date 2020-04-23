@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -471,6 +472,24 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
   }
 
+//Todo(ad)
+  MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    // keywords: <String>['flutterio', 'beautiful apps'],
+    // contentUrl: 'https://flutter.io',
+    childDirected: false,
+    testDevices: <String>[],
+  );
+
+  InterstitialAd myInterstitial = InterstitialAd(
+    adUnitId: Platform.isIOS // interstitial ios/android
+        ? 'ca-app-pub-3169956978186495/7272148845'
+        : 'ca-app-pub-3169956978186495/2443683360',
+    targetingInfo: MobileAdTargetingInfo(),
+    listener: (MobileAdEvent event) {
+      print("InterstitialAd event is $event");
+    },
+  );
+
   Widget _buildHintButtons(BuildContext context) {
     return SafeArea(child: LayoutBuilder(
       builder: (context, constraints) {
@@ -492,7 +511,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         final pp = {
           'hint': () {
             setState(() {
+              // TODO(hint)
               _showHint = true;
+              myInterstitial
+                ..load()
+                ..show(
+                  anchorType: AnchorType.bottom,
+                  anchorOffset: 0.0,
+                  horizontalCenterOffset: 0.0,
+                );
             });
             _hintTintController.fling();
           },

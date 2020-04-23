@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +29,7 @@ import 'package:nothing/ui/home.dart';
 
 void main() async {
   await _hydrateAsync();
+  await _admob();
   if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
   //ignore: close_sinks
   final lifecycle = LifecycleBloc();
@@ -38,6 +40,13 @@ void main() async {
 Future _hydrateAsync() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = await HydratedBlocDelegate.build();
+}
+
+Future<bool> _admob() {
+  final appId = Platform.isIOS
+      ? 'ca-app-pub-3169956978186495~8308569350' //ios
+      : 'ca-app-pub-3169956978186495~3700924713'; //android
+  return FirebaseAdMob.instance.initialize(appId: appId);
 }
 
 void _lifecycle(LifecycleBloc lifecycle) {

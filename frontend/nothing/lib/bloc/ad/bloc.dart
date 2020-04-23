@@ -33,21 +33,25 @@ class AdBloc extends Bloc<AdEvent, AdState> {
 
   @override
   Stream<AdState> mapEventToState(AdEvent event) async* {
-    yield await state.when((userId, mode) async {
-      return await event.map(
-        register: throw UnimplementedError,
-        report: (r) async {
-          await _adRepo.report(userId, r.type);
-          return state;
-        },
-      );
-    }, empty: () async {
-      return await event.map(
+    yield await state.when(
+      (userId, mode) async {
+        return await event.map(
+          register: throw UnimplementedError,
+          report: (r) async {
+            await _adRepo.report(userId, r.type);
+            return state;
+          },
+        );
+      },
+      empty: () async {
+        return await event.map(
+          report: throw UnimplementedError,
           register: (r) async {
             final mode = await _adRepo.register(r.userid);
             return AdState(r.userid, mode);
           },
-          report: throw UnimplementedError);
-    });
+        );
+      },
+    );
   }
 }
