@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/binding/binder.dart';
+import 'package:nothing/bloc/ad/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
@@ -18,6 +19,7 @@ import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ignitor/ignitor.dart';
+import 'package:nothing/repository/ads.dart';
 import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/lifecycle.dart';
 import 'package:nothing/tools/orientation.dart';
@@ -76,13 +78,6 @@ class App extends StatelessWidget with PortraitLock {
         ),
       ),
     ))));
-  }
-
-  Widget _repos(Widget child) {
-    return RepositoryProvider<QuestionsRepo>(
-      child: child,
-      create: (context) => CloudQuestionsRepo(),
-    ); // CloudQuestionsRepo|LocalQuestionsRepo
   }
 
   Widget _bindings(Widget child) {
@@ -205,8 +200,27 @@ class App extends StatelessWidget with PortraitLock {
             validationBloc: context.bloc<ValidationBloc>(),
           ),
         ),
+        BlocProvider<AdBloc>(
+          create: (context) => AdBloc(
+            context.repository<AdRepo>(),
+            context.bloc<IdBloc>(),
+          ),
+        ),
       ],
       child: child,
     );
   }
+}
+
+Widget _repos(Widget child) {
+  return MultiRepositoryProvider(child: child, providers: [
+    RepositoryProvider<QuestionsRepo>(
+      child: child,
+      create: (context) => CloudQuestionsRepo(),
+    ), // CloudQuestionsRepo|LocalQuestionsRepo
+    RepositoryProvider<AdRepo>(
+      child: child,
+      create: (context) => AdRepo(),
+    ),
+  ]);
 }
