@@ -3,11 +3,13 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/ad/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/domain/domain.dart' as domain;
 import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/model/text.dart';
 import 'package:nothing/ui/history.dart';
@@ -507,12 +509,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           'hint': NothingScheme.of(context).hint,
           'skip': NothingScheme.of(context).skip,
         };
-        final ii = {'hint': Icons.lightbulb_outline, 'skip': Icons.clear};
+        final ii = {'hint': Icons.lightbulb_outline, 'skidp': Icons.clear};
         final pp = {
           'hint': () {
             setState(() {
               // TODO(hint)
               _showHint = true;
+              context
+                  .bloc<AdBloc>()
+                  .add(AdEvent.report(domain.AdType.interstitial));
               myInterstitial
                 ..load()
                 ..show(
