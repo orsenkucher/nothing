@@ -25,9 +25,6 @@ class AdBloc extends Bloc<AdEvent, AdState> {
   AdRepo _adRepo;
   IdBloc _idBloc;
   AdBloc(this._adRepo, this._idBloc) {
-    // pull from bloc directry
-    // or use event listener?
-    // TODO Ignited one?
     add(AdEvent.register(_idBloc.id));
   }
 
@@ -36,12 +33,21 @@ class AdBloc extends Bloc<AdEvent, AdState> {
 
   @override
   Stream<AdState> mapEventToState(AdEvent event) async* {
-    yield await event.map(register: (r) async {
-      final mode = await _adRepo.register(r.userid);
-      return AdState(r.userid, mode);
-    }, report: (r) async {
-      await _adRepo.report(r.type);
-      return state;
+    yield await state.when((userId, mode) async {
+      return await event.map(
+        register: throw UnimplementedError,
+        report: (r) async {
+          await _adRepo.report(userId, r.type);
+          return state;
+        },
+      );
+    }, empty: () async {
+      return await event.map(
+          register: (r) async {
+            final mode = await _adRepo.register(r.userid);
+            return AdState(r.userid, mode);
+          },
+          report: throw UnimplementedError);
     });
   }
 }
