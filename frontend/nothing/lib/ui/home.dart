@@ -284,11 +284,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   listener: (context, state) {
                     state.maybeWhen(
                       just: (just) => just.maybeMap(
-                        orElse: () {},
-                        correct: (_) {
+                        orElse: () {
                           _textController.clear();
                           _model.update('');
                         },
+                        neutral: (_) {},
                       ),
                       orElse: () {},
                     );
@@ -535,6 +535,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             .map(
           (l) => Expanded(
             child: FlatButton(
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
               color: cc[l],
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
