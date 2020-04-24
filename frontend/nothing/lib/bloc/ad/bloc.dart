@@ -25,7 +25,7 @@ class AdBloc extends Bloc<AdEvent, AdState> {
   AdRepo _adRepo;
   IdBloc _idBloc;
   AdBloc(this._adRepo, this._idBloc) {
-    add(AdEvent.register(_idBloc.id));
+    add(AdEvent.register(_idBloc.state.id));
   }
 
   @override
@@ -36,7 +36,7 @@ class AdBloc extends Bloc<AdEvent, AdState> {
     yield await state.when(
       (userId, mode) async {
         return await event.map(
-          register: throw UnimplementedError,
+          register: (r) => throw UnimplementedError,
           report: (r) async {
             await _adRepo.report(userId, r.type);
             return state;
@@ -45,7 +45,7 @@ class AdBloc extends Bloc<AdEvent, AdState> {
       },
       empty: () async {
         return await event.map(
-          report: throw UnimplementedError,
+          report: (r) => throw UnimplementedError,
           register: (r) async {
             final mode = await _adRepo.register(r.userid);
             return AdState(r.userid, mode);

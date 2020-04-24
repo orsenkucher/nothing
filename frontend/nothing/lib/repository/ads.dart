@@ -11,14 +11,14 @@ class AdRepo {
       final body = json.encode({
         "userid": userId,
       });
-      print('Sending request\n$body');
+      print('adReport\n$body');
       var resp = await post(
         addressWith(Route.registerAd),
         body: body,
       );
       if (resp.statusCode == 200) {
         var decoded = json.decode(resp.body);
-        var mode = decoded["admode"];
+        var mode = AdMode.values[decoded["admode"]];
         print(mode);
         return mode;
       }
@@ -32,7 +32,7 @@ class AdRepo {
     try {
       final body = json.encode({
         "userid": userId,
-        "adtype": adType,
+        "adtype": adType.index,
       });
       print('Sending request\n$body');
       var resp = await post(

@@ -43,6 +43,29 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _focusNode = FocusNode();
     _swipeTintController = AnimationController(vsync: this);
     _hintTintController = AnimationController(vsync: this);
+
+    myInterstitial = InterstitialAd(
+      // adUnitId: Platform.isIOS // interstitial ios/android
+      //     ? 'ca-app-pub-3169956978186495/7272148845'
+      //     : 'ca-app-pub-3169956978186495/2443683360',
+      adUnitId: InterstitialAd.testAdUnitId,
+      targetingInfo: MobileAdTargetingInfo(),
+      listener: (MobileAdEvent event) async {
+        // event.
+        print("InterstitialAd event is $event");
+        if (event == MobileAdEvent.loaded) {
+          // await myInterstitial.show(
+          //   anchorType: AnchorType.bottom,
+          //   anchorOffset: 0.0,
+          //   horizontalCenterOffset: 0.0,
+          // );
+        }
+        if (event == MobileAdEvent.closed) {
+          print("CLOSED");
+          await myInterstitial.load();
+        }
+      },
+    );
   }
 
   @override
@@ -474,23 +497,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
   }
 
-//Todo(ad)
-  MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-    // keywords: <String>['flutterio', 'beautiful apps'],
-    // contentUrl: 'https://flutter.io',
-    childDirected: false,
-    testDevices: <String>[],
-  );
+  //Todo(ad)
+  // MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+  //   // keywords: <String>['flutterio', 'beautiful apps'],
+  //   // contentUrl: 'https://flutter.io',
+  //   childDirected: false,
+  //   testDevices: <String>[],
+  // );
 
-  InterstitialAd myInterstitial = InterstitialAd(
-    adUnitId: Platform.isIOS // interstitial ios/android
-        ? 'ca-app-pub-3169956978186495/7272148845'
-        : 'ca-app-pub-3169956978186495/2443683360',
-    targetingInfo: MobileAdTargetingInfo(),
-    listener: (MobileAdEvent event) {
-      print("InterstitialAd event is $event");
-    },
-  );
+  InterstitialAd myInterstitial;
 
   Widget _buildHintButtons(BuildContext context) {
     return SafeArea(child: LayoutBuilder(
@@ -509,24 +524,30 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           'hint': NothingScheme.of(context).hint,
           'skip': NothingScheme.of(context).skip,
         };
-        final ii = {'hint': Icons.lightbulb_outline, 'skidp': Icons.clear};
+        final ii = {'hint': Icons.lightbulb_outline, 'skip': Icons.clear};
         final pp = {
           'hint': () {
-            setState(() {
+            setState(() async {
               // TODO(hint)
               _showHint = true;
+              _hintTintController.fling();
               context
                   .bloc<AdBloc>()
                   .add(AdEvent.report(domain.AdType.interstitial));
-              myInterstitial
-                ..load()
-                ..show(
-                  anchorType: AnchorType.bottom,
-                  anchorOffset: 0.0,
-                  horizontalCenterOffset: 0.0,
-                );
+              print('****** Loading new ad');
+              final result = await myInterstitial.load();
+              if (!result) {
+                print('\t ****** Ad did not load');
+                return;
+              }
+              print('****** Loaded ad successfully');
+              await myInterstitial.show(
+                anchorType: AnchorType.bottom,
+                anchorOffset: 0.0,
+                horizontalCenterOffset: 0.0,
+              );
+              // myInterstitial.dispose()
             });
-            _hintTintController.fling();
           },
           'skip': () {},
         };
@@ -556,7 +577,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         )
             .expand((w) sync* {
           yield w;
-          yield const SizedBox(width: 20);
+          yield const SizedBox(width: 16);
           // yield Container(width: 16, height: 10, color: Colors.red);
         });
         return Stack(
