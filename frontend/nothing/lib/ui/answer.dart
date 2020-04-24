@@ -13,20 +13,20 @@ class Answer extends StatefulWidget {
 }
 
 class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  AnimationController controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(seconds: 1),
     );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -36,26 +36,40 @@ class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
     final color = ColorTween(
       begin: scheme.neutral,
       end: scheme.wrong,
-    ).animate(_controller);
+    ).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Interval(0.0, 0.1, curve: Curves.ease),
+      ),
+    );
+    final Animation<double> offsetAnimation = Tween(begin: 0.0, end: 8.0)
+        .chain(CurveTween(curve: Curves.elasticIn))
+        .animate(controller);
+
     return BlocListener<ValidationBloc, ValidationState>(
       listener: (BuildContext context, state) {
         state.maybeWhen(
           just: (state) => state.maybeMap(
             wrong: (_) async {
-              await _controller.forward();
-              await _controller.reverse();
+              await controller.forward();
+              await controller.reverse();
             },
             orElse: () {},
           ),
           orElse: () {},
         );
       },
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.symmetric(horizontal: 32),
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) => Material(
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (context, child) => Container(
+          padding: EdgeInsets.only(
+            left: offsetAnimation.value + 8.0,
+            right: -offsetAnimation.value + 8.0,
+            top: 8,
+            bottom: 8,
+          ),
+          margin: const EdgeInsets.symmetric(horizontal: 32),
+          child: Material(
             elevation: 6,
             shadowColor: color.value.tint,
             color: color.value,
@@ -63,20 +77,20 @@ class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
             clipBehavior: Clip.antiAlias,
             child: child,
           ),
-          child: SizedBox.expand(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: Center(
-                child: AutoSizeText(
-                  TextModel.of(context).text ?? '',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: NothingScheme.of(context).answer,
-                  ),
-                  maxLines: 2,
+        ),
+        child: SizedBox.expand(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Center(
+              child: AutoSizeText(
+                TextModel.of(context).text ?? '',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: NothingScheme.of(context).answer,
                 ),
+                maxLines: 2,
               ),
             ),
           ),
