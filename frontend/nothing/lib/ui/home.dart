@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/ad/bloc.dart';
+import 'package:nothing/bloc/coin/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/test.dart';
@@ -62,6 +63,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         }
         if (event == MobileAdEvent.closed) {
           print("CLOSED");
+          // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
           await myInterstitial.load();
         }
       },
@@ -526,29 +528,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         };
         final ii = {'hint': Icons.lightbulb_outline, 'skip': Icons.clear};
         final pp = {
-          'hint': () {
-            setState(() async {
-              // TODO(hint)
-              _showHint = true;
-              _hintTintController.fling();
-              context
-                  .bloc<AdBloc>()
-                  .add(AdEvent.report(domain.AdType.interstitial));
-              print('****** Loading new ad');
-              final result = await myInterstitial.load();
-              if (!result) {
-                print('\t ****** Ad did not load');
-                return;
-              }
-              print('****** Loaded ad successfully');
-              await myInterstitial.show(
-                anchorType: AnchorType.bottom,
-                anchorOffset: 0.0,
-                horizontalCenterOffset: 0.0,
-              );
-              // myInterstitial.dispose()
-            });
-          },
+          'hint': () => _hintClick(context),
           'skip': () {},
         };
         final bb = ['hint', 'skip']
@@ -597,11 +577,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         foregroundColor: Colors.black,
                         child: Icon(Icons.vpn_key)),
                     SizedBox(width: 4),
-                    Text(
-                      '55',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
+                    BlocBuilder<CoinBloc, CoinState>(
+                      builder: (context, state) => Text(
+                        '${state.total}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                        ),
                       ),
                     )
                   ]),
@@ -612,6 +594,32 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         );
       },
     ));
+  }
+
+  // TODO(hint)
+  void _hintClick(BuildContext context) async {
+    setState(() {
+      _showHint = true;
+      _hintTintController.fling();
+    });
+    context.bloc<CoinBloc>().add(CoinEvent.dec(2));
+  }
+
+  void _showAd(BuildContext context) async {
+    context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
+    print('****** Loading new ad');
+    final result = await myInterstitial.load();
+    if (!result) {
+      print('\t ****** Ad did not load');
+      return;
+    }
+    print('****** Loaded ad successfully');
+    await myInterstitial.show(
+      anchorType: AnchorType.bottom,
+      anchorOffset: 0.0,
+      horizontalCenterOffset: 0.0,
+    );
+    // myInterstitial.dispose()
   }
 
   double labelH = 50;

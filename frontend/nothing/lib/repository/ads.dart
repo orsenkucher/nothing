@@ -36,7 +36,7 @@ class AdRepo {
       });
       print('Sending request\n$body');
       var resp = await post(
-        addressWith(Route.registerAd),
+        addressWith(Route.reportAd),
         body: body,
       );
       if (resp.statusCode == 200) return;

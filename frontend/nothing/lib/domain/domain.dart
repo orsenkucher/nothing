@@ -42,4 +42,4 @@ Map<String, dynamic> _toQ(Question q) => q?.toJson();
 Map<String, dynamic> _toT(QTree t) => t?.toJson();
 
 enum AdType { interstitial, rewarded }
-enum AdMode { one, two }
+enum AdMode { one, two, three }
