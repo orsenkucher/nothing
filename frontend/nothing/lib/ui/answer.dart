@@ -20,7 +20,7 @@ class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 500),
     );
   }
 
@@ -43,7 +43,13 @@ class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
       ),
     );
     final Animation<double> offsetAnimation = Tween(begin: 0.0, end: 8.0)
-        .chain(CurveTween(curve: Curves.elasticIn))
+        // .chain(CurveTween(curve: Curves.elasticIn))
+        .chain(Tween<double>(begin: -0.5, end: 0.5))
+
+        //  .chain(Tween<double>(begin: -1.0, end: 0.0))
+
+        // .chain(CurveTween(curve: Curves.easeOut))
+        // .chain(CurveTween(curve: Curves.easeOut))
         .animate(controller);
 
     return BlocListener<ValidationBloc, ValidationState>(
@@ -52,7 +58,8 @@ class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
           just: (state) => state.maybeMap(
             wrong: (_) async {
               await controller.forward();
-              await controller.reverse();
+              controller.reset();
+              //  await controller.reverse();
             },
             orElse: () {},
           ),
@@ -61,23 +68,27 @@ class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
       },
       child: AnimatedBuilder(
         animation: controller,
-        builder: (context, child) => Container(
-          padding: EdgeInsets.only(
-            left: offsetAnimation.value + 8.0,
-            right: -offsetAnimation.value + 8.0,
-            top: 8,
-            bottom: 8,
-          ),
-          margin: const EdgeInsets.symmetric(horizontal: 32),
-          child: Material(
-            elevation: 6,
-            shadowColor: color.value.tint,
-            color: color.value,
-            borderRadius: NothingScheme.of(context).answerBorder,
-            clipBehavior: Clip.antiAlias,
-            child: child,
-          ),
-        ),
+        builder: (context, child) {
+          print(offsetAnimation.value);
+          print("contr: ${controller.value}");
+          return Container(
+            padding: EdgeInsets.only(
+              left: offsetAnimation.value + 8.0,
+              right: -offsetAnimation.value + 8.0,
+              top: 8,
+              bottom: 8,
+            ),
+            margin: const EdgeInsets.symmetric(horizontal: 32),
+            child: Material(
+              elevation: 6,
+              shadowColor: color.value.tint,
+              color: color.value,
+              borderRadius: NothingScheme.of(context).answerBorder,
+              clipBehavior: Clip.antiAlias,
+              child: child,
+            ),
+          );
+        },
         child: SizedBox.expand(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
