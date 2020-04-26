@@ -25,7 +25,6 @@ import 'package:nothing/ui/knob.dart';
 import 'package:nothing/ui/label.dart';
 import 'package:nothing/ui/question.dart';
 
-// TODO(refactor)
 class Home extends HookWidget {
   const Home();
 
@@ -62,7 +61,7 @@ class Home extends HookWidget {
 
               return [
                 Menu(onBack),
-                _buildMain(context, swipeTintController),
+                _buildMain(context, swipeTintController, pageController),
                 History(onBack)
               ];
             }(),
@@ -103,10 +102,11 @@ class Home extends HookWidget {
   Widget _buildMain(
     BuildContext context,
     AnimationController swipeTintController,
+    PageController pageController,
   ) {
     final textModel = useMemoized(() => TextModel());
     final hintTintController = useAnimationController();
-    final textController = useTextEditingController();
+    final showHint = useState(false);
 
     return Container(
       color: NothingScheme.of(context).background,
@@ -116,27 +116,13 @@ class Home extends HookWidget {
           children: [
             _buildGame(context),
             _gestureDetector(context),
-            _buildTitleKnobs(context),
-            _buildHintButtons(context),
+            _buildTitleKnobs(context, pageController),
+            _buildHintButtons(context, showHint, hintTintController),
             _buildTinter(context, hintTintController),
-            if (_showHint) _buildHint(context),
+            if (showHint.value)
+              _buildHint(context, showHint, hintTintController),
             _buildTinter(context, swipeTintController),
-            BlocListener<ValidationBloc, ValidationState>(
-              // TODO here
-              child: _inputPoint(textModel),
-              listener: (context, state) {
-                state.maybeWhen(
-                  just: (just) => just.maybeMap(
-                    orElse: () {
-                      textController.clear();
-                      textModel.update('');
-                    },
-                    neutral: (_) {},
-                  ),
-                  orElse: () {},
-                );
-              },
-            ),
+            _buildTextField(context),
           ],
         ),
       ),
@@ -177,46 +163,59 @@ class Home extends HookWidget {
     );
   }
 
-  Widget _inputPoint(TextModel model) {
-    return Visibility(
-      visible: false,
-      maintainState: true,
-      child: TextField(
-        focusNode: _focusNode,
-        controller: _textController,
-        enableSuggestions: false,
-        autocorrect: false,
-        maxLength: 32,
-        keyboardAppearance: NothingScheme.of(context).brightness,
-        keyboardType: TextInputType.text,
-        onSubmitted: (s) async {
-          print(s);
-          _focusNode.requestFocus();
-          if (s.isNotEmpty) {
-            context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
-          }
-          // model.update(s);
-          // if (true) {
-          //   // clear
-          //   _controller.clear();
-          //   model.update('');
-          //   // Vibrate.feedback(FeedbackType.success);
-          // } else {
-          //   // dont clear
-          //   // Vibrate.feedback(FeedbackType.warning);
-          // }
-        },
-        textInputAction: TextInputAction.go,
-        onChanged: (s) {
-          model.update(s);
-          print(s);
-        },
+  Widget _buildTextField(BuildContext context) {
+    final textModel = TextModel.of(context);
+    final focusNodeModel = FocusNodeModel.of(context);
+    final textController = useTextEditingController();
+
+    return BlocListener<ValidationBloc, ValidationState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          just: (just) => just.maybeMap(
+            orElse: () {
+              textController.clear();
+              textModel.update('');
+            },
+            neutral: (_) {},
+          ),
+          orElse: () {},
+        );
+      },
+      child: Visibility(
+        visible: false,
+        maintainState: true,
+        child: TextField(
+          focusNode: focusNodeModel.focusNode,
+          controller: textController,
+          enableSuggestions: false,
+          autocorrect: false,
+          maxLength: 32,
+          keyboardAppearance: NothingScheme.of(context).brightness,
+          keyboardType: TextInputType.text,
+          onSubmitted: (s) async {
+            print(s);
+            // _focusNode.requestFocus();
+            focusNodeModel.refocus();
+            if (s.isNotEmpty) {
+              context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
+            }
+          },
+          textInputAction: TextInputAction.go,
+          onChanged: (s) {
+            textModel.update(s);
+            print(s);
+          },
+        ),
       ),
     );
   }
 
-  var _showHint = false;
-  Widget _buildHint(BuildContext context) {
+// TODO can make better?
+  Widget _buildHint(
+    BuildContext context,
+    ValueNotifier<bool> showHint,
+    AnimationController hintTintController,
+  ) {
     return SafeArea(child: LayoutBuilder(builder: (context, constraints) {
       final top = labelH + 24; //+ 21 + 28 + 8 + 12;
       double hei = min(
@@ -271,11 +270,8 @@ class Home extends HookWidget {
                       color: NothingScheme.of(context).knob,
                       child: Text('Close', style: TextStyle(fontSize: 16)),
                       onPressed: () {
-                        //TODO(hint)
-                        setState(() {
-                          _showHint = false;
-                        });
-                        _hintTintController.fling(velocity: -1);
+                        showHint.value = false;
+                        hintTintController.fling(velocity: -1);
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: NothingScheme.of(context).hintBorder,
@@ -291,7 +287,7 @@ class Home extends HookWidget {
     }));
   }
 
-  Widget _buildTitleKnobs(BuildContext context) {
+  Widget _buildTitleKnobs(BuildContext context, PageController pageController) {
     const duration = Duration(milliseconds: 300);
     const curve = Curves.easeInOut;
     return SafeArea(
@@ -300,12 +296,12 @@ class Home extends HookWidget {
         children: [
           _makeKnob(
             Icons.short_text,
-            () => _pageController.animateToPage(0,
+            () => pageController.animateToPage(0,
                 duration: duration, curve: curve),
           ),
           _makeKnob(
             Icons.all_inclusive,
-            () => _pageController.animateToPage(2,
+            () => pageController.animateToPage(2,
                 duration: duration, curve: curve),
           ),
         ],
@@ -313,7 +309,11 @@ class Home extends HookWidget {
     );
   }
 
-  Widget _buildHintButtons(BuildContext context) {
+  Widget _buildHintButtons(
+    BuildContext context,
+    ValueNotifier<bool> showHint,
+    AnimationController hintTintController,
+  ) {
     return SafeArea(child: LayoutBuilder(
       builder: (context, constraints) {
         double queH = min(
@@ -332,7 +332,11 @@ class Home extends HookWidget {
         };
         final ii = {'hint': Icons.lightbulb_outline, 'skip': Icons.clear};
         final pp = {
-          'hint': () => _hintClick(context),
+          'hint': () => _hintClick(
+                context,
+                showHint,
+                hintTintController,
+              ),
           'skip': () {},
         };
         final bb = ['hint', 'skip']
@@ -394,61 +398,22 @@ class Home extends HookWidget {
   }
 
   // TODO(hint)
-  void _hintClick(BuildContext context) async {
-    setState(() {
-      _showHint = true;
-      _hintTintController.fling();
-    });
+  void _hintClick(
+    BuildContext context,
+    ValueNotifier<bool> showHint,
+    AnimationController hintTintController,
+  ) async {
+    // setState(() {
+    //   _showHint = true;
+    //   _hintTintController.fling();
+    // });
+    showHint.value = true;
+    hintTintController.fling();
     context.bloc<CoinBloc>().add(CoinEvent.dec(2));
   }
 
-  // InterstitialAd myInterstitial;
-
-  void _createAd() {
-    final myInterstitial = InterstitialAd(
-      // adUnitId: Platform.isIOS // interstitial ios/android
-      //     ? 'ca-app-pub-3169956978186495/7272148845'
-      //     : 'ca-app-pub-3169956978186495/2443683360',
-      adUnitId: InterstitialAd.testAdUnitId,
-      targetingInfo: MobileAdTargetingInfo(),
-      listener: (MobileAdEvent event) async {
-        // event.
-        print("InterstitialAd event is $event");
-        if (event == MobileAdEvent.loaded) {
-          // await myInterstitial.show(
-          //   anchorType: AnchorType.bottom,
-          //   anchorOffset: 0.0,
-          //   horizontalCenterOffset: 0.0,
-          // );
-        }
-        if (event == MobileAdEvent.closed) {
-          print("CLOSED");
-          // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
-          await myInterstitial.load();
-        }
-      },
-    );
-  }
-
-  void _showAd(BuildContext context) async {
-    context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
-    print('****** Loading new ad');
-    final result = await myInterstitial.load();
-    if (!result) {
-      print('\t ****** Ad did not load');
-      return;
-    }
-    print('****** Loaded ad successfully');
-    await myInterstitial.show(
-      anchorType: AnchorType.bottom,
-      anchorOffset: 0.0,
-      horizontalCenterOffset: 0.0,
-    );
-    // myInterstitial.dispose()
-  }
-
-  double labelH = 50;
-  double ansH = 72;
+  final double labelH = 50;
+  final double ansH = 72;
   Widget _buildGame(BuildContext context) {
     return SafeArea(
       child: LayoutBuilder(
@@ -475,4 +440,49 @@ class Home extends HookWidget {
       child: Knob(icon, onPress),
     );
   }
+}
+
+void _createAd() {
+  InterstitialAd myInterstitial;
+  myInterstitial = InterstitialAd(
+    // adUnitId: Platform.isIOS // interstitial ios/android
+    //     ? 'ca-app-pub-3169956978186495/7272148845'
+    //     : 'ca-app-pub-3169956978186495/2443683360',
+    adUnitId: InterstitialAd.testAdUnitId,
+    targetingInfo: MobileAdTargetingInfo(),
+    listener: (MobileAdEvent event) async {
+      // event.
+      print("InterstitialAd event is $event");
+      if (event == MobileAdEvent.loaded) {
+        // await myInterstitial.show(
+        //   anchorType: AnchorType.bottom,
+        //   anchorOffset: 0.0,
+        //   horizontalCenterOffset: 0.0,
+        // );
+      }
+      if (event == MobileAdEvent.closed) {
+        print("CLOSED");
+        // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
+        await myInterstitial.load();
+      }
+    },
+  );
+}
+
+void _showAd(BuildContext context) async {
+  InterstitialAd myInterstitial;
+  context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
+  print('****** Loading new ad');
+  final result = await myInterstitial.load();
+  if (!result) {
+    print('\t ****** Ad did not load');
+    return;
+  }
+  print('****** Loaded ad successfully');
+  await myInterstitial.show(
+    anchorType: AnchorType.bottom,
+    anchorOffset: 0.0,
+    horizontalCenterOffset: 0.0,
+  );
+  // myInterstitial.dispose()
 }
