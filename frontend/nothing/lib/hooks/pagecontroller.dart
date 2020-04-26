@@ -36,9 +36,9 @@ class _PageControllerHookState
   void initHook() {
     super.initHook();
     _pageController = PageController(
-      initialPage: hook.initialPage,
-      keepPage: hook.keepPage,
-      viewportFraction: hook.viewportFraction,
+      initialPage: hook.initialPage ?? 0,
+      keepPage: hook.keepPage ?? true,
+      viewportFraction: hook.viewportFraction ?? 1.0,
     );
   }
 

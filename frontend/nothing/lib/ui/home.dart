@@ -42,29 +42,31 @@ class Home extends HookWidget {
 
     return ScopedModel<FocusNodeModel>(
       model: focusNodeModel,
-      child: Scaffold(
-        backgroundColor: NothingScheme.of(context).background,
-        body: NotificationListener<ScrollNotification>(
-          onNotification: _onScrollNotification(swipeTintController),
-          child: PageView(
-            controller: pageController,
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            onPageChanged: _onPageChanged(context),
-            children: () {
-              const duration = Duration(milliseconds: 300);
-              const curve = Curves.easeInOut;
-              void onBack() {
-                pageController.animateToPage(1,
-                    duration: duration, curve: curve);
-              }
+      child: Builder(
+        builder: (context) => Scaffold(
+          backgroundColor: NothingScheme.of(context).background,
+          body: NotificationListener<ScrollNotification>(
+            onNotification: _onScrollNotification(swipeTintController),
+            child: PageView(
+              controller: pageController,
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              onPageChanged: _onPageChanged(context),
+              children: () {
+                const duration = Duration(milliseconds: 300);
+                const curve = Curves.easeInOut;
+                void onBack() {
+                  pageController.animateToPage(1,
+                      duration: duration, curve: curve);
+                }
 
-              return [
-                Menu(onBack),
-                _buildMain(context, swipeTintController, pageController),
-                History(onBack)
-              ];
-            }(),
+                return [
+                  Menu(onBack),
+                  Main(swipeTintController, pageController),
+                  History(onBack)
+                ];
+              }(),
+            ),
           ),
         ),
       ),
@@ -98,32 +100,38 @@ class Home extends HookWidget {
       }
     };
   }
+}
 
-  Widget _buildMain(
-    BuildContext context,
-    AnimationController swipeTintController,
-    PageController pageController,
-  ) {
+class Main extends HookWidget {
+  final AnimationController swipeTintController;
+  final PageController pageController;
+  const Main(this.swipeTintController, this.pageController);
+
+  @override
+  Widget build(BuildContext context) {
     final textModel = useMemoized(() => TextModel());
     final hintTintController = useAnimationController();
     final showHint = useState(false);
+    final textController = useTextEditingController();
 
     return Container(
       color: NothingScheme.of(context).background,
       child: ScopedModel<TextModel>(
         model: textModel,
-        child: Stack(
-          children: [
-            _buildGame(context),
-            _gestureDetector(context),
-            _buildTitleKnobs(context, pageController),
-            _buildHintButtons(context, showHint, hintTintController),
-            _buildTinter(context, hintTintController),
-            if (showHint.value)
-              _buildHint(context, showHint, hintTintController),
-            _buildTinter(context, swipeTintController),
-            _buildTextField(context),
-          ],
+        child: Builder(
+          builder: (context) => Stack(
+            children: [
+              _buildGame(context),
+              _gestureDetector(context),
+              _buildTitleKnobs(context, pageController),
+              _buildHintButtons(context, showHint, hintTintController),
+              _buildTinter(context, hintTintController),
+              if (showHint.value)
+                _buildHint(context, showHint, hintTintController),
+              _buildTinter(context, swipeTintController),
+              _buildTextField(context, textController),
+            ],
+          ),
         ),
       ),
     );
@@ -163,10 +171,12 @@ class Home extends HookWidget {
     );
   }
 
-  Widget _buildTextField(BuildContext context) {
+  Widget _buildTextField(
+    BuildContext context,
+    TextEditingController textController,
+  ) {
     final textModel = TextModel.of(context);
     final focusNodeModel = FocusNodeModel.of(context);
-    final textController = useTextEditingController();
 
     return BlocListener<ValidationBloc, ValidationState>(
       listener: (context, state) {

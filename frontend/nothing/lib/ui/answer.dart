@@ -55,27 +55,23 @@ class Answer extends HookWidget {
       },
       child: AnimatedBuilder(
         animation: controller,
-        builder: (context, child) {
-          print(offsetAnimation.value);
-          print("contr: ${controller.value}");
-          return Container(
-            padding: EdgeInsets.only(
-              left: offsetAnimation.value + shift,
-              right: -offsetAnimation.value + shift,
-              top: 8,
-              bottom: 8,
-            ),
-            margin: const EdgeInsets.symmetric(horizontal: 32),
-            child: Material(
-              elevation: 6,
-              shadowColor: color.value.tint,
-              color: color.value,
-              borderRadius: NothingScheme.of(context).answerBorder,
-              clipBehavior: Clip.antiAlias,
-              child: child,
-            ),
-          );
-        },
+        builder: (context, child) => Container(
+          padding: EdgeInsets.only(
+            left: offsetAnimation.value + shift,
+            right: -offsetAnimation.value + shift,
+            top: 8,
+            bottom: 8,
+          ),
+          margin: const EdgeInsets.symmetric(horizontal: 32),
+          child: Material(
+            elevation: 6,
+            shadowColor: color.value.tint,
+            color: color.value,
+            borderRadius: NothingScheme.of(context).answerBorder,
+            clipBehavior: Clip.antiAlias,
+            child: child,
+          ),
+        ),
         child: SizedBox.expand(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
