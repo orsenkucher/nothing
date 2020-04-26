@@ -16,7 +16,7 @@ class Knob extends StatelessWidget {
           borderRadius: NothingScheme.of(context).knobBorder,
         ),
         width: 50,
-        height: 40,
+        height: 36,
         child: Icon(icon),
       ),
     );

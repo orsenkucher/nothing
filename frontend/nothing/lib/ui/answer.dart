@@ -1,37 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/model/text.dart';
 
-class Answer extends StatefulWidget {
+class Answer extends HookWidget {
   const Answer({Key key}) : super(key: key);
 
   @override
-  _AnswerState createState() => _AnswerState();
-}
-
-class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
-  AnimationController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    const duration = Duration(milliseconds: 600);
+    final controller = useAnimationController(duration: duration);
     final scheme = NothingScheme.of(context);
     final color = ColorTween(
       begin: scheme.neutral,
@@ -42,15 +23,22 @@ class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
         curve: Interval(0.0, 0.1, curve: Curves.ease),
       ),
     );
-    final Animation<double> offsetAnimation = Tween(begin: 0.0, end: 8.0)
-        // .chain(CurveTween(curve: Curves.elasticIn))
-        .chain(Tween<double>(begin: -0.5, end: 0.5))
-
-        //  .chain(Tween<double>(begin: -1.0, end: 0.0))
-
-        // .chain(CurveTween(curve: Curves.easeOut))
-        // .chain(CurveTween(curve: Curves.easeOut))
-        .animate(controller);
+    const shift = 8.0;
+    final Animation<double> offsetAnimation = TweenSequence([
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: 0.0, end: shift)
+            .chain(CurveTween(curve: Curves.ease)),
+        weight: 1,
+      ),
+      TweenSequenceItem<double>(
+        tween: Tween<double>(begin: shift, end: -shift)
+            .chain(CurveTween(curve: Curves.ease)),
+        weight: 2,
+      ),
+    ]).animate(CurvedAnimation(
+      parent: controller,
+      curve: Interval(0.0, 1.0, curve: Curves.easeIn),
+    ));
 
     return BlocListener<ValidationBloc, ValidationState>(
       listener: (BuildContext context, state) {
@@ -58,8 +46,7 @@ class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
           just: (state) => state.maybeMap(
             wrong: (_) async {
               await controller.forward();
-              controller.reset();
-              //  await controller.reverse();
+              await controller.reverse();
             },
             orElse: () {},
           ),
@@ -73,8 +60,8 @@ class _AnswerState extends State<Answer> with SingleTickerProviderStateMixin {
           print("contr: ${controller.value}");
           return Container(
             padding: EdgeInsets.only(
-              left: offsetAnimation.value + 8.0,
-              right: -offsetAnimation.value + 8.0,
+              left: offsetAnimation.value + shift,
+              right: -offsetAnimation.value + shift,
               top: 8,
               bottom: 8,
             ),
