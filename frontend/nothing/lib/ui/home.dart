@@ -13,6 +13,7 @@ import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart' as domain;
 import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/model/text.dart';
+import 'package:nothing/ui/cointext.dart';
 import 'package:nothing/ui/history.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -24,6 +25,7 @@ import 'package:nothing/ui/knob.dart';
 import 'package:nothing/ui/label.dart';
 import 'package:nothing/ui/question.dart';
 
+// TODO(refactor)
 class Home extends StatefulWidget {
   const Home();
   @override
@@ -578,15 +580,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         foregroundColor: Colors.black,
                         child: Icon(Icons.vpn_key)),
                     SizedBox(width: 4),
-                    BlocBuilder<CoinBloc, CoinState>(
-                      builder: (context, state) => Text(
-                        '${state.total}',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24,
-                        ),
-                      ),
-                    )
+                    CoinText(),
                   ]),
                 ],
               ),
