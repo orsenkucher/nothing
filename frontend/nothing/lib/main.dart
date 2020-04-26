@@ -15,7 +15,6 @@ import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/routing/routing.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
-import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
@@ -194,7 +193,6 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<SummaryBloc>(create: (_) => SummaryBloc()),
         BlocProvider<HistoryBloc>(create: (_) => HistoryBloc()),
         BlocProvider<RoutingBloc>(create: (_) => RoutingBloc()),
-        BlocProvider<TestBloc>(create: (_) => TestBloc()),
         BlocProvider<IdBloc>(create: (_) => IdBloc()),
         BlocProvider<CoinBloc>(create: (_) => CoinBloc()),
         BlocProvider<QuestionsBloc>(

@@ -1,13 +1,14 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/ad/bloc.dart';
 import 'package:nothing/bloc/coin/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
-import 'package:nothing/bloc/routing/bloc.dart';
-import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart' as domain;
@@ -15,11 +16,6 @@ import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/model/text.dart';
 import 'package:nothing/ui/cointext.dart';
 import 'package:nothing/ui/history.dart';
-import 'package:scoped_model/scoped_model.dart';
-
-import 'dart:io';
-import 'dart:math';
-
 import 'package:nothing/ui/answer.dart';
 import 'package:nothing/ui/knob.dart';
 import 'package:nothing/ui/label.dart';
@@ -46,30 +42,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _focusNode = FocusNode();
     _swipeTintController = AnimationController(vsync: this);
     _hintTintController = AnimationController(vsync: this);
-
-    myInterstitial = InterstitialAd(
-      // adUnitId: Platform.isIOS // interstitial ios/android
-      //     ? 'ca-app-pub-3169956978186495/7272148845'
-      //     : 'ca-app-pub-3169956978186495/2443683360',
-      adUnitId: InterstitialAd.testAdUnitId,
-      targetingInfo: MobileAdTargetingInfo(),
-      listener: (MobileAdEvent event) async {
-        // event.
-        print("InterstitialAd event is $event");
-        if (event == MobileAdEvent.loaded) {
-          // await myInterstitial.show(
-          //   anchorType: AnchorType.bottom,
-          //   anchorOffset: 0.0,
-          //   horizontalCenterOffset: 0.0,
-          // );
-        }
-        if (event == MobileAdEvent.closed) {
-          print("CLOSED");
-          // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
-          await myInterstitial.load();
-        }
-      },
-    );
   }
 
   @override
@@ -78,6 +50,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _textController.dispose();
     _swipeTintController.dispose();
     _hintTintController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -87,29 +60,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _refocus();
     });
-    print(">>> >>> didChangeDependencies");
-    // pageController.position.didEndScroll();
-    // pageController.addListener(listener)
   }
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   context.bloc<RoutingBloc>().add(RoutingEvent.resume());
-    // }); // TODO
     return Scaffold(
-      // body: CustomScrollView(
-      //   scrollDirection: Axis.horizontal,
-      //   physics: const BouncingScrollPhysics(),
-      //   slivers: [
-      //     SliverToBoxAdapter(child: Container(width: 200, color: Colors.amber)),
-      //     SliverFillViewport(
-      //       delegate: SliverChildBuilderDelegate(
-      //         (context, i) => i == 0 ? _buildMain(context) : null,
-      //       ),
-      //     ),
-      //   ],
-      // ),
       backgroundColor: NothingScheme.of(context).background,
       body: NotificationListener<ScrollNotification>(
         onNotification: (scrollNotification) {
@@ -263,8 +218,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   Widget _buildMain(BuildContext context) {
-    // CurvedAnimation(parent: Tween(begin: 0,end:1))
-    // AnimatedContainer()
     return Container(
       color: NothingScheme.of(context).background,
       child: ScopedModel<TextModel>(
@@ -276,39 +229,22 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             _buildTitleKnobs(context),
             _buildHintButtons(context),
             _buildTinter(context, _hintTintController),
-            if (_showHint)
-              _buildHint(context),
+            if (_showHint) _buildHint(context),
             _buildTinter(context, _swipeTintController),
-            // Test(),
-            MultiBlocListener(
-              listeners: [
-                BlocListener<ValidationBloc, ValidationState>(
-                  listener: (context, state) {
-                    state.maybeWhen(
-                      just: (just) => just.maybeMap(
-                        orElse: () {
-                          _textController.clear();
-                          _model.update('');
-                        },
-                        neutral: (_) {},
-                      ),
-                      orElse: () {},
-                    );
-                  },
-                ),
-                BlocListener<RoutingBloc, RoutingState>(
-                    listener: (context, state) {
-                  print(state);
-                  if (state.route != Routes.home()) return;
-                  print('focusing keyboard'); // TODO
-                  // WidgetsBinding.instance.addPostFrameCallback((_) {
-                  // //   _focusNode.unfocus();
-                  // //   _focusNode.requestFocus();
-                  // _refocus();
-                  // });
-                })
-              ],
+            BlocListener<ValidationBloc, ValidationState>(
               child: _inputPoint(_model),
+              listener: (context, state) {
+                state.maybeWhen(
+                  just: (just) => just.maybeMap(
+                    orElse: () {
+                      _textController.clear();
+                      _model.update('');
+                    },
+                    neutral: (_) {},
+                  ),
+                  orElse: () {},
+                );
+              },
             ),
           ],
         ),
@@ -349,8 +285,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
           // child: Container(color: Colors.green.withOpacity(0.3)),
-          // onHorizontalDragEnd: (_) => _refocus(),
-          // onVerticalDragEnd: (_) => _refocus(),
           onTap: _refocus,
         ),
       ),
@@ -360,12 +294,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget _inputPoint(TextModel model) {
     return Visibility(
       visible: false,
-      // maintainInteractivity: true,
-      // maintainAnimation: true,
-      // maintainSize: true,
       maintainState: true,
       child: TextField(
-        // autofocus: true,
         focusNode: _focusNode,
         controller: _textController,
         enableSuggestions: false,
@@ -378,7 +308,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           _focusNode.requestFocus();
           if (s.isNotEmpty) {
             context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
-            context.bloc<TestBloc>().add(TestEvent.name(s));
           }
           // model.update(s);
           // if (true) {
@@ -393,7 +322,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         },
         textInputAction: TextInputAction.go,
         onChanged: (s) {
-          // context.bloc<ValidationBloc>().add(ValidationEvent.purge());
           model.update(s);
           print(s);
         },
@@ -462,7 +390,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           _showHint = false;
                         });
                         _hintTintController.fling(velocity: -1);
-                        // if (bloc.state == showHint then show)
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: NothingScheme.of(context).hintBorder,
@@ -479,7 +406,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   Widget _buildTitleKnobs(BuildContext context) {
-    // var safeWrap = (Widget w) => Platform.isIOS ? w : SafeArea(child: w);
     const duration = Duration(milliseconds: 300);
     const curve = Curves.easeInOut;
     return SafeArea(
@@ -500,16 +426,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
     );
   }
-
-  //Todo(ad)
-  // MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-  //   // keywords: <String>['flutterio', 'beautiful apps'],
-  //   // contentUrl: 'https://flutter.io',
-  //   childDirected: false,
-  //   testDevices: <String>[],
-  // );
-
-  InterstitialAd myInterstitial;
 
   Widget _buildHintButtons(BuildContext context) {
     return SafeArea(child: LayoutBuilder(
@@ -600,6 +516,34 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     context.bloc<CoinBloc>().add(CoinEvent.dec(2));
   }
 
+  InterstitialAd myInterstitial;
+
+  void _createAd() {
+    myInterstitial = InterstitialAd(
+      // adUnitId: Platform.isIOS // interstitial ios/android
+      //     ? 'ca-app-pub-3169956978186495/7272148845'
+      //     : 'ca-app-pub-3169956978186495/2443683360',
+      adUnitId: InterstitialAd.testAdUnitId,
+      targetingInfo: MobileAdTargetingInfo(),
+      listener: (MobileAdEvent event) async {
+        // event.
+        print("InterstitialAd event is $event");
+        if (event == MobileAdEvent.loaded) {
+          // await myInterstitial.show(
+          //   anchorType: AnchorType.bottom,
+          //   anchorOffset: 0.0,
+          //   horizontalCenterOffset: 0.0,
+          // );
+        }
+        if (event == MobileAdEvent.closed) {
+          print("CLOSED");
+          // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
+          await myInterstitial.load();
+        }
+      },
+    );
+  }
+
   void _showAd(BuildContext context) async {
     context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
     print('****** Loading new ad');
@@ -627,25 +571,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             280,
             constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
           );
-          return Column(
-            children: [
-              SizedBox(height: 21),
-              SizedBox(
-                // height: labelH,
-                // child: Stack(children: [Label(), Test()]),
-                child: Label(),
-              ),
-              SizedBox(height: 12),
-              SizedBox(
-                height: queH,
-                child: Center(child: Question()),
-              ),
-              SizedBox(
-                height: ansH,
-                child: Answer(),
-              ),
-            ],
-          );
+          return Column(children: [
+            SizedBox(height: 21),
+            SizedBox(child: Label()),
+            SizedBox(height: 12),
+            SizedBox(height: queH, child: Center(child: Question())),
+            SizedBox(height: ansH, child: Answer()),
+          ]);
         },
       ),
     );
@@ -653,11 +585,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   Widget _makeKnob(IconData icon, [Function onPress]) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 24,
-        right: 24,
-        top: 21,
-      ),
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
       child: Knob(icon, onPress),
     );
   }
