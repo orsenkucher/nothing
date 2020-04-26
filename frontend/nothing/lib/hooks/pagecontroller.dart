@@ -7,12 +7,9 @@ PageController usePageController({
   double viewportFraction,
   List<Object> keys,
 }) =>
-    Hook.use(_PageControllerHook(
-      initialPage,
-      keepPage,
-      viewportFraction,
-      keys,
-    ));
+    Hook.use(
+      _PageControllerHook(initialPage, keepPage, viewportFraction, keys),
+    );
 
 class _PageControllerHook extends Hook<PageController> {
   final int initialPage;
@@ -38,7 +35,7 @@ class _PageControllerHookState
   @override
   void initHook() {
     super.initHook();
-    PageController(
+    _pageController = PageController(
       initialPage: hook.initialPage,
       keepPage: hook.keepPage,
       viewportFraction: hook.viewportFraction,
@@ -49,5 +46,8 @@ class _PageControllerHookState
   PageController build(BuildContext context) => _pageController;
 
   @override
-  void dispose() => _pageController?.dispose();
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 }

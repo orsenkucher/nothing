@@ -4,6 +4,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nothing/hooks/pagecontroller.dart';
+import 'package:nothing/model/focusnode.dart';
+import 'package:nothing/ui/menu.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,192 +31,105 @@ class Home extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _focusNode = useFocusNode();
-    final _textController = useTextEditingController();
-    final _swipeTintController = useAnimationController();
-    final _hintTintController = useAnimationController();
-    final _pageController = usePageController(initialPage: 1);
-    final _model = useState(TextModel());
+    final focusNodeModel = FocusNodeModel(useFocusNode());
+    final swipeTintController = useAnimationController();
+    final pageController = usePageController(initialPage: 1);
     useEffect(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _refocus());
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => focusNodeModel.refocus(),
+      );
       return null;
     });
 
-    return Scaffold(
-      backgroundColor: NothingScheme.of(context).background,
-      body: NotificationListener<ScrollNotification>(
-        onNotification: (scrollNotification) {
-          if (scrollNotification is ScrollUpdateNotification) {
-            final metrics = scrollNotification.metrics;
-            final offset = (metrics.viewportDimension - metrics.pixels).abs();
-            final value = (offset / metrics.viewportDimension).clamp(0.0, 1.0);
-            _swipeTintController.value = value;
-            _swipeTintController.notifyListeners();
-          }
-          return false;
-        },
-        child: PageView(
-          controller: _pageController,
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          children: [
-            _buildMenu(context),
-            _buildMain(context),
-            _buildHistory(context),
-          ],
-          onPageChanged: (i) {
-            switch (i) {
-              case 1:
-                _refocus();
-                break;
-              default:
-                _focusNode.unfocus();
-            }
-          },
+    return ScopedModel<FocusNodeModel>(
+      model: focusNodeModel,
+      child: Scaffold(
+        backgroundColor: NothingScheme.of(context).background,
+        body: NotificationListener<ScrollNotification>(
+          onNotification: _onScrollNotification(swipeTintController),
+          child: PageView(
+            controller: pageController,
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            onPageChanged: _onPageChanged(context),
+            children: () {
+              const duration = Duration(milliseconds: 300);
+              const curve = Curves.easeInOut;
+              void onBack() {
+                pageController.animateToPage(1,
+                    duration: duration, curve: curve);
+              }
+
+              return [
+                Menu(onBack),
+                _buildMain(context, swipeTintController),
+                History(onBack)
+              ];
+            }(),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildMenu(BuildContext context) {
-    ontap() {
-      const duration = Duration(milliseconds: 300);
-      const curve = Curves.easeInOut;
-      _pageController.animateToPage(1, duration: duration, curve: curve);
-    }
-
-    return Container(
-      color: Colors.amber,
-      child: Stack(
-        children: [
-          GestureDetector(onTap: ontap),
-          Padding(
-            padding: const EdgeInsets.only(right: 100),
-            child: Container(color: NothingScheme.of(context).background),
-          ),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 40, bottom: 32),
-                  child: Text('Меню', style: TextStyle(fontSize: 36)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Card(
-                    elevation: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: () {
-                          const tt = [
-                            'Звук',
-                            'Оцените нас',
-                            'Оставить остзыв',
-                            'Поделиться',
-                            'Вибрация',
-                          ];
-                          return tt
-                              .map((t) =>
-                                  Text(t, style: TextStyle(fontSize: 24)))
-                              .map((w) => Padding(
-                                  child: w,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16)));
-                        }()
-                            .expand((w) sync* {
-                              yield const Divider();
-                              yield w;
-                            })
-                            .skip(1)
-                            .toList(),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: IconButton(
-                icon: Icon(Icons.arrow_forward_ios),
-                onPressed: ontap,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+  bool Function(ScrollNotification) _onScrollNotification(
+    AnimationController swipeTintController,
+  ) {
+    return (scrollNotification) {
+      if (scrollNotification is ScrollUpdateNotification) {
+        final metrics = scrollNotification.metrics;
+        final offset = (metrics.viewportDimension - metrics.pixels).abs();
+        final value = (offset / metrics.viewportDimension).clamp(0.0, 1.0);
+        swipeTintController.value = value;
+        swipeTintController.notifyListeners();
+      }
+      return false;
+    };
   }
 
-  Widget _buildHistory(BuildContext context) {
-    ontap() {
-      const duration = Duration(milliseconds: 300);
-      const curve = Curves.easeInOut;
-      _pageController.animateToPage(1, duration: duration, curve: curve);
-    }
-
-    return Container(
-      color: Colors.amber,
-      child: Stack(
-        children: [
-          GestureDetector(onTap: ontap),
-          Padding(
-            padding: const EdgeInsets.only(left: 100),
-            child: Container(
-              color: NothingScheme.of(context).background,
-              child: HistoryStack(),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: Text('Уровни', style: TextStyle(fontSize: 36)),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: ontap,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+  void Function(int) _onPageChanged(BuildContext context) {
+    final focusNodeModel = FocusNodeModel.of(context);
+    return (i) {
+      switch (i) {
+        case 1:
+          focusNodeModel.refocus();
+          break;
+        default:
+          focusNodeModel.focusNode.unfocus();
+      }
+    };
   }
 
-  Widget _buildMain(BuildContext context) {
+  Widget _buildMain(
+    BuildContext context,
+    AnimationController swipeTintController,
+  ) {
+    final textModel = useMemoized(() => TextModel());
+    final hintTintController = useAnimationController();
+    final textController = useTextEditingController();
+
     return Container(
       color: NothingScheme.of(context).background,
       child: ScopedModel<TextModel>(
-        model: _model,
+        model: textModel,
         child: Stack(
           children: [
             _buildGame(context),
             _gestureDetector(context),
             _buildTitleKnobs(context),
             _buildHintButtons(context),
-            _buildTinter(context, _hintTintController),
+            _buildTinter(context, hintTintController),
             if (_showHint) _buildHint(context),
-            _buildTinter(context, _swipeTintController),
+            _buildTinter(context, swipeTintController),
             BlocListener<ValidationBloc, ValidationState>(
-              child: _inputPoint(_model),
+              // TODO here
+              child: _inputPoint(textModel),
               listener: (context, state) {
                 state.maybeWhen(
                   just: (just) => just.maybeMap(
                     orElse: () {
-                      _textController.clear();
-                      _model.update('');
+                      textController.clear();
+                      textModel.update('');
                     },
                     neutral: (_) {},
                   ),
@@ -249,11 +164,6 @@ class Home extends HookWidget {
     );
   }
 
-  void _refocus() {
-    _focusNode.unfocus();
-    _focusNode.requestFocus();
-  }
-
   Widget _gestureDetector(BuildContext context) {
     return Center(
       child: FractionallySizedBox(
@@ -261,7 +171,7 @@ class Home extends HookWidget {
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
           // child: Container(color: Colors.green.withOpacity(0.3)),
-          onTap: _refocus,
+          onTap: FocusNodeModel.of(context).refocus,
         ),
       ),
     );

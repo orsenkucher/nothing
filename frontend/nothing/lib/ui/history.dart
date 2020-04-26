@@ -3,6 +3,48 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 
+class History extends StatelessWidget {
+  final void Function() onBack;
+
+  const History(this.onBack);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.amber,
+      child: Stack(
+        children: [
+          GestureDetector(onTap: onBack),
+          Padding(
+            padding: const EdgeInsets.only(left: 100),
+            child: Container(
+              color: NothingScheme.of(context).background,
+              child: HistoryStack(),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: Text('Уровни', style: TextStyle(fontSize: 36)),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: onBack,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class HistoryStack extends StatelessWidget {
   const HistoryStack({
     Key key,
