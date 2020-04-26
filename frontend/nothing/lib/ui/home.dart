@@ -112,7 +112,6 @@ class Main extends HookWidget {
     final textModel = useMemoized(() => TextModel());
     final hintTintController = useAnimationController();
     final showHint = useState(false);
-    final textController = useTextEditingController();
 
     return Container(
       color: NothingScheme.of(context).background,
@@ -129,7 +128,7 @@ class Main extends HookWidget {
               if (showHint.value)
                 _buildHint(context, showHint, hintTintController),
               _buildTinter(context, swipeTintController),
-              _buildTextField(context, textController),
+              _buildTextField(context),
             ],
           ),
         ),
@@ -137,7 +136,7 @@ class Main extends HookWidget {
     );
   }
 
-  IgnorePointer _buildTinter(
+  Widget _buildTinter(
     BuildContext context,
     AnimationController controller,
   ) {
@@ -171,53 +170,53 @@ class Main extends HookWidget {
     );
   }
 
-  Widget _buildTextField(
-    BuildContext context,
-    TextEditingController textController,
-  ) {
-    final textModel = TextModel.of(context);
-    final focusNodeModel = FocusNodeModel.of(context);
+  Widget _buildTextField(BuildContext context) {
+    return HookBuilder(builder: (context) {
+      final textModel = TextModel.of(context);
+      final focusNodeModel = FocusNodeModel.of(context);
+      final textController = useTextEditingController();
 
-    return BlocListener<ValidationBloc, ValidationState>(
-      listener: (context, state) {
-        state.maybeWhen(
-          just: (just) => just.maybeMap(
-            orElse: () {
-              textController.clear();
-              textModel.update('');
+      return BlocListener<ValidationBloc, ValidationState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            just: (just) => just.maybeMap(
+              orElse: () {
+                textController.clear();
+                textModel.update('');
+              },
+              neutral: (_) {},
+            ),
+            orElse: () {},
+          );
+        },
+        child: Visibility(
+          visible: false,
+          maintainState: true,
+          child: TextField(
+            focusNode: focusNodeModel.focusNode,
+            controller: textController,
+            enableSuggestions: false,
+            autocorrect: false,
+            maxLength: 32,
+            keyboardAppearance: NothingScheme.of(context).brightness,
+            keyboardType: TextInputType.text,
+            onSubmitted: (s) async {
+              print(s);
+              // _focusNode.requestFocus();
+              focusNodeModel.refocus();
+              if (s.isNotEmpty) {
+                context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
+              }
             },
-            neutral: (_) {},
+            textInputAction: TextInputAction.go,
+            onChanged: (s) {
+              textModel.update(s);
+              print(s);
+            },
           ),
-          orElse: () {},
-        );
-      },
-      child: Visibility(
-        visible: false,
-        maintainState: true,
-        child: TextField(
-          focusNode: focusNodeModel.focusNode,
-          controller: textController,
-          enableSuggestions: false,
-          autocorrect: false,
-          maxLength: 32,
-          keyboardAppearance: NothingScheme.of(context).brightness,
-          keyboardType: TextInputType.text,
-          onSubmitted: (s) async {
-            print(s);
-            // _focusNode.requestFocus();
-            focusNodeModel.refocus();
-            if (s.isNotEmpty) {
-              context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
-            }
-          },
-          textInputAction: TextInputAction.go,
-          onChanged: (s) {
-            textModel.update(s);
-            print(s);
-          },
         ),
-      ),
-    );
+      );
+    });
   }
 
 // TODO can make better?
