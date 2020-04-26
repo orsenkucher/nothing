@@ -479,11 +479,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   Widget _buildTitleKnobs(BuildContext context) {
-    var safeWrap = (Widget w) => Platform.isIOS ? w : SafeArea(child: w);
+    // var safeWrap = (Widget w) => Platform.isIOS ? w : SafeArea(child: w);
     const duration = Duration(milliseconds: 300);
     const curve = Curves.easeInOut;
-    return safeWrap(
-      Row(
+    return SafeArea(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _makeKnob(
@@ -537,7 +537,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             .map(
           (l) => Expanded(
             child: FlatButton(
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
               color: cc[l],
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

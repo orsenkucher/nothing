@@ -7,11 +7,11 @@ class NothingScheme extends InheritedWidget {
   Color get hint => const Color(0xffa946e9);
   Color get skip => const Color(0xfff07025);
   BorderRadiusGeometry get hintBorder =>
-      const BorderRadius.all(Radius.circular(8));
+      const BorderRadius.all(Radius.circular(12));
 
   Color get knob => const Color(0xfffdcf3c);
   BorderRadiusGeometry get knobBorder =>
-      const BorderRadius.all(Radius.circular(4));
+      const BorderRadius.all(Radius.circular(8));
 
   Color get label => const Color(0xff000000);
   Color get question => const Color(0xff000000);
