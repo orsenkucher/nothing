@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,48 +23,33 @@ import 'package:nothing/ui/label.dart';
 import 'package:nothing/ui/question.dart';
 
 // TODO(refactor)
-class Home extends StatefulWidget {
+class Home extends HookWidget {
   const Home();
-  @override
-  _HomeState createState() => _HomeState();
-}
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
-  FocusNode _focusNode;
-  final _textController = TextEditingController();
-  final _model = TextModel();
-  final _pageController = PageController(initialPage: 1);
-  AnimationController _swipeTintController;
-  AnimationController _hintTintController;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-    _swipeTintController = AnimationController(vsync: this);
-    _hintTintController = AnimationController(vsync: this);
-  }
+  final _pageController = PageController(initialPage: 1); // useCustom..
+  final _model = TextModel(); // useState?
 
   @override
   void dispose() {
-    _focusNode.dispose();
-    _textController.dispose();
-    _swipeTintController.dispose();
-    _hintTintController.dispose();
     _pageController.dispose();
-    super.dispose();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _refocus();
+      _refocus(); //useSide-effect?
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final _focusNode = useFocusNode();
+    final _textController = useTextEditingController();
+    final _swipeTintController = useAnimationController();
+    final _hintTintController = useAnimationController();
+    useEffect();
+
     return Scaffold(
       backgroundColor: NothingScheme.of(context).background,
       body: NotificationListener<ScrollNotification>(

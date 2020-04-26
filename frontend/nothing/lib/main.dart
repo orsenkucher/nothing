@@ -24,7 +24,6 @@ import 'package:nothing/repository/ads.dart';
 import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/lifecycle.dart';
 import 'package:nothing/tools/orientation.dart';
-import 'package:nothing/ui/history.dart';
 import 'package:nothing/ui/home.dart';
 
 void main() async {
@@ -80,7 +79,6 @@ class App extends StatelessWidget with PortraitLock {
           initialRoute: context.bloc<RoutingBloc>().initialState.name,
           routes: {
             Routes.home(): (_) => Home(),
-            Routes.history(): (_) => HistoryList(),
           }.routed,
           color: NothingScheme.app,
           debugShowCheckedModeBanner: false,

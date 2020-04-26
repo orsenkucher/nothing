@@ -1,28 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
-import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-
-class HistoryList extends StatelessWidget {
-  const HistoryList();
-  void _back(BuildContext context) {
-    context.bloc<RoutingBloc>().add(RoutingEvent.pop(from: Routes.history()));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        _back(context);
-        return false;
-      },
-      child: Scaffold(
-        body: HistoryStack(),
-      ),
-    );
-  }
-}
 
 class HistoryStack extends StatelessWidget {
   const HistoryStack({
@@ -30,24 +9,15 @@ class HistoryStack extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  //  WillPopScope()
   Widget build(BuildContext context) {
     return Stack(children: [
       BlocBuilder<HistoryBloc, HistoryState>(
         builder: (context, state) => Container(
           color: NothingScheme.of(context).historyBg,
           child: ListWheelScrollView(
-            // perspective: 0.006,
-            // offAxisFraction: .2,
-            // squeeze: 3,
-
-            // perspective: 0.0001,
             offAxisFraction: -0.9,
-            // offAxisFraction: -1,
             diameterRatio: 2.5,
-            // useMagnifier: true,
-            // magnification: 1.6,
-            // overAndUnderCenterOpacity: 0.4,
-
             itemExtent: 150,
             physics: BouncingScrollPhysics(),
             clipToSize: true,
@@ -62,8 +32,7 @@ class HistoryStack extends StatelessWidget {
                           Text(
                             '${x.qid}',
                             style: TextStyle(fontSize: 40),
-                          ),
-                          // Knob(Icons.arrow_forward_ios, () => {})
+                          )
                         ],
                       )),
                     ))
@@ -73,14 +42,6 @@ class HistoryStack extends StatelessWidget {
       ),
       FuzzyOut(Location.up),
       FuzzyOut(Location.down),
-      // (Widget w) {
-      //   return Platform.isIOS ? w : SafeArea(child: w);
-      // }(
-      //   Padding(
-      //     padding: const EdgeInsets.all(8.0),
-      //     child: Knob(Icons.arrow_back_ios, () => _back(context)),
-      //   ),
-      // ),
     ]);
   }
 }
