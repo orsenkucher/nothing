@@ -10,6 +10,12 @@ class CoinText extends HookWidget {
     final controller = useAnimationController(
       duration: const Duration(milliseconds: 500),
     );
+    final isAnimating = useState(false);
+    useEffect(() {
+      final l = () => isAnimating.value = controller.isAnimating;
+      controller.addListener(l);
+      return () => controller.removeListener(l);
+    });
     final opacity = Tween<double>(begin: 1, end: 0).animate(
       CurvedAnimation(
         parent: controller,
@@ -70,7 +76,7 @@ class CoinText extends HookWidget {
       },
       builder: (context, state) => Stack(children: [
         mainRow(context, state),
-        if (controller.isAnimating) animRow(context, state),
+        if (isAnimating.value) animRow(context, state),
       ], alignment: Alignment.centerRight),
     );
   }
