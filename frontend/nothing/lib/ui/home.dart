@@ -93,7 +93,7 @@ class Home extends HookWidget {
     return (i) {
       switch (i) {
         case 1:
-          focusNodeModel.refocus();
+          // focusNodeModel.refocus();
           break;
         default:
           focusNodeModel.focusNode.unfocus();
@@ -129,6 +129,7 @@ class Main extends HookWidget {
                 _buildHint(context, showHint, hintTintController),
               _buildTinter(context, swipeTintController),
               _buildTextField(context),
+              // Center(child: Image.asset("assets/tutor.gif"))
             ],
           ),
         ),
@@ -389,14 +390,7 @@ class Main extends HookWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   ...bb,
-                  Row(children: [
-                    CircleAvatar(
-                        backgroundColor: NothingScheme.of(context).knob,
-                        foregroundColor: Colors.black,
-                        child: Icon(Icons.vpn_key)),
-                    SizedBox(width: 4),
-                    CoinText(),
-                  ]),
+                  CoinText(),
                 ],
               ),
             ),
@@ -416,9 +410,10 @@ class Main extends HookWidget {
     //   _showHint = true;
     //   _hintTintController.fling();
     // });
+    context.bloc<CoinBloc>().add(CoinEvent.dec(2));
+    await Future.delayed(const Duration(milliseconds: 500));
     showHint.value = true;
     hintTintController.fling();
-    context.bloc<CoinBloc>().add(CoinEvent.dec(2));
   }
 
   final double labelH = 50;

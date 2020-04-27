@@ -11,7 +11,7 @@ class Answer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    const duration = Duration(milliseconds: 600);
+    const duration = Duration(milliseconds: 300);
     final controller = useAnimationController(duration: duration);
     final scheme = NothingScheme.of(context);
     final color = ColorTween(

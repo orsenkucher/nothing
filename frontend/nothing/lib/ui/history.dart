@@ -58,17 +58,18 @@ class HistoryStack extends StatelessWidget {
         builder: (context, state) => Container(
           color: NothingScheme.of(context).historyBg,
           child: ListWheelScrollView(
-            offAxisFraction: -0.9,
-            diameterRatio: 2.5,
+            // offAxisFraction: -0.9,
+            diameterRatio: 4,
             itemExtent: 150,
             physics: BouncingScrollPhysics(),
             clipToSize: true,
             renderChildrenOutsideViewport: false,
             children: state.answers
-                .map((x) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Center(
-                          child: Row(
+                .map(
+                  (x) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Center(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(
@@ -76,8 +77,10 @@ class HistoryStack extends StatelessWidget {
                             style: TextStyle(fontSize: 40),
                           )
                         ],
-                      )),
-                    ))
+                      ),
+                    ),
+                  ),
+                )
                 .toList(),
           ),
         ),
