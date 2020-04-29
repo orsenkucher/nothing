@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/model/text.dart';
-import 'package:vibration/vibration.dart';
+import 'package:vibrate/vibrate.dart';
 
 class Answer extends HookWidget {
   const Answer({Key key}) : super(key: key);
@@ -34,20 +34,16 @@ class Answer extends HookWidget {
     return BlocConsumer<ValidationBloc, ValidationState>(
       listener: (BuildContext context, state) {
         state.maybeWhen(
-          just: (state) => state.maybeMap(
-            neutral: (_) {},
-            orElse: () async {
+          just: (state) => state.map(
+            wrong: (_) async {
               await controller.forward();
               await controller.reverse();
-              try {
-                if (await Vibration.hasVibrator()) {
-                  await Vibration.vibrate(
-                    pattern: [500, 1000, 500, 2000],
-                    intensities: [1, 255],
-                  );
-                }
-              } on dynamic catch (_) {}
             },
+            correct: (_) {
+              var type = FeedbackType.success;
+              Vibrate.feedback(type);
+            },
+            neutral: (_) {},
           ),
           orElse: () {},
         );
