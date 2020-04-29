@@ -16,6 +16,15 @@ class Answer extends HookWidget {
   Widget build(BuildContext context) {
     const duration = Duration(milliseconds: 300);
     final controller = useAnimationController(duration: duration);
+    useEffect(() {
+      final listener = () {
+        if (!wait.value) {
+          controller.reset();
+        }
+      };
+      wait.addListener(listener);
+      return () => wait.removeListener(listener);
+    });
     const shift = 8.0;
     final Animation<double> offsetAnimation = TweenSequence([
       TweenSequenceItem<double>(
@@ -34,22 +43,6 @@ class Answer extends HookWidget {
     ));
 
     return BlocConsumer<ValidationBloc, ValidationState>(
-      listener: (BuildContext context, state) {
-        state.maybeWhen(
-          just: (state) => state.map(
-            wrong: (_) async {
-              await controller.forward();
-              await controller.reverse();
-            },
-            correct: (_) {
-              var type = FeedbackType.success;
-              Vibrate.feedback(type);
-            },
-            neutral: (_) {},
-          ),
-          orElse: () {},
-        );
-      },
       buildWhen: (oldState, state) => state.when(
         just: (state) => state.map(
           correct: (_) => true,
@@ -58,6 +51,24 @@ class Answer extends HookWidget {
         ),
         nothing: () => false,
       ),
+      listener: (BuildContext context, state) {
+        state.maybeWhen(
+          just: (state) => state.map(
+            wrong: (_) async {
+              await controller.forward();
+              await controller.reverse();
+            },
+            correct: (_) async {
+              var type = FeedbackType.success;
+              Vibrate.feedback(type);
+              await controller.forward();
+              // controller.reset();
+            },
+            neutral: (_) {},
+          ),
+          orElse: () {},
+        );
+      },
       builder: (context, state) {
         final scheme = NothingScheme.of(context);
         final color = ColorTween(
@@ -76,23 +87,36 @@ class Answer extends HookWidget {
             curve: Interval(0.0, 0.1, curve: Curves.ease),
           ),
         );
+
+        Widget anim(Widget child) {
+          return state.maybeWhen(
+                  just: (state) => state.maybeMap(
+                        wrong: (_) => true,
+                        correct: (_) => false,
+                        orElse: () => false,
+                      ),
+                  orElse: () => false)
+              ? Transform.translate(
+                  offset: Offset(offsetAnimation.value, 0),
+                  child: child,
+                )
+              : child;
+        }
+
         return AnimatedBuilder(
           animation: controller,
-          builder: (context, child) => Container(
-            padding: EdgeInsets.only(
-              left: offsetAnimation.value + shift,
-              right: -offsetAnimation.value + shift,
-              top: 8,
-              bottom: 8,
-            ),
-            margin: const EdgeInsets.symmetric(horizontal: 32),
-            child: Material(
-              elevation: 6,
-              shadowColor: color.value.tint,
-              color: color.value,
-              borderRadius: NothingScheme.of(context).answerBorder,
-              clipBehavior: Clip.antiAlias,
-              child: child,
+          builder: (context, child) => anim(
+            Container(
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.symmetric(horizontal: 32),
+              child: Material(
+                elevation: 6,
+                shadowColor: color.value.tint,
+                color: color.value,
+                borderRadius: NothingScheme.of(context).answerBorder,
+                clipBehavior: Clip.antiAlias,
+                child: child,
+              ),
             ),
           ),
           child: SizedBox.expand(
