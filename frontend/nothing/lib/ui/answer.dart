@@ -8,7 +8,9 @@ import 'package:nothing/model/text.dart';
 import 'package:vibrate/vibrate.dart';
 
 class Answer extends HookWidget {
-  const Answer({Key key}) : super(key: key);
+  const Answer(this.wait, {Key key}) : super(key: key);
+
+  final ValueNotifier<bool> wait;
 
   @override
   Widget build(BuildContext context) {

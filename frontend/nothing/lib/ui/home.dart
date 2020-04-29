@@ -112,6 +112,7 @@ class Main extends HookWidget {
     final textModel = useMemoized(() => TextModel());
     final hintTintController = useAnimationController();
     final showHint = useState(false);
+    final wait = useState(false);
 
     return Container(
       color: NothingScheme.of(context).background,
@@ -120,7 +121,7 @@ class Main extends HookWidget {
         child: Builder(
           builder: (context) => Stack(
             children: [
-              _buildGame(context),
+              _buildGame(context, wait),
               _gestureDetector(context),
               _buildTitleKnobs(context, pageController),
               _buildHintButtons(context, showHint, hintTintController),
@@ -128,7 +129,7 @@ class Main extends HookWidget {
               if (showHint.value)
                 _buildHint(context, showHint, hintTintController),
               _buildTinter(context, swipeTintController),
-              _buildTextField(context),
+              _buildTextField(context, wait),
               // Center(child: Image.asset("assets/tutor.gif"))
             ],
           ),
@@ -171,7 +172,7 @@ class Main extends HookWidget {
     );
   }
 
-  Widget _buildTextField(BuildContext context) {
+  Widget _buildTextField(BuildContext context, ValueNotifier<bool> wait) {
     return HookBuilder(builder: (context) {
       final textModel = TextModel.of(context);
       final focusNodeModel = FocusNodeModel.of(context);
@@ -194,6 +195,7 @@ class Main extends HookWidget {
           visible: false,
           maintainState: true,
           child: TextField(
+            // readOnly: wait.value,
             focusNode: focusNodeModel.focusNode,
             controller: textController,
             enableSuggestions: false,
@@ -211,6 +213,10 @@ class Main extends HookWidget {
             },
             textInputAction: TextInputAction.go,
             onChanged: (s) {
+              if (wait.value) {
+                textController.clear();
+                return;
+              }
               textModel.update(s);
               print(s);
             },
@@ -412,7 +418,7 @@ class Main extends HookWidget {
 
   final double labelH = 50;
   final double ansH = 72;
-  Widget _buildGame(BuildContext context) {
+  Widget _buildGame(BuildContext context, ValueNotifier<bool> wait) {
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -422,10 +428,9 @@ class Main extends HookWidget {
           );
           return HookBuilder(
             builder: (context) {
-              final wait = useState(false);
               final overlay = useMemoized(() => OverlayEntry(
                     builder: (context) => GestureDetector(
-                      child: Container(color: Colors.green.withOpacity(0.2)),
+                      // child: Container(color: Colors.green.withOpacity(0.2)),
                       onTap: () {
                         wait.value = false;
                       },
@@ -464,7 +469,7 @@ class Main extends HookWidget {
                   SizedBox(child: Label()),
                   SizedBox(height: 12),
                   SizedBox(height: queH, child: Center(child: Question(wait))),
-                  SizedBox(height: ansH, child: Answer()),
+                  SizedBox(height: ansH, child: Answer(wait)),
                 ]),
               );
             },
