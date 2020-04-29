@@ -204,6 +204,11 @@ class Main extends HookWidget {
             keyboardAppearance: NothingScheme.of(context).brightness,
             keyboardType: TextInputType.text,
             onSubmitted: (s) async {
+              if (wait.value) {
+                wait.value = false;
+                focusNodeModel.refocus();
+                return;
+              }
               print(s);
               // _focusNode.requestFocus();
               focusNodeModel.refocus();
