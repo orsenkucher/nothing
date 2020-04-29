@@ -220,7 +220,6 @@ class Main extends HookWidget {
     });
   }
 
-// TODO can make better?
   Widget _buildHint(
     BuildContext context,
     ValueNotifier<bool> showHint,
@@ -400,16 +399,11 @@ class Main extends HookWidget {
     ));
   }
 
-  // TODO(hint)
   void _hintClick(
     BuildContext context,
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
   ) async {
-    // setState(() {
-    //   _showHint = true;
-    //   _hintTintController.fling();
-    // });
     context.bloc<CoinBloc>().add(CoinEvent.dec(2));
     await Future.delayed(const Duration(milliseconds: 500));
     showHint.value = true;
@@ -426,13 +420,55 @@ class Main extends HookWidget {
             280,
             constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
           );
-          return Column(children: [
-            SizedBox(height: 21),
-            SizedBox(child: Label()),
-            SizedBox(height: 12),
-            SizedBox(height: queH, child: Center(child: Question())),
-            SizedBox(height: ansH, child: Answer()),
-          ]);
+          return HookBuilder(
+            builder: (context) {
+              final wait = useState(false);
+              final overlay = useMemoized(() => OverlayEntry(
+                    builder: (context) => GestureDetector(
+                      child: Container(color: Colors.green.withOpacity(0.2)),
+                      onTap: () {
+                        wait.value = false;
+                      },
+                    ),
+                  ));
+              useEffect(() {
+                final listener = () {
+                  if (wait.value) {
+                    Overlay.of(context).insert(overlay);
+                  } else {
+                    overlay.remove();
+                  }
+                };
+                wait.addListener(listener);
+                return () => wait.removeListener(listener);
+              });
+
+              final orElse = () => false;
+              return BlocListener<ValidationBloc, ValidationState>(
+                condition: (_, state) => state.maybeWhen(
+                    just: (state) => state.maybeMap(
+                        correct: (_) => true,
+                        wrong: (_) => true,
+                        orElse: orElse),
+                    orElse: orElse),
+                listener: (context, state) {
+                  wait.value = state.maybeWhen(
+                      just: (state) => state.maybeMap(
+                          correct: (_) => true,
+                          wrong: (_) => false,
+                          orElse: orElse),
+                      orElse: orElse);
+                },
+                child: Column(children: [
+                  SizedBox(height: 21),
+                  SizedBox(child: Label()),
+                  SizedBox(height: 12),
+                  SizedBox(height: queH, child: Center(child: Question(wait))),
+                  SizedBox(height: ansH, child: Answer()),
+                ]),
+              );
+            },
+          );
         },
       ),
     );
