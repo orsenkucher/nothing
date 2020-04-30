@@ -16,17 +16,43 @@ class Answer extends HookWidget {
   Widget build(BuildContext context) {
     const duration = Duration(milliseconds: 300);
     final controller = useAnimationController(duration: duration);
+    final answerText = useState('');
     useEffect(() {
-      final listener = () {
+      final textModel = TextModel.of(context);
+      final textListener = () {
         if (!wait.value) {
-          controller.reset();
+          answerText.value = textModel.text ?? '';
         }
       };
-      wait.addListener(listener);
-      return () => wait.removeListener(listener);
+      textModel.addListener(textListener);
+
+      final waitListener = () {
+        if (!wait.value) {
+          controller.reset();
+          textListener();
+        }
+      };
+      wait.addListener(waitListener);
+
+      return () {
+        textModel.removeListener(textListener);
+        wait.removeListener(waitListener);
+      };
     });
+
+    useEffect(() {
+      final textModel = TextModel.of(context);
+      final listener = () {
+        if (!wait.value) {
+          answerText.value = textModel.text ?? '';
+        }
+      };
+      textModel.addListener(listener);
+      return () => textModel.removeListener(listener);
+    });
+
     const shift = 8.0;
-    final Animation<double> offsetAnimation = TweenSequence([
+    final offsetWrongX = TweenSequence([
       TweenSequenceItem<double>(
         tween: Tween<double>(begin: 0.0, end: shift)
             .chain(CurveTween(curve: Curves.ease)),
@@ -41,6 +67,23 @@ class Answer extends HookWidget {
       parent: controller,
       curve: Interval(0.0, 1.0, curve: Curves.easeIn),
     ));
+
+    final offsetCorrect =
+        Tween<Offset>(begin: Offset.zero, end: const Offset(0, -50))
+            .animate(CurvedAnimation(
+      parent: controller,
+      curve: Interval(0.0, 1.0, curve: Curves.easeIn),
+    ));
+
+    final offsetRight =
+        Tween<Offset>(begin: const Offset(0, 50), end: Offset.zero)
+            .animate(CurvedAnimation(
+      parent: controller,
+      curve: Interval(0.0, 1.0, curve: Curves.easeIn),
+    ));
+
+    final opacityCorrect = Tween<double>(begin: 1, end: 0).animate(controller);
+    final opacityRight = Tween<double>(begin: 0, end: 1).animate(controller);
 
     return BlocConsumer<ValidationBloc, ValidationState>(
       buildWhen: (oldState, state) => state.when(
@@ -88,24 +131,53 @@ class Answer extends HookWidget {
           ),
         );
 
-        Widget anim(Widget child) {
-          return state.maybeWhen(
-                  just: (state) => state.maybeMap(
-                        wrong: (_) => true,
-                        correct: (_) => false,
-                        orElse: () => false,
-                      ),
-                  orElse: () => false)
+        final isWrong = state.maybeWhen(
+            just: (state) => state.maybeMap(
+                  wrong: (_) => true,
+                  correct: (_) => false,
+                  orElse: () => false,
+                ),
+            orElse: () => false);
+
+        Widget animWrong(Widget child) {
+          return isWrong
               ? Transform.translate(
-                  offset: Offset(offsetAnimation.value, 0),
+                  offset: Offset(offsetWrongX.value, 0),
                   child: child,
                 )
               : child;
         }
 
+        Widget animCorrect(Widget child) {
+          return !isWrong
+              ? Stack(children: [
+                  Transform.translate(
+                    offset: offsetCorrect.value,
+                    child: Opacity(
+                      opacity: opacityCorrect.value,
+                      child: child,
+                    ),
+                  ),
+                  Transform.translate(
+                    offset: offsetRight.value,
+                    child: Opacity(
+                      opacity: opacityRight.value,
+                      child: Center(
+                        child: Text('Right',
+                            style: TextStyle(
+                              fontSize: 28,
+                              color: Colors.white,
+                            )),
+                      ),
+                    ),
+                  ),
+                ])
+              : child;
+        }
+
         return AnimatedBuilder(
           animation: controller,
-          builder: (context, child) => anim(
+          builder: (context, child) => animWrong(
             Container(
               padding: const EdgeInsets.all(8),
               margin: const EdgeInsets.symmetric(horizontal: 32),
@@ -115,7 +187,7 @@ class Answer extends HookWidget {
                 color: color.value,
                 borderRadius: NothingScheme.of(context).answerBorder,
                 clipBehavior: Clip.antiAlias,
-                child: child,
+                child: animCorrect(child),
               ),
             ),
           ),
@@ -124,7 +196,7 @@ class Answer extends HookWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Center(
                 child: AutoSizeText(
-                  TextModel.of(context).text ?? '',
+                  answerText.value,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 28,
