@@ -124,7 +124,7 @@ class Main extends HookWidget {
               _buildGame(context, wait),
               _gestureDetector(context),
               _buildTitleKnobs(context, pageController),
-              _buildHintButtons(context, showHint, hintTintController),
+              _buildHintButtons(context, showHint, hintTintController, wait),
               _buildTinter(context, hintTintController),
               if (showHint.value)
                 _buildHint(context, showHint, hintTintController),
@@ -164,9 +164,10 @@ class Main extends HookWidget {
       child: FractionallySizedBox(
         widthFactor: 0.6,
         child: GestureDetector(
-          behavior: HitTestBehavior.translucent,
+          behavior: HitTestBehavior.opaque,
           // child: Container(color: Colors.green.withOpacity(0.3)),
           onTap: FocusNodeModel.of(context).refocus,
+          // onHorizontalDragUpdate: (_) {},
         ),
       ),
     );
@@ -333,9 +334,47 @@ class Main extends HookWidget {
     BuildContext context,
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
+    ValueNotifier<bool> wait,
   ) {
-    return SafeArea(child: LayoutBuilder(
-      builder: (context, constraints) {
+    return SafeArea(
+        child: LayoutBuilder(
+      builder: (context, constraints) => HookBuilder(builder: (context) {
+        final linkLike = useMemoized(() => LayerLink());
+        final linkDislike = useMemoized(() => LayerLink());
+        final overlayLike = useMemoized(() => OverlayEntry(
+            builder: (context) => CompositedTransformFollower(
+                link: linkLike,
+                child: GestureDetector(
+                  onTap: () {
+                    print('like');
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  // child: Container(color: Colors.green.withOpacity(0.2)),
+                ))));
+        final overlayDislike = useMemoized(() => OverlayEntry(
+            builder: (context) => CompositedTransformFollower(
+                link: linkDislike,
+                child: GestureDetector(
+                  onTap: () {
+                    print('dislike');
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  // child: Container(color: Colors.red.withOpacity(0.2)),
+                ))));
+        useEffect(() {
+          final listener = () {
+            if (wait.value) {
+              Overlay.of(context).insert(overlayDislike);
+              Overlay.of(context).insert(overlayLike);
+            } else {
+              overlayDislike.remove();
+              overlayLike.remove();
+            }
+          };
+          wait.addListener(listener);
+          return () => wait.removeListener(listener);
+        });
+
         double queH = min(
           280,
           constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
@@ -345,12 +384,24 @@ class Main extends HookWidget {
         final top = queH + labelH + ansH + pad;
         text(String text) =>
             Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
-        const ll = {'hint': 'Хинт', 'skip': 'Скип'};
+        const ll = {
+          'hint': 'Хинт',
+          'skip': 'Скип',
+          'like': 'Лайк',
+          'dislike': 'Дизлайк',
+        };
         final cc = {
           'hint': NothingScheme.of(context).hint,
           'skip': NothingScheme.of(context).skip,
+          'like': NothingScheme.of(context).hint,
+          'dislike': NothingScheme.of(context).skip,
         };
-        final ii = {'hint': Icons.lightbulb_outline, 'skip': Icons.clear};
+        final ii = {
+          'hint': Icons.lightbulb_outline,
+          'skip': Icons.clear,
+          'like': Icons.check,
+          'dislike': Icons.check_box_outline_blank,
+        };
         final pp = {
           'hint': () => _hintClick(
                 context,
@@ -360,11 +411,21 @@ class Main extends HookWidget {
           'skip': () {
             context.bloc<ValidationBloc>().add(ValidationEvent.skip());
           },
+          'like': () {},
+          'dislike': () {},
         };
-        final bb = ['hint', 'skip']
+        final ww = {
+          'hint': (w) => w,
+          'skip': (w) => w,
+          'like': (w) => CompositedTransformTarget(child: w, link: linkLike),
+          'dislike': (w) =>
+              CompositedTransformTarget(child: w, link: linkDislike),
+        };
+        final bb = (!wait.value ? ['hint', 'skip'] : ['dislike', 'like'])
             .map(
           (l) => Expanded(
-            child: FlatButton(
+              child: ww[l](
+            FlatButton(
               padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
               color: cc[l],
               child: Row(
@@ -384,7 +445,7 @@ class Main extends HookWidget {
                 borderRadius: NothingScheme.of(context).hintBorder,
               ),
             ),
-          ),
+          )),
         )
             .expand((w) sync* {
           yield w;
@@ -408,7 +469,7 @@ class Main extends HookWidget {
             ),
           ],
         );
-      },
+      }),
     ));
   }
 
