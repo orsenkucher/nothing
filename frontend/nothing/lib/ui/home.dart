@@ -357,7 +357,9 @@ class Main extends HookWidget {
                 showHint,
                 hintTintController,
               ),
-          'skip': () {},
+          'skip': () {
+            context.bloc<ValidationBloc>().add(ValidationEvent.skip());
+          },
         };
         final bb = ['hint', 'skip']
             .map(

@@ -29,6 +29,10 @@ class _$ValidationEventTearOff {
       point,
     );
   }
+
+  _Skip skip() {
+    return const _Skip();
+  }
 }
 
 // ignore: unused_element
@@ -40,12 +44,14 @@ mixin _$ValidationEvent {
     @required Result focus(Question question),
     @required Result check(String answer),
     @required Result lifecycle(TimePoint point),
+    @required Result skip(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result focus(Question question),
     Result check(String answer),
     Result lifecycle(TimePoint point),
+    Result skip(),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -53,12 +59,14 @@ mixin _$ValidationEvent {
     @required Result focus(_Focus value),
     @required Result check(_Check value),
     @required Result lifecycle(_Lifecycle value),
+    @required Result skip(_Skip value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result focus(_Focus value),
     Result check(_Check value),
     Result lifecycle(_Lifecycle value),
+    Result skip(_Skip value),
     @required Result orElse(),
   });
 }
@@ -156,10 +164,12 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
     @required Result focus(Question question),
     @required Result check(String answer),
     @required Result lifecycle(TimePoint point),
+    @required Result skip(),
   }) {
     assert(focus != null);
     assert(check != null);
     assert(lifecycle != null);
+    assert(skip != null);
     return focus(question);
   }
 
@@ -169,6 +179,7 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
     Result focus(Question question),
     Result check(String answer),
     Result lifecycle(TimePoint point),
+    Result skip(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -184,10 +195,12 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
     @required Result focus(_Focus value),
     @required Result check(_Check value),
     @required Result lifecycle(_Lifecycle value),
+    @required Result skip(_Skip value),
   }) {
     assert(focus != null);
     assert(check != null);
     assert(lifecycle != null);
+    assert(skip != null);
     return focus(this);
   }
 
@@ -197,6 +210,7 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
     Result focus(_Focus value),
     Result check(_Check value),
     Result lifecycle(_Lifecycle value),
+    Result skip(_Skip value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -279,10 +293,12 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
     @required Result focus(Question question),
     @required Result check(String answer),
     @required Result lifecycle(TimePoint point),
+    @required Result skip(),
   }) {
     assert(focus != null);
     assert(check != null);
     assert(lifecycle != null);
+    assert(skip != null);
     return check(answer);
   }
 
@@ -292,6 +308,7 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
     Result focus(Question question),
     Result check(String answer),
     Result lifecycle(TimePoint point),
+    Result skip(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -307,10 +324,12 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
     @required Result focus(_Focus value),
     @required Result check(_Check value),
     @required Result lifecycle(_Lifecycle value),
+    @required Result skip(_Skip value),
   }) {
     assert(focus != null);
     assert(check != null);
     assert(lifecycle != null);
+    assert(skip != null);
     return check(this);
   }
 
@@ -320,6 +339,7 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
     Result focus(_Focus value),
     Result check(_Check value),
     Result lifecycle(_Lifecycle value),
+    Result skip(_Skip value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -415,10 +435,12 @@ class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
     @required Result focus(Question question),
     @required Result check(String answer),
     @required Result lifecycle(TimePoint point),
+    @required Result skip(),
   }) {
     assert(focus != null);
     assert(check != null);
     assert(lifecycle != null);
+    assert(skip != null);
     return lifecycle(point);
   }
 
@@ -428,6 +450,7 @@ class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
     Result focus(Question question),
     Result check(String answer),
     Result lifecycle(TimePoint point),
+    Result skip(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -443,10 +466,12 @@ class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
     @required Result focus(_Focus value),
     @required Result check(_Check value),
     @required Result lifecycle(_Lifecycle value),
+    @required Result skip(_Skip value),
   }) {
     assert(focus != null);
     assert(check != null);
     assert(lifecycle != null);
+    assert(skip != null);
     return lifecycle(this);
   }
 
@@ -456,6 +481,7 @@ class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
     Result focus(_Focus value),
     Result check(_Check value),
     Result lifecycle(_Lifecycle value),
+    Result skip(_Skip value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -471,6 +497,109 @@ abstract class _Lifecycle implements ValidationEvent {
 
   TimePoint get point;
   _$LifecycleCopyWith<_Lifecycle> get copyWith;
+}
+
+abstract class _$SkipCopyWith<$Res> {
+  factory _$SkipCopyWith(_Skip value, $Res Function(_Skip) then) =
+      __$SkipCopyWithImpl<$Res>;
+}
+
+class __$SkipCopyWithImpl<$Res> extends _$ValidationEventCopyWithImpl<$Res>
+    implements _$SkipCopyWith<$Res> {
+  __$SkipCopyWithImpl(_Skip _value, $Res Function(_Skip) _then)
+      : super(_value, (v) => _then(v as _Skip));
+
+  @override
+  _Skip get _value => super._value as _Skip;
+}
+
+class _$_Skip with DiagnosticableTreeMixin implements _Skip {
+  const _$_Skip();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ValidationEvent.skip()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'ValidationEvent.skip'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Skip);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result focus(Question question),
+    @required Result check(String answer),
+    @required Result lifecycle(TimePoint point),
+    @required Result skip(),
+  }) {
+    assert(focus != null);
+    assert(check != null);
+    assert(lifecycle != null);
+    assert(skip != null);
+    return skip();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result focus(Question question),
+    Result check(String answer),
+    Result lifecycle(TimePoint point),
+    Result skip(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (skip != null) {
+      return skip();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result focus(_Focus value),
+    @required Result check(_Check value),
+    @required Result lifecycle(_Lifecycle value),
+    @required Result skip(_Skip value),
+  }) {
+    assert(focus != null);
+    assert(check != null);
+    assert(lifecycle != null);
+    assert(skip != null);
+    return skip(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result focus(_Focus value),
+    Result check(_Check value),
+    Result lifecycle(_Lifecycle value),
+    Result skip(_Skip value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (skip != null) {
+      return skip(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Skip implements ValidationEvent {
+  const factory _Skip() = _$_Skip;
 }
 
 class _$_ValidationState2TearOff {
@@ -500,6 +629,14 @@ class _$_ValidationState2TearOff {
       timePoints,
     );
   }
+
+  _Skipped skip(Question question, List<String> answers, Duration duration) {
+    return _Skipped(
+      question,
+      answers,
+      duration,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -520,6 +657,8 @@ mixin _$_ValidationState2 {
     @required
         Result neutral(
             Question question, List<String> answers, TimePoints timePoints),
+    @required
+        Result skip(Question question, List<String> answers, Duration duration),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -528,6 +667,7 @@ mixin _$_ValidationState2 {
         Question question, List<String> answers, TimePoints timePoints),
     Result neutral(
         Question question, List<String> answers, TimePoints timePoints),
+    Result skip(Question question, List<String> answers, Duration duration),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -535,12 +675,14 @@ mixin _$_ValidationState2 {
     @required Result correct(_Correct value),
     @required Result wrong(_Wrong value),
     @required Result neutral(_Neutral value),
+    @required Result skip(_Skipped value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result correct(_Correct value),
     Result wrong(_Wrong value),
     Result neutral(_Neutral value),
+    Result skip(_Skipped value),
     @required Result orElse(),
   });
 
@@ -685,10 +827,13 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
     @required
         Result neutral(
             Question question, List<String> answers, TimePoints timePoints),
+    @required
+        Result skip(Question question, List<String> answers, Duration duration),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
+    assert(skip != null);
     return correct(question, answers, duration);
   }
 
@@ -700,6 +845,7 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
         Question question, List<String> answers, TimePoints timePoints),
     Result neutral(
         Question question, List<String> answers, TimePoints timePoints),
+    Result skip(Question question, List<String> answers, Duration duration),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -715,10 +861,12 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
     @required Result correct(_Correct value),
     @required Result wrong(_Wrong value),
     @required Result neutral(_Neutral value),
+    @required Result skip(_Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
+    assert(skip != null);
     return correct(this);
   }
 
@@ -728,6 +876,7 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
     Result correct(_Correct value),
     Result wrong(_Wrong value),
     Result neutral(_Neutral value),
+    Result skip(_Skipped value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -861,10 +1010,13 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
     @required
         Result neutral(
             Question question, List<String> answers, TimePoints timePoints),
+    @required
+        Result skip(Question question, List<String> answers, Duration duration),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
+    assert(skip != null);
     return wrong(question, answers, timePoints);
   }
 
@@ -876,6 +1028,7 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
         Question question, List<String> answers, TimePoints timePoints),
     Result neutral(
         Question question, List<String> answers, TimePoints timePoints),
+    Result skip(Question question, List<String> answers, Duration duration),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -891,10 +1044,12 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
     @required Result correct(_Correct value),
     @required Result wrong(_Wrong value),
     @required Result neutral(_Neutral value),
+    @required Result skip(_Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
+    assert(skip != null);
     return wrong(this);
   }
 
@@ -904,6 +1059,7 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
     Result correct(_Correct value),
     Result wrong(_Wrong value),
     Result neutral(_Neutral value),
+    Result skip(_Skipped value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1038,10 +1194,13 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
     @required
         Result neutral(
             Question question, List<String> answers, TimePoints timePoints),
+    @required
+        Result skip(Question question, List<String> answers, Duration duration),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
+    assert(skip != null);
     return neutral(question, answers, timePoints);
   }
 
@@ -1053,6 +1212,7 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
         Question question, List<String> answers, TimePoints timePoints),
     Result neutral(
         Question question, List<String> answers, TimePoints timePoints),
+    Result skip(Question question, List<String> answers, Duration duration),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1068,10 +1228,12 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
     @required Result correct(_Correct value),
     @required Result wrong(_Wrong value),
     @required Result neutral(_Neutral value),
+    @required Result skip(_Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
     assert(neutral != null);
+    assert(skip != null);
     return neutral(this);
   }
 
@@ -1081,6 +1243,7 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
     Result correct(_Correct value),
     Result wrong(_Wrong value),
     Result neutral(_Neutral value),
+    Result skip(_Skipped value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1103,6 +1266,178 @@ abstract class _Neutral implements _ValidationState2 {
   TimePoints get timePoints;
   @override
   _$NeutralCopyWith<_Neutral> get copyWith;
+}
+
+abstract class _$SkippedCopyWith<$Res>
+    implements _$ValidationState2CopyWith<$Res> {
+  factory _$SkippedCopyWith(_Skipped value, $Res Function(_Skipped) then) =
+      __$SkippedCopyWithImpl<$Res>;
+  @override
+  $Res call({Question question, List<String> answers, Duration duration});
+
+  @override
+  $QuestionCopyWith<$Res> get question;
+}
+
+class __$SkippedCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
+    implements _$SkippedCopyWith<$Res> {
+  __$SkippedCopyWithImpl(_Skipped _value, $Res Function(_Skipped) _then)
+      : super(_value, (v) => _then(v as _Skipped));
+
+  @override
+  _Skipped get _value => super._value as _Skipped;
+
+  @override
+  $Res call({
+    Object question = freezed,
+    Object answers = freezed,
+    Object duration = freezed,
+  }) {
+    return _then(_Skipped(
+      question == freezed ? _value.question : question as Question,
+      answers == freezed ? _value.answers : answers as List<String>,
+      duration == freezed ? _value.duration : duration as Duration,
+    ));
+  }
+}
+
+class _$_Skipped with DiagnosticableTreeMixin implements _Skipped {
+  const _$_Skipped(this.question, this.answers, this.duration)
+      : assert(question != null),
+        assert(answers != null),
+        assert(duration != null);
+
+  @override
+  final Question question;
+  @override
+  final List<String> answers;
+  @override
+  final Duration duration;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return '_ValidationState2.skip(question: $question, answers: $answers, duration: $duration)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', '_ValidationState2.skip'))
+      ..add(DiagnosticsProperty('question', question))
+      ..add(DiagnosticsProperty('answers', answers))
+      ..add(DiagnosticsProperty('duration', duration));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Skipped &&
+            (identical(other.question, question) ||
+                const DeepCollectionEquality()
+                    .equals(other.question, question)) &&
+            (identical(other.answers, answers) ||
+                const DeepCollectionEquality()
+                    .equals(other.answers, answers)) &&
+            (identical(other.duration, duration) ||
+                const DeepCollectionEquality()
+                    .equals(other.duration, duration)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(question) ^
+      const DeepCollectionEquality().hash(answers) ^
+      const DeepCollectionEquality().hash(duration);
+
+  @override
+  _$SkippedCopyWith<_Skipped> get copyWith =>
+      __$SkippedCopyWithImpl<_Skipped>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required
+        Result correct(
+            Question question, List<String> answers, Duration duration),
+    @required
+        Result wrong(
+            Question question, List<String> answers, TimePoints timePoints),
+    @required
+        Result neutral(
+            Question question, List<String> answers, TimePoints timePoints),
+    @required
+        Result skip(Question question, List<String> answers, Duration duration),
+  }) {
+    assert(correct != null);
+    assert(wrong != null);
+    assert(neutral != null);
+    assert(skip != null);
+    return skip(question, answers, duration);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result correct(Question question, List<String> answers, Duration duration),
+    Result wrong(
+        Question question, List<String> answers, TimePoints timePoints),
+    Result neutral(
+        Question question, List<String> answers, TimePoints timePoints),
+    Result skip(Question question, List<String> answers, Duration duration),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (skip != null) {
+      return skip(question, answers, duration);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result correct(_Correct value),
+    @required Result wrong(_Wrong value),
+    @required Result neutral(_Neutral value),
+    @required Result skip(_Skipped value),
+  }) {
+    assert(correct != null);
+    assert(wrong != null);
+    assert(neutral != null);
+    assert(skip != null);
+    return skip(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result correct(_Correct value),
+    Result wrong(_Wrong value),
+    Result neutral(_Neutral value),
+    Result skip(_Skipped value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (skip != null) {
+      return skip(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Skipped implements _ValidationState2 {
+  const factory _Skipped(
+      Question question, List<String> answers, Duration duration) = _$_Skipped;
+
+  @override
+  Question get question;
+  @override
+  List<String> get answers;
+  Duration get duration;
+  @override
+  _$SkippedCopyWith<_Skipped> get copyWith;
 }
 
 class _$ValidationStateTearOff {

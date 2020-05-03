@@ -90,6 +90,7 @@ class Answer extends HookWidget {
         just: (state) => state.map(
           correct: (_) => true,
           wrong: (_) => true,
+          skip: (_) => true,
           neutral: (_) => false,
         ),
         nothing: () => false,
@@ -108,6 +109,7 @@ class Answer extends HookWidget {
               // controller.reset();
             },
             neutral: (_) {},
+            skip: (_) {},
           ),
           orElse: () {},
         );

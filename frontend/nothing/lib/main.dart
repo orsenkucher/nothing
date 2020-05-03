@@ -93,7 +93,8 @@ class App extends StatelessWidget with PortraitLock {
         direct:
             (BuildContext context, ValidationState state, SummaryBloc bloc) {
           state.maybeWhen(
-            just: (just) => just.maybeWhen(
+            just: (just) {
+              return just.maybeWhen(
                 correct: (question, tries, duration) {
                   bloc.add(SummaryEvent.answer(
                     answers: tries,
@@ -102,7 +103,17 @@ class App extends StatelessWidget with PortraitLock {
                     seconds: duration.inSeconds,
                   ));
                 },
-                orElse: () {}),
+                skip: (question, tries, duration) {
+                  bloc.add(SummaryEvent.answer(
+                    answers: tries,
+                    qid: question.id,
+                    tries: -1,
+                    seconds: duration.inSeconds,
+                  ));
+                },
+                orElse: () {},
+              );
+            },
             orElse: () {},
           );
         },
@@ -148,6 +159,9 @@ class App extends StatelessWidget with PortraitLock {
                 FeedEvent.moveNext(
                   duration.inSeconds > 80 ? MoveDir.left() : MoveDir.right(),
                 ),
+              ),
+              skip: (question, tries, duration) => bloc.add(
+                FeedEvent.moveNext(MoveDir.left()),
               ),
               orElse: () {},
             ),

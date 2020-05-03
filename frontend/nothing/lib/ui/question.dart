@@ -22,8 +22,12 @@ class Question extends HookWidget {
           question.value = context.bloc<FeedBloc>().state;
         }
       };
+      final sub = context.bloc<FeedBloc>().listen((_) => listener());
       wait.addListener(listener);
-      return () => wait.removeListener(listener);
+      return () {
+        wait.removeListener(listener);
+        sub.cancel();
+      };
     });
     return Padding(
       padding: const EdgeInsets.symmetric(
