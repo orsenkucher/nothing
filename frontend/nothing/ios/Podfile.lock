@@ -82,6 +82,8 @@ PODS:
   - path_provider_macos (0.0.1):
     - Flutter
   - PromisesObjC (1.2.8)
+  - vibrate (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - firebase_admob (from `.symlinks/plugins/firebase_admob/ios`)
@@ -90,6 +92,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
+  - vibrate (from `.symlinks/plugins/vibrate/ios`)
 
 SPEC REPOS:
   trunk:
@@ -120,6 +123,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   path_provider_macos:
     :path: ".symlinks/plugins/path_provider_macos/ios"
+  vibrate:
+    :path: ".symlinks/plugins/vibrate/ios"
 
 SPEC CHECKSUMS:
   Firebase: fe7f74012742ab403451dd283e6909b8f1fb348a
@@ -141,6 +146,7 @@ SPEC CHECKSUMS:
   path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  vibrate: 967ba16b8bd87d2fa3646472bb10429f1927c32f
 
 PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 

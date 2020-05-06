@@ -387,14 +387,14 @@ class Main extends HookWidget {
         const ll = {
           'hint': 'Хинт',
           'skip': 'Скип',
-          'like': 'Лайк',
-          'dislike': 'Дизлайк',
+          'like': '',
+          'dislike': '',
         };
         final cc = {
           'hint': NothingScheme.of(context).hint,
           'skip': NothingScheme.of(context).skip,
-          'like': NothingScheme.of(context).hint,
-          'dislike': NothingScheme.of(context).skip,
+          'like': NothingScheme.of(context).correct,
+          'dislike': NothingScheme.of(context).wrong,
         };
         final ii = {
           'hint': Icons.lightbulb_outline,
@@ -421,7 +421,7 @@ class Main extends HookWidget {
           'dislike': (w) =>
               CompositedTransformTarget(child: w, link: linkDislike),
         };
-        final bb = (!wait.value ? ['hint', 'skip'] : ['dislike', 'like'])
+        final bb = (!wait.value ? ['hint', 'skip'] : ['like', 'dislike'])
             .map(
           (l) => Expanded(
               child: ww[l](

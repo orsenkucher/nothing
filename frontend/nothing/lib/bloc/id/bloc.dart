@@ -22,7 +22,7 @@ abstract class IdState with _$IdState {
 
 class IdBloc extends HydratedBloc<IdEvent, IdState> {
   IdBloc() {
-    // clear();
+    //  clear();
   }
 
   IdState revoke() => IdState.unique();
