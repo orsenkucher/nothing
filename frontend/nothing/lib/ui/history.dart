@@ -1,24 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
-import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 
-class HistoryList extends StatelessWidget {
-  const HistoryList();
-  void _back(BuildContext context) {
-    context.bloc<RoutingBloc>().add(RoutingEvent.pop(from: Routes.history()));
-  }
+class History extends StatelessWidget {
+  final void Function() onBack;
+
+  const History(this.onBack);
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        _back(context);
-        return false;
-      },
-      child: Scaffold(
-        body: HistoryStack(),
+    return Container(
+      color: Colors.amber,
+      child: Stack(
+        children: [
+          GestureDetector(onTap: onBack),
+          Padding(
+            padding: const EdgeInsets.only(left: 100),
+            child: Container(
+              color: NothingScheme.of(context).background,
+              child: HistoryStack(),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: Text('Уровни', style: TextStyle(fontSize: 36)),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: onBack,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -30,57 +51,42 @@ class HistoryStack extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  //  WillPopScope()
   Widget build(BuildContext context) {
     return Stack(children: [
       BlocBuilder<HistoryBloc, HistoryState>(
         builder: (context, state) => Container(
           color: NothingScheme.of(context).historyBg,
           child: ListWheelScrollView(
-            // perspective: 0.006,
-            // offAxisFraction: .2,
-            // squeeze: 3,
-
-            // perspective: 0.0001,
-            offAxisFraction: -0.9,
-            // offAxisFraction: -1,
-            diameterRatio: 2.5,
-            // useMagnifier: true,
-            // magnification: 1.6,
-            // overAndUnderCenterOpacity: 0.4,
-
+            // offAxisFraction: -0.9,
+            diameterRatio: 4,
             itemExtent: 150,
             physics: BouncingScrollPhysics(),
             clipToSize: true,
             renderChildrenOutsideViewport: false,
             children: state.answers
-                .map((x) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Center(
-                          child: Row(
+                .map(
+                  (x) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Center(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(
                             '${x.qid}',
                             style: TextStyle(fontSize: 40),
-                          ),
-                          // Knob(Icons.arrow_forward_ios, () => {})
+                          )
                         ],
-                      )),
-                    ))
+                      ),
+                    ),
+                  ),
+                )
                 .toList(),
           ),
         ),
       ),
       FuzzyOut(Location.up),
       FuzzyOut(Location.down),
-      // (Widget w) {
-      //   return Platform.isIOS ? w : SafeArea(child: w);
-      // }(
-      //   Padding(
-      //     padding: const EdgeInsets.all(8.0),
-      //     child: Knob(Icons.arrow_back_ios, () => _back(context)),
-      //   ),
-      // ),
     ]);
   }
 }

@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/domain/domain.dart';
 import 'package:nothing/error/cloud_error.dart';
+import 'package:nothing/repository/server.dart';
 
 abstract class QuestionsRepo {
   const QuestionsRepo();
@@ -17,8 +18,6 @@ abstract class QuestionsRepo {
 }
 
 class CloudQuestionsRepo extends QuestionsRepo {
-  final fetchProblemsUrl = 'http://34.89.201.1:9091/';
-
   const CloudQuestionsRepo();
 
   @override
@@ -39,7 +38,7 @@ class CloudQuestionsRepo extends QuestionsRepo {
           {"currentid": currentID, "userid": userID, "answers": answers});
       print('Sending request\n$body');
       var resp = await post(
-        fetchProblemsUrl,
+        addressWith(Route.questions),
         body: body,
       );
       // print('Received response\n${resp.body}');
@@ -55,7 +54,7 @@ class CloudQuestionsRepo extends QuestionsRepo {
       }
       throw null;
     } catch (_) {
-      throw CloudError(error: "Coud not fetch problems");
+      throw CloudError(error: "Could not fetch problems");
     }
   }
 

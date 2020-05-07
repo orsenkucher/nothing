@@ -1,291 +1,144 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nothing/hooks/pagecontroller.dart';
+import 'package:nothing/model/focusnode.dart';
+import 'package:nothing/ui/menu.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/ad/bloc.dart';
+import 'package:nothing/bloc/coin/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
-import 'package:nothing/bloc/routing/bloc.dart';
-import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/domain/domain.dart' as domain;
 import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/model/text.dart';
+import 'package:nothing/ui/cointext.dart';
 import 'package:nothing/ui/history.dart';
-import 'package:scoped_model/scoped_model.dart';
-
-import 'dart:io';
-import 'dart:math';
-
 import 'package:nothing/ui/answer.dart';
 import 'package:nothing/ui/knob.dart';
 import 'package:nothing/ui/label.dart';
 import 'package:nothing/ui/question.dart';
 
-class Home extends StatefulWidget {
+class Home extends HookWidget {
   const Home();
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> with TickerProviderStateMixin {
-  FocusNode _focusNode;
-  final _textController = TextEditingController();
-  final _model = TextModel();
-  final _pageController = PageController(initialPage: 1);
-  AnimationController _swipeTintController;
-  AnimationController _hintTintController;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-    _swipeTintController = AnimationController(vsync: this);
-    _hintTintController = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    _textController.dispose();
-    _swipeTintController.dispose();
-    _hintTintController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _refocus();
-    });
-    // pageController.position.didEndScroll();
-    // pageController.addListener(listener)
-  }
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   context.bloc<RoutingBloc>().add(RoutingEvent.resume());
-    // }); // TODO
-    return Scaffold(
-      // body: CustomScrollView(
-      //   scrollDirection: Axis.horizontal,
-      //   physics: const BouncingScrollPhysics(),
-      //   slivers: [
-      //     SliverToBoxAdapter(child: Container(width: 200, color: Colors.amber)),
-      //     SliverFillViewport(
-      //       delegate: SliverChildBuilderDelegate(
-      //         (context, i) => i == 0 ? _buildMain(context) : null,
-      //       ),
-      //     ),
-      //   ],
-      // ),
-      backgroundColor: NothingScheme.of(context).background,
-      body: NotificationListener<ScrollNotification>(
-        onNotification: (scrollNotification) {
-          if (scrollNotification is ScrollUpdateNotification) {
-            final metrics = scrollNotification.metrics;
-            final offset = (metrics.viewportDimension - metrics.pixels).abs();
-            final value = (offset / metrics.viewportDimension).clamp(0.0, 1.0);
-            _swipeTintController.value = value;
-            _swipeTintController.notifyListeners();
-          }
-          return false;
-        },
-        child: PageView(
-          controller: _pageController,
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          children: [
-            _buildMenu(context),
-            _buildMain(context),
-            _buildHistory(context),
-          ],
-          onPageChanged: (i) {
-            switch (i) {
-              case 1:
-                _refocus();
-                break;
-              default:
-                _focusNode.unfocus();
-            }
-          },
+    final focusNodeModel = FocusNodeModel(useFocusNode());
+    final swipeTintController = useAnimationController();
+    final pageController = usePageController(initialPage: 1);
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => focusNodeModel.refocus(),
+      );
+      return null;
+    });
+
+    return ScopedModel<FocusNodeModel>(
+      model: focusNodeModel,
+      child: Builder(
+        builder: (context) => Scaffold(
+          backgroundColor: NothingScheme.of(context).background,
+          body: NotificationListener<ScrollNotification>(
+            onNotification: _onScrollNotification(swipeTintController),
+            child: PageView(
+              controller: pageController,
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              onPageChanged: _onPageChanged(context),
+              children: () {
+                const duration = Duration(milliseconds: 300);
+                const curve = Curves.easeInOut;
+                void onBack() {
+                  pageController.animateToPage(1,
+                      duration: duration, curve: curve);
+                }
+
+                return [
+                  Menu(onBack),
+                  Main(swipeTintController, pageController),
+                  History(onBack)
+                ];
+              }(),
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildMenu(BuildContext context) {
-    ontap() {
-      const duration = Duration(milliseconds: 300);
-      const curve = Curves.easeInOut;
-      _pageController.animateToPage(1, duration: duration, curve: curve);
-    }
-
-    return Container(
-      color: Colors.amber,
-      child: Stack(
-        children: [
-          GestureDetector(onTap: ontap),
-          Padding(
-            padding: const EdgeInsets.only(right: 100),
-            child: Container(color: NothingScheme.of(context).background),
-          ),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 40, bottom: 32),
-                  child: Text('Menu', style: TextStyle(fontSize: 36)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Card(
-                    elevation: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: () {
-                          const tt = [
-                            'Sound',
-                            'Rate us',
-                            'Feedback',
-                            'Share',
-                            'Vibration',
-                          ];
-                          return tt
-                              .map((t) =>
-                                  Text(t, style: TextStyle(fontSize: 24)))
-                              .map((w) => Padding(
-                                  child: w,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16)));
-                        }()
-                            .expand((w) sync* {
-                              yield const Divider();
-                              yield w;
-                            })
-                            .skip(1)
-                            .toList(),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: IconButton(
-                icon: Icon(Icons.arrow_forward_ios),
-                onPressed: ontap,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+  bool Function(ScrollNotification) _onScrollNotification(
+    AnimationController swipeTintController,
+  ) {
+    return (scrollNotification) {
+      if (scrollNotification is ScrollUpdateNotification) {
+        final metrics = scrollNotification.metrics;
+        final offset = (metrics.viewportDimension - metrics.pixels).abs();
+        final value = (offset / metrics.viewportDimension).clamp(0.0, 1.0);
+        swipeTintController.value = value;
+        swipeTintController.notifyListeners();
+      }
+      return false;
+    };
   }
 
-  Widget _buildHistory(BuildContext context) {
-    ontap() {
-      const duration = Duration(milliseconds: 300);
-      const curve = Curves.easeInOut;
-      _pageController.animateToPage(1, duration: duration, curve: curve);
-    }
-
-    return Container(
-      color: Colors.amber,
-      child: Stack(
-        children: [
-          GestureDetector(onTap: ontap),
-          Padding(
-            padding: const EdgeInsets.only(left: 100),
-            child: Container(
-              color: NothingScheme.of(context).background,
-              child: HistoryStack(),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: Text('Levels', style: TextStyle(fontSize: 36)),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: ontap,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+  void Function(int) _onPageChanged(BuildContext context) {
+    final focusNodeModel = FocusNodeModel.of(context);
+    return (i) {
+      switch (i) {
+        case 1:
+          // focusNodeModel.refocus();
+          break;
+        default:
+          focusNodeModel.focusNode.unfocus();
+      }
+    };
   }
+}
 
-  Widget _buildMain(BuildContext context) {
-    // CurvedAnimation(parent: Tween(begin: 0,end:1))
-    // AnimatedContainer()
+class Main extends HookWidget {
+  final AnimationController swipeTintController;
+  final PageController pageController;
+  const Main(this.swipeTintController, this.pageController);
+
+  @override
+  Widget build(BuildContext context) {
+    final textModel = useMemoized(() => TextModel());
+    final hintTintController = useAnimationController();
+    final showHint = useState(false);
+    final wait = useState(false);
+
     return Container(
       color: NothingScheme.of(context).background,
       child: ScopedModel<TextModel>(
-        model: _model,
-        child: Stack(
-          children: [
-            _buildGame(context),
-            _gestureDetector(context),
-            _buildTitleKnobs(context),
-            _buildHintButtons(context),
-            _buildTinter(context, _hintTintController),
-            if (_showHint)
-              _buildHint(context),
-            _buildTinter(context, _swipeTintController),
-            // Test(),
-            MultiBlocListener(
-              listeners: [
-                BlocListener<ValidationBloc, ValidationState>(
-                  listener: (context, state) {
-                    state.maybeWhen(
-                      just: (just) => just.maybeMap(
-                        orElse: () {},
-                        correct: (_) {
-                          _textController.clear();
-                          _model.update('');
-                        },
-                      ),
-                      orElse: () {},
-                    );
-                  },
-                ),
-                BlocListener<RoutingBloc, RoutingState>(
-                    listener: (context, state) {
-                  print(state);
-                  if (state.route != Routes.home()) return;
-                  print('focusing keyboard'); // TODO
-                  // WidgetsBinding.instance.addPostFrameCallback((_) {
-                  // //   _focusNode.unfocus();
-                  // //   _focusNode.requestFocus();
-                  // _refocus();
-                  // });
-                })
-              ],
-              child: _inputPoint(_model),
-            ),
-          ],
+        model: textModel,
+        child: Builder(
+          builder: (context) => Stack(
+            children: [
+              _buildGame(context, wait),
+              _gestureDetector(context),
+              _buildTitleKnobs(context, pageController),
+              _buildHintButtons(context, showHint, hintTintController, wait),
+              _buildTinter(context, hintTintController),
+              if (showHint.value)
+                _buildHint(context, showHint, hintTintController),
+              _buildTinter(context, swipeTintController),
+              _buildTextField(context, wait),
+              // Center(child: Image.asset("assets/tutor.gif"))
+            ],
+          ),
         ),
       ),
     );
   }
 
-  IgnorePointer _buildTinter(
+  Widget _buildTinter(
     BuildContext context,
     AnimationController controller,
   ) {
@@ -306,72 +159,84 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
   }
 
-  void _refocus() {
-    _focusNode.unfocus();
-    _focusNode.requestFocus();
-  }
-
   Widget _gestureDetector(BuildContext context) {
     return Center(
       child: FractionallySizedBox(
         widthFactor: 0.6,
         child: GestureDetector(
-          behavior: HitTestBehavior.translucent,
+          behavior: HitTestBehavior.opaque,
           // child: Container(color: Colors.green.withOpacity(0.3)),
-          // onHorizontalDragEnd: (_) => _refocus(),
-          // onVerticalDragEnd: (_) => _refocus(),
-          onTap: _refocus,
+          onTap: FocusNodeModel.of(context).refocus,
+          // onHorizontalDragUpdate: (_) {},
         ),
       ),
     );
   }
 
-  Widget _inputPoint(TextModel model) {
-    return Visibility(
-      visible: false,
-      // maintainInteractivity: true,
-      // maintainAnimation: true,
-      // maintainSize: true,
-      maintainState: true,
-      child: TextField(
-        // autofocus: true,
-        focusNode: _focusNode,
-        controller: _textController,
-        enableSuggestions: false,
-        autocorrect: false,
-        maxLength: 32,
-        keyboardAppearance: NothingScheme.of(context).brightness,
-        keyboardType: TextInputType.text,
-        onSubmitted: (s) async {
-          print(s);
-          _focusNode.requestFocus();
-          if (s.isNotEmpty) {
-            context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
-            context.bloc<TestBloc>().add(TestEvent.name(s));
-          }
-          // model.update(s);
-          // if (true) {
-          //   // clear
-          //   _controller.clear();
-          //   model.update('');
-          //   // Vibrate.feedback(FeedbackType.success);
-          // } else {
-          //   // dont clear
-          //   // Vibrate.feedback(FeedbackType.warning);
-          // }
+  Widget _buildTextField(BuildContext context, ValueNotifier<bool> wait) {
+    return HookBuilder(builder: (context) {
+      final textModel = TextModel.of(context);
+      final focusNodeModel = FocusNodeModel.of(context);
+      final textController = useTextEditingController();
+
+      return BlocListener<ValidationBloc, ValidationState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            just: (just) => just.maybeMap(
+              orElse: () {
+                textController.clear();
+                textModel.update('');
+              },
+              neutral: (_) {},
+            ),
+            orElse: () {},
+          );
         },
-        textInputAction: TextInputAction.go,
-        onChanged: (s) {
-          // context.bloc<ValidationBloc>().add(ValidationEvent.purge());
-          model.update(s);
-          print(s);
-        },
-      ),
-    );
+        child: Visibility(
+          visible: false,
+          maintainState: true,
+          child: TextField(
+            // readOnly: wait.value,
+            focusNode: focusNodeModel.focusNode,
+            controller: textController,
+            enableSuggestions: false,
+            autocorrect: false,
+            maxLength: 32,
+            keyboardAppearance: NothingScheme.of(context).brightness,
+            keyboardType: TextInputType.text,
+            onSubmitted: (s) async {
+              if (wait.value) {
+                wait.value = false;
+                focusNodeModel.refocus();
+                return;
+              }
+              print(s);
+              // _focusNode.requestFocus();
+              focusNodeModel.refocus();
+              if (s.isNotEmpty) {
+                context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
+              }
+            },
+            textInputAction: TextInputAction.go,
+            onChanged: (s) {
+              if (wait.value) {
+                textController.clear();
+                return;
+              }
+              textModel.update(s);
+              print(s);
+            },
+          ),
+        ),
+      );
+    });
   }
 
-  var _showHint = false;
-  Widget _buildHint(BuildContext context) {
+  Widget _buildHint(
+    BuildContext context,
+    ValueNotifier<bool> showHint,
+    AnimationController hintTintController,
+  ) {
     return SafeArea(child: LayoutBuilder(builder: (context, constraints) {
       final top = labelH + 24; //+ 21 + 28 + 8 + 12;
       double hei = min(
@@ -426,12 +291,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       color: NothingScheme.of(context).knob,
                       child: Text('Close', style: TextStyle(fontSize: 16)),
                       onPressed: () {
-                        //TODO(hint)
-                        setState(() {
-                          _showHint = false;
-                        });
-                        _hintTintController.fling(velocity: -1);
-                        // if (bloc.state == showHint then show)
+                        showHint.value = false;
+                        hintTintController.fling(velocity: -1);
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: NothingScheme.of(context).hintBorder,
@@ -447,22 +308,21 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     }));
   }
 
-  Widget _buildTitleKnobs(BuildContext context) {
-    var safeWrap = (Widget w) => Platform.isIOS ? w : SafeArea(child: w);
+  Widget _buildTitleKnobs(BuildContext context, PageController pageController) {
     const duration = Duration(milliseconds: 300);
     const curve = Curves.easeInOut;
-    return safeWrap(
-      Row(
+    return SafeArea(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _makeKnob(
             Icons.short_text,
-            () => _pageController.animateToPage(0,
+            () => pageController.animateToPage(0,
                 duration: duration, curve: curve),
           ),
           _makeKnob(
             Icons.all_inclusive,
-            () => _pageController.animateToPage(2,
+            () => pageController.animateToPage(2,
                 duration: duration, curve: curve),
           ),
         ],
@@ -470,9 +330,51 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildHintButtons(BuildContext context) {
-    return SafeArea(child: LayoutBuilder(
-      builder: (context, constraints) {
+  Widget _buildHintButtons(
+    BuildContext context,
+    ValueNotifier<bool> showHint,
+    AnimationController hintTintController,
+    ValueNotifier<bool> wait,
+  ) {
+    return SafeArea(
+        child: LayoutBuilder(
+      builder: (context, constraints) => HookBuilder(builder: (context) {
+        final linkLike = useMemoized(() => LayerLink());
+        final linkDislike = useMemoized(() => LayerLink());
+        final overlayLike = useMemoized(() => OverlayEntry(
+            builder: (context) => CompositedTransformFollower(
+                link: linkLike,
+                child: GestureDetector(
+                  onTap: () {
+                    print('like');
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  // child: Container(color: Colors.green.withOpacity(0.2)),
+                ))));
+        final overlayDislike = useMemoized(() => OverlayEntry(
+            builder: (context) => CompositedTransformFollower(
+                link: linkDislike,
+                child: GestureDetector(
+                  onTap: () {
+                    print('dislike');
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  // child: Container(color: Colors.red.withOpacity(0.2)),
+                ))));
+        useEffect(() {
+          final listener = () {
+            if (wait.value) {
+              Overlay.of(context).insert(overlayDislike);
+              Overlay.of(context).insert(overlayLike);
+            } else {
+              overlayDislike.remove();
+              overlayLike.remove();
+            }
+          };
+          wait.addListener(listener);
+          return () => wait.removeListener(listener);
+        });
+
         double queH = min(
           280,
           constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
@@ -482,27 +384,49 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         final top = queH + labelH + ansH + pad;
         text(String text) =>
             Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
-        const ll = {'hint': 'Hint', 'skip': 'Skip'};
+        const ll = {
+          'hint': 'Хинт',
+          'skip': 'Скип',
+          'like': '',
+          'dislike': '',
+        };
         final cc = {
           'hint': NothingScheme.of(context).hint,
           'skip': NothingScheme.of(context).skip,
+          'like': NothingScheme.of(context).correct,
+          'dislike': NothingScheme.of(context).wrong,
         };
-        final ii = {'hint': Icons.lightbulb_outline, 'skip': Icons.clear};
+        final ii = {
+          'hint': Icons.lightbulb_outline,
+          'skip': Icons.clear,
+          'like': Icons.check,
+          'dislike': Icons.check_box_outline_blank,
+        };
         final pp = {
-          'hint': () {
-            // TODO(hint)
-            print('hint');
-            setState(() {
-              _showHint = true;
-            });
-            _hintTintController.fling();
+          'hint': () => _hintClick(
+                context,
+                showHint,
+                hintTintController,
+              ),
+          'skip': () {
+            context.bloc<ValidationBloc>().add(ValidationEvent.skip());
           },
-          'skip': () {},
+          'like': () {},
+          'dislike': () {},
         };
-        final bb = ['hint', 'skip']
+        final ww = {
+          'hint': (w) => w,
+          'skip': (w) => w,
+          'like': (w) => CompositedTransformTarget(child: w, link: linkLike),
+          'dislike': (w) =>
+              CompositedTransformTarget(child: w, link: linkDislike),
+        };
+        final bb = (!wait.value ? ['hint', 'skip'] : ['like', 'dislike'])
             .map(
           (l) => Expanded(
-            child: FlatButton(
+              child: ww[l](
+            FlatButton(
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
               color: cc[l],
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -521,11 +445,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 borderRadius: NothingScheme.of(context).hintBorder,
               ),
             ),
-          ),
+          )),
         )
             .expand((w) sync* {
           yield w;
-          yield const SizedBox(width: 20);
+          yield const SizedBox(width: 16);
           // yield Container(width: 16, height: 10, color: Colors.red);
         });
         return Stack(
@@ -539,32 +463,30 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   ...bb,
-                  Row(children: [
-                    CircleAvatar(
-                        backgroundColor: NothingScheme.of(context).knob,
-                        foregroundColor: Colors.black,
-                        child: Icon(Icons.vpn_key)),
-                    SizedBox(width: 4),
-                    Text(
-                      '55',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                      ),
-                    )
-                  ]),
+                  CoinText(),
                 ],
               ),
             ),
           ],
         );
-      },
+      }),
     ));
   }
 
-  double labelH = 50;
-  double ansH = 72;
-  Widget _buildGame(BuildContext context) {
+  void _hintClick(
+    BuildContext context,
+    ValueNotifier<bool> showHint,
+    AnimationController hintTintController,
+  ) async {
+    context.bloc<CoinBloc>().add(CoinEvent.dec(2));
+    await Future.delayed(const Duration(milliseconds: 500));
+    showHint.value = true;
+    hintTintController.fling();
+  }
+
+  final double labelH = 50;
+  final double ansH = 72;
+  Widget _buildGame(BuildContext context, ValueNotifier<bool> wait) {
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -572,24 +494,53 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             280,
             constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
           );
-          return Column(
-            children: [
-              SizedBox(height: 21),
-              SizedBox(
-                // height: labelH,
-                // child: Stack(children: [Label(), Test()]),
-                child: Label(),
-              ),
-              SizedBox(height: 12),
-              SizedBox(
-                height: queH,
-                child: Center(child: Question()),
-              ),
-              SizedBox(
-                height: ansH,
-                child: Answer(),
-              ),
-            ],
+          return HookBuilder(
+            builder: (context) {
+              final overlay = useMemoized(() => OverlayEntry(
+                    builder: (context) => GestureDetector(
+                      // child: Container(color: Colors.green.withOpacity(0.2)),
+                      onTap: () {
+                        wait.value = false;
+                      },
+                    ),
+                  ));
+              useEffect(() {
+                final listener = () {
+                  if (wait.value) {
+                    Overlay.of(context).insert(overlay);
+                  } else {
+                    overlay.remove();
+                  }
+                };
+                wait.addListener(listener);
+                return () => wait.removeListener(listener);
+              });
+
+              final orElse = () => false;
+              return BlocListener<ValidationBloc, ValidationState>(
+                condition: (_, state) => state.maybeWhen(
+                    just: (state) => state.maybeMap(
+                        correct: (_) => true,
+                        wrong: (_) => true,
+                        orElse: orElse),
+                    orElse: orElse),
+                listener: (context, state) {
+                  wait.value = state.maybeWhen(
+                      just: (state) => state.maybeMap(
+                          correct: (_) => true,
+                          wrong: (_) => false,
+                          orElse: orElse),
+                      orElse: orElse);
+                },
+                child: Column(children: [
+                  SizedBox(height: 21),
+                  SizedBox(child: Label()),
+                  SizedBox(height: 12),
+                  SizedBox(height: queH, child: Center(child: Question(wait))),
+                  SizedBox(height: ansH, child: Answer(wait)),
+                ]),
+              );
+            },
           );
         },
       ),
@@ -598,12 +549,53 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   Widget _makeKnob(IconData icon, [Function onPress]) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 24,
-        right: 24,
-        top: 21,
-      ),
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
       child: Knob(icon, onPress),
     );
   }
+}
+
+void _createAd() {
+  InterstitialAd myInterstitial;
+  myInterstitial = InterstitialAd(
+    // adUnitId: Platform.isIOS // interstitial ios/android
+    //     ? 'ca-app-pub-3169956978186495/7272148845'
+    //     : 'ca-app-pub-3169956978186495/2443683360',
+    adUnitId: InterstitialAd.testAdUnitId,
+    targetingInfo: MobileAdTargetingInfo(),
+    listener: (MobileAdEvent event) async {
+      // event.
+      print("InterstitialAd event is $event");
+      if (event == MobileAdEvent.loaded) {
+        // await myInterstitial.show(
+        //   anchorType: AnchorType.bottom,
+        //   anchorOffset: 0.0,
+        //   horizontalCenterOffset: 0.0,
+        // );
+      }
+      if (event == MobileAdEvent.closed) {
+        print("CLOSED");
+        // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
+        await myInterstitial.load();
+      }
+    },
+  );
+}
+
+void _showAd(BuildContext context) async {
+  InterstitialAd myInterstitial;
+  context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
+  print('****** Loading new ad');
+  final result = await myInterstitial.load();
+  if (!result) {
+    print('\t ****** Ad did not load');
+    return;
+  }
+  print('****** Loaded ad successfully');
+  await myInterstitial.show(
+    anchorType: AnchorType.bottom,
+    anchorOffset: 0.0,
+    horizontalCenterOffset: 0.0,
+  );
+  // myInterstitial.dispose()
 }

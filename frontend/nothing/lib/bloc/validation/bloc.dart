@@ -12,6 +12,7 @@ abstract class ValidationEvent with _$ValidationEvent {
   const factory ValidationEvent.focus(Question question) = _Focus;
   const factory ValidationEvent.check(String answer) = _Check;
   const factory ValidationEvent.lifecycle(TimePoint point) = _Lifecycle;
+  const factory ValidationEvent.skip() = _Skip;
 }
 
 @freezed
@@ -31,6 +32,11 @@ abstract class _ValidationState2 with _$_ValidationState2 {
     List<String> answers,
     TimePoints timePoints,
   ) = _Neutral;
+  const factory _ValidationState2.skip(
+    Question question,
+    List<String> answers,
+    Duration duration,
+  ) = _Skipped;
 }
 
 @freezed
@@ -85,6 +91,16 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
   @override
   Stream<ValidationState> mapEventToState(ValidationEvent event) async* {
     yield event.when(
+      skip: () => state.when(
+        just: (state) => ValidationState.just(
+          _ValidationState2.skip(
+            state.question,
+            [...state.answers],
+            Duration.zero,
+          ),
+        ),
+        nothing: () => ValidationState.nothing(),
+      ),
       focus: (question) => ValidationState.just(
         _ValidationState2.neutral(question, [], TimePoints.fromNow()),
       ),
@@ -94,13 +110,15 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
           final question = state.question;
           final answers = state.answers;
           final next = state.question.splitted
+                  .map((s) => s.replaceAll(' ', ''))
                   .map((s) => s.toLowerCase())
-                  .contains(answer.toLowerCase())
+                  .contains(answer.replaceAll(' ', '').toLowerCase())
               ? _ValidationState2.correct(
                   question,
                   [...answers, answer],
                   state.map(
                     correct: (c) => throw UnimplementedError(),
+                    skip: (c) => throw UnimplementedError(),
                     neutral: (n) =>
                         n.timePoints.add(TimePoint.suspendNow()).duration,
                     wrong: (w) =>
@@ -111,6 +129,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
                   [...answers, answer],
                   state.map(
                     correct: (c) => throw UnimplementedError(),
+                    skip: (c) => throw UnimplementedError(),
                     neutral: (n) => n.timePoints,
                     wrong: (w) => w.timePoints,
                   ));
@@ -121,6 +140,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
         nothing: () => ValidationState.nothing(),
         just: (state) => ValidationState.just(state.map(
           correct: (_) => state,
+          skip: (_) => state,
           wrong: (w) => w.copyWith(timePoints: w.timePoints.add(point)),
           neutral: (n) => n.copyWith(timePoints: n.timePoints.add(point)),
         )),

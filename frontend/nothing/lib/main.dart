@@ -1,31 +1,34 @@
 import 'dart:io';
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/binding/binder.dart';
+import 'package:nothing/bloc/ad/bloc.dart';
+import 'package:nothing/bloc/coin/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/routing/routing.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
-import 'package:nothing/bloc/test.dart';
 import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ignitor/ignitor.dart';
+import 'package:nothing/repository/ads.dart';
 import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/lifecycle.dart';
 import 'package:nothing/tools/orientation.dart';
-import 'package:nothing/ui/history.dart';
 import 'package:nothing/ui/home.dart';
 
 void main() async {
   await _hydrateAsync();
+  await _admob();
   if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
   //ignore: close_sinks
   final lifecycle = LifecycleBloc();
@@ -36,6 +39,13 @@ void main() async {
 Future _hydrateAsync() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = await HydratedBlocDelegate.build();
+}
+
+Future<bool> _admob() {
+  final appId = Platform.isIOS
+      ? 'ca-app-pub-3169956978186495~8308569350' //ios
+      : 'ca-app-pub-3169956978186495~3700924713'; //android
+  return FirebaseAdMob.instance.initialize(appId: appId);
 }
 
 void _lifecycle(LifecycleBloc lifecycle) {
@@ -69,7 +79,6 @@ class App extends StatelessWidget with PortraitLock {
           initialRoute: context.bloc<RoutingBloc>().initialState.name,
           routes: {
             Routes.home(): (_) => Home(),
-            Routes.history(): (_) => HistoryList(),
           }.routed,
           color: NothingScheme.app,
           debugShowCheckedModeBanner: false,
@@ -78,20 +87,14 @@ class App extends StatelessWidget with PortraitLock {
     ))));
   }
 
-  Widget _repos(Widget child) {
-    return RepositoryProvider<QuestionsRepo>(
-      child: child,
-      create: (context) => CloudQuestionsRepo(),
-    ); // CloudQuestionsRepo|LocalQuestionsRepo
-  }
-
   Widget _bindings(Widget child) {
     return MultiBlocBinder(child: child, binders: [
       BlocBinder<ValidationBloc, ValidationState, SummaryBloc, SummaryState>(
         direct:
             (BuildContext context, ValidationState state, SummaryBloc bloc) {
           state.maybeWhen(
-            just: (just) => just.maybeWhen(
+            just: (just) {
+              return just.maybeWhen(
                 correct: (question, tries, duration) {
                   bloc.add(SummaryEvent.answer(
                     answers: tries,
@@ -100,7 +103,17 @@ class App extends StatelessWidget with PortraitLock {
                     seconds: duration.inSeconds,
                   ));
                 },
-                orElse: () {}),
+                skip: (question, tries, duration) {
+                  bloc.add(SummaryEvent.answer(
+                    answers: tries,
+                    qid: question.id,
+                    tries: -1,
+                    seconds: duration.inSeconds,
+                  ));
+                },
+                orElse: () {},
+              );
+            },
             orElse: () {},
           );
         },
@@ -147,6 +160,9 @@ class App extends StatelessWidget with PortraitLock {
                   duration.inSeconds > 80 ? MoveDir.left() : MoveDir.right(),
                 ),
               ),
+              skip: (question, tries, duration) => bloc.add(
+                FeedEvent.moveNext(MoveDir.left()),
+              ),
               orElse: () {},
             ),
             orElse: () {},
@@ -189,8 +205,8 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<SummaryBloc>(create: (_) => SummaryBloc()),
         BlocProvider<HistoryBloc>(create: (_) => HistoryBloc()),
         BlocProvider<RoutingBloc>(create: (_) => RoutingBloc()),
-        BlocProvider<TestBloc>(create: (_) => TestBloc()),
         BlocProvider<IdBloc>(create: (_) => IdBloc()),
+        BlocProvider<CoinBloc>(create: (_) => CoinBloc()),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             idBloc: context.bloc<IdBloc>(),
@@ -205,8 +221,27 @@ class App extends StatelessWidget with PortraitLock {
             validationBloc: context.bloc<ValidationBloc>(),
           ),
         ),
+        BlocProvider<AdBloc>(
+          create: (context) => AdBloc(
+            context.repository<AdRepo>(),
+            context.bloc<IdBloc>(),
+          ),
+        ),
       ],
       child: child,
     );
   }
+}
+
+Widget _repos(Widget child) {
+  return MultiRepositoryProvider(child: child, providers: [
+    RepositoryProvider<QuestionsRepo>(
+      child: child,
+      create: (context) => CloudQuestionsRepo(),
+    ), // CloudQuestionsRepo|LocalQuestionsRepo
+    RepositoryProvider<AdRepo>(
+      child: child,
+      create: (context) => AdRepo(),
+    ),
+  ]);
 }
