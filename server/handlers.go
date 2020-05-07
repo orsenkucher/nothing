@@ -75,3 +75,22 @@ func (s *Server) AdReportHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(200)
 }
+
+func (s *Server) LikeReportHandler(w http.ResponseWriter, r *http.Request) {
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Println(err)
+	}
+	defer r.Body.Close()
+	var req struct {
+		QuestionID int `json:"questionid"`
+		Like       int `json:"like"`
+	}
+	err = json.Unmarshal(body, &req)
+	if err != nil {
+		log.Println(err)
+	}
+	s.LikeReport(req.QuestionID, req.Like)
+
+	w.WriteHeader(200)
+}

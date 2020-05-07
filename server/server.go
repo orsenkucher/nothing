@@ -72,6 +72,7 @@ func (s *Server) AdRegister(id string) int {
 	user.AdMode = adType
 	s.DB.Model(user).Update(user)
 	fmt.Println("AdRegister")
+	fmt.Println(adType)
 	user.Print()
 	return adType
 }
@@ -89,8 +90,20 @@ func (s *Server) AdReport(id string, adtype int) {
 			user.RewardedAd++
 		}
 		s.DB.Model(user).Update(user)
-		fmt.Println("AdReport")
+		fmt.Println("AdReport ", adtype)
 		user.Print()
+	}
+}
+
+func (s *Server) LikeReport(qid int, like int) {
+	if qid > 0 && qid <= len(s.Questions) {
+		question := &s.Questions[qid-1]
+		if like == 1 {
+			question.Likes++
+		} else if like == -1 {
+			question.Dislikes--
+		}
+		s.DB.Model(question).Update(question)
 	}
 }
 

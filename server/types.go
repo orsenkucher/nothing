@@ -22,6 +22,10 @@ type Question struct {
 	Explanation string `json:"explanation"`
 	Answers     string `json:"answers"`
 	MMR         int    `json:"mmr"`
+	Likes       int    `json:"likes"`
+	Dislikes    int    `json:"dislikes"`
+	Neutral     int    `json:"neutral"`
+	Valid       bool   `json:"valid"`
 }
 
 type QBTreeNode struct {

@@ -60,6 +60,7 @@ func StartServer(db *gorm.DB) {
 	http.HandleFunc("/getQues", s.GetQuesHandler)
 	http.HandleFunc("/adRegister", s.AdRegisterHandler)
 	http.HandleFunc("/adReport", s.AdReportHandler)
+	http.HandleFunc("/likeReport", s.LikeReportHandler)
 	hsrv := &http.Server{
 		Addr:    ":9091",
 		Handler: nil, // use default mux
