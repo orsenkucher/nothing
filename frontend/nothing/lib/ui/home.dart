@@ -357,7 +357,7 @@ class Main extends HookWidget {
                         empty: () {});
                   },
                   behavior: HitTestBehavior.opaque,
-                  child: Container(color: Colors.green.withOpacity(0.2)),
+                  // child: Container(color: Colors.green.withOpacity(0.2)),
                 ))));
         final overlayDislike = useMemoized(() => OverlayEntry(
             builder: (context) => CompositedTransformFollower(
@@ -374,7 +374,7 @@ class Main extends HookWidget {
                         empty: () {});
                   },
                   behavior: HitTestBehavior.opaque,
-                  child: Container(color: Colors.red.withOpacity(0.2)),
+                  // child: Container(color: Colors.red.withOpacity(0.2)),
                 ))));
         useEffect(() {
           final listener = () {
