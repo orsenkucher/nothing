@@ -21,6 +21,7 @@ import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/repository/ads.dart';
+import 'package:nothing/repository/likes.dart';
 import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/lifecycle.dart';
 import 'package:nothing/tools/orientation.dart';
@@ -242,6 +243,10 @@ Widget _repos(Widget child) {
     RepositoryProvider<AdRepo>(
       child: child,
       create: (context) => AdRepo(),
+    ),
+    RepositoryProvider<LikesRepo>(
+      child: child,
+      create: (context) => LikesRepo(),
     ),
   ]);
 }

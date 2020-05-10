@@ -64,6 +64,7 @@ class HistoryStack extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             clipToSize: true,
             renderChildrenOutsideViewport: false,
+            onSelectedItemChanged: print,
             children: state.answers
                 .map(
                   (x) => Padding(

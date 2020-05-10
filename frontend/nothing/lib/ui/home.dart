@@ -5,6 +5,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nothing/hooks/pagecontroller.dart';
 import 'package:nothing/model/focusnode.dart';
+import 'package:nothing/repository/likes.dart';
 import 'package:nothing/ui/menu.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
@@ -347,9 +348,16 @@ class Main extends HookWidget {
                 child: GestureDetector(
                   onTap: () {
                     print('like');
+                    context.bloc<FeedBloc>().state.payload.when(
+                        available: (tree) {
+                          context
+                              .repository<LikesRepo>()
+                              .report(tree.question.id, 1);
+                        },
+                        empty: () {});
                   },
                   behavior: HitTestBehavior.opaque,
-                  // child: Container(color: Colors.green.withOpacity(0.2)),
+                  child: Container(color: Colors.green.withOpacity(0.2)),
                 ))));
         final overlayDislike = useMemoized(() => OverlayEntry(
             builder: (context) => CompositedTransformFollower(
@@ -357,18 +365,25 @@ class Main extends HookWidget {
                 child: GestureDetector(
                   onTap: () {
                     print('dislike');
+                    context.bloc<FeedBloc>().state.payload.when(
+                        available: (tree) {
+                          context
+                              .repository<LikesRepo>()
+                              .report(tree.question.id, -1);
+                        },
+                        empty: () {});
                   },
                   behavior: HitTestBehavior.opaque,
-                  // child: Container(color: Colors.red.withOpacity(0.2)),
+                  child: Container(color: Colors.red.withOpacity(0.2)),
                 ))));
         useEffect(() {
           final listener = () {
             if (wait.value) {
-              Overlay.of(context).insert(overlayDislike);
               Overlay.of(context).insert(overlayLike);
+              Overlay.of(context).insert(overlayDislike);
             } else {
-              overlayDislike.remove();
               overlayLike.remove();
+              overlayDislike.remove();
             }
           };
           wait.addListener(listener);
