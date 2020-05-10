@@ -96,6 +96,7 @@ func (s *Server) AdReport(id string, adtype int) {
 }
 
 func (s *Server) LikeReport(qid int, like int) {
+	fmt.Println("LikeREport qid: ", qid, "\tstatus: ", like)
 	if qid > 0 && qid <= len(s.Questions) {
 		question := &s.Questions[qid-1]
 		if like == 1 {
@@ -104,6 +105,8 @@ func (s *Server) LikeReport(qid int, like int) {
 			question.Dislikes--
 		}
 		s.DB.Model(question).Update(question)
+		question.Print()
+		fmt.Println("likes:", question.Likes, "\tdislikes:", question.Dislikes)
 	}
 }
 
