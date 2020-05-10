@@ -106,6 +106,7 @@ func (s *Server) LikeReport(qid int, like int) {
 		}
 		s.DB.Model(question).Update(question)
 		question.Print()
+		fmt.Println("likes:", question.Likes, "\tdislikes:", question.Dislikes)
 	}
 }
 

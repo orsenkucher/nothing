@@ -92,7 +92,6 @@ func (a *AnswerStats) Print() {
 
 func (q *Question) Print() {
 	fmt.Println(q.ID, "\tdif:\t", q.MMR, "\t", q.Question)
-	fmt.Println("likes:", q.Likes, "\tdislikes:", q.Dislikes)
 }
 
 func (u *User) Print() {
