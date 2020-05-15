@@ -17,8 +17,7 @@ abstract class CoinEvent with _$CoinEvent {
 @freezed
 abstract class CoinState with _$CoinState {
   const factory CoinState(int total) = _CoinState;
-  factory CoinState.fromJson(Map<String, dynamic> json) =>
-      _$CoinStateFromJson(json);
+  factory CoinState.fromJson(Map<String, dynamic> json) => _$CoinStateFromJson(json);
 }
 
 class CoinBloc extends HydratedBloc<CoinEvent, CoinState> {

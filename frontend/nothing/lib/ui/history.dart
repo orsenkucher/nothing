@@ -119,10 +119,7 @@ class FuzzyOut extends StatelessWidget {
         height: 64,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: [
-                NothingScheme.of(context).historyBg,
-                NothingScheme.of(context).historyBg.withOpacity(0)
-              ],
+              colors: [NothingScheme.of(context).historyBg, NothingScheme.of(context).historyBg.withOpacity(0)],
               begin: loc.alignment,
               end: (~loc).alignment,
               stops: [0.5, 1]),

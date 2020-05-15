@@ -45,12 +45,8 @@ class Menu extends StatelessWidget {
                             'Вибрация',
                           ];
                           return tt
-                              .map((t) =>
-                                  Text(t, style: TextStyle(fontSize: 24)))
-                              .map((w) => Padding(
-                                  child: w,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16)));
+                              .map((t) => Text(t, style: TextStyle(fontSize: 24)))
+                              .map((w) => Padding(child: w, padding: const EdgeInsets.symmetric(vertical: 16)));
                         }()
                             .expand((w) sync* {
                               yield const Divider();

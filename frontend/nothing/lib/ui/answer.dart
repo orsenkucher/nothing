@@ -54,13 +54,11 @@ class Answer extends HookWidget {
     const shift = 8.0;
     final offsetWrongX = TweenSequence([
       TweenSequenceItem<double>(
-        tween: Tween<double>(begin: 0.0, end: shift)
-            .chain(CurveTween(curve: Curves.ease)),
+        tween: Tween<double>(begin: 0.0, end: shift).chain(CurveTween(curve: Curves.ease)),
         weight: 1,
       ),
       TweenSequenceItem<double>(
-        tween: Tween<double>(begin: shift, end: -shift)
-            .chain(CurveTween(curve: Curves.ease)),
+        tween: Tween<double>(begin: shift, end: -shift).chain(CurveTween(curve: Curves.ease)),
         weight: 2,
       ),
     ]).animate(CurvedAnimation(
@@ -68,16 +66,12 @@ class Answer extends HookWidget {
       curve: Interval(0.0, 1.0, curve: Curves.easeIn),
     ));
 
-    final offsetCorrect =
-        Tween<Offset>(begin: Offset.zero, end: const Offset(0, -50))
-            .animate(CurvedAnimation(
+    final offsetCorrect = Tween<Offset>(begin: Offset.zero, end: const Offset(0, -50)).animate(CurvedAnimation(
       parent: controller,
       curve: Interval(0.0, 1.0, curve: Curves.easeIn),
     ));
 
-    final offsetRight =
-        Tween<Offset>(begin: const Offset(0, 50), end: Offset.zero)
-            .animate(CurvedAnimation(
+    final offsetRight = Tween<Offset>(begin: const Offset(0, 50), end: Offset.zero).animate(CurvedAnimation(
       parent: controller,
       curve: Interval(0.0, 1.0, curve: Curves.easeIn),
     ));

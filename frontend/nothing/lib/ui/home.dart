@@ -57,15 +57,10 @@ class Home extends HookWidget {
                 const duration = Duration(milliseconds: 300);
                 const curve = Curves.easeInOut;
                 void onBack() {
-                  pageController.animateToPage(1,
-                      duration: duration, curve: curve);
+                  pageController.animateToPage(1, duration: duration, curve: curve);
                 }
 
-                return [
-                  Menu(onBack),
-                  Main(swipeTintController, pageController),
-                  History(onBack)
-                ];
+                return [Menu(onBack), Main(swipeTintController, pageController), History(onBack)];
               }(),
             ),
           ),
@@ -265,8 +260,7 @@ class Main extends HookWidget {
                   Expanded(
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                         child: BlocBuilder<FeedBloc, Ignitable<FeedState>>(
                           builder: (context, state) => AutoSizeText(
                             state.payload.when(
@@ -318,13 +312,11 @@ class Main extends HookWidget {
         children: [
           _makeKnob(
             Icons.short_text,
-            () => pageController.animateToPage(0,
-                duration: duration, curve: curve),
+            () => pageController.animateToPage(0, duration: duration, curve: curve),
           ),
           _makeKnob(
             Icons.all_inclusive,
-            () => pageController.animateToPage(2,
-                duration: duration, curve: curve),
+            () => pageController.animateToPage(2, duration: duration, curve: curve),
           ),
         ],
       ),
@@ -350,9 +342,7 @@ class Main extends HookWidget {
                     print('like');
                     context.bloc<FeedBloc>().state.payload.when(
                         available: (tree) {
-                          context
-                              .repository<LikesRepo>()
-                              .report(tree.question.id, 1);
+                          context.repository<LikesRepo>().report(tree.question.id, 1);
                         },
                         empty: () {});
                   },
@@ -367,9 +357,7 @@ class Main extends HookWidget {
                     print('dislike');
                     context.bloc<FeedBloc>().state.payload.when(
                         available: (tree) {
-                          context
-                              .repository<LikesRepo>()
-                              .report(tree.question.id, -1);
+                          context.repository<LikesRepo>().report(tree.question.id, -1);
                         },
                         empty: () {});
                   },
@@ -397,8 +385,7 @@ class Main extends HookWidget {
         const pad = 8;
         const hor = 40.0;
         final top = queH + labelH + ansH + pad;
-        text(String text) =>
-            Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
+        text(String text) => Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
         const ll = {
           'hint': 'Хинт',
           'skip': 'Скип',
@@ -433,8 +420,7 @@ class Main extends HookWidget {
           'hint': (w) => w,
           'skip': (w) => w,
           'like': (w) => CompositedTransformTarget(child: w, link: linkLike),
-          'dislike': (w) =>
-              CompositedTransformTarget(child: w, link: linkDislike),
+          'dislike': (w) => CompositedTransformTarget(child: w, link: linkDislike),
         };
         final bb = (!wait.value ? ['hint', 'skip'] : ['like', 'dislike'])
             .map(
@@ -534,18 +520,10 @@ class Main extends HookWidget {
               final orElse = () => false;
               return BlocListener<ValidationBloc, ValidationState>(
                 condition: (_, state) => state.maybeWhen(
-                    just: (state) => state.maybeMap(
-                        correct: (_) => true,
-                        wrong: (_) => true,
-                        orElse: orElse),
-                    orElse: orElse),
+                    just: (state) => state.maybeMap(correct: (_) => true, wrong: (_) => true, orElse: orElse), orElse: orElse),
                 listener: (context, state) {
                   wait.value = state.maybeWhen(
-                      just: (state) => state.maybeMap(
-                          correct: (_) => true,
-                          wrong: (_) => false,
-                          orElse: orElse),
-                      orElse: orElse);
+                      just: (state) => state.maybeMap(correct: (_) => true, wrong: (_) => false, orElse: orElse), orElse: orElse);
                 },
                 child: Column(children: [
                   SizedBox(height: 21),

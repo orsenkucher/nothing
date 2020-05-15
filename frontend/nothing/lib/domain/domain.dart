@@ -18,8 +18,7 @@ abstract class Question with _$Question {
   @late
   List<String> get splitted => answers.split(r'<$>');
 
-  factory Question.fromJson(Map<String, dynamic> json) =>
-      _$QuestionFromJson(json);
+  factory Question.fromJson(Map<String, dynamic> json) => _$QuestionFromJson(json);
 } // our brand new separator: <$>
 
 // @JsonKey(toJson: _to) List<Question> tree,

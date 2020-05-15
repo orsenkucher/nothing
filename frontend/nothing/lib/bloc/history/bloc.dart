@@ -21,12 +21,10 @@ abstract class HistoryState with _$HistoryState {
     @required @JsonKey(toJson: _to) List<SummaryAnswer> answers,
   }) = _State;
 
-  factory HistoryState.fromJson(Map<String, dynamic> json) =>
-      _$HistoryStateFromJson(json);
+  factory HistoryState.fromJson(Map<String, dynamic> json) => _$HistoryStateFromJson(json);
 }
 
-List<dynamic> _to(List<SummaryAnswer> ss) =>
-    ss?.map((s) => s.toJson())?.toList();
+List<dynamic> _to(List<SummaryAnswer> ss) => ss?.map((s) => s.toJson())?.toList();
 
 class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
   @override

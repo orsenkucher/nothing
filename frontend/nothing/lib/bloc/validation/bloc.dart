@@ -119,10 +119,8 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
                   state.map(
                     correct: (c) => throw UnimplementedError(),
                     skip: (c) => throw UnimplementedError(),
-                    neutral: (n) =>
-                        n.timePoints.add(TimePoint.suspendNow()).duration,
-                    wrong: (w) =>
-                        w.timePoints.add(TimePoint.suspendNow()).duration,
+                    neutral: (n) => n.timePoints.add(TimePoint.suspendNow()).duration,
+                    wrong: (w) => w.timePoints.add(TimePoint.suspendNow()).duration,
                   ))
               : _ValidationState2.wrong(
                   question,

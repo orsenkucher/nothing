@@ -91,8 +91,7 @@ class App extends StatelessWidget with PortraitLock {
   Widget _bindings(Widget child) {
     return MultiBlocBinder(child: child, binders: [
       BlocBinder<ValidationBloc, ValidationState, SummaryBloc, SummaryState>(
-        direct:
-            (BuildContext context, ValidationState state, SummaryBloc bloc) {
+        direct: (BuildContext context, ValidationState state, SummaryBloc bloc) {
           state.maybeWhen(
             just: (just) {
               return just.maybeWhen(
@@ -151,8 +150,7 @@ class App extends StatelessWidget with PortraitLock {
           empty: () => bloc.add(QuestionsEvent.fetch()),
         ),
       ),
-      BlocBinder<ValidationBloc, ValidationState, FeedBloc,
-          Ignitable<FeedState>>(
+      BlocBinder<ValidationBloc, ValidationState, FeedBloc, Ignitable<FeedState>>(
         direct: (context, state, bloc) {
           state.maybeWhen(
             just: (just) => just.maybeWhen(
@@ -177,14 +175,10 @@ class App extends StatelessWidget with PortraitLock {
         },
       ),
       BlocBinder<LifecycleBloc, LifecycleState, RoutingBloc, RoutingState>(
-        direct: (context, state, bloc) => state.when(
-            just: (_, e) => e.map(
-                resume: (_) => bloc.add(RoutingEvent.resume()),
-                suspend: (_) => {}),
-            nothing: () => {}),
+        direct: (context, state, bloc) =>
+            state.when(just: (_, e) => e.map(resume: (_) => bloc.add(RoutingEvent.resume()), suspend: (_) => {}), nothing: () => {}),
       ),
-      BlocBinder<LifecycleBloc, LifecycleState, ValidationBloc,
-          ValidationState>(
+      BlocBinder<LifecycleBloc, LifecycleState, ValidationBloc, ValidationState>(
         direct: (context, state, bloc) => state.when(
           just: (_, e) => bloc.add(ValidationEvent.lifecycle(
             e.when(

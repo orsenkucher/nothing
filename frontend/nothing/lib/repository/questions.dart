@@ -34,8 +34,7 @@ class CloudQuestionsRepo extends QuestionsRepo {
       //   "answers": summary.map((k, v) => MapEntry(k.toString(), v)),
       // });
       print('USERID: $userID');
-      var body = json.encode(
-          {"currentid": currentID, "userid": userID, "answers": answers});
+      var body = json.encode({"currentid": currentID, "userid": userID, "answers": answers});
       print('Sending request\n$body');
       var resp = await post(
         addressWith(Route.questions),

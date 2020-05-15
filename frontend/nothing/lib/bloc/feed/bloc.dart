@@ -29,8 +29,7 @@ abstract class FeedState with _$FeedState {
   }) = _Available;
   const factory FeedState.empty() = _Empty;
 
-  factory FeedState.fromJson(Map<String, dynamic> json) =>
-      _$FeedStateFromJson(json);
+  factory FeedState.fromJson(Map<String, dynamic> json) => _$FeedStateFromJson(json);
 }
 
 Map<String, dynamic> _toT(QTree t) => t?.toJson();
@@ -70,9 +69,7 @@ class FeedBloc extends IgnitedBloc<FeedEvent, FeedState> {
           left: () => tree.left,
           right: () => tree.right,
         );
-        return next != null
-            ? FeedState.available(tree: next)
-            : FeedState.empty();
+        return next != null ? FeedState.available(tree: next) : FeedState.empty();
       },
       empty: () => FeedState.empty(),
     );
