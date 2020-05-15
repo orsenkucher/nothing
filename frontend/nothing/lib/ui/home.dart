@@ -33,7 +33,7 @@ class Home extends HookWidget {
   Widget build(BuildContext context) {
     final focusNodeModel = FocusNodeModel(useFocusNode());
     final swipeTintController = useAnimationController();
-    final pageController = usePageController(initialPage: 1);
+    final pageController = usePageController(initialPage: 1, keepPage: true);
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => focusNodeModel.refocus(),
@@ -118,8 +118,10 @@ class Main extends HookWidget {
           builder: (context) => Stack(
             children: [
               _buildGame(context, wait),
-              _gestureDetector(context),
+              _buildRefocusDetector(context),
               _buildTitleKnobs(context, pageController),
+              if (wait.value)
+                _buildContinueDetector(context, wait),
               _buildHintButtons(context, showHint, hintTintController, wait),
               _buildTinter(context, hintTintController),
               if (showHint.value)
@@ -134,10 +136,16 @@ class Main extends HookWidget {
     );
   }
 
-  Widget _buildTinter(
-    BuildContext context,
-    AnimationController controller,
-  ) {
+  Widget _buildContinueDetector(BuildContext context, ValueNotifier<bool> wait) {
+    return GestureDetector(
+      child: Container(color: Colors.blue.withOpacity(0.2)),
+      onTap: () {
+        wait.value = false;
+      },
+    );
+  }
+
+  Widget _buildTinter(BuildContext context, AnimationController controller) {
     final anim = ColorTween(
       begin: Colors.black.withOpacity(0.0),
       end: Colors.black.withOpacity(0.1),
@@ -155,7 +163,7 @@ class Main extends HookWidget {
     );
   }
 
-  Widget _gestureDetector(BuildContext context) {
+  Widget _buildRefocusDetector(BuildContext context) {
     return Center(
       child: FractionallySizedBox(
         widthFactor: 0.6,
@@ -332,52 +340,6 @@ class Main extends HookWidget {
     return SafeArea(
         child: LayoutBuilder(
       builder: (context, constraints) => HookBuilder(builder: (context) {
-        final linkLike = useMemoized(() => LayerLink());
-        final linkDislike = useMemoized(() => LayerLink());
-        final overlayLike = useMemoized(() => OverlayEntry(
-            builder: (context) => CompositedTransformFollower(
-                link: linkLike,
-                child: GestureDetector(
-                  onTap: () {
-                    print('like');
-                    context.bloc<FeedBloc>().state.payload.when(
-                        available: (tree) {
-                          context.repository<LikesRepo>().report(tree.question.id, 1);
-                        },
-                        empty: () {});
-                  },
-                  behavior: HitTestBehavior.opaque,
-                  // child: Container(color: Colors.green.withOpacity(0.2)),
-                ))));
-        final overlayDislike = useMemoized(() => OverlayEntry(
-            builder: (context) => CompositedTransformFollower(
-                link: linkDislike,
-                child: GestureDetector(
-                  onTap: () {
-                    print('dislike');
-                    context.bloc<FeedBloc>().state.payload.when(
-                        available: (tree) {
-                          context.repository<LikesRepo>().report(tree.question.id, -1);
-                        },
-                        empty: () {});
-                  },
-                  behavior: HitTestBehavior.opaque,
-                  // child: Container(color: Colors.red.withOpacity(0.2)),
-                ))));
-        useEffect(() {
-          final listener = () {
-            if (wait.value) {
-              Overlay.of(context).insert(overlayLike);
-              Overlay.of(context).insert(overlayDislike);
-            } else {
-              overlayLike.remove();
-              overlayDislike.remove();
-            }
-          };
-          wait.addListener(listener);
-          return () => wait.removeListener(listener);
-        });
-
         double queH = min(
           280,
           constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
@@ -413,41 +375,46 @@ class Main extends HookWidget {
           'skip': () {
             context.bloc<ValidationBloc>().add(ValidationEvent.skip());
           },
-          'like': () {},
-          'dislike': () {},
-        };
-        final ww = {
-          'hint': (w) => w,
-          'skip': (w) => w,
-          'like': (w) => CompositedTransformTarget(child: w, link: linkLike),
-          'dislike': (w) => CompositedTransformTarget(child: w, link: linkDislike),
+          'like': () {
+            print('like');
+            context.bloc<FeedBloc>().state.payload.when(
+                available: (tree) {
+                  context.repository<LikesRepo>().report(tree.question.id, 1);
+                },
+                empty: () {});
+          },
+          'dislike': () {
+            print('dislike');
+            context.bloc<FeedBloc>().state.payload.when(
+                available: (tree) {
+                  context.repository<LikesRepo>().report(tree.question.id, -1);
+                },
+                empty: () {});
+          },
         };
         final bb = (!wait.value ? ['hint', 'skip'] : ['like', 'dislike'])
-            .map(
-          (l) => Expanded(
-              child: ww[l](
-            FlatButton(
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-              color: cc[l],
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    ii[l],
-                    size: 24,
-                    color: Colors.white,
+            .map((l) => Expanded(
+                  child: FlatButton(
+                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    color: cc[l],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          ii[l],
+                          size: 24,
+                          color: Colors.white,
+                        ),
+                        // SizedBox(width: 4),
+                        text(ll[l]),
+                      ],
+                    ),
+                    onPressed: pp[l],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: NothingScheme.of(context).hintBorder,
+                    ),
                   ),
-                  // SizedBox(width: 4),
-                  text(ll[l]),
-                ],
-              ),
-              onPressed: pp[l],
-              shape: RoundedRectangleBorder(
-                borderRadius: NothingScheme.of(context).hintBorder,
-              ),
-            ),
-          )),
-        )
+                ))
             .expand((w) sync* {
           yield w;
           yield const SizedBox(width: 16);
@@ -495,45 +462,25 @@ class Main extends HookWidget {
             280,
             constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
           );
-          return HookBuilder(
-            builder: (context) {
-              final overlay = useMemoized(() => OverlayEntry(
-                    builder: (context) => GestureDetector(
-                      // child: Container(color: Colors.green.withOpacity(0.2)),
-                      onTap: () {
-                        wait.value = false;
-                      },
-                    ),
-                  ));
-              useEffect(() {
-                final listener = () {
-                  if (wait.value) {
-                    Overlay.of(context).insert(overlay);
-                  } else {
-                    overlay.remove();
-                  }
-                };
-                wait.addListener(listener);
-                return () => wait.removeListener(listener);
-              });
-
-              final orElse = () => false;
-              return BlocListener<ValidationBloc, ValidationState>(
-                condition: (_, state) => state.maybeWhen(
-                    just: (state) => state.maybeMap(correct: (_) => true, wrong: (_) => true, orElse: orElse), orElse: orElse),
-                listener: (context, state) {
-                  wait.value = state.maybeWhen(
-                      just: (state) => state.maybeMap(correct: (_) => true, wrong: (_) => false, orElse: orElse), orElse: orElse);
-                },
-                child: Column(children: [
-                  SizedBox(height: 21),
-                  SizedBox(child: Label()),
-                  SizedBox(height: 12),
-                  SizedBox(height: queH, child: Center(child: Question(wait))),
-                  SizedBox(height: ansH, child: Answer(wait)),
-                ]),
+          final orElse = () => false;
+          return BlocListener<ValidationBloc, ValidationState>(
+            condition: (_, state) => state.maybeWhen(
+              just: (state) => state.maybeMap(correct: (_) => true, wrong: (_) => true, orElse: orElse),
+              orElse: orElse,
+            ),
+            listener: (context, state) {
+              wait.value = state.maybeWhen(
+                just: (state) => state.maybeMap(correct: (_) => true, wrong: (_) => false, orElse: orElse),
+                orElse: orElse,
               );
             },
+            child: Column(children: [
+              SizedBox(height: 21),
+              SizedBox(child: Label()),
+              SizedBox(height: 12),
+              SizedBox(height: queH, child: Center(child: Question(wait))),
+              SizedBox(height: ansH, child: Answer(wait)),
+            ]),
           );
         },
       ),
