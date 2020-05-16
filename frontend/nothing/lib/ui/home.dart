@@ -115,22 +115,20 @@ class Main extends HookWidget {
       child: ScopedModel<TextModel>(
         model: textModel,
         child: Builder(
-          builder: (context) => Stack(
-            children: [
-              _buildGame(context, wait),
-              _buildRefocusDetector(context),
-              _buildTitleKnobs(context, pageController),
-              if (wait.value)
-                _buildContinueDetector(context, wait),
-              _buildHintButtons(context, showHint, hintTintController, wait),
-              _buildTinter(context, hintTintController),
-              if (showHint.value)
-                _buildHint(context, showHint, hintTintController),
-              _buildTinter(context, swipeTintController),
-              _buildTextField(context, wait),
-              // Center(child: Image.asset("assets/tutor.gif"))
-            ],
-          ),
+          builder: (context) => Stack(children: [
+            _buildGame(context, wait),
+            _buildRefocusDetector(context),
+            _buildTitleKnobs(context, pageController),
+            if (wait.value)
+              _buildContinueDetector(context, wait),
+            _buildHintButtons(context, showHint, hintTintController, wait),
+            _buildTinter(context, hintTintController),
+            if (showHint.value)
+              _buildHint(context, showHint, hintTintController),
+            _buildTinter(context, swipeTintController),
+            _buildTextField(context, wait),
+            // Center(child: Image.asset("assets/tutor.gif"))
+          ]),
         ),
       ),
     );
@@ -191,9 +189,9 @@ class Main extends HookWidget {
                 textController.clear();
                 textModel.update('');
               },
-              neutral: (_) {},
+              neutral: (_) => domain.void$(),
             ),
-            orElse: () {},
+            orElse: () => domain.void$(),
           );
         },
         child: Visibility(
@@ -273,6 +271,7 @@ class Main extends HookWidget {
                           builder: (context, state) => AutoSizeText(
                             state.payload.when(
                               available: (tree) => tree.question.explanation,
+                              pending: (oldTree, _) => oldTree.question.explanation,
                               empty: () => '',
                             ),
                             maxLines: 4,
@@ -378,18 +377,20 @@ class Main extends HookWidget {
           'like': () {
             print('like');
             context.bloc<FeedBloc>().state.payload.when(
-                available: (tree) {
-                  context.repository<LikesRepo>().report(tree.question.id, 1);
+                available: (_) => domain.error$(),
+                pending: (oldTree, _) {
+                  context.repository<LikesRepo>().report(oldTree.question.id, 1);
                 },
-                empty: () {});
+                empty: () => domain.void$());
           },
           'dislike': () {
             print('dislike');
             context.bloc<FeedBloc>().state.payload.when(
-                available: (tree) {
-                  context.repository<LikesRepo>().report(tree.question.id, -1);
+                available: (_) => domain.error$(),
+                pending: (oldTree, _) {
+                  context.repository<LikesRepo>().report(oldTree.question.id, -1);
                 },
-                empty: () {});
+                empty: () => domain.void$());
           },
         };
         final bb = (!wait.value ? ['hint', 'skip'] : ['like', 'dislike'])

@@ -5,6 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'domain.freezed.dart';
 part 'domain.g.dart';
 
+void void$() {}
+
+error$() => throw UnimplementedError();
+
 @freezed
 abstract class Question with _$Question {
   factory Question({

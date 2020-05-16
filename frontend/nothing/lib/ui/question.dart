@@ -37,6 +37,7 @@ class Question extends HookWidget {
       child: AutoSizeText(
         question.value.payload.when(
           available: (tree) => tree.question.question,
+          pending: (oldTree, _) => oldTree.question.question,
           empty: () => '',
         ),
         maxLines: 7,

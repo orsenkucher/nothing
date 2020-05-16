@@ -14,6 +14,7 @@ part 'bloc.g.dart';
 abstract class FeedEvent with _$FeedEvent {
   const factory FeedEvent.newArrived(QTree tree) = NewArrived;
   const factory FeedEvent.moveNext(MoveDir dir) = MoveNext;
+  const factory FeedEvent.ground() = Ground;
 }
 
 @freezed
@@ -26,8 +27,15 @@ abstract class MoveDir with _$MoveDir {
 abstract class FeedState with _$FeedState {
   const factory FeedState.available({
     @required @JsonKey(toJson: _toT) QTree tree,
-  }) = _Available;
-  const factory FeedState.empty() = _Empty;
+  }) = Available;
+
+  // TODO: or is it another bloc created?
+  const factory FeedState.pending({
+    @required @JsonKey(toJson: _toT) QTree oldTree,
+    @required @JsonKey(toJson: _toT) QTree newTree,
+  }) = Pending;
+
+  const factory FeedState.empty() = Empty;
 
   factory FeedState.fromJson(Map<String, dynamic> json) => _$FeedStateFromJson(json);
 }
@@ -46,6 +54,7 @@ class FeedBloc extends IgnitedBloc<FeedEvent, FeedState> {
   void ignition(FeedState paylaod) {
     paylaod.when(
       available: (tree) => add(FeedEvent.newArrived(tree)),
+      pending: (_, __) => void$(), // nothing should be done
       empty: () => questionsBloc.add(QuestionsEvent.fetch()),
     );
   }
@@ -55,26 +64,26 @@ class FeedBloc extends IgnitedBloc<FeedEvent, FeedState> {
 
   @override
   Stream<FeedState> mapEventToPayload(FeedEvent event) async* {
-    final next = event.map(
-      moveNext: _mapMoveNext,
-      newArrived: (n) => FeedState.available(tree: n.tree),
-    );
-    yield next;
-  }
-
-  FeedState _mapMoveNext(MoveNext event) {
     final next = payload.when<FeedState>(
-      available: (tree) {
-        final next = event.dir.when(
-          left: () => tree.left,
-          right: () => tree.right,
-        );
-        return next != null ? FeedState.available(tree: next) : FeedState.empty();
-      },
+      available: (tree) => event.when(
+        moveNext: (dir) {
+          final next = dir.when(
+            left: () => tree.left,
+            right: () => tree.right,
+          );
+          return next != null ? FeedState.pending(oldTree: tree, newTree: next) : FeedState.empty();
+        },
+        ground: () => error$(), // this should never happen
+        newArrived: (tree) => FeedState.available(tree: tree),
+      ),
+      pending: (oldTree, newTree) => event.when(
+        moveNext: (_) => error$(), // this should never happen
+        ground: () => FeedState.available(tree: newTree),
+        newArrived: (tree) => FeedState.available(tree: tree),
+      ),
       empty: () => FeedState.empty(),
     );
-    print(next);
-    return next;
+    yield next;
   }
 
   @override

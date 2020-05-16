@@ -19,6 +19,7 @@ import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/domain/domain.dart';
 import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/repository/ads.dart';
 import 'package:nothing/repository/likes.dart';
@@ -111,10 +112,10 @@ class App extends StatelessWidget with PortraitLock {
                     seconds: duration.inSeconds,
                   ));
                 },
-                orElse: () {},
+                orElse: () => void$(),
               );
             },
-            orElse: () {},
+            orElse: () => void$(),
           );
         },
       ),
@@ -131,11 +132,12 @@ class App extends StatelessWidget with PortraitLock {
                     orElse: () => 0,
                   )),
             )),
-            nothing: () {},
+            nothing: () => void$(),
           );
         },
       ),
       BlocBinder<QuestionsBloc, QuestionsState, FeedBloc, Ignitable<FeedState>>(
+        // TODO: problems here
         direct: (context, state, bloc) {
           if (state is Loaded) {
             if (state?.questions?.question != null) {
@@ -146,7 +148,8 @@ class App extends StatelessWidget with PortraitLock {
         reverse: (context, state, bloc) => state.payload.when(
           available: (tree) => bloc.add(
             QuestionsEvent.fetch(tree.question.id),
-          ),
+          ), // should it be here?
+          pending: (_, __) => void$(),
           empty: () => bloc.add(QuestionsEvent.fetch()),
         ),
       ),
@@ -162,15 +165,16 @@ class App extends StatelessWidget with PortraitLock {
               skip: (question, tries, duration) => bloc.add(
                 FeedEvent.moveNext(MoveDir.left()),
               ),
-              orElse: () {},
+              orElse: () => void$(),
             ),
-            orElse: () {},
+            orElse: () => void$(),
           );
         },
         reverse: (context, state, bloc) {
           state.payload.when(
             available: (tree) => bloc.add(ValidationEvent.focus(tree.question)),
-            empty: () {},
+            pending: (_, __) => void$(),
+            empty: () => void$(),
           );
         },
       ),
