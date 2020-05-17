@@ -137,7 +137,6 @@ class App extends StatelessWidget with PortraitLock {
         },
       ),
       BlocBinder<QuestionsBloc, QuestionsState, FeedBloc, Ignitable<FeedState>>(
-        // TODO: problems here
         direct: (context, state, bloc) {
           if (state is Loaded) {
             if (state?.questions?.question != null) {
@@ -146,9 +145,7 @@ class App extends StatelessWidget with PortraitLock {
           }
         },
         reverse: (context, state, bloc) => state.payload.when(
-          available: (tree) => bloc.add(
-            QuestionsEvent.fetch(tree.question.id),
-          ), // should it be here?
+          available: (_) => void$(),
           pending: (_, __) => void$(),
           empty: () => bloc.add(QuestionsEvent.fetch()),
         ),
