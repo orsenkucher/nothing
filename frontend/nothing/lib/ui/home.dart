@@ -180,19 +180,31 @@ class Main extends HookWidget {
       final focusNodeModel = FocusNodeModel.of(context);
       final textController = useTextEditingController();
 
-      return BlocListener<ValidationBloc, ValidationState>(
-        listener: (context, state) {
-          state.maybeWhen(
-            just: (just) => just.maybeMap(
-              orElse: () {
+      return MultiBlocListener(
+        listeners: [
+          BlocListener<ValidationBloc, ValidationState>(listener: (context, state) {
+            state.maybeWhen(
+              just: (just) => just.maybeMap(
+                wrong: (_) {
+                  textController.clear();
+                  textModel.update('');
+                },
+                orElse: () => domain.void$(),
+              ),
+              orElse: () => domain.void$(),
+            );
+          }),
+          BlocListener<FeedBloc, ignitor.Ignitable<FeedState>>(listener: (context, state) {
+            state.payload.when(
+              available: (_) {
                 textController.clear();
                 textModel.update('');
               },
-              neutral: (_) => domain.void$(),
-            ),
-            orElse: () => domain.void$(),
-          );
-        },
+              pending: (_, __) => domain.void$(),
+              empty: () => domain.void$(),
+            );
+          }),
+        ],
         child: Visibility(
           visible: false,
           maintainState: true,
