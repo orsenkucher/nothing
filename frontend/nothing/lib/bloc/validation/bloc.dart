@@ -117,8 +117,8 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
                   question,
                   [...answers, answer],
                   state.map(
-                    correct: (c) => throw UnimplementedError(),
-                    skip: (c) => throw UnimplementedError(),
+                    correct: (c) => error$(),
+                    skip: (c) => error$(),
                     neutral: (n) => n.timePoints.add(TimePoint.suspendNow()).duration,
                     wrong: (w) => w.timePoints.add(TimePoint.suspendNow()).duration,
                   ))
@@ -126,8 +126,8 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
                   question,
                   [...answers, answer],
                   state.map(
-                    correct: (c) => throw UnimplementedError(),
-                    skip: (c) => throw UnimplementedError(),
+                    correct: (c) => error$(),
+                    skip: (c) => error$(),
                     neutral: (n) => n.timePoints,
                     wrong: (w) => w.timePoints,
                   ));
