@@ -407,7 +407,7 @@ class Main extends HookWidget {
               },
             };
 
-            final bb = (state.payload is Available ? ['hint', 'skip'] : ['like', 'dislike'])
+            final bb = (state.payload is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
                 .map((l) => Expanded(
                       child: FlatButton(
                         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),

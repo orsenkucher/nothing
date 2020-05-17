@@ -78,10 +78,19 @@ class FeedBloc extends IgnitedBloc<FeedEvent, FeedState> {
       ),
       pending: (oldTree, newTree) => event.when(
         moveNext: (_) => error$(), // this should never happen
-        ground: () => FeedState.available(tree: newTree),
+        ground: () {
+          questionsBloc.add(
+            QuestionsEvent.fetch(newTree.question.id),
+          );
+          return FeedState.available(tree: newTree);
+        },
         newArrived: (tree) => FeedState.available(tree: tree),
       ),
-      empty: () => FeedState.empty(),
+      empty: () => event.when(
+        newArrived: (tree) => FeedState.available(tree: tree),
+        moveNext: (_) => FeedState.empty(),
+        ground: () => FeedState.empty(),
+      ),
     );
     yield next;
   }
