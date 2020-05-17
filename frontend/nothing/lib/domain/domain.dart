@@ -7,7 +7,25 @@ part 'domain.g.dart';
 
 void void$() {}
 
-error$() => throw UnimplementedError();
+class DomainException implements Exception {
+  final message;
+  DomainException([this.message]);
+
+  String toString() {
+    if (message == null) return "DomainException";
+    return "DomainException: $message";
+  }
+}
+
+error$() {
+  assert(() {
+    try {
+      throw DomainException();
+    } on DomainException catch (error, stack) {
+      throw DomainException(stack);
+    }
+  }());
+}
 
 @freezed
 abstract class Question with _$Question {

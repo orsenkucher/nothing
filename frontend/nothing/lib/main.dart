@@ -162,9 +162,10 @@ class App extends StatelessWidget with PortraitLock {
                   duration.inSeconds > 80 ? MoveDir.left() : MoveDir.right(),
                 ),
               ),
-              skip: (question, tries, duration) => bloc.add(
-                FeedEvent.moveNext(MoveDir.left()),
-              ),
+              skip: (question, tries, duration) {
+                bloc.add(FeedEvent.moveNext(MoveDir.left()));
+                bloc.add(FeedEvent.ground());
+              },
               orElse: () => void$(),
             ),
             orElse: () => void$(),

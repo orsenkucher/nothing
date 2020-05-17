@@ -139,6 +139,7 @@ class Main extends HookWidget {
       child: Container(color: Colors.blue.withOpacity(0.2)),
       onTap: () {
         wait.value = false;
+        context.bloc<FeedBloc>().add(FeedEvent.ground());
       },
     );
   }
