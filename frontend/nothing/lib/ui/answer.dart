@@ -8,7 +8,7 @@ import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart';
 import 'package:nothing/ignitor/ignitor.dart' as ignitor;
 import 'package:nothing/model/text.dart';
-import 'package:vibrate/vibrate.dart';
+// import 'package:vibrate/vibrate.dart';
 
 class Answer extends HookWidget {
   const Answer({Key key}) : super(key: key);
@@ -70,8 +70,8 @@ class Answer extends HookWidget {
                 await controller.reverse();
               },
               correct: (_) async {
-                var type = FeedbackType.success;
-                Vibrate.feedback(type);
+                // var type = FeedbackType.success;
+                // Vibrate.feedback(type);
                 await controller.forward();
                 // controller.reset();
               },
