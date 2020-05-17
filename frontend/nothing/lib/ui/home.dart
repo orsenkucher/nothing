@@ -17,7 +17,7 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart' as domain;
-import 'package:nothing/ignitor/ignitor.dart';
+import 'package:nothing/ignitor/ignitor.dart' as ignitor;
 import 'package:nothing/model/text.dart';
 import 'package:nothing/ui/cointext.dart';
 import 'package:nothing/ui/history.dart';
@@ -108,25 +108,24 @@ class Main extends HookWidget {
     final textModel = useMemoized(() => TextModel());
     final hintTintController = useAnimationController();
     final showHint = useState(false);
-    final wait = useState(false);
 
     return Container(
       color: NothingScheme.of(context).background,
       child: ScopedModel<TextModel>(
         model: textModel,
-        child: Builder(
-          builder: (context) => Stack(children: [
-            _buildGame(context, wait),
+        child: BlocBuilder<FeedBloc, ignitor.Ignitable<FeedState>>(
+          builder: (context, state) => Stack(children: [
+            _buildGame(context),
             _buildRefocusDetector(context),
             _buildTitleKnobs(context, pageController),
-            if (wait.value)
-              _buildContinueDetector(context, wait),
-            _buildHintButtons(context, showHint, hintTintController, wait),
+            if (state.payload is Pending)
+              _buildContinueDetector(context),
+            _buildHintButtons(context, showHint, hintTintController),
             _buildTinter(context, hintTintController),
             if (showHint.value)
               _buildHint(context, showHint, hintTintController),
             _buildTinter(context, swipeTintController),
-            _buildTextField(context, wait),
+            _buildTextField(context),
             // Center(child: Image.asset("assets/tutor.gif"))
           ]),
         ),
@@ -134,11 +133,10 @@ class Main extends HookWidget {
     );
   }
 
-  Widget _buildContinueDetector(BuildContext context, ValueNotifier<bool> wait) {
+  Widget _buildContinueDetector(BuildContext context) {
     return GestureDetector(
-      child: Container(color: Colors.blue.withOpacity(0.2)),
+      // child: Container(color: Colors.blue.withOpacity(0.2)),
       onTap: () {
-        wait.value = false;
         context.bloc<FeedBloc>().add(FeedEvent.ground());
       },
     );
@@ -176,7 +174,7 @@ class Main extends HookWidget {
     );
   }
 
-  Widget _buildTextField(BuildContext context, ValueNotifier<bool> wait) {
+  Widget _buildTextField(BuildContext context) {
     return HookBuilder(builder: (context) {
       final textModel = TextModel.of(context);
       final focusNodeModel = FocusNodeModel.of(context);
@@ -208,8 +206,10 @@ class Main extends HookWidget {
             keyboardAppearance: NothingScheme.of(context).brightness,
             keyboardType: TextInputType.text,
             onSubmitted: (s) async {
-              if (wait.value) {
-                wait.value = false;
+              // ignore: close_sinks
+              final bloc = context.bloc<FeedBloc>();
+              if (bloc.payload is Pending) {
+                bloc.add(FeedEvent.ground());
                 focusNodeModel.refocus();
                 return;
               }
@@ -222,7 +222,7 @@ class Main extends HookWidget {
             },
             textInputAction: TextInputAction.go,
             onChanged: (s) {
-              if (wait.value) {
+              if (context.bloc<FeedBloc>().payload is Pending) {
                 textController.clear();
                 return;
               }
@@ -268,7 +268,7 @@ class Main extends HookWidget {
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                        child: BlocBuilder<FeedBloc, Ignitable<FeedState>>(
+                        child: BlocBuilder<FeedBloc, ignitor.Ignitable<FeedState>>(
                           builder: (context, state) => AutoSizeText(
                             state.payload.when(
                               available: (tree) => tree.question.explanation,
@@ -335,111 +335,114 @@ class Main extends HookWidget {
     BuildContext context,
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
-    ValueNotifier<bool> wait,
   ) {
-    return SafeArea(
-        child: LayoutBuilder(
-      builder: (context, constraints) => HookBuilder(builder: (context) {
-        double queH = min(
-          280,
-          constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
-        );
-        const pad = 8;
-        const hor = 40.0;
-        final top = queH + labelH + ansH + pad;
-        text(String text) => Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
-        const ll = {
-          'hint': 'Хинт',
-          'skip': 'Скип',
-          'like': '',
-          'dislike': '',
-        };
-        final cc = {
-          'hint': NothingScheme.of(context).hint,
-          'skip': NothingScheme.of(context).skip,
-          'like': NothingScheme.of(context).correct,
-          'dislike': NothingScheme.of(context).wrong,
-        };
-        final ii = {
-          'hint': Icons.lightbulb_outline,
-          'skip': Icons.clear,
-          'like': Icons.check,
-          'dislike': Icons.check_box_outline_blank,
-        };
-        final pp = {
-          'hint': () => _hintClick(
-                context,
-                showHint,
-                hintTintController,
-              ),
-          'skip': () {
-            context.bloc<ValidationBloc>().add(ValidationEvent.skip());
-          },
-          'like': () {
-            print('like');
-            context.bloc<FeedBloc>().state.payload.when(
-                available: (_) => domain.error$(),
-                pending: (oldTree, _) {
-                  context.repository<LikesRepo>().report(oldTree.question.id, 1);
-                },
-                empty: () => domain.void$());
-          },
-          'dislike': () {
-            print('dislike');
-            context.bloc<FeedBloc>().state.payload.when(
-                available: (_) => domain.error$(),
-                pending: (oldTree, _) {
-                  context.repository<LikesRepo>().report(oldTree.question.id, -1);
-                },
-                empty: () => domain.void$());
-          },
-        };
-        final bb = (!wait.value ? ['hint', 'skip'] : ['like', 'dislike'])
-            .map((l) => Expanded(
-                  child: FlatButton(
-                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                    color: cc[l],
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          ii[l],
-                          size: 24,
-                          color: Colors.white,
-                        ),
-                        // SizedBox(width: 4),
-                        text(ll[l]),
-                      ],
-                    ),
-                    onPressed: pp[l],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: NothingScheme.of(context).hintBorder,
-                    ),
+    return SafeArea(child: LayoutBuilder(
+      builder: (context, constraints) {
+        return BlocBuilder<FeedBloc, ignitor.Ignitable<FeedState>>(
+          builder: (context, state) {
+            double queH = min(
+              280,
+              constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
+            );
+            const pad = 8;
+            const hor = 40.0;
+            final top = queH + labelH + ansH + pad;
+            text(String text) => Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
+            const ll = {
+              'hint': 'Хинт',
+              'skip': 'Скип',
+              'like': '',
+              'dislike': '',
+            };
+            final cc = {
+              'hint': NothingScheme.of(context).hint,
+              'skip': NothingScheme.of(context).skip,
+              'like': NothingScheme.of(context).correct,
+              'dislike': NothingScheme.of(context).wrong,
+            };
+            final ii = {
+              'hint': Icons.lightbulb_outline,
+              'skip': Icons.clear,
+              'like': Icons.check,
+              'dislike': Icons.check_box_outline_blank,
+            };
+            final pp = {
+              'hint': () => _hintClick(
+                    context,
+                    showHint,
+                    hintTintController,
                   ),
-                ))
-            .expand((w) sync* {
-          yield w;
-          yield const SizedBox(width: 16);
-          // yield Container(width: 16, height: 10, color: Colors.red);
-        });
-        return Stack(
-          children: [
-            Positioned(
-              top: top,
-              left: hor,
-              right: hor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  ...bb,
-                  CoinText(),
-                ],
-              ),
-            ),
-          ],
+              'skip': () {
+                context.bloc<ValidationBloc>().add(ValidationEvent.skip());
+              },
+              'like': () {
+                print('like');
+                context.bloc<FeedBloc>().state.payload.when(
+                    available: (_) => domain.error$(),
+                    pending: (oldTree, _) {
+                      context.repository<LikesRepo>().report(oldTree.question.id, 1);
+                    },
+                    empty: () => domain.void$());
+              },
+              'dislike': () {
+                print('dislike');
+                context.bloc<FeedBloc>().state.payload.when(
+                    available: (_) => domain.error$(),
+                    pending: (oldTree, _) {
+                      context.repository<LikesRepo>().report(oldTree.question.id, -1);
+                    },
+                    empty: () => domain.void$());
+              },
+            };
+
+            final bb = (state.payload is Available ? ['hint', 'skip'] : ['like', 'dislike'])
+                .map((l) => Expanded(
+                      child: FlatButton(
+                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                        color: cc[l],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              ii[l],
+                              size: 24,
+                              color: Colors.white,
+                            ),
+                            // SizedBox(width: 4),
+                            text(ll[l]),
+                          ],
+                        ),
+                        onPressed: pp[l],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: NothingScheme.of(context).hintBorder,
+                        ),
+                      ),
+                    ))
+                .expand((w) sync* {
+              yield w;
+              yield const SizedBox(width: 16);
+              // yield Container(width: 16, height: 10, color: Colors.red);
+            });
+            return Stack(
+              children: [
+                Positioned(
+                  top: top,
+                  left: hor,
+                  right: hor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      ...bb,
+                      CoinText(),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
         );
-      }),
+      },
     ));
   }
 
@@ -456,7 +459,7 @@ class Main extends HookWidget {
 
   final double labelH = 50;
   final double ansH = 72;
-  Widget _buildGame(BuildContext context, ValueNotifier<bool> wait) {
+  Widget _buildGame(BuildContext context) {
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -464,26 +467,13 @@ class Main extends HookWidget {
             280,
             constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
           );
-          final orElse = () => false;
-          return BlocListener<ValidationBloc, ValidationState>(
-            condition: (_, state) => state.maybeWhen(
-              just: (state) => state.maybeMap(correct: (_) => true, wrong: (_) => true, orElse: orElse),
-              orElse: orElse,
-            ),
-            listener: (context, state) {
-              wait.value = state.maybeWhen(
-                just: (state) => state.maybeMap(correct: (_) => true, wrong: (_) => false, orElse: orElse),
-                orElse: orElse,
-              );
-            },
-            child: Column(children: [
-              SizedBox(height: 21),
-              SizedBox(child: Label()),
-              SizedBox(height: 12),
-              SizedBox(height: queH, child: Center(child: Question(wait))),
-              SizedBox(height: ansH, child: Answer(wait)),
-            ]),
-          );
+          return Column(children: [
+            SizedBox(height: 21),
+            SizedBox(child: Label()),
+            SizedBox(height: 12),
+            SizedBox(height: queH, child: Center(child: Question())),
+            SizedBox(height: ansH, child: Answer()),
+          ]);
         },
       ),
     );

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart';
@@ -9,47 +10,59 @@ import 'package:nothing/model/text.dart';
 import 'package:vibrate/vibrate.dart';
 
 class Answer extends HookWidget {
-  const Answer(this.wait, {Key key}) : super(key: key);
-
-  final ValueNotifier<bool> wait;
+  const Answer({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     const duration = Duration(milliseconds: 300);
     final controller = useAnimationController(duration: duration);
     final answerText = useState('');
+    // useEffect(() {
+    //   final textModel = TextModel.of(context);
+    //   final textListener = () {
+    //     if (!wait.value) {
+    //       answerText.value = textModel.text ?? '';
+    //     }
+    //   };
+    //   textModel.addListener(textListener);
+
+    //   final waitListener = () {
+    //     if (!wait.value) {
+    //       controller.reset();
+    //       textListener();
+    //     }
+    //   };
+    //   wait.addListener(waitListener);
+
+    //   return () {
+    //     textModel.removeListener(textListener);
+    //     wait.removeListener(waitListener);
+    //   };
+    // });
+
+    // useEffect(() {
+    //   final textModel = TextModel.of(context);
+    //   final listener = () {
+    //     if (!wait.value) {
+    //       answerText.value = textModel.text ?? '';
+    //     }
+    //   };
+    //   textModel.addListener(listener);
+    //   return () => textModel.removeListener(listener);
+    // });
+
     useEffect(() {
       final textModel = TextModel.of(context);
-      final textListener = () {
-        if (!wait.value) {
-          answerText.value = textModel.text ?? '';
-        }
-      };
-      textModel.addListener(textListener);
-
-      final waitListener = () {
-        if (!wait.value) {
-          controller.reset();
-          textListener();
-        }
-      };
-      wait.addListener(waitListener);
-
-      return () {
-        textModel.removeListener(textListener);
-        wait.removeListener(waitListener);
-      };
-    });
-
-    useEffect(() {
-      final textModel = TextModel.of(context);
-      final listener = () {
-        if (!wait.value) {
-          answerText.value = textModel.text ?? '';
-        }
-      };
-      textModel.addListener(listener);
-      return () => textModel.removeListener(listener);
+      final sub = context.bloc<FeedBloc>().skip(1).listen((state) {
+        state.payload.when(
+            available: (_) {
+              answerText.value = textModel.text ?? '';
+              controller.reset();
+            },
+            pending: (_, __) => void$,
+            empty: () => void$);
+      });
+      return () => sub.cancel();
     });
 
     const shift = 8.0;
