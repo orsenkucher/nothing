@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nothing/hooks/pagecontroller.dart';
+import 'package:nothing/icons/icons.dart';
 import 'package:nothing/model/focusnode.dart';
 import 'package:nothing/repository/likes.dart';
 import 'package:nothing/ui/menu.dart';
@@ -373,10 +374,16 @@ class Main extends HookWidget {
               'dislike': NothingScheme.of(context).wrong,
             };
             final ii = {
-              'hint': Icons.lightbulb_outline,
-              'skip': Icons.clear,
-              'like': Icons.check,
-              'dislike': Icons.check_box_outline_blank,
+              'hint': NothingFont.hint,
+              'skip': NothingFont.skip,
+              'like': NothingFont.like,
+              'dislike': NothingFont.like,
+            };
+            final id = <String, Widget Function(Widget)>{
+              'hint': (_) => _,
+              'skip': (_) => Transform.scale(scale: 0.65, child: _),
+              'like': (_) => _,
+              'dislike': (_) => Transform.rotate(angle: pi, child: _),
             };
             final pp = {
               'hint': () => _hintClick(
@@ -415,12 +422,13 @@ class Main extends HookWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            SizedBox(width: 2),
+                            id[l](Icon(
                               ii[l],
                               size: 24,
                               color: Colors.white,
-                            ),
-                            // SizedBox(width: 4),
+                            )),
+                            SizedBox(width: 2),
                             text(ll[l]),
                           ],
                         ),

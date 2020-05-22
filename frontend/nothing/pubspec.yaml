@@ -47,5 +47,8 @@ flutter:
     - family: Gilroy
       fonts:
         - asset: fonts/Gilroy-Bold.ttf
+    - family: NothingFont
+      fonts:
+        - asset: fonts/NothingFont.ttf
   assets:
     - assets/tutor.gif
