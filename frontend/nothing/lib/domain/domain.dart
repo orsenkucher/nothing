@@ -5,6 +5,28 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'domain.freezed.dart';
 part 'domain.g.dart';
 
+void void$() {}
+
+class DomainException implements Exception {
+  final message;
+  DomainException([this.message]);
+
+  String toString() {
+    if (message == null) return "DomainException";
+    return "DomainException: $message";
+  }
+}
+
+error$() {
+  assert(() {
+    try {
+      throw DomainException();
+    } on DomainException catch (error, stack) {
+      throw DomainException(stack);
+    }
+  }());
+}
+
 @freezed
 abstract class Question with _$Question {
   factory Question({
@@ -18,8 +40,7 @@ abstract class Question with _$Question {
   @late
   List<String> get splitted => answers.split(r'<$>');
 
-  factory Question.fromJson(Map<String, dynamic> json) =>
-      _$QuestionFromJson(json);
+  factory Question.fromJson(Map<String, dynamic> json) => _$QuestionFromJson(json);
 } // our brand new separator: <$>
 
 // @JsonKey(toJson: _to) List<Question> tree,

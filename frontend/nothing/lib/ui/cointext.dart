@@ -29,10 +29,7 @@ class CoinText extends HookWidget {
 
     Widget mainRow(BuildContext context, CoinState state) {
       return Row(children: [
-        CircleAvatar(
-            backgroundColor: NothingScheme.of(context).knob,
-            foregroundColor: Colors.black,
-            child: Icon(Icons.vpn_key)),
+        CircleAvatar(backgroundColor: NothingScheme.of(context).knob, foregroundColor: Colors.black, child: Icon(Icons.vpn_key)),
         SizedBox(width: 4),
         Text(
           '${state.total}'.padLeft(2, '0'),

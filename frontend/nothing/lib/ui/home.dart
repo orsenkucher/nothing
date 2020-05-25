@@ -4,7 +4,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nothing/hooks/pagecontroller.dart';
+import 'package:nothing/icons/icons.dart';
 import 'package:nothing/model/focusnode.dart';
+import 'package:nothing/repository/likes.dart';
 import 'package:nothing/ui/menu.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart' as domain;
-import 'package:nothing/ignitor/ignitor.dart';
+import 'package:nothing/ignitor/ignitor.dart' as ignitor;
 import 'package:nothing/model/text.dart';
 import 'package:nothing/ui/cointext.dart';
 import 'package:nothing/ui/history.dart';
@@ -32,7 +34,7 @@ class Home extends HookWidget {
   Widget build(BuildContext context) {
     final focusNodeModel = FocusNodeModel(useFocusNode());
     final swipeTintController = useAnimationController();
-    final pageController = usePageController(initialPage: 1);
+    final pageController = usePageController(initialPage: 1, keepPage: true);
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => focusNodeModel.refocus(),
@@ -56,15 +58,10 @@ class Home extends HookWidget {
                 const duration = Duration(milliseconds: 300);
                 const curve = Curves.easeInOut;
                 void onBack() {
-                  pageController.animateToPage(1,
-                      duration: duration, curve: curve);
+                  pageController.animateToPage(1, duration: duration, curve: curve);
                 }
 
-                return [
-                  Menu(onBack),
-                  Main(swipeTintController, pageController),
-                  History(onBack)
-                ];
+                return [Menu(onBack), Main(swipeTintController, pageController), History(onBack)];
               }(),
             ),
           ),
@@ -112,36 +109,41 @@ class Main extends HookWidget {
     final textModel = useMemoized(() => TextModel());
     final hintTintController = useAnimationController();
     final showHint = useState(false);
-    final wait = useState(false);
 
     return Container(
       color: NothingScheme.of(context).background,
       child: ScopedModel<TextModel>(
         model: textModel,
-        child: Builder(
-          builder: (context) => Stack(
-            children: [
-              _buildGame(context, wait),
-              _gestureDetector(context),
-              _buildTitleKnobs(context, pageController),
-              _buildHintButtons(context, showHint, hintTintController, wait),
-              _buildTinter(context, hintTintController),
-              if (showHint.value)
-                _buildHint(context, showHint, hintTintController),
-              _buildTinter(context, swipeTintController),
-              _buildTextField(context, wait),
-              // Center(child: Image.asset("assets/tutor.gif"))
-            ],
-          ),
+        child: BlocBuilder<FeedBloc, ignitor.Ignitable<FeedState>>(
+          builder: (context, state) => Stack(children: [
+            _buildGame(context),
+            _buildRefocusDetector(context),
+            _buildTitleKnobs(context, pageController),
+            if (state.payload is Pending)
+              _buildContinueDetector(context),
+            _buildHintButtons(context, showHint, hintTintController),
+            _buildTinter(context, hintTintController),
+            if (showHint.value)
+              _buildHint(context, showHint, hintTintController),
+            _buildTinter(context, swipeTintController),
+            _buildTextField(context),
+            // Center(child: Image.asset("assets/tutor.gif"))
+          ]),
         ),
       ),
     );
   }
 
-  Widget _buildTinter(
-    BuildContext context,
-    AnimationController controller,
-  ) {
+  Widget _buildContinueDetector(BuildContext context) {
+    return GestureDetector(
+      // child: Container(color: Colors.blue.withOpacity(0.2)),
+      onTap: () {
+        context.bloc<FeedBloc>().add(FeedEvent.ground());
+      },
+    );
+  }
+
+  Widget _buildTinter(BuildContext context, AnimationController controller) {
     final anim = ColorTween(
       begin: Colors.black.withOpacity(0.0),
       end: Colors.black.withOpacity(0.1),
@@ -159,7 +161,7 @@ class Main extends HookWidget {
     );
   }
 
-  Widget _gestureDetector(BuildContext context) {
+  Widget _buildRefocusDetector(BuildContext context) {
     return Center(
       child: FractionallySizedBox(
         widthFactor: 0.6,
@@ -173,25 +175,37 @@ class Main extends HookWidget {
     );
   }
 
-  Widget _buildTextField(BuildContext context, ValueNotifier<bool> wait) {
+  Widget _buildTextField(BuildContext context) {
     return HookBuilder(builder: (context) {
       final textModel = TextModel.of(context);
       final focusNodeModel = FocusNodeModel.of(context);
       final textController = useTextEditingController();
 
-      return BlocListener<ValidationBloc, ValidationState>(
-        listener: (context, state) {
-          state.maybeWhen(
-            just: (just) => just.maybeMap(
-              orElse: () {
+      return MultiBlocListener(
+        listeners: [
+          BlocListener<ValidationBloc, ValidationState>(listener: (context, state) {
+            state.maybeWhen(
+              just: (just) => just.maybeMap(
+                wrong: (_) {
+                  textController.clear();
+                  textModel.update('');
+                },
+                orElse: () => domain.void$(),
+              ),
+              orElse: () => domain.void$(),
+            );
+          }),
+          BlocListener<FeedBloc, ignitor.Ignitable<FeedState>>(listener: (context, state) {
+            state.payload.when(
+              available: (_) {
                 textController.clear();
                 textModel.update('');
               },
-              neutral: (_) {},
-            ),
-            orElse: () {},
-          );
-        },
+              pending: (_, __) => domain.void$(),
+              empty: () => domain.void$(),
+            );
+          }),
+        ],
         child: Visibility(
           visible: false,
           maintainState: true,
@@ -205,8 +219,10 @@ class Main extends HookWidget {
             keyboardAppearance: NothingScheme.of(context).brightness,
             keyboardType: TextInputType.text,
             onSubmitted: (s) async {
-              if (wait.value) {
-                wait.value = false;
+              // ignore: close_sinks
+              final bloc = context.bloc<FeedBloc>();
+              if (bloc.payload is Pending) {
+                bloc.add(FeedEvent.ground());
                 focusNodeModel.refocus();
                 return;
               }
@@ -219,7 +235,7 @@ class Main extends HookWidget {
             },
             textInputAction: TextInputAction.go,
             onChanged: (s) {
-              if (wait.value) {
+              if (context.bloc<FeedBloc>().payload is Pending) {
                 textController.clear();
                 return;
               }
@@ -264,12 +280,12 @@ class Main extends HookWidget {
                   Expanded(
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 12),
-                        child: BlocBuilder<FeedBloc, Ignitable<FeedState>>(
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        child: BlocBuilder<FeedBloc, ignitor.Ignitable<FeedState>>(
                           builder: (context, state) => AutoSizeText(
                             state.payload.when(
                               available: (tree) => tree.question.explanation,
+                              pending: (oldTree, _) => oldTree.question.explanation,
                               empty: () => '',
                             ),
                             maxLines: 4,
@@ -317,13 +333,11 @@ class Main extends HookWidget {
         children: [
           _makeKnob(
             Icons.short_text,
-            () => pageController.animateToPage(0,
-                duration: duration, curve: curve),
+            () => pageController.animateToPage(0, duration: duration, curve: curve),
           ),
           _makeKnob(
             Icons.all_inclusive,
-            () => pageController.animateToPage(2,
-                duration: duration, curve: curve),
+            () => pageController.animateToPage(2, duration: duration, curve: curve),
           ),
         ],
       ),
@@ -334,142 +348,121 @@ class Main extends HookWidget {
     BuildContext context,
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
-    ValueNotifier<bool> wait,
   ) {
-    return SafeArea(
-        child: LayoutBuilder(
-      builder: (context, constraints) => HookBuilder(builder: (context) {
-        final linkLike = useMemoized(() => LayerLink());
-        final linkDislike = useMemoized(() => LayerLink());
-        final overlayLike = useMemoized(() => OverlayEntry(
-            builder: (context) => CompositedTransformFollower(
-                link: linkLike,
-                child: GestureDetector(
-                  onTap: () {
-                    print('like');
-                  },
-                  behavior: HitTestBehavior.opaque,
-                  // child: Container(color: Colors.green.withOpacity(0.2)),
-                ))));
-        final overlayDislike = useMemoized(() => OverlayEntry(
-            builder: (context) => CompositedTransformFollower(
-                link: linkDislike,
-                child: GestureDetector(
-                  onTap: () {
-                    print('dislike');
-                  },
-                  behavior: HitTestBehavior.opaque,
-                  // child: Container(color: Colors.red.withOpacity(0.2)),
-                ))));
-        useEffect(() {
-          final listener = () {
-            if (wait.value) {
-              Overlay.of(context).insert(overlayDislike);
-              Overlay.of(context).insert(overlayLike);
-            } else {
-              overlayDislike.remove();
-              overlayLike.remove();
-            }
-          };
-          wait.addListener(listener);
-          return () => wait.removeListener(listener);
-        });
-
-        double queH = min(
-          280,
-          constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
-        );
-        const pad = 8;
-        const hor = 40.0;
-        final top = queH + labelH + ansH + pad;
-        text(String text) =>
-            Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
-        const ll = {
-          'hint': 'Хинт',
-          'skip': 'Скип',
-          'like': '',
-          'dislike': '',
-        };
-        final cc = {
-          'hint': NothingScheme.of(context).hint,
-          'skip': NothingScheme.of(context).skip,
-          'like': NothingScheme.of(context).correct,
-          'dislike': NothingScheme.of(context).wrong,
-        };
-        final ii = {
-          'hint': Icons.lightbulb_outline,
-          'skip': Icons.clear,
-          'like': Icons.check,
-          'dislike': Icons.check_box_outline_blank,
-        };
-        final pp = {
-          'hint': () => _hintClick(
-                context,
-                showHint,
-                hintTintController,
-              ),
-          'skip': () {
-            context.bloc<ValidationBloc>().add(ValidationEvent.skip());
-          },
-          'like': () {},
-          'dislike': () {},
-        };
-        final ww = {
-          'hint': (w) => w,
-          'skip': (w) => w,
-          'like': (w) => CompositedTransformTarget(child: w, link: linkLike),
-          'dislike': (w) =>
-              CompositedTransformTarget(child: w, link: linkDislike),
-        };
-        final bb = (!wait.value ? ['hint', 'skip'] : ['like', 'dislike'])
-            .map(
-          (l) => Expanded(
-              child: ww[l](
-            FlatButton(
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-              color: cc[l],
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    ii[l],
-                    size: 24,
-                    color: Colors.white,
+    return SafeArea(child: LayoutBuilder(
+      builder: (context, constraints) {
+        return BlocBuilder<FeedBloc, ignitor.Ignitable<FeedState>>(
+          builder: (context, state) {
+            double queH = min(
+              280,
+              constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
+            );
+            const pad = 8;
+            const hor = 40.0;
+            final top = queH + labelH + ansH + pad;
+            text(String text) => Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
+            const ll = {
+              'hint': 'Хинт',
+              'skip': 'Скип',
+              'like': '',
+              'dislike': '',
+            };
+            final cc = {
+              'hint': NothingScheme.of(context).hint,
+              'skip': NothingScheme.of(context).skip,
+              'like': NothingScheme.of(context).correct,
+              'dislike': NothingScheme.of(context).wrong,
+            };
+            final ii = {
+              'hint': NothingFont.hint,
+              'skip': NothingFont.skip,
+              'like': NothingFont.like,
+              'dislike': NothingFont.like,
+            };
+            final id = <String, Widget Function(Widget)>{
+              'hint': (_) => _,
+              'skip': (_) => Transform.scale(scale: 0.65, child: _),
+              'like': (_) => _,
+              'dislike': (_) => Transform.rotate(angle: pi, child: _),
+            };
+            final pp = {
+              'hint': () => _hintClick(
+                    context,
+                    showHint,
+                    hintTintController,
                   ),
-                  // SizedBox(width: 4),
-                  text(ll[l]),
-                ],
-              ),
-              onPressed: pp[l],
-              shape: RoundedRectangleBorder(
-                borderRadius: NothingScheme.of(context).hintBorder,
-              ),
-            ),
-          )),
-        )
-            .expand((w) sync* {
-          yield w;
-          yield const SizedBox(width: 16);
-          // yield Container(width: 16, height: 10, color: Colors.red);
-        });
-        return Stack(
-          children: [
-            Positioned(
-              top: top,
-              left: hor,
-              right: hor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  ...bb,
-                  CoinText(),
-                ],
-              ),
-            ),
-          ],
+              'skip': () {
+                context.bloc<ValidationBloc>().add(ValidationEvent.skip());
+              },
+              'like': () {
+                print('like');
+                context.bloc<FeedBloc>().state.payload.when(
+                    available: (_) => domain.error$(),
+                    pending: (oldTree, _) {
+                      context.repository<LikesRepo>().report(oldTree.question.id, 1);
+                    },
+                    empty: () => domain.void$());
+              },
+              'dislike': () {
+                print('dislike');
+                context.bloc<FeedBloc>().state.payload.when(
+                    available: (_) => domain.error$(),
+                    pending: (oldTree, _) {
+                      context.repository<LikesRepo>().report(oldTree.question.id, -1);
+                    },
+                    empty: () => domain.void$());
+              },
+            };
+
+            final bb = (state.payload is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
+                .map((l) => Expanded(
+                      child: FlatButton(
+                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                        color: cc[l],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(width: 2),
+                            id[l](Icon(
+                              ii[l],
+                              size: 24,
+                              color: Colors.white,
+                            )),
+                            SizedBox(width: 2),
+                            text(ll[l]),
+                          ],
+                        ),
+                        onPressed: pp[l],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: NothingScheme.of(context).hintBorder,
+                        ),
+                      ),
+                    ))
+                .expand((w) sync* {
+              yield w;
+              yield const SizedBox(width: 16);
+              // yield Container(width: 16, height: 10, color: Colors.red);
+            });
+            return Stack(
+              children: [
+                Positioned(
+                  top: top,
+                  left: hor,
+                  right: hor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      ...bb,
+                      CoinText(),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
         );
-      }),
+      },
     ));
   }
 
@@ -486,7 +479,7 @@ class Main extends HookWidget {
 
   final double labelH = 50;
   final double ansH = 72;
-  Widget _buildGame(BuildContext context, ValueNotifier<bool> wait) {
+  Widget _buildGame(BuildContext context) {
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -494,54 +487,13 @@ class Main extends HookWidget {
             280,
             constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
           );
-          return HookBuilder(
-            builder: (context) {
-              final overlay = useMemoized(() => OverlayEntry(
-                    builder: (context) => GestureDetector(
-                      // child: Container(color: Colors.green.withOpacity(0.2)),
-                      onTap: () {
-                        wait.value = false;
-                      },
-                    ),
-                  ));
-              useEffect(() {
-                final listener = () {
-                  if (wait.value) {
-                    Overlay.of(context).insert(overlay);
-                  } else {
-                    overlay.remove();
-                  }
-                };
-                wait.addListener(listener);
-                return () => wait.removeListener(listener);
-              });
-
-              final orElse = () => false;
-              return BlocListener<ValidationBloc, ValidationState>(
-                condition: (_, state) => state.maybeWhen(
-                    just: (state) => state.maybeMap(
-                        correct: (_) => true,
-                        wrong: (_) => true,
-                        orElse: orElse),
-                    orElse: orElse),
-                listener: (context, state) {
-                  wait.value = state.maybeWhen(
-                      just: (state) => state.maybeMap(
-                          correct: (_) => true,
-                          wrong: (_) => false,
-                          orElse: orElse),
-                      orElse: orElse);
-                },
-                child: Column(children: [
-                  SizedBox(height: 21),
-                  SizedBox(child: Label()),
-                  SizedBox(height: 12),
-                  SizedBox(height: queH, child: Center(child: Question(wait))),
-                  SizedBox(height: ansH, child: Answer(wait)),
-                ]),
-              );
-            },
-          );
+          return Column(children: [
+            SizedBox(height: 21),
+            SizedBox(child: Label()),
+            SizedBox(height: 12),
+            SizedBox(height: queH, child: Center(child: Question())),
+            SizedBox(height: ansH, child: Answer()),
+          ]);
         },
       ),
     );

@@ -28,8 +28,7 @@ class _PageControllerHook extends Hook<PageController> {
   }
 }
 
-class _PageControllerHookState
-    extends HookState<PageController, _PageControllerHook> {
+class _PageControllerHookState extends HookState<PageController, _PageControllerHook> {
   PageController _pageController;
 
   @override

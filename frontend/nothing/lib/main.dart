@@ -19,8 +19,10 @@ import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/domain/domain.dart';
 import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/repository/ads.dart';
+import 'package:nothing/repository/likes.dart';
 import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/lifecycle.dart';
 import 'package:nothing/tools/orientation.dart';
@@ -90,8 +92,7 @@ class App extends StatelessWidget with PortraitLock {
   Widget _bindings(Widget child) {
     return MultiBlocBinder(child: child, binders: [
       BlocBinder<ValidationBloc, ValidationState, SummaryBloc, SummaryState>(
-        direct:
-            (BuildContext context, ValidationState state, SummaryBloc bloc) {
+        direct: (BuildContext context, ValidationState state, SummaryBloc bloc) {
           state.maybeWhen(
             just: (just) {
               return just.maybeWhen(
@@ -111,10 +112,10 @@ class App extends StatelessWidget with PortraitLock {
                     seconds: duration.inSeconds,
                   ));
                 },
-                orElse: () {},
+                orElse: () => void$(),
               );
             },
-            orElse: () {},
+            orElse: () => void$(),
           );
         },
       ),
@@ -131,7 +132,7 @@ class App extends StatelessWidget with PortraitLock {
                     orElse: () => 0,
                   )),
             )),
-            nothing: () {},
+            nothing: () => void$(),
           );
         },
       ),
@@ -144,14 +145,12 @@ class App extends StatelessWidget with PortraitLock {
           }
         },
         reverse: (context, state, bloc) => state.payload.when(
-          available: (tree) => bloc.add(
-            QuestionsEvent.fetch(tree.question.id),
-          ),
+          available: (_) => void$(),
+          pending: (_, __) => void$(),
           empty: () => bloc.add(QuestionsEvent.fetch()),
         ),
       ),
-      BlocBinder<ValidationBloc, ValidationState, FeedBloc,
-          Ignitable<FeedState>>(
+      BlocBinder<ValidationBloc, ValidationState, FeedBloc, Ignitable<FeedState>>(
         direct: (context, state, bloc) {
           state.maybeWhen(
             just: (just) => just.maybeWhen(
@@ -160,30 +159,28 @@ class App extends StatelessWidget with PortraitLock {
                   duration.inSeconds > 80 ? MoveDir.left() : MoveDir.right(),
                 ),
               ),
-              skip: (question, tries, duration) => bloc.add(
-                FeedEvent.moveNext(MoveDir.left()),
-              ),
-              orElse: () {},
+              skip: (question, tries, duration) {
+                bloc.add(FeedEvent.moveNext(MoveDir.left()));
+                bloc.add(FeedEvent.ground());
+              },
+              orElse: () => void$(),
             ),
-            orElse: () {},
+            orElse: () => void$(),
           );
         },
         reverse: (context, state, bloc) {
           state.payload.when(
             available: (tree) => bloc.add(ValidationEvent.focus(tree.question)),
-            empty: () {},
+            pending: (_, __) => void$(),
+            empty: () => void$(),
           );
         },
       ),
       BlocBinder<LifecycleBloc, LifecycleState, RoutingBloc, RoutingState>(
-        direct: (context, state, bloc) => state.when(
-            just: (_, e) => e.map(
-                resume: (_) => bloc.add(RoutingEvent.resume()),
-                suspend: (_) => {}),
-            nothing: () => {}),
+        direct: (context, state, bloc) =>
+            state.when(just: (_, e) => e.map(resume: (_) => bloc.add(RoutingEvent.resume()), suspend: (_) => {}), nothing: () => {}),
       ),
-      BlocBinder<LifecycleBloc, LifecycleState, ValidationBloc,
-          ValidationState>(
+      BlocBinder<LifecycleBloc, LifecycleState, ValidationBloc, ValidationState>(
         direct: (context, state, bloc) => state.when(
           just: (_, e) => bloc.add(ValidationEvent.lifecycle(
             e.when(
@@ -242,6 +239,10 @@ Widget _repos(Widget child) {
     RepositoryProvider<AdRepo>(
       child: child,
       create: (context) => AdRepo(),
+    ),
+    RepositoryProvider<LikesRepo>(
+      child: child,
+      create: (context) => LikesRepo(),
     ),
   ]);
 }

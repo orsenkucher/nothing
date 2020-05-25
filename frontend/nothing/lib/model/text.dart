@@ -10,6 +10,7 @@ class TextModel extends Model {
     notifyListeners();
   }
 
-  static TextModel of(BuildContext context) =>
-      ScopedModel.of<TextModel>(context, rebuildOnChange: true);
+  static TextModel of(BuildContext context) {
+    return ScopedModel.of<TextModel>(context, rebuildOnChange: true);
+  }
 }

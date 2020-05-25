@@ -14,12 +14,10 @@ abstract class SummaryState with _$SummaryState {
 
   factory SummaryState.empty() => SummaryState(answers: List<SummaryAnswer>());
 
-  factory SummaryState.fromJson(Map<String, dynamic> json) =>
-      _$SummaryStateFromJson(json);
+  factory SummaryState.fromJson(Map<String, dynamic> json) => _$SummaryStateFromJson(json);
 }
 
-List<dynamic> _to(List<SummaryAnswer> ss) =>
-    ss?.map((s) => s.toJson())?.toList();
+List<dynamic> _to(List<SummaryAnswer> ss) => ss?.map((s) => s.toJson())?.toList();
 
 @freezed
 abstract class SummaryAnswer with _$SummaryAnswer {
@@ -30,8 +28,7 @@ abstract class SummaryAnswer with _$SummaryAnswer {
     @required @JsonKey(toJson: _toS, fromJson: _fromS) List<String> answers,
   }) = _SummaryAnswer;
 
-  factory SummaryAnswer.fromJson(Map<String, dynamic> json) =>
-      _$SummaryAnswerFromJson(json);
+  factory SummaryAnswer.fromJson(Map<String, dynamic> json) => _$SummaryAnswerFromJson(json);
 }
 
 String _toS(List<String> aa) => aa.join(r'<$>');

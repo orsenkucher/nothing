@@ -10,8 +10,7 @@ abstract class Ignitable<S> with _$Ignitable<S> {
   factory Ignitable.pending(S payload) = Pending<S>;
 }
 
-abstract class IgnitedBloc<Event, State>
-    extends HydratedBloc<Event, Ignitable<State>> {
+abstract class IgnitedBloc<Event, State> extends HydratedBloc<Event, Ignitable<State>> {
   IgnitedBloc() {
     ignition(state.payload);
   }
@@ -26,13 +25,15 @@ abstract class IgnitedBloc<Event, State>
 
   @override
   @nonVirtual
-  Ignitable<State> get initialState =>
-      Ignitable.pending(super.initialState?.payload ?? initialPayload);
+  Ignitable<State> get initialState {
+    return Ignitable.pending(super.initialState?.payload ?? initialPayload);
+  }
 
   @override
   @nonVirtual
-  Stream<Ignitable<State>> mapEventToState(Event event) =>
-      mapEventToPayload(event).map((pl) => Ignitable.ignited(pl));
+  Stream<Ignitable<State>> mapEventToState(Event event) {
+    return mapEventToPayload(event).map((pl) => Ignitable.ignited(pl));
+  }
 
   @override
   @nonVirtual

@@ -11,6 +11,7 @@ class FocusNodeModel extends Model {
     focusNode.requestFocus();
   }
 
-  static FocusNodeModel of(BuildContext context) =>
-      ScopedModel.of<FocusNodeModel>(context, rebuildOnChange: true);
+  static FocusNodeModel of(BuildContext context) {
+    return ScopedModel.of<FocusNodeModel>(context, rebuildOnChange: true);
+  }
 }

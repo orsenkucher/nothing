@@ -1,18 +1,32 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
-
-import 'package:nothing/bloc/questions/state.dart';
-import 'package:nothing/bloc/questions/event.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/error/cloud_error.dart';
 import 'package:nothing/repository/questions.dart';
+import 'package:nothing/domain/domain.dart';
 
-export 'event.dart';
-export 'state.dart';
+part 'bloc.freezed.dart';
+
+@freezed
+abstract class QuestionsEvent with _$QuestionsEvent {
+  const factory QuestionsEvent.fetch([int currentid]) = Fetch;
+  const factory QuestionsEvent.refetch(int currentid) = Refetch;
+}
+
+@freezed
+abstract class QuestionsState with _$QuestionsState {
+  const factory QuestionsState.loaded(QTree questions) = Loaded;
+  static QuestionsState get empty => QuestionsState.loaded(QTree());
+  const factory QuestionsState.loading() = Loading;
+  const factory QuestionsState.reloading() = Reloading;
+  const factory QuestionsState.error(CloudError error) = Error;
+}
 
 class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   final QuestionsRepo repo;

@@ -12,8 +12,7 @@ abstract class LifecycleEvent with _$LifecycleEvent {
   const factory LifecycleEvent.suspend(DateTime point) = _Suspend;
   factory LifecycleEvent.resumeNow() => LifecycleEvent.resume(DateTime.now());
   factory LifecycleEvent.suspendNow() => LifecycleEvent.suspend(DateTime.now());
-  factory LifecycleEvent.fromJson(Map<String, dynamic> json) =>
-      _$LifecycleEventFromJson(json);
+  factory LifecycleEvent.fromJson(Map<String, dynamic> json) => _$LifecycleEventFromJson(json);
 }
 
 @freezed
@@ -25,14 +24,12 @@ abstract class LifecycleState with _$LifecycleState {
 
   const factory LifecycleState.nothing() = _Nothing;
 
-  factory LifecycleState.fromJson(Map<String, dynamic> json) =>
-      _$LifecycleStateFromJson(json);
+  factory LifecycleState.fromJson(Map<String, dynamic> json) => _$LifecycleStateFromJson(json);
 }
 
 class LifecycleBloc extends HydratedBloc<LifecycleEvent, LifecycleState> {
   @override
-  LifecycleState get initialState =>
-      super.initialState ?? LifecycleState.nothing();
+  LifecycleState get initialState => super.initialState ?? LifecycleState.nothing();
 
   @override
   Stream<LifecycleState> mapEventToState(LifecycleEvent event) async* {

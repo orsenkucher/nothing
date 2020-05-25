@@ -16,8 +16,7 @@ abstract class IdEvent with _$IdEvent {
 abstract class IdState with _$IdState {
   const factory IdState(String id) = _IdState;
   factory IdState.unique() => IdState(Uuid().v4());
-  factory IdState.fromJson(Map<String, dynamic> json) =>
-      _$IdStateFromJson(json);
+  factory IdState.fromJson(Map<String, dynamic> json) => _$IdStateFromJson(json);
 }
 
 class IdBloc extends HydratedBloc<IdEvent, IdState> {
