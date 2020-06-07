@@ -96,3 +96,36 @@ git checkout rather
 [pp-drop](https://github.com/orsenkucher/parsing-platform.git)  
 [radiance](https://github.com/orsenkucher/Radiance.git) `?`
 
+
+## PostgreSQL 
+[docs](https://wiki.debian.org/PostgreSql)  
+[create table doc](https://www.tutorialspoint.com/postgresql/postgresql_create_table.htm)
+```bash
+apt install postgresql postgresql-client
+
+su -s /bin/bash postgres # as root
+sudo -u postgres bash # or if using sudo to get admin rights
+
+psql # start client, then \q
+
+createuser --pwprompt nothinguser #from bash
+createdb -O nothinguser nothingbase
+
+# now you can 
+psql -d nothingbase -h localhost -U nothinguser
+```
+also password can be saved to `~/.pgpass`
+```bash
+# echo 'hostname:port:mypgdatabase:mypguser:mypgpassword' >> ~/.pgpass
+echo 'localhost:5432:nothingbase:nothinguser:***********' >> ~/.pgpass
+chmod 600 ~/.pgpass # required - secure the file
+```
+now you can easily connect without password typing  
+
+`postgres=# \du` - show users  
+`$ psql -c "\du"` - also valid from bash  
+
+to grant privileges
+```sql
+GRANT ALL ON DATABASE nothingbase TO nothinguser;
+```
