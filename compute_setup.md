@@ -64,6 +64,13 @@ go version
 go env
 ```
 
+if shell is fish
+```fish
+set GOROOT /usr/local/go
+set GOPATH $HOME/go
+set -x PATH $GOPATH/bin:$GOROOT/bin:$PATH
+```
+
 in `.profile`
 ``` bash
 # export golang bins
