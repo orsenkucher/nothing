@@ -39,10 +39,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
     @required this.summaryBloc,
     @required this.idBloc,
     @required this.historyBloc,
-  });
-
-  @override
-  QuestionsState get initialState => QuestionsState.empty;
+  }) : super(QuestionsState.empty);
 
   @override
   Stream<QuestionsState> mapEventToState(QuestionsEvent event) async* {

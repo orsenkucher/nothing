@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -40,7 +39,7 @@ void main() async {
 
 Future _hydrateAsync() async {
   WidgetsFlutterBinding.ensureInitialized();
-  BlocSupervisor.delegate = await HydratedBlocDelegate.build();
+  HydratedBloc.storage = await HydratedStorage.build();
 }
 
 Future<bool> _admob() {
@@ -78,7 +77,8 @@ class App extends StatelessWidget with PortraitLock {
           theme: ThemeData(
             fontFamily: 'Gilroy',
           ),
-          initialRoute: context.bloc<RoutingBloc>().initialState.name,
+          // used initialState here before, haha
+          initialRoute: context.bloc<RoutingBloc>().state.name,
           routes: {
             Routes.home(): (_) => Home(),
           }.routed,
@@ -177,8 +177,9 @@ class App extends StatelessWidget with PortraitLock {
         },
       ),
       BlocBinder<LifecycleBloc, LifecycleState, RoutingBloc, RoutingState>(
-        direct: (context, state, bloc) =>
-            state.when(just: (_, e) => e.map(resume: (_) => bloc.add(RoutingEvent.resume()), suspend: (_) => {}), nothing: () => {}),
+        direct: (context, state, bloc) => state.when(
+            just: (_, e) => e.map(resume: (_) => bloc.add(RoutingEvent.resume()), suspend: (_) => {}),
+            nothing: () => {}),
       ),
       BlocBinder<LifecycleBloc, LifecycleState, ValidationBloc, ValidationState>(
         direct: (context, state, bloc) => state.when(

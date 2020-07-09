@@ -22,14 +22,12 @@ abstract class AdState with _$AdState {
 }
 
 class AdBloc extends Bloc<AdEvent, AdState> {
-  AdRepo _adRepo;
-  IdBloc _idBloc;
-  AdBloc(this._adRepo, this._idBloc) {
+  AdBloc(this._adRepo, this._idBloc) : super(AdState.empty()) {
     add(AdEvent.register(_idBloc.state.id));
   }
 
-  @override
-  AdState get initialState => AdState.empty();
+  AdRepo _adRepo;
+  IdBloc _idBloc;
 
   @override
   Stream<AdState> mapEventToState(AdEvent event) async* {

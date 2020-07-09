@@ -48,7 +48,7 @@ class FeedBloc extends IgnitedBloc<FeedEvent, FeedState> {
   FeedBloc({
     @required this.questionsBloc,
     @required this.validationBloc,
-  });
+  }) : super(FeedState.empty());
 
   @override
   void ignition(FeedState paylaod) {
@@ -58,9 +58,6 @@ class FeedBloc extends IgnitedBloc<FeedEvent, FeedState> {
       empty: () => questionsBloc.add(QuestionsEvent.fetch()),
     );
   }
-
-  @override
-  FeedState get initialPayload => FeedState.empty();
 
   @override
   Stream<FeedState> mapEventToPayload(FeedEvent event) async* {

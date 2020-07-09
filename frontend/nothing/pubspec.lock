@@ -49,7 +49,7 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "5.0.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -162,6 +162,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
+  cubit:
+    dependency: transitive
+    description:
+      name: cubit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -229,7 +236,14 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.0"
+    version: "5.0.1"
+  flutter_cubit:
+    dependency: transitive
+    description:
+      name: flutter_cubit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   flutter_hooks:
     dependency: "direct main"
     description:
@@ -282,6 +296,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  hive:
+    dependency: transitive
+    description:
+      name: hive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.1+1"
   html:
     dependency: transitive
     description:
@@ -316,7 +337,14 @@ packages:
       name: hydrated_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "5.0.3"
+  hydrated_cubit:
+    dependency: transitive
+    description:
+      name: hydrated_cubit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
   image:
     dependency: transitive
     description:
@@ -484,7 +512,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.4"
+    version: "4.3.0"
   pub_semver:
     dependency: transitive
     description:
@@ -660,4 +688,4 @@ packages:
     version: "2.2.0"
 sdks:
   dart: ">=2.7.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.4 <2.0.0"
+  flutter: ">=1.16.0 <2.0.0"

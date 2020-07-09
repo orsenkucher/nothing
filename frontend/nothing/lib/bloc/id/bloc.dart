@@ -20,14 +20,11 @@ abstract class IdState with _$IdState {
 }
 
 class IdBloc extends HydratedBloc<IdEvent, IdState> {
-  IdBloc() {
+  IdBloc() : super(revoke()) {
     //  clear();
   }
 
-  IdState revoke() => IdState.unique();
-
-  @override
-  IdState get initialState => super.initialState ?? revoke();
+  static IdState revoke() => IdState.unique();
 
   @override
   Stream<IdState> mapEventToState(IdEvent event) async* {
@@ -36,6 +33,7 @@ class IdBloc extends HydratedBloc<IdEvent, IdState> {
 
   @override
   IdState fromJson(Map<String, dynamic> json) => IdState.fromJson(json);
+
   @override
   Map<String, dynamic> toJson(IdState state) => state.toJson();
 }

@@ -8,8 +8,7 @@ export 'event.dart';
 export 'state.dart';
 
 class SummaryBloc extends HydratedBloc<SummaryEvent, SummaryState> {
-  @override
-  SummaryState get initialState => super.initialState ?? SummaryState.empty();
+  SummaryBloc() : super(SummaryState.empty());
 
   @override
   Stream<SummaryState> mapEventToState(
@@ -33,7 +32,10 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, SummaryState> {
   }
 
   @override
-  void onError(Object error, StackTrace stacktrace) => print(error);
+  void onError(Object error, StackTrace stackTrace) {
+    print(error);
+    super.onError(error, stackTrace);
+  }
 
   @override
   SummaryState fromJson(Map<String, dynamic> json) {

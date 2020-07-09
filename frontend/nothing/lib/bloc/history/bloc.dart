@@ -27,13 +27,7 @@ abstract class HistoryState with _$HistoryState {
 List<dynamic> _to(List<SummaryAnswer> ss) => ss?.map((s) => s.toJson())?.toList();
 
 class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
-  @override
-  HistoryState get initialState =>
-      super.initialState ??
-      HistoryState(
-        ids: {},
-        answers: [],
-      );
+  HistoryBloc() : super(HistoryState(ids: {}, answers: []));
 
   @override
   Stream<HistoryState> mapEventToState(HistoryEvent event) async* {

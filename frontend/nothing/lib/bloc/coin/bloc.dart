@@ -21,12 +21,9 @@ abstract class CoinState with _$CoinState {
 }
 
 class CoinBloc extends HydratedBloc<CoinEvent, CoinState> {
-  CoinBloc() {
+  CoinBloc() : super(CoinState(10)) {
     add(CoinEvent.inc(10));
   }
-
-  @override
-  CoinState get initialState => super.initialState ?? CoinState(10);
 
   @override
   Stream<CoinState> mapEventToState(CoinEvent event) async* {

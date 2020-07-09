@@ -85,8 +85,7 @@ extension TimePoints$ on TimePoints {
 }
 
 class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
-  @override
-  ValidationState get initialState => ValidationState.nothing();
+  ValidationBloc() : super(ValidationState.nothing());
 
   @override
   Stream<ValidationState> mapEventToState(ValidationEvent event) async* {

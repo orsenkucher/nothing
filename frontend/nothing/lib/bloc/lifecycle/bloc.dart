@@ -28,8 +28,7 @@ abstract class LifecycleState with _$LifecycleState {
 }
 
 class LifecycleBloc extends HydratedBloc<LifecycleEvent, LifecycleState> {
-  @override
-  LifecycleState get initialState => super.initialState ?? LifecycleState.nothing();
+  LifecycleBloc() : super(LifecycleState.nothing());
 
   @override
   Stream<LifecycleState> mapEventToState(LifecycleEvent event) async* {

@@ -44,11 +44,11 @@ extension RoutingState$ on RoutingState {
 }
 
 class RoutingBloc extends Bloc<RoutingEvent, RoutingState> {
-  @override
-  RoutingState get initialState => RoutingState(
-        log: [Routes.home()],
-        event: RoutingEvent.resume(),
-      );
+  RoutingBloc()
+      : super(RoutingState(
+          log: [Routes.home()],
+          event: RoutingEvent.resume(),
+        ));
 
   @override
   Stream<RoutingState> mapEventToState(RoutingEvent event) async* {

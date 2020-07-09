@@ -11,23 +11,16 @@ abstract class Ignitable<S> with _$Ignitable<S> {
 }
 
 abstract class IgnitedBloc<Event, State> extends HydratedBloc<Event, Ignitable<State>> {
-  IgnitedBloc() {
+  IgnitedBloc(State initialPayload) : super(Ignitable.pending(initialPayload)) {
     ignition(state.payload);
   }
 
-  State get initialPayload;
   void ignition(State paylaod);
   State get payload => state.payload;
 
   dynamic payloadToJson(State payload);
   State payloadFromJson(dynamic json);
   Stream<State> mapEventToPayload(Event event);
-
-  @override
-  @nonVirtual
-  Ignitable<State> get initialState {
-    return Ignitable.pending(super.initialState?.payload ?? initialPayload);
-  }
 
   @override
   @nonVirtual
