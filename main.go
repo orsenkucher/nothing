@@ -20,6 +20,23 @@ import (
 	"golang.org/x/oauth2/google"
 )
 
+// Main loads db and handles functions realized in dir server
+// in file
+// in encio provided code that checks password written after flag -s
+// functions in file server/handlers.go
+//
+// DataBase includes tables Questions an Users
+// We save UsersAnswers in DataBase
+// fields you can see in file server/types.go
+//
+// There is many to many connection between Users and Questions
+// realised by table UsersAnswers
+
+// Each function in server has proper name so mostly no need
+// to explain each of them
+// MMR for Users and answars is rank
+// all calculations for MMR provided in file server/mmr.go
+
 var pass string
 
 func init() {
