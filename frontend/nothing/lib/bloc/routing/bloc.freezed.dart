@@ -489,6 +489,25 @@ mixin _$RoutingState {
   List<Routes> get log;
   String get salt;
 
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result _(RoutingEvent event, List<Routes> log, String salt),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result _(RoutingEvent event, List<Routes> log, String salt),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result _(_RoutingState value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result _(_RoutingState value),
+    @required Result orElse(),
+  });
+
   $RoutingStateCopyWith<RoutingState> get copyWith;
 }
 
@@ -618,6 +637,50 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
   @override
   _$RoutingStateCopyWith<_RoutingState> get copyWith =>
       __$RoutingStateCopyWithImpl<_RoutingState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result _(RoutingEvent event, List<Routes> log, String salt),
+  }) {
+    assert(_ != null);
+    return _(event, log, salt);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result _(RoutingEvent event, List<Routes> log, String salt),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (_ != null) {
+      return _(event, log, salt);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result _(_RoutingState value),
+  }) {
+    assert(_ != null);
+    return _(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result _(_RoutingState value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (_ != null) {
+      return _(this);
+    }
+    return orElse();
+  }
 }
 
 abstract class _RoutingState implements RoutingState {

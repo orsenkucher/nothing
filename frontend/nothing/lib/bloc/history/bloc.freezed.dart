@@ -25,6 +25,25 @@ const $HistoryEvent = _$HistoryEventTearOff();
 mixin _$HistoryEvent {
   SummaryAnswer get answer;
 
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result next(SummaryAnswer answer),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result next(SummaryAnswer answer),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result next(_Next value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result next(_Next value),
+    @required Result orElse(),
+  });
+
   $HistoryEventCopyWith<HistoryEvent> get copyWith;
 }
 
@@ -126,6 +145,50 @@ class _$_Next with DiagnosticableTreeMixin implements _Next {
   @override
   _$NextCopyWith<_Next> get copyWith =>
       __$NextCopyWithImpl<_Next>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result next(SummaryAnswer answer),
+  }) {
+    assert(next != null);
+    return next(answer);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result next(SummaryAnswer answer),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (next != null) {
+      return next(answer);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result next(_Next value),
+  }) {
+    assert(next != null);
+    return next(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result next(_Next value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (next != null) {
+      return next(this);
+    }
+    return orElse();
+  }
 }
 
 abstract class _Next implements HistoryEvent {

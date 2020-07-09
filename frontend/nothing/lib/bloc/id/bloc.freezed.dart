@@ -20,7 +20,26 @@ class _$IdEventTearOff {
 // ignore: unused_element
 const $IdEvent = _$IdEventTearOff();
 
-mixin _$IdEvent {}
+mixin _$IdEvent {
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result revoke(),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result revoke(),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result revoke(_RevokeID value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result revoke(_RevokeID value),
+    @required Result orElse(),
+  });
+}
 
 abstract class $IdEventCopyWith<$Res> {
   factory $IdEventCopyWith(IdEvent value, $Res Function(IdEvent) then) =
@@ -70,6 +89,50 @@ class _$_RevokeID with DiagnosticableTreeMixin implements _RevokeID {
 
   @override
   int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result revoke(),
+  }) {
+    assert(revoke != null);
+    return revoke();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result revoke(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (revoke != null) {
+      return revoke();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result revoke(_RevokeID value),
+  }) {
+    assert(revoke != null);
+    return revoke(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result revoke(_RevokeID value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (revoke != null) {
+      return revoke(this);
+    }
+    return orElse();
+  }
 }
 
 abstract class _RevokeID implements IdEvent {

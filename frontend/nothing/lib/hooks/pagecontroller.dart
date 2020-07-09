@@ -7,7 +7,7 @@ PageController usePageController({
   double viewportFraction,
   List<Object> keys,
 }) =>
-    Hook.use(
+    use(
       _PageControllerHook(initialPage, keepPage, viewportFraction, keys),
     );
 
