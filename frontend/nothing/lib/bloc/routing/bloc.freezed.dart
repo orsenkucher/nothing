@@ -469,7 +469,7 @@ abstract class _Pop implements RoutingEvent {
 class _$RoutingStateTearOff {
   const _$RoutingStateTearOff();
 
-  _RoutingState _(
+  _RoutingState priv(
       {@required RoutingEvent event,
       @required List<Routes> log,
       @required String salt}) {
@@ -491,20 +491,20 @@ mixin _$RoutingState {
 
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result _(RoutingEvent event, List<Routes> log, String salt),
+    @required Result priv(RoutingEvent event, List<Routes> log, String salt),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result _(RoutingEvent event, List<Routes> log, String salt),
+    Result priv(RoutingEvent event, List<Routes> log, String salt),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result _(_RoutingState value),
+    @required Result priv(_RoutingState value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result _(_RoutingState value),
+    Result priv(_RoutingState value),
     @required Result orElse(),
   });
 
@@ -602,14 +602,14 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RoutingState._(event: $event, log: $log, salt: $salt)';
+    return 'RoutingState.priv(event: $event, log: $log, salt: $salt)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'RoutingState._'))
+      ..add(DiagnosticsProperty('type', 'RoutingState.priv'))
       ..add(DiagnosticsProperty('event', event))
       ..add(DiagnosticsProperty('log', log))
       ..add(DiagnosticsProperty('salt', salt));
@@ -641,21 +641,21 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result _(RoutingEvent event, List<Routes> log, String salt),
+    @required Result priv(RoutingEvent event, List<Routes> log, String salt),
   }) {
-    assert(_ != null);
-    return _(event, log, salt);
+    assert(priv != null);
+    return priv(event, log, salt);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result _(RoutingEvent event, List<Routes> log, String salt),
+    Result priv(RoutingEvent event, List<Routes> log, String salt),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (_ != null) {
-      return _(event, log, salt);
+    if (priv != null) {
+      return priv(event, log, salt);
     }
     return orElse();
   }
@@ -663,21 +663,21 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result _(_RoutingState value),
+    @required Result priv(_RoutingState value),
   }) {
-    assert(_ != null);
-    return _(this);
+    assert(priv != null);
+    return priv(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result _(_RoutingState value),
+    Result priv(_RoutingState value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (_ != null) {
-      return _(this);
+    if (priv != null) {
+      return priv(this);
     }
     return orElse();
   }

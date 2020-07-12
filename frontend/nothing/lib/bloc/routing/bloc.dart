@@ -20,7 +20,7 @@ abstract class RoutingEvent with _$RoutingEvent {
 
 @freezed
 abstract class RoutingState with _$RoutingState {
-  const factory RoutingState._({
+  const factory RoutingState.priv({
     @required RoutingEvent event,
     @required List<Routes> log,
     @required String salt,
@@ -30,7 +30,7 @@ abstract class RoutingState with _$RoutingState {
     @required RoutingEvent event,
     @required List<Routes> log,
   }) {
-    return RoutingState._(
+    return RoutingState.priv(
       event: event,
       log: log,
       salt: Uuid().v4(),

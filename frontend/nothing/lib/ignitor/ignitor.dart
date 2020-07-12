@@ -44,6 +44,7 @@ abstract class IgnitedBloc<Event, State> extends HydratedBloc<Event, Ignitable<S
   @nonVirtual
   Ignitable<State> fromJson(Map<String, dynamic> json) {
     final pl = payloadFromJson(json['payload']);
+    // final pl = payloadFromJson(Map<String, dynamic>.from(json['payload']));
     switch (json['runtimeType'] as String) {
       case 'ignited':
         return Ignitable.ignited(pl);
