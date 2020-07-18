@@ -39,23 +39,13 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, SummaryState> {
 
   @override
   SummaryState fromJson(Map<String, dynamic> json) {
-    try {
-      final summary = SummaryState.fromJson(json);
-      return summary;
-    } catch (_) {
-      print('Summary: fromJson error');
-      return null;
-    }
+    final summary = SummaryState.fromJson(json);
+    return summary;
   }
 
   @override
   Map<String, dynamic> toJson(SummaryState summary) {
-    try {
-      final json = summary.toJson();
-      return json;
-    } catch (_) {
-      print('Summary: toJson error');
-      return null;
-    }
+    final json = summary.toJson();
+    return json;
   }
 }

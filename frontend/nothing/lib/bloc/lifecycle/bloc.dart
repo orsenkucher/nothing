@@ -41,23 +41,13 @@ class LifecycleBloc extends HydratedBloc<LifecycleEvent, LifecycleState> {
 
   @override
   LifecycleState fromJson(Map<String, dynamic> json) {
-    try {
-      final history = LifecycleState.fromJson(json);
-      return history;
-    } catch (_) {
-      print('$this: fromJson error');
-      return null;
-    }
+    final history = LifecycleState.fromJson(json);
+    return history;
   }
 
   @override
   Map<String, dynamic> toJson(LifecycleState state) {
-    try {
-      final json = state.toJson();
-      return json;
-    } catch (_) {
-      print('$this: toJson error');
-      return null;
-    }
+    final json = state.toJson();
+    return json;
   }
 }

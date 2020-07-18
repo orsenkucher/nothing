@@ -89,29 +89,29 @@ class LocalQuestionsRepo extends QuestionsRepo {
     question: Question(
       id: 17,
       question: "1 2 6 24 ?",
-      explanation: "No",
-      answers: "Yes!|yes",
+      explanation: "120",
+      answers: r"Yes<$>120",
     ),
     left: QTree(
       question: Question(
         id: 10,
         question: "2 Have you achieved any of your recent goals?",
-        explanation: "No",
-        answers: "Yes!|yes",
+        explanation: "Yes",
+        answers: r"Yes<$>120",
       ),
       right: QTree(
         question: Question(
           id: 10,
           question: "3 Have you achieved any of your recent goals?",
-          explanation: "No",
-          answers: "Yes!|yes",
+          explanation: "Yes",
+          answers: r"Yes<$>120",
         ),
         left: QTree(
           question: Question(
             id: 10,
             question: "4 Have you achieved any of your recent goals?",
-            explanation: "No",
-            answers: "Yes!|yes",
+            explanation: "Yes",
+            answers: r"Yes<$>120",
           ),
         ),
       ),

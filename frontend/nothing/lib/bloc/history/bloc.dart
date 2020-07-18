@@ -48,23 +48,13 @@ class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
 
   @override
   HistoryState fromJson(Map<String, dynamic> json) {
-    try {
-      final history = HistoryState.fromJson(json);
-      return history;
-    } on dynamic catch (_) {
-      print('History: fromJson error');
-      return null;
-    }
+    final history = HistoryState.fromJson(json);
+    return history;
   }
 
   @override
   Map<String, dynamic> toJson(HistoryState state) {
-    try {
-      final json = state.toJson();
-      return json;
-    } catch (_) {
-      print('History: toJson error');
-      return null;
-    }
+    final json = state.toJson();
+    return json;
   }
 }
