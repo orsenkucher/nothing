@@ -49,7 +49,7 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0-dev.1"
+    version: "6.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -236,7 +236,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0-dev.1"
+    version: "6.0.0"
   flutter_hooks:
     dependency: "direct main"
     description:
@@ -327,12 +327,10 @@ packages:
   hydrated_bloc:
     dependency: "direct main"
     description:
-      path: "packages/hydrated_bloc"
-      ref: "feat/export-cubit-class-from-bloc"
-      resolved-ref: "465ef1efa0331d155abf25a6d224fc286c5f18b1"
-      url: "https://github.com/felangel/bloc.git"
-    source: git
-    version: "6.0.0-dev.5"
+      name: hydrated_bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.0"
   image:
     dependency: transitive
     description:
