@@ -700,16 +700,14 @@ class _$FeedStateTearOff {
   const _$FeedStateTearOff();
 
 // ignore: unused_element
-  Available available({@required @JsonKey(toJson: _toT) QTree tree}) {
+  Available available({@required QTree tree}) {
     return Available(
       tree: tree,
     );
   }
 
 // ignore: unused_element
-  Pending pending(
-      {@required @JsonKey(toJson: _toT) QTree oldTree,
-      @required @JsonKey(toJson: _toT) QTree newTree}) {
+  Pending pending({@required QTree oldTree, @required QTree newTree}) {
     return Pending(
       oldTree: oldTree,
       newTree: newTree,
@@ -728,17 +726,14 @@ const $FeedState = _$FeedStateTearOff();
 mixin _$FeedState {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result available(@JsonKey(toJson: _toT) QTree tree),
-    @required
-        Result pending(@JsonKey(toJson: _toT) QTree oldTree,
-            @JsonKey(toJson: _toT) QTree newTree),
+    @required Result available(QTree tree),
+    @required Result pending(QTree oldTree, QTree newTree),
     @required Result empty(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result available(@JsonKey(toJson: _toT) QTree tree),
-    Result pending(@JsonKey(toJson: _toT) QTree oldTree,
-        @JsonKey(toJson: _toT) QTree newTree),
+    Result available(QTree tree),
+    Result pending(QTree oldTree, QTree newTree),
     Result empty(),
     @required Result orElse(),
   });
@@ -774,7 +769,7 @@ class _$FeedStateCopyWithImpl<$Res> implements $FeedStateCopyWith<$Res> {
 abstract class $AvailableCopyWith<$Res> {
   factory $AvailableCopyWith(Available value, $Res Function(Available) then) =
       _$AvailableCopyWithImpl<$Res>;
-  $Res call({@JsonKey(toJson: _toT) QTree tree});
+  $Res call({QTree tree});
 
   $QTreeCopyWith<$Res> get tree;
 }
@@ -809,14 +804,12 @@ class _$AvailableCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$Available with DiagnosticableTreeMixin implements Available {
-  const _$Available({@required @JsonKey(toJson: _toT) this.tree})
-      : assert(tree != null);
+  const _$Available({@required this.tree}) : assert(tree != null);
 
   factory _$Available.fromJson(Map<String, dynamic> json) =>
       _$_$AvailableFromJson(json);
 
   @override
-  @JsonKey(toJson: _toT)
   final QTree tree;
 
   @override
@@ -851,10 +844,8 @@ class _$Available with DiagnosticableTreeMixin implements Available {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result available(@JsonKey(toJson: _toT) QTree tree),
-    @required
-        Result pending(@JsonKey(toJson: _toT) QTree oldTree,
-            @JsonKey(toJson: _toT) QTree newTree),
+    @required Result available(QTree tree),
+    @required Result pending(QTree oldTree, QTree newTree),
     @required Result empty(),
   }) {
     assert(available != null);
@@ -866,9 +857,8 @@ class _$Available with DiagnosticableTreeMixin implements Available {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result available(@JsonKey(toJson: _toT) QTree tree),
-    Result pending(@JsonKey(toJson: _toT) QTree oldTree,
-        @JsonKey(toJson: _toT) QTree newTree),
+    Result available(QTree tree),
+    Result pending(QTree oldTree, QTree newTree),
     Result empty(),
     @required Result orElse(),
   }) {
@@ -914,12 +904,10 @@ class _$Available with DiagnosticableTreeMixin implements Available {
 }
 
 abstract class Available implements FeedState {
-  const factory Available({@required @JsonKey(toJson: _toT) QTree tree}) =
-      _$Available;
+  const factory Available({@required QTree tree}) = _$Available;
 
   factory Available.fromJson(Map<String, dynamic> json) = _$Available.fromJson;
 
-  @JsonKey(toJson: _toT)
   QTree get tree;
   $AvailableCopyWith<Available> get copyWith;
 }
@@ -927,9 +915,7 @@ abstract class Available implements FeedState {
 abstract class $PendingCopyWith<$Res> {
   factory $PendingCopyWith(Pending value, $Res Function(Pending) then) =
       _$PendingCopyWithImpl<$Res>;
-  $Res call(
-      {@JsonKey(toJson: _toT) QTree oldTree,
-      @JsonKey(toJson: _toT) QTree newTree});
+  $Res call({QTree oldTree, QTree newTree});
 
   $QTreeCopyWith<$Res> get oldTree;
   $QTreeCopyWith<$Res> get newTree;
@@ -977,9 +963,7 @@ class _$PendingCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$Pending with DiagnosticableTreeMixin implements Pending {
-  const _$Pending(
-      {@required @JsonKey(toJson: _toT) this.oldTree,
-      @required @JsonKey(toJson: _toT) this.newTree})
+  const _$Pending({@required this.oldTree, @required this.newTree})
       : assert(oldTree != null),
         assert(newTree != null);
 
@@ -987,10 +971,8 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
       _$_$PendingFromJson(json);
 
   @override
-  @JsonKey(toJson: _toT)
   final QTree oldTree;
   @override
-  @JsonKey(toJson: _toT)
   final QTree newTree;
 
   @override
@@ -1031,10 +1013,8 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result available(@JsonKey(toJson: _toT) QTree tree),
-    @required
-        Result pending(@JsonKey(toJson: _toT) QTree oldTree,
-            @JsonKey(toJson: _toT) QTree newTree),
+    @required Result available(QTree tree),
+    @required Result pending(QTree oldTree, QTree newTree),
     @required Result empty(),
   }) {
     assert(available != null);
@@ -1046,9 +1026,8 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result available(@JsonKey(toJson: _toT) QTree tree),
-    Result pending(@JsonKey(toJson: _toT) QTree oldTree,
-        @JsonKey(toJson: _toT) QTree newTree),
+    Result available(QTree tree),
+    Result pending(QTree oldTree, QTree newTree),
     Result empty(),
     @required Result orElse(),
   }) {
@@ -1094,15 +1073,12 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
 }
 
 abstract class Pending implements FeedState {
-  const factory Pending(
-      {@required @JsonKey(toJson: _toT) QTree oldTree,
-      @required @JsonKey(toJson: _toT) QTree newTree}) = _$Pending;
+  const factory Pending({@required QTree oldTree, @required QTree newTree}) =
+      _$Pending;
 
   factory Pending.fromJson(Map<String, dynamic> json) = _$Pending.fromJson;
 
-  @JsonKey(toJson: _toT)
   QTree get oldTree;
-  @JsonKey(toJson: _toT)
   QTree get newTree;
   $PendingCopyWith<Pending> get copyWith;
 }
@@ -1150,10 +1126,8 @@ class _$Empty with DiagnosticableTreeMixin implements Empty {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result available(@JsonKey(toJson: _toT) QTree tree),
-    @required
-        Result pending(@JsonKey(toJson: _toT) QTree oldTree,
-            @JsonKey(toJson: _toT) QTree newTree),
+    @required Result available(QTree tree),
+    @required Result pending(QTree oldTree, QTree newTree),
     @required Result empty(),
   }) {
     assert(available != null);
@@ -1165,9 +1139,8 @@ class _$Empty with DiagnosticableTreeMixin implements Empty {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result available(@JsonKey(toJson: _toT) QTree tree),
-    Result pending(@JsonKey(toJson: _toT) QTree oldTree,
-        @JsonKey(toJson: _toT) QTree newTree),
+    Result available(QTree tree),
+    Result pending(QTree oldTree, QTree newTree),
     Result empty(),
     @required Result orElse(),
   }) {

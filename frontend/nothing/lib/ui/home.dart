@@ -18,7 +18,6 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart' as domain;
-import 'package:nothing/ignitor/ignitor.dart' as ignitor;
 import 'package:nothing/model/text.dart';
 import 'package:nothing/ui/cointext.dart';
 import 'package:nothing/ui/history.dart';
@@ -114,12 +113,12 @@ class Main extends HookWidget {
       color: NothingScheme.of(context).background,
       child: ScopedModel<TextModel>(
         model: textModel,
-        child: BlocBuilder<FeedBloc, ignitor.Ignitable<FeedState>>(
+        child: BlocBuilder<FeedBloc, FeedState>(
           builder: (context, state) => Stack(children: [
             _buildGame(context),
             _buildRefocusDetector(context),
             _buildTitleKnobs(context, pageController),
-            if (state.payload is Pending)
+            if (state is Pending)
               _buildContinueDetector(context),
             _buildHintButtons(context, showHint, hintTintController),
             _buildTinter(context, hintTintController),
@@ -195,8 +194,8 @@ class Main extends HookWidget {
               orElse: () => domain.void$(),
             );
           }),
-          BlocListener<FeedBloc, ignitor.Ignitable<FeedState>>(listener: (context, state) {
-            state.payload.when(
+          BlocListener<FeedBloc, FeedState>(listener: (context, state) {
+            state.when(
               available: (_) {
                 textController.clear();
                 textModel.update('');
@@ -221,7 +220,7 @@ class Main extends HookWidget {
             onSubmitted: (s) async {
               // ignore: close_sinks
               final bloc = context.bloc<FeedBloc>();
-              if (bloc.payload is Pending) {
+              if (bloc.state is Pending) {
                 bloc.add(FeedEvent.ground());
                 focusNodeModel.refocus();
                 return;
@@ -235,7 +234,7 @@ class Main extends HookWidget {
             },
             textInputAction: TextInputAction.go,
             onChanged: (s) {
-              if (context.bloc<FeedBloc>().payload is Pending) {
+              if (context.bloc<FeedBloc>().state is Pending) {
                 textController.clear();
                 return;
               }
@@ -281,9 +280,9 @@ class Main extends HookWidget {
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                        child: BlocBuilder<FeedBloc, ignitor.Ignitable<FeedState>>(
+                        child: BlocBuilder<FeedBloc, FeedState>(
                           builder: (context, state) => AutoSizeText(
-                            state.payload.when(
+                            state.when(
                               available: (tree) => tree.question.explanation,
                               pending: (oldTree, _) => oldTree.question.explanation,
                               empty: () => '',
@@ -351,7 +350,7 @@ class Main extends HookWidget {
   ) {
     return SafeArea(child: LayoutBuilder(
       builder: (context, constraints) {
-        return BlocBuilder<FeedBloc, ignitor.Ignitable<FeedState>>(
+        return BlocBuilder<FeedBloc, FeedState>(
           builder: (context, state) {
             double queH = min(
               280,
@@ -396,7 +395,7 @@ class Main extends HookWidget {
               },
               'like': () {
                 print('like');
-                context.bloc<FeedBloc>().state.payload.when(
+                context.bloc<FeedBloc>().state.when(
                     available: (_) => domain.error$(),
                     pending: (oldTree, _) {
                       context.repository<LikesRepo>().report(oldTree.question.id, 1);
@@ -405,7 +404,7 @@ class Main extends HookWidget {
               },
               'dislike': () {
                 print('dislike');
-                context.bloc<FeedBloc>().state.payload.when(
+                context.bloc<FeedBloc>().state.when(
                     available: (_) => domain.error$(),
                     pending: (oldTree, _) {
                       context.repository<LikesRepo>().report(oldTree.question.id, -1);
@@ -414,7 +413,7 @@ class Main extends HookWidget {
               },
             };
 
-            final bb = (state.payload is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
+            final bb = (state is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
                 .map((l) => Expanded(
                       child: FlatButton(
                         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),

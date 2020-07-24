@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-import 'package:nothing/ignitor/ignitor.dart';
 
 class Question extends HookWidget {
   const Question({Key key}) : super(key: key);
@@ -16,9 +15,9 @@ class Question extends HookWidget {
         horizontal: 24,
         vertical: 8,
       ),
-      child: BlocBuilder<FeedBloc, Ignitable<FeedState>>(
+      child: BlocBuilder<FeedBloc, FeedState>(
         builder: (context, state) => AutoSizeText(
-          state.payload.when(
+          state.when(
             available: (tree) => tree.question.question,
             pending: (oldTree, _) => oldTree.question.question,
             empty: () => '',

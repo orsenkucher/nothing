@@ -18,7 +18,7 @@ _$_SummaryState _$_$_SummaryStateFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_SummaryStateToJson(_$_SummaryState instance) =>
     <String, dynamic>{
-      'answers': _to(instance.answers),
+      'answers': instance.answers,
     };
 
 _$_SummaryAnswer _$_$_SummaryAnswerFromJson(Map<String, dynamic> json) {
@@ -26,7 +26,7 @@ _$_SummaryAnswer _$_$_SummaryAnswerFromJson(Map<String, dynamic> json) {
     qid: json['qid'] as int,
     tries: json['tries'] as int,
     seconds: json['seconds'] as int,
-    answers: _fromS(json['answers'] as String),
+    answers: _fromJson(json['answers'] as String),
   );
 }
 
@@ -35,5 +35,5 @@ Map<String, dynamic> _$_$_SummaryAnswerToJson(_$_SummaryAnswer instance) =>
       'qid': instance.qid,
       'tries': instance.tries,
       'seconds': instance.seconds,
-      'answers': _toS(instance.answers),
+      'answers': _toJson(instance.answers),
     };

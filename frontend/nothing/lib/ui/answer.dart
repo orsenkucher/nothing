@@ -6,7 +6,6 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart';
-import 'package:nothing/ignitor/ignitor.dart' as ignitor;
 import 'package:nothing/model/text.dart';
 // import 'package:vibrate/vibrate.dart';
 
@@ -16,7 +15,8 @@ class Answer extends HookWidget {
   @override
   Widget build(BuildContext context) {
     const duration = Duration(milliseconds: 300);
-    final controllerInitial = context.bloc<FeedBloc>().payload.when<double>(available: (_) => 0, pending: (_, __) => 1, empty: () => 0);
+    final controllerInitial =
+        context.bloc<FeedBloc>().state.when<double>(available: (_) => 0, pending: (_, __) => 1, empty: () => 0);
     final controller = useAnimationController(duration: duration, initialValue: controllerInitial);
     const shift = 8.0;
     final offsetWrongX = TweenSequence([
@@ -46,9 +46,9 @@ class Answer extends HookWidget {
     final opacityCorrect = Tween<double>(begin: 1, end: 0).animate(controller);
     final opacityRight = Tween<double>(begin: 0, end: 1).animate(controller);
 
-    return BlocListener<FeedBloc, ignitor.Ignitable<FeedState>>(
+    return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
-        if (state.payload is! Pending) {
+        if (state is! Pending) {
           controller.reset();
         }
       },

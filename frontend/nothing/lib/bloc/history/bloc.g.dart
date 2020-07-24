@@ -21,5 +21,5 @@ _$_State _$_$_StateFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_StateToJson(_$_State instance) => <String, dynamic>{
       'ids': instance.ids?.map((k, e) => MapEntry(k.toString(), e)),
-      'answers': _to(instance.answers),
+      'answers': instance.answers,
     };

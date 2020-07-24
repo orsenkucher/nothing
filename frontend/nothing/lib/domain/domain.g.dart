@@ -40,7 +40,7 @@ _$_QTree _$_$_QTreeFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$_$_QTreeToJson(_$_QTree instance) => <String, dynamic>{
-      'question': _toQ(instance.question),
-      'left': _toT(instance.left),
-      'right': _toT(instance.right),
+      'question': instance.question,
+      'left': instance.left,
+      'right': instance.right,
     };

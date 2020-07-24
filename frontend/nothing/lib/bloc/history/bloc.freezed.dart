@@ -210,8 +210,7 @@ class _$HistoryStateTearOff {
 
 // ignore: unused_element
   _State call(
-      {@required Map<int, bool> ids,
-      @required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) {
+      {@required Map<int, bool> ids, @required List<SummaryAnswer> answers}) {
     return _State(
       ids: ids,
       answers: answers,
@@ -224,7 +223,6 @@ const $HistoryState = _$HistoryStateTearOff();
 
 mixin _$HistoryState {
   Map<int, bool> get ids;
-  @JsonKey(toJson: _to)
   List<SummaryAnswer> get answers;
 
   Map<String, dynamic> toJson();
@@ -235,8 +233,7 @@ abstract class $HistoryStateCopyWith<$Res> {
   factory $HistoryStateCopyWith(
           HistoryState value, $Res Function(HistoryState) then) =
       _$HistoryStateCopyWithImpl<$Res>;
-  $Res call(
-      {Map<int, bool> ids, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
+  $Res call({Map<int, bool> ids, List<SummaryAnswer> answers});
 }
 
 class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
@@ -263,8 +260,7 @@ abstract class _$StateCopyWith<$Res> implements $HistoryStateCopyWith<$Res> {
   factory _$StateCopyWith(_State value, $Res Function(_State) then) =
       __$StateCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {Map<int, bool> ids, @JsonKey(toJson: _to) List<SummaryAnswer> answers});
+  $Res call({Map<int, bool> ids, List<SummaryAnswer> answers});
 }
 
 class __$StateCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
@@ -290,8 +286,7 @@ class __$StateCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$_State with DiagnosticableTreeMixin implements _State {
-  const _$_State(
-      {@required this.ids, @required @JsonKey(toJson: _to) this.answers})
+  const _$_State({@required this.ids, @required this.answers})
       : assert(ids != null),
         assert(answers != null);
 
@@ -301,7 +296,6 @@ class _$_State with DiagnosticableTreeMixin implements _State {
   @override
   final Map<int, bool> ids;
   @override
-  @JsonKey(toJson: _to)
   final List<SummaryAnswer> answers;
 
   @override
@@ -347,14 +341,13 @@ class _$_State with DiagnosticableTreeMixin implements _State {
 abstract class _State implements HistoryState {
   const factory _State(
       {@required Map<int, bool> ids,
-      @required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) = _$_State;
+      @required List<SummaryAnswer> answers}) = _$_State;
 
   factory _State.fromJson(Map<String, dynamic> json) = _$_State.fromJson;
 
   @override
   Map<int, bool> get ids;
   @override
-  @JsonKey(toJson: _to)
   List<SummaryAnswer> get answers;
   @override
   _$StateCopyWith<_State> get copyWith;

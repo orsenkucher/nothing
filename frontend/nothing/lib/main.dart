@@ -19,7 +19,6 @@ import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart';
-import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/repository/ads.dart';
 import 'package:nothing/repository/likes.dart';
 import 'package:nothing/repository/questions.dart';
@@ -136,7 +135,7 @@ class App extends StatelessWidget with PortraitLock {
           );
         },
       ),
-      BlocBinder<QuestionsBloc, QuestionsState, FeedBloc, Ignitable<FeedState>>(
+      BlocBinder<QuestionsBloc, QuestionsState, FeedBloc, FeedState>(
         direct: (context, state, bloc) {
           if (state is Loaded) {
             if (state?.questions?.question != null) {
@@ -144,13 +143,13 @@ class App extends StatelessWidget with PortraitLock {
             }
           }
         },
-        reverse: (context, state, bloc) => state.payload.when(
+        reverse: (context, state, bloc) => state.when(
           available: (_) => void$(),
           pending: (_, __) => void$(),
           empty: () => bloc.add(QuestionsEvent.fetch()),
         ),
       ),
-      BlocBinder<ValidationBloc, ValidationState, FeedBloc, Ignitable<FeedState>>(
+      BlocBinder<ValidationBloc, ValidationState, FeedBloc, FeedState>(
         direct: (context, state, bloc) {
           state.maybeWhen(
             just: (just) => just.maybeWhen(
@@ -169,7 +168,7 @@ class App extends StatelessWidget with PortraitLock {
           );
         },
         reverse: (context, state, bloc) {
-          state.payload.when(
+          state.when(
             available: (tree) => bloc.add(ValidationEvent.focus(tree.question)),
             pending: (_, __) => void$(),
             empty: () => void$(),

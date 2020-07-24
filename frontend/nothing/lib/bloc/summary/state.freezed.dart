@@ -16,8 +16,7 @@ class _$SummaryStateTearOff {
   const _$SummaryStateTearOff();
 
 // ignore: unused_element
-  _SummaryState call(
-      {@required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) {
+  _SummaryState call({@required List<SummaryAnswer> answers}) {
     return _SummaryState(
       answers: answers,
     );
@@ -28,7 +27,6 @@ class _$SummaryStateTearOff {
 const $SummaryState = _$SummaryStateTearOff();
 
 mixin _$SummaryState {
-  @JsonKey(toJson: _to)
   List<SummaryAnswer> get answers;
 
   Map<String, dynamic> toJson();
@@ -39,7 +37,7 @@ abstract class $SummaryStateCopyWith<$Res> {
   factory $SummaryStateCopyWith(
           SummaryState value, $Res Function(SummaryState) then) =
       _$SummaryStateCopyWithImpl<$Res>;
-  $Res call({@JsonKey(toJson: _to) List<SummaryAnswer> answers});
+  $Res call({List<SummaryAnswer> answers});
 }
 
 class _$SummaryStateCopyWithImpl<$Res> implements $SummaryStateCopyWith<$Res> {
@@ -66,7 +64,7 @@ abstract class _$SummaryStateCopyWith<$Res>
           _SummaryState value, $Res Function(_SummaryState) then) =
       __$SummaryStateCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(toJson: _to) List<SummaryAnswer> answers});
+  $Res call({List<SummaryAnswer> answers});
 }
 
 class __$SummaryStateCopyWithImpl<$Res> extends _$SummaryStateCopyWithImpl<$Res>
@@ -91,14 +89,12 @@ class __$SummaryStateCopyWithImpl<$Res> extends _$SummaryStateCopyWithImpl<$Res>
 
 @JsonSerializable()
 class _$_SummaryState with DiagnosticableTreeMixin implements _SummaryState {
-  const _$_SummaryState({@required @JsonKey(toJson: _to) this.answers})
-      : assert(answers != null);
+  const _$_SummaryState({@required this.answers}) : assert(answers != null);
 
   factory _$_SummaryState.fromJson(Map<String, dynamic> json) =>
       _$_$_SummaryStateFromJson(json);
 
   @override
-  @JsonKey(toJson: _to)
   final List<SummaryAnswer> answers;
 
   @override
@@ -137,15 +133,13 @@ class _$_SummaryState with DiagnosticableTreeMixin implements _SummaryState {
 }
 
 abstract class _SummaryState implements SummaryState {
-  const factory _SummaryState(
-          {@required @JsonKey(toJson: _to) List<SummaryAnswer> answers}) =
+  const factory _SummaryState({@required List<SummaryAnswer> answers}) =
       _$_SummaryState;
 
   factory _SummaryState.fromJson(Map<String, dynamic> json) =
       _$_SummaryState.fromJson;
 
   @override
-  @JsonKey(toJson: _to)
   List<SummaryAnswer> get answers;
   @override
   _$SummaryStateCopyWith<_SummaryState> get copyWith;
@@ -167,7 +161,7 @@ class _$SummaryAnswerTearOff {
       @required
           int seconds,
       @required
-      @JsonKey(toJson: _toS, fromJson: _fromS)
+      @JsonKey(toJson: _toJson, fromJson: _fromJson)
           List<String> answers}) {
     return _SummaryAnswer(
       qid: qid,
@@ -185,7 +179,7 @@ mixin _$SummaryAnswer {
   int get qid;
   int get tries;
   int get seconds;
-  @JsonKey(toJson: _toS, fromJson: _fromS)
+  @JsonKey(toJson: _toJson, fromJson: _fromJson)
   List<String> get answers;
 
   Map<String, dynamic> toJson();
@@ -200,7 +194,7 @@ abstract class $SummaryAnswerCopyWith<$Res> {
       {int qid,
       int tries,
       int seconds,
-      @JsonKey(toJson: _toS, fromJson: _fromS) List<String> answers});
+      @JsonKey(toJson: _toJson, fromJson: _fromJson) List<String> answers});
 }
 
 class _$SummaryAnswerCopyWithImpl<$Res>
@@ -237,7 +231,7 @@ abstract class _$SummaryAnswerCopyWith<$Res>
       {int qid,
       int tries,
       int seconds,
-      @JsonKey(toJson: _toS, fromJson: _fromS) List<String> answers});
+      @JsonKey(toJson: _toJson, fromJson: _fromJson) List<String> answers});
 }
 
 class __$SummaryAnswerCopyWithImpl<$Res>
@@ -272,7 +266,7 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
       {@required this.qid,
       @required this.tries,
       @required this.seconds,
-      @required @JsonKey(toJson: _toS, fromJson: _fromS) this.answers})
+      @required @JsonKey(toJson: _toJson, fromJson: _fromJson) this.answers})
       : assert(qid != null),
         assert(tries != null),
         assert(seconds != null),
@@ -288,7 +282,7 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
   @override
   final int seconds;
   @override
-  @JsonKey(toJson: _toS, fromJson: _fromS)
+  @JsonKey(toJson: _toJson, fromJson: _fromJson)
   final List<String> answers;
 
   @override
@@ -349,7 +343,7 @@ abstract class _SummaryAnswer implements SummaryAnswer {
       @required
           int seconds,
       @required
-      @JsonKey(toJson: _toS, fromJson: _fromS)
+      @JsonKey(toJson: _toJson, fromJson: _fromJson)
           List<String> answers}) = _$_SummaryAnswer;
 
   factory _SummaryAnswer.fromJson(Map<String, dynamic> json) =
@@ -362,7 +356,7 @@ abstract class _SummaryAnswer implements SummaryAnswer {
   @override
   int get seconds;
   @override
-  @JsonKey(toJson: _toS, fromJson: _fromS)
+  @JsonKey(toJson: _toJson, fromJson: _fromJson)
   List<String> get answers;
   @override
   _$SummaryAnswerCopyWith<_SummaryAnswer> get copyWith;
