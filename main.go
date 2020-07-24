@@ -12,12 +12,9 @@ import (
 	"time"
 
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/postgres"
-	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/proxy"
 	"github.com/jinzhu/gorm"
 	"github.com/orsenkucher/nothing/encio"
 	"github.com/orsenkucher/nothing/server"
-
-	"golang.org/x/oauth2/google"
 )
 
 // Main loads db and handles functions realized in dir server
@@ -51,12 +48,14 @@ func main() {
 			log.Fatalln("No password provided")
 		}
 	}
+
 	key := encio.NewEncIO(pass)
 	cfg, err := key.GetConfig("secure/cfg.json")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	db := NewDB(key, cfg)
+
+	db := NewDB(cfg)
 	defer db.Close()
 
 	// s := server.StartUp(db)
@@ -87,9 +86,11 @@ func StartServer(db *gorm.DB) {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()
+
 	log.Print("Server Started")
 	<-done
 	log.Print("Server Stopped")
+
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	if err := hsrv.Shutdown(ctx); err != nil {
@@ -97,28 +98,19 @@ func StartServer(db *gorm.DB) {
 	}
 }
 
-//NewDB is public
-func NewDB(key encio.EncIO, cfg encio.Config) *gorm.DB {
-	bytes, err := key.ReadFile(cfg["dbcred"].(string))
-	if err != nil {
-		log.Fatalln(err)
-	}
-	jwt, err := google.JWTConfigFromJSON(bytes, proxy.SQLScope)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	ctx := context.Background()
-	client := jwt.Client(ctx)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	proxy.Init(client, nil, nil)
-
-	dsn := fmt.Sprintf("host=%s dbname=%s user=%s password=%s sslmode=disable",
-		cfg["dbhost"], cfg["dbname"], cfg["dbuser"], cfg["dbpass"])
+func NewDB(cfg encio.Config) *gorm.DB {
+	dsn := fmt.Sprintf(
+		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		cfg["dbhost"].(string),
+		int32(cfg["dbport"].(float64)),
+		cfg["dbuser"].(string),
+		cfg["dbpass"].(string),
+		cfg["dbname"].(string),
+	)
 	db, err := gorm.Open(cfg["driver"].(string), dsn)
 	if err != nil {
-		log.Fatalln(err)
+		panic("failed to connect database")
 	}
+
 	return db
 }
