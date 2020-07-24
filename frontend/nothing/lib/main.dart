@@ -235,7 +235,7 @@ Widget _repos(Widget child) {
   return MultiRepositoryProvider(child: child, providers: [
     RepositoryProvider<QuestionsRepo>(
       child: child,
-      create: (context) => LocalQuestionsRepo(),
+      create: (context) => CloudQuestionsRepo(),
     ), // CloudQuestionsRepo|LocalQuestionsRepo
     RepositoryProvider<AdRepo>(
       child: child,
