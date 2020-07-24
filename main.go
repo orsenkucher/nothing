@@ -109,7 +109,7 @@ func NewDB(cfg encio.Config) *gorm.DB {
 	)
 	db, err := gorm.Open(cfg["driver"].(string), dsn)
 	if err != nil {
-		panic("failed to connect database")
+		log.Panicf("failed to connect database: %+v\n", err)
 	}
 
 	return db
