@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
-import 'package:nothing/ignitor/ignitor.dart';
 import 'package:nothing/domain/domain.dart';
 
 part 'bloc.freezed.dart';
@@ -26,13 +26,13 @@ abstract class MoveDir with _$MoveDir {
 @freezed
 abstract class FeedState with _$FeedState {
   const factory FeedState.available({
-    @required @JsonKey(toJson: _toT) QTree tree,
+    @required QTree tree,
   }) = Available;
 
   // TODO: or is it another bloc created?
   const factory FeedState.pending({
-    @required @JsonKey(toJson: _toT) QTree oldTree,
-    @required @JsonKey(toJson: _toT) QTree newTree,
+    @required QTree oldTree,
+    @required QTree newTree,
   }) = Pending;
 
   const factory FeedState.empty() = Empty;
@@ -40,19 +40,14 @@ abstract class FeedState with _$FeedState {
   factory FeedState.fromJson(Map<String, dynamic> json) => _$FeedStateFromJson(json);
 }
 
-Map<String, dynamic> _toT(QTree t) => t?.toJson();
-
-class FeedBloc extends IgnitedBloc<FeedEvent, FeedState> {
+class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   final ValidationBloc validationBloc;
   final QuestionsBloc questionsBloc;
   FeedBloc({
     @required this.questionsBloc,
     @required this.validationBloc,
-  }) : super(FeedState.empty());
-
-  @override
-  void ignition(FeedState paylaod) {
-    paylaod.when(
+  }) : super(FeedState.empty()) {
+    state.when(
       available: (tree) => add(FeedEvent.newArrived(tree)),
       pending: (_, __) => void$(), // nothing should be done
       empty: () => questionsBloc.add(QuestionsEvent.fetch()),
@@ -60,8 +55,8 @@ class FeedBloc extends IgnitedBloc<FeedEvent, FeedState> {
   }
 
   @override
-  Stream<FeedState> mapEventToPayload(FeedEvent event) async* {
-    final next = payload.when<FeedState>(
+  Stream<FeedState> mapEventToState(FeedEvent event) async* {
+    final next = state.when<FeedState>(
       available: (tree) => event.when(
         moveNext: (dir) {
           final next = dir.when(
@@ -93,8 +88,8 @@ class FeedBloc extends IgnitedBloc<FeedEvent, FeedState> {
   }
 
   @override
-  dynamic payloadToJson(FeedState payload) => payload.toJson();
+  Map<String, dynamic> toJson(FeedState payload) => payload.toJson();
 
   @override
-  FeedState payloadFromJson(dynamic json) => FeedState.fromJson(json);
+  FeedState fromJson(Map<String, dynamic> json) => FeedState.fromJson(json);
 }

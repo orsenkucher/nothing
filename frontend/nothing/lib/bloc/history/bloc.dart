@@ -18,13 +18,11 @@ abstract class HistoryEvent with _$HistoryEvent {
 abstract class HistoryState with _$HistoryState {
   const factory HistoryState({
     @required Map<int, bool> ids, // HashSet with ids
-    @required @JsonKey(toJson: _to) List<SummaryAnswer> answers,
+    @required List<SummaryAnswer> answers,
   }) = _State;
 
   factory HistoryState.fromJson(Map<String, dynamic> json) => _$HistoryStateFromJson(json);
 }
-
-List<dynamic> _to(List<SummaryAnswer> ss) => ss?.map((s) => s.toJson())?.toList();
 
 class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
   HistoryBloc() : super(HistoryState(ids: {}, answers: []));
