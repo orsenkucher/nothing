@@ -43,6 +43,8 @@ func init() {
 }
 
 func main() {
+	var q = flag.Bool("q", false, "update cfg.enc and quit")
+
 	if flag.Parse(); pass == "" {
 		if pass = os.Getenv("encio"); pass == "" {
 			log.Fatalln("No password provided")
@@ -53,6 +55,11 @@ func main() {
 	cfg, err := key.GetConfig("secure/cfg.json")
 	if err != nil {
 		log.Fatalln(err)
+	}
+
+	if *q {
+		log.Println("Updated cfg.enc, quitting now")
+		return
 	}
 
 	db := NewDB(cfg)
