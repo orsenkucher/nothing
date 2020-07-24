@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'bloc.dart';
 
@@ -12,6 +12,7 @@ T _$identity<T>(T value) => value;
 class _$RoutingEventTearOff {
   const _$RoutingEventTearOff();
 
+// ignore: unused_element
   _Push push({@required Routes from, @required Routes to}) {
     return _Push(
       from: from,
@@ -19,10 +20,12 @@ class _$RoutingEventTearOff {
     );
   }
 
+// ignore: unused_element
   _Resume resume() {
     return const _Resume();
   }
 
+// ignore: unused_element
   _Pop pop({@required Routes from}) {
     return _Pop(
       from: from,
@@ -469,6 +472,7 @@ abstract class _Pop implements RoutingEvent {
 class _$RoutingStateTearOff {
   const _$RoutingStateTearOff();
 
+// ignore: unused_element
   _RoutingState priv(
       {@required RoutingEvent event,
       @required List<Routes> log,

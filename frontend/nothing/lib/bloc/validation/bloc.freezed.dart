@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'bloc.dart';
 
@@ -12,24 +12,28 @@ T _$identity<T>(T value) => value;
 class _$ValidationEventTearOff {
   const _$ValidationEventTearOff();
 
+// ignore: unused_element
   _Focus focus(Question question) {
     return _Focus(
       question,
     );
   }
 
+// ignore: unused_element
   _Check check(String answer) {
     return _Check(
       answer,
     );
   }
 
+// ignore: unused_element
   _Lifecycle lifecycle(TimePoint point) {
     return _Lifecycle(
       point,
     );
   }
 
+// ignore: unused_element
   _Skip skip() {
     return const _Skip();
   }
@@ -605,6 +609,7 @@ abstract class _Skip implements ValidationEvent {
 class _$_ValidationState2TearOff {
   const _$_ValidationState2TearOff();
 
+// ignore: unused_element
   _Correct correct(Question question, List<String> answers, Duration duration) {
     return _Correct(
       question,
@@ -613,6 +618,7 @@ class _$_ValidationState2TearOff {
     );
   }
 
+// ignore: unused_element
   _Wrong wrong(Question question, List<String> answers, TimePoints timePoints) {
     return _Wrong(
       question,
@@ -621,6 +627,7 @@ class _$_ValidationState2TearOff {
     );
   }
 
+// ignore: unused_element
   _Neutral neutral(
       Question question, List<String> answers, TimePoints timePoints) {
     return _Neutral(
@@ -630,6 +637,7 @@ class _$_ValidationState2TearOff {
     );
   }
 
+// ignore: unused_element
   _Skipped skip(Question question, List<String> answers, Duration duration) {
     return _Skipped(
       question,
@@ -1443,12 +1451,14 @@ abstract class _Skipped implements _ValidationState2 {
 class _$ValidationStateTearOff {
   const _$ValidationStateTearOff();
 
+// ignore: unused_element
   _Just just(_ValidationState2 state) {
     return _Just(
       state,
     );
   }
 
+// ignore: unused_element
   _Nothing nothing() {
     return const _Nothing();
   }
@@ -1720,12 +1730,14 @@ abstract class _Nothing implements ValidationState {
 class _$TimePointTearOff {
   const _$TimePointTearOff();
 
+// ignore: unused_element
   _Resume resume(DateTime time) {
     return _Resume(
       time,
     );
   }
 
+// ignore: unused_element
   _Suspend suspend(DateTime time) {
     return _Suspend(
       time,
@@ -2031,6 +2043,7 @@ abstract class _Suspend implements TimePoint {
 class _$TimePointsTearOff {
   const _$TimePointsTearOff();
 
+// ignore: unused_element
   _TimePoints call(List<TimePoint> points) {
     return _TimePoints(
       points,

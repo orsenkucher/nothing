@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'bloc.dart';
 
@@ -12,12 +12,14 @@ T _$identity<T>(T value) => value;
 class _$QuestionsEventTearOff {
   const _$QuestionsEventTearOff();
 
+// ignore: unused_element
   Fetch fetch([int currentid]) {
     return Fetch(
       currentid,
     );
   }
 
+// ignore: unused_element
   Refetch refetch(int currentid) {
     return Refetch(
       currentid,
@@ -327,20 +329,24 @@ abstract class Refetch implements QuestionsEvent {
 class _$QuestionsStateTearOff {
   const _$QuestionsStateTearOff();
 
+// ignore: unused_element
   Loaded loaded(QTree questions) {
     return Loaded(
       questions,
     );
   }
 
+// ignore: unused_element
   Loading loading() {
     return const Loading();
   }
 
+// ignore: unused_element
   Reloading reloading() {
     return const Reloading();
   }
 
+// ignore: unused_element
   Error error(CloudError error) {
     return Error(
       error,

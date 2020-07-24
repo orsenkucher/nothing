@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'bloc.dart';
 
@@ -12,18 +12,21 @@ T _$identity<T>(T value) => value;
 class _$FeedEventTearOff {
   const _$FeedEventTearOff();
 
+// ignore: unused_element
   NewArrived newArrived(QTree tree) {
     return NewArrived(
       tree,
     );
   }
 
+// ignore: unused_element
   MoveNext moveNext(MoveDir dir) {
     return MoveNext(
       dir,
     );
   }
 
+// ignore: unused_element
   Ground ground() {
     return const Ground();
   }
@@ -445,10 +448,12 @@ abstract class Ground implements FeedEvent {
 class _$MoveDirTearOff {
   const _$MoveDirTearOff();
 
+// ignore: unused_element
   _Left left() {
     return const _Left();
   }
 
+// ignore: unused_element
   _Right right() {
     return const _Right();
   }
@@ -694,12 +699,14 @@ FeedState _$FeedStateFromJson(Map<String, dynamic> json) {
 class _$FeedStateTearOff {
   const _$FeedStateTearOff();
 
+// ignore: unused_element
   Available available({@required @JsonKey(toJson: _toT) QTree tree}) {
     return Available(
       tree: tree,
     );
   }
 
+// ignore: unused_element
   Pending pending(
       {@required @JsonKey(toJson: _toT) QTree oldTree,
       @required @JsonKey(toJson: _toT) QTree newTree}) {
@@ -709,6 +716,7 @@ class _$FeedStateTearOff {
     );
   }
 
+// ignore: unused_element
   Empty empty() {
     return const Empty();
   }

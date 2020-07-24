@@ -229,21 +229,21 @@ class App extends StatelessWidget with PortraitLock {
       child: child,
     );
   }
-}
 
-Widget _repos(Widget child) {
-  return MultiRepositoryProvider(child: child, providers: [
-    RepositoryProvider<QuestionsRepo>(
-      child: child,
-      create: (context) => CloudQuestionsRepo(),
-    ), // CloudQuestionsRepo|LocalQuestionsRepo
-    RepositoryProvider<AdRepo>(
-      child: child,
-      create: (context) => AdRepo(),
-    ),
-    RepositoryProvider<LikesRepo>(
-      child: child,
-      create: (context) => LikesRepo(),
-    ),
-  ]);
+  Widget _repos(Widget child) {
+    return MultiRepositoryProvider(child: child, providers: [
+      RepositoryProvider<QuestionsRepo>(
+        child: child,
+        create: (context) => CloudQuestionsRepo(),
+      ), // CloudQuestionsRepo|LocalQuestionsRepo
+      RepositoryProvider<AdRepo>(
+        child: child,
+        create: (context) => AdRepo(),
+      ),
+      RepositoryProvider<LikesRepo>(
+        child: child,
+        create: (context) => LikesRepo(),
+      ),
+    ]);
+  }
 }

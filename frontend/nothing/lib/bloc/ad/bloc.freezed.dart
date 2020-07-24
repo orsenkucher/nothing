@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'bloc.dart';
 
@@ -12,12 +12,14 @@ T _$identity<T>(T value) => value;
 class _$AdEventTearOff {
   const _$AdEventTearOff();
 
+// ignore: unused_element
   _Register register(String userid) {
     return _Register(
       userid,
     );
   }
 
+// ignore: unused_element
   _Report report(AdType type) {
     return _Report(
       type,
@@ -303,6 +305,7 @@ abstract class _Report implements AdEvent {
 class _$AdStateTearOff {
   const _$AdStateTearOff();
 
+// ignore: unused_element
   _AdState call(String userid, AdMode type) {
     return _AdState(
       userid,
@@ -310,6 +313,7 @@ class _$AdStateTearOff {
     );
   }
 
+// ignore: unused_element
   _Empty empty() {
     return const _Empty();
   }

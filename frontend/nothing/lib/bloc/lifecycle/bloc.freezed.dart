@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'bloc.dart';
 
@@ -23,12 +23,14 @@ LifecycleEvent _$LifecycleEventFromJson(Map<String, dynamic> json) {
 class _$LifecycleEventTearOff {
   const _$LifecycleEventTearOff();
 
+// ignore: unused_element
   _Resume resume(DateTime point) {
     return _Resume(
       point,
     );
   }
 
+// ignore: unused_element
   _Suspend suspend(DateTime point) {
     return _Suspend(
       point,
@@ -371,6 +373,7 @@ LifecycleState _$LifecycleStateFromJson(Map<String, dynamic> json) {
 class _$LifecycleStateTearOff {
   const _$LifecycleStateTearOff();
 
+// ignore: unused_element
   _Just just(
       {@required List<LifecycleEvent> log, @required LifecycleEvent current}) {
     return _Just(
@@ -379,6 +382,7 @@ class _$LifecycleStateTearOff {
     );
   }
 
+// ignore: unused_element
   _Nothing nothing() {
     return const _Nothing();
   }

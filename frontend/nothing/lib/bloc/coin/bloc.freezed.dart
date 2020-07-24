@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'bloc.dart';
 
@@ -12,12 +12,14 @@ T _$identity<T>(T value) => value;
 class _$CoinEventTearOff {
   const _$CoinEventTearOff();
 
+// ignore: unused_element
   _Increase inc(int count) {
     return _Increase(
       count,
     );
   }
 
+// ignore: unused_element
   _Decrease dec(int count) {
     return _Decrease(
       count,
@@ -327,6 +329,7 @@ CoinState _$CoinStateFromJson(Map<String, dynamic> json) {
 class _$CoinStateTearOff {
   const _$CoinStateTearOff();
 
+// ignore: unused_element
   _CoinState call(int total) {
     return _CoinState(
       total,
