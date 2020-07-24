@@ -715,8 +715,10 @@ class _$FeedStateTearOff {
   }
 
 // ignore: unused_element
-  Empty empty() {
-    return const Empty();
+  Empty empty([QTree oldTree]) {
+    return Empty(
+      oldTree,
+    );
   }
 }
 
@@ -728,13 +730,13 @@ mixin _$FeedState {
   Result when<Result extends Object>({
     @required Result available(QTree tree),
     @required Result pending(QTree oldTree, QTree newTree),
-    @required Result empty(),
+    @required Result empty(QTree oldTree),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result available(QTree tree),
     Result pending(QTree oldTree, QTree newTree),
-    Result empty(),
+    Result empty(QTree oldTree),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -846,7 +848,7 @@ class _$Available with DiagnosticableTreeMixin implements Available {
   Result when<Result extends Object>({
     @required Result available(QTree tree),
     @required Result pending(QTree oldTree, QTree newTree),
-    @required Result empty(),
+    @required Result empty(QTree oldTree),
   }) {
     assert(available != null);
     assert(pending != null);
@@ -859,7 +861,7 @@ class _$Available with DiagnosticableTreeMixin implements Available {
   Result maybeWhen<Result extends Object>({
     Result available(QTree tree),
     Result pending(QTree oldTree, QTree newTree),
-    Result empty(),
+    Result empty(QTree oldTree),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1015,7 +1017,7 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
   Result when<Result extends Object>({
     @required Result available(QTree tree),
     @required Result pending(QTree oldTree, QTree newTree),
-    @required Result empty(),
+    @required Result empty(QTree oldTree),
   }) {
     assert(available != null);
     assert(pending != null);
@@ -1028,7 +1030,7 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
   Result maybeWhen<Result extends Object>({
     Result available(QTree tree),
     Result pending(QTree oldTree, QTree newTree),
-    Result empty(),
+    Result empty(QTree oldTree),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1086,6 +1088,9 @@ abstract class Pending implements FeedState {
 abstract class $EmptyCopyWith<$Res> {
   factory $EmptyCopyWith(Empty value, $Res Function(Empty) then) =
       _$EmptyCopyWithImpl<$Res>;
+  $Res call({QTree oldTree});
+
+  $QTreeCopyWith<$Res> get oldTree;
 }
 
 class _$EmptyCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
@@ -1095,45 +1100,77 @@ class _$EmptyCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
 
   @override
   Empty get _value => super._value as Empty;
+
+  @override
+  $Res call({
+    Object oldTree = freezed,
+  }) {
+    return _then(Empty(
+      oldTree == freezed ? _value.oldTree : oldTree as QTree,
+    ));
+  }
+
+  @override
+  $QTreeCopyWith<$Res> get oldTree {
+    if (_value.oldTree == null) {
+      return null;
+    }
+    return $QTreeCopyWith<$Res>(_value.oldTree, (value) {
+      return _then(_value.copyWith(oldTree: value));
+    });
+  }
 }
 
 @JsonSerializable()
 class _$Empty with DiagnosticableTreeMixin implements Empty {
-  const _$Empty();
+  const _$Empty([this.oldTree]);
 
   factory _$Empty.fromJson(Map<String, dynamic> json) =>
       _$_$EmptyFromJson(json);
 
   @override
+  final QTree oldTree;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FeedState.empty()';
+    return 'FeedState.empty(oldTree: $oldTree)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'FeedState.empty'));
+    properties
+      ..add(DiagnosticsProperty('type', 'FeedState.empty'))
+      ..add(DiagnosticsProperty('oldTree', oldTree));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Empty);
+    return identical(this, other) ||
+        (other is Empty &&
+            (identical(other.oldTree, oldTree) ||
+                const DeepCollectionEquality().equals(other.oldTree, oldTree)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(oldTree);
+
+  @override
+  $EmptyCopyWith<Empty> get copyWith =>
+      _$EmptyCopyWithImpl<Empty>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result available(QTree tree),
     @required Result pending(QTree oldTree, QTree newTree),
-    @required Result empty(),
+    @required Result empty(QTree oldTree),
   }) {
     assert(available != null);
     assert(pending != null);
     assert(empty != null);
-    return empty();
+    return empty(oldTree);
   }
 
   @override
@@ -1141,12 +1178,12 @@ class _$Empty with DiagnosticableTreeMixin implements Empty {
   Result maybeWhen<Result extends Object>({
     Result available(QTree tree),
     Result pending(QTree oldTree, QTree newTree),
-    Result empty(),
+    Result empty(QTree oldTree),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {
-      return empty();
+      return empty(oldTree);
     }
     return orElse();
   }
@@ -1186,7 +1223,10 @@ class _$Empty with DiagnosticableTreeMixin implements Empty {
 }
 
 abstract class Empty implements FeedState {
-  const factory Empty() = _$Empty;
+  const factory Empty([QTree oldTree]) = _$Empty;
 
   factory Empty.fromJson(Map<String, dynamic> json) = _$Empty.fromJson;
+
+  QTree get oldTree;
+  $EmptyCopyWith<Empty> get copyWith;
 }

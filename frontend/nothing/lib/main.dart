@@ -146,7 +146,7 @@ class App extends StatelessWidget with PortraitLock {
         reverse: (context, state, bloc) => state.when(
           available: (_) => void$(),
           pending: (_, __) => void$(),
-          empty: () => bloc.add(QuestionsEvent.fetch()),
+          empty: (_) => bloc.add(QuestionsEvent.fetch()),
         ),
       ),
       BlocBinder<ValidationBloc, ValidationState, FeedBloc, FeedState>(
@@ -171,7 +171,7 @@ class App extends StatelessWidget with PortraitLock {
           state.when(
             available: (tree) => bloc.add(ValidationEvent.focus(tree.question)),
             pending: (_, __) => void$(),
-            empty: () => void$(),
+            empty: (_) => void$(),
           );
         },
       ),

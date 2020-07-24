@@ -16,7 +16,7 @@ class Answer extends HookWidget {
   Widget build(BuildContext context) {
     const duration = Duration(milliseconds: 300);
     final controllerInitial =
-        context.bloc<FeedBloc>().state.when<double>(available: (_) => 0, pending: (_, __) => 1, empty: () => 0);
+        context.bloc<FeedBloc>().state.when<double>(available: (_) => 0, pending: (_, __) => 1, empty: (_) => 0);
     final controller = useAnimationController(duration: duration, initialValue: controllerInitial);
     const shift = 8.0;
     final offsetWrongX = TweenSequence([
@@ -48,7 +48,8 @@ class Answer extends HookWidget {
 
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
-        if (state is! Pending) {
+        // if (state is! Pending) {
+        if (state is Available) {
           controller.reset();
         }
       },

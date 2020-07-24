@@ -201,7 +201,7 @@ class Main extends HookWidget {
                 textModel.update('');
               },
               pending: (_, __) => domain.void$(),
-              empty: () => domain.void$(),
+              empty: (_) => domain.void$(),
             );
           }),
         ],
@@ -285,7 +285,7 @@ class Main extends HookWidget {
                             state.when(
                               available: (tree) => tree.question.explanation,
                               pending: (oldTree, _) => oldTree.question.explanation,
-                              empty: () => '',
+                              empty: (_) => '',
                             ),
                             maxLines: 4,
                             textAlign: TextAlign.center,
@@ -400,7 +400,7 @@ class Main extends HookWidget {
                     pending: (oldTree, _) {
                       context.repository<LikesRepo>().report(oldTree.question.id, 1);
                     },
-                    empty: () => domain.void$());
+                    empty: (_) => domain.void$());
               },
               'dislike': () {
                 print('dislike');
@@ -409,7 +409,7 @@ class Main extends HookWidget {
                     pending: (oldTree, _) {
                       context.repository<LikesRepo>().report(oldTree.question.id, -1);
                     },
-                    empty: () => domain.void$());
+                    empty: (_) => domain.void$());
               },
             };
 

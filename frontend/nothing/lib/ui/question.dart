@@ -20,7 +20,7 @@ class Question extends HookWidget {
           state.when(
             available: (tree) => tree.question.question,
             pending: (oldTree, _) => oldTree.question.question,
-            empty: () => '',
+            empty: (oldTree) => oldTree?.question?.question ?? '',
           ),
           maxLines: 7,
           textAlign: TextAlign.center,

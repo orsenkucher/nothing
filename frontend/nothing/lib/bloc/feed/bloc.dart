@@ -35,7 +35,7 @@ abstract class FeedState with _$FeedState {
     @required QTree newTree,
   }) = Pending;
 
-  const factory FeedState.empty() = Empty;
+  const factory FeedState.empty([QTree oldTree]) = Empty;
 
   factory FeedState.fromJson(Map<String, dynamic> json) => _$FeedStateFromJson(json);
 }
@@ -46,11 +46,11 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   FeedBloc({
     @required this.questionsBloc,
     @required this.validationBloc,
-  }) : super(FeedState.empty()) {
+  }) : super(FeedState.empty(null)) {
     state.when(
       available: (tree) => add(FeedEvent.newArrived(tree)),
       pending: (_, __) => void$(), // nothing should be done
-      empty: () => questionsBloc.add(QuestionsEvent.fetch()),
+      empty: (_) => questionsBloc.add(QuestionsEvent.fetch()),
     );
   }
 
@@ -63,7 +63,12 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
             left: () => tree.left,
             right: () => tree.right,
           );
-          return next != null ? FeedState.pending(oldTree: tree, newTree: next) : FeedState.empty();
+          return next != null
+              ? FeedState.pending(
+                  oldTree: tree,
+                  newTree: next,
+                )
+              : FeedState.empty(tree);
         },
         ground: () => error$(), // this should never happen
         newArrived: (tree) => FeedState.available(tree: tree),
@@ -73,11 +78,12 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
         ground: () => FeedState.available(tree: newTree),
         newArrived: (tree) => FeedState.available(tree: tree),
       ),
-      empty: () => event.when(
-        newArrived: (tree) => FeedState.available(tree: tree),
-        // newArrived: (tree) => FeedState.pending(oldTree: tree, newTree: tree),
-        moveNext: (_) => FeedState.empty(),
-        ground: () => FeedState.empty(),
+      empty: (oldTree) => event.when(
+        newArrived: (newTree) => oldTree != null
+            ? FeedState.pending(oldTree: oldTree, newTree: newTree)
+            : FeedState.available(tree: newTree),
+        moveNext: (_) => FeedState.empty(null),
+        ground: () => FeedState.empty(null),
       ),
     );
     yield next;
@@ -87,5 +93,8 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   Map<String, dynamic> toJson(FeedState payload) => payload.toJson();
 
   @override
-  FeedState fromJson(Map<String, dynamic> json) => FeedState.fromJson(json);
+  FeedState fromJson(Map<String, dynamic> json) {
+    // clear();
+    return FeedState.fromJson(json);
+  }
 }

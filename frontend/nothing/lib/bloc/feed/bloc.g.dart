@@ -36,7 +36,13 @@ Map<String, dynamic> _$_$PendingToJson(_$Pending instance) => <String, dynamic>{
     };
 
 _$Empty _$_$EmptyFromJson(Map<String, dynamic> json) {
-  return _$Empty();
+  return _$Empty(
+    json['oldTree'] == null
+        ? null
+        : QTree.fromJson(json['oldTree'] as Map<String, dynamic>),
+  );
 }
 
-Map<String, dynamic> _$_$EmptyToJson(_$Empty instance) => <String, dynamic>{};
+Map<String, dynamic> _$_$EmptyToJson(_$Empty instance) => <String, dynamic>{
+      'oldTree': instance.oldTree,
+    };
