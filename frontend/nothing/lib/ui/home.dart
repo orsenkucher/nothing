@@ -253,12 +253,12 @@ class Main extends HookWidget {
     AnimationController hintTintController,
   ) {
     return SafeArea(child: LayoutBuilder(builder: (context, constraints) {
-      final top = labelH + 24; //+ 21 + 28 + 8 + 12;
+      final top = lblH + 24; //+ 21 + 28 + 8 + 12;
       double hei = min(
         280,
-        constraints.biggest.height - (labelH + ansH + 21 + 28 + 12 + 8),
+        constraints.biggest.height - (lblH + ansH + 21 + 28 + 12 + 8),
       );
-      hei += labelH + ansH - 20;
+      hei += lblH + ansH - 20;
       const hor = 20.0;
       return Stack(children: [
         Positioned(
@@ -352,113 +352,116 @@ class Main extends HookWidget {
       builder: (context, constraints) {
         return BlocBuilder<FeedBloc, FeedState>(
           builder: (context, state) {
-            double queH = min(
-              280,
-              constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
-            );
-            const pad = 8;
-            const hor = 40.0;
-            final top = queH + labelH + ansH + pad;
-            text(String text) => Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
-            const ll = {
-              'hint': 'Хинт',
-              'skip': 'Скип',
-              'like': '',
-              'dislike': '',
-            };
-            final cc = {
-              'hint': NothingScheme.of(context).hint,
-              'skip': NothingScheme.of(context).skip,
-              'like': NothingScheme.of(context).correct,
-              'dislike': NothingScheme.of(context).wrong,
-            };
-            final ii = {
-              'hint': NothingFont.hint,
-              'skip': NothingFont.skip,
-              'like': NothingFont.like,
-              'dislike': NothingFont.like,
-            };
-            final id = <String, Widget Function(Widget)>{
-              'hint': (_) => _,
-              'skip': (_) => Transform.scale(scale: 0.65, child: _),
-              'like': (_) => _,
-              'dislike': (_) => Transform.rotate(angle: pi, child: _),
-            };
-            final pp = {
-              'hint': () => _hintClick(
-                    context,
-                    showHint,
-                    hintTintController,
-                  ),
-              'skip': () {
-                context.bloc<ValidationBloc>().add(ValidationEvent.skip());
-              },
-              'like': () {
-                print('like');
-                context.bloc<FeedBloc>().state.when(
-                    available: (_) => domain.error$(),
-                    pending: (oldTree, _) {
-                      context.repository<LikesRepo>().report(oldTree.question.id, 1);
-                    },
-                    empty: (_) => domain.void$());
-              },
-              'dislike': () {
-                print('dislike');
-                context.bloc<FeedBloc>().state.when(
-                    available: (_) => domain.error$(),
-                    pending: (oldTree, _) {
-                      context.repository<LikesRepo>().report(oldTree.question.id, -1);
-                    },
-                    empty: (_) => domain.void$());
-              },
-            };
+            return HookBuilder(builder: (context) {
+              final queH = useState<double>(280);
+              queH.value = min(
+                queH.value,
+                constraints.biggest.height - (lblH + ansH + 21 + 28 + 8 + 12),
+              );
+              const pad = 8;
+              const hor = 40.0;
+              final top = queH.value + lblH + ansH + pad;
+              text(String text) => Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
+              const ll = {
+                'hint': 'Хинт',
+                'skip': 'Скип',
+                'like': '',
+                'dislike': '',
+              };
+              final cc = {
+                'hint': NothingScheme.of(context).hint,
+                'skip': NothingScheme.of(context).skip,
+                'like': NothingScheme.of(context).correct,
+                'dislike': NothingScheme.of(context).wrong,
+              };
+              final ii = {
+                'hint': NothingFont.hint,
+                'skip': NothingFont.skip,
+                'like': NothingFont.like,
+                'dislike': NothingFont.like,
+              };
+              final id = <String, Widget Function(Widget)>{
+                'hint': (_) => _,
+                'skip': (_) => Transform.scale(scale: 0.65, child: _),
+                'like': (_) => _,
+                'dislike': (_) => Transform.rotate(angle: pi, child: _),
+              };
+              final pp = {
+                'hint': () => _hintClick(
+                      context,
+                      showHint,
+                      hintTintController,
+                    ),
+                'skip': () {
+                  context.bloc<ValidationBloc>().add(ValidationEvent.skip());
+                },
+                'like': () {
+                  print('like');
+                  context.bloc<FeedBloc>().state.when(
+                      available: (_) => domain.error$(),
+                      pending: (oldTree, _) {
+                        context.repository<LikesRepo>().report(oldTree.question.id, 1);
+                      },
+                      empty: (_) => domain.void$());
+                },
+                'dislike': () {
+                  print('dislike');
+                  context.bloc<FeedBloc>().state.when(
+                      available: (_) => domain.error$(),
+                      pending: (oldTree, _) {
+                        context.repository<LikesRepo>().report(oldTree.question.id, -1);
+                      },
+                      empty: (_) => domain.void$());
+                },
+              };
 
-            final bb = (state is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
-                .map((l) => Expanded(
-                      child: FlatButton(
-                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                        color: cc[l],
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(width: 2),
-                            id[l](Icon(
-                              ii[l],
-                              size: 24,
-                              color: Colors.white,
-                            )),
-                            SizedBox(width: 2),
-                            text(ll[l]),
-                          ],
+              final bb = (state is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
+                  .map((l) => Expanded(
+                        child: FlatButton(
+                          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                          color: cc[l],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(width: 2),
+                              id[l](Icon(
+                                ii[l],
+                                size: 24,
+                                color: Colors.white,
+                              )),
+                              SizedBox(width: 2),
+                              text(ll[l]),
+                            ],
+                          ),
+                          onPressed: pp[l],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: NothingScheme.of(context).hintBorder,
+                          ),
                         ),
-                        onPressed: pp[l],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: NothingScheme.of(context).hintBorder,
-                        ),
-                      ),
-                    ))
-                .expand((w) sync* {
-              yield w;
-              yield const SizedBox(width: 16);
-              // yield Container(width: 16, height: 10, color: Colors.red);
-            });
-            return Stack(
-              children: [
-                Positioned(
-                  top: top,
-                  left: hor,
-                  right: hor,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      ...bb,
-                      CoinText(),
-                    ],
+                      ))
+                  .expand((w) sync* {
+                yield w;
+                yield const SizedBox(width: 16);
+                // yield Container(width: 16, height: 10, color: Colors.red);
+              });
+              return Stack(
+                children: [
+                  Positioned(
+                    top: top,
+                    left: hor,
+                    right: hor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        ...bb,
+                        CoinText(),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            );
+                ],
+              );
+            });
           },
         );
       },
@@ -476,23 +479,26 @@ class Main extends HookWidget {
     hintTintController.fling();
   }
 
-  final double labelH = 50;
+  final double lblH = 50;
   final double ansH = 72;
   Widget _buildGame(BuildContext context) {
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
-          double queH = min(
-            280,
-            constraints.biggest.height - (labelH + ansH + 21 + 28 + 8 + 12),
-          );
-          return Column(children: [
-            SizedBox(height: 21),
-            SizedBox(child: Label()),
-            SizedBox(height: 12),
-            SizedBox(height: queH, child: Center(child: Question())),
-            SizedBox(height: ansH, child: Answer()),
-          ]);
+          return HookBuilder(builder: (context) {
+            final queH = useState(280.0);
+            queH.value = min(
+              queH.value,
+              constraints.biggest.height - (lblH + ansH + 21 + 28 + 8 + 12),
+            );
+            return Column(children: [
+              SizedBox(height: 21),
+              SizedBox(child: Label()),
+              SizedBox(height: 12),
+              SizedBox(height: queH.value, child: Center(child: Question())),
+              SizedBox(height: ansH, child: Answer()),
+            ]);
+          });
         },
       ),
     );
