@@ -95,16 +95,15 @@ class HistoryStack extends StatelessWidget {
 enum Location { up, down }
 
 extension Location$ on Location {
-  static const align = {
-    Location.up: Alignment.topCenter,
-    Location.down: Alignment.bottomCenter,
-  };
-  static const inverse = {
-    Location.up: Location.down,
-    Location.down: Location.up,
-  };
-  Alignment get alignment => align[this];
-  Location operator ~() => inverse[this];
+  Alignment get alignment => const {
+        Location.up: Alignment.topCenter,
+        Location.down: Alignment.bottomCenter,
+      }[this];
+
+  Location operator ~() => const {
+        Location.up: Location.down,
+        Location.down: Location.up,
+      }[this];
 }
 
 class FuzzyOut extends StatelessWidget {
