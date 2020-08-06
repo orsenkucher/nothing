@@ -12,6 +12,7 @@
       "**/*.freezed.dart": true,
       "**/*.g.dart": true
     },
-    "dart.lineLength": 120
+    "dart.lineLength": 120,
+    "gruvboxMaterial.colorfulSyntax": true
   }
 }

@@ -58,7 +58,21 @@ func main() {
 	}
 
 	if *q {
-		log.Println("Updated cfg.enc, quitting now")
+		_, err = key.ReadFile("secure/key.jks")
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		log.Println("`key.enc.jks` is used like `key.jks`")
+
+		_, err = key.ReadFile("secure/key.properties")
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		log.Println("`key.enc.properties` is used like `key.secret.properties`")
+
+		log.Println("Updated .enc files, quitting now")
 		return
 	}
 
