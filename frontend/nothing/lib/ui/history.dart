@@ -62,7 +62,7 @@ class HistoryStack extends StatelessWidget {
             diameterRatio: 4,
             itemExtent: 150,
             physics: BouncingScrollPhysics(),
-            clipToSize: true,
+            // clipToSize: true,
             renderChildrenOutsideViewport: false,
             onSelectedItemChanged: print,
             children: state.answers
