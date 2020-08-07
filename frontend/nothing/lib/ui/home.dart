@@ -142,16 +142,17 @@ class Main extends HookWidget {
 
   Widget _buildTinter(BuildContext context, AnimationController controller) {
     final anim = ColorTween(
-      begin: Colors.black.withOpacity(0.0),
+      begin: Colors.transparent,
       end: Colors.black.withOpacity(0.1),
     ).animate(CurvedAnimation(
       curve: Curves.easeInOut,
       parent: controller,
     ));
-    return IgnorePointer(
-      child: AnimatedBuilder(
-        animation: controller,
-        builder: (context, child) => Container(
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, child) => IgnorePointer(
+        ignoring: controller.value == 1 ? false : true,
+        child: Container(
           color: anim.value,
         ),
       ),
