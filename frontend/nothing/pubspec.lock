@@ -14,7 +14,7 @@ packages:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.39.14"
+    version: "0.39.16"
   archive:
     dependency: transitive
     description:
@@ -175,14 +175,14 @@ packages:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.5"
   csslib:
     dependency: transitive
     description:
       name: csslib
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "0.16.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -224,7 +224,7 @@ packages:
       name: firebase_admob
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.3+2"
+    version: "0.9.3+4"
   firebase_core:
     dependency: transitive
     description:
@@ -271,7 +271,7 @@ packages:
       name: flutter_hooks
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.0"
+    version: "0.13.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -295,14 +295,14 @@ packages:
       name: freezed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.4"
+    version: "0.11.5"
   freezed_annotation:
     dependency: transitive
     description:
       name: freezed_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.0"
+    version: "0.11.0+1"
   glob:
     dependency: transitive
     description:
@@ -323,7 +323,7 @@ packages:
       name: hive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.1+1"
+    version: "1.4.2"
   html:
     dependency: transitive
     description:
@@ -358,14 +358,14 @@ packages:
       name: hydrated_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "6.0.1"
   image:
     dependency: transitive
     description:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.12"
+    version: "2.1.14"
   intl:
     dependency: transitive
     description:
@@ -505,7 +505,7 @@ packages:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.0"
+    version: "3.0.4"
   platform:
     dependency: transitive
     description:
@@ -540,7 +540,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.1"
+    version: "4.3.2"
   pub_semver:
     dependency: transitive
     description:
@@ -713,7 +713,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.6.1"
+    version: "4.2.0"
   yaml:
     dependency: transitive
     description:

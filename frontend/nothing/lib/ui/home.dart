@@ -118,12 +118,10 @@ class Main extends HookWidget {
             _buildGame(context),
             _buildRefocusDetector(context),
             _buildTitleKnobs(context, pageController),
-            if (state is Pending)
-              _buildContinueDetector(context),
+            if (state is Pending) _buildContinueDetector(context),
             _buildHintButtons(context, showHint, hintTintController),
             _buildTinter(context, hintTintController),
-            if (showHint.value)
-              _buildHint(context, showHint, hintTintController),
+            if (showHint.value) _buildHint(context, showHint, hintTintController),
             _buildTinter(context, swipeTintController),
             _buildTextField(context),
             // Center(child: Image.asset("assets/tutor.gif"))
