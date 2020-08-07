@@ -51,7 +51,7 @@ class Home extends HookWidget {
             child: PageView(
               controller: pageController,
               scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(parent: NeverScrollableScrollPhysics()),
               onPageChanged: _onPageChanged(context),
               children: () {
                 const duration = Duration(milliseconds: 300);
