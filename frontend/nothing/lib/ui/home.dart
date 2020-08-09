@@ -162,12 +162,15 @@ class Main extends HookWidget {
   Widget _buildRefocusDetector(BuildContext context) {
     return Center(
       child: FractionallySizedBox(
-        widthFactor: 0.6,
+        widthFactor: 0.8,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           // child: Container(color: Colors.green.withOpacity(0.3)),
-          onTap: FocusNodeModel.of(context).refocus,
-          // onHorizontalDragUpdate: (_) {},
+          onTap: () {
+            final focusModel = FocusNodeModel.of(context);
+            focusModel.focusNode.requestFocus(FocusNode());
+            WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
+          },
         ),
       ),
     );
@@ -208,11 +211,10 @@ class Main extends HookWidget {
           visible: false,
           maintainState: true,
           child: TextField(
-            // readOnly: wait.value,
             focusNode: focusNodeModel.focusNode,
             controller: textController,
             enableSuggestions: false,
-            autocorrect: false,
+            autocorrect: true,
             maxLength: 32,
             keyboardAppearance: NothingScheme.of(context).brightness,
             keyboardType: TextInputType.text,
@@ -225,7 +227,6 @@ class Main extends HookWidget {
                 return;
               }
               print(s);
-              // _focusNode.requestFocus();
               focusNodeModel.refocus();
               if (s.isNotEmpty) {
                 context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
