@@ -105,7 +105,11 @@ class Main extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textModel = useMemoized(() => TextModel());
+    print("Rebuilding Main");
+    final textModel = useMemoized(() {
+      print("Creating new TextModel!");
+      return TextModel();
+    });
     final hintTintController = useAnimationController();
     final showHint = useState(false);
 
