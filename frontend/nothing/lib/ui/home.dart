@@ -51,7 +51,7 @@ class Home extends HookWidget {
             child: PageView(
               controller: pageController,
               scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(parent: NeverScrollableScrollPhysics()),
+              physics: const BouncingScrollPhysics(/*parent: NeverScrollableScrollPhysics()*/),
               onPageChanged: _onPageChanged(context),
               children: () {
                 const duration = Duration(milliseconds: 300);
@@ -98,18 +98,26 @@ class Home extends HookWidget {
   }
 }
 
-class Main extends HookWidget {
+class Main extends StatefulHookWidget {
+  const Main(this.swipeTintController, this.pageController);
   final AnimationController swipeTintController;
   final PageController pageController;
-  const Main(this.swipeTintController, this.pageController);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _MainState();
+  }
+}
+
+class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-    print("Rebuilding Main");
-    final textModel = useMemoized(() {
-      print("Creating new TextModel!");
-      return TextModel();
-    });
+    super.build(context);
+
+    final textModel = useMemoized(() => TextModel());
     final hintTintController = useAnimationController();
     final showHint = useState(false);
 
@@ -121,12 +129,12 @@ class Main extends HookWidget {
           builder: (context, state) => Stack(children: [
             _buildGame(context),
             _buildRefocusDetector(context),
-            _buildTitleKnobs(context, pageController),
+            _buildTitleKnobs(context, widget.pageController),
             if (state is Pending) _buildContinueDetector(context),
             _buildHintButtons(context, showHint, hintTintController),
             _buildTinter(context, hintTintController),
             if (showHint.value) _buildHint(context, showHint, hintTintController),
-            _buildTinter(context, swipeTintController),
+            _buildTinter(context, widget.swipeTintController),
             _buildTextField(context),
             // Center(child: Image.asset("assets/tutor.gif"))
           ]),
