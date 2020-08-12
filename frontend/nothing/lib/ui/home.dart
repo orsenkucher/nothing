@@ -26,6 +26,8 @@ import 'package:nothing/ui/knob.dart';
 import 'package:nothing/ui/label.dart';
 import 'package:nothing/ui/question.dart';
 
+const swipeCurve = Curves.fastOutSlowIn;
+
 class Home extends HookWidget {
   const Home();
 
@@ -55,7 +57,7 @@ class Home extends HookWidget {
               onPageChanged: _onPageChanged(context),
               children: () {
                 const duration = Duration(milliseconds: 300);
-                const curve = Curves.easeInOut;
+                const curve = swipeCurve;
                 void onBack() {
                   pageController.animateToPage(1, duration: duration, curve: curve);
                 }
@@ -340,7 +342,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
 
   Widget _buildTitleKnobs(BuildContext context, PageController pageController) {
     const duration = Duration(milliseconds: 300);
-    const curve = Curves.easeInOut;
+    const curve = swipeCurve;
     return SafeArea(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
