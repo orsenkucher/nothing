@@ -7,6 +7,7 @@ import 'package:nothing/hooks/pagecontroller.dart';
 import 'package:nothing/icons/icons.dart';
 import 'package:nothing/model/focusnode.dart';
 import 'package:nothing/repository/likes.dart';
+import 'package:nothing/ui/fade_in_widget.dart';
 import 'package:nothing/ui/menu.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
@@ -282,56 +283,58 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
           top: top,
           left: hor,
           right: hor,
-          child: Material(
-            elevation: 8,
-            shadowColor: Colors.black.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(16),
-            child: SizedBox(
-              height: hei,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                        child: BlocBuilder<FeedBloc, FeedState>(
-                          builder: (context, state) => AutoSizeText(
-                            state.when(
-                              available: (tree) => tree.question.explanation,
-                              pending: (oldTree, _) => oldTree.question.explanation,
-                              empty: (_) => '',
+          child: FadeInWidget(
+            child: Material(
+              elevation: 8,
+              shadowColor: Colors.black.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(16),
+              child: SizedBox(
+                height: hei,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                          child: BlocBuilder<FeedBloc, FeedState>(
+                            builder: (context, state) => AutoSizeText(
+                              state.when(
+                                available: (tree) => tree.question.explanation,
+                                pending: (oldTree, _) => oldTree.question.explanation,
+                                empty: (_) => '',
+                              ),
+                              maxLines: 4,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 32),
                             ),
-                            maxLines: 4,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 32),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    alignment: Alignment.bottomCenter,
-                    child: FlatButton(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 36,
-                      ),
-                      color: NothingScheme.of(context).knob,
-                      child: Text('Close', style: TextStyle(fontSize: 16)),
-                      onPressed: () {
-                        showHint.value = false;
-                        hintTintController.fling(velocity: -1);
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: NothingScheme.of(context).hintBorder,
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      alignment: Alignment.bottomCenter,
+                      child: FlatButton(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 36,
+                        ),
+                        color: NothingScheme.of(context).knob,
+                        child: Text('Close', style: TextStyle(fontSize: 16)),
+                        onPressed: () {
+                          showHint.value = false;
+                          hintTintController.fling(velocity: -1);
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: NothingScheme.of(context).hintBorder,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
