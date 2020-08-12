@@ -7,7 +7,7 @@ import 'package:nothing/hooks/pagecontroller.dart';
 import 'package:nothing/icons/icons.dart';
 import 'package:nothing/model/focusnode.dart';
 import 'package:nothing/repository/likes.dart';
-import 'package:nothing/ui/fade_in_widget.dart';
+import 'package:nothing/ui/fade_in.dart';
 import 'package:nothing/ui/menu.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
@@ -283,7 +283,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
           top: top,
           left: hor,
           right: hor,
-          child: FadeInWidget(
+          child: FadeIn(
             child: Material(
               elevation: 8,
               shadowColor: Colors.black.withOpacity(0.3),
