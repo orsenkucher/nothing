@@ -73,8 +73,11 @@ class Home extends HookWidget {
     AnimationController swipeTintController,
   ) {
     return (scrollNotification) {
+      // this picks up events from history verticall ScrollView,
+      // so need to filter it by axis ->
       if (scrollNotification is ScrollUpdateNotification) {
         final metrics = scrollNotification.metrics;
+        if (metrics.axis == Axis.vertical) return false; // <- here ~/
         final offset = (metrics.viewportDimension - metrics.pixels).abs();
         final value = (offset / metrics.viewportDimension).clamp(0.0, 1.0);
         swipeTintController.value = value;
