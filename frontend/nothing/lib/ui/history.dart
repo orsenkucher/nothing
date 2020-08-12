@@ -3,18 +3,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 
-class History extends StatelessWidget {
+class History extends StatefulWidget {
   final void Function() onBack;
 
   const History(this.onBack);
 
   @override
+  _HistoryState createState() => _HistoryState();
+}
+
+class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<History> {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Container(
       color: Colors.amber,
       child: Stack(
         children: [
-          GestureDetector(onTap: onBack),
+          GestureDetector(onTap: widget.onBack),
           Padding(
             padding: const EdgeInsets.only(left: 100),
             child: Container(
@@ -35,7 +45,7 @@ class History extends StatelessWidget {
               padding: const EdgeInsets.all(40),
               child: IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: onBack,
+                onPressed: widget.onBack,
               ),
             ),
           ),
