@@ -157,7 +157,7 @@ class Answer extends HookWidget {
                   color: color.value,
                   borderRadius: NothingScheme.of(context).answerBorder,
                   clipBehavior: Clip.antiAlias,
-                  child: animCorrect(child),
+                  child: isWrong && controller.isAnimating ? Container() : animCorrect(child),
                 ),
               ),
             ),
@@ -165,21 +165,56 @@ class Answer extends HookWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Center(
-                  child: AutoSizeText(
-                    TextModel.of(context).text ?? '',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: NothingScheme.of(context).answer,
-                    ),
-                    maxLines: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        child: AutoSizeText(
+                          TextModel.of(context).text ?? '',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: NothingScheme.of(context).answer,
+                          ),
+                          maxLines: 1,
+                        ),
+                      ),
+                      Align(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 1),
+                          child: Blinker(),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class Blinker extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    const dur = Duration(milliseconds: 500);
+    const cur = Curves.easeInOut;
+    final contr = useAnimationController(duration: dur);
+    final anim = CurvedAnimation(curve: cur, parent: contr);
+    useEffect(() {
+      contr.repeat(reverse: true);
+      return null;
+    });
+    return AnimatedBuilder(
+      animation: contr,
+      builder: (context, child) => Opacity(opacity: anim.value, child: child),
+      child: Container(
+        width: 2.5,
+        color: NothingScheme.of(context).answer,
       ),
     );
   }

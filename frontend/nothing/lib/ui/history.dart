@@ -3,18 +3,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 
-class History extends StatelessWidget {
+class History extends StatefulWidget {
   final void Function() onBack;
 
   const History(this.onBack);
 
   @override
+  _HistoryState createState() => _HistoryState();
+}
+
+class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<History> {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Container(
       color: Colors.amber,
       child: Stack(
         children: [
-          GestureDetector(onTap: onBack),
+          GestureDetector(onTap: widget.onBack),
           Padding(
             padding: const EdgeInsets.only(left: 100),
             child: Container(
@@ -35,7 +45,7 @@ class History extends StatelessWidget {
               padding: const EdgeInsets.all(40),
               child: IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: onBack,
+                onPressed: widget.onBack,
               ),
             ),
           ),
@@ -57,37 +67,39 @@ class HistoryStack extends StatelessWidget {
       BlocBuilder<HistoryBloc, HistoryState>(
         builder: (context, state) => Container(
           color: NothingScheme.of(context).historyBg,
-          child: ListWheelScrollView(
+          child: ListView(
             // offAxisFraction: -0.9,
-            diameterRatio: 4,
-            itemExtent: 150,
+            // diameterRatio: 4,
+            itemExtent: 80,
             physics: BouncingScrollPhysics(),
+
             // clipToSize: true,
-            renderChildrenOutsideViewport: false,
-            onSelectedItemChanged: print,
-            children: state.answers
-                .map(
-                  (x) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(
-                            '${x.qid}',
-                            style: TextStyle(fontSize: 40),
-                          )
-                        ],
-                      ),
+            // renderChildrenOutsideViewport: false,
+            // onSelectedItemChanged: print,
+            children: [
+              SizedBox(height: 40),
+              ...state.answers.map(
+                (x) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Center(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          '${x.qid}',
+                          style: TextStyle(fontSize: 40),
+                        )
+                      ],
                     ),
                   ),
-                )
-                .toList(),
+                ),
+              )
+            ],
           ),
         ),
       ),
-      FuzzyOut(Location.up),
-      FuzzyOut(Location.down),
+      FuzzyOut(height: 120, loc: Location.up),
+      FuzzyOut(height: 32, loc: Location.down, stops: const [0, 1]),
     ]);
   }
 }
@@ -108,20 +120,23 @@ extension Location$ on Location {
 
 class FuzzyOut extends StatelessWidget {
   final Location loc;
-  const FuzzyOut(this.loc);
+  final double height;
+  final List<double> stops;
+  const FuzzyOut({this.loc, this.height, this.stops = const [0.5, 1]});
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: loc.alignment,
       child: Container(
-        height: 64,
+        height: height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: [NothingScheme.of(context).historyBg, NothingScheme.of(context).historyBg.withOpacity(0)],
-              begin: loc.alignment,
-              end: (~loc).alignment,
-              stops: [0.5, 1]),
+            colors: [NothingScheme.of(context).historyBg, NothingScheme.of(context).historyBg.withOpacity(0)],
+            begin: loc.alignment,
+            end: (~loc).alignment,
+            stops: stops,
+          ),
         ),
       ),
     );

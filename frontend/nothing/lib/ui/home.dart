@@ -7,6 +7,7 @@ import 'package:nothing/hooks/pagecontroller.dart';
 import 'package:nothing/icons/icons.dart';
 import 'package:nothing/model/focusnode.dart';
 import 'package:nothing/repository/likes.dart';
+import 'package:nothing/ui/fade_in.dart';
 import 'package:nothing/ui/menu.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ import 'package:nothing/ui/answer.dart';
 import 'package:nothing/ui/knob.dart';
 import 'package:nothing/ui/label.dart';
 import 'package:nothing/ui/question.dart';
+
+const swipeCurve = Curves.fastOutSlowIn;
 
 class Home extends HookWidget {
   const Home();
@@ -51,11 +54,11 @@ class Home extends HookWidget {
             child: PageView(
               controller: pageController,
               scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(parent: NeverScrollableScrollPhysics()),
+              physics: const BouncingScrollPhysics(/*parent: NeverScrollableScrollPhysics()*/),
               onPageChanged: _onPageChanged(context),
               children: () {
                 const duration = Duration(milliseconds: 300);
-                const curve = Curves.easeInOut;
+                const curve = swipeCurve;
                 void onBack() {
                   pageController.animateToPage(1, duration: duration, curve: curve);
                 }
@@ -73,8 +76,11 @@ class Home extends HookWidget {
     AnimationController swipeTintController,
   ) {
     return (scrollNotification) {
+      // this picks up events from history verticall ScrollView,
+      // so need to filter it by axis ->
       if (scrollNotification is ScrollUpdateNotification) {
         final metrics = scrollNotification.metrics;
+        if (metrics.axis == Axis.vertical) return false; // <- here ~/
         final offset = (metrics.viewportDimension - metrics.pixels).abs();
         final value = (offset / metrics.viewportDimension).clamp(0.0, 1.0);
         swipeTintController.value = value;
@@ -98,18 +104,26 @@ class Home extends HookWidget {
   }
 }
 
-class Main extends HookWidget {
+class Main extends StatefulHookWidget {
+  const Main(this.swipeTintController, this.pageController);
   final AnimationController swipeTintController;
   final PageController pageController;
-  const Main(this.swipeTintController, this.pageController);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _MainState();
+  }
+}
+
+class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-    print("Rebuilding Main");
-    final textModel = useMemoized(() {
-      print("Creating new TextModel!");
-      return TextModel();
-    });
+    super.build(context);
+
+    final textModel = useMemoized(() => TextModel());
     final hintTintController = useAnimationController();
     final showHint = useState(false);
 
@@ -121,12 +135,12 @@ class Main extends HookWidget {
           builder: (context, state) => Stack(children: [
             _buildGame(context),
             _buildRefocusDetector(context),
-            _buildTitleKnobs(context, pageController),
+            _buildTitleKnobs(context, widget.pageController),
             if (state is Pending) _buildContinueDetector(context),
             _buildHintButtons(context, showHint, hintTintController),
             _buildTinter(context, hintTintController),
             if (showHint.value) _buildHint(context, showHint, hintTintController),
-            _buildTinter(context, swipeTintController),
+            _buildTinter(context, widget.swipeTintController),
             _buildTextField(context),
             // Center(child: Image.asset("assets/tutor.gif"))
           ]),
@@ -269,56 +283,58 @@ class Main extends HookWidget {
           top: top,
           left: hor,
           right: hor,
-          child: Material(
-            elevation: 8,
-            shadowColor: Colors.black.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(16),
-            child: SizedBox(
-              height: hei,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                        child: BlocBuilder<FeedBloc, FeedState>(
-                          builder: (context, state) => AutoSizeText(
-                            state.when(
-                              available: (tree) => tree.question.explanation,
-                              pending: (oldTree, _) => oldTree.question.explanation,
-                              empty: (_) => '',
+          child: FadeIn(
+            child: Material(
+              elevation: 8,
+              shadowColor: Colors.black.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(16),
+              child: SizedBox(
+                height: hei,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                          child: BlocBuilder<FeedBloc, FeedState>(
+                            builder: (context, state) => AutoSizeText(
+                              state.when(
+                                available: (tree) => tree.question.explanation,
+                                pending: (oldTree, _) => oldTree.question.explanation,
+                                empty: (_) => '',
+                              ),
+                              maxLines: 4,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 32),
                             ),
-                            maxLines: 4,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 32),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    alignment: Alignment.bottomCenter,
-                    child: FlatButton(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 36,
-                      ),
-                      color: NothingScheme.of(context).knob,
-                      child: Text('Close', style: TextStyle(fontSize: 16)),
-                      onPressed: () {
-                        showHint.value = false;
-                        hintTintController.fling(velocity: -1);
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: NothingScheme.of(context).hintBorder,
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      alignment: Alignment.bottomCenter,
+                      child: FlatButton(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 36,
+                        ),
+                        color: NothingScheme.of(context).knob,
+                        child: Text('Close', style: TextStyle(fontSize: 16)),
+                        onPressed: () {
+                          showHint.value = false;
+                          hintTintController.fling(velocity: -1);
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: NothingScheme.of(context).hintBorder,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -329,7 +345,7 @@ class Main extends HookWidget {
 
   Widget _buildTitleKnobs(BuildContext context, PageController pageController) {
     const duration = Duration(milliseconds: 300);
-    const curve = Curves.easeInOut;
+    const curve = swipeCurve;
     return SafeArea(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

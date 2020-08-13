@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nothing/color/scheme.dart';
 
-class Menu extends StatelessWidget {
+class Menu extends StatefulWidget {
   final void Function() onBack;
 
   const Menu(
@@ -10,12 +10,22 @@ class Menu extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _MenuState createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Container(
       color: Colors.amber,
       child: Stack(
         children: [
-          GestureDetector(onTap: onBack),
+          GestureDetector(onTap: widget.onBack),
           Padding(
             padding: const EdgeInsets.only(right: 100),
             child: Container(color: NothingScheme.of(context).background),
@@ -67,7 +77,7 @@ class Menu extends StatelessWidget {
               padding: const EdgeInsets.all(40),
               child: IconButton(
                 icon: Icon(Icons.arrow_forward_ios),
-                onPressed: onBack,
+                onPressed: widget.onBack,
               ),
             ),
           ),
