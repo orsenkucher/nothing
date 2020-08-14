@@ -493,7 +493,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
   ) async {
-    context.bloc<CoinBloc>().add(CoinEvent.dec(2));
+    context.bloc<CoinBloc>().dec(2);
     await Future.delayed(const Duration(milliseconds: 500));
     showHint.value = true;
     hintTintController.fling();
