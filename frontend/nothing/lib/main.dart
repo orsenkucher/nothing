@@ -121,8 +121,9 @@ class App extends StatelessWidget with PortraitLock {
       BlocBinder<ValidationBloc, ValidationState, HistoryBloc, HistoryState>(
         direct: (context, state, bloc) {
           state.when(
-            just: (just) => bloc.add(HistoryEvent.next(
-              SummaryAnswer(
+            just: (just) => bloc.add(HistoryEvent.next(HistoryItem(
+              question: just.question,
+              answer: SummaryAnswer(
                   qid: just.question.id,
                   tries: just.answers.length,
                   answers: just.answers,
@@ -130,7 +131,7 @@ class App extends StatelessWidget with PortraitLock {
                     correct: (x) => x.duration.inSeconds,
                     orElse: () => 0,
                   )),
-            )),
+            ))),
             nothing: () => void$(),
           );
         },

@@ -78,7 +78,7 @@ class HistoryStack extends StatelessWidget {
             // onSelectedItemChanged: print,
             children: [
               SizedBox(height: 40),
-              ...state.answers.map(
+              ...state.items.map(
                 (x) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Center(
@@ -86,7 +86,7 @@ class HistoryStack extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text(
-                          '${x.qid}',
+                          '${x.question.question}', // .qid
                           style: TextStyle(fontSize: 40),
                         )
                       ],

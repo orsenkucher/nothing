@@ -5,45 +5,50 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
+import 'package:nothing/domain/domain.dart';
 
 part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
-// @freezed
-// abstract class HistoryItem with _$HistoryItem {
-//   const factory HistoryItem(SummaryAnswer answer, Question question) = _Item;
-// }
+@freezed
+abstract class HistoryItem with _$HistoryItem {
+  const factory HistoryItem({
+    @required SummaryAnswer answer,
+    @required Question question,
+  }) = _HistoryItem;
+  factory HistoryItem.fromJson(Map<String, dynamic> json) => _$HistoryItemFromJson(json);
+}
 
 @freezed
 abstract class HistoryEvent with _$HistoryEvent {
-  const factory HistoryEvent.next(SummaryAnswer answer) = _Next;
+  const factory HistoryEvent.next(HistoryItem item) = _Next;
 }
 
 @freezed
 abstract class HistoryState with _$HistoryState {
   const factory HistoryState({
     @required Map<int, bool> ids, // HashSet with ids
-    @required List<SummaryAnswer> answers,
+    @required List<HistoryItem> items,
   }) = _State;
 
   factory HistoryState.fromJson(Map<String, dynamic> json) => _$HistoryStateFromJson(json);
 }
 
 class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
-  HistoryBloc() : super(HistoryState(ids: {}, answers: []));
+  HistoryBloc() : super(HistoryState(ids: {}, items: []));
 
   @override
   Stream<HistoryState> mapEventToState(HistoryEvent event) async* {
-    final id = event.answer.qid;
+    final id = event.item.answer.qid;
     if (state.ids.containsKey(id)) {
-      final answers = [...state.answers];
-      answers[answers.indexWhere((x) => x.qid == id)] = event.answer;
-      final next = state.copyWith(answers: answers);
+      final items = [...state.items];
+      items[items.indexWhere((it) => it.answer.qid == id)] = event.item;
+      final next = state.copyWith(items: items);
       yield next;
     } else {
       final next = HistoryState(
         ids: {...state.ids, id: true},
-        answers: [...state.answers, event.answer],
+        items: [...state.items, event.item],
       );
       yield next;
     }
