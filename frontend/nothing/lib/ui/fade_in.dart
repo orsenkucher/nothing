@@ -7,7 +7,7 @@ class FadeIn extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    const dur = Duration(milliseconds: 250);
+    const dur = Duration(milliseconds: 200);
     const cur = Curves.easeIn;
     final contr = useAnimationController(duration: dur);
     final anim = CurvedAnimation(curve: cur, parent: contr);

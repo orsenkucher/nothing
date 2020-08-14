@@ -39,6 +39,7 @@ void main() async {
 Future _hydrateAsync() async {
   WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await HydratedStorage.build();
+  // await HydratedBloc.storage.clear();
 }
 
 Future<bool> _admob() {

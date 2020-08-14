@@ -65,38 +65,40 @@ class HistoryStack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: [
       BlocBuilder<HistoryBloc, HistoryState>(
-        builder: (context, state) => Container(
-          color: NothingScheme.of(context).historyBg,
-          child: ListView(
-            // offAxisFraction: -0.9,
-            // diameterRatio: 4,
-            itemExtent: 80,
-            physics: BouncingScrollPhysics(),
-
-            // clipToSize: true,
-            // renderChildrenOutsideViewport: false,
-            // onSelectedItemChanged: print,
-            children: [
-              SizedBox(height: 40),
-              ...state.items.map(
-                (x) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text(
-                          '${x.question.question}', // .qid
-                          style: TextStyle(fontSize: 40),
-                        )
-                      ],
+        builder: (context, state) {
+          var counter = 0;
+          return Container(
+            color: NothingScheme.of(context).historyBg,
+            child: ListView(
+              itemExtent: 70,
+              physics: const BouncingScrollPhysics(),
+              children: [
+                SizedBox(height: 40),
+                ...state.items.map(
+                  (it) => Padding(
+                    padding: const EdgeInsets.only(left: 12),
+                    child: Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              '${counter += 1}. ${it.question.question}',
+                              maxLines: 1,
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 31),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
-        ),
+                )
+              ],
+            ),
+          );
+        },
       ),
       FuzzyOut(height: 120, loc: Location.up),
       FuzzyOut(height: 32, loc: Location.down, stops: const [0, 1]),
