@@ -9,6 +9,11 @@ import 'package:nothing/bloc/summary/bloc.dart';
 part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
+// @freezed
+// abstract class HistoryItem with _$HistoryItem {
+//   const factory HistoryItem(SummaryAnswer answer, Question question) = _Item;
+// }
+
 @freezed
 abstract class HistoryEvent with _$HistoryEvent {
   const factory HistoryEvent.next(SummaryAnswer answer) = _Next;

@@ -91,7 +91,7 @@ class App extends StatelessWidget with PortraitLock {
   Widget _bindings(Widget child) {
     return MultiBlocBinder(child: child, binders: [
       BlocBinder<ValidationBloc, ValidationState, SummaryBloc, SummaryState>(
-        direct: (BuildContext context, ValidationState state, SummaryBloc bloc) {
+        direct: (context, state, bloc) {
           state.maybeWhen(
             just: (just) {
               return just.maybeWhen(
@@ -119,8 +119,8 @@ class App extends StatelessWidget with PortraitLock {
         },
       ),
       BlocBinder<ValidationBloc, ValidationState, HistoryBloc, HistoryState>(
-        direct: (context, s, bloc) {
-          s.when(
+        direct: (context, state, bloc) {
+          state.when(
             just: (just) => bloc.add(HistoryEvent.next(
               SummaryAnswer(
                   qid: just.question.id,

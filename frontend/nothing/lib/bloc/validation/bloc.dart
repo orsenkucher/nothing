@@ -110,6 +110,8 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
           final answers = state.answers;
           final next = state.question.splitted
                   .map((s) => s.replaceAll(' ', ''))
+                  .map((s) => s.replaceAll('’', "'"))
+                  .map((s) => s.replaceAll('`', "'"))
                   .map((s) => s.toLowerCase())
                   .contains(answer.replaceAll(' ', '').toLowerCase())
               ? _ValidationState2.correct(
