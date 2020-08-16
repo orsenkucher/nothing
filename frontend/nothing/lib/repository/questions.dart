@@ -48,7 +48,7 @@ class CloudQuestionsRepo extends QuestionsRepo {
         //   return problems;
         // }
         var tr = QTree.fromJson(decoded);
-        await Future.delayed(Duration(seconds: 6));
+        await Future.delayed(Duration(seconds: 2));
         print(tr);
         return tr;
       }

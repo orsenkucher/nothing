@@ -22,7 +22,7 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Container(
+    return _feedListener(Container(
       color: Colors.amber,
       child: Stack(
         children: [
@@ -53,6 +53,17 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
           ),
         ],
       ),
+    ));
+  }
+
+  Widget _feedListener(Widget child) {
+    return BlocListener<FeedBloc, FeedState>(
+      listener: (context, state) {
+        if (state is Available) {
+          widget.onBack();
+        }
+      },
+      child: child,
     );
   }
 }
