@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/hooks/pagecontroller.dart';
 import 'package:nothing/icons/icons.dart';
 import 'package:nothing/model/focusnode.dart';
@@ -16,7 +17,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/ad/bloc.dart';
 import 'package:nothing/bloc/coin/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
-import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart' as domain;
 import 'package:nothing/model/text.dart';
@@ -235,12 +235,13 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
             autocorrect: true,
             maxLength: 32,
             keyboardAppearance: NothingScheme.of(context).brightness,
+            textInputAction: TextInputAction.go,
             keyboardType: TextInputType.text,
             onSubmitted: (s) async {
               // ignore: close_sinks
-              final bloc = context.bloc<FeedBloc>();
-              if (bloc.state is Pending) {
-                bloc.add(FeedEvent.ground());
+              final feed = context.bloc<FeedBloc>();
+              if (feed.state is Pending) {
+                feed.add(FeedEvent.ground());
                 focusNodeModel.refocus();
                 return;
               }
@@ -250,7 +251,6 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
               }
             },
-            textInputAction: TextInputAction.go,
             onChanged: (s) {
               if (context.bloc<FeedBloc>().state is Pending) {
                 textController.clear();
@@ -370,7 +370,8 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
   ) {
     return SafeArea(child: LayoutBuilder(
       builder: (context, constraints) {
-        return BlocBuilder<FeedBloc, FeedState>(
+        // return BlocBuilder<FeedBloc, FeedState>(
+        return BlocBuilder<ValidationBloc, ValidationState>(
           builder: (context, state) {
             return HookBuilder(builder: (context) {
               final queH = useState<double>(280);
@@ -382,31 +383,31 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
               const hor = 40.0;
               final top = queH.value + lblH + ansH + pad;
               text(String text) => Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
-              const ll = {
+              const label = {
                 'hint': 'Хинт',
                 'skip': 'Скип',
                 'like': '',
                 'dislike': '',
               };
-              final cc = {
+              final color = {
                 'hint': NothingScheme.of(context).hint,
                 'skip': NothingScheme.of(context).skip,
                 'like': NothingScheme.of(context).correct,
                 'dislike': NothingScheme.of(context).wrong,
               };
-              final ii = {
+              final icon = {
                 'hint': NothingFont.hint,
                 'skip': NothingFont.skip,
                 'like': NothingFont.like,
                 'dislike': NothingFont.like,
               };
-              final id = <String, Widget Function(Widget)>{
+              final iconTransform = <String, Widget Function(Widget)>{
                 'hint': (_) => _,
                 'skip': (_) => Transform.scale(scale: 0.65, child: _),
                 'like': (_) => _,
                 'dislike': (_) => Transform.rotate(angle: pi, child: _),
               };
-              final pp = {
+              final callback = {
                 'hint': () => _hintClick(
                       context,
                       showHint,
@@ -417,43 +418,43 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 },
                 'like': () {
                   print('like');
+                  void report(domain.QTree tree) => context.repository<LikesRepo>().report(tree.question.id, 1);
                   context.bloc<FeedBloc>().state.when(
-                      available: (_) => domain.error$(),
-                      pending: (oldTree, _) {
-                        context.repository<LikesRepo>().report(oldTree.question.id, 1);
-                      },
+                      available: (tree) => report(tree),
+                      pending: (oldTree, _) => report(oldTree),
                       empty: (_) => domain.void$());
                 },
                 'dislike': () {
                   print('dislike');
+                  void report(domain.QTree tree) => context.repository<LikesRepo>().report(tree.question.id, -1);
                   context.bloc<FeedBloc>().state.when(
-                      available: (_) => domain.error$(),
-                      pending: (oldTree, _) {
-                        context.repository<LikesRepo>().report(oldTree.question.id, -1);
-                      },
+                      available: (tree) => report(tree),
+                      pending: (oldTree, _) => report(oldTree),
                       empty: (_) => domain.void$());
                 },
               };
 
-              final bb = (state is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
+              // final bb = (state is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
+              final correct = state.map(just: (v) => v.state is Correct, nothing: (_) => false);
+              final buttons = (!correct ? ['hint', 'skip'] : ['like', 'dislike'])
                   .map((l) => Expanded(
                         child: FlatButton(
                           padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                          color: cc[l],
+                          color: color[l],
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(width: 2),
-                              id[l](Icon(
-                                ii[l],
+                              iconTransform[l](Icon(
+                                icon[l],
                                 size: 24,
                                 color: Colors.white,
                               )),
                               SizedBox(width: 2),
-                              text(ll[l]),
+                              text(label[l]),
                             ],
                           ),
-                          onPressed: pp[l],
+                          onPressed: callback[l],
                           shape: RoundedRectangleBorder(
                             borderRadius: NothingScheme.of(context).hintBorder,
                           ),
@@ -474,7 +475,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        ...bb,
+                        ...buttons,
                         CoinText(),
                       ],
                     ),

@@ -21,22 +21,22 @@ abstract class _ValidationState2 with _$_ValidationState2 {
     Question question,
     List<String> answers,
     Duration duration,
-  ) = _Correct;
+  ) = Correct;
   const factory _ValidationState2.wrong(
     Question question,
     List<String> answers,
     TimePoints timePoints,
-  ) = _Wrong;
+  ) = Wrong;
   const factory _ValidationState2.neutral(
     Question question,
     List<String> answers,
     TimePoints timePoints,
-  ) = _Neutral;
+  ) = Neutral;
   const factory _ValidationState2.skip(
     Question question,
     List<String> answers,
     Duration duration,
-  ) = _Skipped;
+  ) = Skipped;
 }
 
 @freezed
@@ -89,7 +89,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
 
   @override
   Stream<ValidationState> mapEventToState(ValidationEvent event) async* {
-    yield event.when(
+    final next = event.when(
       skip: () => state.when(
         just: (state) => ValidationState.just(
           _ValidationState2.skip(
@@ -108,31 +108,29 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
         just: (state) {
           final question = state.question;
           final answers = state.answers;
-          final next = state.question.splitted
-                  .map((s) => s.replaceAll(' ', ''))
-                  .map((s) => s.replaceAll('’', "'"))
-                  .map((s) => s.replaceAll('`', "'"))
-                  .map((s) => s.toLowerCase())
-                  .contains(answer.replaceAll(' ', '').toLowerCase())
-              ? _ValidationState2.correct(
-                  question,
-                  [...answers, answer],
-                  state.map(
-                    correct: (c) => error$(),
-                    skip: (c) => error$(),
-                    neutral: (n) => n.timePoints.add(TimePoint.suspendNow()).duration,
-                    wrong: (w) => w.timePoints.add(TimePoint.suspendNow()).duration,
-                  ))
-              : _ValidationState2.wrong(
-                  question,
-                  [...answers, answer],
-                  state.map(
-                    correct: (c) => error$(),
-                    skip: (c) => error$(),
-                    neutral: (n) => n.timePoints,
-                    wrong: (w) => w.timePoints,
-                  ));
-          return ValidationState.just(next);
+          final correct = state.question.splitted
+              .map((s) => s.replaceAll(' ', ''))
+              .map((s) => s.replaceAll('’', "'"))
+              .map((s) => s.replaceAll('`', "'"))
+              .map((s) => s.toLowerCase())
+              .contains(answer.replaceAll(' ', '').toLowerCase());
+
+          if (state is Correct || state is Skipped) {
+            return null;
+          }
+
+          final timePoints = state.maybeMap(
+            neutral: (n) => n.timePoints,
+            wrong: (w) => w.timePoints,
+            orElse: () => null,
+          );
+          final duration = timePoints.add(TimePoint.suspendNow()).duration;
+
+          if (correct) {
+            return ValidationState.just(_ValidationState2.correct(question, [...answers, answer], duration));
+          } else {
+            return ValidationState.just(_ValidationState2.wrong(question, [...answers, answer], timePoints));
+          }
         },
       ),
       lifecycle: (point) => state.when(
@@ -145,5 +143,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
         )),
       ),
     );
+
+    if (next != null) yield next;
   }
 }

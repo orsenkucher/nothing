@@ -610,8 +610,8 @@ class _$_ValidationState2TearOff {
   const _$_ValidationState2TearOff();
 
 // ignore: unused_element
-  _Correct correct(Question question, List<String> answers, Duration duration) {
-    return _Correct(
+  Correct correct(Question question, List<String> answers, Duration duration) {
+    return Correct(
       question,
       answers,
       duration,
@@ -619,8 +619,8 @@ class _$_ValidationState2TearOff {
   }
 
 // ignore: unused_element
-  _Wrong wrong(Question question, List<String> answers, TimePoints timePoints) {
-    return _Wrong(
+  Wrong wrong(Question question, List<String> answers, TimePoints timePoints) {
+    return Wrong(
       question,
       answers,
       timePoints,
@@ -628,9 +628,9 @@ class _$_ValidationState2TearOff {
   }
 
 // ignore: unused_element
-  _Neutral neutral(
+  Neutral neutral(
       Question question, List<String> answers, TimePoints timePoints) {
-    return _Neutral(
+    return Neutral(
       question,
       answers,
       timePoints,
@@ -638,8 +638,8 @@ class _$_ValidationState2TearOff {
   }
 
 // ignore: unused_element
-  _Skipped skip(Question question, List<String> answers, Duration duration) {
-    return _Skipped(
+  Skipped skip(Question question, List<String> answers, Duration duration) {
+    return Skipped(
       question,
       answers,
       duration,
@@ -680,17 +680,17 @@ mixin _$_ValidationState2 {
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result correct(_Correct value),
-    @required Result wrong(_Wrong value),
-    @required Result neutral(_Neutral value),
-    @required Result skip(_Skipped value),
+    @required Result correct(Correct value),
+    @required Result wrong(Wrong value),
+    @required Result neutral(Neutral value),
+    @required Result skip(Skipped value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result correct(_Correct value),
-    Result wrong(_Wrong value),
-    Result neutral(_Neutral value),
-    Result skip(_Skipped value),
+    Result correct(Correct value),
+    Result wrong(Wrong value),
+    Result neutral(Neutral value),
+    Result skip(Skipped value),
     @required Result orElse(),
   });
 
@@ -736,10 +736,10 @@ class __$ValidationState2CopyWithImpl<$Res>
   }
 }
 
-abstract class _$CorrectCopyWith<$Res>
+abstract class $CorrectCopyWith<$Res>
     implements _$ValidationState2CopyWith<$Res> {
-  factory _$CorrectCopyWith(_Correct value, $Res Function(_Correct) then) =
-      __$CorrectCopyWithImpl<$Res>;
+  factory $CorrectCopyWith(Correct value, $Res Function(Correct) then) =
+      _$CorrectCopyWithImpl<$Res>;
   @override
   $Res call({Question question, List<String> answers, Duration duration});
 
@@ -747,13 +747,13 @@ abstract class _$CorrectCopyWith<$Res>
   $QuestionCopyWith<$Res> get question;
 }
 
-class __$CorrectCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
-    implements _$CorrectCopyWith<$Res> {
-  __$CorrectCopyWithImpl(_Correct _value, $Res Function(_Correct) _then)
-      : super(_value, (v) => _then(v as _Correct));
+class _$CorrectCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
+    implements $CorrectCopyWith<$Res> {
+  _$CorrectCopyWithImpl(Correct _value, $Res Function(Correct) _then)
+      : super(_value, (v) => _then(v as Correct));
 
   @override
-  _Correct get _value => super._value as _Correct;
+  Correct get _value => super._value as Correct;
 
   @override
   $Res call({
@@ -761,7 +761,7 @@ class __$CorrectCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
     Object answers = freezed,
     Object duration = freezed,
   }) {
-    return _then(_Correct(
+    return _then(Correct(
       question == freezed ? _value.question : question as Question,
       answers == freezed ? _value.answers : answers as List<String>,
       duration == freezed ? _value.duration : duration as Duration,
@@ -769,8 +769,8 @@ class __$CorrectCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
   }
 }
 
-class _$_Correct with DiagnosticableTreeMixin implements _Correct {
-  const _$_Correct(this.question, this.answers, this.duration)
+class _$Correct with DiagnosticableTreeMixin implements Correct {
+  const _$Correct(this.question, this.answers, this.duration)
       : assert(question != null),
         assert(answers != null),
         assert(duration != null);
@@ -800,7 +800,7 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Correct &&
+        (other is Correct &&
             (identical(other.question, question) ||
                 const DeepCollectionEquality()
                     .equals(other.question, question)) &&
@@ -820,8 +820,8 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
       const DeepCollectionEquality().hash(duration);
 
   @override
-  _$CorrectCopyWith<_Correct> get copyWith =>
-      __$CorrectCopyWithImpl<_Correct>(this, _$identity);
+  $CorrectCopyWith<Correct> get copyWith =>
+      _$CorrectCopyWithImpl<Correct>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -866,10 +866,10 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result correct(_Correct value),
-    @required Result wrong(_Wrong value),
-    @required Result neutral(_Neutral value),
-    @required Result skip(_Skipped value),
+    @required Result correct(Correct value),
+    @required Result wrong(Wrong value),
+    @required Result neutral(Neutral value),
+    @required Result skip(Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -881,10 +881,10 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result correct(_Correct value),
-    Result wrong(_Wrong value),
-    Result neutral(_Neutral value),
-    Result skip(_Skipped value),
+    Result correct(Correct value),
+    Result wrong(Wrong value),
+    Result neutral(Neutral value),
+    Result skip(Skipped value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -895,9 +895,9 @@ class _$_Correct with DiagnosticableTreeMixin implements _Correct {
   }
 }
 
-abstract class _Correct implements _ValidationState2 {
-  const factory _Correct(
-      Question question, List<String> answers, Duration duration) = _$_Correct;
+abstract class Correct implements _ValidationState2 {
+  const factory Correct(
+      Question question, List<String> answers, Duration duration) = _$Correct;
 
   @override
   Question get question;
@@ -905,13 +905,13 @@ abstract class _Correct implements _ValidationState2 {
   List<String> get answers;
   Duration get duration;
   @override
-  _$CorrectCopyWith<_Correct> get copyWith;
+  $CorrectCopyWith<Correct> get copyWith;
 }
 
-abstract class _$WrongCopyWith<$Res>
+abstract class $WrongCopyWith<$Res>
     implements _$ValidationState2CopyWith<$Res> {
-  factory _$WrongCopyWith(_Wrong value, $Res Function(_Wrong) then) =
-      __$WrongCopyWithImpl<$Res>;
+  factory $WrongCopyWith(Wrong value, $Res Function(Wrong) then) =
+      _$WrongCopyWithImpl<$Res>;
   @override
   $Res call({Question question, List<String> answers, TimePoints timePoints});
 
@@ -920,13 +920,13 @@ abstract class _$WrongCopyWith<$Res>
   $TimePointsCopyWith<$Res> get timePoints;
 }
 
-class __$WrongCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
-    implements _$WrongCopyWith<$Res> {
-  __$WrongCopyWithImpl(_Wrong _value, $Res Function(_Wrong) _then)
-      : super(_value, (v) => _then(v as _Wrong));
+class _$WrongCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
+    implements $WrongCopyWith<$Res> {
+  _$WrongCopyWithImpl(Wrong _value, $Res Function(Wrong) _then)
+      : super(_value, (v) => _then(v as Wrong));
 
   @override
-  _Wrong get _value => super._value as _Wrong;
+  Wrong get _value => super._value as Wrong;
 
   @override
   $Res call({
@@ -934,7 +934,7 @@ class __$WrongCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
     Object answers = freezed,
     Object timePoints = freezed,
   }) {
-    return _then(_Wrong(
+    return _then(Wrong(
       question == freezed ? _value.question : question as Question,
       answers == freezed ? _value.answers : answers as List<String>,
       timePoints == freezed ? _value.timePoints : timePoints as TimePoints,
@@ -952,8 +952,8 @@ class __$WrongCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
   }
 }
 
-class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
-  const _$_Wrong(this.question, this.answers, this.timePoints)
+class _$Wrong with DiagnosticableTreeMixin implements Wrong {
+  const _$Wrong(this.question, this.answers, this.timePoints)
       : assert(question != null),
         assert(answers != null),
         assert(timePoints != null);
@@ -983,7 +983,7 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Wrong &&
+        (other is Wrong &&
             (identical(other.question, question) ||
                 const DeepCollectionEquality()
                     .equals(other.question, question)) &&
@@ -1003,8 +1003,8 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
       const DeepCollectionEquality().hash(timePoints);
 
   @override
-  _$WrongCopyWith<_Wrong> get copyWith =>
-      __$WrongCopyWithImpl<_Wrong>(this, _$identity);
+  $WrongCopyWith<Wrong> get copyWith =>
+      _$WrongCopyWithImpl<Wrong>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1049,10 +1049,10 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result correct(_Correct value),
-    @required Result wrong(_Wrong value),
-    @required Result neutral(_Neutral value),
-    @required Result skip(_Skipped value),
+    @required Result correct(Correct value),
+    @required Result wrong(Wrong value),
+    @required Result neutral(Neutral value),
+    @required Result skip(Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -1064,10 +1064,10 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result correct(_Correct value),
-    Result wrong(_Wrong value),
-    Result neutral(_Neutral value),
-    Result skip(_Skipped value),
+    Result correct(Correct value),
+    Result wrong(Wrong value),
+    Result neutral(Neutral value),
+    Result skip(Skipped value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1078,10 +1078,9 @@ class _$_Wrong with DiagnosticableTreeMixin implements _Wrong {
   }
 }
 
-abstract class _Wrong implements _ValidationState2 {
-  const factory _Wrong(
-          Question question, List<String> answers, TimePoints timePoints) =
-      _$_Wrong;
+abstract class Wrong implements _ValidationState2 {
+  const factory Wrong(
+      Question question, List<String> answers, TimePoints timePoints) = _$Wrong;
 
   @override
   Question get question;
@@ -1089,13 +1088,13 @@ abstract class _Wrong implements _ValidationState2 {
   List<String> get answers;
   TimePoints get timePoints;
   @override
-  _$WrongCopyWith<_Wrong> get copyWith;
+  $WrongCopyWith<Wrong> get copyWith;
 }
 
-abstract class _$NeutralCopyWith<$Res>
+abstract class $NeutralCopyWith<$Res>
     implements _$ValidationState2CopyWith<$Res> {
-  factory _$NeutralCopyWith(_Neutral value, $Res Function(_Neutral) then) =
-      __$NeutralCopyWithImpl<$Res>;
+  factory $NeutralCopyWith(Neutral value, $Res Function(Neutral) then) =
+      _$NeutralCopyWithImpl<$Res>;
   @override
   $Res call({Question question, List<String> answers, TimePoints timePoints});
 
@@ -1104,13 +1103,13 @@ abstract class _$NeutralCopyWith<$Res>
   $TimePointsCopyWith<$Res> get timePoints;
 }
 
-class __$NeutralCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
-    implements _$NeutralCopyWith<$Res> {
-  __$NeutralCopyWithImpl(_Neutral _value, $Res Function(_Neutral) _then)
-      : super(_value, (v) => _then(v as _Neutral));
+class _$NeutralCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
+    implements $NeutralCopyWith<$Res> {
+  _$NeutralCopyWithImpl(Neutral _value, $Res Function(Neutral) _then)
+      : super(_value, (v) => _then(v as Neutral));
 
   @override
-  _Neutral get _value => super._value as _Neutral;
+  Neutral get _value => super._value as Neutral;
 
   @override
   $Res call({
@@ -1118,7 +1117,7 @@ class __$NeutralCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
     Object answers = freezed,
     Object timePoints = freezed,
   }) {
-    return _then(_Neutral(
+    return _then(Neutral(
       question == freezed ? _value.question : question as Question,
       answers == freezed ? _value.answers : answers as List<String>,
       timePoints == freezed ? _value.timePoints : timePoints as TimePoints,
@@ -1136,8 +1135,8 @@ class __$NeutralCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
   }
 }
 
-class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
-  const _$_Neutral(this.question, this.answers, this.timePoints)
+class _$Neutral with DiagnosticableTreeMixin implements Neutral {
+  const _$Neutral(this.question, this.answers, this.timePoints)
       : assert(question != null),
         assert(answers != null),
         assert(timePoints != null);
@@ -1167,7 +1166,7 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Neutral &&
+        (other is Neutral &&
             (identical(other.question, question) ||
                 const DeepCollectionEquality()
                     .equals(other.question, question)) &&
@@ -1187,8 +1186,8 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
       const DeepCollectionEquality().hash(timePoints);
 
   @override
-  _$NeutralCopyWith<_Neutral> get copyWith =>
-      __$NeutralCopyWithImpl<_Neutral>(this, _$identity);
+  $NeutralCopyWith<Neutral> get copyWith =>
+      _$NeutralCopyWithImpl<Neutral>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1233,10 +1232,10 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result correct(_Correct value),
-    @required Result wrong(_Wrong value),
-    @required Result neutral(_Neutral value),
-    @required Result skip(_Skipped value),
+    @required Result correct(Correct value),
+    @required Result wrong(Wrong value),
+    @required Result neutral(Neutral value),
+    @required Result skip(Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -1248,10 +1247,10 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result correct(_Correct value),
-    Result wrong(_Wrong value),
-    Result neutral(_Neutral value),
-    Result skip(_Skipped value),
+    Result correct(Correct value),
+    Result wrong(Wrong value),
+    Result neutral(Neutral value),
+    Result skip(Skipped value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1262,10 +1261,10 @@ class _$_Neutral with DiagnosticableTreeMixin implements _Neutral {
   }
 }
 
-abstract class _Neutral implements _ValidationState2 {
-  const factory _Neutral(
+abstract class Neutral implements _ValidationState2 {
+  const factory Neutral(
           Question question, List<String> answers, TimePoints timePoints) =
-      _$_Neutral;
+      _$Neutral;
 
   @override
   Question get question;
@@ -1273,13 +1272,13 @@ abstract class _Neutral implements _ValidationState2 {
   List<String> get answers;
   TimePoints get timePoints;
   @override
-  _$NeutralCopyWith<_Neutral> get copyWith;
+  $NeutralCopyWith<Neutral> get copyWith;
 }
 
-abstract class _$SkippedCopyWith<$Res>
+abstract class $SkippedCopyWith<$Res>
     implements _$ValidationState2CopyWith<$Res> {
-  factory _$SkippedCopyWith(_Skipped value, $Res Function(_Skipped) then) =
-      __$SkippedCopyWithImpl<$Res>;
+  factory $SkippedCopyWith(Skipped value, $Res Function(Skipped) then) =
+      _$SkippedCopyWithImpl<$Res>;
   @override
   $Res call({Question question, List<String> answers, Duration duration});
 
@@ -1287,13 +1286,13 @@ abstract class _$SkippedCopyWith<$Res>
   $QuestionCopyWith<$Res> get question;
 }
 
-class __$SkippedCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
-    implements _$SkippedCopyWith<$Res> {
-  __$SkippedCopyWithImpl(_Skipped _value, $Res Function(_Skipped) _then)
-      : super(_value, (v) => _then(v as _Skipped));
+class _$SkippedCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
+    implements $SkippedCopyWith<$Res> {
+  _$SkippedCopyWithImpl(Skipped _value, $Res Function(Skipped) _then)
+      : super(_value, (v) => _then(v as Skipped));
 
   @override
-  _Skipped get _value => super._value as _Skipped;
+  Skipped get _value => super._value as Skipped;
 
   @override
   $Res call({
@@ -1301,7 +1300,7 @@ class __$SkippedCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
     Object answers = freezed,
     Object duration = freezed,
   }) {
-    return _then(_Skipped(
+    return _then(Skipped(
       question == freezed ? _value.question : question as Question,
       answers == freezed ? _value.answers : answers as List<String>,
       duration == freezed ? _value.duration : duration as Duration,
@@ -1309,8 +1308,8 @@ class __$SkippedCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
   }
 }
 
-class _$_Skipped with DiagnosticableTreeMixin implements _Skipped {
-  const _$_Skipped(this.question, this.answers, this.duration)
+class _$Skipped with DiagnosticableTreeMixin implements Skipped {
+  const _$Skipped(this.question, this.answers, this.duration)
       : assert(question != null),
         assert(answers != null),
         assert(duration != null);
@@ -1340,7 +1339,7 @@ class _$_Skipped with DiagnosticableTreeMixin implements _Skipped {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Skipped &&
+        (other is Skipped &&
             (identical(other.question, question) ||
                 const DeepCollectionEquality()
                     .equals(other.question, question)) &&
@@ -1360,8 +1359,8 @@ class _$_Skipped with DiagnosticableTreeMixin implements _Skipped {
       const DeepCollectionEquality().hash(duration);
 
   @override
-  _$SkippedCopyWith<_Skipped> get copyWith =>
-      __$SkippedCopyWithImpl<_Skipped>(this, _$identity);
+  $SkippedCopyWith<Skipped> get copyWith =>
+      _$SkippedCopyWithImpl<Skipped>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1406,10 +1405,10 @@ class _$_Skipped with DiagnosticableTreeMixin implements _Skipped {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result correct(_Correct value),
-    @required Result wrong(_Wrong value),
-    @required Result neutral(_Neutral value),
-    @required Result skip(_Skipped value),
+    @required Result correct(Correct value),
+    @required Result wrong(Wrong value),
+    @required Result neutral(Neutral value),
+    @required Result skip(Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -1421,10 +1420,10 @@ class _$_Skipped with DiagnosticableTreeMixin implements _Skipped {
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result correct(_Correct value),
-    Result wrong(_Wrong value),
-    Result neutral(_Neutral value),
-    Result skip(_Skipped value),
+    Result correct(Correct value),
+    Result wrong(Wrong value),
+    Result neutral(Neutral value),
+    Result skip(Skipped value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1435,9 +1434,9 @@ class _$_Skipped with DiagnosticableTreeMixin implements _Skipped {
   }
 }
 
-abstract class _Skipped implements _ValidationState2 {
-  const factory _Skipped(
-      Question question, List<String> answers, Duration duration) = _$_Skipped;
+abstract class Skipped implements _ValidationState2 {
+  const factory Skipped(
+      Question question, List<String> answers, Duration duration) = _$Skipped;
 
   @override
   Question get question;
@@ -1445,7 +1444,7 @@ abstract class _Skipped implements _ValidationState2 {
   List<String> get answers;
   Duration get duration;
   @override
-  _$SkippedCopyWith<_Skipped> get copyWith;
+  $SkippedCopyWith<Skipped> get copyWith;
 }
 
 class _$ValidationStateTearOff {
