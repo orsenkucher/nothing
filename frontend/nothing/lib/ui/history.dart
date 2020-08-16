@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/domain/domain.dart';
 
 class History extends StatefulWidget {
   final void Function() onBack;
@@ -82,12 +84,24 @@ class HistoryStack extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Flexible(
-                            child: Text(
-                              '${counter += 1}. ${it.question.question}',
-                              maxLines: 1,
-                              textAlign: TextAlign.start,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 31),
+                            child: FlatButton(
+                              onPressed: () {
+                                final pos = counter;
+                                return () {
+                                  print('pos: $pos');
+                                  final tree = QTree(question: state.items[pos].question);
+                                  // и тут посторить дерево из всех скипнутых, а если это последний,
+                                  // то спросит сервер что дальше
+                                  context.bloc<FeedBloc>().add(FeedEvent.newArrived(tree));
+                                };
+                              }(),
+                              child: Text(
+                                '${counter += 1}. ${it.question.question}',
+                                maxLines: 1,
+                                textAlign: TextAlign.start,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 31),
+                              ),
                             ),
                           )
                         ],
