@@ -72,7 +72,7 @@ class HistoryStack extends StatelessWidget {
           return Container(
             color: NothingScheme.of(context).historyBg,
             child: ListView(
-              itemExtent: 70,
+              itemExtent: 60,
               physics: const BouncingScrollPhysics(),
               children: [
                 SizedBox(height: 40),
@@ -88,10 +88,16 @@ class HistoryStack extends StatelessWidget {
                               onPressed: () {
                                 final pos = counter;
                                 return () {
-                                  print('pos: $pos');
-                                  final tree = QTree(question: state.items[pos].question);
-                                  // и тут посторить дерево из всех скипнутых, а если это последний,
-                                  // то спросит сервер что дальше
+                                  print('pos: $pos'); // TODO: move to HistoryBloc
+                                  final items = state.items;
+                                  var tree = QTree();
+                                  for (var i = items.length - 1; i > pos; i--) {
+                                    final item = items[i];
+                                    if (item.answer.tries > 0) continue;
+                                    final inner = tree.copyWith(question: item.question);
+                                    tree = QTree(left: inner);
+                                  }
+                                  tree = tree.copyWith(question: items[pos].question); // <~ set current
                                   context.bloc<FeedBloc>().add(FeedEvent.newArrived(tree));
                                 };
                               }(),
@@ -100,7 +106,19 @@ class HistoryStack extends StatelessWidget {
                                 maxLines: 1,
                                 textAlign: TextAlign.start,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 31),
+                                style: TextStyle(
+                                  fontSize: 31,
+                                  color: () {
+                                    final tries = it.answer.tries;
+                                    if (tries > 0) {
+                                      return Colors.black;
+                                    }
+                                    // if (tries == -2) {
+                                    //   return NothingScheme.of(context).hint;
+                                    // } else skip
+                                    return NothingScheme.of(context).hint;
+                                  }(),
+                                ),
                               ),
                             ),
                           )

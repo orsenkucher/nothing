@@ -126,7 +126,10 @@ class App extends StatelessWidget with PortraitLock {
               question: just.question,
               answer: SummaryAnswer(
                   qid: just.question.id,
-                  tries: just.answers.length,
+                  tries: just.maybeMap(
+                    skip: (_) => -1,
+                    orElse: () => just.answers.length,
+                  ),
                   answers: just.answers,
                   seconds: just.maybeMap(
                     correct: (x) => x.duration.inSeconds,
