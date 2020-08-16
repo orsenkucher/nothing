@@ -59,10 +59,11 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     final next = state.when<FeedState>(
       available: (tree) => event.when(
         moveNext: (dir) {
-          final next = dir.when(
+          var next = dir.when(
             left: () => tree.left,
             right: () => tree.right,
           );
+          next ??= tree.left ?? tree.right; // to make asymmetric tree work
           return next != null
               ? FeedState.pending(
                   oldTree: tree,
