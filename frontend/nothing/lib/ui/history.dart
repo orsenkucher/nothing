@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/binding/control.dart';
 import 'package:nothing/bloc/history/bloc.dart';
+import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
-import 'package:nothing/domain/domain.dart';
 
 class History extends StatefulWidget {
   final void Function() onBack;
@@ -57,11 +57,9 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
   }
 
   Widget _feedListener(Widget child) {
-    return BlocListener<FeedBloc, FeedState>(
+    return BlocListener<ControlCubit, ControlState>(
       listener: (context, state) {
-        if (state is Available) {
-          widget.onBack();
-        }
+        widget.onBack();
       },
       child: child,
     );
@@ -77,77 +75,61 @@ class HistoryStack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: [
       BlocBuilder<HistoryBloc, HistoryState>(
-        builder: (context, state) {
-          var counter = 0;
-          return Container(
-            color: NothingScheme.of(context).historyBg,
-            child: ListView(
-              itemExtent: 60,
-              physics: const BouncingScrollPhysics(),
-              children: [
-                const SizedBox(),
-                ...state.items.map(
-                  (it) => Padding(
-                    padding: const EdgeInsets.only(left: 12),
-                    child: Row(mainAxisSize: MainAxisSize.max, children: [
-                      Expanded(
-                        child: FlatButton(
-                          // splashColor: NothingScheme.of(context).hint.withOpacity(0.2),
-                          // highlightColor: NothingScheme.of(context).neutral.withOpacity(0.1),
-                          onPressed: () {
-                            final pos = counter;
-                            return () {
-                              print('pos: $pos'); // TODO: move to HistoryBloc
-                              final items = state.items;
-                              var tree = QTree();
-                              for (var i = items.length - 1; i > pos; i--) {
-                                final item = items[i];
-                                if (item.answer.tries > 0) continue;
-                                final inner = tree.copyWith(question: item.question);
-                                tree = QTree(left: inner);
-                              }
-                              tree = tree.copyWith(question: items[pos].question); // <~ set current
-                              context.bloc<FeedBloc>().add(FeedEvent.newArrived(tree));
-                            };
-                          }(),
-                          child: Row(mainAxisSize: MainAxisSize.max, children: [
-                            Flexible(
-                              child: Text(
-                                '${counter += 1}. ${it.question.question}',
-                                maxLines: 1,
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 31,
-                                  color: () {
-                                    final tries = it.answer.tries;
-                                    if (tries > 0) {
-                                      return Colors.black;
-                                    }
-                                    // if (tries == -2) {
-                                    //   return NothingScheme.of(context).hint;
-                                    // } else skip
-                                    return NothingScheme.of(context).hint;
-                                  }(),
-                                ),
-                              ),
-                            ),
-                          ]),
-                        ),
-                      ),
-                    ]),
-                  ),
-                ),
-                const SizedBox(),
-              ],
-            ),
-          );
-        },
+        builder: (context, state) => Container(
+          color: NothingScheme.of(context).historyBg,
+          child: ListView(
+            itemExtent: 60,
+            physics: const BouncingScrollPhysics(),
+            children: [
+              const SizedBox(),
+              ..._items(context, state.items),
+              const SizedBox(),
+            ],
+          ),
+        ),
       ),
       FuzzyOut(height: 120, loc: Location.up),
       FuzzyOut(height: 32, loc: Location.down, stops: const [0, 1]),
     ]);
   }
+
+  Iterable<Widget> _items(BuildContext context, List<HistoryItem> items) {
+    var counter = 0;
+    return items.map(
+      (it) => Padding(
+        padding: const EdgeInsets.only(left: 12),
+        child: Row(mainAxisSize: MainAxisSize.max, children: [
+          Expanded(
+            child: FlatButton(
+              onPressed: () {
+                final pos = counter;
+                return () => context.bloc<ControlCubit>().select(pos);
+              }(),
+              // splashColor: NothingScheme.of(context).hint.withOpacity(0.2),
+              // highlightColor: NothingScheme.of(context).neutral.withOpacity(0.1),
+              child: Row(mainAxisSize: MainAxisSize.max, children: [
+                Flexible(
+                  child: Text(
+                    '${counter += 1}. ${it.question.question}',
+                    maxLines: 1,
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 31,
+                      color: _itemColor(context, it.answer),
+                    ),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+
+  Color _itemColor(BuildContext context, SummaryAnswer answer) =>
+      answer.tries > 0 ? NothingScheme.of(context).question : NothingScheme.of(context).hint;
 }
 
 enum Location { up, down }

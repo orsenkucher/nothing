@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nothing/binding/binder.dart';
+import 'package:nothing/binding/control.dart';
 import 'package:nothing/bloc/ad/bloc.dart';
 import 'package:nothing/bloc/coin/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
@@ -227,6 +228,12 @@ class App extends StatelessWidget with PortraitLock {
           create: (context) => AdBloc(
             context.repository<AdRepo>(),
             context.bloc<IdBloc>(),
+          ),
+        ),
+        BlocProvider<ControlCubit>(
+          create: (context) => ControlCubit(
+            feed: context.bloc<FeedBloc>(),
+            history: context.bloc<HistoryBloc>(),
           ),
         ),
       ],
