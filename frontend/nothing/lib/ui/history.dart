@@ -74,7 +74,6 @@ class HistoryStack extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  //  WillPopScope()
   Widget build(BuildContext context) {
     return Stack(children: [
       BlocBuilder<HistoryBloc, HistoryState>(
@@ -86,32 +85,33 @@ class HistoryStack extends StatelessWidget {
               itemExtent: 60,
               physics: const BouncingScrollPhysics(),
               children: [
-                SizedBox(height: 40),
+                const SizedBox(),
                 ...state.items.map(
                   (it) => Padding(
                     padding: const EdgeInsets.only(left: 12),
-                    child: Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          Flexible(
-                            child: FlatButton(
-                              onPressed: () {
-                                final pos = counter;
-                                return () {
-                                  print('pos: $pos'); // TODO: move to HistoryBloc
-                                  final items = state.items;
-                                  var tree = QTree();
-                                  for (var i = items.length - 1; i > pos; i--) {
-                                    final item = items[i];
-                                    if (item.answer.tries > 0) continue;
-                                    final inner = tree.copyWith(question: item.question);
-                                    tree = QTree(left: inner);
-                                  }
-                                  tree = tree.copyWith(question: items[pos].question); // <~ set current
-                                  context.bloc<FeedBloc>().add(FeedEvent.newArrived(tree));
-                                };
-                              }(),
+                    child: Row(mainAxisSize: MainAxisSize.max, children: [
+                      Expanded(
+                        child: FlatButton(
+                          // splashColor: NothingScheme.of(context).hint.withOpacity(0.2),
+                          // highlightColor: NothingScheme.of(context).neutral.withOpacity(0.1),
+                          onPressed: () {
+                            final pos = counter;
+                            return () {
+                              print('pos: $pos'); // TODO: move to HistoryBloc
+                              final items = state.items;
+                              var tree = QTree();
+                              for (var i = items.length - 1; i > pos; i--) {
+                                final item = items[i];
+                                if (item.answer.tries > 0) continue;
+                                final inner = tree.copyWith(question: item.question);
+                                tree = QTree(left: inner);
+                              }
+                              tree = tree.copyWith(question: items[pos].question); // <~ set current
+                              context.bloc<FeedBloc>().add(FeedEvent.newArrived(tree));
+                            };
+                          }(),
+                          child: Row(mainAxisSize: MainAxisSize.max, children: [
+                            Flexible(
                               child: Text(
                                 '${counter += 1}. ${it.question.question}',
                                 maxLines: 1,
@@ -132,12 +132,13 @@ class HistoryStack extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          )
-                        ],
+                          ]),
+                        ),
                       ),
-                    ),
+                    ]),
                   ),
-                )
+                ),
+                const SizedBox(),
               ],
             ),
           );
