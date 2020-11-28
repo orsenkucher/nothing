@@ -16,7 +16,7 @@ type ID struct {
 	ID int
 }
 
-type Question struct {
+type NoQuestion struct {
 	ID          int    `json:"id" gorm:"primary_key"`
 	Question    string `json:"question"`
 	Explanation string `json:"explanation"`
@@ -29,7 +29,7 @@ type Question struct {
 }
 
 type QBTreeNode struct {
-	Question Question    `json:"question"`
+	Question NoQuestion    `json:"question"`
 	Left     *QBTreeNode `json:"left"`
 	Right    *QBTreeNode `json:"right"`
 }
@@ -40,14 +40,14 @@ type QRequest struct {
 	Answers   []AnswerStats `json:"answers"`
 }
 
-type User struct {
+type NoUser struct {
 	ID         string `gorm:"primary_key"`
 	AdMode     int
 	ShortAd    int
 	LongAd     int
 	RewardedAd int
 	MMR        int
-	Done       []AnswerInf `gorm:"foreignkey:UserID;association_foreignkey:ID"`
+	Done       []NoAnswerInf `gorm:"foreignkey:UserID;association_foreignkey:ID"`
 }
 
 type AnswerStats struct {
@@ -58,7 +58,7 @@ type AnswerStats struct {
 	Answers string `json:"answers"`
 }
 
-type AnswerInf struct {
+type NoAnswerInf struct {
 	AnswerStats
 	UserID string
 }
@@ -82,7 +82,7 @@ func (q *QRequest) Print() {
 	}
 }
 
-func (a *AnswerInf) Print() {
+func (a *NoAnswerInf) Print() {
 	fmt.Println("uid: ", a.UserID, " qid: ", a.QID, " sec: ", a.Seconds)
 }
 
@@ -90,11 +90,11 @@ func (a *AnswerStats) Print() {
 	fmt.Println("qid: ", a.QID, " sec: ", a.Seconds, " tries: ", a.Tries)
 }
 
-func (q *Question) Print() {
+func (q *NoQuestion) Print() {
 	fmt.Println(q.ID, "\tdif:\t", q.MMR, "\t", q.Question)
 }
 
-func (u *User) Print() {
+func (u *NoUser) Print() {
 	fmt.Println("uid: ", u.ID, " mmr:", u.MMR, " admode: ", u.AdMode)
 	fmt.Println("Long: ", u.LongAd, " Short:", u.ShortAd, " Rewarded: ", u.RewardedAd)
 }

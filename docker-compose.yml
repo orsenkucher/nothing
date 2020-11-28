@@ -1,0 +1,18 @@
+version: "3"
+services:
+  tbot-nothing:
+    container_name: tbot-nothing
+    image: golang:latest
+    expose:
+      - "9096"
+    ports:
+      - "9096:9096"
+    volumes:
+      - ./:/tbot
+    working_dir: /tbot
+    command: "go run main.go -s release"
+
+networks:
+  default:
+    external:
+      name: tbot-net
