@@ -129,7 +129,7 @@ class HistoryStack extends StatelessWidget {
   }
 
   Color _itemColor(BuildContext context, SummaryAnswer answer) =>
-      answer.tries > 0 ? NothingScheme.of(context).question : NothingScheme.of(context).hint;
+      answer.tries > 0 ? NothingScheme.of(context).question : NothingScheme.of(context).skip;
 }
 
 enum Location { up, down }

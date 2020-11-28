@@ -44,6 +44,12 @@ class Home extends HookWidget {
       return null;
     });
 
+    useEffect(() {
+      print("Creating initail Ad");
+      _createAd();
+      return null;
+    }, [0]);
+
     return ScopedModel<FocusNodeModel>(
       model: focusNodeModel,
       child: Builder(
@@ -392,8 +398,8 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
               final color = {
                 'hint': NothingScheme.of(context).hint,
                 'skip': NothingScheme.of(context).skip,
-                'like': NothingScheme.of(context).correct,
-                'dislike': NothingScheme.of(context).wrong,
+                'like': NothingScheme.of(context).like,
+                'dislike': NothingScheme.of(context).dislike,
               };
               final icon = {
                 'hint': NothingFont.hint,
@@ -413,9 +419,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                       showHint,
                       hintTintController,
                     ),
-                'skip': () {
-                  context.bloc<ValidationBloc>().add(ValidationEvent.skip());
-                },
+                'skip': () => _skipClick(context),
                 'like': () {
                   print('like');
                   void report(domain.QTree tree) => context.repository<LikesRepo>().report(tree.question.id, 1);
@@ -476,7 +480,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         ...buttons,
-                        CoinText(),
+                        // CoinText(),
                       ],
                     ),
                   ),
@@ -494,10 +498,17 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
   ) async {
-    context.bloc<CoinBloc>().dec(2);
+    // context.bloc<CoinBloc>().dec(2);
+    _showAd(context);
     await Future.delayed(const Duration(milliseconds: 500));
     showHint.value = true;
     hintTintController.fling();
+  }
+
+  void _skipClick(BuildContext context) async {
+    _showAd(context);
+    await Future.delayed(const Duration(milliseconds: 500));
+    context.bloc<ValidationBloc>().add(ValidationEvent.skip());
   }
 
   final double lblH = 50;
@@ -533,8 +544,9 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
   }
 }
 
+InterstitialAd myInterstitial;
+
 void _createAd() {
-  InterstitialAd myInterstitial;
   myInterstitial = InterstitialAd(
     // adUnitId: Platform.isIOS // interstitial ios/android
     //     ? 'ca-app-pub-3169956978186495/7272148845'
@@ -554,14 +566,15 @@ void _createAd() {
       if (event == MobileAdEvent.closed) {
         print("CLOSED");
         // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
-        await myInterstitial.load();
+        // await myInterstitial.load();
+        _createAd();
       }
     },
   );
 }
 
 void _showAd(BuildContext context) async {
-  InterstitialAd myInterstitial;
+  // InterstitialAd myInterstitial;
   context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
   print('****** Loading new ad');
   final result = await myInterstitial.load();
@@ -576,4 +589,5 @@ void _showAd(BuildContext context) async {
     horizontalCenterOffset: 0.0,
   );
   // myInterstitial.dispose()
+  // _createAd();
 }

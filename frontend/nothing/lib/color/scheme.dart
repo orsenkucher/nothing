@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NothingScheme extends InheritedWidget {
-  static Color app = const Color(0xfff5f5f5);
+  static Color app = const Color(0xffffffff);
   Color get background => app;
 
   Color get hint => const Color(0xffa946e9);
@@ -18,6 +18,8 @@ class NothingScheme extends InheritedWidget {
   Color get correct => const Color(0xff82E076);
   Color get neutral => const Color(0xfffdcf3c);
   Color get wrong => const Color(0xffc02030);
+  Color get like => correct;
+  Color get dislike => wrong;
 
   Color get historyBg => app; //const Color(0xffffffff);
 

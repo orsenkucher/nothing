@@ -245,12 +245,12 @@ class App extends StatelessWidget with PortraitLock {
     return MultiRepositoryProvider(child: child, providers: [
       RepositoryProvider<QuestionsRepo>(
         child: child,
-        create: (context) => CloudQuestionsRepo(),
+        create: (context) => LocalQuestionsRepo(),
       ), // CloudQuestionsRepo|LocalQuestionsRepo
       RepositoryProvider<AdRepo>(
         child: child,
-        create: (context) => AdRepo(),
-      ),
+        create: (context) => LocalAdRepo(),
+      ), //AdCloudRepo|AdLocalRepo
       RepositoryProvider<LikesRepo>(
         child: child,
         create: (context) => LikesRepo(),

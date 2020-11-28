@@ -5,7 +5,14 @@ import 'package:nothing/domain/domain.dart';
 import 'package:nothing/error/cloud_error.dart';
 import 'package:nothing/repository/server.dart';
 
-class AdRepo {
+abstract class AdRepo {
+  const AdRepo();
+
+  Future<AdMode> register(String userId);
+  Future<void> report(String userId, AdType adType);
+}
+
+class CloudAdRepo extends AdRepo {
   Future<AdMode> register(String userId) async {
     try {
       final body = json.encode({
@@ -44,5 +51,17 @@ class AdRepo {
     } on dynamic catch (_) {
       throw CloudError(error: "Could not report ad watch");
     }
+  }
+}
+
+class LocalAdRepo extends AdRepo {
+  Future<AdMode> register(String userId) async {
+    print("AdRepo: registering $userId");
+    return AdMode.one;
+  }
+
+  Future<void> report(String userId, AdType adType) {
+    print("AdRepo: reporting $userId used type: $adType");
+    return Future.value();
   }
 }

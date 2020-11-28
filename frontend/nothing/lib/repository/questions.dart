@@ -81,38 +81,38 @@ class LocalQuestionsRepo extends QuestionsRepo {
     List<SummaryAnswer> answers,
   }) {
     return Future.delayed(
-      Duration(milliseconds: 800), // 800 1800 2800 server delays
+      Duration(milliseconds: 400), // 800 1800 2800 server delays
       () => _local,
     );
   }
 
   QTree _local = QTree(
     question: Question(
-      id: 17,
-      question: "1 2 6 24 ?",
-      explanation: "120",
-      answers: r"Yes<$>120",
+      id: 1,
+      question: "Привет",
+      explanation: "Будь вежливым",
+      answers: r"привет<$>здравствуй<$>дороуля",
     ),
     left: QTree(
       question: Question(
-        id: 10,
-        question: "2 Have you achieved any of your recent goals?",
-        explanation: "Yes",
-        answers: r"Yes<$>120",
+        id: 2,
+        question: "Площадь квадрата с диагональю = √2",
+        explanation: "Сторона квадрата = 1",
+        answers: r"1<$>один",
       ),
       right: QTree(
         question: Question(
-          id: 10,
-          question: "3 Have you achieved any of your recent goals?",
-          explanation: "Yes",
-          answers: r"Yes<$>120",
+          id: 3,
+          question: "М, В, З, М, Ю, С, ?",
+          explanation: "Планеты солнечной системы",
+          answers: r"У",
         ),
         left: QTree(
           question: Question(
-            id: 10,
-            question: "4 Have you achieved any of your recent goals?",
-            explanation: "Yes",
-            answers: r"Yes<$>120",
+            id: 4,
+            question: "Бабочка, авто, самолет, птица, пчела",
+            explanation: "Бабочка и пчела умеют летать",
+            answers: r"авто",
           ),
         ),
       ),
