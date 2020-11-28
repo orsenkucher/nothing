@@ -358,9 +358,9 @@ func (s *Server) UpdateData() {
 }
 
 func (s *Server) CleanBase() {
-	s.DB.DropTableIfExists("users")
-	s.DB.DropTableIfExists("questions")
-	s.DB.DropTableIfExists("answer_infs")
+	s.DB.DropTableIfExists(&NoQuestion{})
+	s.DB.DropTableIfExists(&NoUser{})
+	s.DB.DropTableIfExists(&NoAnswerInf{})
 }
 
 func (s *Server) ShowStatus() {
