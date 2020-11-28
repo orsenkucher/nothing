@@ -47,7 +47,7 @@
 |9|Black, Red, Yellow, White|Sea|Geography related question, one of them is located between mainland China and the Korean Peninsula
 |4|-8 = 2-5x|2|x = 2
 |7|Good cop|bad cop|Aggressive approach.
-|5|0,99999… = ? |1<$>0,(9)<$>0.(9)|exp51 |5|If you divide 30 by half and add 30, what do you get|90| 30/0.5 = 60
+|5|0,99999… = ? |1<$>0,(9)<$>0.(9)|exp51|5|If you divide 30 by half and add 30, what do you get|90| 30/0.5 = 60
 |9|СО2 + 6Н2О + Qlight → С6Н12О6 + 6О2.|photosynthesis|process used by plants and other organisms to convert light energy into chemical energy
 |7|All i want for Christmas|is you|Mariah Carey
 |7|Chinese, English, Hindi, ?|spanish|Most Spoken Languages in the World

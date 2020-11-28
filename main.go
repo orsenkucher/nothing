@@ -99,7 +99,7 @@ func StartServer(db *gorm.DB) {
 	http.HandleFunc("/adReport", s.AdReportHandler)
 	http.HandleFunc("/likeReport", s.LikeReportHandler)
 	hsrv := &http.Server{
-		Addr:    ":9091",
+		Addr:    ":9098",
 		Handler: nil, // use default mux
 	}
 	go func() {
