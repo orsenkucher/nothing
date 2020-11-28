@@ -14,7 +14,7 @@ var secNorm float64 = 60
 var smoothness float64 = 4
 var winRate float64 = 0.6
 
-func ChangeRate(q *Question, u *User, a *AnswerInf) {
+func ChangeRate(q *NoQuestion, u *NoUser, a *NoAnswerInf) {
 	ud, qd := CountRateChange(q, u, a)
 	fmt.Print("u.mmr: ", u.MMR, " qmmr: ", q.MMR, " change to u.mmr:")
 	q.MMR += int(qd)
@@ -34,7 +34,7 @@ func ChangeRate(q *Question, u *User, a *AnswerInf) {
 	fmt.Println(u.MMR, " q.mmr: ", q.MMR)
 }
 
-func CountRateChange(q *Question, u *User, a *AnswerInf) (ud float64, qd float64) {
+func CountRateChange(q *NoQuestion, u *NoUser, a *NoAnswerInf) (ud float64, qd float64) {
 	result := countResult(a)
 	diffCoeff := countRateDiffCoeff(q.MMR, u.MMR)
 	//fmt.Println("diffCoeff:", diffCoeff)
@@ -60,7 +60,7 @@ func CountRateChange(q *Question, u *User, a *AnswerInf) (ud float64, qd float64
 }
 
 //checked
-func countResult(answer *AnswerInf) float64 {
+func countResult(answer *NoAnswerInf) float64 {
 	if answer.Tries < 0 {
 		return -1
 	}

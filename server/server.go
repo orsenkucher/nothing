@@ -14,9 +14,9 @@ import (
 
 type Server struct {
 	DB        *gorm.DB
-	Que       []*Question
-	Questions []Question
-	Users     map[string]*User
+	Que       []*NoQuestion
+	Questions []NoQuestion
+	Users     map[string]*NoUser
 	queMutex  sync.Mutex
 }
 
@@ -30,17 +30,17 @@ func StartUp(db *gorm.DB) *Server {
 		fmt.Println("Cleaning base")
 		server.CleanBase()
 	}
-	server.DB.AutoMigrate(&Question{})
-	server.DB.AutoMigrate(&User{})
-	server.DB.AutoMigrate(&AnswerInf{})
-	var questions []Question
+	server.DB.AutoMigrate(&NoQuestion{})
+	server.DB.AutoMigrate(&NoUser{})
+	server.DB.AutoMigrate(&NoAnswerInf{})
+	var questions []NoQuestion
 	server.DB.Find(&questions)
-	server.Questions = make([]Question, len(questions))
+	server.Questions = make([]NoQuestion, len(questions))
 	for _, q := range questions {
 		server.Questions[q.ID-1] = q
 	}
-	server.Users = map[string]*User{}
-	var usersList []User
+	server.Users = map[string]*NoUser{}
+	var usersList []NoUser
 	server.DB.Find(&usersList)
 
 	for i := range usersList {
@@ -48,7 +48,7 @@ func StartUp(db *gorm.DB) *Server {
 	}
 	server.UpdateData()
 
-	server.Que = make([]*Question, len(server.Que))
+	server.Que = make([]*NoQuestion, len(server.Que))
 	for i := range server.Questions {
 		server.Que = append(server.Que, &server.Questions[i])
 	}
@@ -64,7 +64,7 @@ func (s *Server) AdRegister(id string) int {
 	r1 := rand.New(s1)
 	adType := r1.Intn(3)
 	if !ok {
-		user = &User{ID: id, MMR: start, AdMode: adType}
+		user = &NoUser{ID: id, MMR: start, AdMode: adType}
 		s.DB.Create(&user)
 		s.Users[id] = user
 		return adType
@@ -110,15 +110,15 @@ func (s *Server) LikeReport(qid int, like int) {
 	}
 }
 
-func (s *Server) UsersAns(id string) []AnswerInf {
+func (s *Server) UsersAns(id string) []NoAnswerInf {
 	user, ok := s.Users[id]
 	if !ok {
-		user = &User{ID: id, MMR: start}
+		user = &NoUser{ID: id, MMR: start}
 		s.DB.Create(&user)
 		s.Users[id] = user
-		return []AnswerInf{}
+		return []NoAnswerInf{}
 	}
-	var ans []AnswerInf
+	var ans []NoAnswerInf
 	fmt.Println("UsersAns for user:")
 	user.Print()
 	s.DB.Model(&user).Association("Done").Find(&ans)
@@ -141,8 +141,8 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 			s.Questions[0].MMR = user.MMR
 		}
 		question := &s.Questions[answer.QID-1]
-		ansinf := AnswerInf{AnswerStats: answer, UserID: userid}
-		s.DB.Where(AnswerInf{UserID: userid, AnswerStats: AnswerStats{QID: answer.QID}}).Assign(ansinf).FirstOrCreate(&ansinf)
+		ansinf := NoAnswerInf{AnswerStats: answer, UserID: userid}
+		s.DB.Where(NoAnswerInf{UserID: userid, AnswerStats: AnswerStats{QID: answer.QID}}).Assign(ansinf).FirstOrCreate(&ansinf)
 		//s.DB.Model(&ansinf).Update(&ansinf)
 		ChangeRate(question, user, &ansinf)
 		s.DB.Model(user).Update(user)
@@ -166,7 +166,7 @@ func (s *Server) ReceiveAns(answers []AnswerStats, userid string) {
 	}
 }
 
-func getClosest(sortedq []Question, mmr int) int {
+func getClosest(sortedq []NoQuestion, mmr int) int {
 	i := 0
 	j := 0
 	for k := range sortedq {
@@ -198,9 +198,9 @@ func getClosest(sortedq []Question, mmr int) int {
 	return j
 }
 
-func getNextQuestions(sortedq []Question, user *User, current int) (int, int, int, int) {
-	ud1, _ := CountRateChange(&sortedq[current], user, &AnswerInf{AnswerStats: AnswerStats{Seconds: 150}})
-	ud2, _ := CountRateChange(&sortedq[current], user, &AnswerInf{AnswerStats: AnswerStats{Seconds: 50}})
+func getNextQuestions(sortedq []NoQuestion, user *NoUser, current int) (int, int, int, int) {
+	ud1, _ := CountRateChange(&sortedq[current], user, &NoAnswerInf{AnswerStats: AnswerStats{Seconds: 150}})
+	ud2, _ := CountRateChange(&sortedq[current], user, &NoAnswerInf{AnswerStats: AnswerStats{Seconds: 50}})
 	//println(int(ud1))
 	//println(int(ud2))
 	return getClosest(sortedq, user.MMR+int(ud1)), getClosest(sortedq, user.MMR+int(ud2)), int(ud1), int(ud2)
@@ -219,10 +219,10 @@ answer is bad if it took over 100 seconds
 
 func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	ans := s.UsersAns(userid)
-	toSend := make([]Question, 0, 7)
+	toSend := make([]NoQuestion, 0, 7)
 	toSendInd := make([]int, 0, 7)
 	ToSendMMR := make([]int, 0, 7)
-	possibleQue := make([]Question, 0, len(s.Que)-len(ans))
+	possibleQue := make([]NoQuestion, 0, len(s.Que)-len(ans))
 	s.queMutex.Lock()
 	for i := range s.Que {
 		q := *s.Que[i]
@@ -283,13 +283,13 @@ func (s *Server) GiveQuestions(userid string, current int) *QBTreeNode {
 	return &result
 }
 
-func sort(que []*Question, a int, b int) {
+func sort(que []*NoQuestion, a int, b int) {
 	if a+1 != b {
 		sort(que, a, a+(b-a)/2)
 		sort(que, a+(b-a)/2, b)
 		i := a
 		j := a + (b-a)/2
-		questions := make([]*Question, b-a)
+		questions := make([]*NoQuestion, b-a)
 		for t := 0; t < b-a; t++ {
 			if i == a+(b-a)/2 {
 				questions[t] = que[j]
@@ -315,7 +315,7 @@ func sort(que []*Question, a int, b int) {
 	}
 }
 
-func (s *Server) UpdateQuestion(question *Question) {
+func (s *Server) UpdateQuestion(question *NoQuestion) {
 	b := false
 	for _, q := range s.Questions {
 		b = b || q.Question == question.Question
@@ -326,13 +326,13 @@ func (s *Server) UpdateQuestion(question *Question) {
 	}
 }
 
-func LineToQuestion(line string) Question {
+func LineToQuestion(line string) NoQuestion {
 	parts := strings.Split(line, "|")
 	if len(parts) < 3 {
 		fmt.Println("PANIC ............ bad data", line)
 		fmt.Println(line)
 	}
-	var question Question
+	var question NoQuestion
 	mmr, _ := strconv.Atoi(parts[1])
 	question.MMR = mmr*1000 + rand.Intn(300) - 150
 	question.Question = parts[2]
