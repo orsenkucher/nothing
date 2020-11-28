@@ -82,6 +82,7 @@ class HistoryStack extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: [
               const SizedBox(),
+              const SizedBox(),
               ..._items(context, state.items),
               const SizedBox(),
             ],
