@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +9,7 @@ import 'package:nothing/binding/control.dart';
 import 'package:nothing/bloc/ad/bloc.dart';
 import 'package:nothing/bloc/coin/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/bloc/hint/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
@@ -71,7 +71,7 @@ class App extends StatelessWidget with PortraitLock {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _repos(_blocs(_bindings(Builder(
+    return _repos(_blocs(_bindings(_listeners(Builder(
       builder: (context) => NothingScheme(
         child: MaterialApp(
           title: 'NOTHING 2',
@@ -87,7 +87,22 @@ class App extends StatelessWidget with PortraitLock {
           debugShowCheckedModeBanner: false,
         ),
       ),
-    ))));
+    )))));
+  }
+
+  Widget _listeners(Widget child) {
+    return MultiBlocListener(
+      child: child,
+      listeners: [
+        BlocListener<FeedBloc, FeedState>(
+          listenWhen: (_, next) => next is Available,
+          listener: (context, _) {
+            print("Locking hint");
+            context.read<HintBloc>().lock();
+          },
+        )
+      ],
+    );
   }
 
   Widget _bindings(Widget child) {
@@ -210,6 +225,7 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<RoutingBloc>(create: (_) => RoutingBloc()),
         BlocProvider<IdBloc>(create: (_) => IdBloc()),
         BlocProvider<CoinBloc>(create: (_) => CoinBloc()),
+        BlocProvider<HintBloc>(create: (_) => HintBloc()),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             idBloc: context.bloc<IdBloc>(),
@@ -245,16 +261,16 @@ class App extends StatelessWidget with PortraitLock {
     return MultiRepositoryProvider(child: child, providers: [
       RepositoryProvider<QuestionsRepo>(
         child: child,
-        create: (context) => LocalQuestionsRepo(),
+        create: (context) => CloudQuestionsRepo(),
       ), // CloudQuestionsRepo|LocalQuestionsRepo
       RepositoryProvider<AdRepo>(
         child: child,
-        create: (context) => LocalAdRepo(),
-      ), //AdCloudRepo|AdLocalRepo
+        create: (context) => CloudAdRepo(),
+      ), //CloudAdRepo|LocalAdRepo
       RepositoryProvider<LikesRepo>(
         child: child,
-        create: (context) => LikesRepo(),
-      ),
+        create: (context) => CloudLikesRepo(),
+      ), //CloudLikesRepo|LocalLikesRepo
     ]);
   }
 }

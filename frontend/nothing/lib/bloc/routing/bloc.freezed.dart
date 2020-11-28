@@ -9,6 +9,7 @@ part of 'bloc.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$RoutingEventTearOff {
   const _$RoutingEventTearOff();
 
@@ -33,44 +34,48 @@ class _$RoutingEventTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $RoutingEvent = _$RoutingEventTearOff();
 
+/// @nodoc
 mixin _$RoutingEvent {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result push(Routes from, Routes to),
-    @required Result resume(),
-    @required Result pop(Routes from),
+  TResult when<TResult extends Object>({
+    @required TResult push(Routes from, Routes to),
+    @required TResult resume(),
+    @required TResult pop(Routes from),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result push(Routes from, Routes to),
-    Result resume(),
-    Result pop(Routes from),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult push(Routes from, Routes to),
+    TResult resume(),
+    TResult pop(Routes from),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result push(_Push value),
-    @required Result resume(_Resume value),
-    @required Result pop(_Pop value),
+  TResult map<TResult extends Object>({
+    @required TResult push(_Push value),
+    @required TResult resume(_Resume value),
+    @required TResult pop(_Pop value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result push(_Push value),
-    Result resume(_Resume value),
-    Result pop(_Pop value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult push(_Push value),
+    TResult resume(_Resume value),
+    TResult pop(_Pop value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $RoutingEventCopyWith<$Res> {
   factory $RoutingEventCopyWith(
           RoutingEvent value, $Res Function(RoutingEvent) then) =
       _$RoutingEventCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$RoutingEventCopyWithImpl<$Res> implements $RoutingEventCopyWith<$Res> {
   _$RoutingEventCopyWithImpl(this._value, this._then);
 
@@ -79,6 +84,7 @@ class _$RoutingEventCopyWithImpl<$Res> implements $RoutingEventCopyWith<$Res> {
   final $Res Function(RoutingEvent) _then;
 }
 
+/// @nodoc
 abstract class _$PushCopyWith<$Res> {
   factory _$PushCopyWith(_Push value, $Res Function(_Push) then) =
       __$PushCopyWithImpl<$Res>;
@@ -88,6 +94,7 @@ abstract class _$PushCopyWith<$Res> {
   $RoutesCopyWith<$Res> get to;
 }
 
+/// @nodoc
 class __$PushCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
     implements _$PushCopyWith<$Res> {
   __$PushCopyWithImpl(_Push _value, $Res Function(_Push) _then)
@@ -128,6 +135,7 @@ class __$PushCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Push with DiagnosticableTreeMixin implements _Push {
   const _$_Push({@required this.from, @required this.to})
       : assert(from != null),
@@ -174,10 +182,10 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result push(Routes from, Routes to),
-    @required Result resume(),
-    @required Result pop(Routes from),
+  TResult when<TResult extends Object>({
+    @required TResult push(Routes from, Routes to),
+    @required TResult resume(),
+    @required TResult pop(Routes from),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -187,11 +195,11 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result push(Routes from, Routes to),
-    Result resume(),
-    Result pop(Routes from),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult push(Routes from, Routes to),
+    TResult resume(),
+    TResult pop(Routes from),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (push != null) {
@@ -202,10 +210,10 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result push(_Push value),
-    @required Result resume(_Resume value),
-    @required Result pop(_Pop value),
+  TResult map<TResult extends Object>({
+    @required TResult push(_Push value),
+    @required TResult resume(_Resume value),
+    @required TResult pop(_Pop value),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -215,11 +223,11 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result push(_Push value),
-    Result resume(_Resume value),
-    Result pop(_Pop value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult push(_Push value),
+    TResult resume(_Resume value),
+    TResult pop(_Pop value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (push != null) {
@@ -237,11 +245,13 @@ abstract class _Push implements RoutingEvent {
   _$PushCopyWith<_Push> get copyWith;
 }
 
+/// @nodoc
 abstract class _$ResumeCopyWith<$Res> {
   factory _$ResumeCopyWith(_Resume value, $Res Function(_Resume) then) =
       __$ResumeCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class __$ResumeCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
     implements _$ResumeCopyWith<$Res> {
   __$ResumeCopyWithImpl(_Resume _value, $Res Function(_Resume) _then)
@@ -251,6 +261,7 @@ class __$ResumeCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
   _Resume get _value => super._value as _Resume;
 }
 
+/// @nodoc
 class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   const _$_Resume();
 
@@ -275,10 +286,10 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result push(Routes from, Routes to),
-    @required Result resume(),
-    @required Result pop(Routes from),
+  TResult when<TResult extends Object>({
+    @required TResult push(Routes from, Routes to),
+    @required TResult resume(),
+    @required TResult pop(Routes from),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -288,11 +299,11 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result push(Routes from, Routes to),
-    Result resume(),
-    Result pop(Routes from),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult push(Routes from, Routes to),
+    TResult resume(),
+    TResult pop(Routes from),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (resume != null) {
@@ -303,10 +314,10 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result push(_Push value),
-    @required Result resume(_Resume value),
-    @required Result pop(_Pop value),
+  TResult map<TResult extends Object>({
+    @required TResult push(_Push value),
+    @required TResult resume(_Resume value),
+    @required TResult pop(_Pop value),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -316,11 +327,11 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result push(_Push value),
-    Result resume(_Resume value),
-    Result pop(_Pop value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult push(_Push value),
+    TResult resume(_Resume value),
+    TResult pop(_Pop value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (resume != null) {
@@ -334,6 +345,7 @@ abstract class _Resume implements RoutingEvent {
   const factory _Resume() = _$_Resume;
 }
 
+/// @nodoc
 abstract class _$PopCopyWith<$Res> {
   factory _$PopCopyWith(_Pop value, $Res Function(_Pop) then) =
       __$PopCopyWithImpl<$Res>;
@@ -342,6 +354,7 @@ abstract class _$PopCopyWith<$Res> {
   $RoutesCopyWith<$Res> get from;
 }
 
+/// @nodoc
 class __$PopCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
     implements _$PopCopyWith<$Res> {
   __$PopCopyWithImpl(_Pop _value, $Res Function(_Pop) _then)
@@ -370,6 +383,7 @@ class __$PopCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Pop with DiagnosticableTreeMixin implements _Pop {
   const _$_Pop({@required this.from}) : assert(from != null);
 
@@ -407,10 +421,10 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result push(Routes from, Routes to),
-    @required Result resume(),
-    @required Result pop(Routes from),
+  TResult when<TResult extends Object>({
+    @required TResult push(Routes from, Routes to),
+    @required TResult resume(),
+    @required TResult pop(Routes from),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -420,11 +434,11 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result push(Routes from, Routes to),
-    Result resume(),
-    Result pop(Routes from),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult push(Routes from, Routes to),
+    TResult resume(),
+    TResult pop(Routes from),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (pop != null) {
@@ -435,10 +449,10 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result push(_Push value),
-    @required Result resume(_Resume value),
-    @required Result pop(_Pop value),
+  TResult map<TResult extends Object>({
+    @required TResult push(_Push value),
+    @required TResult resume(_Resume value),
+    @required TResult pop(_Pop value),
   }) {
     assert(push != null);
     assert(resume != null);
@@ -448,11 +462,11 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result push(_Push value),
-    Result resume(_Resume value),
-    Result pop(_Pop value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult push(_Push value),
+    TResult resume(_Resume value),
+    TResult pop(_Pop value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (pop != null) {
@@ -469,6 +483,7 @@ abstract class _Pop implements RoutingEvent {
   _$PopCopyWith<_Pop> get copyWith;
 }
 
+/// @nodoc
 class _$RoutingStateTearOff {
   const _$RoutingStateTearOff();
 
@@ -485,36 +500,39 @@ class _$RoutingStateTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $RoutingState = _$RoutingStateTearOff();
 
+/// @nodoc
 mixin _$RoutingState {
   RoutingEvent get event;
   List<Routes> get log;
   String get salt;
 
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result priv(RoutingEvent event, List<Routes> log, String salt),
+  TResult when<TResult extends Object>({
+    @required TResult priv(RoutingEvent event, List<Routes> log, String salt),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result priv(RoutingEvent event, List<Routes> log, String salt),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult priv(RoutingEvent event, List<Routes> log, String salt),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result priv(_RoutingState value),
+  TResult map<TResult extends Object>({
+    @required TResult priv(_RoutingState value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result priv(_RoutingState value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult priv(_RoutingState value),
+    @required TResult orElse(),
   });
 
   $RoutingStateCopyWith<RoutingState> get copyWith;
 }
 
+/// @nodoc
 abstract class $RoutingStateCopyWith<$Res> {
   factory $RoutingStateCopyWith(
           RoutingState value, $Res Function(RoutingState) then) =
@@ -524,6 +542,7 @@ abstract class $RoutingStateCopyWith<$Res> {
   $RoutingEventCopyWith<$Res> get event;
 }
 
+/// @nodoc
 class _$RoutingStateCopyWithImpl<$Res> implements $RoutingStateCopyWith<$Res> {
   _$RoutingStateCopyWithImpl(this._value, this._then);
 
@@ -555,6 +574,7 @@ class _$RoutingStateCopyWithImpl<$Res> implements $RoutingStateCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$RoutingStateCopyWith<$Res>
     implements $RoutingStateCopyWith<$Res> {
   factory _$RoutingStateCopyWith(
@@ -567,6 +587,7 @@ abstract class _$RoutingStateCopyWith<$Res>
   $RoutingEventCopyWith<$Res> get event;
 }
 
+/// @nodoc
 class __$RoutingStateCopyWithImpl<$Res> extends _$RoutingStateCopyWithImpl<$Res>
     implements _$RoutingStateCopyWith<$Res> {
   __$RoutingStateCopyWithImpl(
@@ -590,6 +611,7 @@ class __$RoutingStateCopyWithImpl<$Res> extends _$RoutingStateCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
   const _$_RoutingState(
       {@required this.event, @required this.log, @required this.salt})
@@ -644,8 +666,8 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result priv(RoutingEvent event, List<Routes> log, String salt),
+  TResult when<TResult extends Object>({
+    @required TResult priv(RoutingEvent event, List<Routes> log, String salt),
   }) {
     assert(priv != null);
     return priv(event, log, salt);
@@ -653,9 +675,9 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result priv(RoutingEvent event, List<Routes> log, String salt),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult priv(RoutingEvent event, List<Routes> log, String salt),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (priv != null) {
@@ -666,8 +688,8 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result priv(_RoutingState value),
+  TResult map<TResult extends Object>({
+    @required TResult priv(_RoutingState value),
   }) {
     assert(priv != null);
     return priv(this);
@@ -675,9 +697,9 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result priv(_RoutingState value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult priv(_RoutingState value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (priv != null) {

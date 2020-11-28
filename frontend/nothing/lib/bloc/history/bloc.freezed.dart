@@ -12,6 +12,7 @@ HistoryItem _$HistoryItemFromJson(Map<String, dynamic> json) {
   return _HistoryItem.fromJson(json);
 }
 
+/// @nodoc
 class _$HistoryItemTearOff {
   const _$HistoryItemTearOff();
 
@@ -23,11 +24,18 @@ class _$HistoryItemTearOff {
       question: question,
     );
   }
+
+// ignore: unused_element
+  HistoryItem fromJson(Map<String, Object> json) {
+    return HistoryItem.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $HistoryItem = _$HistoryItemTearOff();
 
+/// @nodoc
 mixin _$HistoryItem {
   SummaryAnswer get answer;
   Question get question;
@@ -36,6 +44,7 @@ mixin _$HistoryItem {
   $HistoryItemCopyWith<HistoryItem> get copyWith;
 }
 
+/// @nodoc
 abstract class $HistoryItemCopyWith<$Res> {
   factory $HistoryItemCopyWith(
           HistoryItem value, $Res Function(HistoryItem) then) =
@@ -46,6 +55,7 @@ abstract class $HistoryItemCopyWith<$Res> {
   $QuestionCopyWith<$Res> get question;
 }
 
+/// @nodoc
 class _$HistoryItemCopyWithImpl<$Res> implements $HistoryItemCopyWith<$Res> {
   _$HistoryItemCopyWithImpl(this._value, this._then);
 
@@ -85,6 +95,7 @@ class _$HistoryItemCopyWithImpl<$Res> implements $HistoryItemCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$HistoryItemCopyWith<$Res>
     implements $HistoryItemCopyWith<$Res> {
   factory _$HistoryItemCopyWith(
@@ -99,6 +110,7 @@ abstract class _$HistoryItemCopyWith<$Res>
   $QuestionCopyWith<$Res> get question;
 }
 
+/// @nodoc
 class __$HistoryItemCopyWithImpl<$Res> extends _$HistoryItemCopyWithImpl<$Res>
     implements _$HistoryItemCopyWith<$Res> {
   __$HistoryItemCopyWithImpl(
@@ -121,6 +133,8 @@ class __$HistoryItemCopyWithImpl<$Res> extends _$HistoryItemCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_HistoryItem with DiagnosticableTreeMixin implements _HistoryItem {
   const _$_HistoryItem({@required this.answer, @required this.question})
       : assert(answer != null),
@@ -191,6 +205,7 @@ abstract class _HistoryItem implements HistoryItem {
   _$HistoryItemCopyWith<_HistoryItem> get copyWith;
 }
 
+/// @nodoc
 class _$HistoryEventTearOff {
   const _$HistoryEventTearOff();
 
@@ -202,34 +217,37 @@ class _$HistoryEventTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $HistoryEvent = _$HistoryEventTearOff();
 
+/// @nodoc
 mixin _$HistoryEvent {
   HistoryItem get item;
 
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result next(HistoryItem item),
+  TResult when<TResult extends Object>({
+    @required TResult next(HistoryItem item),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result next(HistoryItem item),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult next(HistoryItem item),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result next(_Next value),
+  TResult map<TResult extends Object>({
+    @required TResult next(_Next value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result next(_Next value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult next(_Next value),
+    @required TResult orElse(),
   });
 
   $HistoryEventCopyWith<HistoryEvent> get copyWith;
 }
 
+/// @nodoc
 abstract class $HistoryEventCopyWith<$Res> {
   factory $HistoryEventCopyWith(
           HistoryEvent value, $Res Function(HistoryEvent) then) =
@@ -239,6 +257,7 @@ abstract class $HistoryEventCopyWith<$Res> {
   $HistoryItemCopyWith<$Res> get item;
 }
 
+/// @nodoc
 class _$HistoryEventCopyWithImpl<$Res> implements $HistoryEventCopyWith<$Res> {
   _$HistoryEventCopyWithImpl(this._value, this._then);
 
@@ -266,6 +285,7 @@ class _$HistoryEventCopyWithImpl<$Res> implements $HistoryEventCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$NextCopyWith<$Res> implements $HistoryEventCopyWith<$Res> {
   factory _$NextCopyWith(_Next value, $Res Function(_Next) then) =
       __$NextCopyWithImpl<$Res>;
@@ -276,6 +296,7 @@ abstract class _$NextCopyWith<$Res> implements $HistoryEventCopyWith<$Res> {
   $HistoryItemCopyWith<$Res> get item;
 }
 
+/// @nodoc
 class __$NextCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
     implements _$NextCopyWith<$Res> {
   __$NextCopyWithImpl(_Next _value, $Res Function(_Next) _then)
@@ -294,6 +315,7 @@ class __$NextCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Next with DiagnosticableTreeMixin implements _Next {
   const _$_Next(this.item) : assert(item != null);
 
@@ -331,8 +353,8 @@ class _$_Next with DiagnosticableTreeMixin implements _Next {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result next(HistoryItem item),
+  TResult when<TResult extends Object>({
+    @required TResult next(HistoryItem item),
   }) {
     assert(next != null);
     return next(item);
@@ -340,9 +362,9 @@ class _$_Next with DiagnosticableTreeMixin implements _Next {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result next(HistoryItem item),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult next(HistoryItem item),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (next != null) {
@@ -353,8 +375,8 @@ class _$_Next with DiagnosticableTreeMixin implements _Next {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result next(_Next value),
+  TResult map<TResult extends Object>({
+    @required TResult next(_Next value),
   }) {
     assert(next != null);
     return next(this);
@@ -362,9 +384,9 @@ class _$_Next with DiagnosticableTreeMixin implements _Next {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result next(_Next value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult next(_Next value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (next != null) {
@@ -387,6 +409,7 @@ HistoryState _$HistoryStateFromJson(Map<String, dynamic> json) {
   return _State.fromJson(json);
 }
 
+/// @nodoc
 class _$HistoryStateTearOff {
   const _$HistoryStateTearOff();
 
@@ -398,19 +421,27 @@ class _$HistoryStateTearOff {
       items: items,
     );
   }
+
+// ignore: unused_element
+  HistoryState fromJson(Map<String, Object> json) {
+    return HistoryState.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $HistoryState = _$HistoryStateTearOff();
 
+/// @nodoc
 mixin _$HistoryState {
-  Map<int, bool> get ids;
+  Map<int, bool> get ids; // HashSet with ids
   List<HistoryItem> get items;
 
   Map<String, dynamic> toJson();
   $HistoryStateCopyWith<HistoryState> get copyWith;
 }
 
+/// @nodoc
 abstract class $HistoryStateCopyWith<$Res> {
   factory $HistoryStateCopyWith(
           HistoryState value, $Res Function(HistoryState) then) =
@@ -418,6 +449,7 @@ abstract class $HistoryStateCopyWith<$Res> {
   $Res call({Map<int, bool> ids, List<HistoryItem> items});
 }
 
+/// @nodoc
 class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
   _$HistoryStateCopyWithImpl(this._value, this._then);
 
@@ -437,6 +469,7 @@ class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$StateCopyWith<$Res> implements $HistoryStateCopyWith<$Res> {
   factory _$StateCopyWith(_State value, $Res Function(_State) then) =
       __$StateCopyWithImpl<$Res>;
@@ -444,6 +477,7 @@ abstract class _$StateCopyWith<$Res> implements $HistoryStateCopyWith<$Res> {
   $Res call({Map<int, bool> ids, List<HistoryItem> items});
 }
 
+/// @nodoc
 class __$StateCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
     implements _$StateCopyWith<$Res> {
   __$StateCopyWithImpl(_State _value, $Res Function(_State) _then)
@@ -465,6 +499,8 @@ class __$StateCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_State with DiagnosticableTreeMixin implements _State {
   const _$_State({@required this.ids, @required this.items})
       : assert(ids != null),
@@ -475,7 +511,7 @@ class _$_State with DiagnosticableTreeMixin implements _State {
 
   @override
   final Map<int, bool> ids;
-  @override
+  @override // HashSet with ids
   final List<HistoryItem> items;
 
   @override
@@ -527,7 +563,7 @@ abstract class _State implements HistoryState {
 
   @override
   Map<int, bool> get ids;
-  @override
+  @override // HashSet with ids
   List<HistoryItem> get items;
   @override
   _$StateCopyWith<_State> get copyWith;

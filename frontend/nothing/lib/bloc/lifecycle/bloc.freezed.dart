@@ -20,6 +20,7 @@ LifecycleEvent _$LifecycleEventFromJson(Map<String, dynamic> json) {
   }
 }
 
+/// @nodoc
 class _$LifecycleEventTearOff {
   const _$LifecycleEventTearOff();
 
@@ -36,40 +37,48 @@ class _$LifecycleEventTearOff {
       point,
     );
   }
+
+// ignore: unused_element
+  LifecycleEvent fromJson(Map<String, Object> json) {
+    return LifecycleEvent.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $LifecycleEvent = _$LifecycleEventTearOff();
 
+/// @nodoc
 mixin _$LifecycleEvent {
   DateTime get point;
 
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result resume(DateTime point),
-    @required Result suspend(DateTime point),
+  TResult when<TResult extends Object>({
+    @required TResult resume(DateTime point),
+    @required TResult suspend(DateTime point),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result resume(DateTime point),
-    Result suspend(DateTime point),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult resume(DateTime point),
+    TResult suspend(DateTime point),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result resume(_Resume value),
-    @required Result suspend(_Suspend value),
+  TResult map<TResult extends Object>({
+    @required TResult resume(_Resume value),
+    @required TResult suspend(_Suspend value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result resume(_Resume value),
-    Result suspend(_Suspend value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult resume(_Resume value),
+    TResult suspend(_Suspend value),
+    @required TResult orElse(),
   });
   Map<String, dynamic> toJson();
   $LifecycleEventCopyWith<LifecycleEvent> get copyWith;
 }
 
+/// @nodoc
 abstract class $LifecycleEventCopyWith<$Res> {
   factory $LifecycleEventCopyWith(
           LifecycleEvent value, $Res Function(LifecycleEvent) then) =
@@ -77,6 +86,7 @@ abstract class $LifecycleEventCopyWith<$Res> {
   $Res call({DateTime point});
 }
 
+/// @nodoc
 class _$LifecycleEventCopyWithImpl<$Res>
     implements $LifecycleEventCopyWith<$Res> {
   _$LifecycleEventCopyWithImpl(this._value, this._then);
@@ -95,6 +105,7 @@ class _$LifecycleEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class _$ResumeCopyWith<$Res> implements $LifecycleEventCopyWith<$Res> {
   factory _$ResumeCopyWith(_Resume value, $Res Function(_Resume) then) =
       __$ResumeCopyWithImpl<$Res>;
@@ -102,6 +113,7 @@ abstract class _$ResumeCopyWith<$Res> implements $LifecycleEventCopyWith<$Res> {
   $Res call({DateTime point});
 }
 
+/// @nodoc
 class __$ResumeCopyWithImpl<$Res> extends _$LifecycleEventCopyWithImpl<$Res>
     implements _$ResumeCopyWith<$Res> {
   __$ResumeCopyWithImpl(_Resume _value, $Res Function(_Resume) _then)
@@ -121,6 +133,8 @@ class __$ResumeCopyWithImpl<$Res> extends _$LifecycleEventCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   const _$_Resume(this.point) : assert(point != null);
 
@@ -161,9 +175,9 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result resume(DateTime point),
-    @required Result suspend(DateTime point),
+  TResult when<TResult extends Object>({
+    @required TResult resume(DateTime point),
+    @required TResult suspend(DateTime point),
   }) {
     assert(resume != null);
     assert(suspend != null);
@@ -172,10 +186,10 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result resume(DateTime point),
-    Result suspend(DateTime point),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult resume(DateTime point),
+    TResult suspend(DateTime point),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (resume != null) {
@@ -186,9 +200,9 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result resume(_Resume value),
-    @required Result suspend(_Suspend value),
+  TResult map<TResult extends Object>({
+    @required TResult resume(_Resume value),
+    @required TResult suspend(_Suspend value),
   }) {
     assert(resume != null);
     assert(suspend != null);
@@ -197,10 +211,10 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result resume(_Resume value),
-    Result suspend(_Suspend value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult resume(_Resume value),
+    TResult suspend(_Suspend value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (resume != null) {
@@ -226,6 +240,7 @@ abstract class _Resume implements LifecycleEvent {
   _$ResumeCopyWith<_Resume> get copyWith;
 }
 
+/// @nodoc
 abstract class _$SuspendCopyWith<$Res>
     implements $LifecycleEventCopyWith<$Res> {
   factory _$SuspendCopyWith(_Suspend value, $Res Function(_Suspend) then) =
@@ -234,6 +249,7 @@ abstract class _$SuspendCopyWith<$Res>
   $Res call({DateTime point});
 }
 
+/// @nodoc
 class __$SuspendCopyWithImpl<$Res> extends _$LifecycleEventCopyWithImpl<$Res>
     implements _$SuspendCopyWith<$Res> {
   __$SuspendCopyWithImpl(_Suspend _value, $Res Function(_Suspend) _then)
@@ -253,6 +269,8 @@ class __$SuspendCopyWithImpl<$Res> extends _$LifecycleEventCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
   const _$_Suspend(this.point) : assert(point != null);
 
@@ -293,9 +311,9 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result resume(DateTime point),
-    @required Result suspend(DateTime point),
+  TResult when<TResult extends Object>({
+    @required TResult resume(DateTime point),
+    @required TResult suspend(DateTime point),
   }) {
     assert(resume != null);
     assert(suspend != null);
@@ -304,10 +322,10 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result resume(DateTime point),
-    Result suspend(DateTime point),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult resume(DateTime point),
+    TResult suspend(DateTime point),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (suspend != null) {
@@ -318,9 +336,9 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result resume(_Resume value),
-    @required Result suspend(_Suspend value),
+  TResult map<TResult extends Object>({
+    @required TResult resume(_Resume value),
+    @required TResult suspend(_Suspend value),
   }) {
     assert(resume != null);
     assert(suspend != null);
@@ -329,10 +347,10 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result resume(_Resume value),
-    Result suspend(_Suspend value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult resume(_Resume value),
+    TResult suspend(_Suspend value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (suspend != null) {
@@ -370,6 +388,7 @@ LifecycleState _$LifecycleStateFromJson(Map<String, dynamic> json) {
   }
 }
 
+/// @nodoc
 class _$LifecycleStateTearOff {
   const _$LifecycleStateTearOff();
 
@@ -386,43 +405,52 @@ class _$LifecycleStateTearOff {
   _Nothing nothing() {
     return const _Nothing();
   }
+
+// ignore: unused_element
+  LifecycleState fromJson(Map<String, Object> json) {
+    return LifecycleState.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $LifecycleState = _$LifecycleStateTearOff();
 
+/// @nodoc
 mixin _$LifecycleState {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result just(List<LifecycleEvent> log, LifecycleEvent current),
-    @required Result nothing(),
+  TResult when<TResult extends Object>({
+    @required TResult just(List<LifecycleEvent> log, LifecycleEvent current),
+    @required TResult nothing(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result just(List<LifecycleEvent> log, LifecycleEvent current),
-    Result nothing(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult just(List<LifecycleEvent> log, LifecycleEvent current),
+    TResult nothing(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result just(_Just value),
-    @required Result nothing(_Nothing value),
+  TResult map<TResult extends Object>({
+    @required TResult just(_Just value),
+    @required TResult nothing(_Nothing value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result just(_Just value),
-    Result nothing(_Nothing value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult just(_Just value),
+    TResult nothing(_Nothing value),
+    @required TResult orElse(),
   });
   Map<String, dynamic> toJson();
 }
 
+/// @nodoc
 abstract class $LifecycleStateCopyWith<$Res> {
   factory $LifecycleStateCopyWith(
           LifecycleState value, $Res Function(LifecycleState) then) =
       _$LifecycleStateCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$LifecycleStateCopyWithImpl<$Res>
     implements $LifecycleStateCopyWith<$Res> {
   _$LifecycleStateCopyWithImpl(this._value, this._then);
@@ -432,6 +460,7 @@ class _$LifecycleStateCopyWithImpl<$Res>
   final $Res Function(LifecycleState) _then;
 }
 
+/// @nodoc
 abstract class _$JustCopyWith<$Res> {
   factory _$JustCopyWith(_Just value, $Res Function(_Just) then) =
       __$JustCopyWithImpl<$Res>;
@@ -440,6 +469,7 @@ abstract class _$JustCopyWith<$Res> {
   $LifecycleEventCopyWith<$Res> get current;
 }
 
+/// @nodoc
 class __$JustCopyWithImpl<$Res> extends _$LifecycleStateCopyWithImpl<$Res>
     implements _$JustCopyWith<$Res> {
   __$JustCopyWithImpl(_Just _value, $Res Function(_Just) _then)
@@ -471,6 +501,8 @@ class __$JustCopyWithImpl<$Res> extends _$LifecycleStateCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Just with DiagnosticableTreeMixin implements _Just {
   const _$_Just({@required this.log, @required this.current})
       : assert(log != null),
@@ -520,9 +552,9 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result just(List<LifecycleEvent> log, LifecycleEvent current),
-    @required Result nothing(),
+  TResult when<TResult extends Object>({
+    @required TResult just(List<LifecycleEvent> log, LifecycleEvent current),
+    @required TResult nothing(),
   }) {
     assert(just != null);
     assert(nothing != null);
@@ -531,10 +563,10 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result just(List<LifecycleEvent> log, LifecycleEvent current),
-    Result nothing(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult just(List<LifecycleEvent> log, LifecycleEvent current),
+    TResult nothing(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (just != null) {
@@ -545,9 +577,9 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result just(_Just value),
-    @required Result nothing(_Nothing value),
+  TResult map<TResult extends Object>({
+    @required TResult just(_Just value),
+    @required TResult nothing(_Nothing value),
   }) {
     assert(just != null);
     assert(nothing != null);
@@ -556,10 +588,10 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result just(_Just value),
-    Result nothing(_Nothing value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult just(_Just value),
+    TResult nothing(_Nothing value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (just != null) {
@@ -586,11 +618,13 @@ abstract class _Just implements LifecycleState {
   _$JustCopyWith<_Just> get copyWith;
 }
 
+/// @nodoc
 abstract class _$NothingCopyWith<$Res> {
   factory _$NothingCopyWith(_Nothing value, $Res Function(_Nothing) then) =
       __$NothingCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class __$NothingCopyWithImpl<$Res> extends _$LifecycleStateCopyWithImpl<$Res>
     implements _$NothingCopyWith<$Res> {
   __$NothingCopyWithImpl(_Nothing _value, $Res Function(_Nothing) _then)
@@ -601,6 +635,8 @@ class __$NothingCopyWithImpl<$Res> extends _$LifecycleStateCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
   const _$_Nothing();
 
@@ -628,9 +664,9 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result just(List<LifecycleEvent> log, LifecycleEvent current),
-    @required Result nothing(),
+  TResult when<TResult extends Object>({
+    @required TResult just(List<LifecycleEvent> log, LifecycleEvent current),
+    @required TResult nothing(),
   }) {
     assert(just != null);
     assert(nothing != null);
@@ -639,10 +675,10 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result just(List<LifecycleEvent> log, LifecycleEvent current),
-    Result nothing(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult just(List<LifecycleEvent> log, LifecycleEvent current),
+    TResult nothing(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (nothing != null) {
@@ -653,9 +689,9 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result just(_Just value),
-    @required Result nothing(_Nothing value),
+  TResult map<TResult extends Object>({
+    @required TResult just(_Just value),
+    @required TResult nothing(_Nothing value),
   }) {
     assert(just != null);
     assert(nothing != null);
@@ -664,10 +700,10 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result just(_Just value),
-    Result nothing(_Nothing value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult just(_Just value),
+    TResult nothing(_Nothing value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (nothing != null) {

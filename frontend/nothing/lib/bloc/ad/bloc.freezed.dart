@@ -9,6 +9,7 @@ part of 'bloc.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$AdEventTearOff {
   const _$AdEventTearOff();
 
@@ -27,39 +28,43 @@ class _$AdEventTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $AdEvent = _$AdEventTearOff();
 
+/// @nodoc
 mixin _$AdEvent {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result register(String userid),
-    @required Result report(AdType type),
+  TResult when<TResult extends Object>({
+    @required TResult register(String userid),
+    @required TResult report(AdType type),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result register(String userid),
-    Result report(AdType type),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult register(String userid),
+    TResult report(AdType type),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result register(_Register value),
-    @required Result report(_Report value),
+  TResult map<TResult extends Object>({
+    @required TResult register(_Register value),
+    @required TResult report(_Report value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result register(_Register value),
-    Result report(_Report value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult register(_Register value),
+    TResult report(_Report value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $AdEventCopyWith<$Res> {
   factory $AdEventCopyWith(AdEvent value, $Res Function(AdEvent) then) =
       _$AdEventCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$AdEventCopyWithImpl<$Res> implements $AdEventCopyWith<$Res> {
   _$AdEventCopyWithImpl(this._value, this._then);
 
@@ -68,12 +73,14 @@ class _$AdEventCopyWithImpl<$Res> implements $AdEventCopyWith<$Res> {
   final $Res Function(AdEvent) _then;
 }
 
+/// @nodoc
 abstract class _$RegisterCopyWith<$Res> {
   factory _$RegisterCopyWith(_Register value, $Res Function(_Register) then) =
       __$RegisterCopyWithImpl<$Res>;
   $Res call({String userid});
 }
 
+/// @nodoc
 class __$RegisterCopyWithImpl<$Res> extends _$AdEventCopyWithImpl<$Res>
     implements _$RegisterCopyWith<$Res> {
   __$RegisterCopyWithImpl(_Register _value, $Res Function(_Register) _then)
@@ -92,6 +99,7 @@ class __$RegisterCopyWithImpl<$Res> extends _$AdEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Register with DiagnosticableTreeMixin implements _Register {
   const _$_Register(this.userid) : assert(userid != null);
 
@@ -129,9 +137,9 @@ class _$_Register with DiagnosticableTreeMixin implements _Register {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result register(String userid),
-    @required Result report(AdType type),
+  TResult when<TResult extends Object>({
+    @required TResult register(String userid),
+    @required TResult report(AdType type),
   }) {
     assert(register != null);
     assert(report != null);
@@ -140,10 +148,10 @@ class _$_Register with DiagnosticableTreeMixin implements _Register {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result register(String userid),
-    Result report(AdType type),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult register(String userid),
+    TResult report(AdType type),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (register != null) {
@@ -154,9 +162,9 @@ class _$_Register with DiagnosticableTreeMixin implements _Register {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result register(_Register value),
-    @required Result report(_Report value),
+  TResult map<TResult extends Object>({
+    @required TResult register(_Register value),
+    @required TResult report(_Report value),
   }) {
     assert(register != null);
     assert(report != null);
@@ -165,10 +173,10 @@ class _$_Register with DiagnosticableTreeMixin implements _Register {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result register(_Register value),
-    Result report(_Report value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult register(_Register value),
+    TResult report(_Report value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (register != null) {
@@ -185,12 +193,14 @@ abstract class _Register implements AdEvent {
   _$RegisterCopyWith<_Register> get copyWith;
 }
 
+/// @nodoc
 abstract class _$ReportCopyWith<$Res> {
   factory _$ReportCopyWith(_Report value, $Res Function(_Report) then) =
       __$ReportCopyWithImpl<$Res>;
   $Res call({AdType type});
 }
 
+/// @nodoc
 class __$ReportCopyWithImpl<$Res> extends _$AdEventCopyWithImpl<$Res>
     implements _$ReportCopyWith<$Res> {
   __$ReportCopyWithImpl(_Report _value, $Res Function(_Report) _then)
@@ -209,6 +219,7 @@ class __$ReportCopyWithImpl<$Res> extends _$AdEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Report with DiagnosticableTreeMixin implements _Report {
   const _$_Report(this.type) : assert(type != null);
 
@@ -246,9 +257,9 @@ class _$_Report with DiagnosticableTreeMixin implements _Report {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result register(String userid),
-    @required Result report(AdType type),
+  TResult when<TResult extends Object>({
+    @required TResult register(String userid),
+    @required TResult report(AdType type),
   }) {
     assert(register != null);
     assert(report != null);
@@ -257,10 +268,10 @@ class _$_Report with DiagnosticableTreeMixin implements _Report {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result register(String userid),
-    Result report(AdType type),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult register(String userid),
+    TResult report(AdType type),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (report != null) {
@@ -271,9 +282,9 @@ class _$_Report with DiagnosticableTreeMixin implements _Report {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result register(_Register value),
-    @required Result report(_Report value),
+  TResult map<TResult extends Object>({
+    @required TResult register(_Register value),
+    @required TResult report(_Report value),
   }) {
     assert(register != null);
     assert(report != null);
@@ -282,10 +293,10 @@ class _$_Report with DiagnosticableTreeMixin implements _Report {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result register(_Register value),
-    Result report(_Report value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult register(_Register value),
+    TResult report(_Report value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (report != null) {
@@ -302,6 +313,7 @@ abstract class _Report implements AdEvent {
   _$ReportCopyWith<_Report> get copyWith;
 }
 
+/// @nodoc
 class _$AdStateTearOff {
   const _$AdStateTearOff();
 
@@ -319,39 +331,43 @@ class _$AdStateTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $AdState = _$AdStateTearOff();
 
+/// @nodoc
 mixin _$AdState {
   @optionalTypeArgs
-  Result when<Result extends Object>(
-    Result $default(String userid, AdMode type), {
-    @required Result empty(),
+  TResult when<TResult extends Object>(
+    TResult $default(String userid, AdMode type), {
+    @required TResult empty(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>(
-    Result $default(String userid, AdMode type), {
-    Result empty(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>(
+    TResult $default(String userid, AdMode type), {
+    TResult empty(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>(
-    Result $default(_AdState value), {
-    @required Result empty(_Empty value),
+  TResult map<TResult extends Object>(
+    TResult $default(_AdState value), {
+    @required TResult empty(_Empty value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>(
-    Result $default(_AdState value), {
-    Result empty(_Empty value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>(
+    TResult $default(_AdState value), {
+    TResult empty(_Empty value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $AdStateCopyWith<$Res> {
   factory $AdStateCopyWith(AdState value, $Res Function(AdState) then) =
       _$AdStateCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$AdStateCopyWithImpl<$Res> implements $AdStateCopyWith<$Res> {
   _$AdStateCopyWithImpl(this._value, this._then);
 
@@ -360,12 +376,14 @@ class _$AdStateCopyWithImpl<$Res> implements $AdStateCopyWith<$Res> {
   final $Res Function(AdState) _then;
 }
 
+/// @nodoc
 abstract class _$AdStateCopyWith<$Res> {
   factory _$AdStateCopyWith(_AdState value, $Res Function(_AdState) then) =
       __$AdStateCopyWithImpl<$Res>;
   $Res call({String userid, AdMode type});
 }
 
+/// @nodoc
 class __$AdStateCopyWithImpl<$Res> extends _$AdStateCopyWithImpl<$Res>
     implements _$AdStateCopyWith<$Res> {
   __$AdStateCopyWithImpl(_AdState _value, $Res Function(_AdState) _then)
@@ -386,6 +404,7 @@ class __$AdStateCopyWithImpl<$Res> extends _$AdStateCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_AdState with DiagnosticableTreeMixin implements _AdState {
   const _$_AdState(this.userid, this.type)
       : assert(userid != null),
@@ -432,9 +451,9 @@ class _$_AdState with DiagnosticableTreeMixin implements _AdState {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>(
-    Result $default(String userid, AdMode type), {
-    @required Result empty(),
+  TResult when<TResult extends Object>(
+    TResult $default(String userid, AdMode type), {
+    @required TResult empty(),
   }) {
     assert($default != null);
     assert(empty != null);
@@ -443,10 +462,10 @@ class _$_AdState with DiagnosticableTreeMixin implements _AdState {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>(
-    Result $default(String userid, AdMode type), {
-    Result empty(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>(
+    TResult $default(String userid, AdMode type), {
+    TResult empty(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if ($default != null) {
@@ -457,9 +476,9 @@ class _$_AdState with DiagnosticableTreeMixin implements _AdState {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>(
-    Result $default(_AdState value), {
-    @required Result empty(_Empty value),
+  TResult map<TResult extends Object>(
+    TResult $default(_AdState value), {
+    @required TResult empty(_Empty value),
   }) {
     assert($default != null);
     assert(empty != null);
@@ -468,10 +487,10 @@ class _$_AdState with DiagnosticableTreeMixin implements _AdState {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>(
-    Result $default(_AdState value), {
-    Result empty(_Empty value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>(
+    TResult $default(_AdState value), {
+    TResult empty(_Empty value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if ($default != null) {
@@ -489,11 +508,13 @@ abstract class _AdState implements AdState {
   _$AdStateCopyWith<_AdState> get copyWith;
 }
 
+/// @nodoc
 abstract class _$EmptyCopyWith<$Res> {
   factory _$EmptyCopyWith(_Empty value, $Res Function(_Empty) then) =
       __$EmptyCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class __$EmptyCopyWithImpl<$Res> extends _$AdStateCopyWithImpl<$Res>
     implements _$EmptyCopyWith<$Res> {
   __$EmptyCopyWithImpl(_Empty _value, $Res Function(_Empty) _then)
@@ -503,6 +524,7 @@ class __$EmptyCopyWithImpl<$Res> extends _$AdStateCopyWithImpl<$Res>
   _Empty get _value => super._value as _Empty;
 }
 
+/// @nodoc
 class _$_Empty with DiagnosticableTreeMixin implements _Empty {
   const _$_Empty();
 
@@ -527,9 +549,9 @@ class _$_Empty with DiagnosticableTreeMixin implements _Empty {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>(
-    Result $default(String userid, AdMode type), {
-    @required Result empty(),
+  TResult when<TResult extends Object>(
+    TResult $default(String userid, AdMode type), {
+    @required TResult empty(),
   }) {
     assert($default != null);
     assert(empty != null);
@@ -538,10 +560,10 @@ class _$_Empty with DiagnosticableTreeMixin implements _Empty {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>(
-    Result $default(String userid, AdMode type), {
-    Result empty(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>(
+    TResult $default(String userid, AdMode type), {
+    TResult empty(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {
@@ -552,9 +574,9 @@ class _$_Empty with DiagnosticableTreeMixin implements _Empty {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>(
-    Result $default(_AdState value), {
-    @required Result empty(_Empty value),
+  TResult map<TResult extends Object>(
+    TResult $default(_AdState value), {
+    @required TResult empty(_Empty value),
   }) {
     assert($default != null);
     assert(empty != null);
@@ -563,10 +585,10 @@ class _$_Empty with DiagnosticableTreeMixin implements _Empty {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>(
-    Result $default(_AdState value), {
-    Result empty(_Empty value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>(
+    TResult $default(_AdState value), {
+    TResult empty(_Empty value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {

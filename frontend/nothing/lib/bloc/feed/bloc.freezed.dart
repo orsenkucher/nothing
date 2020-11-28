@@ -9,6 +9,7 @@ part of 'bloc.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$FeedEventTearOff {
   const _$FeedEventTearOff();
 
@@ -32,43 +33,47 @@ class _$FeedEventTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $FeedEvent = _$FeedEventTearOff();
 
+/// @nodoc
 mixin _$FeedEvent {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result newArrived(QTree tree),
-    @required Result moveNext(MoveDir dir),
-    @required Result ground(),
+  TResult when<TResult extends Object>({
+    @required TResult newArrived(QTree tree),
+    @required TResult moveNext(MoveDir dir),
+    @required TResult ground(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result newArrived(QTree tree),
-    Result moveNext(MoveDir dir),
-    Result ground(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult newArrived(QTree tree),
+    TResult moveNext(MoveDir dir),
+    TResult ground(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result newArrived(NewArrived value),
-    @required Result moveNext(MoveNext value),
-    @required Result ground(Ground value),
+  TResult map<TResult extends Object>({
+    @required TResult newArrived(NewArrived value),
+    @required TResult moveNext(MoveNext value),
+    @required TResult ground(Ground value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result newArrived(NewArrived value),
-    Result moveNext(MoveNext value),
-    Result ground(Ground value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult newArrived(NewArrived value),
+    TResult moveNext(MoveNext value),
+    TResult ground(Ground value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $FeedEventCopyWith<$Res> {
   factory $FeedEventCopyWith(FeedEvent value, $Res Function(FeedEvent) then) =
       _$FeedEventCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$FeedEventCopyWithImpl<$Res> implements $FeedEventCopyWith<$Res> {
   _$FeedEventCopyWithImpl(this._value, this._then);
 
@@ -77,6 +82,7 @@ class _$FeedEventCopyWithImpl<$Res> implements $FeedEventCopyWith<$Res> {
   final $Res Function(FeedEvent) _then;
 }
 
+/// @nodoc
 abstract class $NewArrivedCopyWith<$Res> {
   factory $NewArrivedCopyWith(
           NewArrived value, $Res Function(NewArrived) then) =
@@ -86,6 +92,7 @@ abstract class $NewArrivedCopyWith<$Res> {
   $QTreeCopyWith<$Res> get tree;
 }
 
+/// @nodoc
 class _$NewArrivedCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
     implements $NewArrivedCopyWith<$Res> {
   _$NewArrivedCopyWithImpl(NewArrived _value, $Res Function(NewArrived) _then)
@@ -114,6 +121,7 @@ class _$NewArrivedCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
   const _$NewArrived(this.tree) : assert(tree != null);
 
@@ -151,10 +159,10 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result newArrived(QTree tree),
-    @required Result moveNext(MoveDir dir),
-    @required Result ground(),
+  TResult when<TResult extends Object>({
+    @required TResult newArrived(QTree tree),
+    @required TResult moveNext(MoveDir dir),
+    @required TResult ground(),
   }) {
     assert(newArrived != null);
     assert(moveNext != null);
@@ -164,11 +172,11 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result newArrived(QTree tree),
-    Result moveNext(MoveDir dir),
-    Result ground(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult newArrived(QTree tree),
+    TResult moveNext(MoveDir dir),
+    TResult ground(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (newArrived != null) {
@@ -179,10 +187,10 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result newArrived(NewArrived value),
-    @required Result moveNext(MoveNext value),
-    @required Result ground(Ground value),
+  TResult map<TResult extends Object>({
+    @required TResult newArrived(NewArrived value),
+    @required TResult moveNext(MoveNext value),
+    @required TResult ground(Ground value),
   }) {
     assert(newArrived != null);
     assert(moveNext != null);
@@ -192,11 +200,11 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result newArrived(NewArrived value),
-    Result moveNext(MoveNext value),
-    Result ground(Ground value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult newArrived(NewArrived value),
+    TResult moveNext(MoveNext value),
+    TResult ground(Ground value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (newArrived != null) {
@@ -213,6 +221,7 @@ abstract class NewArrived implements FeedEvent {
   $NewArrivedCopyWith<NewArrived> get copyWith;
 }
 
+/// @nodoc
 abstract class $MoveNextCopyWith<$Res> {
   factory $MoveNextCopyWith(MoveNext value, $Res Function(MoveNext) then) =
       _$MoveNextCopyWithImpl<$Res>;
@@ -221,6 +230,7 @@ abstract class $MoveNextCopyWith<$Res> {
   $MoveDirCopyWith<$Res> get dir;
 }
 
+/// @nodoc
 class _$MoveNextCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
     implements $MoveNextCopyWith<$Res> {
   _$MoveNextCopyWithImpl(MoveNext _value, $Res Function(MoveNext) _then)
@@ -249,6 +259,7 @@ class _$MoveNextCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
   const _$MoveNext(this.dir) : assert(dir != null);
 
@@ -286,10 +297,10 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result newArrived(QTree tree),
-    @required Result moveNext(MoveDir dir),
-    @required Result ground(),
+  TResult when<TResult extends Object>({
+    @required TResult newArrived(QTree tree),
+    @required TResult moveNext(MoveDir dir),
+    @required TResult ground(),
   }) {
     assert(newArrived != null);
     assert(moveNext != null);
@@ -299,11 +310,11 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result newArrived(QTree tree),
-    Result moveNext(MoveDir dir),
-    Result ground(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult newArrived(QTree tree),
+    TResult moveNext(MoveDir dir),
+    TResult ground(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (moveNext != null) {
@@ -314,10 +325,10 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result newArrived(NewArrived value),
-    @required Result moveNext(MoveNext value),
-    @required Result ground(Ground value),
+  TResult map<TResult extends Object>({
+    @required TResult newArrived(NewArrived value),
+    @required TResult moveNext(MoveNext value),
+    @required TResult ground(Ground value),
   }) {
     assert(newArrived != null);
     assert(moveNext != null);
@@ -327,11 +338,11 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result newArrived(NewArrived value),
-    Result moveNext(MoveNext value),
-    Result ground(Ground value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult newArrived(NewArrived value),
+    TResult moveNext(MoveNext value),
+    TResult ground(Ground value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (moveNext != null) {
@@ -348,11 +359,13 @@ abstract class MoveNext implements FeedEvent {
   $MoveNextCopyWith<MoveNext> get copyWith;
 }
 
+/// @nodoc
 abstract class $GroundCopyWith<$Res> {
   factory $GroundCopyWith(Ground value, $Res Function(Ground) then) =
       _$GroundCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$GroundCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
     implements $GroundCopyWith<$Res> {
   _$GroundCopyWithImpl(Ground _value, $Res Function(Ground) _then)
@@ -362,6 +375,7 @@ class _$GroundCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
   Ground get _value => super._value as Ground;
 }
 
+/// @nodoc
 class _$Ground with DiagnosticableTreeMixin implements Ground {
   const _$Ground();
 
@@ -386,10 +400,10 @@ class _$Ground with DiagnosticableTreeMixin implements Ground {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result newArrived(QTree tree),
-    @required Result moveNext(MoveDir dir),
-    @required Result ground(),
+  TResult when<TResult extends Object>({
+    @required TResult newArrived(QTree tree),
+    @required TResult moveNext(MoveDir dir),
+    @required TResult ground(),
   }) {
     assert(newArrived != null);
     assert(moveNext != null);
@@ -399,11 +413,11 @@ class _$Ground with DiagnosticableTreeMixin implements Ground {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result newArrived(QTree tree),
-    Result moveNext(MoveDir dir),
-    Result ground(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult newArrived(QTree tree),
+    TResult moveNext(MoveDir dir),
+    TResult ground(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (ground != null) {
@@ -414,10 +428,10 @@ class _$Ground with DiagnosticableTreeMixin implements Ground {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result newArrived(NewArrived value),
-    @required Result moveNext(MoveNext value),
-    @required Result ground(Ground value),
+  TResult map<TResult extends Object>({
+    @required TResult newArrived(NewArrived value),
+    @required TResult moveNext(MoveNext value),
+    @required TResult ground(Ground value),
   }) {
     assert(newArrived != null);
     assert(moveNext != null);
@@ -427,11 +441,11 @@ class _$Ground with DiagnosticableTreeMixin implements Ground {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result newArrived(NewArrived value),
-    Result moveNext(MoveNext value),
-    Result ground(Ground value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult newArrived(NewArrived value),
+    TResult moveNext(MoveNext value),
+    TResult ground(Ground value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (ground != null) {
@@ -445,6 +459,7 @@ abstract class Ground implements FeedEvent {
   const factory Ground() = _$Ground;
 }
 
+/// @nodoc
 class _$MoveDirTearOff {
   const _$MoveDirTearOff();
 
@@ -459,39 +474,43 @@ class _$MoveDirTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $MoveDir = _$MoveDirTearOff();
 
+/// @nodoc
 mixin _$MoveDir {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result left(),
-    @required Result right(),
+  TResult when<TResult extends Object>({
+    @required TResult left(),
+    @required TResult right(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result left(),
-    Result right(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult left(),
+    TResult right(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result left(_Left value),
-    @required Result right(_Right value),
+  TResult map<TResult extends Object>({
+    @required TResult left(_Left value),
+    @required TResult right(_Right value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result left(_Left value),
-    Result right(_Right value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult left(_Left value),
+    TResult right(_Right value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $MoveDirCopyWith<$Res> {
   factory $MoveDirCopyWith(MoveDir value, $Res Function(MoveDir) then) =
       _$MoveDirCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$MoveDirCopyWithImpl<$Res> implements $MoveDirCopyWith<$Res> {
   _$MoveDirCopyWithImpl(this._value, this._then);
 
@@ -500,11 +519,13 @@ class _$MoveDirCopyWithImpl<$Res> implements $MoveDirCopyWith<$Res> {
   final $Res Function(MoveDir) _then;
 }
 
+/// @nodoc
 abstract class _$LeftCopyWith<$Res> {
   factory _$LeftCopyWith(_Left value, $Res Function(_Left) then) =
       __$LeftCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class __$LeftCopyWithImpl<$Res> extends _$MoveDirCopyWithImpl<$Res>
     implements _$LeftCopyWith<$Res> {
   __$LeftCopyWithImpl(_Left _value, $Res Function(_Left) _then)
@@ -514,6 +535,7 @@ class __$LeftCopyWithImpl<$Res> extends _$MoveDirCopyWithImpl<$Res>
   _Left get _value => super._value as _Left;
 }
 
+/// @nodoc
 class _$_Left with DiagnosticableTreeMixin implements _Left {
   const _$_Left();
 
@@ -538,9 +560,9 @@ class _$_Left with DiagnosticableTreeMixin implements _Left {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result left(),
-    @required Result right(),
+  TResult when<TResult extends Object>({
+    @required TResult left(),
+    @required TResult right(),
   }) {
     assert(left != null);
     assert(right != null);
@@ -549,10 +571,10 @@ class _$_Left with DiagnosticableTreeMixin implements _Left {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result left(),
-    Result right(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult left(),
+    TResult right(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (left != null) {
@@ -563,9 +585,9 @@ class _$_Left with DiagnosticableTreeMixin implements _Left {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result left(_Left value),
-    @required Result right(_Right value),
+  TResult map<TResult extends Object>({
+    @required TResult left(_Left value),
+    @required TResult right(_Right value),
   }) {
     assert(left != null);
     assert(right != null);
@@ -574,10 +596,10 @@ class _$_Left with DiagnosticableTreeMixin implements _Left {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result left(_Left value),
-    Result right(_Right value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult left(_Left value),
+    TResult right(_Right value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (left != null) {
@@ -591,11 +613,13 @@ abstract class _Left implements MoveDir {
   const factory _Left() = _$_Left;
 }
 
+/// @nodoc
 abstract class _$RightCopyWith<$Res> {
   factory _$RightCopyWith(_Right value, $Res Function(_Right) then) =
       __$RightCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class __$RightCopyWithImpl<$Res> extends _$MoveDirCopyWithImpl<$Res>
     implements _$RightCopyWith<$Res> {
   __$RightCopyWithImpl(_Right _value, $Res Function(_Right) _then)
@@ -605,6 +629,7 @@ class __$RightCopyWithImpl<$Res> extends _$MoveDirCopyWithImpl<$Res>
   _Right get _value => super._value as _Right;
 }
 
+/// @nodoc
 class _$_Right with DiagnosticableTreeMixin implements _Right {
   const _$_Right();
 
@@ -629,9 +654,9 @@ class _$_Right with DiagnosticableTreeMixin implements _Right {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result left(),
-    @required Result right(),
+  TResult when<TResult extends Object>({
+    @required TResult left(),
+    @required TResult right(),
   }) {
     assert(left != null);
     assert(right != null);
@@ -640,10 +665,10 @@ class _$_Right with DiagnosticableTreeMixin implements _Right {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result left(),
-    Result right(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult left(),
+    TResult right(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (right != null) {
@@ -654,9 +679,9 @@ class _$_Right with DiagnosticableTreeMixin implements _Right {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result left(_Left value),
-    @required Result right(_Right value),
+  TResult map<TResult extends Object>({
+    @required TResult left(_Left value),
+    @required TResult right(_Right value),
   }) {
     assert(left != null);
     assert(right != null);
@@ -665,10 +690,10 @@ class _$_Right with DiagnosticableTreeMixin implements _Right {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result left(_Left value),
-    Result right(_Right value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult left(_Left value),
+    TResult right(_Right value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (right != null) {
@@ -696,6 +721,7 @@ FeedState _$FeedStateFromJson(Map<String, dynamic> json) {
   }
 }
 
+/// @nodoc
 class _$FeedStateTearOff {
   const _$FeedStateTearOff();
 
@@ -720,46 +746,55 @@ class _$FeedStateTearOff {
       oldTree,
     );
   }
+
+// ignore: unused_element
+  FeedState fromJson(Map<String, Object> json) {
+    return FeedState.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $FeedState = _$FeedStateTearOff();
 
+/// @nodoc
 mixin _$FeedState {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result available(QTree tree),
-    @required Result pending(QTree oldTree, QTree newTree),
-    @required Result empty(QTree oldTree),
+  TResult when<TResult extends Object>({
+    @required TResult available(QTree tree),
+    @required TResult pending(QTree oldTree, QTree newTree),
+    @required TResult empty(QTree oldTree),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result available(QTree tree),
-    Result pending(QTree oldTree, QTree newTree),
-    Result empty(QTree oldTree),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult available(QTree tree),
+    TResult pending(QTree oldTree, QTree newTree),
+    TResult empty(QTree oldTree),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result available(Available value),
-    @required Result pending(Pending value),
-    @required Result empty(Empty value),
+  TResult map<TResult extends Object>({
+    @required TResult available(Available value),
+    @required TResult pending(Pending value),
+    @required TResult empty(Empty value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result available(Available value),
-    Result pending(Pending value),
-    Result empty(Empty value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult available(Available value),
+    TResult pending(Pending value),
+    TResult empty(Empty value),
+    @required TResult orElse(),
   });
   Map<String, dynamic> toJson();
 }
 
+/// @nodoc
 abstract class $FeedStateCopyWith<$Res> {
   factory $FeedStateCopyWith(FeedState value, $Res Function(FeedState) then) =
       _$FeedStateCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$FeedStateCopyWithImpl<$Res> implements $FeedStateCopyWith<$Res> {
   _$FeedStateCopyWithImpl(this._value, this._then);
 
@@ -768,6 +803,7 @@ class _$FeedStateCopyWithImpl<$Res> implements $FeedStateCopyWith<$Res> {
   final $Res Function(FeedState) _then;
 }
 
+/// @nodoc
 abstract class $AvailableCopyWith<$Res> {
   factory $AvailableCopyWith(Available value, $Res Function(Available) then) =
       _$AvailableCopyWithImpl<$Res>;
@@ -776,6 +812,7 @@ abstract class $AvailableCopyWith<$Res> {
   $QTreeCopyWith<$Res> get tree;
 }
 
+/// @nodoc
 class _$AvailableCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
     implements $AvailableCopyWith<$Res> {
   _$AvailableCopyWithImpl(Available _value, $Res Function(Available) _then)
@@ -805,6 +842,8 @@ class _$AvailableCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$Available with DiagnosticableTreeMixin implements Available {
   const _$Available({@required this.tree}) : assert(tree != null);
 
@@ -845,10 +884,10 @@ class _$Available with DiagnosticableTreeMixin implements Available {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result available(QTree tree),
-    @required Result pending(QTree oldTree, QTree newTree),
-    @required Result empty(QTree oldTree),
+  TResult when<TResult extends Object>({
+    @required TResult available(QTree tree),
+    @required TResult pending(QTree oldTree, QTree newTree),
+    @required TResult empty(QTree oldTree),
   }) {
     assert(available != null);
     assert(pending != null);
@@ -858,11 +897,11 @@ class _$Available with DiagnosticableTreeMixin implements Available {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result available(QTree tree),
-    Result pending(QTree oldTree, QTree newTree),
-    Result empty(QTree oldTree),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult available(QTree tree),
+    TResult pending(QTree oldTree, QTree newTree),
+    TResult empty(QTree oldTree),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (available != null) {
@@ -873,10 +912,10 @@ class _$Available with DiagnosticableTreeMixin implements Available {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result available(Available value),
-    @required Result pending(Pending value),
-    @required Result empty(Empty value),
+  TResult map<TResult extends Object>({
+    @required TResult available(Available value),
+    @required TResult pending(Pending value),
+    @required TResult empty(Empty value),
   }) {
     assert(available != null);
     assert(pending != null);
@@ -886,11 +925,11 @@ class _$Available with DiagnosticableTreeMixin implements Available {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result available(Available value),
-    Result pending(Pending value),
-    Result empty(Empty value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult available(Available value),
+    TResult pending(Pending value),
+    TResult empty(Empty value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (available != null) {
@@ -914,6 +953,7 @@ abstract class Available implements FeedState {
   $AvailableCopyWith<Available> get copyWith;
 }
 
+/// @nodoc
 abstract class $PendingCopyWith<$Res> {
   factory $PendingCopyWith(Pending value, $Res Function(Pending) then) =
       _$PendingCopyWithImpl<$Res>;
@@ -923,6 +963,7 @@ abstract class $PendingCopyWith<$Res> {
   $QTreeCopyWith<$Res> get newTree;
 }
 
+/// @nodoc
 class _$PendingCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
     implements $PendingCopyWith<$Res> {
   _$PendingCopyWithImpl(Pending _value, $Res Function(Pending) _then)
@@ -964,6 +1005,8 @@ class _$PendingCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$Pending with DiagnosticableTreeMixin implements Pending {
   const _$Pending({@required this.oldTree, @required this.newTree})
       : assert(oldTree != null),
@@ -1014,10 +1057,10 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result available(QTree tree),
-    @required Result pending(QTree oldTree, QTree newTree),
-    @required Result empty(QTree oldTree),
+  TResult when<TResult extends Object>({
+    @required TResult available(QTree tree),
+    @required TResult pending(QTree oldTree, QTree newTree),
+    @required TResult empty(QTree oldTree),
   }) {
     assert(available != null);
     assert(pending != null);
@@ -1027,11 +1070,11 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result available(QTree tree),
-    Result pending(QTree oldTree, QTree newTree),
-    Result empty(QTree oldTree),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult available(QTree tree),
+    TResult pending(QTree oldTree, QTree newTree),
+    TResult empty(QTree oldTree),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (pending != null) {
@@ -1042,10 +1085,10 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result available(Available value),
-    @required Result pending(Pending value),
-    @required Result empty(Empty value),
+  TResult map<TResult extends Object>({
+    @required TResult available(Available value),
+    @required TResult pending(Pending value),
+    @required TResult empty(Empty value),
   }) {
     assert(available != null);
     assert(pending != null);
@@ -1055,11 +1098,11 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result available(Available value),
-    Result pending(Pending value),
-    Result empty(Empty value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult available(Available value),
+    TResult pending(Pending value),
+    TResult empty(Empty value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (pending != null) {
@@ -1085,6 +1128,7 @@ abstract class Pending implements FeedState {
   $PendingCopyWith<Pending> get copyWith;
 }
 
+/// @nodoc
 abstract class $EmptyCopyWith<$Res> {
   factory $EmptyCopyWith(Empty value, $Res Function(Empty) then) =
       _$EmptyCopyWithImpl<$Res>;
@@ -1093,6 +1137,7 @@ abstract class $EmptyCopyWith<$Res> {
   $QTreeCopyWith<$Res> get oldTree;
 }
 
+/// @nodoc
 class _$EmptyCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
     implements $EmptyCopyWith<$Res> {
   _$EmptyCopyWithImpl(Empty _value, $Res Function(Empty) _then)
@@ -1122,6 +1167,8 @@ class _$EmptyCopyWithImpl<$Res> extends _$FeedStateCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$Empty with DiagnosticableTreeMixin implements Empty {
   const _$Empty([this.oldTree]);
 
@@ -1162,10 +1209,10 @@ class _$Empty with DiagnosticableTreeMixin implements Empty {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result available(QTree tree),
-    @required Result pending(QTree oldTree, QTree newTree),
-    @required Result empty(QTree oldTree),
+  TResult when<TResult extends Object>({
+    @required TResult available(QTree tree),
+    @required TResult pending(QTree oldTree, QTree newTree),
+    @required TResult empty(QTree oldTree),
   }) {
     assert(available != null);
     assert(pending != null);
@@ -1175,11 +1222,11 @@ class _$Empty with DiagnosticableTreeMixin implements Empty {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result available(QTree tree),
-    Result pending(QTree oldTree, QTree newTree),
-    Result empty(QTree oldTree),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult available(QTree tree),
+    TResult pending(QTree oldTree, QTree newTree),
+    TResult empty(QTree oldTree),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {
@@ -1190,10 +1237,10 @@ class _$Empty with DiagnosticableTreeMixin implements Empty {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result available(Available value),
-    @required Result pending(Pending value),
-    @required Result empty(Empty value),
+  TResult map<TResult extends Object>({
+    @required TResult available(Available value),
+    @required TResult pending(Pending value),
+    @required TResult empty(Empty value),
   }) {
     assert(available != null);
     assert(pending != null);
@@ -1203,11 +1250,11 @@ class _$Empty with DiagnosticableTreeMixin implements Empty {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result available(Available value),
-    Result pending(Pending value),
-    Result empty(Empty value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult available(Available value),
+    TResult pending(Pending value),
+    TResult empty(Empty value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {

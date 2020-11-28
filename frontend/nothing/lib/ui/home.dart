@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/hooks/pagecontroller.dart';
 import 'package:nothing/icons/icons.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/ad/bloc.dart';
 import 'package:nothing/bloc/coin/bloc.dart';
+import 'package:nothing/bloc/hint/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart' as domain;
@@ -46,7 +48,7 @@ class Home extends HookWidget {
 
     useEffect(() {
       print("Creating initail Ad");
-      _createAd();
+      _createAd(focusNodeModel);
       return null;
     }, [0]);
 
@@ -380,6 +382,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
         return BlocBuilder<ValidationBloc, ValidationState>(
           builder: (context, state) {
             return HookBuilder(builder: (context) {
+              final liked = useState(false);
               final queH = useState<double>(280);
               queH.value = min(
                 queH.value,
@@ -427,6 +430,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                       available: (tree) => report(tree),
                       pending: (oldTree, _) => report(oldTree),
                       empty: (_) => domain.void$());
+                  liked.value = true;
                 },
                 'dislike': () {
                   print('dislike');
@@ -435,8 +439,19 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                       available: (tree) => report(tree),
                       pending: (oldTree, _) => report(oldTree),
                       empty: (_) => domain.void$());
+                  liked.value = true;
                 },
               };
+
+              if (liked.value) {
+                return BlocListener<FeedBloc, FeedState>(
+                  child: SizedBox.shrink(),
+                  listenWhen: (_, next) => next is Available,
+                  listener: (context, sate) {
+                    liked.value = false;
+                  },
+                );
+              }
 
               // final bb = (state is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
               final correct = state.map(just: (v) => v.state is Correct, nothing: (_) => false);
@@ -499,15 +514,19 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     AnimationController hintTintController,
   ) async {
     // context.bloc<CoinBloc>().dec(2);
-    _showAd(context);
-    await Future.delayed(const Duration(milliseconds: 500));
+    if (!context.read<HintBloc>().state.unlocked) {
+      await _showAd(context);
+    }
+    // await Future.delayed(const Duration(milliseconds: 500));
     showHint.value = true;
     hintTintController.fling();
   }
 
   void _skipClick(BuildContext context) async {
-    _showAd(context);
-    await Future.delayed(const Duration(milliseconds: 500));
+    if (!context.read<HintBloc>().state.unlocked) {
+      await _showAd(context);
+    }
+    // await Future.delayed(const Duration(milliseconds: 500));
     context.bloc<ValidationBloc>().add(ValidationEvent.skip());
   }
 
@@ -546,7 +565,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
 
 InterstitialAd myInterstitial;
 
-void _createAd() {
+Future<void> _createAd(FocusNodeModel model) async {
   myInterstitial = InterstitialAd(
     // adUnitId: Platform.isIOS // interstitial ios/android
     //     ? 'ca-app-pub-3169956978186495/7272148845'
@@ -567,27 +586,35 @@ void _createAd() {
         print("CLOSED");
         // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
         // await myInterstitial.load();
-        _createAd();
+        model.refocus();
+        await _createAd(model);
       }
     },
   );
-}
-
-void _showAd(BuildContext context) async {
-  // InterstitialAd myInterstitial;
-  context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
   print('****** Loading new ad');
   final result = await myInterstitial.load();
   if (!result) {
     print('\t ****** Ad did not load');
     return;
   }
+}
+
+Future<void> _showAd(BuildContext context) async {
+  // InterstitialAd myInterstitial;
+  context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
+  // print('****** Loading new ad');
+  // final result = await myInterstitial.load();
+  // if (!result) {
+  //   print('\t ****** Ad did not load');
+  //   return;
+  // }
   print('****** Loaded ad successfully');
   await myInterstitial.show(
     anchorType: AnchorType.bottom,
     anchorOffset: 0.0,
     horizontalCenterOffset: 0.0,
   );
+  context.read<HintBloc>().unlock();
   // myInterstitial.dispose()
   // _createAd();
 }

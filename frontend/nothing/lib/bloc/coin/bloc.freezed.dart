@@ -12,6 +12,7 @@ CoinState _$CoinStateFromJson(Map<String, dynamic> json) {
   return _CoinState.fromJson(json);
 }
 
+/// @nodoc
 class _$CoinStateTearOff {
   const _$CoinStateTearOff();
 
@@ -21,11 +22,18 @@ class _$CoinStateTearOff {
       total,
     );
   }
+
+// ignore: unused_element
+  CoinState fromJson(Map<String, Object> json) {
+    return CoinState.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $CoinState = _$CoinStateTearOff();
 
+/// @nodoc
 mixin _$CoinState {
   int get total;
 
@@ -33,12 +41,14 @@ mixin _$CoinState {
   $CoinStateCopyWith<CoinState> get copyWith;
 }
 
+/// @nodoc
 abstract class $CoinStateCopyWith<$Res> {
   factory $CoinStateCopyWith(CoinState value, $Res Function(CoinState) then) =
       _$CoinStateCopyWithImpl<$Res>;
   $Res call({int total});
 }
 
+/// @nodoc
 class _$CoinStateCopyWithImpl<$Res> implements $CoinStateCopyWith<$Res> {
   _$CoinStateCopyWithImpl(this._value, this._then);
 
@@ -56,6 +66,7 @@ class _$CoinStateCopyWithImpl<$Res> implements $CoinStateCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$CoinStateCopyWith<$Res> implements $CoinStateCopyWith<$Res> {
   factory _$CoinStateCopyWith(
           _CoinState value, $Res Function(_CoinState) then) =
@@ -64,6 +75,7 @@ abstract class _$CoinStateCopyWith<$Res> implements $CoinStateCopyWith<$Res> {
   $Res call({int total});
 }
 
+/// @nodoc
 class __$CoinStateCopyWithImpl<$Res> extends _$CoinStateCopyWithImpl<$Res>
     implements _$CoinStateCopyWith<$Res> {
   __$CoinStateCopyWithImpl(_CoinState _value, $Res Function(_CoinState) _then)
@@ -83,6 +95,8 @@ class __$CoinStateCopyWithImpl<$Res> extends _$CoinStateCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_CoinState with DiagnosticableTreeMixin implements _CoinState {
   const _$_CoinState(this.total) : assert(total != null);
 

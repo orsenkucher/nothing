@@ -4,7 +4,11 @@ import 'package:http/http.dart';
 import 'package:nothing/error/cloud_error.dart';
 import 'package:nothing/repository/server.dart';
 
-class LikesRepo {
+abstract class LikesRepo {
+  Future<void> report(int questionId, int like);
+}
+
+class CloudLikesRepo extends LikesRepo {
   Future<void> report(int questionId, int like) async {
     try {
       final body = json.encode({
@@ -21,5 +25,11 @@ class LikesRepo {
     } on dynamic catch (_) {
       throw CloudError(error: "Could not report ad watch");
     }
+  }
+}
+
+class LocalLikesRepo extends LikesRepo {
+  Future<void> report(int questionId, int like) async {
+    print("Likes Repo: question $questionId was $like");
   }
 }

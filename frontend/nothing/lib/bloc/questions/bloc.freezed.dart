@@ -9,6 +9,7 @@ part of 'bloc.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$QuestionsEventTearOff {
   const _$QuestionsEventTearOff();
 
@@ -27,38 +28,41 @@ class _$QuestionsEventTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $QuestionsEvent = _$QuestionsEventTearOff();
 
+/// @nodoc
 mixin _$QuestionsEvent {
   int get currentid;
 
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result fetch(int currentid),
-    @required Result refetch(int currentid),
+  TResult when<TResult extends Object>({
+    @required TResult fetch(int currentid),
+    @required TResult refetch(int currentid),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result fetch(int currentid),
-    Result refetch(int currentid),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult fetch(int currentid),
+    TResult refetch(int currentid),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result fetch(Fetch value),
-    @required Result refetch(Refetch value),
+  TResult map<TResult extends Object>({
+    @required TResult fetch(Fetch value),
+    @required TResult refetch(Refetch value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result fetch(Fetch value),
-    Result refetch(Refetch value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult fetch(Fetch value),
+    TResult refetch(Refetch value),
+    @required TResult orElse(),
   });
 
   $QuestionsEventCopyWith<QuestionsEvent> get copyWith;
 }
 
+/// @nodoc
 abstract class $QuestionsEventCopyWith<$Res> {
   factory $QuestionsEventCopyWith(
           QuestionsEvent value, $Res Function(QuestionsEvent) then) =
@@ -66,6 +70,7 @@ abstract class $QuestionsEventCopyWith<$Res> {
   $Res call({int currentid});
 }
 
+/// @nodoc
 class _$QuestionsEventCopyWithImpl<$Res>
     implements $QuestionsEventCopyWith<$Res> {
   _$QuestionsEventCopyWithImpl(this._value, this._then);
@@ -84,6 +89,7 @@ class _$QuestionsEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class $FetchCopyWith<$Res> implements $QuestionsEventCopyWith<$Res> {
   factory $FetchCopyWith(Fetch value, $Res Function(Fetch) then) =
       _$FetchCopyWithImpl<$Res>;
@@ -91,6 +97,7 @@ abstract class $FetchCopyWith<$Res> implements $QuestionsEventCopyWith<$Res> {
   $Res call({int currentid});
 }
 
+/// @nodoc
 class _$FetchCopyWithImpl<$Res> extends _$QuestionsEventCopyWithImpl<$Res>
     implements $FetchCopyWith<$Res> {
   _$FetchCopyWithImpl(Fetch _value, $Res Function(Fetch) _then)
@@ -109,6 +116,7 @@ class _$FetchCopyWithImpl<$Res> extends _$QuestionsEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$Fetch with DiagnosticableTreeMixin implements Fetch {
   const _$Fetch([this.currentid]);
 
@@ -147,9 +155,9 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result fetch(int currentid),
-    @required Result refetch(int currentid),
+  TResult when<TResult extends Object>({
+    @required TResult fetch(int currentid),
+    @required TResult refetch(int currentid),
   }) {
     assert(fetch != null);
     assert(refetch != null);
@@ -158,10 +166,10 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result fetch(int currentid),
-    Result refetch(int currentid),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult fetch(int currentid),
+    TResult refetch(int currentid),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (fetch != null) {
@@ -172,9 +180,9 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result fetch(Fetch value),
-    @required Result refetch(Refetch value),
+  TResult map<TResult extends Object>({
+    @required TResult fetch(Fetch value),
+    @required TResult refetch(Refetch value),
   }) {
     assert(fetch != null);
     assert(refetch != null);
@@ -183,10 +191,10 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result fetch(Fetch value),
-    Result refetch(Refetch value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult fetch(Fetch value),
+    TResult refetch(Refetch value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (fetch != null) {
@@ -205,6 +213,7 @@ abstract class Fetch implements QuestionsEvent {
   $FetchCopyWith<Fetch> get copyWith;
 }
 
+/// @nodoc
 abstract class $RefetchCopyWith<$Res> implements $QuestionsEventCopyWith<$Res> {
   factory $RefetchCopyWith(Refetch value, $Res Function(Refetch) then) =
       _$RefetchCopyWithImpl<$Res>;
@@ -212,6 +221,7 @@ abstract class $RefetchCopyWith<$Res> implements $QuestionsEventCopyWith<$Res> {
   $Res call({int currentid});
 }
 
+/// @nodoc
 class _$RefetchCopyWithImpl<$Res> extends _$QuestionsEventCopyWithImpl<$Res>
     implements $RefetchCopyWith<$Res> {
   _$RefetchCopyWithImpl(Refetch _value, $Res Function(Refetch) _then)
@@ -230,6 +240,7 @@ class _$RefetchCopyWithImpl<$Res> extends _$QuestionsEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$Refetch with DiagnosticableTreeMixin implements Refetch {
   const _$Refetch(this.currentid) : assert(currentid != null);
 
@@ -268,9 +279,9 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result fetch(int currentid),
-    @required Result refetch(int currentid),
+  TResult when<TResult extends Object>({
+    @required TResult fetch(int currentid),
+    @required TResult refetch(int currentid),
   }) {
     assert(fetch != null);
     assert(refetch != null);
@@ -279,10 +290,10 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result fetch(int currentid),
-    Result refetch(int currentid),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult fetch(int currentid),
+    TResult refetch(int currentid),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (refetch != null) {
@@ -293,9 +304,9 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result fetch(Fetch value),
-    @required Result refetch(Refetch value),
+  TResult map<TResult extends Object>({
+    @required TResult fetch(Fetch value),
+    @required TResult refetch(Refetch value),
   }) {
     assert(fetch != null);
     assert(refetch != null);
@@ -304,10 +315,10 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result fetch(Fetch value),
-    Result refetch(Refetch value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult fetch(Fetch value),
+    TResult refetch(Refetch value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (refetch != null) {
@@ -326,6 +337,7 @@ abstract class Refetch implements QuestionsEvent {
   $RefetchCopyWith<Refetch> get copyWith;
 }
 
+/// @nodoc
 class _$QuestionsStateTearOff {
   const _$QuestionsStateTearOff();
 
@@ -354,48 +366,52 @@ class _$QuestionsStateTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $QuestionsState = _$QuestionsStateTearOff();
 
+/// @nodoc
 mixin _$QuestionsState {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result loaded(QTree questions),
-    @required Result loading(),
-    @required Result reloading(),
-    @required Result error(CloudError error),
+  TResult when<TResult extends Object>({
+    @required TResult loaded(QTree questions),
+    @required TResult loading(),
+    @required TResult reloading(),
+    @required TResult error(CloudError error),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result loaded(QTree questions),
-    Result loading(),
-    Result reloading(),
-    Result error(CloudError error),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult loaded(QTree questions),
+    TResult loading(),
+    TResult reloading(),
+    TResult error(CloudError error),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result loaded(Loaded value),
-    @required Result loading(Loading value),
-    @required Result reloading(Reloading value),
-    @required Result error(Error value),
+  TResult map<TResult extends Object>({
+    @required TResult loaded(Loaded value),
+    @required TResult loading(Loading value),
+    @required TResult reloading(Reloading value),
+    @required TResult error(Error value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result loaded(Loaded value),
-    Result loading(Loading value),
-    Result reloading(Reloading value),
-    Result error(Error value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult loaded(Loaded value),
+    TResult loading(Loading value),
+    TResult reloading(Reloading value),
+    TResult error(Error value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $QuestionsStateCopyWith<$Res> {
   factory $QuestionsStateCopyWith(
           QuestionsState value, $Res Function(QuestionsState) then) =
       _$QuestionsStateCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$QuestionsStateCopyWithImpl<$Res>
     implements $QuestionsStateCopyWith<$Res> {
   _$QuestionsStateCopyWithImpl(this._value, this._then);
@@ -405,6 +421,7 @@ class _$QuestionsStateCopyWithImpl<$Res>
   final $Res Function(QuestionsState) _then;
 }
 
+/// @nodoc
 abstract class $LoadedCopyWith<$Res> {
   factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) then) =
       _$LoadedCopyWithImpl<$Res>;
@@ -413,6 +430,7 @@ abstract class $LoadedCopyWith<$Res> {
   $QTreeCopyWith<$Res> get questions;
 }
 
+/// @nodoc
 class _$LoadedCopyWithImpl<$Res> extends _$QuestionsStateCopyWithImpl<$Res>
     implements $LoadedCopyWith<$Res> {
   _$LoadedCopyWithImpl(Loaded _value, $Res Function(Loaded) _then)
@@ -441,6 +459,7 @@ class _$LoadedCopyWithImpl<$Res> extends _$QuestionsStateCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   const _$Loaded(this.questions) : assert(questions != null);
 
@@ -479,11 +498,11 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result loaded(QTree questions),
-    @required Result loading(),
-    @required Result reloading(),
-    @required Result error(CloudError error),
+  TResult when<TResult extends Object>({
+    @required TResult loaded(QTree questions),
+    @required TResult loading(),
+    @required TResult reloading(),
+    @required TResult error(CloudError error),
   }) {
     assert(loaded != null);
     assert(loading != null);
@@ -494,12 +513,12 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result loaded(QTree questions),
-    Result loading(),
-    Result reloading(),
-    Result error(CloudError error),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult loaded(QTree questions),
+    TResult loading(),
+    TResult reloading(),
+    TResult error(CloudError error),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loaded != null) {
@@ -510,11 +529,11 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result loaded(Loaded value),
-    @required Result loading(Loading value),
-    @required Result reloading(Reloading value),
-    @required Result error(Error value),
+  TResult map<TResult extends Object>({
+    @required TResult loaded(Loaded value),
+    @required TResult loading(Loading value),
+    @required TResult reloading(Reloading value),
+    @required TResult error(Error value),
   }) {
     assert(loaded != null);
     assert(loading != null);
@@ -525,12 +544,12 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result loaded(Loaded value),
-    Result loading(Loading value),
-    Result reloading(Reloading value),
-    Result error(Error value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult loaded(Loaded value),
+    TResult loading(Loading value),
+    TResult reloading(Reloading value),
+    TResult error(Error value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loaded != null) {
@@ -547,11 +566,13 @@ abstract class Loaded implements QuestionsState {
   $LoadedCopyWith<Loaded> get copyWith;
 }
 
+/// @nodoc
 abstract class $LoadingCopyWith<$Res> {
   factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
       _$LoadingCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$LoadingCopyWithImpl<$Res> extends _$QuestionsStateCopyWithImpl<$Res>
     implements $LoadingCopyWith<$Res> {
   _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
@@ -561,6 +582,7 @@ class _$LoadingCopyWithImpl<$Res> extends _$QuestionsStateCopyWithImpl<$Res>
   Loading get _value => super._value as Loading;
 }
 
+/// @nodoc
 class _$Loading with DiagnosticableTreeMixin implements Loading {
   const _$Loading();
 
@@ -585,11 +607,11 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result loaded(QTree questions),
-    @required Result loading(),
-    @required Result reloading(),
-    @required Result error(CloudError error),
+  TResult when<TResult extends Object>({
+    @required TResult loaded(QTree questions),
+    @required TResult loading(),
+    @required TResult reloading(),
+    @required TResult error(CloudError error),
   }) {
     assert(loaded != null);
     assert(loading != null);
@@ -600,12 +622,12 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result loaded(QTree questions),
-    Result loading(),
-    Result reloading(),
-    Result error(CloudError error),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult loaded(QTree questions),
+    TResult loading(),
+    TResult reloading(),
+    TResult error(CloudError error),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loading != null) {
@@ -616,11 +638,11 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result loaded(Loaded value),
-    @required Result loading(Loading value),
-    @required Result reloading(Reloading value),
-    @required Result error(Error value),
+  TResult map<TResult extends Object>({
+    @required TResult loaded(Loaded value),
+    @required TResult loading(Loading value),
+    @required TResult reloading(Reloading value),
+    @required TResult error(Error value),
   }) {
     assert(loaded != null);
     assert(loading != null);
@@ -631,12 +653,12 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result loaded(Loaded value),
-    Result loading(Loading value),
-    Result reloading(Reloading value),
-    Result error(Error value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult loaded(Loaded value),
+    TResult loading(Loading value),
+    TResult reloading(Reloading value),
+    TResult error(Error value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loading != null) {
@@ -650,11 +672,13 @@ abstract class Loading implements QuestionsState {
   const factory Loading() = _$Loading;
 }
 
+/// @nodoc
 abstract class $ReloadingCopyWith<$Res> {
   factory $ReloadingCopyWith(Reloading value, $Res Function(Reloading) then) =
       _$ReloadingCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$ReloadingCopyWithImpl<$Res> extends _$QuestionsStateCopyWithImpl<$Res>
     implements $ReloadingCopyWith<$Res> {
   _$ReloadingCopyWithImpl(Reloading _value, $Res Function(Reloading) _then)
@@ -664,6 +688,7 @@ class _$ReloadingCopyWithImpl<$Res> extends _$QuestionsStateCopyWithImpl<$Res>
   Reloading get _value => super._value as Reloading;
 }
 
+/// @nodoc
 class _$Reloading with DiagnosticableTreeMixin implements Reloading {
   const _$Reloading();
 
@@ -688,11 +713,11 @@ class _$Reloading with DiagnosticableTreeMixin implements Reloading {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result loaded(QTree questions),
-    @required Result loading(),
-    @required Result reloading(),
-    @required Result error(CloudError error),
+  TResult when<TResult extends Object>({
+    @required TResult loaded(QTree questions),
+    @required TResult loading(),
+    @required TResult reloading(),
+    @required TResult error(CloudError error),
   }) {
     assert(loaded != null);
     assert(loading != null);
@@ -703,12 +728,12 @@ class _$Reloading with DiagnosticableTreeMixin implements Reloading {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result loaded(QTree questions),
-    Result loading(),
-    Result reloading(),
-    Result error(CloudError error),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult loaded(QTree questions),
+    TResult loading(),
+    TResult reloading(),
+    TResult error(CloudError error),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (reloading != null) {
@@ -719,11 +744,11 @@ class _$Reloading with DiagnosticableTreeMixin implements Reloading {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result loaded(Loaded value),
-    @required Result loading(Loading value),
-    @required Result reloading(Reloading value),
-    @required Result error(Error value),
+  TResult map<TResult extends Object>({
+    @required TResult loaded(Loaded value),
+    @required TResult loading(Loading value),
+    @required TResult reloading(Reloading value),
+    @required TResult error(Error value),
   }) {
     assert(loaded != null);
     assert(loading != null);
@@ -734,12 +759,12 @@ class _$Reloading with DiagnosticableTreeMixin implements Reloading {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result loaded(Loaded value),
-    Result loading(Loading value),
-    Result reloading(Reloading value),
-    Result error(Error value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult loaded(Loaded value),
+    TResult loading(Loading value),
+    TResult reloading(Reloading value),
+    TResult error(Error value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (reloading != null) {
@@ -753,12 +778,14 @@ abstract class Reloading implements QuestionsState {
   const factory Reloading() = _$Reloading;
 }
 
+/// @nodoc
 abstract class $ErrorCopyWith<$Res> {
   factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
       _$ErrorCopyWithImpl<$Res>;
   $Res call({CloudError error});
 }
 
+/// @nodoc
 class _$ErrorCopyWithImpl<$Res> extends _$QuestionsStateCopyWithImpl<$Res>
     implements $ErrorCopyWith<$Res> {
   _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
@@ -777,6 +804,7 @@ class _$ErrorCopyWithImpl<$Res> extends _$QuestionsStateCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$Error with DiagnosticableTreeMixin implements Error {
   const _$Error(this.error) : assert(error != null);
 
@@ -814,11 +842,11 @@ class _$Error with DiagnosticableTreeMixin implements Error {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result loaded(QTree questions),
-    @required Result loading(),
-    @required Result reloading(),
-    @required Result error(CloudError error),
+  TResult when<TResult extends Object>({
+    @required TResult loaded(QTree questions),
+    @required TResult loading(),
+    @required TResult reloading(),
+    @required TResult error(CloudError error),
   }) {
     assert(loaded != null);
     assert(loading != null);
@@ -829,12 +857,12 @@ class _$Error with DiagnosticableTreeMixin implements Error {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result loaded(QTree questions),
-    Result loading(),
-    Result reloading(),
-    Result error(CloudError error),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult loaded(QTree questions),
+    TResult loading(),
+    TResult reloading(),
+    TResult error(CloudError error),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
@@ -845,11 +873,11 @@ class _$Error with DiagnosticableTreeMixin implements Error {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result loaded(Loaded value),
-    @required Result loading(Loading value),
-    @required Result reloading(Reloading value),
-    @required Result error(Error value),
+  TResult map<TResult extends Object>({
+    @required TResult loaded(Loaded value),
+    @required TResult loading(Loading value),
+    @required TResult reloading(Reloading value),
+    @required TResult error(Error value),
   }) {
     assert(loaded != null);
     assert(loading != null);
@@ -860,12 +888,12 @@ class _$Error with DiagnosticableTreeMixin implements Error {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result loaded(Loaded value),
-    Result loading(Loading value),
-    Result reloading(Reloading value),
-    Result error(Error value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult loaded(Loaded value),
+    TResult loading(Loading value),
+    TResult reloading(Reloading value),
+    TResult error(Error value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {

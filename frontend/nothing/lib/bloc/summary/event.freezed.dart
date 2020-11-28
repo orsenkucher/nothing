@@ -9,6 +9,7 @@ part of 'event.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$SummaryEventTearOff {
   const _$SummaryEventTearOff();
 
@@ -32,41 +33,45 @@ class _$SummaryEventTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $SummaryEvent = _$SummaryEventTearOff();
 
+/// @nodoc
 mixin _$SummaryEvent {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result reset(),
+  TResult when<TResult extends Object>({
+    @required TResult reset(),
     @required
-        Result answer(int qid, int tries, int seconds, List<String> answers),
+        TResult answer(int qid, int tries, int seconds, List<String> answers),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result reset(),
-    Result answer(int qid, int tries, int seconds, List<String> answers),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult reset(),
+    TResult answer(int qid, int tries, int seconds, List<String> answers),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result reset(Reset value),
-    @required Result answer(NewAnswer value),
+  TResult map<TResult extends Object>({
+    @required TResult reset(Reset value),
+    @required TResult answer(NewAnswer value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result reset(Reset value),
-    Result answer(NewAnswer value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult reset(Reset value),
+    TResult answer(NewAnswer value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $SummaryEventCopyWith<$Res> {
   factory $SummaryEventCopyWith(
           SummaryEvent value, $Res Function(SummaryEvent) then) =
       _$SummaryEventCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$SummaryEventCopyWithImpl<$Res> implements $SummaryEventCopyWith<$Res> {
   _$SummaryEventCopyWithImpl(this._value, this._then);
 
@@ -75,11 +80,13 @@ class _$SummaryEventCopyWithImpl<$Res> implements $SummaryEventCopyWith<$Res> {
   final $Res Function(SummaryEvent) _then;
 }
 
+/// @nodoc
 abstract class $ResetCopyWith<$Res> {
   factory $ResetCopyWith(Reset value, $Res Function(Reset) then) =
       _$ResetCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$ResetCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
     implements $ResetCopyWith<$Res> {
   _$ResetCopyWithImpl(Reset _value, $Res Function(Reset) _then)
@@ -89,6 +96,7 @@ class _$ResetCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
   Reset get _value => super._value as Reset;
 }
 
+/// @nodoc
 class _$Reset with DiagnosticableTreeMixin implements Reset {
   const _$Reset();
 
@@ -113,10 +121,10 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result reset(),
+  TResult when<TResult extends Object>({
+    @required TResult reset(),
     @required
-        Result answer(int qid, int tries, int seconds, List<String> answers),
+        TResult answer(int qid, int tries, int seconds, List<String> answers),
   }) {
     assert(reset != null);
     assert(answer != null);
@@ -125,10 +133,10 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result reset(),
-    Result answer(int qid, int tries, int seconds, List<String> answers),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult reset(),
+    TResult answer(int qid, int tries, int seconds, List<String> answers),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (reset != null) {
@@ -139,9 +147,9 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result reset(Reset value),
-    @required Result answer(NewAnswer value),
+  TResult map<TResult extends Object>({
+    @required TResult reset(Reset value),
+    @required TResult answer(NewAnswer value),
   }) {
     assert(reset != null);
     assert(answer != null);
@@ -150,10 +158,10 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result reset(Reset value),
-    Result answer(NewAnswer value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult reset(Reset value),
+    TResult answer(NewAnswer value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (reset != null) {
@@ -167,12 +175,14 @@ abstract class Reset implements SummaryEvent {
   const factory Reset() = _$Reset;
 }
 
+/// @nodoc
 abstract class $NewAnswerCopyWith<$Res> {
   factory $NewAnswerCopyWith(NewAnswer value, $Res Function(NewAnswer) then) =
       _$NewAnswerCopyWithImpl<$Res>;
   $Res call({int qid, int tries, int seconds, List<String> answers});
 }
 
+/// @nodoc
 class _$NewAnswerCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
     implements $NewAnswerCopyWith<$Res> {
   _$NewAnswerCopyWithImpl(NewAnswer _value, $Res Function(NewAnswer) _then)
@@ -197,6 +207,7 @@ class _$NewAnswerCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   const _$NewAnswer(
       {@required this.qid,
@@ -262,10 +273,10 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result reset(),
+  TResult when<TResult extends Object>({
+    @required TResult reset(),
     @required
-        Result answer(int qid, int tries, int seconds, List<String> answers),
+        TResult answer(int qid, int tries, int seconds, List<String> answers),
   }) {
     assert(reset != null);
     assert(answer != null);
@@ -274,10 +285,10 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result reset(),
-    Result answer(int qid, int tries, int seconds, List<String> answers),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult reset(),
+    TResult answer(int qid, int tries, int seconds, List<String> answers),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (answer != null) {
@@ -288,9 +299,9 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result reset(Reset value),
-    @required Result answer(NewAnswer value),
+  TResult map<TResult extends Object>({
+    @required TResult reset(Reset value),
+    @required TResult answer(NewAnswer value),
   }) {
     assert(reset != null);
     assert(answer != null);
@@ -299,10 +310,10 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result reset(Reset value),
-    Result answer(NewAnswer value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult reset(Reset value),
+    TResult answer(NewAnswer value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (answer != null) {

@@ -1,4 +1,6 @@
-const address = 'http://35.231.254.25:9091/';
+const p2 = 'ab';
+const p1 = 'loyalty';
+const address = 'https://$p1-vbot.${p2}m$p1.app/nothing/';
 
 String addressWith(Route route) => address + routes[route];
 

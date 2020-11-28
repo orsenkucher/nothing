@@ -12,6 +12,7 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
   return _Question.fromJson(json);
 }
 
+/// @nodoc
 class _$QuestionTearOff {
   const _$QuestionTearOff();
 
@@ -26,11 +27,18 @@ class _$QuestionTearOff {
       mmr: mmr,
     );
   }
+
+// ignore: unused_element
+  Question fromJson(Map<String, Object> json) {
+    return Question.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Question = _$QuestionTearOff();
 
+/// @nodoc
 mixin _$Question {
   int get id;
   String get question;
@@ -42,6 +50,7 @@ mixin _$Question {
   $QuestionCopyWith<Question> get copyWith;
 }
 
+/// @nodoc
 abstract class $QuestionCopyWith<$Res> {
   factory $QuestionCopyWith(Question value, $Res Function(Question) then) =
       _$QuestionCopyWithImpl<$Res>;
@@ -49,6 +58,7 @@ abstract class $QuestionCopyWith<$Res> {
       {int id, String question, String explanation, String answers, int mmr});
 }
 
+/// @nodoc
 class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
   _$QuestionCopyWithImpl(this._value, this._then);
 
@@ -75,6 +85,7 @@ class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$QuestionCopyWith<$Res> implements $QuestionCopyWith<$Res> {
   factory _$QuestionCopyWith(_Question value, $Res Function(_Question) then) =
       __$QuestionCopyWithImpl<$Res>;
@@ -83,6 +94,7 @@ abstract class _$QuestionCopyWith<$Res> implements $QuestionCopyWith<$Res> {
       {int id, String question, String explanation, String answers, int mmr});
 }
 
+/// @nodoc
 class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
     implements _$QuestionCopyWith<$Res> {
   __$QuestionCopyWithImpl(_Question _value, $Res Function(_Question) _then)
@@ -111,6 +123,8 @@ class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Question with DiagnosticableTreeMixin implements _Question {
   _$_Question(
       {this.id, this.question, this.explanation, this.answers, this.mmr});
@@ -225,6 +239,7 @@ QTree _$QTreeFromJson(Map<String, dynamic> json) {
   return _QTree.fromJson(json);
 }
 
+/// @nodoc
 class _$QTreeTearOff {
   const _$QTreeTearOff();
 
@@ -236,11 +251,18 @@ class _$QTreeTearOff {
       right: right,
     );
   }
+
+// ignore: unused_element
+  QTree fromJson(Map<String, Object> json) {
+    return QTree.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $QTree = _$QTreeTearOff();
 
+/// @nodoc
 mixin _$QTree {
   Question get question;
   QTree get left;
@@ -250,14 +272,18 @@ mixin _$QTree {
   $QTreeCopyWith<QTree> get copyWith;
 }
 
+/// @nodoc
 abstract class $QTreeCopyWith<$Res> {
   factory $QTreeCopyWith(QTree value, $Res Function(QTree) then) =
       _$QTreeCopyWithImpl<$Res>;
   $Res call({Question question, QTree left, QTree right});
 
   $QuestionCopyWith<$Res> get question;
+  $QTreeCopyWith<$Res> get left;
+  $QTreeCopyWith<$Res> get right;
 }
 
+/// @nodoc
 class _$QTreeCopyWithImpl<$Res> implements $QTreeCopyWith<$Res> {
   _$QTreeCopyWithImpl(this._value, this._then);
 
@@ -287,8 +313,29 @@ class _$QTreeCopyWithImpl<$Res> implements $QTreeCopyWith<$Res> {
       return _then(_value.copyWith(question: value));
     });
   }
+
+  @override
+  $QTreeCopyWith<$Res> get left {
+    if (_value.left == null) {
+      return null;
+    }
+    return $QTreeCopyWith<$Res>(_value.left, (value) {
+      return _then(_value.copyWith(left: value));
+    });
+  }
+
+  @override
+  $QTreeCopyWith<$Res> get right {
+    if (_value.right == null) {
+      return null;
+    }
+    return $QTreeCopyWith<$Res>(_value.right, (value) {
+      return _then(_value.copyWith(right: value));
+    });
+  }
 }
 
+/// @nodoc
 abstract class _$QTreeCopyWith<$Res> implements $QTreeCopyWith<$Res> {
   factory _$QTreeCopyWith(_QTree value, $Res Function(_QTree) then) =
       __$QTreeCopyWithImpl<$Res>;
@@ -297,8 +344,13 @@ abstract class _$QTreeCopyWith<$Res> implements $QTreeCopyWith<$Res> {
 
   @override
   $QuestionCopyWith<$Res> get question;
+  @override
+  $QTreeCopyWith<$Res> get left;
+  @override
+  $QTreeCopyWith<$Res> get right;
 }
 
+/// @nodoc
 class __$QTreeCopyWithImpl<$Res> extends _$QTreeCopyWithImpl<$Res>
     implements _$QTreeCopyWith<$Res> {
   __$QTreeCopyWithImpl(_QTree _value, $Res Function(_QTree) _then)
@@ -322,6 +374,8 @@ class __$QTreeCopyWithImpl<$Res> extends _$QTreeCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_QTree with DiagnosticableTreeMixin implements _QTree {
   const _$_QTree({this.question, this.left, this.right});
 

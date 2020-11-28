@@ -12,6 +12,7 @@ SummaryState _$SummaryStateFromJson(Map<String, dynamic> json) {
   return _SummaryState.fromJson(json);
 }
 
+/// @nodoc
 class _$SummaryStateTearOff {
   const _$SummaryStateTearOff();
 
@@ -21,11 +22,18 @@ class _$SummaryStateTearOff {
       answers: answers,
     );
   }
+
+// ignore: unused_element
+  SummaryState fromJson(Map<String, Object> json) {
+    return SummaryState.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $SummaryState = _$SummaryStateTearOff();
 
+/// @nodoc
 mixin _$SummaryState {
   List<SummaryAnswer> get answers;
 
@@ -33,6 +41,7 @@ mixin _$SummaryState {
   $SummaryStateCopyWith<SummaryState> get copyWith;
 }
 
+/// @nodoc
 abstract class $SummaryStateCopyWith<$Res> {
   factory $SummaryStateCopyWith(
           SummaryState value, $Res Function(SummaryState) then) =
@@ -40,6 +49,7 @@ abstract class $SummaryStateCopyWith<$Res> {
   $Res call({List<SummaryAnswer> answers});
 }
 
+/// @nodoc
 class _$SummaryStateCopyWithImpl<$Res> implements $SummaryStateCopyWith<$Res> {
   _$SummaryStateCopyWithImpl(this._value, this._then);
 
@@ -58,6 +68,7 @@ class _$SummaryStateCopyWithImpl<$Res> implements $SummaryStateCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$SummaryStateCopyWith<$Res>
     implements $SummaryStateCopyWith<$Res> {
   factory _$SummaryStateCopyWith(
@@ -67,6 +78,7 @@ abstract class _$SummaryStateCopyWith<$Res>
   $Res call({List<SummaryAnswer> answers});
 }
 
+/// @nodoc
 class __$SummaryStateCopyWithImpl<$Res> extends _$SummaryStateCopyWithImpl<$Res>
     implements _$SummaryStateCopyWith<$Res> {
   __$SummaryStateCopyWithImpl(
@@ -88,6 +100,8 @@ class __$SummaryStateCopyWithImpl<$Res> extends _$SummaryStateCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_SummaryState with DiagnosticableTreeMixin implements _SummaryState {
   const _$_SummaryState({@required this.answers}) : assert(answers != null);
 
@@ -149,6 +163,7 @@ SummaryAnswer _$SummaryAnswerFromJson(Map<String, dynamic> json) {
   return _SummaryAnswer.fromJson(json);
 }
 
+/// @nodoc
 class _$SummaryAnswerTearOff {
   const _$SummaryAnswerTearOff();
 
@@ -170,11 +185,18 @@ class _$SummaryAnswerTearOff {
       answers: answers,
     );
   }
+
+// ignore: unused_element
+  SummaryAnswer fromJson(Map<String, Object> json) {
+    return SummaryAnswer.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $SummaryAnswer = _$SummaryAnswerTearOff();
 
+/// @nodoc
 mixin _$SummaryAnswer {
   int get qid;
   int get tries;
@@ -186,6 +208,7 @@ mixin _$SummaryAnswer {
   $SummaryAnswerCopyWith<SummaryAnswer> get copyWith;
 }
 
+/// @nodoc
 abstract class $SummaryAnswerCopyWith<$Res> {
   factory $SummaryAnswerCopyWith(
           SummaryAnswer value, $Res Function(SummaryAnswer) then) =
@@ -197,6 +220,7 @@ abstract class $SummaryAnswerCopyWith<$Res> {
       @JsonKey(toJson: _toJson, fromJson: _fromJson) List<String> answers});
 }
 
+/// @nodoc
 class _$SummaryAnswerCopyWithImpl<$Res>
     implements $SummaryAnswerCopyWith<$Res> {
   _$SummaryAnswerCopyWithImpl(this._value, this._then);
@@ -221,6 +245,7 @@ class _$SummaryAnswerCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class _$SummaryAnswerCopyWith<$Res>
     implements $SummaryAnswerCopyWith<$Res> {
   factory _$SummaryAnswerCopyWith(
@@ -234,6 +259,7 @@ abstract class _$SummaryAnswerCopyWith<$Res>
       @JsonKey(toJson: _toJson, fromJson: _fromJson) List<String> answers});
 }
 
+/// @nodoc
 class __$SummaryAnswerCopyWithImpl<$Res>
     extends _$SummaryAnswerCopyWithImpl<$Res>
     implements _$SummaryAnswerCopyWith<$Res> {
@@ -261,6 +287,8 @@ class __$SummaryAnswerCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
   const _$_SummaryAnswer(
       {@required this.qid,

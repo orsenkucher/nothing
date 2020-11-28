@@ -9,6 +9,7 @@ part of 'routes.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$RoutesTearOff {
   const _$RoutesTearOff();
 
@@ -23,39 +24,43 @@ class _$RoutesTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Routes = _$RoutesTearOff();
 
+/// @nodoc
 mixin _$Routes {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result home(),
-    @required Result history(),
+  TResult when<TResult extends Object>({
+    @required TResult home(),
+    @required TResult history(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result home(),
-    Result history(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult home(),
+    TResult history(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result home(_Home value),
-    @required Result history(_History value),
+  TResult map<TResult extends Object>({
+    @required TResult home(_Home value),
+    @required TResult history(_History value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result home(_Home value),
-    Result history(_History value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult home(_Home value),
+    TResult history(_History value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $RoutesCopyWith<$Res> {
   factory $RoutesCopyWith(Routes value, $Res Function(Routes) then) =
       _$RoutesCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$RoutesCopyWithImpl<$Res> implements $RoutesCopyWith<$Res> {
   _$RoutesCopyWithImpl(this._value, this._then);
 
@@ -64,11 +69,13 @@ class _$RoutesCopyWithImpl<$Res> implements $RoutesCopyWith<$Res> {
   final $Res Function(Routes) _then;
 }
 
+/// @nodoc
 abstract class _$HomeCopyWith<$Res> {
   factory _$HomeCopyWith(_Home value, $Res Function(_Home) then) =
       __$HomeCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class __$HomeCopyWithImpl<$Res> extends _$RoutesCopyWithImpl<$Res>
     implements _$HomeCopyWith<$Res> {
   __$HomeCopyWithImpl(_Home _value, $Res Function(_Home) _then)
@@ -78,6 +85,7 @@ class __$HomeCopyWithImpl<$Res> extends _$RoutesCopyWithImpl<$Res>
   _Home get _value => super._value as _Home;
 }
 
+/// @nodoc
 class _$_Home with DiagnosticableTreeMixin implements _Home {
   const _$_Home();
 
@@ -102,9 +110,9 @@ class _$_Home with DiagnosticableTreeMixin implements _Home {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result home(),
-    @required Result history(),
+  TResult when<TResult extends Object>({
+    @required TResult home(),
+    @required TResult history(),
   }) {
     assert(home != null);
     assert(history != null);
@@ -113,10 +121,10 @@ class _$_Home with DiagnosticableTreeMixin implements _Home {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result home(),
-    Result history(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult home(),
+    TResult history(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (home != null) {
@@ -127,9 +135,9 @@ class _$_Home with DiagnosticableTreeMixin implements _Home {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result home(_Home value),
-    @required Result history(_History value),
+  TResult map<TResult extends Object>({
+    @required TResult home(_Home value),
+    @required TResult history(_History value),
   }) {
     assert(home != null);
     assert(history != null);
@@ -138,10 +146,10 @@ class _$_Home with DiagnosticableTreeMixin implements _Home {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result home(_Home value),
-    Result history(_History value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult home(_Home value),
+    TResult history(_History value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (home != null) {
@@ -155,11 +163,13 @@ abstract class _Home implements Routes {
   const factory _Home() = _$_Home;
 }
 
+/// @nodoc
 abstract class _$HistoryCopyWith<$Res> {
   factory _$HistoryCopyWith(_History value, $Res Function(_History) then) =
       __$HistoryCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class __$HistoryCopyWithImpl<$Res> extends _$RoutesCopyWithImpl<$Res>
     implements _$HistoryCopyWith<$Res> {
   __$HistoryCopyWithImpl(_History _value, $Res Function(_History) _then)
@@ -169,6 +179,7 @@ class __$HistoryCopyWithImpl<$Res> extends _$RoutesCopyWithImpl<$Res>
   _History get _value => super._value as _History;
 }
 
+/// @nodoc
 class _$_History with DiagnosticableTreeMixin implements _History {
   const _$_History();
 
@@ -193,9 +204,9 @@ class _$_History with DiagnosticableTreeMixin implements _History {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result home(),
-    @required Result history(),
+  TResult when<TResult extends Object>({
+    @required TResult home(),
+    @required TResult history(),
   }) {
     assert(home != null);
     assert(history != null);
@@ -204,10 +215,10 @@ class _$_History with DiagnosticableTreeMixin implements _History {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result home(),
-    Result history(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult home(),
+    TResult history(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (history != null) {
@@ -218,9 +229,9 @@ class _$_History with DiagnosticableTreeMixin implements _History {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result home(_Home value),
-    @required Result history(_History value),
+  TResult map<TResult extends Object>({
+    @required TResult home(_Home value),
+    @required TResult history(_History value),
   }) {
     assert(home != null);
     assert(history != null);
@@ -229,10 +240,10 @@ class _$_History with DiagnosticableTreeMixin implements _History {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result home(_Home value),
-    Result history(_History value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult home(_Home value),
+    TResult history(_History value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (history != null) {

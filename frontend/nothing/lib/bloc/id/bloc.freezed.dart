@@ -9,6 +9,7 @@ part of 'bloc.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$IdEventTearOff {
   const _$IdEventTearOff();
 
@@ -18,35 +19,39 @@ class _$IdEventTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $IdEvent = _$IdEventTearOff();
 
+/// @nodoc
 mixin _$IdEvent {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result revoke(),
+  TResult when<TResult extends Object>({
+    @required TResult revoke(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result revoke(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult revoke(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result revoke(_RevokeID value),
+  TResult map<TResult extends Object>({
+    @required TResult revoke(_RevokeID value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result revoke(_RevokeID value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult revoke(_RevokeID value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $IdEventCopyWith<$Res> {
   factory $IdEventCopyWith(IdEvent value, $Res Function(IdEvent) then) =
       _$IdEventCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$IdEventCopyWithImpl<$Res> implements $IdEventCopyWith<$Res> {
   _$IdEventCopyWithImpl(this._value, this._then);
 
@@ -55,11 +60,13 @@ class _$IdEventCopyWithImpl<$Res> implements $IdEventCopyWith<$Res> {
   final $Res Function(IdEvent) _then;
 }
 
+/// @nodoc
 abstract class _$RevokeIDCopyWith<$Res> {
   factory _$RevokeIDCopyWith(_RevokeID value, $Res Function(_RevokeID) then) =
       __$RevokeIDCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class __$RevokeIDCopyWithImpl<$Res> extends _$IdEventCopyWithImpl<$Res>
     implements _$RevokeIDCopyWith<$Res> {
   __$RevokeIDCopyWithImpl(_RevokeID _value, $Res Function(_RevokeID) _then)
@@ -69,6 +76,7 @@ class __$RevokeIDCopyWithImpl<$Res> extends _$IdEventCopyWithImpl<$Res>
   _RevokeID get _value => super._value as _RevokeID;
 }
 
+/// @nodoc
 class _$_RevokeID with DiagnosticableTreeMixin implements _RevokeID {
   const _$_RevokeID();
 
@@ -93,8 +101,8 @@ class _$_RevokeID with DiagnosticableTreeMixin implements _RevokeID {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result revoke(),
+  TResult when<TResult extends Object>({
+    @required TResult revoke(),
   }) {
     assert(revoke != null);
     return revoke();
@@ -102,9 +110,9 @@ class _$_RevokeID with DiagnosticableTreeMixin implements _RevokeID {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result revoke(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult revoke(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (revoke != null) {
@@ -115,8 +123,8 @@ class _$_RevokeID with DiagnosticableTreeMixin implements _RevokeID {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result revoke(_RevokeID value),
+  TResult map<TResult extends Object>({
+    @required TResult revoke(_RevokeID value),
   }) {
     assert(revoke != null);
     return revoke(this);
@@ -124,9 +132,9 @@ class _$_RevokeID with DiagnosticableTreeMixin implements _RevokeID {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result revoke(_RevokeID value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult revoke(_RevokeID value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (revoke != null) {
@@ -144,6 +152,7 @@ IdState _$IdStateFromJson(Map<String, dynamic> json) {
   return _IdState.fromJson(json);
 }
 
+/// @nodoc
 class _$IdStateTearOff {
   const _$IdStateTearOff();
 
@@ -153,11 +162,18 @@ class _$IdStateTearOff {
       id,
     );
   }
+
+// ignore: unused_element
+  IdState fromJson(Map<String, Object> json) {
+    return IdState.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $IdState = _$IdStateTearOff();
 
+/// @nodoc
 mixin _$IdState {
   String get id;
 
@@ -165,12 +181,14 @@ mixin _$IdState {
   $IdStateCopyWith<IdState> get copyWith;
 }
 
+/// @nodoc
 abstract class $IdStateCopyWith<$Res> {
   factory $IdStateCopyWith(IdState value, $Res Function(IdState) then) =
       _$IdStateCopyWithImpl<$Res>;
   $Res call({String id});
 }
 
+/// @nodoc
 class _$IdStateCopyWithImpl<$Res> implements $IdStateCopyWith<$Res> {
   _$IdStateCopyWithImpl(this._value, this._then);
 
@@ -188,6 +206,7 @@ class _$IdStateCopyWithImpl<$Res> implements $IdStateCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$IdStateCopyWith<$Res> implements $IdStateCopyWith<$Res> {
   factory _$IdStateCopyWith(_IdState value, $Res Function(_IdState) then) =
       __$IdStateCopyWithImpl<$Res>;
@@ -195,6 +214,7 @@ abstract class _$IdStateCopyWith<$Res> implements $IdStateCopyWith<$Res> {
   $Res call({String id});
 }
 
+/// @nodoc
 class __$IdStateCopyWithImpl<$Res> extends _$IdStateCopyWithImpl<$Res>
     implements _$IdStateCopyWith<$Res> {
   __$IdStateCopyWithImpl(_IdState _value, $Res Function(_IdState) _then)
@@ -214,6 +234,8 @@ class __$IdStateCopyWithImpl<$Res> extends _$IdStateCopyWithImpl<$Res>
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_IdState with DiagnosticableTreeMixin implements _IdState {
   const _$_IdState(this.id) : assert(id != null);
 

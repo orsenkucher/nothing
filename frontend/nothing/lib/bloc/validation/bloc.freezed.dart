@@ -9,6 +9,7 @@ part of 'bloc.dart';
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$ValidationEventTearOff {
   const _$ValidationEventTearOff();
 
@@ -39,48 +40,52 @@ class _$ValidationEventTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $ValidationEvent = _$ValidationEventTearOff();
 
+/// @nodoc
 mixin _$ValidationEvent {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result focus(Question question),
-    @required Result check(String answer),
-    @required Result lifecycle(TimePoint point),
-    @required Result skip(),
+  TResult when<TResult extends Object>({
+    @required TResult focus(Question question),
+    @required TResult check(String answer),
+    @required TResult lifecycle(TimePoint point),
+    @required TResult skip(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result focus(Question question),
-    Result check(String answer),
-    Result lifecycle(TimePoint point),
-    Result skip(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult focus(Question question),
+    TResult check(String answer),
+    TResult lifecycle(TimePoint point),
+    TResult skip(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result focus(_Focus value),
-    @required Result check(_Check value),
-    @required Result lifecycle(_Lifecycle value),
-    @required Result skip(_Skip value),
+  TResult map<TResult extends Object>({
+    @required TResult focus(_Focus value),
+    @required TResult check(_Check value),
+    @required TResult lifecycle(_Lifecycle value),
+    @required TResult skip(_Skip value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result focus(_Focus value),
-    Result check(_Check value),
-    Result lifecycle(_Lifecycle value),
-    Result skip(_Skip value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult focus(_Focus value),
+    TResult check(_Check value),
+    TResult lifecycle(_Lifecycle value),
+    TResult skip(_Skip value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $ValidationEventCopyWith<$Res> {
   factory $ValidationEventCopyWith(
           ValidationEvent value, $Res Function(ValidationEvent) then) =
       _$ValidationEventCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$ValidationEventCopyWithImpl<$Res>
     implements $ValidationEventCopyWith<$Res> {
   _$ValidationEventCopyWithImpl(this._value, this._then);
@@ -90,6 +95,7 @@ class _$ValidationEventCopyWithImpl<$Res>
   final $Res Function(ValidationEvent) _then;
 }
 
+/// @nodoc
 abstract class _$FocusCopyWith<$Res> {
   factory _$FocusCopyWith(_Focus value, $Res Function(_Focus) then) =
       __$FocusCopyWithImpl<$Res>;
@@ -98,6 +104,7 @@ abstract class _$FocusCopyWith<$Res> {
   $QuestionCopyWith<$Res> get question;
 }
 
+/// @nodoc
 class __$FocusCopyWithImpl<$Res> extends _$ValidationEventCopyWithImpl<$Res>
     implements _$FocusCopyWith<$Res> {
   __$FocusCopyWithImpl(_Focus _value, $Res Function(_Focus) _then)
@@ -126,6 +133,7 @@ class __$FocusCopyWithImpl<$Res> extends _$ValidationEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Focus with DiagnosticableTreeMixin implements _Focus {
   const _$_Focus(this.question) : assert(question != null);
 
@@ -164,11 +172,11 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result focus(Question question),
-    @required Result check(String answer),
-    @required Result lifecycle(TimePoint point),
-    @required Result skip(),
+  TResult when<TResult extends Object>({
+    @required TResult focus(Question question),
+    @required TResult check(String answer),
+    @required TResult lifecycle(TimePoint point),
+    @required TResult skip(),
   }) {
     assert(focus != null);
     assert(check != null);
@@ -179,12 +187,12 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result focus(Question question),
-    Result check(String answer),
-    Result lifecycle(TimePoint point),
-    Result skip(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult focus(Question question),
+    TResult check(String answer),
+    TResult lifecycle(TimePoint point),
+    TResult skip(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (focus != null) {
@@ -195,11 +203,11 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result focus(_Focus value),
-    @required Result check(_Check value),
-    @required Result lifecycle(_Lifecycle value),
-    @required Result skip(_Skip value),
+  TResult map<TResult extends Object>({
+    @required TResult focus(_Focus value),
+    @required TResult check(_Check value),
+    @required TResult lifecycle(_Lifecycle value),
+    @required TResult skip(_Skip value),
   }) {
     assert(focus != null);
     assert(check != null);
@@ -210,12 +218,12 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result focus(_Focus value),
-    Result check(_Check value),
-    Result lifecycle(_Lifecycle value),
-    Result skip(_Skip value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult focus(_Focus value),
+    TResult check(_Check value),
+    TResult lifecycle(_Lifecycle value),
+    TResult skip(_Skip value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (focus != null) {
@@ -232,12 +240,14 @@ abstract class _Focus implements ValidationEvent {
   _$FocusCopyWith<_Focus> get copyWith;
 }
 
+/// @nodoc
 abstract class _$CheckCopyWith<$Res> {
   factory _$CheckCopyWith(_Check value, $Res Function(_Check) then) =
       __$CheckCopyWithImpl<$Res>;
   $Res call({String answer});
 }
 
+/// @nodoc
 class __$CheckCopyWithImpl<$Res> extends _$ValidationEventCopyWithImpl<$Res>
     implements _$CheckCopyWith<$Res> {
   __$CheckCopyWithImpl(_Check _value, $Res Function(_Check) _then)
@@ -256,6 +266,7 @@ class __$CheckCopyWithImpl<$Res> extends _$ValidationEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Check with DiagnosticableTreeMixin implements _Check {
   const _$_Check(this.answer) : assert(answer != null);
 
@@ -293,11 +304,11 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result focus(Question question),
-    @required Result check(String answer),
-    @required Result lifecycle(TimePoint point),
-    @required Result skip(),
+  TResult when<TResult extends Object>({
+    @required TResult focus(Question question),
+    @required TResult check(String answer),
+    @required TResult lifecycle(TimePoint point),
+    @required TResult skip(),
   }) {
     assert(focus != null);
     assert(check != null);
@@ -308,12 +319,12 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result focus(Question question),
-    Result check(String answer),
-    Result lifecycle(TimePoint point),
-    Result skip(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult focus(Question question),
+    TResult check(String answer),
+    TResult lifecycle(TimePoint point),
+    TResult skip(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (check != null) {
@@ -324,11 +335,11 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result focus(_Focus value),
-    @required Result check(_Check value),
-    @required Result lifecycle(_Lifecycle value),
-    @required Result skip(_Skip value),
+  TResult map<TResult extends Object>({
+    @required TResult focus(_Focus value),
+    @required TResult check(_Check value),
+    @required TResult lifecycle(_Lifecycle value),
+    @required TResult skip(_Skip value),
   }) {
     assert(focus != null);
     assert(check != null);
@@ -339,12 +350,12 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result focus(_Focus value),
-    Result check(_Check value),
-    Result lifecycle(_Lifecycle value),
-    Result skip(_Skip value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult focus(_Focus value),
+    TResult check(_Check value),
+    TResult lifecycle(_Lifecycle value),
+    TResult skip(_Skip value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (check != null) {
@@ -361,6 +372,7 @@ abstract class _Check implements ValidationEvent {
   _$CheckCopyWith<_Check> get copyWith;
 }
 
+/// @nodoc
 abstract class _$LifecycleCopyWith<$Res> {
   factory _$LifecycleCopyWith(
           _Lifecycle value, $Res Function(_Lifecycle) then) =
@@ -370,6 +382,7 @@ abstract class _$LifecycleCopyWith<$Res> {
   $TimePointCopyWith<$Res> get point;
 }
 
+/// @nodoc
 class __$LifecycleCopyWithImpl<$Res> extends _$ValidationEventCopyWithImpl<$Res>
     implements _$LifecycleCopyWith<$Res> {
   __$LifecycleCopyWithImpl(_Lifecycle _value, $Res Function(_Lifecycle) _then)
@@ -398,6 +411,7 @@ class __$LifecycleCopyWithImpl<$Res> extends _$ValidationEventCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
   const _$_Lifecycle(this.point) : assert(point != null);
 
@@ -435,11 +449,11 @@ class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result focus(Question question),
-    @required Result check(String answer),
-    @required Result lifecycle(TimePoint point),
-    @required Result skip(),
+  TResult when<TResult extends Object>({
+    @required TResult focus(Question question),
+    @required TResult check(String answer),
+    @required TResult lifecycle(TimePoint point),
+    @required TResult skip(),
   }) {
     assert(focus != null);
     assert(check != null);
@@ -450,12 +464,12 @@ class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result focus(Question question),
-    Result check(String answer),
-    Result lifecycle(TimePoint point),
-    Result skip(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult focus(Question question),
+    TResult check(String answer),
+    TResult lifecycle(TimePoint point),
+    TResult skip(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (lifecycle != null) {
@@ -466,11 +480,11 @@ class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result focus(_Focus value),
-    @required Result check(_Check value),
-    @required Result lifecycle(_Lifecycle value),
-    @required Result skip(_Skip value),
+  TResult map<TResult extends Object>({
+    @required TResult focus(_Focus value),
+    @required TResult check(_Check value),
+    @required TResult lifecycle(_Lifecycle value),
+    @required TResult skip(_Skip value),
   }) {
     assert(focus != null);
     assert(check != null);
@@ -481,12 +495,12 @@ class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result focus(_Focus value),
-    Result check(_Check value),
-    Result lifecycle(_Lifecycle value),
-    Result skip(_Skip value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult focus(_Focus value),
+    TResult check(_Check value),
+    TResult lifecycle(_Lifecycle value),
+    TResult skip(_Skip value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (lifecycle != null) {
@@ -503,11 +517,13 @@ abstract class _Lifecycle implements ValidationEvent {
   _$LifecycleCopyWith<_Lifecycle> get copyWith;
 }
 
+/// @nodoc
 abstract class _$SkipCopyWith<$Res> {
   factory _$SkipCopyWith(_Skip value, $Res Function(_Skip) then) =
       __$SkipCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class __$SkipCopyWithImpl<$Res> extends _$ValidationEventCopyWithImpl<$Res>
     implements _$SkipCopyWith<$Res> {
   __$SkipCopyWithImpl(_Skip _value, $Res Function(_Skip) _then)
@@ -517,6 +533,7 @@ class __$SkipCopyWithImpl<$Res> extends _$ValidationEventCopyWithImpl<$Res>
   _Skip get _value => super._value as _Skip;
 }
 
+/// @nodoc
 class _$_Skip with DiagnosticableTreeMixin implements _Skip {
   const _$_Skip();
 
@@ -541,11 +558,11 @@ class _$_Skip with DiagnosticableTreeMixin implements _Skip {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result focus(Question question),
-    @required Result check(String answer),
-    @required Result lifecycle(TimePoint point),
-    @required Result skip(),
+  TResult when<TResult extends Object>({
+    @required TResult focus(Question question),
+    @required TResult check(String answer),
+    @required TResult lifecycle(TimePoint point),
+    @required TResult skip(),
   }) {
     assert(focus != null);
     assert(check != null);
@@ -556,12 +573,12 @@ class _$_Skip with DiagnosticableTreeMixin implements _Skip {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result focus(Question question),
-    Result check(String answer),
-    Result lifecycle(TimePoint point),
-    Result skip(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult focus(Question question),
+    TResult check(String answer),
+    TResult lifecycle(TimePoint point),
+    TResult skip(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (skip != null) {
@@ -572,11 +589,11 @@ class _$_Skip with DiagnosticableTreeMixin implements _Skip {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result focus(_Focus value),
-    @required Result check(_Check value),
-    @required Result lifecycle(_Lifecycle value),
-    @required Result skip(_Skip value),
+  TResult map<TResult extends Object>({
+    @required TResult focus(_Focus value),
+    @required TResult check(_Check value),
+    @required TResult lifecycle(_Lifecycle value),
+    @required TResult skip(_Skip value),
   }) {
     assert(focus != null);
     assert(check != null);
@@ -587,12 +604,12 @@ class _$_Skip with DiagnosticableTreeMixin implements _Skip {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result focus(_Focus value),
-    Result check(_Check value),
-    Result lifecycle(_Lifecycle value),
-    Result skip(_Skip value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult focus(_Focus value),
+    TResult check(_Check value),
+    TResult lifecycle(_Lifecycle value),
+    TResult skip(_Skip value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (skip != null) {
@@ -606,6 +623,7 @@ abstract class _Skip implements ValidationEvent {
   const factory _Skip() = _$_Skip;
 }
 
+/// @nodoc
 class _$_ValidationState2TearOff {
   const _$_ValidationState2TearOff();
 
@@ -647,56 +665,60 @@ class _$_ValidationState2TearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const _$ValidationState2 = _$_ValidationState2TearOff();
 
+/// @nodoc
 mixin _$_ValidationState2 {
   Question get question;
   List<String> get answers;
 
   @optionalTypeArgs
-  Result when<Result extends Object>({
+  TResult when<TResult extends Object>({
     @required
-        Result correct(
+        TResult correct(
             Question question, List<String> answers, Duration duration),
     @required
-        Result wrong(
+        TResult wrong(
             Question question, List<String> answers, TimePoints timePoints),
     @required
-        Result neutral(
+        TResult neutral(
             Question question, List<String> answers, TimePoints timePoints),
     @required
-        Result skip(Question question, List<String> answers, Duration duration),
+        TResult skip(
+            Question question, List<String> answers, Duration duration),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result correct(Question question, List<String> answers, Duration duration),
-    Result wrong(
+  TResult maybeWhen<TResult extends Object>({
+    TResult correct(Question question, List<String> answers, Duration duration),
+    TResult wrong(
         Question question, List<String> answers, TimePoints timePoints),
-    Result neutral(
+    TResult neutral(
         Question question, List<String> answers, TimePoints timePoints),
-    Result skip(Question question, List<String> answers, Duration duration),
-    @required Result orElse(),
+    TResult skip(Question question, List<String> answers, Duration duration),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result correct(Correct value),
-    @required Result wrong(Wrong value),
-    @required Result neutral(Neutral value),
-    @required Result skip(Skipped value),
+  TResult map<TResult extends Object>({
+    @required TResult correct(Correct value),
+    @required TResult wrong(Wrong value),
+    @required TResult neutral(Neutral value),
+    @required TResult skip(Skipped value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result correct(Correct value),
-    Result wrong(Wrong value),
-    Result neutral(Neutral value),
-    Result skip(Skipped value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult correct(Correct value),
+    TResult wrong(Wrong value),
+    TResult neutral(Neutral value),
+    TResult skip(Skipped value),
+    @required TResult orElse(),
   });
 
   _$ValidationState2CopyWith<_ValidationState2> get copyWith;
 }
 
+/// @nodoc
 abstract class _$ValidationState2CopyWith<$Res> {
   factory _$ValidationState2CopyWith(
           _ValidationState2 value, $Res Function(_ValidationState2) then) =
@@ -706,6 +728,7 @@ abstract class _$ValidationState2CopyWith<$Res> {
   $QuestionCopyWith<$Res> get question;
 }
 
+/// @nodoc
 class __$ValidationState2CopyWithImpl<$Res>
     implements _$ValidationState2CopyWith<$Res> {
   __$ValidationState2CopyWithImpl(this._value, this._then);
@@ -736,6 +759,7 @@ class __$ValidationState2CopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 abstract class $CorrectCopyWith<$Res>
     implements _$ValidationState2CopyWith<$Res> {
   factory $CorrectCopyWith(Correct value, $Res Function(Correct) then) =
@@ -747,6 +771,7 @@ abstract class $CorrectCopyWith<$Res>
   $QuestionCopyWith<$Res> get question;
 }
 
+/// @nodoc
 class _$CorrectCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
     implements $CorrectCopyWith<$Res> {
   _$CorrectCopyWithImpl(Correct _value, $Res Function(Correct) _then)
@@ -769,6 +794,7 @@ class _$CorrectCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$Correct with DiagnosticableTreeMixin implements Correct {
   const _$Correct(this.question, this.answers, this.duration)
       : assert(question != null),
@@ -825,18 +851,19 @@ class _$Correct with DiagnosticableTreeMixin implements Correct {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
+  TResult when<TResult extends Object>({
     @required
-        Result correct(
+        TResult correct(
             Question question, List<String> answers, Duration duration),
     @required
-        Result wrong(
+        TResult wrong(
             Question question, List<String> answers, TimePoints timePoints),
     @required
-        Result neutral(
+        TResult neutral(
             Question question, List<String> answers, TimePoints timePoints),
     @required
-        Result skip(Question question, List<String> answers, Duration duration),
+        TResult skip(
+            Question question, List<String> answers, Duration duration),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -847,14 +874,14 @@ class _$Correct with DiagnosticableTreeMixin implements Correct {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result correct(Question question, List<String> answers, Duration duration),
-    Result wrong(
+  TResult maybeWhen<TResult extends Object>({
+    TResult correct(Question question, List<String> answers, Duration duration),
+    TResult wrong(
         Question question, List<String> answers, TimePoints timePoints),
-    Result neutral(
+    TResult neutral(
         Question question, List<String> answers, TimePoints timePoints),
-    Result skip(Question question, List<String> answers, Duration duration),
-    @required Result orElse(),
+    TResult skip(Question question, List<String> answers, Duration duration),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (correct != null) {
@@ -865,11 +892,11 @@ class _$Correct with DiagnosticableTreeMixin implements Correct {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result correct(Correct value),
-    @required Result wrong(Wrong value),
-    @required Result neutral(Neutral value),
-    @required Result skip(Skipped value),
+  TResult map<TResult extends Object>({
+    @required TResult correct(Correct value),
+    @required TResult wrong(Wrong value),
+    @required TResult neutral(Neutral value),
+    @required TResult skip(Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -880,12 +907,12 @@ class _$Correct with DiagnosticableTreeMixin implements Correct {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result correct(Correct value),
-    Result wrong(Wrong value),
-    Result neutral(Neutral value),
-    Result skip(Skipped value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult correct(Correct value),
+    TResult wrong(Wrong value),
+    TResult neutral(Neutral value),
+    TResult skip(Skipped value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (correct != null) {
@@ -908,6 +935,7 @@ abstract class Correct implements _ValidationState2 {
   $CorrectCopyWith<Correct> get copyWith;
 }
 
+/// @nodoc
 abstract class $WrongCopyWith<$Res>
     implements _$ValidationState2CopyWith<$Res> {
   factory $WrongCopyWith(Wrong value, $Res Function(Wrong) then) =
@@ -920,6 +948,7 @@ abstract class $WrongCopyWith<$Res>
   $TimePointsCopyWith<$Res> get timePoints;
 }
 
+/// @nodoc
 class _$WrongCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
     implements $WrongCopyWith<$Res> {
   _$WrongCopyWithImpl(Wrong _value, $Res Function(Wrong) _then)
@@ -952,6 +981,7 @@ class _$WrongCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$Wrong with DiagnosticableTreeMixin implements Wrong {
   const _$Wrong(this.question, this.answers, this.timePoints)
       : assert(question != null),
@@ -1008,18 +1038,19 @@ class _$Wrong with DiagnosticableTreeMixin implements Wrong {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
+  TResult when<TResult extends Object>({
     @required
-        Result correct(
+        TResult correct(
             Question question, List<String> answers, Duration duration),
     @required
-        Result wrong(
+        TResult wrong(
             Question question, List<String> answers, TimePoints timePoints),
     @required
-        Result neutral(
+        TResult neutral(
             Question question, List<String> answers, TimePoints timePoints),
     @required
-        Result skip(Question question, List<String> answers, Duration duration),
+        TResult skip(
+            Question question, List<String> answers, Duration duration),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -1030,14 +1061,14 @@ class _$Wrong with DiagnosticableTreeMixin implements Wrong {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result correct(Question question, List<String> answers, Duration duration),
-    Result wrong(
+  TResult maybeWhen<TResult extends Object>({
+    TResult correct(Question question, List<String> answers, Duration duration),
+    TResult wrong(
         Question question, List<String> answers, TimePoints timePoints),
-    Result neutral(
+    TResult neutral(
         Question question, List<String> answers, TimePoints timePoints),
-    Result skip(Question question, List<String> answers, Duration duration),
-    @required Result orElse(),
+    TResult skip(Question question, List<String> answers, Duration duration),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (wrong != null) {
@@ -1048,11 +1079,11 @@ class _$Wrong with DiagnosticableTreeMixin implements Wrong {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result correct(Correct value),
-    @required Result wrong(Wrong value),
-    @required Result neutral(Neutral value),
-    @required Result skip(Skipped value),
+  TResult map<TResult extends Object>({
+    @required TResult correct(Correct value),
+    @required TResult wrong(Wrong value),
+    @required TResult neutral(Neutral value),
+    @required TResult skip(Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -1063,12 +1094,12 @@ class _$Wrong with DiagnosticableTreeMixin implements Wrong {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result correct(Correct value),
-    Result wrong(Wrong value),
-    Result neutral(Neutral value),
-    Result skip(Skipped value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult correct(Correct value),
+    TResult wrong(Wrong value),
+    TResult neutral(Neutral value),
+    TResult skip(Skipped value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (wrong != null) {
@@ -1091,6 +1122,7 @@ abstract class Wrong implements _ValidationState2 {
   $WrongCopyWith<Wrong> get copyWith;
 }
 
+/// @nodoc
 abstract class $NeutralCopyWith<$Res>
     implements _$ValidationState2CopyWith<$Res> {
   factory $NeutralCopyWith(Neutral value, $Res Function(Neutral) then) =
@@ -1103,6 +1135,7 @@ abstract class $NeutralCopyWith<$Res>
   $TimePointsCopyWith<$Res> get timePoints;
 }
 
+/// @nodoc
 class _$NeutralCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
     implements $NeutralCopyWith<$Res> {
   _$NeutralCopyWithImpl(Neutral _value, $Res Function(Neutral) _then)
@@ -1135,6 +1168,7 @@ class _$NeutralCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$Neutral with DiagnosticableTreeMixin implements Neutral {
   const _$Neutral(this.question, this.answers, this.timePoints)
       : assert(question != null),
@@ -1191,18 +1225,19 @@ class _$Neutral with DiagnosticableTreeMixin implements Neutral {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
+  TResult when<TResult extends Object>({
     @required
-        Result correct(
+        TResult correct(
             Question question, List<String> answers, Duration duration),
     @required
-        Result wrong(
+        TResult wrong(
             Question question, List<String> answers, TimePoints timePoints),
     @required
-        Result neutral(
+        TResult neutral(
             Question question, List<String> answers, TimePoints timePoints),
     @required
-        Result skip(Question question, List<String> answers, Duration duration),
+        TResult skip(
+            Question question, List<String> answers, Duration duration),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -1213,14 +1248,14 @@ class _$Neutral with DiagnosticableTreeMixin implements Neutral {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result correct(Question question, List<String> answers, Duration duration),
-    Result wrong(
+  TResult maybeWhen<TResult extends Object>({
+    TResult correct(Question question, List<String> answers, Duration duration),
+    TResult wrong(
         Question question, List<String> answers, TimePoints timePoints),
-    Result neutral(
+    TResult neutral(
         Question question, List<String> answers, TimePoints timePoints),
-    Result skip(Question question, List<String> answers, Duration duration),
-    @required Result orElse(),
+    TResult skip(Question question, List<String> answers, Duration duration),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (neutral != null) {
@@ -1231,11 +1266,11 @@ class _$Neutral with DiagnosticableTreeMixin implements Neutral {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result correct(Correct value),
-    @required Result wrong(Wrong value),
-    @required Result neutral(Neutral value),
-    @required Result skip(Skipped value),
+  TResult map<TResult extends Object>({
+    @required TResult correct(Correct value),
+    @required TResult wrong(Wrong value),
+    @required TResult neutral(Neutral value),
+    @required TResult skip(Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -1246,12 +1281,12 @@ class _$Neutral with DiagnosticableTreeMixin implements Neutral {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result correct(Correct value),
-    Result wrong(Wrong value),
-    Result neutral(Neutral value),
-    Result skip(Skipped value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult correct(Correct value),
+    TResult wrong(Wrong value),
+    TResult neutral(Neutral value),
+    TResult skip(Skipped value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (neutral != null) {
@@ -1275,6 +1310,7 @@ abstract class Neutral implements _ValidationState2 {
   $NeutralCopyWith<Neutral> get copyWith;
 }
 
+/// @nodoc
 abstract class $SkippedCopyWith<$Res>
     implements _$ValidationState2CopyWith<$Res> {
   factory $SkippedCopyWith(Skipped value, $Res Function(Skipped) then) =
@@ -1286,6 +1322,7 @@ abstract class $SkippedCopyWith<$Res>
   $QuestionCopyWith<$Res> get question;
 }
 
+/// @nodoc
 class _$SkippedCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
     implements $SkippedCopyWith<$Res> {
   _$SkippedCopyWithImpl(Skipped _value, $Res Function(Skipped) _then)
@@ -1308,6 +1345,7 @@ class _$SkippedCopyWithImpl<$Res> extends __$ValidationState2CopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$Skipped with DiagnosticableTreeMixin implements Skipped {
   const _$Skipped(this.question, this.answers, this.duration)
       : assert(question != null),
@@ -1364,18 +1402,19 @@ class _$Skipped with DiagnosticableTreeMixin implements Skipped {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
+  TResult when<TResult extends Object>({
     @required
-        Result correct(
+        TResult correct(
             Question question, List<String> answers, Duration duration),
     @required
-        Result wrong(
+        TResult wrong(
             Question question, List<String> answers, TimePoints timePoints),
     @required
-        Result neutral(
+        TResult neutral(
             Question question, List<String> answers, TimePoints timePoints),
     @required
-        Result skip(Question question, List<String> answers, Duration duration),
+        TResult skip(
+            Question question, List<String> answers, Duration duration),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -1386,14 +1425,14 @@ class _$Skipped with DiagnosticableTreeMixin implements Skipped {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result correct(Question question, List<String> answers, Duration duration),
-    Result wrong(
+  TResult maybeWhen<TResult extends Object>({
+    TResult correct(Question question, List<String> answers, Duration duration),
+    TResult wrong(
         Question question, List<String> answers, TimePoints timePoints),
-    Result neutral(
+    TResult neutral(
         Question question, List<String> answers, TimePoints timePoints),
-    Result skip(Question question, List<String> answers, Duration duration),
-    @required Result orElse(),
+    TResult skip(Question question, List<String> answers, Duration duration),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (skip != null) {
@@ -1404,11 +1443,11 @@ class _$Skipped with DiagnosticableTreeMixin implements Skipped {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result correct(Correct value),
-    @required Result wrong(Wrong value),
-    @required Result neutral(Neutral value),
-    @required Result skip(Skipped value),
+  TResult map<TResult extends Object>({
+    @required TResult correct(Correct value),
+    @required TResult wrong(Wrong value),
+    @required TResult neutral(Neutral value),
+    @required TResult skip(Skipped value),
   }) {
     assert(correct != null);
     assert(wrong != null);
@@ -1419,12 +1458,12 @@ class _$Skipped with DiagnosticableTreeMixin implements Skipped {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result correct(Correct value),
-    Result wrong(Wrong value),
-    Result neutral(Neutral value),
-    Result skip(Skipped value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult correct(Correct value),
+    TResult wrong(Wrong value),
+    TResult neutral(Neutral value),
+    TResult skip(Skipped value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (skip != null) {
@@ -1447,6 +1486,7 @@ abstract class Skipped implements _ValidationState2 {
   $SkippedCopyWith<Skipped> get copyWith;
 }
 
+/// @nodoc
 class _$ValidationStateTearOff {
   const _$ValidationStateTearOff();
 
@@ -1463,40 +1503,44 @@ class _$ValidationStateTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $ValidationState = _$ValidationStateTearOff();
 
+/// @nodoc
 mixin _$ValidationState {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result just(_ValidationState2 state),
-    @required Result nothing(),
+  TResult when<TResult extends Object>({
+    @required TResult just(_ValidationState2 state),
+    @required TResult nothing(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result just(_ValidationState2 state),
-    Result nothing(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult just(_ValidationState2 state),
+    TResult nothing(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result just(_Just value),
-    @required Result nothing(_Nothing value),
+  TResult map<TResult extends Object>({
+    @required TResult just(_Just value),
+    @required TResult nothing(_Nothing value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result just(_Just value),
-    Result nothing(_Nothing value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult just(_Just value),
+    TResult nothing(_Nothing value),
+    @required TResult orElse(),
   });
 }
 
+/// @nodoc
 abstract class $ValidationStateCopyWith<$Res> {
   factory $ValidationStateCopyWith(
           ValidationState value, $Res Function(ValidationState) then) =
       _$ValidationStateCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class _$ValidationStateCopyWithImpl<$Res>
     implements $ValidationStateCopyWith<$Res> {
   _$ValidationStateCopyWithImpl(this._value, this._then);
@@ -1506,6 +1550,7 @@ class _$ValidationStateCopyWithImpl<$Res>
   final $Res Function(ValidationState) _then;
 }
 
+/// @nodoc
 abstract class _$JustCopyWith<$Res> {
   factory _$JustCopyWith(_Just value, $Res Function(_Just) then) =
       __$JustCopyWithImpl<$Res>;
@@ -1514,6 +1559,7 @@ abstract class _$JustCopyWith<$Res> {
   _$ValidationState2CopyWith<$Res> get state;
 }
 
+/// @nodoc
 class __$JustCopyWithImpl<$Res> extends _$ValidationStateCopyWithImpl<$Res>
     implements _$JustCopyWith<$Res> {
   __$JustCopyWithImpl(_Just _value, $Res Function(_Just) _then)
@@ -1542,6 +1588,7 @@ class __$JustCopyWithImpl<$Res> extends _$ValidationStateCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Just with DiagnosticableTreeMixin implements _Just {
   const _$_Just(this.state) : assert(state != null);
 
@@ -1579,9 +1626,9 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result just(_ValidationState2 state),
-    @required Result nothing(),
+  TResult when<TResult extends Object>({
+    @required TResult just(_ValidationState2 state),
+    @required TResult nothing(),
   }) {
     assert(just != null);
     assert(nothing != null);
@@ -1590,10 +1637,10 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result just(_ValidationState2 state),
-    Result nothing(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult just(_ValidationState2 state),
+    TResult nothing(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (just != null) {
@@ -1604,9 +1651,9 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result just(_Just value),
-    @required Result nothing(_Nothing value),
+  TResult map<TResult extends Object>({
+    @required TResult just(_Just value),
+    @required TResult nothing(_Nothing value),
   }) {
     assert(just != null);
     assert(nothing != null);
@@ -1615,10 +1662,10 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result just(_Just value),
-    Result nothing(_Nothing value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult just(_Just value),
+    TResult nothing(_Nothing value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (just != null) {
@@ -1635,11 +1682,13 @@ abstract class _Just implements ValidationState {
   _$JustCopyWith<_Just> get copyWith;
 }
 
+/// @nodoc
 abstract class _$NothingCopyWith<$Res> {
   factory _$NothingCopyWith(_Nothing value, $Res Function(_Nothing) then) =
       __$NothingCopyWithImpl<$Res>;
 }
 
+/// @nodoc
 class __$NothingCopyWithImpl<$Res> extends _$ValidationStateCopyWithImpl<$Res>
     implements _$NothingCopyWith<$Res> {
   __$NothingCopyWithImpl(_Nothing _value, $Res Function(_Nothing) _then)
@@ -1649,6 +1698,7 @@ class __$NothingCopyWithImpl<$Res> extends _$ValidationStateCopyWithImpl<$Res>
   _Nothing get _value => super._value as _Nothing;
 }
 
+/// @nodoc
 class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
   const _$_Nothing();
 
@@ -1673,9 +1723,9 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result just(_ValidationState2 state),
-    @required Result nothing(),
+  TResult when<TResult extends Object>({
+    @required TResult just(_ValidationState2 state),
+    @required TResult nothing(),
   }) {
     assert(just != null);
     assert(nothing != null);
@@ -1684,10 +1734,10 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result just(_ValidationState2 state),
-    Result nothing(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult just(_ValidationState2 state),
+    TResult nothing(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (nothing != null) {
@@ -1698,9 +1748,9 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result just(_Just value),
-    @required Result nothing(_Nothing value),
+  TResult map<TResult extends Object>({
+    @required TResult just(_Just value),
+    @required TResult nothing(_Nothing value),
   }) {
     assert(just != null);
     assert(nothing != null);
@@ -1709,10 +1759,10 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result just(_Just value),
-    Result nothing(_Nothing value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult just(_Just value),
+    TResult nothing(_Nothing value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (nothing != null) {
@@ -1726,6 +1776,7 @@ abstract class _Nothing implements ValidationState {
   const factory _Nothing() = _$_Nothing;
 }
 
+/// @nodoc
 class _$TimePointTearOff {
   const _$TimePointTearOff();
 
@@ -1744,44 +1795,48 @@ class _$TimePointTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $TimePoint = _$TimePointTearOff();
 
+/// @nodoc
 mixin _$TimePoint {
   DateTime get time;
 
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result resume(DateTime time),
-    @required Result suspend(DateTime time),
+  TResult when<TResult extends Object>({
+    @required TResult resume(DateTime time),
+    @required TResult suspend(DateTime time),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result resume(DateTime time),
-    Result suspend(DateTime time),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult resume(DateTime time),
+    TResult suspend(DateTime time),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result resume(_Resume value),
-    @required Result suspend(_Suspend value),
+  TResult map<TResult extends Object>({
+    @required TResult resume(_Resume value),
+    @required TResult suspend(_Suspend value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result resume(_Resume value),
-    Result suspend(_Suspend value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult resume(_Resume value),
+    TResult suspend(_Suspend value),
+    @required TResult orElse(),
   });
 
   $TimePointCopyWith<TimePoint> get copyWith;
 }
 
+/// @nodoc
 abstract class $TimePointCopyWith<$Res> {
   factory $TimePointCopyWith(TimePoint value, $Res Function(TimePoint) then) =
       _$TimePointCopyWithImpl<$Res>;
   $Res call({DateTime time});
 }
 
+/// @nodoc
 class _$TimePointCopyWithImpl<$Res> implements $TimePointCopyWith<$Res> {
   _$TimePointCopyWithImpl(this._value, this._then);
 
@@ -1799,6 +1854,7 @@ class _$TimePointCopyWithImpl<$Res> implements $TimePointCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$ResumeCopyWith<$Res> implements $TimePointCopyWith<$Res> {
   factory _$ResumeCopyWith(_Resume value, $Res Function(_Resume) then) =
       __$ResumeCopyWithImpl<$Res>;
@@ -1806,6 +1862,7 @@ abstract class _$ResumeCopyWith<$Res> implements $TimePointCopyWith<$Res> {
   $Res call({DateTime time});
 }
 
+/// @nodoc
 class __$ResumeCopyWithImpl<$Res> extends _$TimePointCopyWithImpl<$Res>
     implements _$ResumeCopyWith<$Res> {
   __$ResumeCopyWithImpl(_Resume _value, $Res Function(_Resume) _then)
@@ -1824,6 +1881,7 @@ class __$ResumeCopyWithImpl<$Res> extends _$TimePointCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   const _$_Resume(this.time) : assert(time != null);
 
@@ -1861,9 +1919,9 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result resume(DateTime time),
-    @required Result suspend(DateTime time),
+  TResult when<TResult extends Object>({
+    @required TResult resume(DateTime time),
+    @required TResult suspend(DateTime time),
   }) {
     assert(resume != null);
     assert(suspend != null);
@@ -1872,10 +1930,10 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result resume(DateTime time),
-    Result suspend(DateTime time),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult resume(DateTime time),
+    TResult suspend(DateTime time),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (resume != null) {
@@ -1886,9 +1944,9 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result resume(_Resume value),
-    @required Result suspend(_Suspend value),
+  TResult map<TResult extends Object>({
+    @required TResult resume(_Resume value),
+    @required TResult suspend(_Suspend value),
   }) {
     assert(resume != null);
     assert(suspend != null);
@@ -1897,10 +1955,10 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result resume(_Resume value),
-    Result suspend(_Suspend value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult resume(_Resume value),
+    TResult suspend(_Suspend value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (resume != null) {
@@ -1919,6 +1977,7 @@ abstract class _Resume implements TimePoint {
   _$ResumeCopyWith<_Resume> get copyWith;
 }
 
+/// @nodoc
 abstract class _$SuspendCopyWith<$Res> implements $TimePointCopyWith<$Res> {
   factory _$SuspendCopyWith(_Suspend value, $Res Function(_Suspend) then) =
       __$SuspendCopyWithImpl<$Res>;
@@ -1926,6 +1985,7 @@ abstract class _$SuspendCopyWith<$Res> implements $TimePointCopyWith<$Res> {
   $Res call({DateTime time});
 }
 
+/// @nodoc
 class __$SuspendCopyWithImpl<$Res> extends _$TimePointCopyWithImpl<$Res>
     implements _$SuspendCopyWith<$Res> {
   __$SuspendCopyWithImpl(_Suspend _value, $Res Function(_Suspend) _then)
@@ -1944,6 +2004,7 @@ class __$SuspendCopyWithImpl<$Res> extends _$TimePointCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
   const _$_Suspend(this.time) : assert(time != null);
 
@@ -1981,9 +2042,9 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result resume(DateTime time),
-    @required Result suspend(DateTime time),
+  TResult when<TResult extends Object>({
+    @required TResult resume(DateTime time),
+    @required TResult suspend(DateTime time),
   }) {
     assert(resume != null);
     assert(suspend != null);
@@ -1992,10 +2053,10 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result resume(DateTime time),
-    Result suspend(DateTime time),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult resume(DateTime time),
+    TResult suspend(DateTime time),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (suspend != null) {
@@ -2006,9 +2067,9 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result resume(_Resume value),
-    @required Result suspend(_Suspend value),
+  TResult map<TResult extends Object>({
+    @required TResult resume(_Resume value),
+    @required TResult suspend(_Suspend value),
   }) {
     assert(resume != null);
     assert(suspend != null);
@@ -2017,10 +2078,10 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result resume(_Resume value),
-    Result suspend(_Suspend value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult resume(_Resume value),
+    TResult suspend(_Suspend value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (suspend != null) {
@@ -2039,6 +2100,7 @@ abstract class _Suspend implements TimePoint {
   _$SuspendCopyWith<_Suspend> get copyWith;
 }
 
+/// @nodoc
 class _$TimePointsTearOff {
   const _$TimePointsTearOff();
 
@@ -2050,15 +2112,18 @@ class _$TimePointsTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $TimePoints = _$TimePointsTearOff();
 
+/// @nodoc
 mixin _$TimePoints {
   List<TimePoint> get points;
 
   $TimePointsCopyWith<TimePoints> get copyWith;
 }
 
+/// @nodoc
 abstract class $TimePointsCopyWith<$Res> {
   factory $TimePointsCopyWith(
           TimePoints value, $Res Function(TimePoints) then) =
@@ -2066,6 +2131,7 @@ abstract class $TimePointsCopyWith<$Res> {
   $Res call({List<TimePoint> points});
 }
 
+/// @nodoc
 class _$TimePointsCopyWithImpl<$Res> implements $TimePointsCopyWith<$Res> {
   _$TimePointsCopyWithImpl(this._value, this._then);
 
@@ -2083,6 +2149,7 @@ class _$TimePointsCopyWithImpl<$Res> implements $TimePointsCopyWith<$Res> {
   }
 }
 
+/// @nodoc
 abstract class _$TimePointsCopyWith<$Res> implements $TimePointsCopyWith<$Res> {
   factory _$TimePointsCopyWith(
           _TimePoints value, $Res Function(_TimePoints) then) =
@@ -2091,6 +2158,7 @@ abstract class _$TimePointsCopyWith<$Res> implements $TimePointsCopyWith<$Res> {
   $Res call({List<TimePoint> points});
 }
 
+/// @nodoc
 class __$TimePointsCopyWithImpl<$Res> extends _$TimePointsCopyWithImpl<$Res>
     implements _$TimePointsCopyWith<$Res> {
   __$TimePointsCopyWithImpl(
@@ -2110,6 +2178,7 @@ class __$TimePointsCopyWithImpl<$Res> extends _$TimePointsCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
 class _$_TimePoints with DiagnosticableTreeMixin implements _TimePoints {
   const _$_TimePoints(this.points) : assert(points != null);
 
