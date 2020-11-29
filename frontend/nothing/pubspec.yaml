@@ -15,7 +15,7 @@ dependencies:
   auto_size_text: ^2.1.0
   scoped_model: ^1.0.1
   json_annotation: ^3.0.1
-  # firebase_admob: ^0.10.2
+  firebase_admob: ^0.10.2
   flutter_hooks: ^0.13.1
   # vibrate: ^0.0.4
   freezed_annotation:
