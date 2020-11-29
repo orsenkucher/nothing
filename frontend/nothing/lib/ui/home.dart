@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/hooks/pagecontroller.dart';
@@ -11,6 +12,7 @@ import 'package:nothing/model/focusnode.dart';
 import 'package:nothing/repository/likes.dart';
 import 'package:nothing/ui/fade_in.dart';
 import 'package:nothing/ui/menu.dart';
+import 'package:nothing/ui/onboarding.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -140,18 +142,20 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
       child: ScopedModel<TextModel>(
         model: textModel,
         child: BlocBuilder<FeedBloc, FeedState>(
-          builder: (context, state) => Stack(children: [
-            _buildGame(context),
-            _buildRefocusDetector(context),
-            _buildTitleKnobs(context, widget.pageController),
-            if (state is Pending) _buildContinueDetector(context),
-            _buildHintButtons(context, showHint, hintTintController),
-            _buildTinter(context, hintTintController),
-            if (showHint.value) _buildHint(context, showHint, hintTintController),
-            _buildTinter(context, widget.swipeTintController),
-            _buildTextField(context),
-            // Center(child: Image.asset("assets/tutor.gif"))
-          ]),
+          builder: (context, state) => _buildOnboarding(
+            context,
+            Stack(children: [
+              _buildGame(context),
+              _buildRefocusDetector(context),
+              _buildTitleKnobs(context, widget.pageController),
+              if (state is Pending) _buildContinueDetector(context),
+              _buildHintButtons(context, showHint, hintTintController),
+              _buildTinter(context, hintTintController),
+              if (showHint.value) _buildHint(context, showHint, hintTintController),
+              _buildTinter(context, widget.swipeTintController),
+              _buildTextField(context),
+            ]),
+          ),
         ),
       ),
     );
@@ -200,6 +204,15 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
         ),
       ),
     );
+  }
+
+  Widget _buildOnboarding(BuildContext context, Widget child) {
+    return context.watch<OnboardBloc>().state.done
+        ? child
+        : GestureDetector(
+            child: Center(child: Onboarding()),
+            onTap: () => context.read<OnboardBloc>().complete(),
+          );
   }
 
   Widget _buildTextField(BuildContext context) {

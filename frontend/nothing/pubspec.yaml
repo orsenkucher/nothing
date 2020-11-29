@@ -19,6 +19,7 @@ dependencies:
   flutter_hooks: ^0.13.1
   # vibrate: ^0.0.4
   freezed_annotation:
+  video_player:
 
   flutter:
     sdk: flutter
@@ -58,3 +59,4 @@ flutter:
         - asset: fonts/NothingFont.ttf
   assets:
     - assets/tutor.gif
+    - assets/onboarding.mp4
