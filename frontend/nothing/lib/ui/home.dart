@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_admob/firebase_admob.dart';
+// import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
@@ -576,58 +576,58 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
   }
 }
 
-InterstitialAd myInterstitial;
+// InterstitialAd myInterstitial;
 
 Future<void> _createAd(FocusNodeModel model) async {
-  myInterstitial = InterstitialAd(
-    // adUnitId: Platform.isIOS // interstitial ios/android
-    //     ? 'ca-app-pub-3169956978186495/7272148845'
-    //     : 'ca-app-pub-3169956978186495/2443683360',
-    adUnitId: InterstitialAd.testAdUnitId,
-    targetingInfo: MobileAdTargetingInfo(),
-    listener: (MobileAdEvent event) async {
-      // event.
-      print("InterstitialAd event is $event");
-      if (event == MobileAdEvent.loaded) {
-        // await myInterstitial.show(
-        //   anchorType: AnchorType.bottom,
-        //   anchorOffset: 0.0,
-        //   horizontalCenterOffset: 0.0,
-        // );
-      }
-      if (event == MobileAdEvent.closed) {
-        print("CLOSED");
-        // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
-        // await myInterstitial.load();
-        model.refocus();
-        await _createAd(model);
-      }
-    },
-  );
-  print('****** Loading new ad');
-  final result = await myInterstitial.load();
-  if (!result) {
-    print('\t ****** Ad did not load');
-    return;
-  }
-}
-
-Future<void> _showAd(BuildContext context) async {
-  // InterstitialAd myInterstitial;
-  context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
+  // myInterstitial = InterstitialAd(
+  //   // adUnitId: Platform.isIOS // interstitial ios/android
+  //   //     ? 'ca-app-pub-3169956978186495/7272148845'
+  //   //     : 'ca-app-pub-3169956978186495/2443683360',
+  //   adUnitId: InterstitialAd.testAdUnitId,
+  //   targetingInfo: MobileAdTargetingInfo(),
+  //   listener: (MobileAdEvent event) async {
+  //     // event.
+  //     print("InterstitialAd event is $event");
+  //     if (event == MobileAdEvent.loaded) {
+  //       // await myInterstitial.show(
+  //       //   anchorType: AnchorType.bottom,
+  //       //   anchorOffset: 0.0,
+  //       //   horizontalCenterOffset: 0.0,
+  //       // );
+  //     }
+  //     if (event == MobileAdEvent.closed) {
+  //       print("CLOSED");
+  //       // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
+  //       // await myInterstitial.load();
+  //       model.refocus();
+  //       await _createAd(model);
+  //     }
+  //   },
+  // );
   // print('****** Loading new ad');
   // final result = await myInterstitial.load();
   // if (!result) {
   //   print('\t ****** Ad did not load');
   //   return;
   // }
-  print('****** Loaded ad successfully');
-  await myInterstitial.show(
-    anchorType: AnchorType.bottom,
-    anchorOffset: 0.0,
-    horizontalCenterOffset: 0.0,
-  );
-  context.read<HintBloc>().unlock();
-  // myInterstitial.dispose()
-  // _createAd();
+}
+
+Future<void> _showAd(BuildContext context) async {
+  // // InterstitialAd myInterstitial;
+  // context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
+  // // print('****** Loading new ad');
+  // // final result = await myInterstitial.load();
+  // // if (!result) {
+  // //   print('\t ****** Ad did not load');
+  // //   return;
+  // // }
+  // print('****** Loaded ad successfully');
+  // await myInterstitial.show(
+  //   anchorType: AnchorType.bottom,
+  //   anchorOffset: 0.0,
+  //   horizontalCenterOffset: 0.0,
+  // );
+  // context.read<HintBloc>().unlock();
+  // // myInterstitial.dispose()
+  // // _createAd();
 }
