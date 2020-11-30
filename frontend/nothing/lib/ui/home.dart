@@ -142,7 +142,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
       child: ScopedModel<TextModel>(
         model: textModel,
         child: BlocBuilder<FeedBloc, FeedState>(
-          builder: (context, state) => _buildOnboarding(
+          builder: (context, state) => _ifOnboarding(
             context,
             Stack(children: [
               _buildGame(context),
@@ -206,13 +206,8 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     );
   }
 
-  Widget _buildOnboarding(BuildContext context, Widget child) {
-    return context.watch<OnboardBloc>().state.done
-        ? child
-        : GestureDetector(
-            child: Center(child: Onboarding()),
-            onTap: () => context.read<OnboardBloc>().complete(),
-          );
+  Widget _ifOnboarding(BuildContext context, Widget child) {
+    return context.watch<OnboardBloc>().state.done ? child : Onboarding();
   }
 
   Widget _buildTextField(BuildContext context) {
