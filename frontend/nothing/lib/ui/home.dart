@@ -18,13 +18,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/ad/bloc.dart';
-import 'package:nothing/bloc/coin/bloc.dart';
 import 'package:nothing/bloc/hint/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart' as domain;
 import 'package:nothing/model/text.dart';
-import 'package:nothing/ui/cointext.dart';
 import 'package:nothing/ui/history.dart';
 import 'package:nothing/ui/answer.dart';
 import 'package:nothing/ui/knob.dart';
@@ -60,7 +58,7 @@ class Home extends HookWidget {
         builder: (context) => Scaffold(
           backgroundColor: NothingScheme.of(context).background,
           body: NotificationListener<ScrollNotification>(
-            onNotification: _onScrollNotification(swipeTintController),
+            onNotification: _onScrollNotification(context, swipeTintController),
             child: PageView(
               controller: pageController,
               scrollDirection: Axis.horizontal,
@@ -69,10 +67,7 @@ class Home extends HookWidget {
               children: () {
                 const duration = Duration(milliseconds: 300);
                 const curve = swipeCurve;
-                void onBack() {
-                  pageController.animateToPage(1, duration: duration, curve: curve);
-                }
-
+                void onBack() => pageController.animateToPage(1, duration: duration, curve: curve);
                 return [Menu(onBack), Main(swipeTintController, pageController), History(onBack)];
               }(),
             ),
@@ -83,6 +78,7 @@ class Home extends HookWidget {
   }
 
   bool Function(ScrollNotification) _onScrollNotification(
+    BuildContext context,
     AnimationController swipeTintController,
   ) {
     return (scrollNotification) {
@@ -90,7 +86,8 @@ class Home extends HookWidget {
       // so need to filter it by axis ->
       if (scrollNotification is ScrollUpdateNotification) {
         final metrics = scrollNotification.metrics;
-        if (metrics.axis == Axis.vertical) return false; // <- here ~/
+        if (metrics.axis == Axis.vertical) return false; // <- here
+        if (!context.read<OnboardBloc>().state.done) return false; // currently onboarding
         final offset = (metrics.viewportDimension - metrics.pixels).abs();
         final value = (offset / metrics.viewportDimension).clamp(0.0, 1.0);
         swipeTintController.value = value;
@@ -172,10 +169,10 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
 
   Widget _buildTinter(BuildContext context, AnimationController controller) {
     final anim = ColorTween(
-      begin: Colors.transparent,
-      end: Colors.black.withOpacity(0.1),
+      begin: Colors.white.withOpacity(0.0),
+      end: Colors.white.withOpacity(1.0),
     ).animate(CurvedAnimation(
-      curve: Curves.easeInOut,
+      curve: Curves.easeInCubic,
       parent: controller,
     ));
     return AnimatedBuilder(

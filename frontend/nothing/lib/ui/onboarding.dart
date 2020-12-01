@@ -10,7 +10,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-  int _total = 3;
+  int _total = 2;
   int _current = 0;
   PageController _pages;
   List<VideoPlayerController> _videos;
@@ -25,11 +25,15 @@ class _OnboardingState extends State<Onboarding> {
       viewportFraction: 1.0,
     );
     _videos = [
-      VideoPlayerController.asset("assets/onboarding.mp4"),
-      VideoPlayerController.asset("assets/onboarding.mp4"),
-      VideoPlayerController.asset("assets/onboarding.mp4"),
+      VideoPlayerController.asset("assets/onboarding1.mp4"),
+      VideoPlayerController.asset("assets/onboarding2.mp4"),
     ];
-    Future.wait(_videos.map((vid) => vid.initialize())).then((value) => setState(() => _loaded = true));
+    Future.wait(_videos.map((vid) => vid.initialize())).then(
+      (value) => setState(() {
+        _loaded = true;
+        _videos.first.play();
+      }),
+    );
   }
 
   @override
@@ -57,7 +61,6 @@ class _OnboardingState extends State<Onboarding> {
             itemBuilder: (context, i) {
               if (!_loaded) return SizedBox.shrink();
               final controller = _videos[i];
-              if (i == _current) controller.play();
               return _Video(controller);
             },
           ),
@@ -72,11 +75,7 @@ class _OnboardingState extends State<Onboarding> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            _current == 0
-                ? 'Use your keyboard'
-                : _current == 1
-                    ? 'Something else'
-                    : 'We will help you!',
+            _current == 0 ? 'Use your keyboard' : 'We will help you!',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -154,9 +153,12 @@ class _VideoState extends State<_Video> {
       mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
-          child: AspectRatio(
-            aspectRatio: widget._videoController.value.aspectRatio,
-            child: VideoPlayer(widget._videoController),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: AspectRatio(
+              aspectRatio: widget._videoController.value.aspectRatio,
+              child: VideoPlayer(widget._videoController),
+            ),
           ),
         ),
       ],
