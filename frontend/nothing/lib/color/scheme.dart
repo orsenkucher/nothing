@@ -14,7 +14,7 @@ class NothingScheme extends InheritedWidget {
   Color get label => const Color(0xff000000);
   Color get question => const Color(0xff000000);
   Color get answer => const Color(0xff1d2021);
-  BorderRadiusGeometry get answerBorder => const BorderRadius.all(Radius.circular(16));
+  BorderRadiusGeometry get answerBorder => const BorderRadius.all(Radius.circular(20));
   Color get correct => const Color(0xff82E076);
   Color get neutral => const Color(0xfffdcf3c);
   Color get wrong => const Color(0xffc02030);

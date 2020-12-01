@@ -58,5 +58,5 @@ flutter:
       fonts:
         - asset: fonts/NothingFont.ttf
   assets:
-    - assets/tutor.gif
-    - assets/onboarding.mp4
+    - assets/onboarding1.mp4
+    - assets/onboarding2.mp4
