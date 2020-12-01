@@ -10,23 +10,32 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-  int _currentPage = 0;
-  int _totalPages = 3;
-  PageController _pageController;
+  int _total = 3;
+  int _current = 0;
+  PageController _pages;
+  List<VideoPlayerController> _videos;
+  bool _loaded = false;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(
+    _pages = PageController(
       initialPage: 0,
       keepPage: true,
       viewportFraction: 1.0,
     );
+    _videos = [
+      VideoPlayerController.asset("assets/onboarding.mp4"),
+      VideoPlayerController.asset("assets/onboarding.mp4"),
+      VideoPlayerController.asset("assets/onboarding.mp4"),
+    ];
+    Future.wait(_videos.map((vid) => vid.initialize())).then((value) => setState(() => _loaded = true));
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pages.dispose();
+    _videos.forEach((vid) => vid.dispose());
     super.dispose();
   }
 
@@ -36,15 +45,21 @@ class _OnboardingState extends State<Onboarding> {
       mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
-          child: PageView(
-            physics: ClampingScrollPhysics(),
-            controller: _pageController,
-            onPageChanged: (int page) {
-              setState(() {
-                _currentPage = page;
-              });
+          child: PageView.builder(
+            physics: BouncingScrollPhysics(),
+            controller: _pages,
+            onPageChanged: (int page) async {
+              setState(() => _current = page);
+              await _videos[_current].seekTo(Duration.zero);
+              await _videos[_current].play();
             },
-            children: [_Video(), _Video(), _Video()],
+            itemCount: _total,
+            itemBuilder: (context, i) {
+              if (!_loaded) return SizedBox.shrink();
+              final controller = _videos[i];
+              if (i == _current) controller.play();
+              return _Video(controller);
+            },
           ),
         ),
         Padding(
@@ -57,9 +72,9 @@ class _OnboardingState extends State<Onboarding> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            _currentPage == 0
+            _current == 0
                 ? 'Use your keyboard'
-                : _currentPage == 1
+                : _current == 1
                     ? 'Something else'
                     : 'We will help you!',
             style: TextStyle(
@@ -70,7 +85,7 @@ class _OnboardingState extends State<Onboarding> {
           ),
         ),
         Text(
-          _currentPage == 0
+          _current == 0
               ? 'All answers you will give using your\nkeyboard and brain!'
               : 'If you are stuck you can always use our\nhints!',
           textAlign: TextAlign.center,
@@ -87,15 +102,13 @@ class _OnboardingState extends State<Onboarding> {
               horizontal: 36,
             ),
             color: NothingScheme.of(context).knob,
-            child: Text(_currentPage == _totalPages - 1 ? 'Play!' : 'Next', style: TextStyle(fontSize: 16)),
+            child: Text(_current == _total - 1 ? 'Play!' : 'Next', style: TextStyle(fontSize: 16)),
             onPressed: () {
-              if (_currentPage == _totalPages - 1) {
-                print('play');
+              if (_current == _total - 1) {
                 context.read<OnboardBloc>().complete();
               }
-              print('next');
-              _pageController.nextPage(
-                duration: Duration(milliseconds: 250),
+              _pages.nextPage(
+                duration: Duration(milliseconds: 500),
                 curve: Curves.ease,
               );
             },
@@ -120,53 +133,33 @@ class _OnboardingState extends State<Onboarding> {
 
   List<Widget> _buildPageIndicator() {
     var list = <Widget>[];
-    for (var i = 0; i < _totalPages; i++) {
-      list.add(_indicator(i == _currentPage));
+    for (var i = 0; i < _total; i++) {
+      list.add(_indicator(i == _current));
     }
     return list;
   }
 }
 
 class _Video extends StatefulWidget {
+  final VideoPlayerController _videoController;
+  _Video(this._videoController);
   @override
   _VideoState createState() => _VideoState();
 }
 
 class _VideoState extends State<_Video> {
-  VideoPlayerController _videoController;
-  Future<void> _initializeVideoPlayerFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _videoController = VideoPlayerController.asset("assets/onboarding.mp4");
-    _initializeVideoPlayerFuture = _videoController.initialize();
-  }
-
-  @override
-  void dispose() {
-    _videoController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisSize: MainAxisSize.max, children: [
-      Expanded(
-        child: FutureBuilder(
-          future: _initializeVideoPlayerFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              _videoController.play();
-              return AspectRatio(
-                aspectRatio: _videoController.value.aspectRatio,
-                child: VideoPlayer(_videoController),
-              );
-            }
-            return SizedBox.shrink();
-          },
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Expanded(
+          child: AspectRatio(
+            aspectRatio: widget._videoController.value.aspectRatio,
+            child: VideoPlayer(widget._videoController),
+          ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 }
