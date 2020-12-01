@@ -149,7 +149,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
               _buildHintButtons(context, showHint, hintTintController),
               _buildTinter(context, hintTintController),
               if (showHint.value) _buildHint(context, showHint, hintTintController),
-              _buildTinter(context, widget.swipeTintController),
+              _buildTinter(context, widget.swipeTintController, true),
               _buildTextField(context),
             ]),
           ),
@@ -167,10 +167,14 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     );
   }
 
-  Widget _buildTinter(BuildContext context, AnimationController controller) {
+  Widget _buildTinter(
+    BuildContext context,
+    AnimationController controller, [
+    bool alt = false,
+  ]) {
     final anim = ColorTween(
-      begin: Colors.white.withOpacity(0.0),
-      end: Colors.white.withOpacity(1.0),
+      begin: alt ? Colors.white.withOpacity(0.0) : Colors.transparent,
+      end: alt ? Colors.white.withOpacity(0.9) : Colors.black.withOpacity(0.1),
     ).animate(CurvedAnimation(
       curve: Curves.easeInCubic,
       parent: controller,
@@ -461,32 +465,30 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
               // final bb = (state is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
               final correct = state.map(just: (v) => v.state is Correct, nothing: (_) => false);
               final buttons = (!correct ? ['hint', 'skip'] : ['like', 'dislike'])
-                  .map((l) => Expanded(
-                        child: FlatButton(
-                          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                          color: color[l],
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(width: 2),
-                              iconTransform[l](Icon(
-                                icon[l],
-                                size: 24,
-                                color: Colors.white,
-                              )),
-                              SizedBox(width: 2),
-                              text(label[l]),
-                            ],
-                          ),
-                          onPressed: callback[l],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: NothingScheme.of(context).hintBorder,
-                          ),
+                  .map((l) => FlatButton(
+                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 9),
+                        color: color[l],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            iconTransform[l](Icon(
+                              icon[l],
+                              size: 24,
+                              color: Colors.white,
+                            )),
+                            SizedBox(width: 2),
+                            text(label[l]),
+                            SizedBox(width: 6),
+                          ],
+                        ),
+                        onPressed: callback[l],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: NothingScheme.of(context).hintBorder,
                         ),
                       ))
                   .expand((w) sync* {
                 yield w;
-                yield const SizedBox(width: 16);
+                yield const SizedBox(width: 12);
                 // yield Container(width: 16, height: 10, color: Colors.red);
               });
               return Stack(
@@ -496,9 +498,10 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                     left: hor,
                     right: hor,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
+                        SizedBox(width: 2),
                         ...buttons,
                         // CoinText(),
                       ],
