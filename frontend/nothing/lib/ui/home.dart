@@ -87,7 +87,11 @@ class Home extends HookWidget {
       if (scrollNotification is ScrollUpdateNotification) {
         final metrics = scrollNotification.metrics;
         if (metrics.axis == Axis.vertical) return false; // <- here
-        if (!context.read<OnboardBloc>().state.done) return false; // currently onboarding
+        if (!context.read<OnboardBloc>().state.done) {
+          swipeTintController.value = 0.0;
+          return false;
+        }
+        ; // currently onboarding
         final offset = (metrics.viewportDimension - metrics.pixels).abs();
         final value = (offset / metrics.viewportDimension).clamp(0.0, 1.0);
         swipeTintController.value = value;

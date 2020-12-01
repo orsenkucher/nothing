@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 
 class Menu extends StatefulWidget {
@@ -48,15 +50,27 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                         mainAxisSize: MainAxisSize.max,
                         children: () {
                           const tt = [
-                            'Звук',
+                            'Туториал',
                             'Оцените нас',
                             'Оставить остзыв',
                             'Поделиться',
                             'Вибрация',
                           ];
+                          final handlers = {
+                            'Туториал': () {
+                              context.read<OnboardBloc>().reset();
+                              widget.onBack();
+                            }
+                          };
                           return tt
-                              .map((t) => Text(t, style: TextStyle(fontSize: 24)))
-                              .map((w) => Padding(child: w, padding: const EdgeInsets.symmetric(vertical: 16)));
+                              .map((t) => FlatButton(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Text(t, style: TextStyle(fontSize: 24)),
+                                    ),
+                                    onPressed: handlers[t],
+                                  ))
+                              .map((w) => Padding(child: w, padding: const EdgeInsets.symmetric(vertical: 4)));
                         }()
                             .expand((w) sync* {
                               yield const Divider();
