@@ -84,7 +84,12 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
           questionsBloc.add(QuestionsEvent.fetch(newTree.question.id));
           return FeedState.available(tree: newTree);
         },
-        newArrived: (tree) => FeedState.available(tree: tree),
+        newArrived: (tree) {
+          print('Arrived on pending');
+          return FeedState.available(tree: tree);
+
+          // return FeedState.pending(oldTree: tree, newTree: )
+        },
       ),
       empty: (oldTree) => event.when(
         newArrived: (newTree) => oldTree != null
