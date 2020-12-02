@@ -45,79 +45,82 @@ class _OnboardingState extends State<Onboarding> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Expanded(
-          child: PageView.builder(
-            physics: BouncingScrollPhysics(),
-            controller: _pages,
-            onPageChanged: (int page) async {
-              setState(() => _current = page);
-              await _videos[_current].seekTo(Duration.zero);
-              await _videos[_current].play();
-            },
-            itemCount: _total,
-            itemBuilder: (context, i) {
-              if (!_loaded) return SizedBox.shrink();
-              final controller = _videos[i];
-              return _Video(controller);
-            },
-          ),
+    return Column(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.start, children: [
+      Expanded(
+        flex: 2,
+        child: PageView.builder(
+          physics: BouncingScrollPhysics(),
+          controller: _pages,
+          onPageChanged: (int page) async {
+            setState(() => _current = page);
+            await _videos[_current].seekTo(Duration.zero);
+            await _videos[_current].play();
+          },
+          itemCount: _total,
+          itemBuilder: (context, i) {
+            if (!_loaded) return SizedBox.shrink();
+            final controller = _videos[i];
+            return _Video(controller);
+          },
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _buildPageIndicator(),
+      ),
+      Expanded(
+        flex: 1,
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: _buildPageIndicator(),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            _current == 0 ? 'Use your keyboard' : 'We will help you!',
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              _current == 0 ? 'Use your keyboard' : 'We will help you!',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: NothingScheme.of(context).label,
+              ),
+            ),
+          ),
+          Text(
+            _current == 0
+                ? 'All answers you will give using your\nkeyboard and brain!'
+                : 'If you are stuck you can always use our\nhints!',
+            textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w100,
               color: NothingScheme.of(context).label,
             ),
           ),
-        ),
-        Text(
-          _current == 0
-              ? 'All answers you will give using your\nkeyboard and brain!'
-              : 'If you are stuck you can always use our\nhints!',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.w100,
-            color: NothingScheme.of(context).label,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(28.0),
-          child: FlatButton(
-            padding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 36,
+          Padding(
+            padding: const EdgeInsets.only(top: 28.0),
+            child: FlatButton(
+              padding: const EdgeInsets.symmetric(
+                vertical: 12,
+                horizontal: 36,
+              ),
+              color: NothingScheme.of(context).knob,
+              child: Text(_current == _total - 1 ? 'Play!' : 'Next', style: TextStyle(fontSize: 16)),
+              onPressed: () {
+                if (_current == _total - 1) {
+                  context.read<OnboardBloc>().complete();
+                }
+                _pages.nextPage(
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.ease,
+                );
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: NothingScheme.of(context).hintBorder,
+              ),
             ),
-            color: NothingScheme.of(context).knob,
-            child: Text(_current == _total - 1 ? 'Play!' : 'Next', style: TextStyle(fontSize: 16)),
-            onPressed: () {
-              if (_current == _total - 1) {
-                context.read<OnboardBloc>().complete();
-              }
-              _pages.nextPage(
-                duration: Duration(milliseconds: 500),
-                curve: Curves.ease,
-              );
-            },
-            shape: RoundedRectangleBorder(
-              borderRadius: NothingScheme.of(context).hintBorder,
-            ),
-          ),
-        ),
-      ],
-    );
+          )
+        ]),
+      ),
+    ]);
   }
 
   Widget _indicator(bool isActive) {
@@ -149,19 +152,18 @@ class _Video extends StatefulWidget {
 class _VideoState extends State<_Video> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: [
+    return Column(children: [
+      Row(children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 28.0),
             child: AspectRatio(
               aspectRatio: widget._videoController.value.aspectRatio,
               child: VideoPlayer(widget._videoController),
             ),
           ),
         ),
-      ],
-    );
+      ]),
+    ]);
   }
 }
