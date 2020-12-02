@@ -68,7 +68,7 @@ class _OnboardingState extends State<Onboarding> {
         flex: 1,
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Padding(
-            padding: const EdgeInsets.only(top: 12.0, bottom: 4.0),
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: _buildPageIndicator(),
@@ -152,12 +152,21 @@ class _Video extends StatefulWidget {
 class _VideoState extends State<_Video> {
   @override
   Widget build(BuildContext context) {
-    // calibrated magic
-    final ratio = widget._videoController.value.aspectRatio * 1.11;
-    return FractionallySizedBox(
-      widthFactor: ratio,
-      heightFactor: 1.0,
-      child: VideoPlayer(widget._videoController),
+    final ratio = widget._videoController.value.aspectRatio;
+    const pad = 8.0;
+    return Padding(
+      // needs to be proportional
+      padding: const EdgeInsets.only(
+        left: pad,
+        right: pad,
+        bottom: 2 * pad,
+      ),
+      // 2/3 is parent Flex ratio
+      child: FractionallySizedBox(
+        widthFactor: 2.0 / 3.0 / ratio,
+        heightFactor: 1.0,
+        child: VideoPlayer(widget._videoController),
+      ),
     );
   }
 }
