@@ -72,11 +72,18 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
               : FeedState.empty(tree);
         },
         ground: () => error$(), // this should never happen
-        newArrived: (tree) => FeedState.available(tree: tree),
+        newArrived: (tree) {
+          print('Answer: ${tree.question.answers}');
+          return FeedState.available(tree: tree);
+        },
       ),
       pending: (oldTree, newTree) => event.when(
         moveNext: (_) => error$(), // this should never happen
-        ground: () => FeedState.available(tree: newTree),
+        ground: () {
+          print('Grounding');
+          questionsBloc.add(QuestionsEvent.fetch(newTree.question.id));
+          return FeedState.available(tree: newTree);
+        },
         newArrived: (tree) => FeedState.available(tree: tree),
       ),
       empty: (oldTree) => event.when(

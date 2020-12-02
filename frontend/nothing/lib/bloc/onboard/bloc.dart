@@ -13,9 +13,7 @@ abstract class OnboardState with _$OnboardState {
 }
 
 class OnboardBloc extends HydratedCubit<OnboardState> {
-  OnboardBloc() : super(OnboardState(false)) {
-    reset();
-  }
+  OnboardBloc() : super(OnboardState(false));
 
   void complete() => emit(state.copyWith(done: true));
   void reset() => emit(state.copyWith(done: false));
