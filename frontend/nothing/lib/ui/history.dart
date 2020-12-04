@@ -102,6 +102,7 @@ class HistoryStack extends StatelessWidget {
         child: Row(mainAxisSize: MainAxisSize.max, children: [
           Expanded(
             child: FlatButton(
+              padding: const EdgeInsets.all(8.0),
               onPressed: () {
                 final pos = counter;
                 return () => context.bloc<ControlCubit>().select(pos);

@@ -72,23 +72,28 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
               : FeedState.empty(tree);
         },
         ground: () => error$(), // this should never happen
-        newArrived: (tree) {
-          print('Answer: ${tree.question.answers}');
-          return FeedState.available(tree: tree);
+        newArrived: (newTree) {
+          print('Answer: ${newTree.question.answers}');
+          if (tree.question.id == newTree.question.id) {
+            return FeedState.available(tree: newTree);
+          }
+          return null;
         },
       ),
-      pending: (oldTree, newTree) => event.when(
+      pending: (oldTree, nextTree) => event.when(
         moveNext: (_) => error$(), // this should never happen
         ground: () {
           print('Grounding');
-          questionsBloc.add(QuestionsEvent.fetch(newTree.question.id));
-          return FeedState.available(tree: newTree);
+          questionsBloc.add(QuestionsEvent.fetch(nextTree.question.id));
+          return FeedState.available(tree: nextTree);
         },
-        newArrived: (tree) {
+        newArrived: (newTree) {
           print('Arrived on pending');
-          return FeedState.available(tree: tree);
-
-          // return FeedState.pending(oldTree: tree, newTree: )
+          if (newTree.question.id != nextTree.question.id) {
+            questionsBloc.add(QuestionsEvent.fetch(nextTree.question.id));
+            return null;
+          }
+          return FeedState.pending(oldTree: oldTree, newTree: newTree);
         },
       ),
       empty: (oldTree) => event.when(
@@ -99,7 +104,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
         ground: () => FeedState.empty(null),
       ),
     );
-    yield next;
+    if (next != null) yield next;
   }
 
   @override

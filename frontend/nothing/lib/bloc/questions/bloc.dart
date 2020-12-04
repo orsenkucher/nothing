@@ -49,7 +49,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   int lastid;
   Stream<QuestionsState> _mapFetch(Fetch event) async* {
     if (event.currentid == null) {
-      final curid = event.currentid ?? historyBloc.state.ids.isEmpty ? 1 : -1;
+      final curid = historyBloc.state.ids.isEmpty ? 1 : -1;
       add(QuestionsEvent.fetch(curid));
       return;
     }

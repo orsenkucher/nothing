@@ -15,7 +15,7 @@ abstract class HintState with _$HintState {
 class HintBloc extends HydratedCubit<HintState> {
   HintBloc() : super(HintState(false));
 
-  void lock() => emit(state.copyWith(unlocked: false));
+  void lock() => emit(state.copyWith(unlocked: true)); //false
   void unlock() => emit(state.copyWith(unlocked: true));
 
   @override
