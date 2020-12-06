@@ -235,16 +235,26 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
               orElse: () => domain.void$(),
             );
           }),
-          BlocListener<FeedBloc, FeedState>(listener: (context, state) {
-            state.when(
-              available: (_) {
-                textController.clear();
-                textModel.update('');
-              },
-              pending: (_, __) => domain.void$(),
-              empty: (_) => domain.void$(),
-            );
-          }),
+          BlocListener<FeedBloc, FeedState>(
+            listener: (context, state) {
+              state.when(
+                available: (_) {
+                  textController.clear();
+                  textModel.update('');
+                },
+                pending: (_, __) => domain.void$(),
+                empty: (_) => domain.void$(),
+              );
+            },
+            listenWhen: (oldTree, newTree) {
+              if (oldTree is Available && newTree is Available) {
+                if (oldTree.tree.question.id == newTree.tree.question.id) {
+                  return false;
+                }
+              }
+              return true;
+            },
+          ),
         ],
         child: Visibility(
           visible: false,

@@ -14,9 +14,10 @@ class _$FeedEventTearOff {
   const _$FeedEventTearOff();
 
 // ignore: unused_element
-  NewArrived newArrived(QTree tree) {
+  NewArrived newArrived(QTree tree, [bool forced = false]) {
     return NewArrived(
       tree,
+      forced,
     );
   }
 
@@ -41,13 +42,13 @@ const $FeedEvent = _$FeedEventTearOff();
 mixin _$FeedEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult newArrived(QTree tree),
+    @required TResult newArrived(QTree tree, bool forced),
     @required TResult moveNext(MoveDir dir),
     @required TResult ground(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult newArrived(QTree tree),
+    TResult newArrived(QTree tree, bool forced),
     TResult moveNext(MoveDir dir),
     TResult ground(),
     @required TResult orElse(),
@@ -87,7 +88,7 @@ abstract class $NewArrivedCopyWith<$Res> {
   factory $NewArrivedCopyWith(
           NewArrived value, $Res Function(NewArrived) then) =
       _$NewArrivedCopyWithImpl<$Res>;
-  $Res call({QTree tree});
+  $Res call({QTree tree, bool forced});
 
   $QTreeCopyWith<$Res> get tree;
 }
@@ -104,9 +105,11 @@ class _$NewArrivedCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
   @override
   $Res call({
     Object tree = freezed,
+    Object forced = freezed,
   }) {
     return _then(NewArrived(
       tree == freezed ? _value.tree : tree as QTree,
+      forced == freezed ? _value.forced : forced as bool,
     ));
   }
 
@@ -123,14 +126,19 @@ class _$NewArrivedCopyWithImpl<$Res> extends _$FeedEventCopyWithImpl<$Res>
 
 /// @nodoc
 class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
-  const _$NewArrived(this.tree) : assert(tree != null);
+  const _$NewArrived(this.tree, [this.forced = false])
+      : assert(tree != null),
+        assert(forced != null);
 
   @override
   final QTree tree;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool forced;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FeedEvent.newArrived(tree: $tree)';
+    return 'FeedEvent.newArrived(tree: $tree, forced: $forced)';
   }
 
   @override
@@ -138,7 +146,8 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'FeedEvent.newArrived'))
-      ..add(DiagnosticsProperty('tree', tree));
+      ..add(DiagnosticsProperty('tree', tree))
+      ..add(DiagnosticsProperty('forced', forced));
   }
 
   @override
@@ -146,12 +155,16 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
     return identical(this, other) ||
         (other is NewArrived &&
             (identical(other.tree, tree) ||
-                const DeepCollectionEquality().equals(other.tree, tree)));
+                const DeepCollectionEquality().equals(other.tree, tree)) &&
+            (identical(other.forced, forced) ||
+                const DeepCollectionEquality().equals(other.forced, forced)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(tree);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(tree) ^
+      const DeepCollectionEquality().hash(forced);
 
   @override
   $NewArrivedCopyWith<NewArrived> get copyWith =>
@@ -160,27 +173,27 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult newArrived(QTree tree),
+    @required TResult newArrived(QTree tree, bool forced),
     @required TResult moveNext(MoveDir dir),
     @required TResult ground(),
   }) {
     assert(newArrived != null);
     assert(moveNext != null);
     assert(ground != null);
-    return newArrived(tree);
+    return newArrived(tree, forced);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult newArrived(QTree tree),
+    TResult newArrived(QTree tree, bool forced),
     TResult moveNext(MoveDir dir),
     TResult ground(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (newArrived != null) {
-      return newArrived(tree);
+      return newArrived(tree, forced);
     }
     return orElse();
   }
@@ -215,9 +228,10 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
 }
 
 abstract class NewArrived implements FeedEvent {
-  const factory NewArrived(QTree tree) = _$NewArrived;
+  const factory NewArrived(QTree tree, [bool forced]) = _$NewArrived;
 
   QTree get tree;
+  bool get forced;
   $NewArrivedCopyWith<NewArrived> get copyWith;
 }
 
@@ -298,7 +312,7 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult newArrived(QTree tree),
+    @required TResult newArrived(QTree tree, bool forced),
     @required TResult moveNext(MoveDir dir),
     @required TResult ground(),
   }) {
@@ -311,7 +325,7 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult newArrived(QTree tree),
+    TResult newArrived(QTree tree, bool forced),
     TResult moveNext(MoveDir dir),
     TResult ground(),
     @required TResult orElse(),
@@ -401,7 +415,7 @@ class _$Ground with DiagnosticableTreeMixin implements Ground {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult newArrived(QTree tree),
+    @required TResult newArrived(QTree tree, bool forced),
     @required TResult moveNext(MoveDir dir),
     @required TResult ground(),
   }) {
@@ -414,7 +428,7 @@ class _$Ground with DiagnosticableTreeMixin implements Ground {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult newArrived(QTree tree),
+    TResult newArrived(QTree tree, bool forced),
     TResult moveNext(MoveDir dir),
     TResult ground(),
     @required TResult orElse(),

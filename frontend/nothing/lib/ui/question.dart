@@ -10,6 +10,11 @@ class Question extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (context.watch<FeedBloc>().state is Empty) {
+      return CircularProgressIndicator(
+        backgroundColor: Colors.black,
+      );
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 24,

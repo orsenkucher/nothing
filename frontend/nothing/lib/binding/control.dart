@@ -20,7 +20,7 @@ class ControlCubit extends Cubit<ControlState> {
   void select(int level) {
     print('pos: $level');
     final tree = _makeQTree(level);
-    feed.add(FeedEvent.newArrived(tree));
+    feed.add(FeedEvent.newArrived(tree, true));
     emit(ControlState());
   }
 

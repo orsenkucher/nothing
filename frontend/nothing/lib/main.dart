@@ -11,6 +11,7 @@ import 'package:nothing/bloc/coin/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/hint/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
+import 'package:nothing/bloc/observer.dart';
 import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
@@ -29,6 +30,7 @@ import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/home.dart';
 
 void main() async {
+  Bloc.observer = NoBlocObserver();
   await _hydrateAsync();
   await _admob();
   if (Platform.isIOS) SystemChrome.setEnabledSystemUIOverlays([]);
@@ -114,6 +116,7 @@ class App extends StatelessWidget with PortraitLock {
             just: (just) {
               return just.maybeWhen(
                 correct: (question, tries, duration) {
+                  print('Reporting correct summary');
                   bloc.add(SummaryEvent.answer(
                     answers: tries,
                     qid: question.id,
@@ -122,6 +125,7 @@ class App extends StatelessWidget with PortraitLock {
                   ));
                 },
                 skip: (question, tries, duration) {
+                  print('Reporting skip summary');
                   bloc.add(SummaryEvent.answer(
                     answers: tries,
                     qid: question.id,
