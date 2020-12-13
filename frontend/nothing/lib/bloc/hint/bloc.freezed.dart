@@ -17,9 +17,10 @@ class _$HintStateTearOff {
   const _$HintStateTearOff();
 
 // ignore: unused_element
-  _HintState call(bool unlocked) {
+  _HintState call(bool unlocked, Map<int, bool> memory) {
     return _HintState(
       unlocked,
+      memory,
     );
   }
 
@@ -36,6 +37,7 @@ const $HintState = _$HintStateTearOff();
 /// @nodoc
 mixin _$HintState {
   bool get unlocked;
+  Map<int, bool> get memory;
 
   Map<String, dynamic> toJson();
   $HintStateCopyWith<HintState> get copyWith;
@@ -45,7 +47,7 @@ mixin _$HintState {
 abstract class $HintStateCopyWith<$Res> {
   factory $HintStateCopyWith(HintState value, $Res Function(HintState) then) =
       _$HintStateCopyWithImpl<$Res>;
-  $Res call({bool unlocked});
+  $Res call({bool unlocked, Map<int, bool> memory});
 }
 
 /// @nodoc
@@ -59,9 +61,11 @@ class _$HintStateCopyWithImpl<$Res> implements $HintStateCopyWith<$Res> {
   @override
   $Res call({
     Object unlocked = freezed,
+    Object memory = freezed,
   }) {
     return _then(_value.copyWith(
       unlocked: unlocked == freezed ? _value.unlocked : unlocked as bool,
+      memory: memory == freezed ? _value.memory : memory as Map<int, bool>,
     ));
   }
 }
@@ -72,7 +76,7 @@ abstract class _$HintStateCopyWith<$Res> implements $HintStateCopyWith<$Res> {
           _HintState value, $Res Function(_HintState) then) =
       __$HintStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool unlocked});
+  $Res call({bool unlocked, Map<int, bool> memory});
 }
 
 /// @nodoc
@@ -87,9 +91,11 @@ class __$HintStateCopyWithImpl<$Res> extends _$HintStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object unlocked = freezed,
+    Object memory = freezed,
   }) {
     return _then(_HintState(
       unlocked == freezed ? _value.unlocked : unlocked as bool,
+      memory == freezed ? _value.memory : memory as Map<int, bool>,
     ));
   }
 }
@@ -98,17 +104,21 @@ class __$HintStateCopyWithImpl<$Res> extends _$HintStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_HintState with DiagnosticableTreeMixin implements _HintState {
-  const _$_HintState(this.unlocked) : assert(unlocked != null);
+  const _$_HintState(this.unlocked, this.memory)
+      : assert(unlocked != null),
+        assert(memory != null);
 
   factory _$_HintState.fromJson(Map<String, dynamic> json) =>
       _$_$_HintStateFromJson(json);
 
   @override
   final bool unlocked;
+  @override
+  final Map<int, bool> memory;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HintState(unlocked: $unlocked)';
+    return 'HintState(unlocked: $unlocked, memory: $memory)';
   }
 
   @override
@@ -116,7 +126,8 @@ class _$_HintState with DiagnosticableTreeMixin implements _HintState {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'HintState'))
-      ..add(DiagnosticsProperty('unlocked', unlocked));
+      ..add(DiagnosticsProperty('unlocked', unlocked))
+      ..add(DiagnosticsProperty('memory', memory));
   }
 
   @override
@@ -125,12 +136,16 @@ class _$_HintState with DiagnosticableTreeMixin implements _HintState {
         (other is _HintState &&
             (identical(other.unlocked, unlocked) ||
                 const DeepCollectionEquality()
-                    .equals(other.unlocked, unlocked)));
+                    .equals(other.unlocked, unlocked)) &&
+            (identical(other.memory, memory) ||
+                const DeepCollectionEquality().equals(other.memory, memory)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(unlocked);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(unlocked) ^
+      const DeepCollectionEquality().hash(memory);
 
   @override
   _$HintStateCopyWith<_HintState> get copyWith =>
@@ -143,13 +158,15 @@ class _$_HintState with DiagnosticableTreeMixin implements _HintState {
 }
 
 abstract class _HintState implements HintState {
-  const factory _HintState(bool unlocked) = _$_HintState;
+  const factory _HintState(bool unlocked, Map<int, bool> memory) = _$_HintState;
 
   factory _HintState.fromJson(Map<String, dynamic> json) =
       _$_HintState.fromJson;
 
   @override
   bool get unlocked;
+  @override
+  Map<int, bool> get memory;
   @override
   _$HintStateCopyWith<_HintState> get copyWith;
 }

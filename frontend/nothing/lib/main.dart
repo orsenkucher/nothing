@@ -99,11 +99,25 @@ class App extends StatelessWidget with PortraitLock {
       listeners: [
         BlocListener<FeedBloc, FeedState>(
           listenWhen: (_, next) => next is Available,
-          listener: (context, _) {
-            print("Locking hint");
-            context.read<HintBloc>().lock();
+          listener: (context, available) {
+            final next = available as Available;
+            final id = next.tree.question.id;
+            context.read<HintBloc>().lock(id);
           },
-        )
+        ),
+        BlocListener<ValidationBloc, ValidationState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              just: (state) => state.maybeWhen(
+                correct: (question, _, __) {
+                  context.read<HintBloc>().unlockAnswered(question.id);
+                },
+                orElse: void$,
+              ),
+              orElse: void$,
+            );
+          },
+        ),
       ],
     );
   }
