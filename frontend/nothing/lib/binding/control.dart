@@ -5,7 +5,7 @@ import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/domain/domain.dart';
 
 class ControlState {
-  // const ControlState();
+  const ControlState();
 }
 
 class ControlCubit extends Cubit<ControlState> {
@@ -18,7 +18,7 @@ class ControlCubit extends Cubit<ControlState> {
   final HistoryBloc history;
 
   void select(int level) {
-    print('pos: $level');
+    print('level: $level');
     final tree = _makeQTree(level);
     feed.add(FeedEvent.newArrived(tree, true));
     emit(ControlState());

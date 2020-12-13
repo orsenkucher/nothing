@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nothing/binding/control.dart';
 import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/bloc/questions/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
@@ -142,20 +143,26 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
       color: NothingScheme.of(context).background,
       child: ScopedModel<TextModel>(
         model: textModel,
-        child: BlocBuilder<FeedBloc, FeedState>(
-          builder: (context, state) => _ifOnboarding(
-            context,
-            Stack(children: [
-              _buildGame(context),
-              _buildRefocusDetector(context),
-              _buildTitleKnobs(context, widget.pageController),
-              if (state is Pending) _buildContinueDetector(context),
-              _buildHintButtons(context, showHint, hintTintController),
-              _buildTinter(context, hintTintController),
-              if (showHint.value) _buildHint(context, showHint, hintTintController),
-              _buildTinter(context, widget.swipeTintController, true),
-              _buildTextField(context),
-            ]),
+        child: BlocListener<ControlCubit, ControlState>(
+          listener: (context, _) {
+            showHint.value = false;
+            hintTintController.fling(velocity: -1);
+          },
+          child: BlocBuilder<FeedBloc, FeedState>(
+            builder: (context, state) => _ifOnboarding(
+              context,
+              Stack(children: [
+                _buildGame(context),
+                _buildRefocusDetector(context),
+                _buildTitleKnobs(context, widget.pageController),
+                if (state is Pending) _buildContinueDetector(context),
+                _buildHintButtons(context, showHint, hintTintController),
+                _buildTinter(context, hintTintController),
+                if (showHint.value) _buildHint(context, showHint, hintTintController),
+                _buildTinter(context, widget.swipeTintController, true),
+                _buildTextField(context),
+              ]),
+            ),
           ),
         ),
       ),
