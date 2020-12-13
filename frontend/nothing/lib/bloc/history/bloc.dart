@@ -42,7 +42,10 @@ class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
     final id = event.item.answer.qid;
     if (state.ids.containsKey(id)) {
       final items = [...state.items];
-      items[items.indexWhere((it) => it.answer.qid == id)] = event.item;
+      final index = items.indexWhere((it) => it.answer.qid == id);
+      if (items[index].answer.tries < 1) {
+        items[index] = event.item;
+      }
       final next = state.copyWith(items: items);
       yield next;
     } else {
