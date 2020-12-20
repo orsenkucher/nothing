@@ -38,6 +38,7 @@ class Home extends HookWidget {
   Widget build(BuildContext context) {
     final focusNodeModel = FocusNodeModel(useFocusNode());
     final swipeTintController = useAnimationController();
+    final swipeMenuController = useAnimationController(upperBound: 2.0);
     final pageController = usePageController(initialPage: 1, keepPage: true);
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback(
@@ -58,7 +59,7 @@ class Home extends HookWidget {
         builder: (context) => Scaffold(
           backgroundColor: NothingScheme.of(context).background,
           body: NotificationListener<ScrollNotification>(
-            onNotification: _onScrollNotification(context, swipeTintController),
+            onNotification: _onScrollNotification(context, swipeTintController, swipeMenuController),
             child: PageView(
               controller: pageController,
               scrollDirection: Axis.horizontal,
@@ -68,7 +69,7 @@ class Home extends HookWidget {
                 const duration = Duration(milliseconds: 300);
                 const curve = swipeCurve;
                 void onBack() => pageController.animateToPage(1, duration: duration, curve: curve);
-                return [Menu(onBack), Main(swipeTintController, pageController), History(onBack)];
+                return [Menu(onBack, swipeMenuController), Main(swipeTintController, pageController), History(onBack)];
               }(),
             ),
           ),
@@ -80,6 +81,7 @@ class Home extends HookWidget {
   bool Function(ScrollNotification) _onScrollNotification(
     BuildContext context,
     AnimationController swipeTintController,
+    AnimationController swipeMenuController,
   ) {
     return (scrollNotification) {
       // this picks up events from history verticall ScrollView,
@@ -87,11 +89,14 @@ class Home extends HookWidget {
       if (scrollNotification is ScrollUpdateNotification) {
         final metrics = scrollNotification.metrics;
         if (metrics.axis == Axis.vertical) return false; // <- here
+
+        swipeMenuController.value = (metrics.viewportDimension - metrics.pixels) / metrics.viewportDimension;
+        swipeMenuController.notifyListeners();
+
         if (!context.read<OnboardBloc>().state.done) {
           swipeTintController.value = 0.0;
           return false;
-        }
-        ; // currently onboarding
+        } // currently onboarding
         final offset = (metrics.viewportDimension - metrics.pixels).abs();
         final value = (offset / metrics.viewportDimension).clamp(0.0, 1.0);
         swipeTintController.value = value;

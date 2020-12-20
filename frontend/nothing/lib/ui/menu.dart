@@ -4,12 +4,14 @@ import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 
 class Menu extends StatefulWidget {
-  final void Function() onBack;
-
   const Menu(
-    this.onBack, {
+    this.onBack,
+    this.swipeController, {
     Key key,
   }) : super(key: key);
+
+  final void Function() onBack;
+  final AnimationController swipeController;
 
   @override
   _MenuState createState() => _MenuState();
@@ -33,15 +35,26 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
             child: Container(color: NothingScheme.of(context).background),
           ),
           SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 40, bottom: 32),
-                  child: Text('Меню', style: TextStyle(fontSize: 36)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 40, bottom: 32),
+                child: Text('Меню', style: TextStyle(fontSize: 36)),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: AnimatedBuilder(
+                  animation: widget.swipeController,
+                  builder: (context, child) {
+                    final value = widget.swipeController.value;
+                    return Transform(
+                      transform: Matrix4.identity()
+                        ..setEntry(3, 2, -0.01)
+                        ..setEntry(1, 2, -0.1)
+                        ..rotateY((1 - value) / 10),
+                      alignment: FractionalOffset.center,
+                      child: child,
+                    );
+                  },
                   child: Card(
                     elevation: 2,
                     child: Padding(
@@ -82,8 +95,8 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ]),
           ),
           Align(
             alignment: Alignment.topRight,
