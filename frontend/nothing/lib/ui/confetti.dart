@@ -20,7 +20,7 @@ class _ConfettiState extends State<Confetti> {
   void initState() {
     super.initState();
     _controller = ConfettiController(duration: const Duration(seconds: 10));
-    _correctController = ConfettiController(duration: const Duration(milliseconds: 600));
+    _correctController = ConfettiController(duration: const Duration(milliseconds: 700));
     _controller.play();
   }
 
@@ -38,7 +38,6 @@ class _ConfettiState extends State<Confetti> {
 
   Widget _listenValidation(BuildContext context, Widget child) {
     return BlocListener<ValidationBloc, ValidationState>(
-      // listenWhen: (_, next)=>next .maybeWhen(orElse: false),
       listener: (context, state) {
         state.maybeWhen(
           just: (state) {
@@ -70,30 +69,30 @@ class _ConfettiState extends State<Confetti> {
 
   Widget _build(BuildContext context) {
     const colors = [Colors.blue, Colors.pink, Colors.orange, Colors.purple];
-    final feed = context.watch<FeedBloc>().state;
-    if (feed is Available && feed.tree.question.id == 1) {
-      return ConfettiWidget(
-        confettiController: _controller,
-        blastDirectionality: BlastDirectionality.explosive, // don't specify a direction, blast randomly
-        shouldLoop: true, // start again as soon as the animation is finished
-        colors: colors,
-      );
-    }
-    return Align(
-      alignment: Alignment.topCenter,
-      child: ConfettiWidget(
-        confettiController: _correctController,
-        blastDirection: pi / 2,
-        maxBlastForce: 5, // set a lower max blast force
-        minBlastForce: 2, // set a lower min blast force
-        emissionFrequency: 0.25,
-        numberOfParticles: 50, // a lot of particles at once
-        blastDirectionality: BlastDirectionality.explosive,
-        // shouldLoop: true,
-        particleDrag: 0.01,
-        gravity: 0.2,
-        colors: colors,
-      ),
+    return Stack(
+      children: [
+        ConfettiWidget(
+          confettiController: _controller,
+          blastDirectionality: BlastDirectionality.explosive, // don't specify a direction, blast randomly
+          shouldLoop: true, // start again as soon as the animation is finished
+          colors: colors,
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: ConfettiWidget(
+            confettiController: _correctController,
+            blastDirection: pi / 2,
+            maxBlastForce: 5, // set a lower max blast force
+            minBlastForce: 2, // set a lower min blast force
+            emissionFrequency: 0.25,
+            numberOfParticles: 42, // a lot of particles at once
+            blastDirectionality: BlastDirectionality.explosive,
+            particleDrag: 0.01,
+            gravity: 0.2,
+            colors: colors,
+          ),
+        )
+      ],
     );
   }
 }
