@@ -2,33 +2,32 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_admob/firebase_admob.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:nothing/binding/control.dart';
-import 'package:nothing/bloc/onboard/bloc.dart';
-import 'package:nothing/bloc/questions/bloc.dart';
-import 'package:nothing/bloc/validation/bloc.dart';
-import 'package:nothing/hooks/pagecontroller.dart';
-import 'package:nothing/icons/icons.dart';
-import 'package:nothing/model/focusnode.dart';
-import 'package:nothing/repository/likes.dart';
-import 'package:nothing/ui/fade_in.dart';
-import 'package:nothing/ui/menu.dart';
-import 'package:nothing/ui/onboarding.dart';
-import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nothing/binding/control.dart';
 import 'package:nothing/bloc/ad/bloc.dart';
-import 'package:nothing/bloc/hint/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/bloc/hint/bloc.dart';
+import 'package:nothing/bloc/onboard/bloc.dart';
+import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart' as domain;
+import 'package:nothing/hooks/pagecontroller.dart';
+import 'package:nothing/icons/icons.dart';
+import 'package:nothing/model/focusnode.dart';
 import 'package:nothing/model/text.dart';
-import 'package:nothing/ui/history.dart';
+import 'package:nothing/repository/likes.dart';
 import 'package:nothing/ui/answer.dart';
+import 'package:nothing/ui/fade_in.dart';
+import 'package:nothing/ui/history.dart';
 import 'package:nothing/ui/knob.dart';
 import 'package:nothing/ui/label.dart';
+import 'package:nothing/ui/menu.dart';
+import 'package:nothing/ui/onboarding.dart';
 import 'package:nothing/ui/question.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 const swipeCurve = Curves.fastOutSlowIn;
 
@@ -187,7 +186,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
       begin: alt ? Colors.white.withOpacity(0.0) : Colors.transparent,
       end: alt ? Colors.white.withOpacity(0.9) : Colors.black.withOpacity(0.1),
     ).animate(CurvedAnimation(
-      curve: Curves.easeInCubic,
+      curve: Curves.easeOutCubic,
       parent: controller,
     ));
     return AnimatedBuilder(
