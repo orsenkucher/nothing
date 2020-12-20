@@ -20,6 +20,7 @@ import 'package:nothing/model/focusnode.dart';
 import 'package:nothing/model/text.dart';
 import 'package:nothing/repository/likes.dart';
 import 'package:nothing/ui/answer.dart';
+import 'package:nothing/ui/confetti.dart';
 import 'package:nothing/ui/fade_in.dart';
 import 'package:nothing/ui/history.dart';
 import 'package:nothing/ui/knob.dart';
@@ -157,6 +158,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
               context,
               Stack(children: [
                 _buildGame(context),
+                Confetti(), // Container(color: Colors.red),
                 _buildRefocusDetector(context),
                 _buildTitleKnobs(context, widget.pageController),
                 if (state is Pending) _buildContinueDetector(context),

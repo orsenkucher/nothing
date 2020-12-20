@@ -13,7 +13,7 @@ abstract class HintState with _$HintState {
 }
 
 class HintBloc extends HydratedCubit<HintState> {
-  HintBloc() : super(HintState(false, <int, bool>{}));
+  HintBloc() : super(HintState(false, <int, bool>{1: true}));
   int current;
 
   void lock(int id) {
