@@ -1,13 +1,15 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart';
 import 'package:nothing/model/text.dart';
-// import 'package:vibrate/vibrate.dart';
 
 class Answer extends HookWidget {
   const Answer({Key key}) : super(key: key);
@@ -48,7 +50,6 @@ class Answer extends HookWidget {
 
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
-        // if (state is! Pending) {
         if (state is Available) {
           controller.reset();
         }
@@ -71,8 +72,9 @@ class Answer extends HookWidget {
                 await controller.reverse();
               },
               correct: (_) async {
-                // var type = FeedbackType.success;
-                // Vibrate.feedback(type);
+                if (Platform.isIOS) {
+                  Vibrate.feedback(FeedbackType.success);
+                }
                 await controller.forward();
                 // controller.reset();
               },
