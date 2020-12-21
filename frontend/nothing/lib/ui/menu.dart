@@ -101,8 +101,9 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
           Align(
             alignment: Alignment.topRight,
             child: Padding(
-              padding: const EdgeInsets.all(40),
+              padding: const EdgeInsets.all(12),
               child: IconButton(
+                padding: const EdgeInsets.all(40),
                 icon: Icon(Icons.arrow_forward_ios),
                 onPressed: widget.onBack,
               ),

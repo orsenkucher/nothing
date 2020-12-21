@@ -44,8 +44,9 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: const EdgeInsets.all(40),
+              padding: const EdgeInsets.all(12),
               child: IconButton(
+                padding: const EdgeInsets.all(40),
                 icon: Icon(Icons.arrow_back_ios),
                 onPressed: widget.onBack,
               ),
