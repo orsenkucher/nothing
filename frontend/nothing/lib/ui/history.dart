@@ -11,8 +11,13 @@ import 'package:nothing/icons/icons.dart';
 class History extends StatefulWidget {
   final void Function() onBack;
   final AnimationController swipeController;
+  final AnimationController tiltController;
 
-  const History(this.onBack, this.swipeController);
+  const History(
+    this.onBack,
+    this.swipeController,
+    this.tiltController,
+  );
 
   @override
   _HistoryState createState() => _HistoryState();
@@ -35,12 +40,20 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
             padding: const EdgeInsets.only(left: 100),
             child: Container(
               color: NothingScheme.of(context).background,
-              child: HistoryStack(swipeController: widget.swipeController),
+              child: HistoryStack(
+                swipeController: widget.swipeController,
+                tiltController: widget.tiltController,
+              ),
             ),
           ),
           SizedBox(
             width: 100,
-            child: FuzzyOut(height: 120, loc: Location.up, colors: colors, stops: const [0.5, 0.8]),
+            child: FuzzyOut(
+              height: 120,
+              loc: Location.up,
+              colors: colors,
+              stops: const [0.5, 0.8],
+            ),
           ),
           Align(
             alignment: Alignment.topCenter,
@@ -79,9 +92,11 @@ class HistoryStack extends StatelessWidget {
   const HistoryStack({
     Key key,
     this.swipeController,
+    this.tiltController,
   }) : super(key: key);
 
   final AnimationController swipeController;
+  final AnimationController tiltController;
 
   @override
   Widget build(BuildContext context) {
@@ -120,18 +135,33 @@ class HistoryStack extends StatelessWidget {
                   final value = swipeController.value;
                   return Transform.translate(offset: Offset(value * 100 / 2, 0), child: child);
                 },
-                child: Transform.translate(
-                  offset: const Offset(-24, -4),
-                  child: Transform.scale(
-                    scale: 1.18,
-                    child: Card(
-                      margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
-                      // margin: const EdgeInsets.all(6.0),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                      clipBehavior: Clip.antiAlias,
-                      elevation: 2,
-                      color: Colors.black,
-                      child: SizedBox.expand(),
+                child: AnimatedBuilder(
+                  animation: tiltController,
+                  builder: (context, child) {
+                    final value = tiltController.value;
+                    print(value);
+                    return Transform(
+                      transform: Matrix4.identity()
+                        ..setEntry(3, 2, 0.01)
+                        ..rotateX((value) / 100),
+                      // offset: Offset(0, (value * 2).clamp(-20.0, 20.0)),
+                      alignment: FractionalOffset.center,
+                      child: child,
+                    );
+                  },
+                  child: Transform.translate(
+                    offset: const Offset(-24, -4),
+                    child: Transform.scale(
+                      scale: 1.18,
+                      child: Card(
+                        margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
+                        // margin: const EdgeInsets.all(6.0),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                        clipBehavior: Clip.antiAlias,
+                        elevation: 2,
+                        color: Colors.black,
+                        child: SizedBox.expand(),
+                      ),
                     ),
                   ),
                 ),

@@ -41,6 +41,7 @@ class Home extends HookWidget {
     final swipeTintController = useAnimationController();
     final swipeMenuController = useAnimationController(upperBound: 2.0);
     final swipeHistoryController = useAnimationController(lowerBound: -2.0);
+    final tiltHistoryController = useAnimationController(upperBound: 20.0, lowerBound: -20.0);
     final pageController = usePageController(initialPage: 1, keepPage: true);
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback(
@@ -66,6 +67,7 @@ class Home extends HookWidget {
               swipeTintController,
               swipeMenuController,
               swipeHistoryController,
+              tiltHistoryController,
             ),
             child: PageView(
               controller: pageController,
@@ -79,7 +81,7 @@ class Home extends HookWidget {
                 return [
                   Menu(onBack, swipeMenuController),
                   Main(swipeTintController, pageController),
-                  History(onBack, swipeHistoryController),
+                  History(onBack, swipeHistoryController, tiltHistoryController),
                 ];
               }(),
             ),
@@ -94,13 +96,20 @@ class Home extends HookWidget {
     AnimationController swipeTintController,
     AnimationController swipeMenuController,
     AnimationController swipeHistoryController,
+    AnimationController tiltHistoryController,
   ) {
     return (scrollNotification) {
       // this picks up events from history verticall ScrollView,
       // so need to filter it by axis ->
       if (scrollNotification is ScrollUpdateNotification) {
         final metrics = scrollNotification.metrics;
-        if (metrics.axis == Axis.vertical) return false; // <- here
+
+        if (metrics.axis == Axis.vertical) {
+          final delta = scrollNotification.scrollDelta;
+          tiltHistoryController.value = delta;
+          tiltHistoryController.notifyListeners();
+          return false;
+        } // <- here
 
         swipeMenuController.value = (metrics.viewportDimension - metrics.pixels) / metrics.viewportDimension;
         swipeMenuController.notifyListeners();
