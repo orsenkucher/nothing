@@ -40,11 +40,7 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
           ),
           SizedBox(
             width: 100,
-            child: FuzzyOut(height: 120, loc: Location.up, colors: colors),
-          ),
-          SizedBox(
-            width: 100,
-            child: FuzzyOut(height: 32, loc: Location.down, stops: const [0, 1], colors: colors),
+            child: FuzzyOut(height: 120, loc: Location.up, colors: colors, stops: const [0.5, 0.8]),
           ),
           Align(
             alignment: Alignment.topCenter,
@@ -106,8 +102,7 @@ class HistoryStack extends StatelessWidget {
           ),
         ),
       ),
-      FuzzyOut(height: 120, loc: Location.up, colors: colors),
-      FuzzyOut(height: 32, loc: Location.down, stops: const [0, 1], colors: colors),
+      FuzzyOut(height: 120, loc: Location.up, colors: colors, stops: const [0.5, 0.8]),
     ]);
   }
 
