@@ -180,32 +180,30 @@ class HistoryStack extends StatelessWidget {
                   ),
                 ),
               ),
-            Expanded(
-              child: FlatButton(
-                padding: const EdgeInsets.all(8.0),
-                onPressed: () {
-                  final pos = counter;
-                  return () => context.bloc<ControlCubit>().select(pos);
-                }(),
-                splashColor: Colors.white.withOpacity(0.2),
-                // splashColor: NothingScheme.of(context).hint.withOpacity(0.2),
-                // highlightColor: NothingScheme.of(context).neutral.withOpacity(0.1),
-                child: Row(mainAxisSize: MainAxisSize.max, children: [
-                  Flexible(
-                    child: Text(
-                      '${counter += 1}. ${it.question.question}',
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: false,
-                      style: TextStyle(
-                        fontSize: 31,
-                        color: _itemColor(context, it.answer),
-                      ),
+            FlatButton(
+              padding: const EdgeInsets.all(8.0),
+              onPressed: () {
+                final pos = counter;
+                return () => context.bloc<ControlCubit>().select(pos);
+              }(),
+              splashColor: Colors.white.withOpacity(0.2),
+              // splashColor: NothingScheme.of(context).hint.withOpacity(0.2),
+              // highlightColor: NothingScheme.of(context).neutral.withOpacity(0.1),
+              child: Row(mainAxisSize: MainAxisSize.max, children: [
+                Flexible(
+                  child: Text(
+                    '${counter += 1}. ${it.question.question}',
+                    maxLines: 1,
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                    style: TextStyle(
+                      fontSize: 31,
+                      color: _itemColor(context, it.answer),
                     ),
                   ),
-                ]),
-              ),
+                ),
+              ]),
             ),
           ],
         ),
