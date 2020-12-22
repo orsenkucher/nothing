@@ -11,8 +11,14 @@ class Question extends HookWidget {
   @override
   Widget build(BuildContext context) {
     if (context.watch<FeedBloc>().state is Empty) {
-      return CircularProgressIndicator(
-        backgroundColor: Colors.black,
+      return SizedBox(
+        height: 200,
+        width: 200,
+        child: CircularProgressIndicator(
+          strokeWidth: 2.0,
+          valueColor: AlwaysStoppedAnimation(NothingScheme.of(context).background),
+          backgroundColor: Colors.amber,
+        ),
       );
     }
     return Padding(
