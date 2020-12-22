@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/binding/control.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/icons/icons.dart';
 
 class History extends StatefulWidget {
   final void Function() onBack;
@@ -21,7 +24,7 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
+    final colors = [Colors.amber, Colors.amber.withOpacity(0)];
     return _feedListener(Container(
       color: Colors.amber,
       child: Stack(
@@ -33,6 +36,14 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
               color: NothingScheme.of(context).background,
               child: HistoryStack(),
             ),
+          ),
+          SizedBox(
+            width: 100,
+            child: FuzzyOut(height: 120, loc: Location.up, colors: colors),
+          ),
+          SizedBox(
+            width: 100,
+            child: FuzzyOut(height: 32, loc: Location.down, stops: const [0, 1], colors: colors),
           ),
           Align(
             alignment: Alignment.topCenter,
@@ -74,12 +85,13 @@ class HistoryStack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = [NothingScheme.of(context).historyBg, NothingScheme.of(context).historyBg.withOpacity(0)];
     return Stack(children: [
       BlocBuilder<HistoryBloc, HistoryState>(
         builder: (context, state) => Container(
-          color: NothingScheme.of(context).historyBg,
           child: ListView(
             itemExtent: 60,
+            clipBehavior: Clip.none,
             physics: const BouncingScrollPhysics(),
             children: [
               const SizedBox(),
@@ -90,8 +102,8 @@ class HistoryStack extends StatelessWidget {
           ),
         ),
       ),
-      FuzzyOut(height: 120, loc: Location.up),
-      FuzzyOut(height: 32, loc: Location.down, stops: const [0, 1]),
+      FuzzyOut(height: 120, loc: Location.up, colors: colors),
+      FuzzyOut(height: 32, loc: Location.down, stops: const [0, 1], colors: colors),
     ]);
   }
 
@@ -100,39 +112,87 @@ class HistoryStack extends StatelessWidget {
     return items.map(
       (it) => Padding(
         padding: const EdgeInsets.only(left: 12),
-        child: Row(mainAxisSize: MainAxisSize.max, children: [
-          Expanded(
-            child: FlatButton(
-              padding: const EdgeInsets.all(8.0),
-              onPressed: () {
-                final pos = counter;
-                return () => context.bloc<ControlCubit>().select(pos);
-              }(),
-              // splashColor: NothingScheme.of(context).hint.withOpacity(0.2),
-              // highlightColor: NothingScheme.of(context).neutral.withOpacity(0.1),
-              child: Row(mainAxisSize: MainAxisSize.max, children: [
-                Flexible(
-                  child: Text(
-                    '${counter += 1}. ${it.question.question}',
-                    maxLines: 1,
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 31,
-                      color: _itemColor(context, it.answer),
+        child: Stack(
+          children: [
+            if (it.answer.tries < 1)
+              Transform.translate(
+                offset: const Offset(-24, -4),
+                child: Transform.scale(
+                  scale: 1.18,
+                  child: Card(
+                    margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
+                    // margin: const EdgeInsets.all(6.0),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                    clipBehavior: Clip.antiAlias,
+                    elevation: 2,
+                    color: Colors.black,
+                    child: SizedBox.expand(),
+                  ),
+                ),
+              ),
+            Expanded(
+              child: FlatButton(
+                padding: const EdgeInsets.all(8.0),
+                onPressed: () {
+                  final pos = counter;
+                  return () => context.bloc<ControlCubit>().select(pos);
+                }(),
+                splashColor: Colors.white.withOpacity(0.2),
+                // splashColor: NothingScheme.of(context).hint.withOpacity(0.2),
+                // highlightColor: NothingScheme.of(context).neutral.withOpacity(0.1),
+                child: Row(mainAxisSize: MainAxisSize.max, children: [
+                  Flexible(
+                    child: Text(
+                      '${counter += 1}. ${it.question.question}',
+                      maxLines: 1,
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: TextStyle(
+                        fontSize: 31,
+                        color: _itemColor(context, it.answer),
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+            ),
+            if (it.answer.tries < 1)
+              Transform.translate(
+                offset: const Offset(-62, -4),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Card(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+                    clipBehavior: Clip.antiAlias,
+                    elevation: 2,
+                    color: Colors.black,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: counter == items.length
+                          ? Transform.rotate(
+                              angle: pi,
+                              child: Transform.scale(
+                                scale: 0.65,
+                                child: Icon(NothingFont.skip, color: Colors.white),
+                              ),
+                            )
+                          : Transform.scale(
+                              scale: 0.65,
+                              child: Icon(NothingFont.skip, color: Colors.white),
+                            ),
                     ),
                   ),
                 ),
-              ]),
-            ),
-          ),
-        ]),
+              ),
+          ],
+        ),
       ),
     );
   }
 
   Color _itemColor(BuildContext context, SummaryAnswer answer) =>
-      answer.tries > 0 ? NothingScheme.of(context).question : NothingScheme.of(context).skip;
+      answer.tries > 0 ? NothingScheme.of(context).question : Colors.white;
 }
 
 enum Location { up, down }
@@ -153,7 +213,8 @@ class FuzzyOut extends StatelessWidget {
   final Location loc;
   final double height;
   final List<double> stops;
-  const FuzzyOut({this.loc, this.height, this.stops = const [0.5, 1]});
+  final List<Color> colors;
+  const FuzzyOut({this.loc, this.height, this.colors, this.stops = const [0.5, 1]});
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +224,7 @@ class FuzzyOut extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [NothingScheme.of(context).historyBg, NothingScheme.of(context).historyBg.withOpacity(0)],
+            colors: colors,
             begin: loc.alignment,
             end: (~loc).alignment,
             stops: stops,
