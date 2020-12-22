@@ -158,18 +158,28 @@ class HistoryStack extends StatelessWidget {
                       color: Colors.black,
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
-                        child: counter == items.length - 1
-                            ? Transform.rotate(
-                                angle: pi,
-                                child: Transform.scale(
+                        child: AnimatedBuilder(
+                          animation: swipeController,
+                          builder: (context, child) {
+                            final value = swipeController.value;
+                            return Opacity(
+                              opacity: (1 - value * 3).clamp(0.0, 1.0),
+                              child: child,
+                            );
+                          },
+                          child: counter == items.length - 1
+                              ? Transform.rotate(
+                                  angle: pi,
+                                  child: Transform.scale(
+                                    scale: 0.65,
+                                    child: Icon(NothingFont.skip, color: Colors.white),
+                                  ),
+                                )
+                              : Transform.scale(
                                   scale: 0.65,
                                   child: Icon(NothingFont.skip, color: Colors.white),
                                 ),
-                              )
-                            : Transform.scale(
-                                scale: 0.65,
-                                child: Icon(NothingFont.skip, color: Colors.white),
-                              ),
+                        ),
                       ),
                     ),
                   ),
