@@ -40,6 +40,7 @@ class Home extends HookWidget {
     final focusNodeModel = FocusNodeModel(useFocusNode());
     final swipeTintController = useAnimationController();
     final swipeMenuController = useAnimationController(upperBound: 2.0);
+    final swipeHistoryController = useAnimationController(lowerBound: -2.0);
     final pageController = usePageController(initialPage: 1, keepPage: true);
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback(
@@ -60,7 +61,12 @@ class Home extends HookWidget {
         builder: (context) => Scaffold(
           backgroundColor: NothingScheme.of(context).background,
           body: NotificationListener<ScrollNotification>(
-            onNotification: _onScrollNotification(context, swipeTintController, swipeMenuController),
+            onNotification: _onScrollNotification(
+              context,
+              swipeTintController,
+              swipeMenuController,
+              swipeHistoryController,
+            ),
             child: PageView(
               controller: pageController,
               scrollDirection: Axis.horizontal,
@@ -70,7 +76,11 @@ class Home extends HookWidget {
                 const duration = Duration(milliseconds: 300);
                 const curve = swipeCurve;
                 void onBack() => pageController.animateToPage(1, duration: duration, curve: curve);
-                return [Menu(onBack, swipeMenuController), Main(swipeTintController, pageController), History(onBack)];
+                return [
+                  Menu(onBack, swipeMenuController),
+                  Main(swipeTintController, pageController),
+                  History(onBack, swipeHistoryController),
+                ];
               }(),
             ),
           ),
@@ -83,6 +93,7 @@ class Home extends HookWidget {
     BuildContext context,
     AnimationController swipeTintController,
     AnimationController swipeMenuController,
+    AnimationController swipeHistoryController,
   ) {
     return (scrollNotification) {
       // this picks up events from history verticall ScrollView,
@@ -93,6 +104,9 @@ class Home extends HookWidget {
 
         swipeMenuController.value = (metrics.viewportDimension - metrics.pixels) / metrics.viewportDimension;
         swipeMenuController.notifyListeners();
+
+        swipeHistoryController.value = (metrics.viewportDimension * 2 - metrics.pixels) / metrics.viewportDimension;
+        swipeHistoryController.notifyListeners();
 
         if (!context.read<OnboardBloc>().state.done) {
           swipeTintController.value = 0.0;

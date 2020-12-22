@@ -10,8 +10,9 @@ import 'package:nothing/icons/icons.dart';
 
 class History extends StatefulWidget {
   final void Function() onBack;
+  final AnimationController swipeController;
 
-  const History(this.onBack);
+  const History(this.onBack, this.swipeController);
 
   @override
   _HistoryState createState() => _HistoryState();
@@ -34,7 +35,7 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
             padding: const EdgeInsets.only(left: 100),
             child: Container(
               color: NothingScheme.of(context).background,
-              child: HistoryStack(),
+              child: HistoryStack(swipeController: widget.swipeController),
             ),
           ),
           SizedBox(
@@ -81,7 +82,10 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
 class HistoryStack extends StatelessWidget {
   const HistoryStack({
     Key key,
+    this.swipeController,
   }) : super(key: key);
+
+  final AnimationController swipeController;
 
   @override
   Widget build(BuildContext context) {
@@ -115,18 +119,64 @@ class HistoryStack extends StatelessWidget {
         child: Stack(
           children: [
             if (it.answer.tries < 1)
-              Transform.translate(
-                offset: const Offset(-24, -4),
-                child: Transform.scale(
-                  scale: 1.18,
-                  child: Card(
-                    margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
-                    // margin: const EdgeInsets.all(6.0),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-                    clipBehavior: Clip.antiAlias,
-                    elevation: 2,
-                    color: Colors.black,
-                    child: SizedBox.expand(),
+              AnimatedBuilder(
+                animation: swipeController,
+                builder: (context, child) {
+                  final value = swipeController.value;
+                  return Transform.translate(offset: Offset(value * 100 / 2, 0), child: child);
+                },
+                child: Transform.translate(
+                  offset: const Offset(-24, -4),
+                  child: Transform.scale(
+                    scale: 1.18,
+                    child: Card(
+                      margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
+                      // margin: const EdgeInsets.all(6.0),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                      clipBehavior: Clip.antiAlias,
+                      elevation: 2,
+                      color: Colors.black,
+                      child: SizedBox.expand(),
+                    ),
+                  ),
+                ),
+              ),
+            if (it.answer.tries < 1)
+              AnimatedBuilder(
+                animation: swipeController,
+                builder: (context, child) {
+                  final value = swipeController.value;
+                  return Transform.scale(
+                    scale: 1 - value,
+                    alignment: FractionalOffset.center,
+                    child: child,
+                  );
+                },
+                child: Transform.translate(
+                  offset: const Offset(-62, -4),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Card(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+                      clipBehavior: Clip.antiAlias,
+                      elevation: 2,
+                      color: Colors.black,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: counter == items.length - 1
+                            ? Transform.rotate(
+                                angle: pi,
+                                child: Transform.scale(
+                                  scale: 0.65,
+                                  child: Icon(NothingFont.skip, color: Colors.white),
+                                ),
+                              )
+                            : Transform.scale(
+                                scale: 0.65,
+                                child: Icon(NothingFont.skip, color: Colors.white),
+                              ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -157,34 +207,6 @@ class HistoryStack extends StatelessWidget {
                 ]),
               ),
             ),
-            if (it.answer.tries < 1)
-              Transform.translate(
-                offset: const Offset(-62, -4),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-                    clipBehavior: Clip.antiAlias,
-                    elevation: 2,
-                    color: Colors.black,
-                    child: Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: counter == items.length
-                          ? Transform.rotate(
-                              angle: pi,
-                              child: Transform.scale(
-                                scale: 0.65,
-                                child: Icon(NothingFont.skip, color: Colors.white),
-                              ),
-                            )
-                          : Transform.scale(
-                              scale: 0.65,
-                              child: Icon(NothingFont.skip, color: Colors.white),
-                            ),
-                    ),
-                  ),
-                ),
-              ),
           ],
         ),
       ),
