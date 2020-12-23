@@ -12,11 +12,14 @@ part 'bloc.g.dart';
 
 @freezed
 abstract class HistoryItem with _$HistoryItem {
+  const HistoryItem._();
   const factory HistoryItem({
     @required SummaryAnswer answer,
     @required Question question,
   }) = _HistoryItem;
   factory HistoryItem.fromJson(Map<String, dynamic> json) => _$HistoryItemFromJson(json);
+
+  bool get answered => answer.tries < 1;
 }
 
 @freezed
@@ -43,7 +46,7 @@ class HistoryBloc extends HydratedBloc<HistoryEvent, HistoryState> {
     if (state.ids.containsKey(id)) {
       final items = [...state.items];
       final index = items.indexWhere((it) => it.answer.qid == id);
-      if (items[index].answer.tries < 1) {
+      if (items[index].answered) {
         items[index] = event.item;
       }
       final next = state.copyWith(items: items);

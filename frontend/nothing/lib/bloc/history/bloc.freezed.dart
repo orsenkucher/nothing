@@ -135,10 +135,11 @@ class __$HistoryItemCopyWithImpl<$Res> extends _$HistoryItemCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_HistoryItem with DiagnosticableTreeMixin implements _HistoryItem {
+class _$_HistoryItem extends _HistoryItem with DiagnosticableTreeMixin {
   const _$_HistoryItem({@required this.answer, @required this.question})
       : assert(answer != null),
-        assert(question != null);
+        assert(question != null),
+        super._();
 
   factory _$_HistoryItem.fromJson(Map<String, dynamic> json) =>
       _$_$_HistoryItemFromJson(json);
@@ -189,7 +190,8 @@ class _$_HistoryItem with DiagnosticableTreeMixin implements _HistoryItem {
   }
 }
 
-abstract class _HistoryItem implements HistoryItem {
+abstract class _HistoryItem extends HistoryItem {
+  const _HistoryItem._() : super._();
   const factory _HistoryItem(
       {@required SummaryAnswer answer,
       @required Question question}) = _$_HistoryItem;

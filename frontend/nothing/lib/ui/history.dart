@@ -109,11 +109,11 @@ class HistoryStack extends StatelessWidget {
   Iterable<Widget> _items(BuildContext context, List<HistoryItem> items) {
     var counter = 0;
     return items.map(
-      (it) => Padding(
+      (item) => Padding(
         padding: const EdgeInsets.only(left: 12),
         child: Stack(
           children: [
-            if (it.answer.tries < 1)
+            if (item.answered)
               AnimatedBuilder(
                 animation: swipeController,
                 builder: (context, child) {
@@ -136,7 +136,7 @@ class HistoryStack extends StatelessWidget {
                   ),
                 ),
               ),
-            if (it.answer.tries < 1)
+            if (item.answered)
               AnimatedBuilder(
                 animation: swipeController,
                 builder: (context, child) {
@@ -189,6 +189,7 @@ class HistoryStack extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               onPressed: () {
                 final pos = counter;
+                // if (item.answered) return null;
                 return () => context.bloc<ControlCubit>().select(pos);
               }(),
               splashColor: Colors.white.withOpacity(0.2),
@@ -197,14 +198,14 @@ class HistoryStack extends StatelessWidget {
               child: Row(mainAxisSize: MainAxisSize.max, children: [
                 Flexible(
                   child: Text(
-                    '${counter += 1}. ${it.question.question}',
+                    '${counter += 1}. ${item.question.question}',
                     maxLines: 1,
                     textAlign: TextAlign.start,
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
                     style: TextStyle(
                       fontSize: 31,
-                      color: _itemColor(context, it.answer),
+                      color: _itemColor(context, item.answer),
                     ),
                   ),
                 ),
