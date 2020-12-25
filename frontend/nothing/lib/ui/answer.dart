@@ -9,10 +9,13 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart';
+import 'package:nothing/model/focusnode.dart';
 import 'package:nothing/model/text.dart';
 
 class Answer extends HookWidget {
-  const Answer({Key key}) : super(key: key);
+  const Answer(this.textController, {Key key}) : super(key: key);
+
+  final TextEditingController textController;
 
   @override
   Widget build(BuildContext context) {
@@ -163,13 +166,12 @@ class Answer extends HookWidget {
                 ),
               ),
             ),
-            child: SizedBox.expand(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0, right: 28.0),
+                  child: Center(
+                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Flexible(
                         child: AutoSizeText(
                           TextModel.of(context).text ?? '',
@@ -188,10 +190,40 @@ class Answer extends HookWidget {
                           child: Blinker(),
                         ),
                       ),
-                    ],
+                    ]),
                   ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Transform.translate(
+                    offset: const Offset(16.0, 0.0),
+                    child: FlatButton(
+                      shape: CircleBorder(),
+                      padding: const EdgeInsets.all(24.0),
+                      visualDensity: VisualDensity.compact,
+                      child: Icon(Icons.arrow_forward_ios, size: 24),
+                      onPressed: () {},
+                      onHighlightChanged: (flag) async {
+                        if (flag) {
+                          final focus = FocusNodeModel.of(context);
+                          final text = textController.text;
+                          final feed = context.read<FeedBloc>();
+                          if (feed.state is Pending) {
+                            feed.add(FeedEvent.ground());
+                            focus.refocus();
+                            return;
+                          }
+                          focus.refocus();
+                          if (text.isNotEmpty) {
+                            print(text);
+                            context.read<ValidationBloc>().add(ValidationEvent.check(text));
+                          }
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },

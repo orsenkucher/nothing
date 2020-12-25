@@ -155,6 +155,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     super.build(context);
 
     final textModel = useMemoized(() => TextModel());
+    final textController = useTextEditingController();
     final hintTintController = useAnimationController();
     final showHint = useState(false);
 
@@ -171,8 +172,8 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
             builder: (context, state) => _ifOnboarding(
               context,
               Stack(children: [
-                _buildGame(context),
-                Confetti(), // Container(color: Colors.red),
+                _buildGame(context, textController),
+                Confetti(),
                 _buildRefocusDetector(context),
                 _buildTitleKnobs(context, widget.pageController),
                 if (state is Pending) _buildContinueDetector(context),
@@ -180,7 +181,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 _buildTinter(context, hintTintController),
                 if (showHint.value) _buildHint(context, showHint, hintTintController),
                 _buildTinter(context, widget.swipeTintController, true),
-                _buildTextField(context),
+                _buildTextField(context, textController),
               ]),
             ),
           ),
@@ -226,7 +227,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
       child: FractionallySizedBox(
         widthFactor: 0.8,
         child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
+          behavior: HitTestBehavior.translucent,
           // child: Container(color: Colors.green.withOpacity(0.3)),
           onTap: () {
             final focusModel = FocusNodeModel.of(context);
@@ -242,11 +243,13 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     return context.watch<OnboardBloc>().state.done ? child : Onboarding();
   }
 
-  Widget _buildTextField(BuildContext context) {
+  Widget _buildTextField(
+    BuildContext context,
+    TextEditingController textController,
+  ) {
     return HookBuilder(builder: (context) {
       final textModel = TextModel.of(context);
       final focusNodeModel = FocusNodeModel.of(context);
-      final textController = useTextEditingController();
 
       return MultiBlocListener(
         listeners: [
@@ -296,21 +299,20 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
             textInputAction: TextInputAction.go,
             keyboardType: TextInputType.text,
             onSubmitted: (s) async {
-              // ignore: close_sinks
-              final feed = context.bloc<FeedBloc>();
+              final feed = context.read<FeedBloc>();
               if (feed.state is Pending) {
                 feed.add(FeedEvent.ground());
                 focusNodeModel.refocus();
                 return;
               }
-              print(s);
               focusNodeModel.refocus();
               if (s.isNotEmpty) {
-                context.bloc<ValidationBloc>().add(ValidationEvent.check(s));
+                print(s);
+                context.read<ValidationBloc>().add(ValidationEvent.check(s));
               }
             },
             onChanged: (s) {
-              if (context.bloc<FeedBloc>().state is Pending) {
+              if (context.read<FeedBloc>().state is Pending) {
                 textController.clear();
                 return;
               }
@@ -581,7 +583,10 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
 
   final double lblH = 50;
   final double ansH = 72;
-  Widget _buildGame(BuildContext context) {
+  Widget _buildGame(
+    BuildContext context,
+    TextEditingController textController,
+  ) {
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -596,7 +601,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
               SizedBox(child: Label()),
               SizedBox(height: 12),
               SizedBox(height: queH.value, child: Center(child: Question())),
-              SizedBox(height: ansH, child: Answer()),
+              SizedBox(height: ansH, child: Answer(textController)),
             ]);
           });
         },

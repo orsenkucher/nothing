@@ -69,12 +69,12 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                         mainAxisSize: MainAxisSize.max,
                         children: () {
                           final platform = Platform.isIOS;
-                          const titles = [
+                          final titles = [
                             'Туториал',
                             'Оцените нас',
                             'Оставить остзыв',
                             'Поделиться',
-                            'Вибрация',
+                            if (platform) 'Вибрация',
                           ];
                           final handlers = {
                             'Туториал': () {

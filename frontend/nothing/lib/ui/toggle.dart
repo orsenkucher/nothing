@@ -24,8 +24,6 @@ class _ToggleState extends State<Toggle> {
         margin: vib ? EdgeInsets.only(left: 12.0) : EdgeInsets.only(right: 12.0),
         duration: const Duration(milliseconds: 600),
         curve: Curves.easeOutCirc,
-        // width: 18,
-        // height: 18,
         decoration: BoxDecoration(
           color: NothingScheme.of(context).background,
           borderRadius: NothingScheme.of(context).toggleBorder,
