@@ -23,6 +23,8 @@ class NothingScheme extends InheritedWidget {
 
   Color get historyBg => app; //const Color(0xffffffff);
 
+  BorderRadiusGeometry get toggleBorder => const BorderRadius.all(Radius.circular(12));
+
   Brightness get brightness => Brightness.light;
 
   const NothingScheme({

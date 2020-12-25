@@ -11,6 +11,7 @@ import 'package:nothing/bloc/coin/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/hint/bloc.dart';
 import 'package:nothing/bloc/id/bloc.dart';
+import 'package:nothing/bloc/menu/bloc.dart';
 import 'package:nothing/bloc/observer.dart';
 import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/bloc/routing/bloc.dart';
@@ -246,6 +247,7 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<CoinBloc>(create: (_) => CoinBloc()),
         BlocProvider<HintBloc>(create: (_) => HintBloc()),
         BlocProvider<OnboardBloc>(create: (_) => OnboardBloc()),
+        BlocProvider<MenuBloc>(create: (_) => MenuBloc()),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             idBloc: context.bloc<IdBloc>(),

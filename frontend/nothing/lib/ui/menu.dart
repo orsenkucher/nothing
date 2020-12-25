@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/bloc/menu/bloc.dart';
 import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/color/scheme.dart';
+import 'package:nothing/ui/toggle.dart';
+import 'package:share/share.dart';
 
 class Menu extends StatefulWidget {
   const Menu(
@@ -62,7 +68,8 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: () {
-                          const tt = [
+                          final platform = Platform.isIOS;
+                          const titles = [
                             'Туториал',
                             'Оцените нас',
                             'Оставить остзыв',
@@ -73,13 +80,37 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                             'Туториал': () {
                               context.read<OnboardBloc>().reset();
                               widget.onBack();
-                            }
+                            },
+                            'Поделиться': () {
+                              final question = context.read<FeedBloc>().state.maybeWhen(
+                                    available: (tree) => tree.question.question,
+                                    orElse: () => '',
+                                  );
+                              Share.share('Nothing Puzzle: "$question"');
+                            },
+                            'Вибрация': platform ? () => context.read<MenuBloc>().flip() : null,
                           };
-                          return tt
+                          final wrappers = <String, Widget Function(Widget)>{
+                            'Вибрация': platform
+                                ? (Widget child) {
+                                    return Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Opacity(opacity: 0.0, child: Toggle()),
+                                        child,
+                                        SizedBox(width: 8.0),
+                                        Toggle(),
+                                      ],
+                                    );
+                                  }
+                                : null,
+                          };
+                          return titles
                               .map((t) => FlatButton(
                                     child: Padding(
                                       padding: const EdgeInsets.all(12.0),
-                                      child: Text(t, style: TextStyle(fontSize: 24)),
+                                      child: (wrappers[t] ?? (x) => x)(Text(t, style: TextStyle(fontSize: 24))),
                                     ),
                                     onPressed: handlers[t],
                                   ))
