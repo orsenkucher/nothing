@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
+import 'package:nothing/bloc/menu/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart';
@@ -76,7 +77,9 @@ class Answer extends HookWidget {
               },
               correct: (_) async {
                 if (Platform.isIOS) {
-                  Vibrate.feedback(FeedbackType.success);
+                  if (context.read<MenuBloc>().state.vibration) {
+                    Vibrate.feedback(FeedbackType.success);
+                  }
                 }
                 await controller.forward();
                 // controller.reset();
