@@ -21,6 +21,7 @@ import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
+import 'package:nothing/bloc/xp/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart';
 import 'package:nothing/repository/ads.dart';
@@ -116,6 +117,21 @@ class App extends StatelessWidget with PortraitLock {
                 orElse: void$,
               ),
               orElse: void$,
+            );
+          },
+        ),
+        BlocListener<ValidationBloc, ValidationState>(
+          listener: (context, state) {
+            state.when(
+              just: (state) => state.maybeMap(
+                correct: (state) {
+                  final base = 320;
+                  final bonus = (1000 / state.duration.inSeconds).round();
+                  context.read<XPBloc>().progress(base, bonus);
+                },
+                orElse: void$,
+              ),
+              nothing: () => void$(),
             );
           },
         ),
@@ -248,6 +264,7 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<HintBloc>(create: (_) => HintBloc()),
         BlocProvider<OnboardBloc>(create: (_) => OnboardBloc()),
         BlocProvider<MenuBloc>(create: (_) => MenuBloc()),
+        BlocProvider<XPBloc>(create: (_) => XPBloc()),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             idBloc: context.bloc<IdBloc>(),

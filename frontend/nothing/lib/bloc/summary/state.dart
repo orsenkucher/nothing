@@ -12,7 +12,7 @@ abstract class SummaryState with _$SummaryState {
     @required List<SummaryAnswer> answers,
   }) = _SummaryState;
 
-  factory SummaryState.empty() => SummaryState(answers: List<SummaryAnswer>());
+  factory SummaryState.empty() => SummaryState(answers: <SummaryAnswer>[]);
 
   factory SummaryState.fromJson(Map<String, dynamic> json) => _$SummaryStateFromJson(json);
 }

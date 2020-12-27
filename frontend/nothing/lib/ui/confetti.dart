@@ -4,8 +4,7 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nothing/bloc/validation/bloc.dart';
-import 'package:nothing/domain/domain.dart';
+import 'package:nothing/bloc/xp/bloc.dart';
 
 class Confetti extends StatefulWidget {
   @override
@@ -33,21 +32,13 @@ class _ConfettiState extends State<Confetti> {
 
   @override
   Widget build(BuildContext context) {
-    return _listenFeed(context, _listenValidation(context, _build(context)));
+    return _listenFeed(context, _listenLvlup(context, _build(context)));
   }
 
-  Widget _listenValidation(BuildContext context, Widget child) {
-    return BlocListener<ValidationBloc, ValidationState>(
-      listener: (context, state) {
-        state.maybeWhen(
-          just: (state) {
-            if (state is Correct) {
-              _correctController.play();
-            }
-          },
-          orElse: void$,
-        );
-      },
+  Widget _listenLvlup(BuildContext context, Widget child) {
+    return BlocListener<XPBloc, XPState>(
+      listenWhen: (prev, next) => prev.level != next.level,
+      listener: (_1, _2) => _correctController.play(),
       child: child,
     );
   }
@@ -85,7 +76,7 @@ class _ConfettiState extends State<Confetti> {
             maxBlastForce: 5, // set a lower max blast force
             minBlastForce: 2, // set a lower min blast force
             emissionFrequency: 0.25,
-            numberOfParticles: 42, // a lot of particles at once
+            numberOfParticles: 30, // a lot of particles at once
             blastDirectionality: BlastDirectionality.explosive,
             particleDrag: 0.01,
             gravity: 0.2,

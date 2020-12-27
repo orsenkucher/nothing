@@ -598,7 +598,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
             );
             return Column(children: [
               SizedBox(height: 21),
-              SizedBox(child: Label()),
+              SizedBox(height: 24, child: Label()),
               SizedBox(height: 12),
               SizedBox(height: queH.value, child: Center(child: Question())),
               SizedBox(height: ansH, child: Answer(textController)),
