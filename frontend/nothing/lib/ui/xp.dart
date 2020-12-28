@@ -3,7 +3,7 @@ import 'package:nothing/bloc/xp/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/slider.dart' as no;
 
-class XP extends StatelessWidget {
+class XP extends StatefulWidget {
   const XP({
     @required this.state,
     @required this.sliderHeight,
@@ -15,11 +15,61 @@ class XP extends StatelessWidget {
   final EdgeInsets sliderPadding;
 
   @override
+  _XPState createState() => _XPState();
+}
+
+class _XPState extends State<XP> with SingleTickerProviderStateMixin {
+  // AnimationController _controller;
+  int phase = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 220));
+    // _controller.forward();
+    phase = 0;
+    () async {
+      await Future.delayed(const Duration(milliseconds: 300));
+      setState(() => phase = 1);
+      await Future.delayed(const Duration(milliseconds: 600));
+      setState(() => phase = 2);
+    }();
+  }
+
+  @override
+  void didUpdateWidget(covariant XP oldWidget) {
+    if (oldWidget.state != widget.state) {
+      setState(() {
+        phase = 0;
+        () async {
+          await Future.delayed(const Duration(milliseconds: 300));
+          setState(() => phase = 1);
+          await Future.delayed(const Duration(milliseconds: 600));
+          setState(() => phase = 2);
+        }();
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  // @override
+  // void dispose() {
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
+
+  @override
   Widget build(BuildContext context) {
-    var xp = state.basexp;
-    if (xp == 0) xp = state.bonusxp;
-    final next = state.totalxp.toDouble() / state.levelxp;
-    var prev = next - xp.toDouble() / state.levelxp;
+    var xp = widget.state.basexp;
+    if (xp == 0) xp = widget.state.bonusxp;
+    var next = widget.state.totalxp.toDouble() / widget.state.levelxp;
+    var prev = next - xp.toDouble() / widget.state.levelxp;
+    if (phase == 0) {
+      next = prev;
+    }
+    if (phase == 2) {
+      prev = next;
+    }
     return Stack(children: [
       _slider(
         value: next,
@@ -46,10 +96,10 @@ class XP extends StatelessWidget {
     Color coloright = Colors.transparent,
   }) {
     return Padding(
-      padding: sliderPadding,
+      padding: widget.sliderPadding,
       child: no.Slider(
         value: value,
-        height: sliderHeight,
+        height: widget.sliderHeight,
         colorleft: colorleft,
         coloright: coloright,
       ),
