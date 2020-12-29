@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:confetti/confetti.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/xp/bloc.dart';
+import 'package:nothing/bloc/xp_queue/bloc.dart';
 
 class Confetti extends StatefulWidget {
   @override
@@ -36,8 +38,8 @@ class _ConfettiState extends State<Confetti> {
   }
 
   Widget _listenLvlup(BuildContext context, Widget child) {
-    return BlocListener<XPBloc, XPState>(
-      listenWhen: (prev, next) => prev.level != next.level,
+    return BlocListener<XPQueueBloc, Queue<XPState>>(
+      listenWhen: (_, next) => next.isNotEmpty && next.first.totalxp == 0,
       listener: (_1, _2) => _correctController.play(),
       child: child,
     );

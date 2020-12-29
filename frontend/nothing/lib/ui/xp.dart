@@ -44,6 +44,7 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
         await Future.delayed(const Duration(milliseconds: 600));
         widget.queueBloc.pop();
       }
+      if (!disposed) setState(() => phase = 3);
     }();
   }
 
@@ -80,6 +81,10 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
     }
     if (phase == 2) {
       prev = next;
+    }
+    if (phase == 3) {
+      prev = next;
+      xp = 0;
     }
 
     return Stack(children: [
