@@ -110,7 +110,7 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
         alignment: Alignment.bottomCenter,
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 220),
-          child: Text((xp != 0) ? '+${xp} ${bon ? 'bonus' : 'pt'}' : 'Master'),
+          child: Text(xp != 0 ? '+${xp} ${bon ? 'bonus' : 'pt'}' : 'level ${state.level}'),
         ),
       ),
     ]);
