@@ -22,6 +22,7 @@ import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/bloc/xp/bloc.dart';
+import 'package:nothing/bloc/xp_queue/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart';
 import 'package:nothing/repository/ads.dart';
@@ -133,6 +134,11 @@ class App extends StatelessWidget with PortraitLock {
               ),
               nothing: () => void$(),
             );
+          },
+        ),
+        BlocListener<XPBloc, XPState>(
+          listener: (context, state) {
+            context.read<XPQueueBloc>().push(state);
           },
         ),
       ],
@@ -265,6 +271,7 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<OnboardBloc>(create: (_) => OnboardBloc()),
         BlocProvider<MenuBloc>(create: (_) => MenuBloc()),
         BlocProvider<XPBloc>(create: (_) => XPBloc()),
+        BlocProvider<XPQueueBloc>(create: (_) => XPQueueBloc()),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
             idBloc: context.bloc<IdBloc>(),

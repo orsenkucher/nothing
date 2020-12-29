@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
-import 'package:nothing/bloc/xp/bloc.dart';
+import 'package:nothing/bloc/xp_queue/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/xp.dart';
 
@@ -12,11 +12,11 @@ class Label extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<XPBloc>();
+    final queueBloc = context.watch<XPQueueBloc>();
     final state = context.watch<ValidationBloc>().state;
     final child = state.when(
           just: (state) => state.maybeMap(
-            correct: (_) => _xp(context, bloc),
+            correct: (_) => _xp(context, queueBloc),
             orElse: () => null,
           ),
           nothing: () => null,
@@ -28,11 +28,11 @@ class Label extends StatelessWidget {
     );
   }
 
-  Widget _xp(BuildContext context, XPBloc bloc) {
+  Widget _xp(BuildContext context, XPQueueBloc queueBloc) {
     return XP(
-      bloc: bloc,
       sliderHeight: 8.0,
       sliderPadding: const EdgeInsets.symmetric(horizontal: 100.0),
+      queueBloc: queueBloc,
     );
   }
 

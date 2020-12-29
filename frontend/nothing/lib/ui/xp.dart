@@ -2,19 +2,20 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:nothing/bloc/xp/bloc.dart';
+import 'package:nothing/bloc/xp_queue/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/slider.dart' as no;
 
 class XP extends StatefulWidget {
   const XP({
-    @required this.bloc,
     @required this.sliderHeight,
     @required this.sliderPadding,
+    @required this.queueBloc,
   });
 
-  final XPBloc bloc;
   final double sliderHeight;
   final EdgeInsets sliderPadding;
+  final XPQueueBloc queueBloc;
 
   @override
   _XPState createState() => _XPState();
@@ -24,7 +25,7 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
   // AnimationController _controller;
   int phase = 0;
   XPState state;
-  StreamSubscription _sub;
+  // StreamSubscription _sub;
 
   @override
   void initState() {
@@ -32,19 +33,21 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
     // _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 220));
     // _controller.forward();
 
-    print('Subscribed!');
-    state = widget.bloc.state;
-    _sub = widget.bloc.listen((state) {
-      print('XP STATE $state');
-      state = state;
-    });
-
     phase = 0;
     () async {
-      await Future.delayed(const Duration(milliseconds: 300));
-      setState(() => phase = 1);
-      await Future.delayed(const Duration(milliseconds: 600));
-      setState(() => phase = 2);
+      while (state == null) {
+        final queue = widget.queueBloc.state;
+        state = queue.isNotEmpty ? queue.first : null;
+        if (state == null) {
+          await Future.delayed(const Duration(milliseconds: 100));
+          continue;
+        }
+        await Future.delayed(const Duration(milliseconds: 300));
+        setState(() => phase = 1);
+        await Future.delayed(const Duration(milliseconds: 600));
+        setState(() => phase = 2);
+        widget.queueBloc.pop();
+      }
     }();
   }
 
@@ -54,25 +57,23 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
   //     setState(() {
   //       phase = 0;
   //       () async {
-  //         await Future.delayed(const Duration(milliseconds: 300));
-  //         setState(() => phase = 1);
-  //         await Future.delayed(const Duration(milliseconds: 600));
-  //         setState(() => phase = 2);
   //       }();
   //     });
   //   }
   //   super.didUpdateWidget(oldWidget);
   // }
 
-  @override
-  void dispose() {
-    // _controller.dispose();
-    _sub.cancel();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // _controller.dispose();
+  //   // _sub.cancel();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    if (state == null) return SizedBox.shrink();
+
     var xp = state.basexp;
     if (xp == 0) xp = state.bonusxp;
     var next = state.totalxp.toDouble() / state.levelxp;
@@ -83,6 +84,7 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
     if (phase == 2) {
       prev = next;
     }
+
     return Stack(children: [
       _slider(
         value: next,
