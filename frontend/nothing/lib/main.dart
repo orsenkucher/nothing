@@ -126,8 +126,8 @@ class App extends StatelessWidget with PortraitLock {
             state.when(
               just: (state) => state.maybeMap(
                 correct: (state) {
-                  final base = 320;
-                  final bonus = (1000 / state.duration.inSeconds).round();
+                  final base = 150;
+                  final bonus = (1000 - 100 * state.duration.inSeconds).clamp(0, 1000);
                   context.read<XPBloc>().progress(base, bonus);
                 },
                 orElse: void$,

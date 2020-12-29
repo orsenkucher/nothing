@@ -18,7 +18,9 @@ abstract class XPState with _$XPState {
 
   factory XPState.fromJson(Map<String, dynamic> json) => _$XPStateFromJson(json);
 
-  int get levelxp => level * 100;
+  final _xpmult = 100;
+  int get levelxp => level * _xpmult;
+  int get prevLevelxp => (level - 1) * _xpmult;
 }
 
 class XPBloc extends HydratedCubit<XPState> {

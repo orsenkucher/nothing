@@ -22,62 +22,59 @@ class XP extends StatefulWidget {
 }
 
 class _XPState extends State<XP> with SingleTickerProviderStateMixin {
-  // AnimationController _controller;
   int phase = 0;
   XPState state;
-  // StreamSubscription _sub;
+  bool disposed = false;
 
   @override
   void initState() {
     super.initState();
-    // _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 220));
-    // _controller.forward();
-
     phase = 0;
     () async {
-      while (state == null) {
-        final queue = widget.queueBloc.state;
-        state = queue.isNotEmpty ? queue.first : null;
-        if (state == null) {
-          await Future.delayed(const Duration(milliseconds: 100));
-          continue;
-        }
-        await Future.delayed(const Duration(milliseconds: 300));
+      while (!disposed && widget.queueBloc.state.isEmpty) {
+        await Future.delayed(const Duration(milliseconds: 120));
+      }
+      while (!disposed && widget.queueBloc.state.isNotEmpty) {
+        state = widget.queueBloc.state.first;
+        if (disposed) break;
         setState(() => phase = 1);
         await Future.delayed(const Duration(milliseconds: 600));
+        if (disposed) break;
         setState(() => phase = 2);
+        await Future.delayed(const Duration(milliseconds: 600));
         widget.queueBloc.pop();
       }
     }();
   }
 
-  // @override
-  // void didUpdateWidget(covariant XP oldWidget) {
-  //   if (oldWidget.bloc != widget.bloc) {
-  //     setState(() {
-  //       phase = 0;
-  //       () async {
-  //       }();
-  //     });
-  //   }
-  //   super.didUpdateWidget(oldWidget);
-  // }
-
-  // @override
-  // void dispose() {
-  //   // _controller.dispose();
-  //   // _sub.cancel();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    disposed = true;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     if (state == null) return SizedBox.shrink();
 
     var xp = state.basexp;
-    if (xp == 0) xp = state.bonusxp;
-    var next = state.totalxp.toDouble() / state.levelxp;
-    var prev = next - xp.toDouble() / state.levelxp;
+    var bon = false;
+    if (xp == 0) {
+      xp = state.bonusxp;
+      bon = true;
+    }
+
+    var levelxp = state.levelxp;
+    var next = state.totalxp.toDouble() / levelxp;
+    var prev = next - xp.toDouble() / levelxp;
+
+    // Case on level overlap. Only 1 overlap is possible per event.
+    if (prev < 0) {
+      levelxp = state.prevLevelxp;
+      prev = 1 - xp.toDouble() / levelxp;
+      next = 1;
+    }
+
     if (phase == 0) {
       next = prev;
     }
@@ -96,10 +93,24 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
         colorleft: NothingScheme.of(context).sliderprev,
       ),
       Align(
+        alignment: Alignment.bottomLeft,
+        child: Padding(
+          padding: widget.sliderPadding,
+          child: Text('0'),
+        ),
+      ),
+      Align(
+        alignment: Alignment.bottomRight,
+        child: Padding(
+          padding: widget.sliderPadding,
+          child: Text('${levelxp}'),
+        ),
+      ),
+      Align(
         alignment: Alignment.bottomCenter,
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 220),
-          child: Text('+${xp}pt\t lvl ${state.level}'),
+          child: Text((xp != 0) ? '+${xp} ${bon ? 'bonus' : 'pt'}' : 'Master'),
         ),
       ),
     ]);
