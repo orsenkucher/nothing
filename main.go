@@ -44,7 +44,7 @@ func init() {
 }
 
 func main() {
-	var q = flag.Bool("q"`, false, "update cfg.enc and quit")
+	var q = flag.Bool("q", false, "update cfg.enc and quit")
 
 	if flag.Parse(); pass == "" {
 		if pass = os.Getenv("encio"); pass == "" {
@@ -63,7 +63,11 @@ func main() {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		ioutil.WriteFile("secure/key.secret.jks", bytes, 0644)
+
+		err = ioutil.WriteFile("secure/key.secret.jks", bytes, 0644)
+		if err != nil {
+			log.Fatalln(err)
+		}
 
 		log.Println("`key.enc.jks` is used like `key.jks`")
 
@@ -71,12 +75,16 @@ func main() {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		ioutil.WriteFile("secure/key.secret.properties", bytes, 0644)
+
+		err = ioutil.WriteFile("secure/key.secret.properties", bytes, 0644)
+		if err != nil {
+			log.Fatalln(err)
+		}
 
 		log.Println("`key.enc.properties` is used like `key.secret.properties`")
 		log.Println("put into `<app dir>/android/key.properties`")
-
 		log.Println("Updated .enc files, quitting now")
+
 		return
 	}
 

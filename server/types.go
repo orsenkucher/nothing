@@ -29,7 +29,7 @@ type NoQuestion struct {
 }
 
 type QBTreeNode struct {
-	Question NoQuestion    `json:"question"`
+	Question NoQuestion  `json:"question"`
 	Left     *QBTreeNode `json:"left"`
 	Right    *QBTreeNode `json:"right"`
 }
