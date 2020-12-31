@@ -208,10 +208,10 @@ func getNextQuestions(sortedq []NoQuestion, user *NoUser, current int) (int, int
 
 /*
 Give tree of question
-	    0
-	   / \
-	 1     2
-	/ \   / \
+      0
+     / \
+   1     2
+  / \   / \
  3   4 5   6
 move left for bad ans and move right for good answer
 answer is bad if it took over 100 seconds
