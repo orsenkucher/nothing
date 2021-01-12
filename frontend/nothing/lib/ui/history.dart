@@ -46,7 +46,7 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
             alignment: Alignment.topCenter,
             child: Padding(
               padding: const EdgeInsets.all(40),
-              child: Text('Уровни', style: TextStyle(fontSize: 36)),
+              child: Text('Levels', style: TextStyle(fontSize: 36)),
             ),
           ),
           Align(
