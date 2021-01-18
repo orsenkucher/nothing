@@ -343,7 +343,7 @@ func LineToQuestion(line string) NoQuestion {
 
 func (s *Server) UpdateData() {
 	fmt.Println(0)
-	data, _ := ioutil.ReadFile("./data/questionsru.txt")
+	data, _ := ioutil.ReadFile("./data/questions.txt")
 	lines := strings.Split(string(data), "\n")
 	for _, line := range lines {
 		// if len(s.Questions) > 10 {

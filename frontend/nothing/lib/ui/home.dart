@@ -445,8 +445,8 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
               final top = queH.value + lblH + ansH + pad;
               text(String text) => Text(text, style: TextStyle(color: Colors.white, fontSize: 18));
               const label = {
-                'hint': 'Хинт',
-                'skip': 'Скип',
+                'hint': 'Hint',
+                'skip': 'Skip',
                 'like': '',
                 'dislike': '',
               };

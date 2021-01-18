@@ -44,7 +44,7 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
             child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
               Padding(
                 padding: const EdgeInsets.only(top: 40, bottom: 32),
-                child: Text('Меню', style: TextStyle(fontSize: 36)),
+                child: Text('Menu', style: TextStyle(fontSize: 36)),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -70,28 +70,28 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                         children: () {
                           final platform = Platform.isIOS;
                           final titles = [
-                            'Туториал',
-                            'Оцените нас',
-                            'Оставить остзыв',
-                            'Поделиться',
-                            if (platform) 'Вибрация',
+                            'Tutorial',
+                            'Rate us',
+                            'Give feedback',
+                            'Share',
+                            if (platform) 'Vibration',
                           ];
                           final handlers = {
-                            'Туториал': () {
+                            'Tutorial': () {
                               context.read<OnboardBloc>().reset();
                               widget.onBack();
                             },
-                            'Поделиться': () {
+                            'Share': () {
                               final question = context.read<FeedBloc>().state.maybeWhen(
                                     available: (tree) => tree.question.question,
                                     orElse: () => '',
                                   );
                               Share.share('Nothing Puzzle: "$question"');
                             },
-                            'Вибрация': platform ? () => context.read<MenuBloc>().flip() : null,
+                            'Vibration': platform ? () => context.read<MenuBloc>().flip() : null,
                           };
                           final wrappers = <String, Widget Function(Widget)>{
-                            'Вибрация': platform
+                            'Vibration': platform
                                 ? (Widget child) {
                                     return Row(
                                       mainAxisSize: MainAxisSize.min,
