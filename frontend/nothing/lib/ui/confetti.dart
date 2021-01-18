@@ -14,33 +14,34 @@ class Confetti extends StatefulWidget {
 }
 
 class _ConfettiState extends State<Confetti> {
-  ConfettiController _controller;
-  ConfettiController _correctController;
+  ConfettiController _feedController;
+  ConfettiController _levelController;
 
   @override
   void initState() {
     super.initState();
-    _controller = ConfettiController(duration: const Duration(seconds: 10));
-    _correctController = ConfettiController(duration: const Duration(milliseconds: 700));
-    _controller.play();
+    _feedController = ConfettiController(duration: const Duration(seconds: 10));
+    _levelController = ConfettiController(duration: const Duration(milliseconds: 1600));
+    _feedController.play();
+    // _levelController.play();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    _correctController.dispose();
+    _feedController.dispose();
+    _levelController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _listenFeed(context, _listenLvlup(context, _build(context)));
+    return _listenFeed(context, _listenLevelup(context, _build(context)));
   }
 
-  Widget _listenLvlup(BuildContext context, Widget child) {
+  Widget _listenLevelup(BuildContext context, Widget child) {
     return BlocListener<XPQueueBloc, Queue<XPState>>(
       listenWhen: (_, next) => next.isNotEmpty && next.first.totalxp == 0,
-      listener: (_1, _2) => _correctController.play(),
+      listener: (_1, _2) => _levelController.play(),
       child: child,
     );
   }
@@ -51,9 +52,9 @@ class _ConfettiState extends State<Confetti> {
       listener: (context, available) {
         final state = available as Available;
         if (state.tree.question.id == 1) {
-          _controller.play();
+          _feedController.play();
         } else {
-          _controller.stop();
+          _feedController.stop();
         }
       },
       child: child,
@@ -65,20 +66,35 @@ class _ConfettiState extends State<Confetti> {
     return Stack(
       children: [
         ConfettiWidget(
-          confettiController: _controller,
+          confettiController: _feedController,
           blastDirectionality: BlastDirectionality.explosive, // don't specify a direction, blast randomly
           shouldLoop: true, // start again as soon as the animation is finished
           colors: colors,
         ),
         Align(
-          alignment: Alignment.topCenter,
+          alignment: Alignment.topRight,
           child: ConfettiWidget(
-            confettiController: _correctController,
+            confettiController: _levelController,
             blastDirection: pi / 2,
             maxBlastForce: 5, // set a lower max blast force
             minBlastForce: 2, // set a lower min blast force
             emissionFrequency: 0.25,
-            numberOfParticles: 30, // a lot of particles at once
+            numberOfParticles: 15, // a lot of particles at once
+            blastDirectionality: BlastDirectionality.explosive,
+            particleDrag: 0.01,
+            gravity: 0.2,
+            colors: colors,
+          ),
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: ConfettiWidget(
+            confettiController: _levelController,
+            blastDirection: pi / 2,
+            maxBlastForce: 5,
+            minBlastForce: 2,
+            emissionFrequency: 0.25,
+            numberOfParticles: 15,
             blastDirectionality: BlastDirectionality.explosive,
             particleDrag: 0.01,
             gravity: 0.2,

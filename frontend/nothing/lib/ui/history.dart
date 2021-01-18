@@ -95,7 +95,7 @@ class HistoryStack extends StatelessWidget {
             final scrollController = useScrollController();
             useEffect(() {
               WidgetsBinding.instance.addPostFrameCallback(
-                (_) => scrollController.jumpTo(itemExtent * state.items.length),
+                (_) => scrollController.jumpTo(itemExtent * (state.items.length - 8)),
               );
               return;
             });
