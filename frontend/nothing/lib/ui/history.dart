@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nothing/binding/control.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
@@ -88,18 +89,31 @@ class HistoryStack extends StatelessWidget {
     final colors = [NothingScheme.of(context).historyBg, NothingScheme.of(context).historyBg.withOpacity(0)];
     return Stack(children: [
       BlocBuilder<HistoryBloc, HistoryState>(
-        builder: (context, state) => Container(
-          child: ListView(
-            itemExtent: 60,
-            clipBehavior: Clip.none,
-            physics: const BouncingScrollPhysics(),
-            children: [
-              const SizedBox(),
-              const SizedBox(),
-              ..._items(context, state.items),
-              const SizedBox(),
-            ],
-          ),
+        builder: (context, state) => HookBuilder(
+          builder: (context) {
+            const itemExtent = 60.0;
+            final scrollController = useScrollController();
+            useEffect(() {
+              WidgetsBinding.instance.addPostFrameCallback(
+                (_) => scrollController.jumpTo(itemExtent * state.items.length),
+              );
+              return;
+            });
+            return Container(
+              child: ListView(
+                itemExtent: itemExtent,
+                clipBehavior: Clip.none,
+                controller: scrollController,
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  const SizedBox(),
+                  const SizedBox(),
+                  ..._items(context, state.items),
+                  const SizedBox(),
+                ],
+              ),
+            );
+          },
         ),
       ),
       FuzzyOut(height: 120, loc: Location.up, colors: colors, stops: const [0.5, 0.8]),
