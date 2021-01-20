@@ -8,14 +8,17 @@ import 'package:nothing/ui/slider.dart' as no;
 
 class XP extends StatefulWidget {
   const XP({
+    Key key,
     @required this.sliderHeight,
     @required this.sliderPadding,
     @required this.queueBloc,
-  });
+    @required this.xpBloc,
+  }) : super(key: key);
 
   final double sliderHeight;
   final EdgeInsets sliderPadding;
   final XPQueueBloc queueBloc;
+  final XPBloc xpBloc;
 
   @override
   _XPState createState() => _XPState();
@@ -31,7 +34,8 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
     super.initState();
     phase = 0;
     () async {
-      while (!disposed && widget.queueBloc.state.isEmpty) {
+      if (!disposed && widget.queueBloc.state.isEmpty) {
+        state = widget.xpBloc.state;
         await Future.delayed(const Duration(milliseconds: 120));
       }
       while (!disposed && widget.queueBloc.state.isNotEmpty) {
