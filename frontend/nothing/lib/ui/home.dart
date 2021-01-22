@@ -52,7 +52,7 @@ class Home extends HookWidget {
 
     useEffect(() {
       print("Creating initail Ad");
-      _createAd(focusNodeModel);
+      _createAd(context);
       return null;
     }, [0]);
 
@@ -584,20 +584,28 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
   ) async {
-    if (!context.read<HintBloc>().state.unlocked) {
-      await _showAd(context);
+    void callback() {
+      showHint.value = true;
+      hintTintController.fling();
     }
-    // await Future.delayed(const Duration(milliseconds: 500));
-    showHint.value = true;
-    hintTintController.fling();
+
+    if (!context.read<HintBloc>().state.unlocked) {
+      await _showAd(context, callback);
+    } else {
+      callback();
+    }
   }
 
   void _skipClick(BuildContext context) async {
-    if (!context.read<HintBloc>().state.unlocked) {
-      await _showAd(context);
+    void callback() {
+      context.read<ValidationBloc>().add(ValidationEvent.skip());
     }
-    // await Future.delayed(const Duration(milliseconds: 500));
-    context.read<ValidationBloc>().add(ValidationEvent.skip());
+
+    if (!context.read<HintBloc>().state.unlocked) {
+      await _showAd(context, callback);
+    } else {
+      callback();
+    }
   }
 
   final double lblH = 50;
@@ -636,16 +644,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
   }
 }
 
-Future<void> _createAd(FocusNodeModel model) async {
-  RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) async {
-    print("RewardedVideoAdEvent event is $event");
-    if (event == RewardedVideoAdEvent.loaded) {}
-    if (event == RewardedVideoAdEvent.closed) {
-      print("RewardedVideoAdEvent is closed");
-      model.refocus();
-      await _createAd(model);
-    }
-  };
+Future<void> _createAd(BuildContext context) async {
   print('****** Loading new ad');
   final result = await RewardedVideoAd.instance.load(
     adUnitId: Platform.isIOS // rewarded ios/android
@@ -660,9 +659,26 @@ Future<void> _createAd(FocusNodeModel model) async {
   }
 }
 
-Future<void> _showAd(BuildContext context) async {
-  context.read<AdBloc>().add(AdEvent.report(domain.AdType.rewarded));
-  print('****** Loaded ad successfully');
-  await RewardedVideoAd.instance.show();
-  context.read<HintBloc>().unlock();
+Future<void> _showAd(BuildContext context, void Function() onRewarded) async {
+  final model = FocusNodeModel.of(context);
+  RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) async {
+    print("RewardedVideoAdEvent event is $event");
+    if (event == RewardedVideoAdEvent.loaded) {}
+    if (event == RewardedVideoAdEvent.rewarded) {
+      context.read<HintBloc>().unlock();
+      onRewarded();
+    }
+    if (event == RewardedVideoAdEvent.closed) {
+      print("RewardedVideoAdEvent is closed");
+      model.refocus();
+      await _createAd(context);
+    }
+  };
+  try {
+    await RewardedVideoAd.instance.show();
+    context.read<AdBloc>().add(AdEvent.report(domain.AdType.rewarded));
+    print('****** Loaded ad successfully');
+  } catch (e) {
+    print('****** Ad error\n$e');
+  }
 }
