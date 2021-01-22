@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -583,7 +584,6 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
   ) async {
-    // context.bloc<CoinBloc>().dec(2);
     if (!context.read<HintBloc>().state.unlocked) {
       await _showAd(context);
     }
@@ -636,58 +636,33 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
   }
 }
 
-InterstitialAd myInterstitial;
-
 Future<void> _createAd(FocusNodeModel model) async {
-  myInterstitial = InterstitialAd(
-    // adUnitId: Platform.isIOS // interstitial ios/android
-    //     ? 'ca-app-pub-3169956978186495/7272148845'
-    //     : 'ca-app-pub-3169956978186495/2443683360',
-    adUnitId: InterstitialAd.testAdUnitId,
-    targetingInfo: MobileAdTargetingInfo(),
-    listener: (MobileAdEvent event) async {
-      // event.
-      print("InterstitialAd event is $event");
-      if (event == MobileAdEvent.loaded) {
-        // await myInterstitial.show(
-        //   anchorType: AnchorType.bottom,
-        //   anchorOffset: 0.0,
-        //   horizontalCenterOffset: 0.0,
-        // );
-      }
-      if (event == MobileAdEvent.closed) {
-        print("CLOSED");
-        // context.bloc<CoinBloc>().add(CoinEvent.inc(3));
-        // await myInterstitial.load();
-        model.refocus();
-        await _createAd(model);
-      }
-    },
-  );
+  RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) async {
+    print("RewardedVideoAdEvent event is $event");
+    if (event == RewardedVideoAdEvent.loaded) {}
+    if (event == RewardedVideoAdEvent.closed) {
+      print("RewardedVideoAdEvent is closed");
+      model.refocus();
+      await _createAd(model);
+    }
+  };
   print('****** Loading new ad');
-  final result = await myInterstitial.load();
+  final result = await RewardedVideoAd.instance.load(
+    adUnitId: Platform.isIOS // rewarded ios/android
+        ? 'ca-app-pub-3169956978186495/1379142349'
+        : 'ca-app-pub-3169956978186495/4928393166',
+    // adUnitId: InterstitialAd.testAdUnitId,
+    targetingInfo: MobileAdTargetingInfo(),
+  );
   if (!result) {
-    print('\t ****** Ad did not load');
+    print('****** Ad did not load');
     return;
   }
 }
 
 Future<void> _showAd(BuildContext context) async {
-  // InterstitialAd myInterstitial;
-  context.read<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
-  // print('****** Loading new ad');
-  // final result = await myInterstitial.load();
-  // if (!result) {
-  //   print('\t ****** Ad did not load');
-  //   return;
-  // }
+  context.read<AdBloc>().add(AdEvent.report(domain.AdType.rewarded));
   print('****** Loaded ad successfully');
-  await myInterstitial.show(
-    anchorType: AnchorType.bottom,
-    anchorOffset: 0.0,
-    horizontalCenterOffset: 0.0,
-  );
+  await RewardedVideoAd.instance.show();
   context.read<HintBloc>().unlock();
-  // myInterstitial.dispose()
-  // _createAd();
 }
