@@ -131,7 +131,7 @@ class App extends StatelessWidget with PortraitLock {
                   final id = state.question.id;
                   final base = 100;
                   final t = (state.duration.inMilliseconds - 7e4) / 2e4;
-                  final bonus = 200 * (1 - 1 / (1 + math.pow(math.e, -t * 1e-3)));
+                  final bonus = 200 * (1 - 1 / (1 + math.pow(math.e, -t)));
                   context.read<XPBloc>().progress(id, base, bonus.round());
                 },
                 orElse: void$,
