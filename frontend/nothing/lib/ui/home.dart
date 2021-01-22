@@ -194,7 +194,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     return GestureDetector(
       // child: Container(color: Colors.blue.withOpacity(0.2)),
       onTap: () {
-        context.bloc<FeedBloc>().add(FeedEvent.ground());
+        context.read<FeedBloc>().add(FeedEvent.ground());
       },
     );
   }
@@ -423,6 +423,21 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     );
   }
 
+  SnackBar _makeSnackBar(BuildContext context, bool liked) {
+    final snackBar = SnackBar(
+      backgroundColor: NothingScheme.of(context).knob,
+      content: Text(
+        'Thanks for your feedback!',
+        style: TextStyle(
+          fontSize: 18,
+          fontFamily: 'Gilroy',
+          color: NothingScheme.of(context).question,
+        ),
+      ),
+    );
+    return snackBar;
+  }
+
   Widget _buildHintButtons(
     BuildContext context,
     ValueNotifier<bool> showHint,
@@ -477,21 +492,25 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 'skip': () => _skipClick(context),
                 'like': () {
                   print('like');
-                  void report(domain.QTree tree) => context.repository<LikesRepo>().report(tree.question.id, 1);
-                  context.bloc<FeedBloc>().state.when(
+                  void report(domain.QTree tree) => context.read<LikesRepo>().report(tree.question.id, 1);
+                  context.read<FeedBloc>().state.when(
                       available: (tree) => report(tree),
                       pending: (oldTree, _) => report(oldTree),
                       empty: (_) => domain.void$());
                   liked.value = true;
+                  final snackBar = _makeSnackBar(context, true);
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
                 'dislike': () {
                   print('dislike');
-                  void report(domain.QTree tree) => context.repository<LikesRepo>().report(tree.question.id, -1);
-                  context.bloc<FeedBloc>().state.when(
+                  void report(domain.QTree tree) => context.read<LikesRepo>().report(tree.question.id, -1);
+                  context.read<FeedBloc>().state.when(
                       available: (tree) => report(tree),
                       pending: (oldTree, _) => report(oldTree),
                       empty: (_) => domain.void$());
                   liked.value = true;
+                  final snackBar = _makeSnackBar(context, false);
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
               };
 
@@ -578,7 +597,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
       await _showAd(context);
     }
     // await Future.delayed(const Duration(milliseconds: 500));
-    context.bloc<ValidationBloc>().add(ValidationEvent.skip());
+    context.read<ValidationBloc>().add(ValidationEvent.skip());
   }
 
   final double lblH = 50;
@@ -655,7 +674,7 @@ Future<void> _createAd(FocusNodeModel model) async {
 
 Future<void> _showAd(BuildContext context) async {
   // InterstitialAd myInterstitial;
-  context.bloc<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
+  context.read<AdBloc>().add(AdEvent.report(domain.AdType.interstitial));
   // print('****** Loading new ad');
   // final result = await myInterstitial.load();
   // if (!result) {

@@ -31,12 +31,12 @@ class BlocBinder<B1 extends Bloc<dynamic, S1>, S1, B2 extends Bloc<dynamic, S2>,
         if (direct != null)
           BlocListener<B1, S1>(
             listenWhen: directCondition,
-            listener: (context, state) => direct(context, state, context.bloc<B2>()),
+            listener: (context, state) => direct(context, state, context.read<B2>()),
           ),
         if (reverse != null)
           BlocListener<B2, S2>(
             listenWhen: reverseCondition,
-            listener: (context, state) => reverse(context, state, context.bloc<B1>()),
+            listener: (context, state) => reverse(context, state, context.read<B1>()),
           ),
       ],
       child: child,

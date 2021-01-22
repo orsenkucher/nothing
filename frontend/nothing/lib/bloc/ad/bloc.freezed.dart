@@ -131,6 +131,7 @@ class _$_Register with DiagnosticableTreeMixin implements _Register {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(userid);
 
+  @JsonKey(ignore: true)
   @override
   _$RegisterCopyWith<_Register> get copyWith =>
       __$RegisterCopyWithImpl<_Register>(this, _$identity);
@@ -190,6 +191,7 @@ abstract class _Register implements AdEvent {
   const factory _Register(String userid) = _$_Register;
 
   String get userid;
+  @JsonKey(ignore: true)
   _$RegisterCopyWith<_Register> get copyWith;
 }
 
@@ -251,6 +253,7 @@ class _$_Report with DiagnosticableTreeMixin implements _Report {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(type);
 
+  @JsonKey(ignore: true)
   @override
   _$ReportCopyWith<_Report> get copyWith =>
       __$ReportCopyWithImpl<_Report>(this, _$identity);
@@ -310,6 +313,7 @@ abstract class _Report implements AdEvent {
   const factory _Report(AdType type) = _$_Report;
 
   AdType get type;
+  @JsonKey(ignore: true)
   _$ReportCopyWith<_Report> get copyWith;
 }
 
@@ -445,6 +449,7 @@ class _$_AdState with DiagnosticableTreeMixin implements _AdState {
       const DeepCollectionEquality().hash(userid) ^
       const DeepCollectionEquality().hash(type);
 
+  @JsonKey(ignore: true)
   @override
   _$AdStateCopyWith<_AdState> get copyWith =>
       __$AdStateCopyWithImpl<_AdState>(this, _$identity);
@@ -505,6 +510,7 @@ abstract class _AdState implements AdState {
 
   String get userid;
   AdMode get type;
+  @JsonKey(ignore: true)
   _$AdStateCopyWith<_AdState> get copyWith;
 }
 

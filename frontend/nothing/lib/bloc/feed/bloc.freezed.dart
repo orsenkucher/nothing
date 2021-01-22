@@ -166,6 +166,7 @@ class _$NewArrived with DiagnosticableTreeMixin implements NewArrived {
       const DeepCollectionEquality().hash(tree) ^
       const DeepCollectionEquality().hash(forced);
 
+  @JsonKey(ignore: true)
   @override
   $NewArrivedCopyWith<NewArrived> get copyWith =>
       _$NewArrivedCopyWithImpl<NewArrived>(this, _$identity);
@@ -232,6 +233,7 @@ abstract class NewArrived implements FeedEvent {
 
   QTree get tree;
   bool get forced;
+  @JsonKey(ignore: true)
   $NewArrivedCopyWith<NewArrived> get copyWith;
 }
 
@@ -305,6 +307,7 @@ class _$MoveNext with DiagnosticableTreeMixin implements MoveNext {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(dir);
 
+  @JsonKey(ignore: true)
   @override
   $MoveNextCopyWith<MoveNext> get copyWith =>
       _$MoveNextCopyWithImpl<MoveNext>(this, _$identity);
@@ -370,6 +373,7 @@ abstract class MoveNext implements FeedEvent {
   const factory MoveNext(MoveDir dir) = _$MoveNext;
 
   MoveDir get dir;
+  @JsonKey(ignore: true)
   $MoveNextCopyWith<MoveNext> get copyWith;
 }
 
@@ -892,6 +896,7 @@ class _$Available with DiagnosticableTreeMixin implements Available {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(tree);
 
+  @JsonKey(ignore: true)
   @override
   $AvailableCopyWith<Available> get copyWith =>
       _$AvailableCopyWithImpl<Available>(this, _$identity);
@@ -964,6 +969,7 @@ abstract class Available implements FeedState {
   factory Available.fromJson(Map<String, dynamic> json) = _$Available.fromJson;
 
   QTree get tree;
+  @JsonKey(ignore: true)
   $AvailableCopyWith<Available> get copyWith;
 }
 
@@ -1065,6 +1071,7 @@ class _$Pending with DiagnosticableTreeMixin implements Pending {
       const DeepCollectionEquality().hash(oldTree) ^
       const DeepCollectionEquality().hash(newTree);
 
+  @JsonKey(ignore: true)
   @override
   $PendingCopyWith<Pending> get copyWith =>
       _$PendingCopyWithImpl<Pending>(this, _$identity);
@@ -1139,6 +1146,7 @@ abstract class Pending implements FeedState {
 
   QTree get oldTree;
   QTree get newTree;
+  @JsonKey(ignore: true)
   $PendingCopyWith<Pending> get copyWith;
 }
 
@@ -1217,6 +1225,7 @@ class _$Empty with DiagnosticableTreeMixin implements Empty {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(oldTree);
 
+  @JsonKey(ignore: true)
   @override
   $EmptyCopyWith<Empty> get copyWith =>
       _$EmptyCopyWithImpl<Empty>(this, _$identity);
@@ -1289,5 +1298,6 @@ abstract class Empty implements FeedState {
   factory Empty.fromJson(Map<String, dynamic> json) = _$Empty.fromJson;
 
   QTree get oldTree;
+  @JsonKey(ignore: true)
   $EmptyCopyWith<Empty> get copyWith;
 }

@@ -2,12 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:nothing/bloc/xp_ids/bloc.dart';
 
 part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class XPState with _$XPState {
+abstract class XPState implements _$XPState {
   const XPState._();
   const factory XPState({
     @required int totalxp,
@@ -18,15 +19,19 @@ abstract class XPState with _$XPState {
 
   factory XPState.fromJson(Map<String, dynamic> json) => _$XPStateFromJson(json);
 
-  final _xpmult = 100;
-  int get levelxp => level * _xpmult;
-  int get prevLevelxp => (level - 1) * _xpmult;
+  static const _xpmult = 100;
+  static const _xpbias = 300;
+  int get levelxp => level * _xpmult + _xpbias;
+  int get prevLevelxp => (level - 1) * _xpmult + _xpbias;
 }
 
 class XPBloc extends HydratedCubit<XPState> {
-  XPBloc() : super(XPState(totalxp: 0, basexp: 0, bonusxp: 0, level: 1));
+  XPBloc(this.xpids) : super(XPState(totalxp: 0, basexp: 0, bonusxp: 0, level: 1));
+  XPIDsBloc xpids;
 
-  void progress(int basexp, int bonusxp) {
+  void progress(int id, int basexp, int bonusxp) {
+    if (xpids.state.ids.contains(id)) return;
+    xpids.add(id);
     print('XP: base: $basexp, bonus: $bonusxp');
     _handleBase(basexp);
     _handleBonus(bonusxp);

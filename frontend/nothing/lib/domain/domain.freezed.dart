@@ -47,6 +47,7 @@ mixin _$Question {
   int get mmr;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $QuestionCopyWith<Question> get copyWith;
 }
 
@@ -201,6 +202,7 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
       const DeepCollectionEquality().hash(answers) ^
       const DeepCollectionEquality().hash(mmr);
 
+  @JsonKey(ignore: true)
   @override
   _$QuestionCopyWith<_Question> get copyWith =>
       __$QuestionCopyWithImpl<_Question>(this, _$identity);
@@ -232,6 +234,7 @@ abstract class _Question implements Question {
   @override
   int get mmr;
   @override
+  @JsonKey(ignore: true)
   _$QuestionCopyWith<_Question> get copyWith;
 }
 
@@ -269,6 +272,7 @@ mixin _$QTree {
   QTree get right;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $QTreeCopyWith<QTree> get copyWith;
 }
 
@@ -424,6 +428,7 @@ class _$_QTree with DiagnosticableTreeMixin implements _QTree {
       const DeepCollectionEquality().hash(left) ^
       const DeepCollectionEquality().hash(right);
 
+  @JsonKey(ignore: true)
   @override
   _$QTreeCopyWith<_QTree> get copyWith =>
       __$QTreeCopyWithImpl<_QTree>(this, _$identity);
@@ -446,5 +451,6 @@ abstract class _QTree implements QTree {
   @override
   QTree get right;
   @override
+  @JsonKey(ignore: true)
   _$QTreeCopyWith<_QTree> get copyWith;
 }

@@ -176,6 +176,7 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
       const DeepCollectionEquality().hash(from) ^
       const DeepCollectionEquality().hash(to);
 
+  @JsonKey(ignore: true)
   @override
   _$PushCopyWith<_Push> get copyWith =>
       __$PushCopyWithImpl<_Push>(this, _$identity);
@@ -242,6 +243,7 @@ abstract class _Push implements RoutingEvent {
 
   Routes get from;
   Routes get to;
+  @JsonKey(ignore: true)
   _$PushCopyWith<_Push> get copyWith;
 }
 
@@ -415,6 +417,7 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(from);
 
+  @JsonKey(ignore: true)
   @override
   _$PopCopyWith<_Pop> get copyWith =>
       __$PopCopyWithImpl<_Pop>(this, _$identity);
@@ -480,6 +483,7 @@ abstract class _Pop implements RoutingEvent {
   const factory _Pop({@required Routes from}) = _$_Pop;
 
   Routes get from;
+  @JsonKey(ignore: true)
   _$PopCopyWith<_Pop> get copyWith;
 }
 
@@ -529,6 +533,7 @@ mixin _$RoutingState {
     @required TResult orElse(),
   });
 
+  @JsonKey(ignore: true)
   $RoutingStateCopyWith<RoutingState> get copyWith;
 }
 
@@ -660,6 +665,7 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
       const DeepCollectionEquality().hash(log) ^
       const DeepCollectionEquality().hash(salt);
 
+  @JsonKey(ignore: true)
   @override
   _$RoutingStateCopyWith<_RoutingState> get copyWith =>
       __$RoutingStateCopyWithImpl<_RoutingState>(this, _$identity);
@@ -722,5 +728,6 @@ abstract class _RoutingState implements RoutingState {
   @override
   String get salt;
   @override
+  @JsonKey(ignore: true)
   _$RoutingStateCopyWith<_RoutingState> get copyWith;
 }

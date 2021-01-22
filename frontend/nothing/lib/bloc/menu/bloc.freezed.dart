@@ -38,6 +38,7 @@ mixin _$MenuState {
   bool get vibration;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $MenuStateCopyWith<MenuState> get copyWith;
 }
 
@@ -132,6 +133,7 @@ class _$_MenuState with DiagnosticableTreeMixin implements _MenuState {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(vibration);
 
+  @JsonKey(ignore: true)
   @override
   _$MenuStateCopyWith<_MenuState> get copyWith =>
       __$MenuStateCopyWithImpl<_MenuState>(this, _$identity);
@@ -151,5 +153,6 @@ abstract class _MenuState implements MenuState {
   @override
   bool get vibration;
   @override
+  @JsonKey(ignore: true)
   _$MenuStateCopyWith<_MenuState> get copyWith;
 }

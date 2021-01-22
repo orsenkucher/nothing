@@ -36,7 +36,6 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
     () async {
       if (!disposed && widget.queueBloc.state.isEmpty) {
         state = widget.xpBloc.state;
-        await Future.delayed(const Duration(milliseconds: 120));
       }
       while (!disposed && widget.queueBloc.state.isNotEmpty) {
         state = widget.queueBloc.state.first;

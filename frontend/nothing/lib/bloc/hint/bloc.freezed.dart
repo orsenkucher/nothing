@@ -40,6 +40,7 @@ mixin _$HintState {
   Map<int, bool> get memory;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $HintStateCopyWith<HintState> get copyWith;
 }
 
@@ -147,6 +148,7 @@ class _$_HintState with DiagnosticableTreeMixin implements _HintState {
       const DeepCollectionEquality().hash(unlocked) ^
       const DeepCollectionEquality().hash(memory);
 
+  @JsonKey(ignore: true)
   @override
   _$HintStateCopyWith<_HintState> get copyWith =>
       __$HintStateCopyWithImpl<_HintState>(this, _$identity);
@@ -168,5 +170,6 @@ abstract class _HintState implements HintState {
   @override
   Map<int, bool> get memory;
   @override
+  @JsonKey(ignore: true)
   _$HintStateCopyWith<_HintState> get copyWith;
 }

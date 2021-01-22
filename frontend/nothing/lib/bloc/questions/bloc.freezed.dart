@@ -59,6 +59,7 @@ mixin _$QuestionsEvent {
     @required TResult orElse(),
   });
 
+  @JsonKey(ignore: true)
   $QuestionsEventCopyWith<QuestionsEvent> get copyWith;
 }
 
@@ -149,6 +150,7 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(currentid);
 
+  @JsonKey(ignore: true)
   @override
   $FetchCopyWith<Fetch> get copyWith =>
       _$FetchCopyWithImpl<Fetch>(this, _$identity);
@@ -210,6 +212,7 @@ abstract class Fetch implements QuestionsEvent {
   @override
   int get currentid;
   @override
+  @JsonKey(ignore: true)
   $FetchCopyWith<Fetch> get copyWith;
 }
 
@@ -273,6 +276,7 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(currentid);
 
+  @JsonKey(ignore: true)
   @override
   $RefetchCopyWith<Refetch> get copyWith =>
       _$RefetchCopyWithImpl<Refetch>(this, _$identity);
@@ -334,6 +338,7 @@ abstract class Refetch implements QuestionsEvent {
   @override
   int get currentid;
   @override
+  @JsonKey(ignore: true)
   $RefetchCopyWith<Refetch> get copyWith;
 }
 
@@ -492,6 +497,7 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(questions);
 
+  @JsonKey(ignore: true)
   @override
   $LoadedCopyWith<Loaded> get copyWith =>
       _$LoadedCopyWithImpl<Loaded>(this, _$identity);
@@ -563,6 +569,7 @@ abstract class Loaded implements QuestionsState {
   const factory Loaded(QTree questions) = _$Loaded;
 
   QTree get questions;
+  @JsonKey(ignore: true)
   $LoadedCopyWith<Loaded> get copyWith;
 }
 
@@ -836,6 +843,7 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
 
+  @JsonKey(ignore: true)
   @override
   $ErrorCopyWith<Error> get copyWith =>
       _$ErrorCopyWithImpl<Error>(this, _$identity);
@@ -907,5 +915,6 @@ abstract class Error implements QuestionsState {
   const factory Error(CloudError error) = _$Error;
 
   CloudError get error;
+  @JsonKey(ignore: true)
   $ErrorCopyWith<Error> get copyWith;
 }

@@ -38,6 +38,7 @@ mixin _$OnboardState {
   bool get done;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $OnboardStateCopyWith<OnboardState> get copyWith;
 }
 
@@ -134,6 +135,7 @@ class _$_OnboardState with DiagnosticableTreeMixin implements _OnboardState {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(done);
 
+  @JsonKey(ignore: true)
   @override
   _$OnboardStateCopyWith<_OnboardState> get copyWith =>
       __$OnboardStateCopyWithImpl<_OnboardState>(this, _$identity);
@@ -153,5 +155,6 @@ abstract class _OnboardState implements OnboardState {
   @override
   bool get done;
   @override
+  @JsonKey(ignore: true)
   _$OnboardStateCopyWith<_OnboardState> get copyWith;
 }

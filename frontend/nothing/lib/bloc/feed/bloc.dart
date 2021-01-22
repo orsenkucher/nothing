@@ -29,7 +29,6 @@ abstract class FeedState with _$FeedState {
     @required QTree tree,
   }) = Available;
 
-  // TODO: or is it another bloc created?
   const factory FeedState.pending({
     @required QTree oldTree,
     @required QTree newTree,

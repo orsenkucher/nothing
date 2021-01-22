@@ -41,6 +41,7 @@ mixin _$HistoryItem {
   Question get question;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $HistoryItemCopyWith<HistoryItem> get copyWith;
 }
 
@@ -180,6 +181,7 @@ class _$_HistoryItem extends _HistoryItem with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(answer) ^
       const DeepCollectionEquality().hash(question);
 
+  @JsonKey(ignore: true)
   @override
   _$HistoryItemCopyWith<_HistoryItem> get copyWith =>
       __$HistoryItemCopyWithImpl<_HistoryItem>(this, _$identity);
@@ -204,6 +206,7 @@ abstract class _HistoryItem extends HistoryItem {
   @override
   Question get question;
   @override
+  @JsonKey(ignore: true)
   _$HistoryItemCopyWith<_HistoryItem> get copyWith;
 }
 
@@ -246,6 +249,7 @@ mixin _$HistoryEvent {
     @required TResult orElse(),
   });
 
+  @JsonKey(ignore: true)
   $HistoryEventCopyWith<HistoryEvent> get copyWith;
 }
 
@@ -349,6 +353,7 @@ class _$_Next with DiagnosticableTreeMixin implements _Next {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(item);
 
+  @JsonKey(ignore: true)
   @override
   _$NextCopyWith<_Next> get copyWith =>
       __$NextCopyWithImpl<_Next>(this, _$identity);
@@ -404,6 +409,7 @@ abstract class _Next implements HistoryEvent {
   @override
   HistoryItem get item;
   @override
+  @JsonKey(ignore: true)
   _$NextCopyWith<_Next> get copyWith;
 }
 
@@ -440,6 +446,7 @@ mixin _$HistoryState {
   List<HistoryItem> get items;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $HistoryStateCopyWith<HistoryState> get copyWith;
 }
 
@@ -546,6 +553,7 @@ class _$_State with DiagnosticableTreeMixin implements _State {
       const DeepCollectionEquality().hash(ids) ^
       const DeepCollectionEquality().hash(items);
 
+  @JsonKey(ignore: true)
   @override
   _$StateCopyWith<_State> get copyWith =>
       __$StateCopyWithImpl<_State>(this, _$identity);
@@ -568,5 +576,6 @@ abstract class _State implements HistoryState {
   @override // HashSet with ids
   List<HistoryItem> get items;
   @override
+  @JsonKey(ignore: true)
   _$StateCopyWith<_State> get copyWith;
 }

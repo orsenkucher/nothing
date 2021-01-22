@@ -38,6 +38,7 @@ mixin _$SummaryState {
   List<SummaryAnswer> get answers;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SummaryStateCopyWith<SummaryState> get copyWith;
 }
 
@@ -136,6 +137,7 @@ class _$_SummaryState with DiagnosticableTreeMixin implements _SummaryState {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(answers);
 
+  @JsonKey(ignore: true)
   @override
   _$SummaryStateCopyWith<_SummaryState> get copyWith =>
       __$SummaryStateCopyWithImpl<_SummaryState>(this, _$identity);
@@ -156,6 +158,7 @@ abstract class _SummaryState implements SummaryState {
   @override
   List<SummaryAnswer> get answers;
   @override
+  @JsonKey(ignore: true)
   _$SummaryStateCopyWith<_SummaryState> get copyWith;
 }
 
@@ -205,6 +208,7 @@ mixin _$SummaryAnswer {
   List<String> get answers;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SummaryAnswerCopyWith<SummaryAnswer> get copyWith;
 }
 
@@ -352,6 +356,7 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
       const DeepCollectionEquality().hash(seconds) ^
       const DeepCollectionEquality().hash(answers);
 
+  @JsonKey(ignore: true)
   @override
   _$SummaryAnswerCopyWith<_SummaryAnswer> get copyWith =>
       __$SummaryAnswerCopyWithImpl<_SummaryAnswer>(this, _$identity);
@@ -387,5 +392,6 @@ abstract class _SummaryAnswer implements SummaryAnswer {
   @JsonKey(toJson: _toJson, fromJson: _fromJson)
   List<String> get answers;
   @override
+  @JsonKey(ignore: true)
   _$SummaryAnswerCopyWith<_SummaryAnswer> get copyWith;
 }

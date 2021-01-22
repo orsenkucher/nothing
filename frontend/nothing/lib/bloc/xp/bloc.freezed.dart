@@ -48,6 +48,7 @@ mixin _$XPState {
   int get level;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $XPStateCopyWith<XPState> get copyWith;
 }
 
@@ -182,6 +183,7 @@ class _$_XPState extends _XPState with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(bonusxp) ^
       const DeepCollectionEquality().hash(level);
 
+  @JsonKey(ignore: true)
   @override
   _$XPStateCopyWith<_XPState> get copyWith =>
       __$XPStateCopyWithImpl<_XPState>(this, _$identity);
@@ -211,5 +213,6 @@ abstract class _XPState extends XPState {
   @override
   int get level;
   @override
+  @JsonKey(ignore: true)
   _$XPStateCopyWith<_XPState> get copyWith;
 }

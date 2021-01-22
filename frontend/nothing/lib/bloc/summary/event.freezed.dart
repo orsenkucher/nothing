@@ -267,6 +267,7 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
       const DeepCollectionEquality().hash(seconds) ^
       const DeepCollectionEquality().hash(answers);
 
+  @JsonKey(ignore: true)
   @override
   $NewAnswerCopyWith<NewAnswer> get copyWith =>
       _$NewAnswerCopyWithImpl<NewAnswer>(this, _$identity);
@@ -334,5 +335,6 @@ abstract class NewAnswer implements SummaryEvent {
   int get tries;
   int get seconds;
   List<String> get answers;
+  @JsonKey(ignore: true)
   $NewAnswerCopyWith<NewAnswer> get copyWith;
 }

@@ -166,6 +166,7 @@ class _$_Focus with DiagnosticableTreeMixin implements _Focus {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(question);
 
+  @JsonKey(ignore: true)
   @override
   _$FocusCopyWith<_Focus> get copyWith =>
       __$FocusCopyWithImpl<_Focus>(this, _$identity);
@@ -237,6 +238,7 @@ abstract class _Focus implements ValidationEvent {
   const factory _Focus(Question question) = _$_Focus;
 
   Question get question;
+  @JsonKey(ignore: true)
   _$FocusCopyWith<_Focus> get copyWith;
 }
 
@@ -298,6 +300,7 @@ class _$_Check with DiagnosticableTreeMixin implements _Check {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(answer);
 
+  @JsonKey(ignore: true)
   @override
   _$CheckCopyWith<_Check> get copyWith =>
       __$CheckCopyWithImpl<_Check>(this, _$identity);
@@ -369,6 +372,7 @@ abstract class _Check implements ValidationEvent {
   const factory _Check(String answer) = _$_Check;
 
   String get answer;
+  @JsonKey(ignore: true)
   _$CheckCopyWith<_Check> get copyWith;
 }
 
@@ -443,6 +447,7 @@ class _$_Lifecycle with DiagnosticableTreeMixin implements _Lifecycle {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(point);
 
+  @JsonKey(ignore: true)
   @override
   _$LifecycleCopyWith<_Lifecycle> get copyWith =>
       __$LifecycleCopyWithImpl<_Lifecycle>(this, _$identity);
@@ -514,6 +519,7 @@ abstract class _Lifecycle implements ValidationEvent {
   const factory _Lifecycle(TimePoint point) = _$_Lifecycle;
 
   TimePoint get point;
+  @JsonKey(ignore: true)
   _$LifecycleCopyWith<_Lifecycle> get copyWith;
 }
 
@@ -715,6 +721,7 @@ mixin _$_ValidationState2 {
     @required TResult orElse(),
   });
 
+  @JsonKey(ignore: true)
   _$ValidationState2CopyWith<_ValidationState2> get copyWith;
 }
 
@@ -845,6 +852,7 @@ class _$Correct with DiagnosticableTreeMixin implements Correct {
       const DeepCollectionEquality().hash(answers) ^
       const DeepCollectionEquality().hash(duration);
 
+  @JsonKey(ignore: true)
   @override
   $CorrectCopyWith<Correct> get copyWith =>
       _$CorrectCopyWithImpl<Correct>(this, _$identity);
@@ -932,6 +940,7 @@ abstract class Correct implements _ValidationState2 {
   List<String> get answers;
   Duration get duration;
   @override
+  @JsonKey(ignore: true)
   $CorrectCopyWith<Correct> get copyWith;
 }
 
@@ -1032,6 +1041,7 @@ class _$Wrong with DiagnosticableTreeMixin implements Wrong {
       const DeepCollectionEquality().hash(answers) ^
       const DeepCollectionEquality().hash(timePoints);
 
+  @JsonKey(ignore: true)
   @override
   $WrongCopyWith<Wrong> get copyWith =>
       _$WrongCopyWithImpl<Wrong>(this, _$identity);
@@ -1119,6 +1129,7 @@ abstract class Wrong implements _ValidationState2 {
   List<String> get answers;
   TimePoints get timePoints;
   @override
+  @JsonKey(ignore: true)
   $WrongCopyWith<Wrong> get copyWith;
 }
 
@@ -1219,6 +1230,7 @@ class _$Neutral with DiagnosticableTreeMixin implements Neutral {
       const DeepCollectionEquality().hash(answers) ^
       const DeepCollectionEquality().hash(timePoints);
 
+  @JsonKey(ignore: true)
   @override
   $NeutralCopyWith<Neutral> get copyWith =>
       _$NeutralCopyWithImpl<Neutral>(this, _$identity);
@@ -1307,6 +1319,7 @@ abstract class Neutral implements _ValidationState2 {
   List<String> get answers;
   TimePoints get timePoints;
   @override
+  @JsonKey(ignore: true)
   $NeutralCopyWith<Neutral> get copyWith;
 }
 
@@ -1396,6 +1409,7 @@ class _$Skipped with DiagnosticableTreeMixin implements Skipped {
       const DeepCollectionEquality().hash(answers) ^
       const DeepCollectionEquality().hash(duration);
 
+  @JsonKey(ignore: true)
   @override
   $SkippedCopyWith<Skipped> get copyWith =>
       _$SkippedCopyWithImpl<Skipped>(this, _$identity);
@@ -1483,6 +1497,7 @@ abstract class Skipped implements _ValidationState2 {
   List<String> get answers;
   Duration get duration;
   @override
+  @JsonKey(ignore: true)
   $SkippedCopyWith<Skipped> get copyWith;
 }
 
@@ -1620,6 +1635,7 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(state);
 
+  @JsonKey(ignore: true)
   @override
   _$JustCopyWith<_Just> get copyWith =>
       __$JustCopyWithImpl<_Just>(this, _$identity);
@@ -1679,6 +1695,7 @@ abstract class _Just implements ValidationState {
   const factory _Just(_ValidationState2 state) = _$_Just;
 
   _ValidationState2 get state;
+  @JsonKey(ignore: true)
   _$JustCopyWith<_Just> get copyWith;
 }
 
@@ -1826,6 +1843,7 @@ mixin _$TimePoint {
     @required TResult orElse(),
   });
 
+  @JsonKey(ignore: true)
   $TimePointCopyWith<TimePoint> get copyWith;
 }
 
@@ -1913,6 +1931,7 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(time);
 
+  @JsonKey(ignore: true)
   @override
   _$ResumeCopyWith<_Resume> get copyWith =>
       __$ResumeCopyWithImpl<_Resume>(this, _$identity);
@@ -1974,6 +1993,7 @@ abstract class _Resume implements TimePoint {
   @override
   DateTime get time;
   @override
+  @JsonKey(ignore: true)
   _$ResumeCopyWith<_Resume> get copyWith;
 }
 
@@ -2036,6 +2056,7 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(time);
 
+  @JsonKey(ignore: true)
   @override
   _$SuspendCopyWith<_Suspend> get copyWith =>
       __$SuspendCopyWithImpl<_Suspend>(this, _$identity);
@@ -2097,6 +2118,7 @@ abstract class _Suspend implements TimePoint {
   @override
   DateTime get time;
   @override
+  @JsonKey(ignore: true)
   _$SuspendCopyWith<_Suspend> get copyWith;
 }
 
@@ -2120,6 +2142,7 @@ const $TimePoints = _$TimePointsTearOff();
 mixin _$TimePoints {
   List<TimePoint> get points;
 
+  @JsonKey(ignore: true)
   $TimePointsCopyWith<TimePoints> get copyWith;
 }
 
@@ -2210,6 +2233,7 @@ class _$_TimePoints with DiagnosticableTreeMixin implements _TimePoints {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(points);
 
+  @JsonKey(ignore: true)
   @override
   _$TimePointsCopyWith<_TimePoints> get copyWith =>
       __$TimePointsCopyWithImpl<_TimePoints>(this, _$identity);
@@ -2221,5 +2245,6 @@ abstract class _TimePoints implements TimePoints {
   @override
   List<TimePoint> get points;
   @override
+  @JsonKey(ignore: true)
   _$TimePointsCopyWith<_TimePoints> get copyWith;
 }

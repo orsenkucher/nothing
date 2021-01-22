@@ -38,6 +38,7 @@ mixin _$CoinState {
   int get total;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $CoinStateCopyWith<CoinState> get copyWith;
 }
 
@@ -131,6 +132,7 @@ class _$_CoinState with DiagnosticableTreeMixin implements _CoinState {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(total);
 
+  @JsonKey(ignore: true)
   @override
   _$CoinStateCopyWith<_CoinState> get copyWith =>
       __$CoinStateCopyWithImpl<_CoinState>(this, _$identity);
@@ -150,5 +152,6 @@ abstract class _CoinState implements CoinState {
   @override
   int get total;
   @override
+  @JsonKey(ignore: true)
   _$CoinStateCopyWith<_CoinState> get copyWith;
 }

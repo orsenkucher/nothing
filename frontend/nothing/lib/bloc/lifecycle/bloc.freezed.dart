@@ -75,6 +75,7 @@ mixin _$LifecycleEvent {
     @required TResult orElse(),
   });
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $LifecycleEventCopyWith<LifecycleEvent> get copyWith;
 }
 
@@ -169,6 +170,7 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(point);
 
+  @JsonKey(ignore: true)
   @override
   _$ResumeCopyWith<_Resume> get copyWith =>
       __$ResumeCopyWithImpl<_Resume>(this, _$identity);
@@ -237,6 +239,7 @@ abstract class _Resume implements LifecycleEvent {
   @override
   DateTime get point;
   @override
+  @JsonKey(ignore: true)
   _$ResumeCopyWith<_Resume> get copyWith;
 }
 
@@ -305,6 +308,7 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(point);
 
+  @JsonKey(ignore: true)
   @override
   _$SuspendCopyWith<_Suspend> get copyWith =>
       __$SuspendCopyWithImpl<_Suspend>(this, _$identity);
@@ -373,6 +377,7 @@ abstract class _Suspend implements LifecycleEvent {
   @override
   DateTime get point;
   @override
+  @JsonKey(ignore: true)
   _$SuspendCopyWith<_Suspend> get copyWith;
 }
 
@@ -546,6 +551,7 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
       const DeepCollectionEquality().hash(log) ^
       const DeepCollectionEquality().hash(current);
 
+  @JsonKey(ignore: true)
   @override
   _$JustCopyWith<_Just> get copyWith =>
       __$JustCopyWithImpl<_Just>(this, _$identity);
@@ -615,6 +621,7 @@ abstract class _Just implements LifecycleState {
 
   List<LifecycleEvent> get log;
   LifecycleEvent get current;
+  @JsonKey(ignore: true)
   _$JustCopyWith<_Just> get copyWith;
 }
 

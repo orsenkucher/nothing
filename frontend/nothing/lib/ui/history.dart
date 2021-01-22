@@ -95,7 +95,7 @@ class HistoryStack extends StatelessWidget {
             final scrollController = useScrollController();
             useEffect(() {
               WidgetsBinding.instance.addPostFrameCallback(
-                (_) => scrollController.jumpTo(itemExtent * (state.items.length - 8)),
+                (_) => scrollController.jumpTo(scrollController.position.maxScrollExtent),
               );
               return;
             });
@@ -204,7 +204,7 @@ class HistoryStack extends StatelessWidget {
               onPressed: () {
                 final pos = counter;
                 // if (item.answered) return null;
-                return () => context.bloc<ControlCubit>().select(pos);
+                return () => context.read<ControlCubit>().select(pos);
               }(),
               splashColor: Colors.white.withOpacity(0.2),
               // splashColor: NothingScheme.of(context).hint.withOpacity(0.2),

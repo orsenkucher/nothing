@@ -178,6 +178,7 @@ mixin _$IdState {
   String get id;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $IdStateCopyWith<IdState> get copyWith;
 }
 
@@ -270,6 +271,7 @@ class _$_IdState with DiagnosticableTreeMixin implements _IdState {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(id);
 
+  @JsonKey(ignore: true)
   @override
   _$IdStateCopyWith<_IdState> get copyWith =>
       __$IdStateCopyWithImpl<_IdState>(this, _$identity);
@@ -288,5 +290,6 @@ abstract class _IdState implements IdState {
   @override
   String get id;
   @override
+  @JsonKey(ignore: true)
   _$IdStateCopyWith<_IdState> get copyWith;
 }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' as math;
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +23,7 @@ import 'package:nothing/bloc/lifecycle/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/bloc/xp/bloc.dart';
+import 'package:nothing/bloc/xp_ids/bloc.dart';
 import 'package:nothing/bloc/xp_queue/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart';
@@ -85,7 +87,7 @@ class App extends StatelessWidget with PortraitLock {
             fontFamily: 'Gilroy',
           ),
           // used initialState here before, haha
-          initialRoute: context.bloc<RoutingBloc>().state.name,
+          initialRoute: context.read<RoutingBloc>().state.name,
           routes: {
             Routes.home(): (_) => Home(),
           }.routed,
@@ -126,9 +128,11 @@ class App extends StatelessWidget with PortraitLock {
             state.when(
               just: (state) => state.maybeMap(
                 correct: (state) {
-                  final base = 150;
-                  final bonus = (1000 - 100 * state.duration.inSeconds).clamp(0, 1000);
-                  context.read<XPBloc>().progress(base, bonus);
+                  final id = state.question.id;
+                  final base = 100;
+                  final t = (state.duration.inSeconds - 70) / 20.0;
+                  final bonus = 200 * (1 - 1 / (1 + math.pow(math.e, -t)));
+                  context.read<XPBloc>().progress(id, base, bonus.round());
                 },
                 orElse: void$,
               ),
@@ -270,32 +274,35 @@ class App extends StatelessWidget with PortraitLock {
         BlocProvider<HintBloc>(create: (_) => HintBloc()),
         BlocProvider<OnboardBloc>(create: (_) => OnboardBloc()),
         BlocProvider<MenuBloc>(create: (_) => MenuBloc()),
-        BlocProvider<XPBloc>(create: (_) => XPBloc()),
         BlocProvider<XPQueueBloc>(create: (_) => XPQueueBloc()),
+        BlocProvider<XPIDsBloc>(create: (_) => XPIDsBloc()),
+        BlocProvider<XPBloc>(
+          create: (context) => XPBloc(context.read<XPIDsBloc>()),
+        ),
         BlocProvider<QuestionsBloc>(
           create: (context) => QuestionsBloc(
-            idBloc: context.bloc<IdBloc>(),
-            historyBloc: context.bloc<HistoryBloc>(),
-            summaryBloc: context.bloc<SummaryBloc>(),
-            repo: context.repository<QuestionsRepo>(),
+            idBloc: context.read<IdBloc>(),
+            historyBloc: context.read<HistoryBloc>(),
+            summaryBloc: context.read<SummaryBloc>(),
+            repo: context.read<QuestionsRepo>(),
           ),
         ),
         BlocProvider<FeedBloc>(
           create: (context) => FeedBloc(
-            questionsBloc: context.bloc<QuestionsBloc>(),
-            validationBloc: context.bloc<ValidationBloc>(),
+            questionsBloc: context.read<QuestionsBloc>(),
+            validationBloc: context.read<ValidationBloc>(),
           ),
         ),
         BlocProvider<AdBloc>(
           create: (context) => AdBloc(
-            context.repository<AdRepo>(),
-            context.bloc<IdBloc>(),
+            context.read<AdRepo>(),
+            context.read<IdBloc>(),
           ),
         ),
         BlocProvider<ControlCubit>(
           create: (context) => ControlCubit(
-            feed: context.bloc<FeedBloc>(),
-            history: context.bloc<HistoryBloc>(),
+            feed: context.read<FeedBloc>(),
+            history: context.read<HistoryBloc>(),
           ),
         ),
       ],
