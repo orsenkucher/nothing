@@ -8,6 +8,7 @@ import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/ui/toggle.dart';
 import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Menu extends StatefulWidget {
   const Menu(
@@ -72,8 +73,8 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                           final titles = [
                             'Tutorial',
                             'Rate us',
-                            'Give feedback',
-                            'Share',
+                            'Submit',
+                            'Share question',
                             if (platform) 'Vibration',
                           ];
                           final handlers = {
@@ -81,14 +82,23 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                               context.read<OnboardBloc>().reset();
                               widget.onBack();
                             },
-                            'Share': () {
+                            'Share question': () {
                               final question = context.read<FeedBloc>().state.maybeWhen(
                                     available: (tree) => tree.question.question,
                                     orElse: () => '',
                                   );
-                              Share.share('Nothing Puzzle: "$question"');
+                              final appLink =
+                                  Platform.isIOS ? '\nhttps://apps.apple.com/gb/app/nothing-puzzle/id1461158811' : '';
+                              Share.share('Nothing Puzzle: "$question"' + appLink);
                             },
                             'Vibration': platform ? () => context.read<MenuBloc>().flip() : null,
+                            'Submit': () async {
+                              const url =
+                                  'https://docs.google.com/forms/d/1Iz6n7bKA2TyCMdAdL-L9cZm8uBjvbk8FP-F3sW_KDSk/edit';
+                              if (await canLaunch(url)) {
+                                await launch(url);
+                              }
+                            }
                           };
                           final wrappers = <String, Widget Function(Widget)>{
                             'Vibration': platform

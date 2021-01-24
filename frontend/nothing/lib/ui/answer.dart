@@ -78,7 +78,7 @@ class Answer extends HookWidget {
               correct: (_) async {
                 if (Platform.isIOS) {
                   if (context.read<MenuBloc>().state.vibration) {
-                    Vibrate.feedback(FeedbackType.success);
+                    Vibrate.feedback(FeedbackType.warning);
                   }
                 }
                 await controller.forward();
