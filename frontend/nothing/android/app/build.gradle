@@ -45,7 +45,7 @@ android {
     defaultConfig {
         applicationId "com.crystalfactory.nothing2"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
