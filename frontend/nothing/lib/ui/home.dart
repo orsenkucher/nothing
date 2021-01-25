@@ -695,6 +695,6 @@ Future<void> _showAd(BuildContext context, void Function() onRewarded) async {
     print('****** Loaded ad successfully');
   } catch (e) {
     print('****** Ad error\n$e');
-    onRewarded();
+    // onRewarded();
   }
 }
