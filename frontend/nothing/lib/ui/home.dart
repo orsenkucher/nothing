@@ -647,6 +647,12 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
 Future<bool> _adLoading;
 void _createAd(BuildContext context) {
   print('****** Loading new ad');
+  RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+    print("RewardedVideoAdEvent event is $event");
+    if (event == RewardedVideoAdEvent.loaded) {
+      print('RewardedVideoAdEvent is loaded');
+    }
+  };
   _adLoading = RewardedVideoAd.instance.load(
     adUnitId: Platform.isIOS // rewarded ios/android
         ? 'ca-app-pub-3169956978186495/1379142349'
