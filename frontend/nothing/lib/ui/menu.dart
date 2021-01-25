@@ -89,7 +89,7 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                                   );
                               final appLink =
                                   Platform.isIOS ? '\nhttps://apps.apple.com/gb/app/nothing-puzzle/id1461158811' : '';
-                              Share.share('Nothing Puzzle: "$question"' + appLink);
+                              Share.share('The question from NOTHING PUZZLE2: "$question"' + appLink);
                             },
                             'Vibration': platform ? () => context.read<MenuBloc>().flip() : null,
                             'Submit': () async {

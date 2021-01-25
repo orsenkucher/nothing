@@ -644,24 +644,22 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
   }
 }
 
-Future<void> _createAd(BuildContext context) async {
+Future<bool> _adLoading;
+void _createAd(BuildContext context) {
   print('****** Loading new ad');
-  final result = await RewardedVideoAd.instance.load(
+  _adLoading = RewardedVideoAd.instance.load(
     adUnitId: Platform.isIOS // rewarded ios/android
         ? 'ca-app-pub-3169956978186495/1379142349'
         : 'ca-app-pub-3169956978186495/4928393166',
     // adUnitId: InterstitialAd.testAdUnitId,
     targetingInfo: MobileAdTargetingInfo(),
   );
-  if (!result) {
-    print('****** Ad did not load');
-    return;
-  }
 }
 
 Future<void> _showAd(BuildContext context, void Function() onRewarded) async {
   final model = FocusNodeModel.of(context);
-  RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) async {
+
+  RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
     print("RewardedVideoAdEvent event is $event");
     if (event == RewardedVideoAdEvent.loaded) {}
     if (event == RewardedVideoAdEvent.rewarded) {
@@ -671,10 +669,21 @@ Future<void> _showAd(BuildContext context, void Function() onRewarded) async {
     if (event == RewardedVideoAdEvent.closed) {
       print("RewardedVideoAdEvent is closed");
       model.refocus();
-      await _createAd(context);
+      _createAd(context);
     }
   };
+
   try {
+    if (_adLoading == null) {
+      print('_adLoading is null');
+    }
+
+    final adLoaded = await _adLoading;
+    if (!adLoaded) {
+      print('****** Ad did not load');
+      return;
+    }
+
     await RewardedVideoAd.instance.show();
     context.read<AdBloc>().add(AdEvent.report(domain.AdType.rewarded));
     print('****** Loaded ad successfully');
