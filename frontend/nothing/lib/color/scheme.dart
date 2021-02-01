@@ -20,6 +20,7 @@ class NothingScheme extends InheritedWidget {
   Color get wrong => const Color(0xffc02030);
   Color get like => correct;
   Color get dislike => wrong;
+  Color get share => const Color(0xff2979ff);
 
   Color get historyBg => app; //const Color(0xffffffff);
 
@@ -28,6 +29,8 @@ class NothingScheme extends InheritedWidget {
   Color get slidernext => correct;
 
   BorderRadiusGeometry get toggleBorder => const BorderRadius.all(Radius.circular(12));
+
+  BorderRadiusGeometry get shareBorder => const BorderRadius.all(Radius.circular(32));
 
   Brightness get brightness => Brightness.light;
 

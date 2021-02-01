@@ -30,6 +30,7 @@ import 'package:nothing/ui/menu.dart';
 import 'package:nothing/ui/onboarding.dart';
 import 'package:nothing/ui/question.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:share/share.dart';
 
 const swipeCurve = Curves.fastOutSlowIn;
 
@@ -465,24 +466,28 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 'skip': 'Skip',
                 'like': '',
                 'dislike': '',
+                'share': '',
               };
               final color = {
                 'hint': NothingScheme.of(context).hint,
                 'skip': NothingScheme.of(context).skip,
                 'like': NothingScheme.of(context).like,
                 'dislike': NothingScheme.of(context).dislike,
+                'share': NothingScheme.of(context).share,
               };
               final icon = {
                 'hint': NothingFont.hint,
                 'skip': NothingFont.skip,
                 'like': NothingFont.like,
                 'dislike': NothingFont.like,
+                'share': Icons.ios_share,
               };
               final iconTransform = <String, Widget Function(Widget)>{
                 'hint': (_) => _,
                 'skip': (_) => Transform.scale(scale: 0.65, child: _),
                 'like': (_) => _,
                 'dislike': (_) => Transform.rotate(angle: pi, child: _),
+                'share': (_) => Transform.translate(offset: const Offset(0, -2), child: _),
               };
               final callback = {
                 'hint': () => _hintClick(
@@ -513,6 +518,16 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                   final snackBar = _makeSnackBar(context, false);
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
+                'share': () {
+                  final question = context.read<FeedBloc>().state.maybeWhen(
+                        available: (tree) => tree.question.question,
+                        orElse: () => '',
+                      );
+                  final appLink = Platform.isIOS
+                      ? '\nhttps://apps.apple.com/us/app/nothing-puzzle-2/id1500126757'
+                      : '\nhttps://play.google.com/store/apps/details?id=com.crystalfactory.nothing2';
+                  Share.share('The question from NOTHING PUZZLE 2: "$question"' + appLink);
+                }
               };
 
               if (liked.value) {
@@ -527,7 +542,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
 
               // final bb = (state is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
               final correct = state.map(just: (v) => v.state is Correct, nothing: (_) => false);
-              final buttons = (!correct ? ['hint', 'skip'] : ['like', 'dislike'])
+              final buttons = (!correct ? ['hint', 'skip', 'share'] : ['like', 'dislike'])
                   .map((l) => FlatButton(
                         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 9),
                         color: color[l],
@@ -539,14 +554,17 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                               size: 24,
                               color: Colors.white,
                             )),
-                            SizedBox(width: 2),
-                            text(label[l]),
-                            SizedBox(width: 6),
+                            if (label[l].isNotEmpty) SizedBox(width: 2),
+                            if (label[l].isNotEmpty) text(label[l]),
+                            if (label[l].isNotEmpty) SizedBox(width: 6),
                           ],
                         ),
+                        minWidth: l == 'share' ? 60.0 : null,
                         onPressed: callback[l],
                         shape: RoundedRectangleBorder(
-                          borderRadius: NothingScheme.of(context).hintBorder,
+                          borderRadius: l == 'share'
+                              ? NothingScheme.of(context).shareBorder
+                              : NothingScheme.of(context).hintBorder,
                         ),
                       ))
                   .expand((w) sync* {
@@ -566,7 +584,6 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                       children: [
                         SizedBox(width: 2),
                         ...buttons,
-                        // CoinText(),
                       ],
                     ),
                   ),
