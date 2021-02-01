@@ -520,7 +520,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                   final snackBar = _makeSnackBar(context, false);
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
-                'share': () {
+                'share': () async {
                   final question = context.read<FeedBloc>().state.maybeWhen(
                         available: (tree) => tree.question.question,
                         pending: (prev, _) => prev.question.question,
@@ -529,7 +529,12 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                   final appLink = Platform.isIOS
                       ? '\nhttps://apps.apple.com/us/app/nothing-puzzle-2/id1500126757'
                       : '\nhttps://play.google.com/store/apps/details?id=com.crystalfactory.nothing2';
-                  Share.share('The question from NOTHING PUZZLE 2: "$question"' + appLink);
+
+                  await Share.share('The question from NOTHING PUZZLE 2: "$question"' + appLink);
+
+                  final focusModel = FocusNodeModel.of(context);
+                  focusModel.focusNode.requestFocus(FocusNode());
+                  WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
                 }
               };
 
