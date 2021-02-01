@@ -532,9 +532,11 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                       ? '\nhttps://apps.apple.com/us/app/nothing-puzzle-2/id1500126757'
                       : '\nhttps://play.google.com/store/apps/details?id=com.crystalfactory.nothing2';
 
-                  const curve = swipeCurve;
-                  const duration = Duration(milliseconds: 300);
-                  pageController.animateToPage(2, curve: curve, duration: duration);
+                  if (Platform.isIOS) {
+                    const curve = swipeCurve;
+                    const duration = Duration(milliseconds: 300);
+                    pageController.animateToPage(2, curve: curve, duration: duration);
+                  }
 
                   await Share.share('The question from #NOTHING PUZZLE 2: "$question"' + appLink);
                 }
