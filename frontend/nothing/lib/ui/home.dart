@@ -533,65 +533,73 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 }
               };
 
+              Iterable<Widget> buildButtons(List<String> labels) {
+                return labels.map((l) {
+                  final isShare = l.contains('share');
+                  return FlatButton(
+                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 9),
+                    color: color[l],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        iconTransform[l](Icon(
+                          icon[l],
+                          size: 24,
+                          color: Colors.white,
+                        )),
+                        if (label[l].isNotEmpty) SizedBox(width: 2),
+                        if (label[l].isNotEmpty) text(label[l]),
+                        if (label[l].isNotEmpty) SizedBox(width: 6),
+                      ],
+                    ),
+                    minWidth: isShare ? 60.0 : null,
+                    onPressed: callback[l],
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          isShare ? NothingScheme.of(context).shareBorder : NothingScheme.of(context).hintBorder,
+                    ),
+                  );
+                }).expand((w) sync* {
+                  yield w;
+                  yield const SizedBox(width: 12);
+                  // yield Container(width: 16, height: 10, color: Colors.red);
+                });
+              }
+
+              Widget positionButtons(Iterable<Widget> buttons) {
+                return Stack(
+                  children: [
+                    Positioned(
+                      top: top,
+                      left: hor,
+                      right: hor,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(width: 2),
+                          ...buttons,
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+
               if (liked.value) {
                 return BlocListener<FeedBloc, FeedState>(
-                  child: SizedBox.shrink(),
+                  child: positionButtons(buildButtons(['share'])),
                   listenWhen: (_, next) => next is Available,
                   listener: (context, sate) {
                     liked.value = false;
                   },
                 );
+              } else {
+                final correct = state.map(just: (v) => v.state is Correct, nothing: (_) => false);
+                return positionButtons(buildButtons(
+                  !correct ? ['hint', 'skip', 'share'] : ['like', 'dislike', 'share'],
+                ));
               }
-
-              // final bb = (state is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
-              final correct = state.map(just: (v) => v.state is Correct, nothing: (_) => false);
-              final buttons = (!correct ? ['hint', 'skip', 'share'] : ['like', 'dislike', 'share'])
-                  .map((l) => FlatButton(
-                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 9),
-                        color: color[l],
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            iconTransform[l](Icon(
-                              icon[l],
-                              size: 24,
-                              color: Colors.white,
-                            )),
-                            if (label[l].isNotEmpty) SizedBox(width: 2),
-                            if (label[l].isNotEmpty) text(label[l]),
-                            if (label[l].isNotEmpty) SizedBox(width: 6),
-                          ],
-                        ),
-                        minWidth: l == 'share' ? 60.0 : null,
-                        onPressed: callback[l],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: l == 'share'
-                              ? NothingScheme.of(context).shareBorder
-                              : NothingScheme.of(context).hintBorder,
-                        ),
-                      ))
-                  .expand((w) sync* {
-                yield w;
-                yield const SizedBox(width: 12);
-                // yield Container(width: 16, height: 10, color: Colors.red);
-              });
-              return Stack(
-                children: [
-                  Positioned(
-                    top: top,
-                    left: hor,
-                    right: hor,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(width: 2),
-                        ...buttons,
-                      ],
-                    ),
-                  ),
-                ],
-              );
             });
           },
         );
