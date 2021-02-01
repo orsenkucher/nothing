@@ -178,7 +178,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 Confetti(),
                 _buildTitleKnobs(context, widget.pageController),
                 if (state is Pending) _buildContinueDetector(context),
-                _buildHintButtons(context, showHint, hintTintController),
+                _buildHintButtons(context, showHint, hintTintController, widget.pageController),
                 _buildTinter(context, hintTintController),
                 if (showHint.value) _buildHint(context, showHint, hintTintController),
                 _buildTinter(context, widget.swipeTintController, true),
@@ -446,6 +446,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     BuildContext context,
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
+    PageController pageController,
   ) {
     return SafeArea(child: LayoutBuilder(
       builder: (context, constraints) {
@@ -530,6 +531,10 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                   final appLink = Platform.isIOS
                       ? '\nhttps://apps.apple.com/us/app/nothing-puzzle-2/id1500126757'
                       : '\nhttps://play.google.com/store/apps/details?id=com.crystalfactory.nothing2';
+
+                  const curve = swipeCurve;
+                  const duration = Duration(milliseconds: 300);
+                  pageController.animateToPage(2, curve: curve, duration: duration);
 
                   await Share.share('The question from #NOTHING PUZZLE 2: "$question"' + appLink);
                 }
