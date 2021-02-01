@@ -235,6 +235,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
           ),
           onTap: () {
             final focusModel = FocusNodeModel.of(context);
+            focusModel.focusNode.unfocus();
             focusModel.focusNode.requestFocus(FocusNode());
             WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
           },
