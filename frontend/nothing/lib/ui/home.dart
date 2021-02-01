@@ -523,6 +523,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 'share': () {
                   final question = context.read<FeedBloc>().state.maybeWhen(
                         available: (tree) => tree.question.question,
+                        pending: (prev, _) => prev.question.question,
                         orElse: () => '',
                       );
                   final appLink = Platform.isIOS
@@ -544,7 +545,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
 
               // final bb = (state is! Pending ? ['hint', 'skip'] : ['like', 'dislike'])
               final correct = state.map(just: (v) => v.state is Correct, nothing: (_) => false);
-              final buttons = (!correct ? ['hint', 'skip', 'share'] : ['like', 'dislike'])
+              final buttons = (!correct ? ['hint', 'skip', 'share'] : ['like', 'dislike', 'share'])
                   .map((l) => FlatButton(
                         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 9),
                         color: color[l],

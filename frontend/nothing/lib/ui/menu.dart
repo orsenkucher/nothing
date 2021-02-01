@@ -85,6 +85,7 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                             'Share question': () {
                               final question = context.read<FeedBloc>().state.maybeWhen(
                                     available: (tree) => tree.question.question,
+                                    pending: (prev, _) => prev.question.question,
                                     orElse: () => '',
                                   );
                               final appLink = Platform.isIOS
