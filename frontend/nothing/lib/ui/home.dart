@@ -662,6 +662,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
 }
 
 Future<bool> _adLoading;
+DateTime _lastClosed = DateTime.now();
 void _createAd(BuildContext context) {
   print('****** Loading new ad');
   RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
@@ -692,6 +693,7 @@ Future<void> _showAd(BuildContext context, void Function() onRewarded) async {
     if (event == RewardedVideoAdEvent.closed) {
       print("RewardedVideoAdEvent is closed");
       model.refocus();
+      _lastClosed = DateTime.now();
       _createAd(context);
     }
   };
@@ -713,6 +715,8 @@ Future<void> _showAd(BuildContext context, void Function() onRewarded) async {
   } catch (e) {
     print('****** Ad error\n$e');
     _createAd(context);
-    onRewarded();
+    if (_lastClosed.difference(DateTime.now()).inSeconds > 5) {
+      onRewarded();
+    }
   }
 }
