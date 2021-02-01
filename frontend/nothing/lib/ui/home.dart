@@ -11,7 +11,6 @@ import 'package:nothing/binding/control.dart';
 import 'package:nothing/bloc/ad/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/hint/bloc.dart';
-import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
@@ -238,10 +237,6 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
             final focusModel = FocusNodeModel.of(context);
             focusModel.focusNode.requestFocus(FocusNode());
             WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
-
-            final last = context.read<HistoryBloc>().state.items.length - 1;
-            context.read<ControlCubit>().select(last);
-            setState(() {});
           },
         ),
       ),
