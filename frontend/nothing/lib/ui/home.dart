@@ -237,11 +237,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
             final focusModel = FocusNodeModel.of(context);
             focusModel.focusNode.unfocus();
             focusModel.focusNode.requestFocus(FocusNode());
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              focusModel.refocus();
-              context.read<OnboardBloc>().reset();
-              context.read<OnboardBloc>().complete();
-            });
+            WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
           },
         ),
       ),
