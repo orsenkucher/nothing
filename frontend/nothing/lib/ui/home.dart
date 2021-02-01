@@ -532,9 +532,11 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
 
                   await Share.share('The question from NOTHING PUZZLE 2: "$question"' + appLink);
 
-                  final focusModel = FocusNodeModel.of(context);
-                  focusModel.focusNode.requestFocus(FocusNode());
-                  WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
+                  setState(() {
+                    final focusModel = FocusNodeModel.of(context);
+                    focusModel.refocus();
+                    WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
+                  });
                 }
               };
 
