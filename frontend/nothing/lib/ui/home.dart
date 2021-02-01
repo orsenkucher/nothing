@@ -174,9 +174,8 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
             builder: (context, state) => _ifOnboarding(
               context,
               Stack(children: [
-                _buildGame(context, textController),
+                _buildRefocusDetector(context, _buildGame(context, textController)),
                 Confetti(),
-                _buildRefocusDetector(context),
                 _buildTitleKnobs(context, widget.pageController),
                 if (state is Pending) _buildContinueDetector(context),
                 _buildHintButtons(context, showHint, hintTintController),
@@ -224,13 +223,16 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     );
   }
 
-  Widget _buildRefocusDetector(BuildContext context) {
+  Widget _buildRefocusDetector(BuildContext context, Widget child) {
     return Center(
       child: FractionallySizedBox(
-        widthFactor: 0.8,
+        widthFactor: 1.0,
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
-          // child: Container(color: Colors.green.withOpacity(0.3)),
+          child: Container(
+            // color: Colors.green.withOpacity(0.3),
+            child: child,
+          ),
           onTap: () {
             final focusModel = FocusNodeModel.of(context);
             focusModel.focusNode.requestFocus(FocusNode());

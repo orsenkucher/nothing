@@ -205,22 +205,19 @@ class Answer extends HookWidget {
                       padding: const EdgeInsets.all(24.0),
                       visualDensity: VisualDensity.compact,
                       child: Icon(Icons.arrow_forward_ios, size: 24),
-                      onPressed: () {},
-                      onHighlightChanged: (flag) async {
-                        if (flag) {
-                          final focus = FocusNodeModel.of(context);
-                          final text = textController.text;
-                          final feed = context.read<FeedBloc>();
-                          if (feed.state is Pending) {
-                            feed.add(FeedEvent.ground());
-                            focus.refocus();
-                            return;
-                          }
+                      onPressed: () async {
+                        final focus = FocusNodeModel.of(context);
+                        final text = textController.text;
+                        final feed = context.read<FeedBloc>();
+                        if (feed.state is Pending) {
+                          feed.add(FeedEvent.ground());
                           focus.refocus();
-                          if (text.isNotEmpty) {
-                            print(text);
-                            context.read<ValidationBloc>().add(ValidationEvent.check(text));
-                          }
+                          return;
+                        }
+                        focus.refocus();
+                        if (text.isNotEmpty) {
+                          print(text);
+                          context.read<ValidationBloc>().add(ValidationEvent.check(text));
                         }
                       },
                     ),
