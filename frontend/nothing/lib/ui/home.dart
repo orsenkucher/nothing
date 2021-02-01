@@ -178,7 +178,9 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 Confetti(),
                 _buildTitleKnobs(context, widget.pageController),
                 if (state is Pending) _buildContinueDetector(context),
-                _buildHintButtons(context, showHint, hintTintController),
+                _buildHintButtons(context, showHint, hintTintController, () {
+                  setState(() {});
+                }),
                 _buildTinter(context, hintTintController),
                 if (showHint.value) _buildHint(context, showHint, hintTintController),
                 _buildTinter(context, widget.swipeTintController, true),
@@ -446,6 +448,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     BuildContext context,
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
+    void Function() rebuildMain,
   ) {
     return SafeArea(child: LayoutBuilder(
       builder: (context, constraints) {
@@ -526,17 +529,19 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                         pending: (prev, _) => prev.question.question,
                         orElse: () => '',
                       );
+
                   final appLink = Platform.isIOS
                       ? '\nhttps://apps.apple.com/us/app/nothing-puzzle-2/id1500126757'
                       : '\nhttps://play.google.com/store/apps/details?id=com.crystalfactory.nothing2';
 
-                  await Share.share('The question from NOTHING PUZZLE 2: "$question"' + appLink);
+                  await Share.share('The question from #NOTHING PUZZLE 2: "$question"' + appLink);
 
-                  setState(() {
-                    final focusModel = FocusNodeModel.of(context);
-                    focusModel.refocus();
-                    WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
-                  });
+                  rebuildMain();
+                  // setState(() {
+                  //   final focusModel = FocusNodeModel.of(context);
+                  //   focusModel.refocus();
+                  //   WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
+                  // });
                 }
               };
 
