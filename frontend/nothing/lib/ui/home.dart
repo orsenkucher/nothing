@@ -11,6 +11,7 @@ import 'package:nothing/binding/control.dart';
 import 'package:nothing/bloc/ad/bloc.dart';
 import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/bloc/hint/bloc.dart';
+import 'package:nothing/bloc/history/bloc.dart';
 import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
@@ -178,9 +179,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 Confetti(),
                 _buildTitleKnobs(context, widget.pageController),
                 if (state is Pending) _buildContinueDetector(context),
-                _buildHintButtons(context, showHint, hintTintController, () {
-                  setState(() {});
-                }),
+                _buildHintButtons(context, showHint, hintTintController),
                 _buildTinter(context, hintTintController),
                 if (showHint.value) _buildHint(context, showHint, hintTintController),
                 _buildTinter(context, widget.swipeTintController, true),
@@ -239,6 +238,10 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
             final focusModel = FocusNodeModel.of(context);
             focusModel.focusNode.requestFocus(FocusNode());
             WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
+
+            final last = context.read<HistoryBloc>().state.items.length - 1;
+            context.read<ControlCubit>().select(last);
+            setState(() {});
           },
         ),
       ),
@@ -448,7 +451,6 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     BuildContext context,
     ValueNotifier<bool> showHint,
     AnimationController hintTintController,
-    void Function() rebuildMain,
   ) {
     return SafeArea(child: LayoutBuilder(
       builder: (context, constraints) {
@@ -535,13 +537,6 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                       : '\nhttps://play.google.com/store/apps/details?id=com.crystalfactory.nothing2';
 
                   await Share.share('The question from #NOTHING PUZZLE 2: "$question"' + appLink);
-
-                  rebuildMain();
-                  // setState(() {
-                  //   final focusModel = FocusNodeModel.of(context);
-                  //   focusModel.refocus();
-                  //   WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
-                  // });
                 }
               };
 
