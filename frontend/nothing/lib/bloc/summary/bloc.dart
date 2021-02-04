@@ -15,7 +15,12 @@ class SummaryBloc extends HydratedBloc<SummaryEvent, SummaryState> {
     SummaryEvent event,
   ) async* {
     yield event.map(
-      reset: (_) => SummaryState.empty(),
+      remove: (e) {
+        final answers = [...state.answers];
+        e.answers.forEach((ans) => answers.remove(ans));
+        final next = SummaryState(answers: answers);
+        return next;
+      },
       answer: (e) {
         final next = SummaryState(answers: [
           ...state.answers,

@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:nothing/bloc/summary/bloc.dart';
 
 part 'event.freezed.dart';
 
 @freezed
 abstract class SummaryEvent with _$SummaryEvent {
-  const factory SummaryEvent.reset() = Reset;
+  const factory SummaryEvent.remove(List<SummaryAnswer> answers) = Remove;
   const factory SummaryEvent.answer({
     @required int qid,
     @required int tries,

@@ -56,14 +56,13 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
     yield const QuestionsState.loading();
     try {
       lastid = event.currentid;
-      // get answers and reset summary before awaiting request
-      final answers = [...summaryBloc.state.answers];
-      summaryBloc.add(const SummaryEvent.reset());
+      final answered = [...summaryBloc.state.answers];
       var problems = await repo.fetchQuestions(
         userID: idBloc.state.id,
         currentID: event.currentid,
-        answers: answers,
+        answers: answered,
       );
+      summaryBloc.add(SummaryEvent.remove(answered));
       yield QuestionsState.loaded(problems);
     } on CloudError catch (error) {
       yield QuestionsState.error(error);

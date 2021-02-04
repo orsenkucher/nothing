@@ -14,8 +14,10 @@ class _$SummaryEventTearOff {
   const _$SummaryEventTearOff();
 
 // ignore: unused_element
-  Reset reset() {
-    return const Reset();
+  Remove remove(List<SummaryAnswer> answers) {
+    return Remove(
+      answers,
+    );
   }
 
 // ignore: unused_element
@@ -41,24 +43,24 @@ const $SummaryEvent = _$SummaryEventTearOff();
 mixin _$SummaryEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult reset(),
+    @required TResult remove(List<SummaryAnswer> answers),
     @required
         TResult answer(int qid, int tries, int seconds, List<String> answers),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult reset(),
+    TResult remove(List<SummaryAnswer> answers),
     TResult answer(int qid, int tries, int seconds, List<String> answers),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult reset(Reset value),
+    @required TResult remove(Remove value),
     @required TResult answer(NewAnswer value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult reset(Reset value),
+    TResult remove(Remove value),
     TResult answer(NewAnswer value),
     @required TResult orElse(),
   });
@@ -81,66 +83,90 @@ class _$SummaryEventCopyWithImpl<$Res> implements $SummaryEventCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $ResetCopyWith<$Res> {
-  factory $ResetCopyWith(Reset value, $Res Function(Reset) then) =
-      _$ResetCopyWithImpl<$Res>;
+abstract class $RemoveCopyWith<$Res> {
+  factory $RemoveCopyWith(Remove value, $Res Function(Remove) then) =
+      _$RemoveCopyWithImpl<$Res>;
+  $Res call({List<SummaryAnswer> answers});
 }
 
 /// @nodoc
-class _$ResetCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
-    implements $ResetCopyWith<$Res> {
-  _$ResetCopyWithImpl(Reset _value, $Res Function(Reset) _then)
-      : super(_value, (v) => _then(v as Reset));
+class _$RemoveCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
+    implements $RemoveCopyWith<$Res> {
+  _$RemoveCopyWithImpl(Remove _value, $Res Function(Remove) _then)
+      : super(_value, (v) => _then(v as Remove));
 
   @override
-  Reset get _value => super._value as Reset;
+  Remove get _value => super._value as Remove;
+
+  @override
+  $Res call({
+    Object answers = freezed,
+  }) {
+    return _then(Remove(
+      answers == freezed ? _value.answers : answers as List<SummaryAnswer>,
+    ));
+  }
 }
 
 /// @nodoc
-class _$Reset with DiagnosticableTreeMixin implements Reset {
-  const _$Reset();
+class _$Remove with DiagnosticableTreeMixin implements Remove {
+  const _$Remove(this.answers) : assert(answers != null);
+
+  @override
+  final List<SummaryAnswer> answers;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SummaryEvent.reset()';
+    return 'SummaryEvent.remove(answers: $answers)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'SummaryEvent.reset'));
+    properties
+      ..add(DiagnosticsProperty('type', 'SummaryEvent.remove'))
+      ..add(DiagnosticsProperty('answers', answers));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Reset);
+    return identical(this, other) ||
+        (other is Remove &&
+            (identical(other.answers, answers) ||
+                const DeepCollectionEquality().equals(other.answers, answers)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(answers);
+
+  @JsonKey(ignore: true)
+  @override
+  $RemoveCopyWith<Remove> get copyWith =>
+      _$RemoveCopyWithImpl<Remove>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult reset(),
+    @required TResult remove(List<SummaryAnswer> answers),
     @required
         TResult answer(int qid, int tries, int seconds, List<String> answers),
   }) {
-    assert(reset != null);
+    assert(remove != null);
     assert(answer != null);
-    return reset();
+    return remove(answers);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult reset(),
+    TResult remove(List<SummaryAnswer> answers),
     TResult answer(int qid, int tries, int seconds, List<String> answers),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (reset != null) {
-      return reset();
+    if (remove != null) {
+      return remove(answers);
     }
     return orElse();
   }
@@ -148,31 +174,35 @@ class _$Reset with DiagnosticableTreeMixin implements Reset {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult reset(Reset value),
+    @required TResult remove(Remove value),
     @required TResult answer(NewAnswer value),
   }) {
-    assert(reset != null);
+    assert(remove != null);
     assert(answer != null);
-    return reset(this);
+    return remove(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult reset(Reset value),
+    TResult remove(Remove value),
     TResult answer(NewAnswer value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (reset != null) {
-      return reset(this);
+    if (remove != null) {
+      return remove(this);
     }
     return orElse();
   }
 }
 
-abstract class Reset implements SummaryEvent {
-  const factory Reset() = _$Reset;
+abstract class Remove implements SummaryEvent {
+  const factory Remove(List<SummaryAnswer> answers) = _$Remove;
+
+  List<SummaryAnswer> get answers;
+  @JsonKey(ignore: true)
+  $RemoveCopyWith<Remove> get copyWith;
 }
 
 /// @nodoc
@@ -275,11 +305,11 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult reset(),
+    @required TResult remove(List<SummaryAnswer> answers),
     @required
         TResult answer(int qid, int tries, int seconds, List<String> answers),
   }) {
-    assert(reset != null);
+    assert(remove != null);
     assert(answer != null);
     return answer(qid, tries, seconds, answers);
   }
@@ -287,7 +317,7 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult reset(),
+    TResult remove(List<SummaryAnswer> answers),
     TResult answer(int qid, int tries, int seconds, List<String> answers),
     @required TResult orElse(),
   }) {
@@ -301,10 +331,10 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult reset(Reset value),
+    @required TResult remove(Remove value),
     @required TResult answer(NewAnswer value),
   }) {
-    assert(reset != null);
+    assert(remove != null);
     assert(answer != null);
     return answer(this);
   }
@@ -312,7 +342,7 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult reset(Reset value),
+    TResult remove(Remove value),
     TResult answer(NewAnswer value),
     @required TResult orElse(),
   }) {
