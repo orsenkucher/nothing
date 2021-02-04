@@ -15,7 +15,7 @@ part 'bloc.freezed.dart';
 
 @freezed
 abstract class QuestionsEvent with _$QuestionsEvent {
-  const factory QuestionsEvent.fetch([int currentid]) = Fetch;
+  const factory QuestionsEvent.fetch([int currentid, @Default(false) bool isRefetch]) = Fetch;
   const factory QuestionsEvent.refetch(int currentid) = Refetch;
 }
 
@@ -53,9 +53,13 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
       add(QuestionsEvent.fetch(curid));
       return;
     }
+
+    if (event.isRefetch && lastid != event.currentid) return;
+
     yield const QuestionsState.loading();
     try {
       lastid = event.currentid;
+      print("LAST ID is: $lastid");
       final answered = [...summaryBloc.state.answers];
       var problems = await repo.fetchQuestions(
         userID: idBloc.state.id,
@@ -76,7 +80,8 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
     await Future.delayed(duration);
     if (lastid == event.currentid) {
       yield const QuestionsState.reloading();
-      add(QuestionsEvent.fetch(event.currentid));
+      print("REFETCHING ID is: $lastid");
+      add(QuestionsEvent.fetch(event.currentid, true));
     }
   }
 }

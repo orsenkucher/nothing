@@ -23,7 +23,7 @@ class NoBlocObserver extends BlocObserver {
 
   @override
   void onClose(Cubit cubit) {
-    super.onClose(cubit);
     print('onClose -- cubit: ${cubit.runtimeType}');
+    super.onClose(cubit);
   }
 }

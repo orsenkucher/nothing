@@ -90,7 +90,6 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
           print('Grounding on');
           print(nextTree.question);
           // non-history tree
-          // if (oldTree.left != null && oldTree.right != null) {
           if (nextTree.left != null && nextTree.right != null || nextTree.left == null && nextTree.right == null) {
             print('Request tree prolongation');
             questionsBloc.add(QuestionsEvent.fetch(nextTree.question.id));
