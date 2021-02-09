@@ -14,9 +14,10 @@ class _$QuestionsEventTearOff {
   const _$QuestionsEventTearOff();
 
 // ignore: unused_element
-  Fetch fetch([int currentid]) {
+  Fetch fetch([int currentid, bool isRefetch = false]) {
     return Fetch(
       currentid,
+      isRefetch,
     );
   }
 
@@ -38,12 +39,12 @@ mixin _$QuestionsEvent {
 
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult fetch(int currentid),
+    @required TResult fetch(int currentid, bool isRefetch),
     @required TResult refetch(int currentid),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult fetch(int currentid),
+    TResult fetch(int currentid, bool isRefetch),
     TResult refetch(int currentid),
     @required TResult orElse(),
   });
@@ -95,7 +96,7 @@ abstract class $FetchCopyWith<$Res> implements $QuestionsEventCopyWith<$Res> {
   factory $FetchCopyWith(Fetch value, $Res Function(Fetch) then) =
       _$FetchCopyWithImpl<$Res>;
   @override
-  $Res call({int currentid});
+  $Res call({int currentid, bool isRefetch});
 }
 
 /// @nodoc
@@ -110,23 +111,29 @@ class _$FetchCopyWithImpl<$Res> extends _$QuestionsEventCopyWithImpl<$Res>
   @override
   $Res call({
     Object currentid = freezed,
+    Object isRefetch = freezed,
   }) {
     return _then(Fetch(
       currentid == freezed ? _value.currentid : currentid as int,
+      isRefetch == freezed ? _value.isRefetch : isRefetch as bool,
     ));
   }
 }
 
 /// @nodoc
 class _$Fetch with DiagnosticableTreeMixin implements Fetch {
-  const _$Fetch([this.currentid]);
+  const _$Fetch([this.currentid, this.isRefetch = false])
+      : assert(isRefetch != null);
 
   @override
   final int currentid;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool isRefetch;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'QuestionsEvent.fetch(currentid: $currentid)';
+    return 'QuestionsEvent.fetch(currentid: $currentid, isRefetch: $isRefetch)';
   }
 
   @override
@@ -134,7 +141,8 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'QuestionsEvent.fetch'))
-      ..add(DiagnosticsProperty('currentid', currentid));
+      ..add(DiagnosticsProperty('currentid', currentid))
+      ..add(DiagnosticsProperty('isRefetch', isRefetch));
   }
 
   @override
@@ -143,12 +151,17 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
         (other is Fetch &&
             (identical(other.currentid, currentid) ||
                 const DeepCollectionEquality()
-                    .equals(other.currentid, currentid)));
+                    .equals(other.currentid, currentid)) &&
+            (identical(other.isRefetch, isRefetch) ||
+                const DeepCollectionEquality()
+                    .equals(other.isRefetch, isRefetch)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(currentid);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(currentid) ^
+      const DeepCollectionEquality().hash(isRefetch);
 
   @JsonKey(ignore: true)
   @override
@@ -158,24 +171,24 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult fetch(int currentid),
+    @required TResult fetch(int currentid, bool isRefetch),
     @required TResult refetch(int currentid),
   }) {
     assert(fetch != null);
     assert(refetch != null);
-    return fetch(currentid);
+    return fetch(currentid, isRefetch);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult fetch(int currentid),
+    TResult fetch(int currentid, bool isRefetch),
     TResult refetch(int currentid),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (fetch != null) {
-      return fetch(currentid);
+      return fetch(currentid, isRefetch);
     }
     return orElse();
   }
@@ -207,10 +220,11 @@ class _$Fetch with DiagnosticableTreeMixin implements Fetch {
 }
 
 abstract class Fetch implements QuestionsEvent {
-  const factory Fetch([int currentid]) = _$Fetch;
+  const factory Fetch([int currentid, bool isRefetch]) = _$Fetch;
 
   @override
   int get currentid;
+  bool get isRefetch;
   @override
   @JsonKey(ignore: true)
   $FetchCopyWith<Fetch> get copyWith;
@@ -284,7 +298,7 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult fetch(int currentid),
+    @required TResult fetch(int currentid, bool isRefetch),
     @required TResult refetch(int currentid),
   }) {
     assert(fetch != null);
@@ -295,7 +309,7 @@ class _$Refetch with DiagnosticableTreeMixin implements Refetch {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult fetch(int currentid),
+    TResult fetch(int currentid, bool isRefetch),
     TResult refetch(int currentid),
     @required TResult orElse(),
   }) {
