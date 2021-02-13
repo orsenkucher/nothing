@@ -4,9 +4,9 @@ services:
     container_name: tbot-nothing
     image: golang:latest
     expose:
-      - "9096"
+      - "9099"
     ports:
-      - "9096:9096"
+      - "9099:9099"
     volumes:
       - ./:/tbot
     working_dir: /tbot
