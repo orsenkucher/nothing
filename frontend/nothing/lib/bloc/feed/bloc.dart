@@ -11,30 +11,30 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class FeedEvent with _$FeedEvent {
+class FeedEvent with _$FeedEvent {
   const factory FeedEvent.newArrived(QTree tree, [@Default(false) bool forced]) = NewArrived;
   const factory FeedEvent.moveNext(MoveDir dir) = MoveNext;
   const factory FeedEvent.ground() = Ground;
 }
 
 @freezed
-abstract class MoveDir with _$MoveDir {
+class MoveDir with _$MoveDir {
   const factory MoveDir.left() = _Left;
   const factory MoveDir.right() = _Right;
 }
 
 @freezed
-abstract class FeedState with _$FeedState {
+class FeedState with _$FeedState {
   const factory FeedState.available({
-    @required QTree tree,
+    required QTree tree,
   }) = Available;
 
   const factory FeedState.pending({
-    @required QTree oldTree,
-    @required QTree newTree,
+    required QTree oldTree,
+    required QTree newTree,
   }) = Pending;
 
-  const factory FeedState.empty([QTree oldTree]) = Empty;
+  const factory FeedState.empty([QTree? oldTree]) = Empty;
 
   factory FeedState.fromJson(Map<String, dynamic> json) => _$FeedStateFromJson(json);
 }
@@ -43,8 +43,8 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   final ValidationBloc validationBloc;
   final QuestionsBloc questionsBloc;
   FeedBloc({
-    @required this.questionsBloc,
-    @required this.validationBloc,
+    required this.questionsBloc,
+    required this.validationBloc,
   }) : super(FeedState.empty(null)) {
     state.when(
       available: (tree) => add(FeedEvent.newArrived(tree)),

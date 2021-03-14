@@ -6,8 +6,8 @@ class Navigatable extends StatelessWidget {
   final Widget child;
   final Routes route;
   const Navigatable({
-    @required this.route,
-    @required this.child,
+    required this.route,
+    required this.child,
   });
   @override
   Widget build(BuildContext context) {

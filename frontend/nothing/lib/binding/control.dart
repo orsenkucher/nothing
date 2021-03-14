@@ -10,8 +10,8 @@ class ControlState {
 
 class ControlCubit extends Cubit<ControlState> {
   ControlCubit({
-    @required this.feed,
-    @required this.history,
+    required this.feed,
+    required this.history,
   }) : super(ControlState());
 
   final FeedBloc feed;

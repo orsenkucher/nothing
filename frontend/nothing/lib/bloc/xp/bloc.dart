@@ -8,13 +8,13 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class XPState implements _$XPState {
+class XPState implements _$XPState {
   const XPState._();
   const factory XPState({
-    @required int totalxp,
-    @required int basexp,
-    @required int bonusxp,
-    @required int level,
+    required int totalxp,
+    required int basexp,
+    required int bonusxp,
+    required int level,
   }) = _XPState;
 
   factory XPState.fromJson(Map<String, dynamic> json) => _$XPStateFromJson(json);

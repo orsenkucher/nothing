@@ -7,9 +7,9 @@ part 'state.freezed.dart';
 part 'state.g.dart';
 
 @freezed
-abstract class SummaryState with _$SummaryState {
+class SummaryState with _$SummaryState {
   const factory SummaryState({
-    @required List<SummaryAnswer> answers,
+    required List<SummaryAnswer> answers,
   }) = _SummaryState;
 
   factory SummaryState.empty() => SummaryState(answers: <SummaryAnswer>[]);
@@ -18,12 +18,12 @@ abstract class SummaryState with _$SummaryState {
 }
 
 @freezed
-abstract class SummaryAnswer with _$SummaryAnswer {
+class SummaryAnswer with _$SummaryAnswer {
   const factory SummaryAnswer({
-    @required int qid,
-    @required int tries,
-    @required int seconds,
-    @required @JsonKey(toJson: _toJson, fromJson: _fromJson) List<String> answers,
+    required int qid,
+    required int tries,
+    required int seconds,
+    @JsonKey(toJson: _toJson, fromJson: _fromJson) required List<String> answers,
   }) = _SummaryAnswer;
 
   factory SummaryAnswer.fromJson(Map<String, dynamic> json) => _$SummaryAnswerFromJson(json);

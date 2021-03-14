@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -8,6 +8,10 @@ part of 'bloc.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 HintState _$HintStateFromJson(Map<String, dynamic> json) {
   return _HintState.fromJson(json);
 }
@@ -16,7 +20,6 @@ HintState _$HintStateFromJson(Map<String, dynamic> json) {
 class _$HintStateTearOff {
   const _$HintStateTearOff();
 
-// ignore: unused_element
   _HintState call(bool unlocked, Map<int, bool> memory) {
     return _HintState(
       unlocked,
@@ -24,24 +27,23 @@ class _$HintStateTearOff {
     );
   }
 
-// ignore: unused_element
   HintState fromJson(Map<String, Object> json) {
     return HintState.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $HintState = _$HintStateTearOff();
 
 /// @nodoc
 mixin _$HintState {
-  bool get unlocked;
-  Map<int, bool> get memory;
+  bool get unlocked => throw _privateConstructorUsedError;
+  Map<int, bool> get memory => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $HintStateCopyWith<HintState> get copyWith;
+  $HintStateCopyWith<HintState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -61,12 +63,18 @@ class _$HintStateCopyWithImpl<$Res> implements $HintStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object unlocked = freezed,
-    Object memory = freezed,
+    Object? unlocked = freezed,
+    Object? memory = freezed,
   }) {
     return _then(_value.copyWith(
-      unlocked: unlocked == freezed ? _value.unlocked : unlocked as bool,
-      memory: memory == freezed ? _value.memory : memory as Map<int, bool>,
+      unlocked: unlocked == freezed
+          ? _value.unlocked
+          : unlocked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      memory: memory == freezed
+          ? _value.memory
+          : memory // ignore: cast_nullable_to_non_nullable
+              as Map<int, bool>,
     ));
   }
 }
@@ -91,12 +99,18 @@ class __$HintStateCopyWithImpl<$Res> extends _$HintStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object unlocked = freezed,
-    Object memory = freezed,
+    Object? unlocked = freezed,
+    Object? memory = freezed,
   }) {
     return _then(_HintState(
-      unlocked == freezed ? _value.unlocked : unlocked as bool,
-      memory == freezed ? _value.memory : memory as Map<int, bool>,
+      unlocked == freezed
+          ? _value.unlocked
+          : unlocked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      memory == freezed
+          ? _value.memory
+          : memory // ignore: cast_nullable_to_non_nullable
+              as Map<int, bool>,
     ));
   }
 }
@@ -105,9 +119,7 @@ class __$HintStateCopyWithImpl<$Res> extends _$HintStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_HintState with DiagnosticableTreeMixin implements _HintState {
-  const _$_HintState(this.unlocked, this.memory)
-      : assert(unlocked != null),
-        assert(memory != null);
+  const _$_HintState(this.unlocked, this.memory);
 
   factory _$_HintState.fromJson(Map<String, dynamic> json) =>
       _$_$_HintStateFromJson(json);
@@ -166,10 +178,11 @@ abstract class _HintState implements HintState {
       _$_HintState.fromJson;
 
   @override
-  bool get unlocked;
+  bool get unlocked => throw _privateConstructorUsedError;
   @override
-  Map<int, bool> get memory;
+  Map<int, bool> get memory => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$HintStateCopyWith<_HintState> get copyWith;
+  _$HintStateCopyWith<_HintState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -9,18 +9,19 @@ part of 'bloc.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$AdEventTearOff {
   const _$AdEventTearOff();
 
-// ignore: unused_element
   _Register register(String userid) {
     return _Register(
       userid,
     );
   }
 
-// ignore: unused_element
   _Report report(AdType type) {
     return _Report(
       type,
@@ -29,33 +30,36 @@ class _$AdEventTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $AdEvent = _$AdEventTearOff();
 
 /// @nodoc
 mixin _$AdEvent {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult register(String userid),
-    @required TResult report(AdType type),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function(String userid) register,
+    required TResult Function(AdType type) report,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult register(String userid),
-    TResult report(AdType type),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String userid)? register,
+    TResult Function(AdType type)? report,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult register(_Register value),
-    @required TResult report(_Report value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Register value) register,
+    required TResult Function(_Report value) report,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult register(_Register value),
-    TResult report(_Report value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Register value)? register,
+    TResult Function(_Report value)? report,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -91,17 +95,20 @@ class __$RegisterCopyWithImpl<$Res> extends _$AdEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object userid = freezed,
+    Object? userid = freezed,
   }) {
     return _then(_Register(
-      userid == freezed ? _value.userid : userid as String,
+      userid == freezed
+          ? _value.userid
+          : userid // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 class _$_Register with DiagnosticableTreeMixin implements _Register {
-  const _$_Register(this.userid) : assert(userid != null);
+  const _$_Register(this.userid);
 
   @override
   final String userid;
@@ -138,23 +145,20 @@ class _$_Register with DiagnosticableTreeMixin implements _Register {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult register(String userid),
-    @required TResult report(AdType type),
+  TResult when<TResult extends Object?>({
+    required TResult Function(String userid) register,
+    required TResult Function(AdType type) report,
   }) {
-    assert(register != null);
-    assert(report != null);
     return register(userid);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult register(String userid),
-    TResult report(AdType type),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String userid)? register,
+    TResult Function(AdType type)? report,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (register != null) {
       return register(userid);
     }
@@ -163,23 +167,20 @@ class _$_Register with DiagnosticableTreeMixin implements _Register {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult register(_Register value),
-    @required TResult report(_Report value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Register value) register,
+    required TResult Function(_Report value) report,
   }) {
-    assert(register != null);
-    assert(report != null);
     return register(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult register(_Register value),
-    TResult report(_Report value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Register value)? register,
+    TResult Function(_Report value)? report,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (register != null) {
       return register(this);
     }
@@ -190,9 +191,10 @@ class _$_Register with DiagnosticableTreeMixin implements _Register {
 abstract class _Register implements AdEvent {
   const factory _Register(String userid) = _$_Register;
 
-  String get userid;
+  String get userid => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$RegisterCopyWith<_Register> get copyWith;
+  _$RegisterCopyWith<_Register> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -213,17 +215,20 @@ class __$ReportCopyWithImpl<$Res> extends _$AdEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object type = freezed,
+    Object? type = freezed,
   }) {
     return _then(_Report(
-      type == freezed ? _value.type : type as AdType,
+      type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as AdType,
     ));
   }
 }
 
 /// @nodoc
 class _$_Report with DiagnosticableTreeMixin implements _Report {
-  const _$_Report(this.type) : assert(type != null);
+  const _$_Report(this.type);
 
   @override
   final AdType type;
@@ -260,23 +265,20 @@ class _$_Report with DiagnosticableTreeMixin implements _Report {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult register(String userid),
-    @required TResult report(AdType type),
+  TResult when<TResult extends Object?>({
+    required TResult Function(String userid) register,
+    required TResult Function(AdType type) report,
   }) {
-    assert(register != null);
-    assert(report != null);
     return report(type);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult register(String userid),
-    TResult report(AdType type),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String userid)? register,
+    TResult Function(AdType type)? report,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (report != null) {
       return report(type);
     }
@@ -285,23 +287,20 @@ class _$_Report with DiagnosticableTreeMixin implements _Report {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult register(_Register value),
-    @required TResult report(_Report value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Register value) register,
+    required TResult Function(_Report value) report,
   }) {
-    assert(register != null);
-    assert(report != null);
     return report(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult register(_Register value),
-    TResult report(_Report value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Register value)? register,
+    TResult Function(_Report value)? report,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (report != null) {
       return report(this);
     }
@@ -312,16 +311,15 @@ class _$_Report with DiagnosticableTreeMixin implements _Report {
 abstract class _Report implements AdEvent {
   const factory _Report(AdType type) = _$_Report;
 
-  AdType get type;
+  AdType get type => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$ReportCopyWith<_Report> get copyWith;
+  _$ReportCopyWith<_Report> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 class _$AdStateTearOff {
   const _$AdStateTearOff();
 
-// ignore: unused_element
   _AdState call(String userid, AdMode type) {
     return _AdState(
       userid,
@@ -329,40 +327,42 @@ class _$AdStateTearOff {
     );
   }
 
-// ignore: unused_element
   _Empty empty() {
     return const _Empty();
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $AdState = _$AdStateTearOff();
 
 /// @nodoc
 mixin _$AdState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(String userid, AdMode type), {
-    @required TResult empty(),
-  });
+  TResult when<TResult extends Object?>(
+    TResult Function(String userid, AdMode type) $default, {
+    required TResult Function() empty,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(String userid, AdMode type), {
-    TResult empty(),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String userid, AdMode type)? $default, {
+    TResult Function()? empty,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(_AdState value), {
-    @required TResult empty(_Empty value),
-  });
+  TResult map<TResult extends Object?>(
+    TResult Function(_AdState value) $default, {
+    required TResult Function(_Empty value) empty,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(_AdState value), {
-    TResult empty(_Empty value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_AdState value)? $default, {
+    TResult Function(_Empty value)? empty,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -398,21 +398,25 @@ class __$AdStateCopyWithImpl<$Res> extends _$AdStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object userid = freezed,
-    Object type = freezed,
+    Object? userid = freezed,
+    Object? type = freezed,
   }) {
     return _then(_AdState(
-      userid == freezed ? _value.userid : userid as String,
-      type == freezed ? _value.type : type as AdMode,
+      userid == freezed
+          ? _value.userid
+          : userid // ignore: cast_nullable_to_non_nullable
+              as String,
+      type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as AdMode,
     ));
   }
 }
 
 /// @nodoc
 class _$_AdState with DiagnosticableTreeMixin implements _AdState {
-  const _$_AdState(this.userid, this.type)
-      : assert(userid != null),
-        assert(type != null);
+  const _$_AdState(this.userid, this.type);
 
   @override
   final String userid;
@@ -456,23 +460,20 @@ class _$_AdState with DiagnosticableTreeMixin implements _AdState {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(String userid, AdMode type), {
-    @required TResult empty(),
+  TResult when<TResult extends Object?>(
+    TResult Function(String userid, AdMode type) $default, {
+    required TResult Function() empty,
   }) {
-    assert($default != null);
-    assert(empty != null);
     return $default(userid, type);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(String userid, AdMode type), {
-    TResult empty(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String userid, AdMode type)? $default, {
+    TResult Function()? empty,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(userid, type);
     }
@@ -481,23 +482,20 @@ class _$_AdState with DiagnosticableTreeMixin implements _AdState {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(_AdState value), {
-    @required TResult empty(_Empty value),
+  TResult map<TResult extends Object?>(
+    TResult Function(_AdState value) $default, {
+    required TResult Function(_Empty value) empty,
   }) {
-    assert($default != null);
-    assert(empty != null);
     return $default(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(_AdState value), {
-    TResult empty(_Empty value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_AdState value)? $default, {
+    TResult Function(_Empty value)? empty,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(this);
     }
@@ -508,10 +506,11 @@ class _$_AdState with DiagnosticableTreeMixin implements _AdState {
 abstract class _AdState implements AdState {
   const factory _AdState(String userid, AdMode type) = _$_AdState;
 
-  String get userid;
-  AdMode get type;
+  String get userid => throw _privateConstructorUsedError;
+  AdMode get type => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$AdStateCopyWith<_AdState> get copyWith;
+  _$AdStateCopyWith<_AdState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -555,23 +554,20 @@ class _$_Empty with DiagnosticableTreeMixin implements _Empty {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(String userid, AdMode type), {
-    @required TResult empty(),
+  TResult when<TResult extends Object?>(
+    TResult Function(String userid, AdMode type) $default, {
+    required TResult Function() empty,
   }) {
-    assert($default != null);
-    assert(empty != null);
     return empty();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(String userid, AdMode type), {
-    TResult empty(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String userid, AdMode type)? $default, {
+    TResult Function()? empty,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (empty != null) {
       return empty();
     }
@@ -580,23 +576,20 @@ class _$_Empty with DiagnosticableTreeMixin implements _Empty {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(_AdState value), {
-    @required TResult empty(_Empty value),
+  TResult map<TResult extends Object?>(
+    TResult Function(_AdState value) $default, {
+    required TResult Function(_Empty value) empty,
   }) {
-    assert($default != null);
-    assert(empty != null);
     return empty(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(_AdState value), {
-    TResult empty(_Empty value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_AdState value)? $default, {
+    TResult Function(_Empty value)? empty,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (empty != null) {
       return empty(this);
     }

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -8,6 +8,10 @@ part of 'bloc.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 XPIDs _$XPIDsFromJson(Map<String, dynamic> json) {
   return _XPIDs.fromJson(json);
 }
@@ -16,30 +20,27 @@ XPIDs _$XPIDsFromJson(Map<String, dynamic> json) {
 class _$XPIDsTearOff {
   const _$XPIDsTearOff();
 
-// ignore: unused_element
   _XPIDs call(List<int> ids) {
     return _XPIDs(
       ids,
     );
   }
 
-// ignore: unused_element
   XPIDs fromJson(Map<String, Object> json) {
     return XPIDs.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $XPIDs = _$XPIDsTearOff();
 
 /// @nodoc
 mixin _$XPIDs {
-  List<int> get ids;
+  List<int> get ids => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $XPIDsCopyWith<XPIDs> get copyWith;
+  $XPIDsCopyWith<XPIDs> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -59,10 +60,13 @@ class _$XPIDsCopyWithImpl<$Res> implements $XPIDsCopyWith<$Res> {
 
   @override
   $Res call({
-    Object ids = freezed,
+    Object? ids = freezed,
   }) {
     return _then(_value.copyWith(
-      ids: ids == freezed ? _value.ids : ids as List<int>,
+      ids: ids == freezed
+          ? _value.ids
+          : ids // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -86,10 +90,13 @@ class __$XPIDsCopyWithImpl<$Res> extends _$XPIDsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object ids = freezed,
+    Object? ids = freezed,
   }) {
     return _then(_XPIDs(
-      ids == freezed ? _value.ids : ids as List<int>,
+      ids == freezed
+          ? _value.ids
+          : ids // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -98,7 +105,7 @@ class __$XPIDsCopyWithImpl<$Res> extends _$XPIDsCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_XPIDs with DiagnosticableTreeMixin implements _XPIDs {
-  const _$_XPIDs(this.ids) : assert(ids != null);
+  const _$_XPIDs(this.ids);
 
   factory _$_XPIDs.fromJson(Map<String, dynamic> json) =>
       _$_$_XPIDsFromJson(json);
@@ -148,8 +155,8 @@ abstract class _XPIDs implements XPIDs {
   factory _XPIDs.fromJson(Map<String, dynamic> json) = _$_XPIDs.fromJson;
 
   @override
-  List<int> get ids;
+  List<int> get ids => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$XPIDsCopyWith<_XPIDs> get copyWith;
+  _$XPIDsCopyWith<_XPIDs> get copyWith => throw _privateConstructorUsedError;
 }

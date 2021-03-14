@@ -8,12 +8,12 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class IdEvent with _$IdEvent {
+class IdEvent with _$IdEvent {
   const factory IdEvent.revoke() = _RevokeID;
 }
 
 @freezed
-abstract class IdState with _$IdState {
+class IdState with _$IdState {
   const factory IdState(String id) = _IdState;
   factory IdState.unique() => IdState(Uuid().v4());
   factory IdState.fromJson(Map<String, dynamic> json) => _$IdStateFromJson(json);

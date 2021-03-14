@@ -8,7 +8,7 @@ import 'package:nothing/domain/domain.dart';
 part 'bloc.freezed.dart';
 
 @freezed
-abstract class ValidationEvent with _$ValidationEvent {
+class ValidationEvent with _$ValidationEvent {
   const factory ValidationEvent.focus(Question question) = _Focus;
   const factory ValidationEvent.check(String answer) = _Check;
   const factory ValidationEvent.lifecycle(TimePoint point) = _Lifecycle;
@@ -16,7 +16,7 @@ abstract class ValidationEvent with _$ValidationEvent {
 }
 
 @freezed
-abstract class _ValidationState2 with _$_ValidationState2 {
+class _ValidationState2 with _$_ValidationState2 {
   const factory _ValidationState2.correct(
     Question question,
     List<String> answers,
@@ -40,13 +40,13 @@ abstract class _ValidationState2 with _$_ValidationState2 {
 }
 
 @freezed
-abstract class ValidationState with _$ValidationState {
+class ValidationState with _$ValidationState {
   const factory ValidationState.just(_ValidationState2 state) = _Just;
   const factory ValidationState.nothing() = _Nothing;
 }
 
 @freezed
-abstract class TimePoint with _$TimePoint {
+class TimePoint with _$TimePoint {
   const factory TimePoint.resume(DateTime time) = _Resume;
   const factory TimePoint.suspend(DateTime time) = _Suspend;
   factory TimePoint.resumeNow() => TimePoint.resume(DateTime.now());
@@ -54,7 +54,7 @@ abstract class TimePoint with _$TimePoint {
 }
 
 @freezed
-abstract class TimePoints with _$TimePoints {
+class TimePoints with _$TimePoints {
   const factory TimePoints(List<TimePoint> points) = _TimePoints;
   factory TimePoints.fromNow() => TimePoints([TimePoint.resumeNow()]);
 }

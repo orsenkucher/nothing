@@ -8,12 +8,8 @@ part of 'bloc.dart';
 
 _$_HistoryItem _$_$_HistoryItemFromJson(Map<String, dynamic> json) {
   return _$_HistoryItem(
-    answer: json['answer'] == null
-        ? null
-        : SummaryAnswer.fromJson(json['answer'] as Map<String, dynamic>),
-    question: json['question'] == null
-        ? null
-        : Question.fromJson(json['question'] as Map<String, dynamic>),
+    answer: SummaryAnswer.fromJson(json['answer'] as Map<String, dynamic>),
+    question: Question.fromJson(json['question'] as Map<String, dynamic>),
   );
 }
 
@@ -25,17 +21,16 @@ Map<String, dynamic> _$_$_HistoryItemToJson(_$_HistoryItem instance) =>
 
 _$_State _$_$_StateFromJson(Map<String, dynamic> json) {
   return _$_State(
-    ids: (json['ids'] as Map<String, dynamic>)?.map(
+    ids: (json['ids'] as Map<String, dynamic>).map(
       (k, e) => MapEntry(int.parse(k), e as bool),
     ),
-    items: (json['items'] as List)
-        ?.map((e) =>
-            e == null ? null : HistoryItem.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    items: (json['items'] as List<dynamic>)
+        .map((e) => HistoryItem.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
 Map<String, dynamic> _$_$_StateToJson(_$_State instance) => <String, dynamic>{
-      'ids': instance.ids?.map((k, e) => MapEntry(k.toString(), e)),
+      'ids': instance.ids.map((k, e) => MapEntry(k.toString(), e)),
       'items': instance.items,
     };

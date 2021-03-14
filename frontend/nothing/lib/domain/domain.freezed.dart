@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'domain.dart';
 
@@ -8,6 +8,10 @@ part of 'domain.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 Question _$QuestionFromJson(Map<String, dynamic> json) {
   return _Question.fromJson(json);
 }
@@ -16,9 +20,12 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
 class _$QuestionTearOff {
   const _$QuestionTearOff();
 
-// ignore: unused_element
   _Question call(
-      {int id, String question, String explanation, String answers, int mmr}) {
+      {required int id,
+      required String question,
+      required String explanation,
+      required String answers,
+      required int mmr}) {
     return _Question(
       id: id,
       question: question,
@@ -28,27 +35,26 @@ class _$QuestionTearOff {
     );
   }
 
-// ignore: unused_element
   Question fromJson(Map<String, Object> json) {
     return Question.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Question = _$QuestionTearOff();
 
 /// @nodoc
 mixin _$Question {
-  int get id;
-  String get question;
-  String get explanation;
-  String get answers;
-  int get mmr;
+  int get id => throw _privateConstructorUsedError;
+  String get question => throw _privateConstructorUsedError;
+  String get explanation => throw _privateConstructorUsedError;
+  String get answers => throw _privateConstructorUsedError;
+  int get mmr => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $QuestionCopyWith<Question> get copyWith;
+  $QuestionCopyWith<Question> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -69,19 +75,33 @@ class _$QuestionCopyWithImpl<$Res> implements $QuestionCopyWith<$Res> {
 
   @override
   $Res call({
-    Object id = freezed,
-    Object question = freezed,
-    Object explanation = freezed,
-    Object answers = freezed,
-    Object mmr = freezed,
+    Object? id = freezed,
+    Object? question = freezed,
+    Object? explanation = freezed,
+    Object? answers = freezed,
+    Object? mmr = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int,
-      question: question == freezed ? _value.question : question as String,
-      explanation:
-          explanation == freezed ? _value.explanation : explanation as String,
-      answers: answers == freezed ? _value.answers : answers as String,
-      mmr: mmr == freezed ? _value.mmr : mmr as int,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      question: question == freezed
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as String,
+      explanation: explanation == freezed
+          ? _value.explanation
+          : explanation // ignore: cast_nullable_to_non_nullable
+              as String,
+      answers: answers == freezed
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as String,
+      mmr: mmr == freezed
+          ? _value.mmr
+          : mmr // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -106,19 +126,33 @@ class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object question = freezed,
-    Object explanation = freezed,
-    Object answers = freezed,
-    Object mmr = freezed,
+    Object? id = freezed,
+    Object? question = freezed,
+    Object? explanation = freezed,
+    Object? answers = freezed,
+    Object? mmr = freezed,
   }) {
     return _then(_Question(
-      id: id == freezed ? _value.id : id as int,
-      question: question == freezed ? _value.question : question as String,
-      explanation:
-          explanation == freezed ? _value.explanation : explanation as String,
-      answers: answers == freezed ? _value.answers : answers as String,
-      mmr: mmr == freezed ? _value.mmr : mmr as int,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      question: question == freezed
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as String,
+      explanation: explanation == freezed
+          ? _value.explanation
+          : explanation // ignore: cast_nullable_to_non_nullable
+              as String,
+      answers: answers == freezed
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as String,
+      mmr: mmr == freezed
+          ? _value.mmr
+          : mmr // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -126,9 +160,14 @@ class __$QuestionCopyWithImpl<$Res> extends _$QuestionCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_Question with DiagnosticableTreeMixin implements _Question {
+class _$_Question extends _Question with DiagnosticableTreeMixin {
   _$_Question(
-      {this.id, this.question, this.explanation, this.answers, this.mmr});
+      {required this.id,
+      required this.question,
+      required this.explanation,
+      required this.answers,
+      required this.mmr})
+      : super._();
 
   factory _$_Question.fromJson(Map<String, dynamic> json) =>
       _$_$_QuestionFromJson(json);
@@ -144,21 +183,9 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
   @override
   final int mmr;
 
-  bool _didsplitted = false;
-  List<String> _splitted;
-
-  @override
-  List<String> get splitted {
-    if (_didsplitted == false) {
-      _didsplitted = true;
-      _splitted = answers.split(r'<$>');
-    }
-    return _splitted;
-  }
-
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Question(id: $id, question: $question, explanation: $explanation, answers: $answers, mmr: $mmr, splitted: $splitted)';
+    return 'Question(id: $id, question: $question, explanation: $explanation, answers: $answers, mmr: $mmr)';
   }
 
   @override
@@ -170,8 +197,7 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
       ..add(DiagnosticsProperty('question', question))
       ..add(DiagnosticsProperty('explanation', explanation))
       ..add(DiagnosticsProperty('answers', answers))
-      ..add(DiagnosticsProperty('mmr', mmr))
-      ..add(DiagnosticsProperty('splitted', splitted));
+      ..add(DiagnosticsProperty('mmr', mmr));
   }
 
   @override
@@ -213,29 +239,31 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
   }
 }
 
-abstract class _Question implements Question {
+abstract class _Question extends Question {
   factory _Question(
-      {int id,
-      String question,
-      String explanation,
-      String answers,
-      int mmr}) = _$_Question;
+      {required int id,
+      required String question,
+      required String explanation,
+      required String answers,
+      required int mmr}) = _$_Question;
+  _Question._() : super._();
 
   factory _Question.fromJson(Map<String, dynamic> json) = _$_Question.fromJson;
 
   @override
-  int get id;
+  int get id => throw _privateConstructorUsedError;
   @override
-  String get question;
+  String get question => throw _privateConstructorUsedError;
   @override
-  String get explanation;
+  String get explanation => throw _privateConstructorUsedError;
   @override
-  String get answers;
+  String get answers => throw _privateConstructorUsedError;
   @override
-  int get mmr;
+  int get mmr => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QuestionCopyWith<_Question> get copyWith;
+  _$QuestionCopyWith<_Question> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 QTree _$QTreeFromJson(Map<String, dynamic> json) {
@@ -246,8 +274,7 @@ QTree _$QTreeFromJson(Map<String, dynamic> json) {
 class _$QTreeTearOff {
   const _$QTreeTearOff();
 
-// ignore: unused_element
-  _QTree call({Question question, QTree left, QTree right}) {
+  _QTree call({required Question question, QTree? left, QTree? right}) {
     return _QTree(
       question: question,
       left: left,
@@ -255,36 +282,34 @@ class _$QTreeTearOff {
     );
   }
 
-// ignore: unused_element
   QTree fromJson(Map<String, Object> json) {
     return QTree.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $QTree = _$QTreeTearOff();
 
 /// @nodoc
 mixin _$QTree {
-  Question get question;
-  QTree get left;
-  QTree get right;
+  Question get question => throw _privateConstructorUsedError;
+  QTree? get left => throw _privateConstructorUsedError;
+  QTree? get right => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $QTreeCopyWith<QTree> get copyWith;
+  $QTreeCopyWith<QTree> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $QTreeCopyWith<$Res> {
   factory $QTreeCopyWith(QTree value, $Res Function(QTree) then) =
       _$QTreeCopyWithImpl<$Res>;
-  $Res call({Question question, QTree left, QTree right});
+  $Res call({Question question, QTree? left, QTree? right});
 
   $QuestionCopyWith<$Res> get question;
-  $QTreeCopyWith<$Res> get left;
-  $QTreeCopyWith<$Res> get right;
+  $QTreeCopyWith<$Res>? get left;
+  $QTreeCopyWith<$Res>? get right;
 }
 
 /// @nodoc
@@ -297,43 +322,51 @@ class _$QTreeCopyWithImpl<$Res> implements $QTreeCopyWith<$Res> {
 
   @override
   $Res call({
-    Object question = freezed,
-    Object left = freezed,
-    Object right = freezed,
+    Object? question = freezed,
+    Object? left = freezed,
+    Object? right = freezed,
   }) {
     return _then(_value.copyWith(
-      question: question == freezed ? _value.question : question as Question,
-      left: left == freezed ? _value.left : left as QTree,
-      right: right == freezed ? _value.right : right as QTree,
+      question: question == freezed
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as Question,
+      left: left == freezed
+          ? _value.left
+          : left // ignore: cast_nullable_to_non_nullable
+              as QTree?,
+      right: right == freezed
+          ? _value.right
+          : right // ignore: cast_nullable_to_non_nullable
+              as QTree?,
     ));
   }
 
   @override
   $QuestionCopyWith<$Res> get question {
-    if (_value.question == null) {
-      return null;
-    }
     return $QuestionCopyWith<$Res>(_value.question, (value) {
       return _then(_value.copyWith(question: value));
     });
   }
 
   @override
-  $QTreeCopyWith<$Res> get left {
+  $QTreeCopyWith<$Res>? get left {
     if (_value.left == null) {
       return null;
     }
-    return $QTreeCopyWith<$Res>(_value.left, (value) {
+
+    return $QTreeCopyWith<$Res>(_value.left!, (value) {
       return _then(_value.copyWith(left: value));
     });
   }
 
   @override
-  $QTreeCopyWith<$Res> get right {
+  $QTreeCopyWith<$Res>? get right {
     if (_value.right == null) {
       return null;
     }
-    return $QTreeCopyWith<$Res>(_value.right, (value) {
+
+    return $QTreeCopyWith<$Res>(_value.right!, (value) {
       return _then(_value.copyWith(right: value));
     });
   }
@@ -344,14 +377,14 @@ abstract class _$QTreeCopyWith<$Res> implements $QTreeCopyWith<$Res> {
   factory _$QTreeCopyWith(_QTree value, $Res Function(_QTree) then) =
       __$QTreeCopyWithImpl<$Res>;
   @override
-  $Res call({Question question, QTree left, QTree right});
+  $Res call({Question question, QTree? left, QTree? right});
 
   @override
   $QuestionCopyWith<$Res> get question;
   @override
-  $QTreeCopyWith<$Res> get left;
+  $QTreeCopyWith<$Res>? get left;
   @override
-  $QTreeCopyWith<$Res> get right;
+  $QTreeCopyWith<$Res>? get right;
 }
 
 /// @nodoc
@@ -365,14 +398,23 @@ class __$QTreeCopyWithImpl<$Res> extends _$QTreeCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object question = freezed,
-    Object left = freezed,
-    Object right = freezed,
+    Object? question = freezed,
+    Object? left = freezed,
+    Object? right = freezed,
   }) {
     return _then(_QTree(
-      question: question == freezed ? _value.question : question as Question,
-      left: left == freezed ? _value.left : left as QTree,
-      right: right == freezed ? _value.right : right as QTree,
+      question: question == freezed
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as Question,
+      left: left == freezed
+          ? _value.left
+          : left // ignore: cast_nullable_to_non_nullable
+              as QTree?,
+      right: right == freezed
+          ? _value.right
+          : right // ignore: cast_nullable_to_non_nullable
+              as QTree?,
     ));
   }
 }
@@ -381,7 +423,7 @@ class __$QTreeCopyWithImpl<$Res> extends _$QTreeCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_QTree with DiagnosticableTreeMixin implements _QTree {
-  const _$_QTree({this.question, this.left, this.right});
+  const _$_QTree({required this.question, this.left, this.right});
 
   factory _$_QTree.fromJson(Map<String, dynamic> json) =>
       _$_$_QTreeFromJson(json);
@@ -389,9 +431,9 @@ class _$_QTree with DiagnosticableTreeMixin implements _QTree {
   @override
   final Question question;
   @override
-  final QTree left;
+  final QTree? left;
   @override
-  final QTree right;
+  final QTree? right;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -440,17 +482,18 @@ class _$_QTree with DiagnosticableTreeMixin implements _QTree {
 }
 
 abstract class _QTree implements QTree {
-  const factory _QTree({Question question, QTree left, QTree right}) = _$_QTree;
+  const factory _QTree(
+      {required Question question, QTree? left, QTree? right}) = _$_QTree;
 
   factory _QTree.fromJson(Map<String, dynamic> json) = _$_QTree.fromJson;
 
   @override
-  Question get question;
+  Question get question => throw _privateConstructorUsedError;
   @override
-  QTree get left;
+  QTree? get left => throw _privateConstructorUsedError;
   @override
-  QTree get right;
+  QTree? get right => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QTreeCopyWith<_QTree> get copyWith;
+  _$QTreeCopyWith<_QTree> get copyWith => throw _privateConstructorUsedError;
 }

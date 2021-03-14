@@ -11,9 +11,9 @@ abstract class QuestionsRepo {
   const QuestionsRepo();
 
   Future<QTree> fetchQuestions({
-    @required String userID,
-    @required int currentID,
-    @required List<SummaryAnswer> answers,
+    required String userID,
+    required int currentID,
+    required List<SummaryAnswer> answers,
   });
 }
 

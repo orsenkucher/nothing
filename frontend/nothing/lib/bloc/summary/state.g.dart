@@ -8,11 +8,9 @@ part of 'state.dart';
 
 _$_SummaryState _$_$_SummaryStateFromJson(Map<String, dynamic> json) {
   return _$_SummaryState(
-    answers: (json['answers'] as List)
-        ?.map((e) => e == null
-            ? null
-            : SummaryAnswer.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    answers: (json['answers'] as List<dynamic>)
+        .map((e) => SummaryAnswer.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 

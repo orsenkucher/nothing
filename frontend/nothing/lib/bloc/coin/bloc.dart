@@ -7,7 +7,7 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class CoinState with _$CoinState {
+class CoinState with _$CoinState {
   const factory CoinState(int total) = _CoinState;
   factory CoinState.fromJson(Map<String, dynamic> json) => _$CoinStateFromJson(json);
 }

@@ -28,24 +28,28 @@ error$() {
 }
 
 @freezed
-abstract class Question with _$Question {
+class Question with _$Question {
+  Question._();
+
   factory Question({
-    int id,
-    String question,
-    String explanation,
-    String answers,
-    int mmr, // А зочем мне ммр?
+    required int id,
+    required String question,
+    required String explanation,
+    required String answers,
+    required int mmr, // А зочем мне ммр?
   }) = _Question;
 
-  @late
-  List<String> get splitted => answers.split(r'<$>');
+  // @late
+  // List<String> get splitted => answers.split(r'<$>');
+
+  late final splitted = answers.split(r'<$>');
 
   factory Question.fromJson(Map<String, dynamic> json) => _$QuestionFromJson(json);
 } // our brand new separator: <$>
 
 @freezed
-abstract class QTree with _$QTree {
-  const factory QTree({Question question, QTree left, QTree right}) = _QTree;
+class QTree with _$QTree {
+  const factory QTree({required Question question, QTree? left, QTree? right}) = _QTree;
   factory QTree.fromJson(Map<String, dynamic> json) => _$QTreeFromJson(json);
 }
 

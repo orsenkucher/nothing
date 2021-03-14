@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -8,6 +8,10 @@ part of 'bloc.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 MenuState _$MenuStateFromJson(Map<String, dynamic> json) {
   return _MenuState.fromJson(json);
 }
@@ -16,30 +20,28 @@ MenuState _$MenuStateFromJson(Map<String, dynamic> json) {
 class _$MenuStateTearOff {
   const _$MenuStateTearOff();
 
-// ignore: unused_element
   _MenuState call(bool vibration) {
     return _MenuState(
       vibration,
     );
   }
 
-// ignore: unused_element
   MenuState fromJson(Map<String, Object> json) {
     return MenuState.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $MenuState = _$MenuStateTearOff();
 
 /// @nodoc
 mixin _$MenuState {
-  bool get vibration;
+  bool get vibration => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $MenuStateCopyWith<MenuState> get copyWith;
+  $MenuStateCopyWith<MenuState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -59,10 +61,13 @@ class _$MenuStateCopyWithImpl<$Res> implements $MenuStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object vibration = freezed,
+    Object? vibration = freezed,
   }) {
     return _then(_value.copyWith(
-      vibration: vibration == freezed ? _value.vibration : vibration as bool,
+      vibration: vibration == freezed
+          ? _value.vibration
+          : vibration // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -87,10 +92,13 @@ class __$MenuStateCopyWithImpl<$Res> extends _$MenuStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object vibration = freezed,
+    Object? vibration = freezed,
   }) {
     return _then(_MenuState(
-      vibration == freezed ? _value.vibration : vibration as bool,
+      vibration == freezed
+          ? _value.vibration
+          : vibration // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -99,7 +107,7 @@ class __$MenuStateCopyWithImpl<$Res> extends _$MenuStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_MenuState with DiagnosticableTreeMixin implements _MenuState {
-  const _$_MenuState(this.vibration) : assert(vibration != null);
+  const _$_MenuState(this.vibration);
 
   factory _$_MenuState.fromJson(Map<String, dynamic> json) =>
       _$_$_MenuStateFromJson(json);
@@ -151,8 +159,9 @@ abstract class _MenuState implements MenuState {
       _$_MenuState.fromJson;
 
   @override
-  bool get vibration;
+  bool get vibration => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$MenuStateCopyWith<_MenuState> get copyWith;
+  _$MenuStateCopyWith<_MenuState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

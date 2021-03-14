@@ -8,9 +8,7 @@ part of 'bloc.dart';
 
 _$Available _$_$AvailableFromJson(Map<String, dynamic> json) {
   return _$Available(
-    tree: json['tree'] == null
-        ? null
-        : QTree.fromJson(json['tree'] as Map<String, dynamic>),
+    tree: QTree.fromJson(json['tree'] as Map<String, dynamic>),
   );
 }
 
@@ -21,12 +19,8 @@ Map<String, dynamic> _$_$AvailableToJson(_$Available instance) =>
 
 _$Pending _$_$PendingFromJson(Map<String, dynamic> json) {
   return _$Pending(
-    oldTree: json['oldTree'] == null
-        ? null
-        : QTree.fromJson(json['oldTree'] as Map<String, dynamic>),
-    newTree: json['newTree'] == null
-        ? null
-        : QTree.fromJson(json['newTree'] as Map<String, dynamic>),
+    oldTree: QTree.fromJson(json['oldTree'] as Map<String, dynamic>),
+    newTree: QTree.fromJson(json['newTree'] as Map<String, dynamic>),
   );
 }
 

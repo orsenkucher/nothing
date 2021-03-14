@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -8,6 +8,10 @@ part of 'bloc.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 LifecycleEvent _$LifecycleEventFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType'] as String) {
     case 'resume':
@@ -24,59 +28,60 @@ LifecycleEvent _$LifecycleEventFromJson(Map<String, dynamic> json) {
 class _$LifecycleEventTearOff {
   const _$LifecycleEventTearOff();
 
-// ignore: unused_element
   _Resume resume(DateTime point) {
     return _Resume(
       point,
     );
   }
 
-// ignore: unused_element
   _Suspend suspend(DateTime point) {
     return _Suspend(
       point,
     );
   }
 
-// ignore: unused_element
   LifecycleEvent fromJson(Map<String, Object> json) {
     return LifecycleEvent.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $LifecycleEvent = _$LifecycleEventTearOff();
 
 /// @nodoc
 mixin _$LifecycleEvent {
-  DateTime get point;
+  DateTime get point => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult resume(DateTime point),
-    @required TResult suspend(DateTime point),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function(DateTime point) resume,
+    required TResult Function(DateTime point) suspend,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult resume(DateTime point),
-    TResult suspend(DateTime point),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DateTime point)? resume,
+    TResult Function(DateTime point)? suspend,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult resume(_Resume value),
-    @required TResult suspend(_Suspend value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Resume value) resume,
+    required TResult Function(_Suspend value) suspend,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult resume(_Resume value),
-    TResult suspend(_Suspend value),
-    @required TResult orElse(),
-  });
-  Map<String, dynamic> toJson();
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Resume value)? resume,
+    TResult Function(_Suspend value)? suspend,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LifecycleEventCopyWith<LifecycleEvent> get copyWith;
+  $LifecycleEventCopyWith<LifecycleEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -98,10 +103,13 @@ class _$LifecycleEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object point = freezed,
+    Object? point = freezed,
   }) {
     return _then(_value.copyWith(
-      point: point == freezed ? _value.point : point as DateTime,
+      point: point == freezed
+          ? _value.point
+          : point // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -125,10 +133,13 @@ class __$ResumeCopyWithImpl<$Res> extends _$LifecycleEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object point = freezed,
+    Object? point = freezed,
   }) {
     return _then(_Resume(
-      point == freezed ? _value.point : point as DateTime,
+      point == freezed
+          ? _value.point
+          : point // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -137,7 +148,7 @@ class __$ResumeCopyWithImpl<$Res> extends _$LifecycleEventCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Resume with DiagnosticableTreeMixin implements _Resume {
-  const _$_Resume(this.point) : assert(point != null);
+  const _$_Resume(this.point);
 
   factory _$_Resume.fromJson(Map<String, dynamic> json) =>
       _$_$_ResumeFromJson(json);
@@ -177,23 +188,20 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult resume(DateTime point),
-    @required TResult suspend(DateTime point),
+  TResult when<TResult extends Object?>({
+    required TResult Function(DateTime point) resume,
+    required TResult Function(DateTime point) suspend,
   }) {
-    assert(resume != null);
-    assert(suspend != null);
     return resume(point);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult resume(DateTime point),
-    TResult suspend(DateTime point),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DateTime point)? resume,
+    TResult Function(DateTime point)? suspend,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (resume != null) {
       return resume(point);
     }
@@ -202,23 +210,20 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult resume(_Resume value),
-    @required TResult suspend(_Suspend value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Resume value) resume,
+    required TResult Function(_Suspend value) suspend,
   }) {
-    assert(resume != null);
-    assert(suspend != null);
     return resume(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult resume(_Resume value),
-    TResult suspend(_Suspend value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Resume value)? resume,
+    TResult Function(_Suspend value)? suspend,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (resume != null) {
       return resume(this);
     }
@@ -237,10 +242,10 @@ abstract class _Resume implements LifecycleEvent {
   factory _Resume.fromJson(Map<String, dynamic> json) = _$_Resume.fromJson;
 
   @override
-  DateTime get point;
+  DateTime get point => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ResumeCopyWith<_Resume> get copyWith;
+  _$ResumeCopyWith<_Resume> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -263,10 +268,13 @@ class __$SuspendCopyWithImpl<$Res> extends _$LifecycleEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object point = freezed,
+    Object? point = freezed,
   }) {
     return _then(_Suspend(
-      point == freezed ? _value.point : point as DateTime,
+      point == freezed
+          ? _value.point
+          : point // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -275,7 +283,7 @@ class __$SuspendCopyWithImpl<$Res> extends _$LifecycleEventCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
-  const _$_Suspend(this.point) : assert(point != null);
+  const _$_Suspend(this.point);
 
   factory _$_Suspend.fromJson(Map<String, dynamic> json) =>
       _$_$_SuspendFromJson(json);
@@ -315,23 +323,20 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult resume(DateTime point),
-    @required TResult suspend(DateTime point),
+  TResult when<TResult extends Object?>({
+    required TResult Function(DateTime point) resume,
+    required TResult Function(DateTime point) suspend,
   }) {
-    assert(resume != null);
-    assert(suspend != null);
     return suspend(point);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult resume(DateTime point),
-    TResult suspend(DateTime point),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DateTime point)? resume,
+    TResult Function(DateTime point)? suspend,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (suspend != null) {
       return suspend(point);
     }
@@ -340,23 +345,20 @@ class _$_Suspend with DiagnosticableTreeMixin implements _Suspend {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult resume(_Resume value),
-    @required TResult suspend(_Suspend value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Resume value) resume,
+    required TResult Function(_Suspend value) suspend,
   }) {
-    assert(resume != null);
-    assert(suspend != null);
     return suspend(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult resume(_Resume value),
-    TResult suspend(_Suspend value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Resume value)? resume,
+    TResult Function(_Suspend value)? suspend,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (suspend != null) {
       return suspend(this);
     }
@@ -375,10 +377,11 @@ abstract class _Suspend implements LifecycleEvent {
   factory _Suspend.fromJson(Map<String, dynamic> json) = _$_Suspend.fromJson;
 
   @override
-  DateTime get point;
+  DateTime get point => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SuspendCopyWith<_Suspend> get copyWith;
+  _$SuspendCopyWith<_Suspend> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 LifecycleState _$LifecycleStateFromJson(Map<String, dynamic> json) {
@@ -397,55 +400,56 @@ LifecycleState _$LifecycleStateFromJson(Map<String, dynamic> json) {
 class _$LifecycleStateTearOff {
   const _$LifecycleStateTearOff();
 
-// ignore: unused_element
   _Just just(
-      {@required List<LifecycleEvent> log, @required LifecycleEvent current}) {
+      {required List<LifecycleEvent> log, required LifecycleEvent current}) {
     return _Just(
       log: log,
       current: current,
     );
   }
 
-// ignore: unused_element
   _Nothing nothing() {
     return const _Nothing();
   }
 
-// ignore: unused_element
   LifecycleState fromJson(Map<String, Object> json) {
     return LifecycleState.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $LifecycleState = _$LifecycleStateTearOff();
 
 /// @nodoc
 mixin _$LifecycleState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult just(List<LifecycleEvent> log, LifecycleEvent current),
-    @required TResult nothing(),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<LifecycleEvent> log, LifecycleEvent current)
+        just,
+    required TResult Function() nothing,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult just(List<LifecycleEvent> log, LifecycleEvent current),
-    TResult nothing(),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<LifecycleEvent> log, LifecycleEvent current)? just,
+    TResult Function()? nothing,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult just(_Just value),
-    @required TResult nothing(_Nothing value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Just value) just,
+    required TResult Function(_Nothing value) nothing,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult just(_Just value),
-    TResult nothing(_Nothing value),
-    @required TResult orElse(),
-  });
-  Map<String, dynamic> toJson();
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Just value)? just,
+    TResult Function(_Nothing value)? nothing,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -485,20 +489,23 @@ class __$JustCopyWithImpl<$Res> extends _$LifecycleStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object log = freezed,
-    Object current = freezed,
+    Object? log = freezed,
+    Object? current = freezed,
   }) {
     return _then(_Just(
-      log: log == freezed ? _value.log : log as List<LifecycleEvent>,
-      current: current == freezed ? _value.current : current as LifecycleEvent,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as List<LifecycleEvent>,
+      current: current == freezed
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as LifecycleEvent,
     ));
   }
 
   @override
   $LifecycleEventCopyWith<$Res> get current {
-    if (_value.current == null) {
-      return null;
-    }
     return $LifecycleEventCopyWith<$Res>(_value.current, (value) {
       return _then(_value.copyWith(current: value));
     });
@@ -509,9 +516,7 @@ class __$JustCopyWithImpl<$Res> extends _$LifecycleStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Just with DiagnosticableTreeMixin implements _Just {
-  const _$_Just({@required this.log, @required this.current})
-      : assert(log != null),
-        assert(current != null);
+  const _$_Just({required this.log, required this.current});
 
   factory _$_Just.fromJson(Map<String, dynamic> json) =>
       _$_$_JustFromJson(json);
@@ -558,23 +563,21 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult just(List<LifecycleEvent> log, LifecycleEvent current),
-    @required TResult nothing(),
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<LifecycleEvent> log, LifecycleEvent current)
+        just,
+    required TResult Function() nothing,
   }) {
-    assert(just != null);
-    assert(nothing != null);
     return just(log, current);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult just(List<LifecycleEvent> log, LifecycleEvent current),
-    TResult nothing(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<LifecycleEvent> log, LifecycleEvent current)? just,
+    TResult Function()? nothing,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (just != null) {
       return just(log, current);
     }
@@ -583,23 +586,20 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult just(_Just value),
-    @required TResult nothing(_Nothing value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Just value) just,
+    required TResult Function(_Nothing value) nothing,
   }) {
-    assert(just != null);
-    assert(nothing != null);
     return just(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult just(_Just value),
-    TResult nothing(_Nothing value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Just value)? just,
+    TResult Function(_Nothing value)? nothing,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (just != null) {
       return just(this);
     }
@@ -614,15 +614,15 @@ class _$_Just with DiagnosticableTreeMixin implements _Just {
 
 abstract class _Just implements LifecycleState {
   const factory _Just(
-      {@required List<LifecycleEvent> log,
-      @required LifecycleEvent current}) = _$_Just;
+      {required List<LifecycleEvent> log,
+      required LifecycleEvent current}) = _$_Just;
 
   factory _Just.fromJson(Map<String, dynamic> json) = _$_Just.fromJson;
 
-  List<LifecycleEvent> get log;
-  LifecycleEvent get current;
+  List<LifecycleEvent> get log => throw _privateConstructorUsedError;
+  LifecycleEvent get current => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$JustCopyWith<_Just> get copyWith;
+  _$JustCopyWith<_Just> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -671,23 +671,21 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult just(List<LifecycleEvent> log, LifecycleEvent current),
-    @required TResult nothing(),
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<LifecycleEvent> log, LifecycleEvent current)
+        just,
+    required TResult Function() nothing,
   }) {
-    assert(just != null);
-    assert(nothing != null);
     return nothing();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult just(List<LifecycleEvent> log, LifecycleEvent current),
-    TResult nothing(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<LifecycleEvent> log, LifecycleEvent current)? just,
+    TResult Function()? nothing,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (nothing != null) {
       return nothing();
     }
@@ -696,23 +694,20 @@ class _$_Nothing with DiagnosticableTreeMixin implements _Nothing {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult just(_Just value),
-    @required TResult nothing(_Nothing value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Just value) just,
+    required TResult Function(_Nothing value) nothing,
   }) {
-    assert(just != null);
-    assert(nothing != null);
     return nothing(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult just(_Just value),
-    TResult nothing(_Nothing value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Just value)? just,
+    TResult Function(_Nothing value)? nothing,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (nothing != null) {
       return nothing(this);
     }

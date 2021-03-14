@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class Slider extends StatelessWidget {
   const Slider({
-    @required this.value,
-    @required this.height,
-    @required this.colorleft,
-    @required this.coloright,
+    required this.value,
+    required this.height,
+    required this.colorleft,
+    required this.coloright,
   }) : assert(value >= 0 && value <= 1);
 
   final double value;

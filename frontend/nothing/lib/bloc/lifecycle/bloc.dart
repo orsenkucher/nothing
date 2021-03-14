@@ -7,7 +7,7 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class LifecycleEvent with _$LifecycleEvent {
+class LifecycleEvent with _$LifecycleEvent {
   const factory LifecycleEvent.resume(DateTime point) = _Resume;
   const factory LifecycleEvent.suspend(DateTime point) = _Suspend;
   factory LifecycleEvent.resumeNow() => LifecycleEvent.resume(DateTime.now());
@@ -16,10 +16,10 @@ abstract class LifecycleEvent with _$LifecycleEvent {
 }
 
 @freezed
-abstract class LifecycleState with _$LifecycleState {
+class LifecycleState with _$LifecycleState {
   const factory LifecycleState.just({
-    @required List<LifecycleEvent> log,
-    @required LifecycleEvent current,
+    required List<LifecycleEvent> log,
+    required LifecycleEvent current,
   }) = _Just;
 
   const factory LifecycleState.nothing() = _Nothing;

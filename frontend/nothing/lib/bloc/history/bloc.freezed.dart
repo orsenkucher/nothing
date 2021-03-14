@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -8,6 +8,10 @@ part of 'bloc.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 HistoryItem _$HistoryItemFromJson(Map<String, dynamic> json) {
   return _HistoryItem.fromJson(json);
 }
@@ -16,33 +20,31 @@ HistoryItem _$HistoryItemFromJson(Map<String, dynamic> json) {
 class _$HistoryItemTearOff {
   const _$HistoryItemTearOff();
 
-// ignore: unused_element
   _HistoryItem call(
-      {@required SummaryAnswer answer, @required Question question}) {
+      {required SummaryAnswer answer, required Question question}) {
     return _HistoryItem(
       answer: answer,
       question: question,
     );
   }
 
-// ignore: unused_element
   HistoryItem fromJson(Map<String, Object> json) {
     return HistoryItem.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $HistoryItem = _$HistoryItemTearOff();
 
 /// @nodoc
 mixin _$HistoryItem {
-  SummaryAnswer get answer;
-  Question get question;
+  SummaryAnswer get answer => throw _privateConstructorUsedError;
+  Question get question => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $HistoryItemCopyWith<HistoryItem> get copyWith;
+  $HistoryItemCopyWith<HistoryItem> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -66,20 +68,23 @@ class _$HistoryItemCopyWithImpl<$Res> implements $HistoryItemCopyWith<$Res> {
 
   @override
   $Res call({
-    Object answer = freezed,
-    Object question = freezed,
+    Object? answer = freezed,
+    Object? question = freezed,
   }) {
     return _then(_value.copyWith(
-      answer: answer == freezed ? _value.answer : answer as SummaryAnswer,
-      question: question == freezed ? _value.question : question as Question,
+      answer: answer == freezed
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
+              as SummaryAnswer,
+      question: question == freezed
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as Question,
     ));
   }
 
   @override
   $SummaryAnswerCopyWith<$Res> get answer {
-    if (_value.answer == null) {
-      return null;
-    }
     return $SummaryAnswerCopyWith<$Res>(_value.answer, (value) {
       return _then(_value.copyWith(answer: value));
     });
@@ -87,9 +92,6 @@ class _$HistoryItemCopyWithImpl<$Res> implements $HistoryItemCopyWith<$Res> {
 
   @override
   $QuestionCopyWith<$Res> get question {
-    if (_value.question == null) {
-      return null;
-    }
     return $QuestionCopyWith<$Res>(_value.question, (value) {
       return _then(_value.copyWith(question: value));
     });
@@ -123,12 +125,18 @@ class __$HistoryItemCopyWithImpl<$Res> extends _$HistoryItemCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object answer = freezed,
-    Object question = freezed,
+    Object? answer = freezed,
+    Object? question = freezed,
   }) {
     return _then(_HistoryItem(
-      answer: answer == freezed ? _value.answer : answer as SummaryAnswer,
-      question: question == freezed ? _value.question : question as Question,
+      answer: answer == freezed
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
+              as SummaryAnswer,
+      question: question == freezed
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as Question,
     ));
   }
 }
@@ -137,10 +145,8 @@ class __$HistoryItemCopyWithImpl<$Res> extends _$HistoryItemCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_HistoryItem extends _HistoryItem with DiagnosticableTreeMixin {
-  const _$_HistoryItem({@required this.answer, @required this.question})
-      : assert(answer != null),
-        assert(question != null),
-        super._();
+  const _$_HistoryItem({required this.answer, required this.question})
+      : super._();
 
   factory _$_HistoryItem.fromJson(Map<String, dynamic> json) =>
       _$_$_HistoryItemFromJson(json);
@@ -193,28 +199,28 @@ class _$_HistoryItem extends _HistoryItem with DiagnosticableTreeMixin {
 }
 
 abstract class _HistoryItem extends HistoryItem {
-  const _HistoryItem._() : super._();
   const factory _HistoryItem(
-      {@required SummaryAnswer answer,
-      @required Question question}) = _$_HistoryItem;
+      {required SummaryAnswer answer,
+      required Question question}) = _$_HistoryItem;
+  const _HistoryItem._() : super._();
 
   factory _HistoryItem.fromJson(Map<String, dynamic> json) =
       _$_HistoryItem.fromJson;
 
   @override
-  SummaryAnswer get answer;
+  SummaryAnswer get answer => throw _privateConstructorUsedError;
   @override
-  Question get question;
+  Question get question => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$HistoryItemCopyWith<_HistoryItem> get copyWith;
+  _$HistoryItemCopyWith<_HistoryItem> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 class _$HistoryEventTearOff {
   const _$HistoryEventTearOff();
 
-// ignore: unused_element
   _Next next(HistoryItem item) {
     return _Next(
       item,
@@ -223,34 +229,38 @@ class _$HistoryEventTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $HistoryEvent = _$HistoryEventTearOff();
 
 /// @nodoc
 mixin _$HistoryEvent {
-  HistoryItem get item;
+  HistoryItem get item => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult next(HistoryItem item),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function(HistoryItem item) next,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult next(HistoryItem item),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(HistoryItem item)? next,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult next(_Next value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Next value) next,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult next(_Next value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Next value)? next,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $HistoryEventCopyWith<HistoryEvent> get copyWith;
+  $HistoryEventCopyWith<HistoryEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -273,18 +283,18 @@ class _$HistoryEventCopyWithImpl<$Res> implements $HistoryEventCopyWith<$Res> {
 
   @override
   $Res call({
-    Object item = freezed,
+    Object? item = freezed,
   }) {
     return _then(_value.copyWith(
-      item: item == freezed ? _value.item : item as HistoryItem,
+      item: item == freezed
+          ? _value.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as HistoryItem,
     ));
   }
 
   @override
   $HistoryItemCopyWith<$Res> get item {
-    if (_value.item == null) {
-      return null;
-    }
     return $HistoryItemCopyWith<$Res>(_value.item, (value) {
       return _then(_value.copyWith(item: value));
     });
@@ -313,17 +323,20 @@ class __$NextCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object item = freezed,
+    Object? item = freezed,
   }) {
     return _then(_Next(
-      item == freezed ? _value.item : item as HistoryItem,
+      item == freezed
+          ? _value.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as HistoryItem,
     ));
   }
 }
 
 /// @nodoc
 class _$_Next with DiagnosticableTreeMixin implements _Next {
-  const _$_Next(this.item) : assert(item != null);
+  const _$_Next(this.item);
 
   @override
   final HistoryItem item;
@@ -360,20 +373,18 @@ class _$_Next with DiagnosticableTreeMixin implements _Next {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult next(HistoryItem item),
+  TResult when<TResult extends Object?>({
+    required TResult Function(HistoryItem item) next,
   }) {
-    assert(next != null);
     return next(item);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult next(HistoryItem item),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(HistoryItem item)? next,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (next != null) {
       return next(item);
     }
@@ -382,20 +393,18 @@ class _$_Next with DiagnosticableTreeMixin implements _Next {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult next(_Next value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Next value) next,
   }) {
-    assert(next != null);
     return next(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult next(_Next value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Next value)? next,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (next != null) {
       return next(this);
     }
@@ -407,10 +416,10 @@ abstract class _Next implements HistoryEvent {
   const factory _Next(HistoryItem item) = _$_Next;
 
   @override
-  HistoryItem get item;
+  HistoryItem get item => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$NextCopyWith<_Next> get copyWith;
+  _$NextCopyWith<_Next> get copyWith => throw _privateConstructorUsedError;
 }
 
 HistoryState _$HistoryStateFromJson(Map<String, dynamic> json) {
@@ -421,33 +430,31 @@ HistoryState _$HistoryStateFromJson(Map<String, dynamic> json) {
 class _$HistoryStateTearOff {
   const _$HistoryStateTearOff();
 
-// ignore: unused_element
-  _State call(
-      {@required Map<int, bool> ids, @required List<HistoryItem> items}) {
+  _State call({required Map<int, bool> ids, required List<HistoryItem> items}) {
     return _State(
       ids: ids,
       items: items,
     );
   }
 
-// ignore: unused_element
   HistoryState fromJson(Map<String, Object> json) {
     return HistoryState.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $HistoryState = _$HistoryStateTearOff();
 
 /// @nodoc
 mixin _$HistoryState {
-  Map<int, bool> get ids; // HashSet with ids
-  List<HistoryItem> get items;
+  Map<int, bool> get ids =>
+      throw _privateConstructorUsedError; // HashSet with ids
+  List<HistoryItem> get items => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $HistoryStateCopyWith<HistoryState> get copyWith;
+  $HistoryStateCopyWith<HistoryState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -468,12 +475,18 @@ class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object ids = freezed,
-    Object items = freezed,
+    Object? ids = freezed,
+    Object? items = freezed,
   }) {
     return _then(_value.copyWith(
-      ids: ids == freezed ? _value.ids : ids as Map<int, bool>,
-      items: items == freezed ? _value.items : items as List<HistoryItem>,
+      ids: ids == freezed
+          ? _value.ids
+          : ids // ignore: cast_nullable_to_non_nullable
+              as Map<int, bool>,
+      items: items == freezed
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<HistoryItem>,
     ));
   }
 }
@@ -497,12 +510,18 @@ class __$StateCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object ids = freezed,
-    Object items = freezed,
+    Object? ids = freezed,
+    Object? items = freezed,
   }) {
     return _then(_State(
-      ids: ids == freezed ? _value.ids : ids as Map<int, bool>,
-      items: items == freezed ? _value.items : items as List<HistoryItem>,
+      ids: ids == freezed
+          ? _value.ids
+          : ids // ignore: cast_nullable_to_non_nullable
+              as Map<int, bool>,
+      items: items == freezed
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<HistoryItem>,
     ));
   }
 }
@@ -511,9 +530,7 @@ class __$StateCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_State with DiagnosticableTreeMixin implements _State {
-  const _$_State({@required this.ids, @required this.items})
-      : assert(ids != null),
-        assert(items != null);
+  const _$_State({required this.ids, required this.items});
 
   factory _$_State.fromJson(Map<String, dynamic> json) =>
       _$_$_StateFromJson(json);
@@ -566,16 +583,16 @@ class _$_State with DiagnosticableTreeMixin implements _State {
 
 abstract class _State implements HistoryState {
   const factory _State(
-      {@required Map<int, bool> ids,
-      @required List<HistoryItem> items}) = _$_State;
+      {required Map<int, bool> ids,
+      required List<HistoryItem> items}) = _$_State;
 
   factory _State.fromJson(Map<String, dynamic> json) = _$_State.fromJson;
 
   @override
-  Map<int, bool> get ids;
+  Map<int, bool> get ids => throw _privateConstructorUsedError;
   @override // HashSet with ids
-  List<HistoryItem> get items;
+  List<HistoryItem> get items => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$StateCopyWith<_State> get copyWith;
+  _$StateCopyWith<_State> get copyWith => throw _privateConstructorUsedError;
 }

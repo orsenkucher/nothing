@@ -7,7 +7,7 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class OnboardState with _$OnboardState {
+class OnboardState with _$OnboardState {
   const factory OnboardState(bool done) = _OnboardState;
   factory OnboardState.fromJson(Map<String, dynamic> json) => _$OnboardStateFromJson(json);
 }

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -9,40 +9,45 @@ part of 'bloc.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$IdEventTearOff {
   const _$IdEventTearOff();
 
-// ignore: unused_element
   _RevokeID revoke() {
     return const _RevokeID();
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $IdEvent = _$IdEventTearOff();
 
 /// @nodoc
 mixin _$IdEvent {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult revoke(),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function() revoke,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult revoke(),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? revoke,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult revoke(_RevokeID value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RevokeID value) revoke,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult revoke(_RevokeID value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RevokeID value)? revoke,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -101,20 +106,18 @@ class _$_RevokeID with DiagnosticableTreeMixin implements _RevokeID {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult revoke(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() revoke,
   }) {
-    assert(revoke != null);
     return revoke();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult revoke(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? revoke,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (revoke != null) {
       return revoke();
     }
@@ -123,20 +126,18 @@ class _$_RevokeID with DiagnosticableTreeMixin implements _RevokeID {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult revoke(_RevokeID value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RevokeID value) revoke,
   }) {
-    assert(revoke != null);
     return revoke(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult revoke(_RevokeID value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RevokeID value)? revoke,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (revoke != null) {
       return revoke(this);
     }
@@ -156,30 +157,27 @@ IdState _$IdStateFromJson(Map<String, dynamic> json) {
 class _$IdStateTearOff {
   const _$IdStateTearOff();
 
-// ignore: unused_element
   _IdState call(String id) {
     return _IdState(
       id,
     );
   }
 
-// ignore: unused_element
   IdState fromJson(Map<String, Object> json) {
     return IdState.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $IdState = _$IdStateTearOff();
 
 /// @nodoc
 mixin _$IdState {
-  String get id;
+  String get id => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $IdStateCopyWith<IdState> get copyWith;
+  $IdStateCopyWith<IdState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -199,10 +197,13 @@ class _$IdStateCopyWithImpl<$Res> implements $IdStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object id = freezed,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -226,10 +227,13 @@ class __$IdStateCopyWithImpl<$Res> extends _$IdStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
+    Object? id = freezed,
   }) {
     return _then(_IdState(
-      id == freezed ? _value.id : id as String,
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -238,7 +242,7 @@ class __$IdStateCopyWithImpl<$Res> extends _$IdStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_IdState with DiagnosticableTreeMixin implements _IdState {
-  const _$_IdState(this.id) : assert(id != null);
+  const _$_IdState(this.id);
 
   factory _$_IdState.fromJson(Map<String, dynamic> json) =>
       _$_$_IdStateFromJson(json);
@@ -288,8 +292,9 @@ abstract class _IdState implements IdState {
   factory _IdState.fromJson(Map<String, dynamic> json) = _$_IdState.fromJson;
 
   @override
-  String get id;
+  String get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$IdStateCopyWith<_IdState> get copyWith;
+  _$IdStateCopyWith<_IdState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

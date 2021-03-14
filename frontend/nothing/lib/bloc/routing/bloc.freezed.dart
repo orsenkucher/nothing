@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -9,25 +9,25 @@ part of 'bloc.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$RoutingEventTearOff {
   const _$RoutingEventTearOff();
 
-// ignore: unused_element
-  _Push push({@required Routes from, @required Routes to}) {
+  _Push push({required Routes from, required Routes to}) {
     return _Push(
       from: from,
       to: to,
     );
   }
 
-// ignore: unused_element
   _Resume resume() {
     return const _Resume();
   }
 
-// ignore: unused_element
-  _Pop pop({@required Routes from}) {
+  _Pop pop({required Routes from}) {
     return _Pop(
       from: from,
     );
@@ -35,37 +35,40 @@ class _$RoutingEventTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RoutingEvent = _$RoutingEventTearOff();
 
 /// @nodoc
 mixin _$RoutingEvent {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult push(Routes from, Routes to),
-    @required TResult resume(),
-    @required TResult pop(Routes from),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function(Routes from, Routes to) push,
+    required TResult Function() resume,
+    required TResult Function(Routes from) pop,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult push(Routes from, Routes to),
-    TResult resume(),
-    TResult pop(Routes from),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Routes from, Routes to)? push,
+    TResult Function()? resume,
+    TResult Function(Routes from)? pop,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult push(_Push value),
-    @required TResult resume(_Resume value),
-    @required TResult pop(_Pop value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Push value) push,
+    required TResult Function(_Resume value) resume,
+    required TResult Function(_Pop value) pop,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult push(_Push value),
-    TResult resume(_Resume value),
-    TResult pop(_Pop value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Push value)? push,
+    TResult Function(_Resume value)? resume,
+    TResult Function(_Pop value)? pop,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -105,20 +108,23 @@ class __$PushCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object from = freezed,
-    Object to = freezed,
+    Object? from = freezed,
+    Object? to = freezed,
   }) {
     return _then(_Push(
-      from: from == freezed ? _value.from : from as Routes,
-      to: to == freezed ? _value.to : to as Routes,
+      from: from == freezed
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as Routes,
+      to: to == freezed
+          ? _value.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as Routes,
     ));
   }
 
   @override
   $RoutesCopyWith<$Res> get from {
-    if (_value.from == null) {
-      return null;
-    }
     return $RoutesCopyWith<$Res>(_value.from, (value) {
       return _then(_value.copyWith(from: value));
     });
@@ -126,9 +132,6 @@ class __$PushCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
 
   @override
   $RoutesCopyWith<$Res> get to {
-    if (_value.to == null) {
-      return null;
-    }
     return $RoutesCopyWith<$Res>(_value.to, (value) {
       return _then(_value.copyWith(to: value));
     });
@@ -137,9 +140,7 @@ class __$PushCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Push with DiagnosticableTreeMixin implements _Push {
-  const _$_Push({@required this.from, @required this.to})
-      : assert(from != null),
-        assert(to != null);
+  const _$_Push({required this.from, required this.to});
 
   @override
   final Routes from;
@@ -183,26 +184,22 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult push(Routes from, Routes to),
-    @required TResult resume(),
-    @required TResult pop(Routes from),
+  TResult when<TResult extends Object?>({
+    required TResult Function(Routes from, Routes to) push,
+    required TResult Function() resume,
+    required TResult Function(Routes from) pop,
   }) {
-    assert(push != null);
-    assert(resume != null);
-    assert(pop != null);
     return push(from, to);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult push(Routes from, Routes to),
-    TResult resume(),
-    TResult pop(Routes from),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Routes from, Routes to)? push,
+    TResult Function()? resume,
+    TResult Function(Routes from)? pop,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (push != null) {
       return push(from, to);
     }
@@ -211,26 +208,22 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult push(_Push value),
-    @required TResult resume(_Resume value),
-    @required TResult pop(_Pop value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Push value) push,
+    required TResult Function(_Resume value) resume,
+    required TResult Function(_Pop value) pop,
   }) {
-    assert(push != null);
-    assert(resume != null);
-    assert(pop != null);
     return push(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult push(_Push value),
-    TResult resume(_Resume value),
-    TResult pop(_Pop value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Push value)? push,
+    TResult Function(_Resume value)? resume,
+    TResult Function(_Pop value)? pop,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (push != null) {
       return push(this);
     }
@@ -239,12 +232,12 @@ class _$_Push with DiagnosticableTreeMixin implements _Push {
 }
 
 abstract class _Push implements RoutingEvent {
-  const factory _Push({@required Routes from, @required Routes to}) = _$_Push;
+  const factory _Push({required Routes from, required Routes to}) = _$_Push;
 
-  Routes get from;
-  Routes get to;
+  Routes get from => throw _privateConstructorUsedError;
+  Routes get to => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$PushCopyWith<_Push> get copyWith;
+  _$PushCopyWith<_Push> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -288,26 +281,22 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult push(Routes from, Routes to),
-    @required TResult resume(),
-    @required TResult pop(Routes from),
+  TResult when<TResult extends Object?>({
+    required TResult Function(Routes from, Routes to) push,
+    required TResult Function() resume,
+    required TResult Function(Routes from) pop,
   }) {
-    assert(push != null);
-    assert(resume != null);
-    assert(pop != null);
     return resume();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult push(Routes from, Routes to),
-    TResult resume(),
-    TResult pop(Routes from),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Routes from, Routes to)? push,
+    TResult Function()? resume,
+    TResult Function(Routes from)? pop,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (resume != null) {
       return resume();
     }
@@ -316,26 +305,22 @@ class _$_Resume with DiagnosticableTreeMixin implements _Resume {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult push(_Push value),
-    @required TResult resume(_Resume value),
-    @required TResult pop(_Pop value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Push value) push,
+    required TResult Function(_Resume value) resume,
+    required TResult Function(_Pop value) pop,
   }) {
-    assert(push != null);
-    assert(resume != null);
-    assert(pop != null);
     return resume(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult push(_Push value),
-    TResult resume(_Resume value),
-    TResult pop(_Pop value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Push value)? push,
+    TResult Function(_Resume value)? resume,
+    TResult Function(_Pop value)? pop,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (resume != null) {
       return resume(this);
     }
@@ -367,18 +352,18 @@ class __$PopCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object from = freezed,
+    Object? from = freezed,
   }) {
     return _then(_Pop(
-      from: from == freezed ? _value.from : from as Routes,
+      from: from == freezed
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as Routes,
     ));
   }
 
   @override
   $RoutesCopyWith<$Res> get from {
-    if (_value.from == null) {
-      return null;
-    }
     return $RoutesCopyWith<$Res>(_value.from, (value) {
       return _then(_value.copyWith(from: value));
     });
@@ -387,7 +372,7 @@ class __$PopCopyWithImpl<$Res> extends _$RoutingEventCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Pop with DiagnosticableTreeMixin implements _Pop {
-  const _$_Pop({@required this.from}) : assert(from != null);
+  const _$_Pop({required this.from});
 
   @override
   final Routes from;
@@ -424,26 +409,22 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult push(Routes from, Routes to),
-    @required TResult resume(),
-    @required TResult pop(Routes from),
+  TResult when<TResult extends Object?>({
+    required TResult Function(Routes from, Routes to) push,
+    required TResult Function() resume,
+    required TResult Function(Routes from) pop,
   }) {
-    assert(push != null);
-    assert(resume != null);
-    assert(pop != null);
     return pop(from);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult push(Routes from, Routes to),
-    TResult resume(),
-    TResult pop(Routes from),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Routes from, Routes to)? push,
+    TResult Function()? resume,
+    TResult Function(Routes from)? pop,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (pop != null) {
       return pop(from);
     }
@@ -452,26 +433,22 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult push(_Push value),
-    @required TResult resume(_Resume value),
-    @required TResult pop(_Pop value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Push value) push,
+    required TResult Function(_Resume value) resume,
+    required TResult Function(_Pop value) pop,
   }) {
-    assert(push != null);
-    assert(resume != null);
-    assert(pop != null);
     return pop(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult push(_Push value),
-    TResult resume(_Resume value),
-    TResult pop(_Pop value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Push value)? push,
+    TResult Function(_Resume value)? resume,
+    TResult Function(_Pop value)? pop,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (pop != null) {
       return pop(this);
     }
@@ -480,22 +457,21 @@ class _$_Pop with DiagnosticableTreeMixin implements _Pop {
 }
 
 abstract class _Pop implements RoutingEvent {
-  const factory _Pop({@required Routes from}) = _$_Pop;
+  const factory _Pop({required Routes from}) = _$_Pop;
 
-  Routes get from;
+  Routes get from => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$PopCopyWith<_Pop> get copyWith;
+  _$PopCopyWith<_Pop> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 class _$RoutingStateTearOff {
   const _$RoutingStateTearOff();
 
-// ignore: unused_element
   _RoutingState priv(
-      {@required RoutingEvent event,
-      @required List<Routes> log,
-      @required String salt}) {
+      {required RoutingEvent event,
+      required List<Routes> log,
+      required String salt}) {
     return _RoutingState(
       event: event,
       log: log,
@@ -505,36 +481,41 @@ class _$RoutingStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RoutingState = _$RoutingStateTearOff();
 
 /// @nodoc
 mixin _$RoutingState {
-  RoutingEvent get event;
-  List<Routes> get log;
-  String get salt;
+  RoutingEvent get event => throw _privateConstructorUsedError;
+  List<Routes> get log => throw _privateConstructorUsedError;
+  String get salt => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult priv(RoutingEvent event, List<Routes> log, String salt),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function(RoutingEvent event, List<Routes> log, String salt)
+        priv,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult priv(RoutingEvent event, List<Routes> log, String salt),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(RoutingEvent event, List<Routes> log, String salt)? priv,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult priv(_RoutingState value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RoutingState value) priv,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult priv(_RoutingState value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RoutingState value)? priv,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $RoutingStateCopyWith<RoutingState> get copyWith;
+  $RoutingStateCopyWith<RoutingState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -557,22 +538,28 @@ class _$RoutingStateCopyWithImpl<$Res> implements $RoutingStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object event = freezed,
-    Object log = freezed,
-    Object salt = freezed,
+    Object? event = freezed,
+    Object? log = freezed,
+    Object? salt = freezed,
   }) {
     return _then(_value.copyWith(
-      event: event == freezed ? _value.event : event as RoutingEvent,
-      log: log == freezed ? _value.log : log as List<Routes>,
-      salt: salt == freezed ? _value.salt : salt as String,
+      event: event == freezed
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as RoutingEvent,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as List<Routes>,
+      salt: salt == freezed
+          ? _value.salt
+          : salt // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
   @override
   $RoutingEventCopyWith<$Res> get event {
-    if (_value.event == null) {
-      return null;
-    }
     return $RoutingEventCopyWith<$Res>(_value.event, (value) {
       return _then(_value.copyWith(event: value));
     });
@@ -604,14 +591,23 @@ class __$RoutingStateCopyWithImpl<$Res> extends _$RoutingStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object event = freezed,
-    Object log = freezed,
-    Object salt = freezed,
+    Object? event = freezed,
+    Object? log = freezed,
+    Object? salt = freezed,
   }) {
     return _then(_RoutingState(
-      event: event == freezed ? _value.event : event as RoutingEvent,
-      log: log == freezed ? _value.log : log as List<Routes>,
-      salt: salt == freezed ? _value.salt : salt as String,
+      event: event == freezed
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as RoutingEvent,
+      log: log == freezed
+          ? _value.log
+          : log // ignore: cast_nullable_to_non_nullable
+              as List<Routes>,
+      salt: salt == freezed
+          ? _value.salt
+          : salt // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -619,10 +615,7 @@ class __$RoutingStateCopyWithImpl<$Res> extends _$RoutingStateCopyWithImpl<$Res>
 /// @nodoc
 class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
   const _$_RoutingState(
-      {@required this.event, @required this.log, @required this.salt})
-      : assert(event != null),
-        assert(log != null),
-        assert(salt != null);
+      {required this.event, required this.log, required this.salt});
 
   @override
   final RoutingEvent event;
@@ -672,20 +665,19 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult priv(RoutingEvent event, List<Routes> log, String salt),
+  TResult when<TResult extends Object?>({
+    required TResult Function(RoutingEvent event, List<Routes> log, String salt)
+        priv,
   }) {
-    assert(priv != null);
     return priv(event, log, salt);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult priv(RoutingEvent event, List<Routes> log, String salt),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(RoutingEvent event, List<Routes> log, String salt)? priv,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (priv != null) {
       return priv(event, log, salt);
     }
@@ -694,20 +686,18 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult priv(_RoutingState value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RoutingState value) priv,
   }) {
-    assert(priv != null);
     return priv(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult priv(_RoutingState value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RoutingState value)? priv,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (priv != null) {
       return priv(this);
     }
@@ -717,17 +707,18 @@ class _$_RoutingState with DiagnosticableTreeMixin implements _RoutingState {
 
 abstract class _RoutingState implements RoutingState {
   const factory _RoutingState(
-      {@required RoutingEvent event,
-      @required List<Routes> log,
-      @required String salt}) = _$_RoutingState;
+      {required RoutingEvent event,
+      required List<Routes> log,
+      required String salt}) = _$_RoutingState;
 
   @override
-  RoutingEvent get event;
+  RoutingEvent get event => throw _privateConstructorUsedError;
   @override
-  List<Routes> get log;
+  List<Routes> get log => throw _privateConstructorUsedError;
   @override
-  String get salt;
+  String get salt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$RoutingStateCopyWith<_RoutingState> get copyWith;
+  _$RoutingStateCopyWith<_RoutingState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

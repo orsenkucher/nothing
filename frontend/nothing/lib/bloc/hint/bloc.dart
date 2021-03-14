@@ -7,7 +7,7 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class HintState with _$HintState {
+class HintState with _$HintState {
   const factory HintState(bool unlocked, Map<int, bool> memory) = _HintState;
   factory HintState.fromJson(Map<String, dynamic> json) => _$HintStateFromJson(json);
 }

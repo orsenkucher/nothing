@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'routes.dart';
 
@@ -9,49 +9,53 @@ part of 'routes.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$RoutesTearOff {
   const _$RoutesTearOff();
 
-// ignore: unused_element
   _Home home() {
     return const _Home();
   }
 
-// ignore: unused_element
   _History history() {
     return const _History();
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Routes = _$RoutesTearOff();
 
 /// @nodoc
 mixin _$Routes {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult home(),
-    @required TResult history(),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function() home,
+    required TResult Function() history,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult home(),
-    TResult history(),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? home,
+    TResult Function()? history,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult home(_Home value),
-    @required TResult history(_History value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Home value) home,
+    required TResult Function(_History value) history,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult home(_Home value),
-    TResult history(_History value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Home value)? home,
+    TResult Function(_History value)? history,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -110,23 +114,20 @@ class _$_Home with DiagnosticableTreeMixin implements _Home {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult home(),
-    @required TResult history(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() home,
+    required TResult Function() history,
   }) {
-    assert(home != null);
-    assert(history != null);
     return home();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult home(),
-    TResult history(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? home,
+    TResult Function()? history,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (home != null) {
       return home();
     }
@@ -135,23 +136,20 @@ class _$_Home with DiagnosticableTreeMixin implements _Home {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult home(_Home value),
-    @required TResult history(_History value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Home value) home,
+    required TResult Function(_History value) history,
   }) {
-    assert(home != null);
-    assert(history != null);
     return home(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult home(_Home value),
-    TResult history(_History value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Home value)? home,
+    TResult Function(_History value)? history,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (home != null) {
       return home(this);
     }
@@ -204,23 +202,20 @@ class _$_History with DiagnosticableTreeMixin implements _History {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult home(),
-    @required TResult history(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() home,
+    required TResult Function() history,
   }) {
-    assert(home != null);
-    assert(history != null);
     return history();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult home(),
-    TResult history(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? home,
+    TResult Function()? history,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (history != null) {
       return history();
     }
@@ -229,23 +224,20 @@ class _$_History with DiagnosticableTreeMixin implements _History {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult home(_Home value),
-    @required TResult history(_History value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Home value) home,
+    required TResult Function(_History value) history,
   }) {
-    assert(home != null);
-    assert(history != null);
     return history(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult home(_Home value),
-    TResult history(_History value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Home value)? home,
+    TResult Function(_History value)? history,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (history != null) {
       return history(this);
     }

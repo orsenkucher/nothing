@@ -9,26 +9,26 @@ export 'routes.dart';
 part 'bloc.freezed.dart';
 
 @freezed
-abstract class RoutingEvent with _$RoutingEvent {
+class RoutingEvent with _$RoutingEvent {
   const factory RoutingEvent.push({
-    @required Routes from,
-    @required Routes to,
+    required Routes from,
+    required Routes to,
   }) = _Push;
   const factory RoutingEvent.resume() = _Resume;
-  const factory RoutingEvent.pop({@required Routes from}) = _Pop;
+  const factory RoutingEvent.pop({required Routes from}) = _Pop;
 }
 
 @freezed
-abstract class RoutingState with _$RoutingState {
+class RoutingState with _$RoutingState {
   const factory RoutingState.priv({
-    @required RoutingEvent event,
-    @required List<Routes> log,
-    @required String salt,
+    required RoutingEvent event,
+    required List<Routes> log,
+    required String salt,
   }) = _RoutingState;
 
   factory RoutingState({
-    @required RoutingEvent event,
-    @required List<Routes> log,
+    required RoutingEvent event,
+    required List<Routes> log,
   }) {
     return RoutingState.priv(
       event: event,

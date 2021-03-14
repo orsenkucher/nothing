@@ -8,7 +8,7 @@ part of 'bloc.dart';
 
 _$_XPIDs _$_$_XPIDsFromJson(Map<String, dynamic> json) {
   return _$_XPIDs(
-    (json['ids'] as List)?.map((e) => e as int)?.toList(),
+    (json['ids'] as List<dynamic>).map((e) => e as int).toList(),
   );
 }
 

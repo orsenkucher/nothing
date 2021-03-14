@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'event.dart';
 
@@ -9,23 +9,24 @@ part of 'event.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$SummaryEventTearOff {
   const _$SummaryEventTearOff();
 
-// ignore: unused_element
   Remove remove(List<SummaryAnswer> answers) {
     return Remove(
       answers,
     );
   }
 
-// ignore: unused_element
   NewAnswer answer(
-      {@required int qid,
-      @required int tries,
-      @required int seconds,
-      @required List<String> answers}) {
+      {required int qid,
+      required int tries,
+      required int seconds,
+      required List<String> answers}) {
     return NewAnswer(
       qid: qid,
       tries: tries,
@@ -36,34 +37,39 @@ class _$SummaryEventTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SummaryEvent = _$SummaryEventTearOff();
 
 /// @nodoc
 mixin _$SummaryEvent {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult remove(List<SummaryAnswer> answers),
-    @required
-        TResult answer(int qid, int tries, int seconds, List<String> answers),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<SummaryAnswer> answers) remove,
+    required TResult Function(
+            int qid, int tries, int seconds, List<String> answers)
+        answer,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult remove(List<SummaryAnswer> answers),
-    TResult answer(int qid, int tries, int seconds, List<String> answers),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<SummaryAnswer> answers)? remove,
+    TResult Function(int qid, int tries, int seconds, List<String> answers)?
+        answer,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult remove(Remove value),
-    @required TResult answer(NewAnswer value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(Remove value) remove,
+    required TResult Function(NewAnswer value) answer,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult remove(Remove value),
-    TResult answer(NewAnswer value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Remove value)? remove,
+    TResult Function(NewAnswer value)? answer,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -100,17 +106,20 @@ class _$RemoveCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object answers = freezed,
+    Object? answers = freezed,
   }) {
     return _then(Remove(
-      answers == freezed ? _value.answers : answers as List<SummaryAnswer>,
+      answers == freezed
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<SummaryAnswer>,
     ));
   }
 }
 
 /// @nodoc
 class _$Remove with DiagnosticableTreeMixin implements Remove {
-  const _$Remove(this.answers) : assert(answers != null);
+  const _$Remove(this.answers);
 
   @override
   final List<SummaryAnswer> answers;
@@ -147,24 +156,23 @@ class _$Remove with DiagnosticableTreeMixin implements Remove {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult remove(List<SummaryAnswer> answers),
-    @required
-        TResult answer(int qid, int tries, int seconds, List<String> answers),
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<SummaryAnswer> answers) remove,
+    required TResult Function(
+            int qid, int tries, int seconds, List<String> answers)
+        answer,
   }) {
-    assert(remove != null);
-    assert(answer != null);
     return remove(answers);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult remove(List<SummaryAnswer> answers),
-    TResult answer(int qid, int tries, int seconds, List<String> answers),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<SummaryAnswer> answers)? remove,
+    TResult Function(int qid, int tries, int seconds, List<String> answers)?
+        answer,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (remove != null) {
       return remove(answers);
     }
@@ -173,23 +181,20 @@ class _$Remove with DiagnosticableTreeMixin implements Remove {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult remove(Remove value),
-    @required TResult answer(NewAnswer value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(Remove value) remove,
+    required TResult Function(NewAnswer value) answer,
   }) {
-    assert(remove != null);
-    assert(answer != null);
     return remove(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult remove(Remove value),
-    TResult answer(NewAnswer value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Remove value)? remove,
+    TResult Function(NewAnswer value)? answer,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (remove != null) {
       return remove(this);
     }
@@ -200,9 +205,9 @@ class _$Remove with DiagnosticableTreeMixin implements Remove {
 abstract class Remove implements SummaryEvent {
   const factory Remove(List<SummaryAnswer> answers) = _$Remove;
 
-  List<SummaryAnswer> get answers;
+  List<SummaryAnswer> get answers => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RemoveCopyWith<Remove> get copyWith;
+  $RemoveCopyWith<Remove> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -223,16 +228,28 @@ class _$NewAnswerCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object qid = freezed,
-    Object tries = freezed,
-    Object seconds = freezed,
-    Object answers = freezed,
+    Object? qid = freezed,
+    Object? tries = freezed,
+    Object? seconds = freezed,
+    Object? answers = freezed,
   }) {
     return _then(NewAnswer(
-      qid: qid == freezed ? _value.qid : qid as int,
-      tries: tries == freezed ? _value.tries : tries as int,
-      seconds: seconds == freezed ? _value.seconds : seconds as int,
-      answers: answers == freezed ? _value.answers : answers as List<String>,
+      qid: qid == freezed
+          ? _value.qid
+          : qid // ignore: cast_nullable_to_non_nullable
+              as int,
+      tries: tries == freezed
+          ? _value.tries
+          : tries // ignore: cast_nullable_to_non_nullable
+              as int,
+      seconds: seconds == freezed
+          ? _value.seconds
+          : seconds // ignore: cast_nullable_to_non_nullable
+              as int,
+      answers: answers == freezed
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -240,14 +257,10 @@ class _$NewAnswerCopyWithImpl<$Res> extends _$SummaryEventCopyWithImpl<$Res>
 /// @nodoc
 class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
   const _$NewAnswer(
-      {@required this.qid,
-      @required this.tries,
-      @required this.seconds,
-      @required this.answers})
-      : assert(qid != null),
-        assert(tries != null),
-        assert(seconds != null),
-        assert(answers != null);
+      {required this.qid,
+      required this.tries,
+      required this.seconds,
+      required this.answers});
 
   @override
   final int qid;
@@ -304,24 +317,23 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult remove(List<SummaryAnswer> answers),
-    @required
-        TResult answer(int qid, int tries, int seconds, List<String> answers),
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<SummaryAnswer> answers) remove,
+    required TResult Function(
+            int qid, int tries, int seconds, List<String> answers)
+        answer,
   }) {
-    assert(remove != null);
-    assert(answer != null);
     return answer(qid, tries, seconds, answers);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult remove(List<SummaryAnswer> answers),
-    TResult answer(int qid, int tries, int seconds, List<String> answers),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<SummaryAnswer> answers)? remove,
+    TResult Function(int qid, int tries, int seconds, List<String> answers)?
+        answer,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (answer != null) {
       return answer(qid, tries, seconds, answers);
     }
@@ -330,23 +342,20 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult remove(Remove value),
-    @required TResult answer(NewAnswer value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(Remove value) remove,
+    required TResult Function(NewAnswer value) answer,
   }) {
-    assert(remove != null);
-    assert(answer != null);
     return answer(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult remove(Remove value),
-    TResult answer(NewAnswer value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Remove value)? remove,
+    TResult Function(NewAnswer value)? answer,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (answer != null) {
       return answer(this);
     }
@@ -356,15 +365,16 @@ class _$NewAnswer with DiagnosticableTreeMixin implements NewAnswer {
 
 abstract class NewAnswer implements SummaryEvent {
   const factory NewAnswer(
-      {@required int qid,
-      @required int tries,
-      @required int seconds,
-      @required List<String> answers}) = _$NewAnswer;
+      {required int qid,
+      required int tries,
+      required int seconds,
+      required List<String> answers}) = _$NewAnswer;
 
-  int get qid;
-  int get tries;
-  int get seconds;
-  List<String> get answers;
+  int get qid => throw _privateConstructorUsedError;
+  int get tries => throw _privateConstructorUsedError;
+  int get seconds => throw _privateConstructorUsedError;
+  List<String> get answers => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $NewAnswerCopyWith<NewAnswer> get copyWith;
+  $NewAnswerCopyWith<NewAnswer> get copyWith =>
+      throw _privateConstructorUsedError;
 }

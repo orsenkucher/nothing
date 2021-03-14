@@ -7,7 +7,7 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class MenuState with _$MenuState {
+class MenuState with _$MenuState {
   const factory MenuState(bool vibration) = _MenuState;
   factory MenuState.fromJson(Map<String, dynamic> json) => _$MenuStateFromJson(json);
 }

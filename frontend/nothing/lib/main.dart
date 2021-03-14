@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:math' as math;
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +32,8 @@ import 'package:nothing/repository/questions.dart';
 import 'package:nothing/tools/lifecycle.dart';
 import 'package:nothing/tools/orientation.dart';
 import 'package:nothing/ui/home.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() async {
   Bloc.observer = NoBlocObserver();
@@ -48,7 +49,7 @@ void main() async {
 Future _hydrateAsync() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
-    HydratedBloc.storage = await HydratedStorage.build();
+    HydratedBloc.storage = await HydratedStorage.build(storageDirectory: await getTemporaryDirectory());
     // await HydratedBloc.storage.clear();}
   } catch (e, trace) {
     print(e);
@@ -56,11 +57,12 @@ Future _hydrateAsync() async {
   }
 }
 
-Future<bool> _admob() {
-  final appId = Platform.isIOS
-      ? 'ca-app-pub-3169956978186495~8308569350' //ios
-      : 'ca-app-pub-3169956978186495~3700924713'; //android
-  return FirebaseAdMob.instance.initialize(appId: appId);
+Future _admob() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // final appId = Platform.isIOS
+  //     ? 'ca-app-pub-3169956978186495~8308569350' //ios
+  //     : 'ca-app-pub-3169956978186495~3700924713'; //android
+  return MobileAds.instance.initialize();
 }
 
 void _lifecycle(LifecycleBloc lifecycle) {
@@ -74,7 +76,7 @@ void _lifecycle(LifecycleBloc lifecycle) {
       lifecycle.add(LifecycleEvent.resumeNow());
     },
   );
-  WidgetsBinding.instance.addObserver(observer);
+  WidgetsBinding.instance!.addObserver(observer);
 }
 
 class App extends StatelessWidget with PortraitLock {

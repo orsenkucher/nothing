@@ -9,10 +9,10 @@ import 'package:nothing/ui/slider.dart' as no;
 class XP extends StatefulWidget {
   const XP({
     Key key,
-    @required this.sliderHeight,
-    @required this.sliderPadding,
-    @required this.queueBloc,
-    @required this.xpBloc,
+    required this.sliderHeight,
+    required this.sliderPadding,
+    required this.queueBloc,
+    required this.xpBloc,
   }) : super(key: key);
 
   final double sliderHeight;

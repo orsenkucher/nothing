@@ -11,11 +11,11 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class HistoryItem with _$HistoryItem {
+class HistoryItem with _$HistoryItem {
   const HistoryItem._();
   const factory HistoryItem({
-    @required SummaryAnswer answer,
-    @required Question question,
+    required SummaryAnswer answer,
+    required Question question,
   }) = _HistoryItem;
   factory HistoryItem.fromJson(Map<String, dynamic> json) => _$HistoryItemFromJson(json);
 
@@ -23,15 +23,15 @@ abstract class HistoryItem with _$HistoryItem {
 }
 
 @freezed
-abstract class HistoryEvent with _$HistoryEvent {
+class HistoryEvent with _$HistoryEvent {
   const factory HistoryEvent.next(HistoryItem item) = _Next;
 }
 
 @freezed
-abstract class HistoryState with _$HistoryState {
+class HistoryState with _$HistoryState {
   const factory HistoryState({
-    @required Map<int, bool> ids, // HashSet with ids
-    @required List<HistoryItem> items,
+    required Map<int, bool> ids, // HashSet with ids
+    required List<HistoryItem> items,
   }) = _State;
 
   factory HistoryState.fromJson(Map<String, dynamic> json) => _$HistoryStateFromJson(json);

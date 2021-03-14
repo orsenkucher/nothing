@@ -36,7 +36,7 @@ class NothingScheme extends InheritedWidget {
 
   const NothingScheme({
     Key key,
-    @required Widget child,
+    required Widget child,
   }) : super(key: key, child: child);
 
   static NothingScheme of(BuildContext context) {

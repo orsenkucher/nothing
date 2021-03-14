@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -8,6 +8,10 @@ part of 'bloc.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 XPState _$XPStateFromJson(Map<String, dynamic> json) {
   return _XPState.fromJson(json);
 }
@@ -16,12 +20,11 @@ XPState _$XPStateFromJson(Map<String, dynamic> json) {
 class _$XPStateTearOff {
   const _$XPStateTearOff();
 
-// ignore: unused_element
   _XPState call(
-      {@required int totalxp,
-      @required int basexp,
-      @required int bonusxp,
-      @required int level}) {
+      {required int totalxp,
+      required int basexp,
+      required int bonusxp,
+      required int level}) {
     return _XPState(
       totalxp: totalxp,
       basexp: basexp,
@@ -30,26 +33,24 @@ class _$XPStateTearOff {
     );
   }
 
-// ignore: unused_element
   XPState fromJson(Map<String, Object> json) {
     return XPState.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $XPState = _$XPStateTearOff();
 
 /// @nodoc
 mixin _$XPState {
-  int get totalxp;
-  int get basexp;
-  int get bonusxp;
-  int get level;
+  int get totalxp => throw _privateConstructorUsedError;
+  int get basexp => throw _privateConstructorUsedError;
+  int get bonusxp => throw _privateConstructorUsedError;
+  int get level => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $XPStateCopyWith<XPState> get copyWith;
+  $XPStateCopyWith<XPState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -69,16 +70,28 @@ class _$XPStateCopyWithImpl<$Res> implements $XPStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object totalxp = freezed,
-    Object basexp = freezed,
-    Object bonusxp = freezed,
-    Object level = freezed,
+    Object? totalxp = freezed,
+    Object? basexp = freezed,
+    Object? bonusxp = freezed,
+    Object? level = freezed,
   }) {
     return _then(_value.copyWith(
-      totalxp: totalxp == freezed ? _value.totalxp : totalxp as int,
-      basexp: basexp == freezed ? _value.basexp : basexp as int,
-      bonusxp: bonusxp == freezed ? _value.bonusxp : bonusxp as int,
-      level: level == freezed ? _value.level : level as int,
+      totalxp: totalxp == freezed
+          ? _value.totalxp
+          : totalxp // ignore: cast_nullable_to_non_nullable
+              as int,
+      basexp: basexp == freezed
+          ? _value.basexp
+          : basexp // ignore: cast_nullable_to_non_nullable
+              as int,
+      bonusxp: bonusxp == freezed
+          ? _value.bonusxp
+          : bonusxp // ignore: cast_nullable_to_non_nullable
+              as int,
+      level: level == freezed
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -102,16 +115,28 @@ class __$XPStateCopyWithImpl<$Res> extends _$XPStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object totalxp = freezed,
-    Object basexp = freezed,
-    Object bonusxp = freezed,
-    Object level = freezed,
+    Object? totalxp = freezed,
+    Object? basexp = freezed,
+    Object? bonusxp = freezed,
+    Object? level = freezed,
   }) {
     return _then(_XPState(
-      totalxp: totalxp == freezed ? _value.totalxp : totalxp as int,
-      basexp: basexp == freezed ? _value.basexp : basexp as int,
-      bonusxp: bonusxp == freezed ? _value.bonusxp : bonusxp as int,
-      level: level == freezed ? _value.level : level as int,
+      totalxp: totalxp == freezed
+          ? _value.totalxp
+          : totalxp // ignore: cast_nullable_to_non_nullable
+              as int,
+      basexp: basexp == freezed
+          ? _value.basexp
+          : basexp // ignore: cast_nullable_to_non_nullable
+              as int,
+      bonusxp: bonusxp == freezed
+          ? _value.bonusxp
+          : bonusxp // ignore: cast_nullable_to_non_nullable
+              as int,
+      level: level == freezed
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -121,15 +146,11 @@ class __$XPStateCopyWithImpl<$Res> extends _$XPStateCopyWithImpl<$Res>
 /// @nodoc
 class _$_XPState extends _XPState with DiagnosticableTreeMixin {
   const _$_XPState(
-      {@required this.totalxp,
-      @required this.basexp,
-      @required this.bonusxp,
-      @required this.level})
-      : assert(totalxp != null),
-        assert(basexp != null),
-        assert(bonusxp != null),
-        assert(level != null),
-        super._();
+      {required this.totalxp,
+      required this.basexp,
+      required this.bonusxp,
+      required this.level})
+      : super._();
 
   factory _$_XPState.fromJson(Map<String, dynamic> json) =>
       _$_$_XPStateFromJson(json);
@@ -195,24 +216,25 @@ class _$_XPState extends _XPState with DiagnosticableTreeMixin {
 }
 
 abstract class _XPState extends XPState {
-  const _XPState._() : super._();
   const factory _XPState(
-      {@required int totalxp,
-      @required int basexp,
-      @required int bonusxp,
-      @required int level}) = _$_XPState;
+      {required int totalxp,
+      required int basexp,
+      required int bonusxp,
+      required int level}) = _$_XPState;
+  const _XPState._() : super._();
 
   factory _XPState.fromJson(Map<String, dynamic> json) = _$_XPState.fromJson;
 
   @override
-  int get totalxp;
+  int get totalxp => throw _privateConstructorUsedError;
   @override
-  int get basexp;
+  int get basexp => throw _privateConstructorUsedError;
   @override
-  int get bonusxp;
+  int get bonusxp => throw _privateConstructorUsedError;
   @override
-  int get level;
+  int get level => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$XPStateCopyWith<_XPState> get copyWith;
+  _$XPStateCopyWith<_XPState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

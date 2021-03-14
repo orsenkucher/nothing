@@ -14,13 +14,13 @@ import 'package:nothing/domain/domain.dart';
 part 'bloc.freezed.dart';
 
 @freezed
-abstract class QuestionsEvent with _$QuestionsEvent {
-  const factory QuestionsEvent.fetch([int currentid, @Default(false) bool isRefetch]) = Fetch;
+class QuestionsEvent with _$QuestionsEvent {
+  const factory QuestionsEvent.fetch([int? currentid, @Default(false) bool isRefetch]) = Fetch;
   const factory QuestionsEvent.refetch(int currentid) = Refetch;
 }
 
 @freezed
-abstract class QuestionsState with _$QuestionsState {
+class QuestionsState with _$QuestionsState {
   const factory QuestionsState.loaded(QTree questions) = Loaded;
   static QuestionsState get empty => QuestionsState.loaded(QTree());
   const factory QuestionsState.loading() = Loading;
@@ -35,10 +35,10 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
   final HistoryBloc historyBloc;
 
   QuestionsBloc({
-    @required this.repo,
-    @required this.summaryBloc,
-    @required this.idBloc,
-    @required this.historyBloc,
+    required this.repo,
+    required this.summaryBloc,
+    required this.idBloc,
+    required this.historyBloc,
   }) : super(QuestionsState.empty);
 
   @override

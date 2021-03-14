@@ -51,9 +51,9 @@ class MultiBlocBinder extends StatelessWidget {
 
   const MultiBlocBinder({
     Key key,
-    @required this.binders,
-    @required this.child,
-  })  : assert(binders != null),
+    required this.binders,
+    required this.child,
+  })   : assert(binders != null),
         assert(child != null),
         super(key: key);
 

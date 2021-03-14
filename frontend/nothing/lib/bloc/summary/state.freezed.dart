@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'state.dart';
 
@@ -8,6 +8,10 @@ part of 'state.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 SummaryState _$SummaryStateFromJson(Map<String, dynamic> json) {
   return _SummaryState.fromJson(json);
 }
@@ -16,30 +20,28 @@ SummaryState _$SummaryStateFromJson(Map<String, dynamic> json) {
 class _$SummaryStateTearOff {
   const _$SummaryStateTearOff();
 
-// ignore: unused_element
-  _SummaryState call({@required List<SummaryAnswer> answers}) {
+  _SummaryState call({required List<SummaryAnswer> answers}) {
     return _SummaryState(
       answers: answers,
     );
   }
 
-// ignore: unused_element
   SummaryState fromJson(Map<String, Object> json) {
     return SummaryState.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SummaryState = _$SummaryStateTearOff();
 
 /// @nodoc
 mixin _$SummaryState {
-  List<SummaryAnswer> get answers;
+  List<SummaryAnswer> get answers => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SummaryStateCopyWith<SummaryState> get copyWith;
+  $SummaryStateCopyWith<SummaryState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -60,11 +62,13 @@ class _$SummaryStateCopyWithImpl<$Res> implements $SummaryStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object answers = freezed,
+    Object? answers = freezed,
   }) {
     return _then(_value.copyWith(
-      answers:
-          answers == freezed ? _value.answers : answers as List<SummaryAnswer>,
+      answers: answers == freezed
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<SummaryAnswer>,
     ));
   }
 }
@@ -91,11 +95,13 @@ class __$SummaryStateCopyWithImpl<$Res> extends _$SummaryStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object answers = freezed,
+    Object? answers = freezed,
   }) {
     return _then(_SummaryState(
-      answers:
-          answers == freezed ? _value.answers : answers as List<SummaryAnswer>,
+      answers: answers == freezed
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<SummaryAnswer>,
     ));
   }
 }
@@ -104,7 +110,7 @@ class __$SummaryStateCopyWithImpl<$Res> extends _$SummaryStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SummaryState with DiagnosticableTreeMixin implements _SummaryState {
-  const _$_SummaryState({@required this.answers}) : assert(answers != null);
+  const _$_SummaryState({required this.answers});
 
   factory _$_SummaryState.fromJson(Map<String, dynamic> json) =>
       _$_$_SummaryStateFromJson(json);
@@ -149,17 +155,18 @@ class _$_SummaryState with DiagnosticableTreeMixin implements _SummaryState {
 }
 
 abstract class _SummaryState implements SummaryState {
-  const factory _SummaryState({@required List<SummaryAnswer> answers}) =
+  const factory _SummaryState({required List<SummaryAnswer> answers}) =
       _$_SummaryState;
 
   factory _SummaryState.fromJson(Map<String, dynamic> json) =
       _$_SummaryState.fromJson;
 
   @override
-  List<SummaryAnswer> get answers;
+  List<SummaryAnswer> get answers => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SummaryStateCopyWith<_SummaryState> get copyWith;
+  _$SummaryStateCopyWith<_SummaryState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 SummaryAnswer _$SummaryAnswerFromJson(Map<String, dynamic> json) {
@@ -170,17 +177,12 @@ SummaryAnswer _$SummaryAnswerFromJson(Map<String, dynamic> json) {
 class _$SummaryAnswerTearOff {
   const _$SummaryAnswerTearOff();
 
-// ignore: unused_element
   _SummaryAnswer call(
-      {@required
-          int qid,
-      @required
-          int tries,
-      @required
-          int seconds,
-      @required
+      {required int qid,
+      required int tries,
+      required int seconds,
       @JsonKey(toJson: _toJson, fromJson: _fromJson)
-          List<String> answers}) {
+          required List<String> answers}) {
     return _SummaryAnswer(
       qid: qid,
       tries: tries,
@@ -189,27 +191,26 @@ class _$SummaryAnswerTearOff {
     );
   }
 
-// ignore: unused_element
   SummaryAnswer fromJson(Map<String, Object> json) {
     return SummaryAnswer.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SummaryAnswer = _$SummaryAnswerTearOff();
 
 /// @nodoc
 mixin _$SummaryAnswer {
-  int get qid;
-  int get tries;
-  int get seconds;
+  int get qid => throw _privateConstructorUsedError;
+  int get tries => throw _privateConstructorUsedError;
+  int get seconds => throw _privateConstructorUsedError;
   @JsonKey(toJson: _toJson, fromJson: _fromJson)
-  List<String> get answers;
+  List<String> get answers => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SummaryAnswerCopyWith<SummaryAnswer> get copyWith;
+  $SummaryAnswerCopyWith<SummaryAnswer> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -235,16 +236,28 @@ class _$SummaryAnswerCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object qid = freezed,
-    Object tries = freezed,
-    Object seconds = freezed,
-    Object answers = freezed,
+    Object? qid = freezed,
+    Object? tries = freezed,
+    Object? seconds = freezed,
+    Object? answers = freezed,
   }) {
     return _then(_value.copyWith(
-      qid: qid == freezed ? _value.qid : qid as int,
-      tries: tries == freezed ? _value.tries : tries as int,
-      seconds: seconds == freezed ? _value.seconds : seconds as int,
-      answers: answers == freezed ? _value.answers : answers as List<String>,
+      qid: qid == freezed
+          ? _value.qid
+          : qid // ignore: cast_nullable_to_non_nullable
+              as int,
+      tries: tries == freezed
+          ? _value.tries
+          : tries // ignore: cast_nullable_to_non_nullable
+              as int,
+      seconds: seconds == freezed
+          ? _value.seconds
+          : seconds // ignore: cast_nullable_to_non_nullable
+              as int,
+      answers: answers == freezed
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -276,16 +289,28 @@ class __$SummaryAnswerCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object qid = freezed,
-    Object tries = freezed,
-    Object seconds = freezed,
-    Object answers = freezed,
+    Object? qid = freezed,
+    Object? tries = freezed,
+    Object? seconds = freezed,
+    Object? answers = freezed,
   }) {
     return _then(_SummaryAnswer(
-      qid: qid == freezed ? _value.qid : qid as int,
-      tries: tries == freezed ? _value.tries : tries as int,
-      seconds: seconds == freezed ? _value.seconds : seconds as int,
-      answers: answers == freezed ? _value.answers : answers as List<String>,
+      qid: qid == freezed
+          ? _value.qid
+          : qid // ignore: cast_nullable_to_non_nullable
+              as int,
+      tries: tries == freezed
+          ? _value.tries
+          : tries // ignore: cast_nullable_to_non_nullable
+              as int,
+      seconds: seconds == freezed
+          ? _value.seconds
+          : seconds // ignore: cast_nullable_to_non_nullable
+              as int,
+      answers: answers == freezed
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -295,14 +320,10 @@ class __$SummaryAnswerCopyWithImpl<$Res>
 /// @nodoc
 class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
   const _$_SummaryAnswer(
-      {@required this.qid,
-      @required this.tries,
-      @required this.seconds,
-      @required @JsonKey(toJson: _toJson, fromJson: _fromJson) this.answers})
-      : assert(qid != null),
-        assert(tries != null),
-        assert(seconds != null),
-        assert(answers != null);
+      {required this.qid,
+      required this.tries,
+      required this.seconds,
+      @JsonKey(toJson: _toJson, fromJson: _fromJson) required this.answers});
 
   factory _$_SummaryAnswer.fromJson(Map<String, dynamic> json) =>
       _$_$_SummaryAnswerFromJson(json);
@@ -369,29 +390,26 @@ class _$_SummaryAnswer with DiagnosticableTreeMixin implements _SummaryAnswer {
 
 abstract class _SummaryAnswer implements SummaryAnswer {
   const factory _SummaryAnswer(
-      {@required
-          int qid,
-      @required
-          int tries,
-      @required
-          int seconds,
-      @required
+      {required int qid,
+      required int tries,
+      required int seconds,
       @JsonKey(toJson: _toJson, fromJson: _fromJson)
-          List<String> answers}) = _$_SummaryAnswer;
+          required List<String> answers}) = _$_SummaryAnswer;
 
   factory _SummaryAnswer.fromJson(Map<String, dynamic> json) =
       _$_SummaryAnswer.fromJson;
 
   @override
-  int get qid;
+  int get qid => throw _privateConstructorUsedError;
   @override
-  int get tries;
+  int get tries => throw _privateConstructorUsedError;
   @override
-  int get seconds;
+  int get seconds => throw _privateConstructorUsedError;
   @override
   @JsonKey(toJson: _toJson, fromJson: _fromJson)
-  List<String> get answers;
+  List<String> get answers => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SummaryAnswerCopyWith<_SummaryAnswer> get copyWith;
+  _$SummaryAnswerCopyWith<_SummaryAnswer> get copyWith =>
+      throw _privateConstructorUsedError;
 }

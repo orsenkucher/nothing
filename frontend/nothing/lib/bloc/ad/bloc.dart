@@ -10,13 +10,13 @@ import 'package:nothing/repository/ads.dart';
 part 'bloc.freezed.dart';
 
 @freezed
-abstract class AdEvent with _$AdEvent {
+class AdEvent with _$AdEvent {
   const factory AdEvent.register(String userid) = _Register;
   const factory AdEvent.report(AdType type) = _Report;
 }
 
 @freezed
-abstract class AdState with _$AdState {
+class AdState with _$AdState {
   const factory AdState(String userid, AdMode type) = _AdState;
   const factory AdState.empty() = _Empty;
 }

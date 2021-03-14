@@ -7,7 +7,7 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-abstract class XPIDs with _$XPIDs {
+class XPIDs with _$XPIDs {
   const factory XPIDs(List<int> ids) = _XPIDs;
   factory XPIDs.fromJson(Map<String, dynamic> json) => _$XPIDsFromJson(json);
 }

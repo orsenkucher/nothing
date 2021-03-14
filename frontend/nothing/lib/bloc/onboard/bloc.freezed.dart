@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -8,6 +8,10 @@ part of 'bloc.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 OnboardState _$OnboardStateFromJson(Map<String, dynamic> json) {
   return _OnboardState.fromJson(json);
 }
@@ -16,30 +20,28 @@ OnboardState _$OnboardStateFromJson(Map<String, dynamic> json) {
 class _$OnboardStateTearOff {
   const _$OnboardStateTearOff();
 
-// ignore: unused_element
   _OnboardState call(bool done) {
     return _OnboardState(
       done,
     );
   }
 
-// ignore: unused_element
   OnboardState fromJson(Map<String, Object> json) {
     return OnboardState.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $OnboardState = _$OnboardStateTearOff();
 
 /// @nodoc
 mixin _$OnboardState {
-  bool get done;
+  bool get done => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $OnboardStateCopyWith<OnboardState> get copyWith;
+  $OnboardStateCopyWith<OnboardState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -60,10 +62,13 @@ class _$OnboardStateCopyWithImpl<$Res> implements $OnboardStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object done = freezed,
+    Object? done = freezed,
   }) {
     return _then(_value.copyWith(
-      done: done == freezed ? _value.done : done as bool,
+      done: done == freezed
+          ? _value.done
+          : done // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -90,10 +95,13 @@ class __$OnboardStateCopyWithImpl<$Res> extends _$OnboardStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object done = freezed,
+    Object? done = freezed,
   }) {
     return _then(_OnboardState(
-      done == freezed ? _value.done : done as bool,
+      done == freezed
+          ? _value.done
+          : done // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -102,7 +110,7 @@ class __$OnboardStateCopyWithImpl<$Res> extends _$OnboardStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_OnboardState with DiagnosticableTreeMixin implements _OnboardState {
-  const _$_OnboardState(this.done) : assert(done != null);
+  const _$_OnboardState(this.done);
 
   factory _$_OnboardState.fromJson(Map<String, dynamic> json) =>
       _$_$_OnboardStateFromJson(json);
@@ -153,8 +161,9 @@ abstract class _OnboardState implements OnboardState {
       _$_OnboardState.fromJson;
 
   @override
-  bool get done;
+  bool get done => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$OnboardStateCopyWith<_OnboardState> get copyWith;
+  _$OnboardStateCopyWith<_OnboardState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'bloc.dart';
 
@@ -8,6 +8,10 @@ part of 'bloc.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 CoinState _$CoinStateFromJson(Map<String, dynamic> json) {
   return _CoinState.fromJson(json);
 }
@@ -16,30 +20,28 @@ CoinState _$CoinStateFromJson(Map<String, dynamic> json) {
 class _$CoinStateTearOff {
   const _$CoinStateTearOff();
 
-// ignore: unused_element
   _CoinState call(int total) {
     return _CoinState(
       total,
     );
   }
 
-// ignore: unused_element
   CoinState fromJson(Map<String, Object> json) {
     return CoinState.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $CoinState = _$CoinStateTearOff();
 
 /// @nodoc
 mixin _$CoinState {
-  int get total;
+  int get total => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CoinStateCopyWith<CoinState> get copyWith;
+  $CoinStateCopyWith<CoinState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -59,10 +61,13 @@ class _$CoinStateCopyWithImpl<$Res> implements $CoinStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object total = freezed,
+    Object? total = freezed,
   }) {
     return _then(_value.copyWith(
-      total: total == freezed ? _value.total : total as int,
+      total: total == freezed
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -87,10 +92,13 @@ class __$CoinStateCopyWithImpl<$Res> extends _$CoinStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object total = freezed,
+    Object? total = freezed,
   }) {
     return _then(_CoinState(
-      total == freezed ? _value.total : total as int,
+      total == freezed
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -99,7 +107,7 @@ class __$CoinStateCopyWithImpl<$Res> extends _$CoinStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_CoinState with DiagnosticableTreeMixin implements _CoinState {
-  const _$_CoinState(this.total) : assert(total != null);
+  const _$_CoinState(this.total);
 
   factory _$_CoinState.fromJson(Map<String, dynamic> json) =>
       _$_$_CoinStateFromJson(json);
@@ -150,8 +158,9 @@ abstract class _CoinState implements CoinState {
       _$_CoinState.fromJson;
 
   @override
-  int get total;
+  int get total => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CoinStateCopyWith<_CoinState> get copyWith;
+  _$CoinStateCopyWith<_CoinState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
