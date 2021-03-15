@@ -3,7 +3,7 @@ import 'package:nothing/color/scheme.dart';
 
 class Knob extends StatelessWidget {
   final IconData icon;
-  final Function onPress;
+  final Function()? onPress;
   const Knob(this.icon, [this.onPress]);
 
   @override

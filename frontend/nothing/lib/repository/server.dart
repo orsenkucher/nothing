@@ -1,6 +1,6 @@
 const address = 'https://no.cocopuff.dev/';
 
-String addressWith(Route route) => address + routes[route];
+Uri addressWith(Route route) => Uri.https('no.cocopuff.dev', routes[route]!);
 
 const routes = {
   Route.questions: 'getQues',

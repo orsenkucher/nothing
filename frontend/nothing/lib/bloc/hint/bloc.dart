@@ -14,7 +14,7 @@ class HintState with _$HintState {
 
 class HintBloc extends HydratedCubit<HintState> {
   HintBloc() : super(HintState(false, <int, bool>{1: true}));
-  int current;
+  int current = 0;
 
   void lock(int id) {
     current = id;
@@ -22,7 +22,7 @@ class HintBloc extends HydratedCubit<HintState> {
     if (unlocked[id] == null) {
       unlocked[id] = false;
     }
-    if (unlocked[id]) {
+    if (unlocked[id] ?? false) {
       emit(state.copyWith(unlocked: true, memory: unlocked));
     } else {
       print("Locking hint for $id");

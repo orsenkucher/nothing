@@ -11,35 +11,35 @@ typedef BlocBinderCondition<S> = bool Function(S previous, S current);
 /// [BlocBinder] is helpful to bind or cross-bind two BloCs
 class BlocBinder<B1 extends Bloc<dynamic, S1>, S1, B2 extends Bloc<dynamic, S2>, S2> extends SingleChildStatelessWidget
     with BlocBinderSingleChildWidget {
-  final BlocBinderListener<S1, B2> direct;
-  final BlocBinderListener<S2, B1> reverse;
-  final BlocBinderCondition<S1> directCondition;
-  final BlocBinderCondition<S2> reverseCondition;
+  final BlocBinderListener<S1, B2>? direct;
+  final BlocBinderListener<S2, B1>? reverse;
+  final BlocBinderCondition<S1>? directCondition;
+  final BlocBinderCondition<S2>? reverseCondition;
   BlocBinder({
-    Key key,
+    Key? key,
     this.direct,
     this.reverse,
     this.directCondition,
     this.reverseCondition,
-    Widget child,
+    Widget? child,
   }) : super(child: child, key: key);
 
   @override
-  Widget buildWithChild(BuildContext context, Widget child) {
+  Widget buildWithChild(BuildContext context, Widget? child) {
     return MultiBlocListener(
       listeners: [
         if (direct != null)
           BlocListener<B1, S1>(
             listenWhen: directCondition,
-            listener: (context, state) => direct(context, state, context.read<B2>()),
+            listener: (context, state) => direct!(context, state, context.read<B2>()),
           ),
         if (reverse != null)
           BlocListener<B2, S2>(
             listenWhen: reverseCondition,
-            listener: (context, state) => reverse(context, state, context.read<B1>()),
+            listener: (context, state) => reverse!(context, state, context.read<B1>()),
           ),
       ],
-      child: child,
+      child: child!,
     );
   }
 }
@@ -50,12 +50,10 @@ class MultiBlocBinder extends StatelessWidget {
   final Widget child;
 
   const MultiBlocBinder({
-    Key key,
+    Key? key,
     required this.binders,
     required this.child,
-  })   : assert(binders != null),
-        assert(child != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

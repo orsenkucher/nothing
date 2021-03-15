@@ -15,7 +15,7 @@ class XPIDs with _$XPIDs {
 class XPIDsBloc extends HydratedCubit<XPIDs> {
   XPIDsBloc() : super(XPIDs([]));
 
-  void add(int id) {
+  void addId(int id) {
     print('XPIDs: adding $id');
     emit(state.copyWith(ids: [...state.ids, id]));
   }

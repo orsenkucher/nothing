@@ -8,7 +8,7 @@ part 'bloc.freezed.dart';
 part 'bloc.g.dart';
 
 @freezed
-class XPState implements _$XPState {
+class XPState with _$XPState {
   const XPState._();
   const factory XPState({
     required int totalxp,
@@ -31,7 +31,7 @@ class XPBloc extends HydratedCubit<XPState> {
 
   void progress(int id, int basexp, int bonusxp) {
     if (xpids.state.ids.contains(id)) return;
-    xpids.add(id);
+    xpids.addId(id);
     print('XP: base: $basexp, bonus: $bonusxp');
     _handleBase(basexp);
     _handleBonus(bonusxp);

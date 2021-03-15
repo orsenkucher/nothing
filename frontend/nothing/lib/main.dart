@@ -113,7 +113,7 @@ class App extends StatelessWidget with PortraitLock {
           listenWhen: (_, next) => next is Available,
           listener: (context, available) {
             final next = available as Available;
-            final id = next.tree.question.id;
+            final id = next.tree.question!.id;
             context.read<HintBloc>().lock(id);
           },
         ),
@@ -212,7 +212,7 @@ class App extends StatelessWidget with PortraitLock {
       BlocBinder<QuestionsBloc, QuestionsState, FeedBloc, FeedState>(
         direct: (context, state, bloc) {
           if (state is Loaded) {
-            if (state?.questions?.question != null) {
+            if (state.questions.question != null) {
               bloc.add(FeedEvent.newArrived(state.questions));
             }
           }
@@ -243,7 +243,7 @@ class App extends StatelessWidget with PortraitLock {
         },
         reverse: (context, state, bloc) {
           state.when(
-            available: (tree) => bloc.add(ValidationEvent.focus(tree.question)),
+            available: (tree) => bloc.add(ValidationEvent.focus(tree.question!)),
             pending: (_, __) => void$(),
             empty: (_) => void$(),
           );

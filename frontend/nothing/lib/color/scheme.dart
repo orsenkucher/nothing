@@ -35,12 +35,12 @@ class NothingScheme extends InheritedWidget {
   Brightness get brightness => Brightness.light;
 
   const NothingScheme({
-    Key key,
+    Key? key,
     required Widget child,
   }) : super(key: key, child: child);
 
   static NothingScheme of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<NothingScheme>();
+    return context.dependOnInheritedWidgetOfExactType<NothingScheme>()!;
   }
 
   @override

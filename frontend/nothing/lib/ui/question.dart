@@ -6,7 +6,7 @@ import 'package:nothing/bloc/feed/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 
 class Question extends HookWidget {
-  const Question({Key key}) : super(key: key);
+  const Question({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,8 @@ class Question extends HookWidget {
       child: BlocBuilder<FeedBloc, FeedState>(
         builder: (context, state) => AutoSizeText(
           state.when(
-            available: (tree) => tree.question.question,
-            pending: (oldTree, _) => oldTree.question.question,
+            available: (tree) => tree.question?.question ?? '',
+            pending: (oldTree, _) => oldTree.question?.question ?? '',
             empty: (oldTree) => oldTree?.question?.question ?? '',
           ),
           maxLines: 7,

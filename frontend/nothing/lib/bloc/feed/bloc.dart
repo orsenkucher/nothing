@@ -55,7 +55,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
 
   @override
   Stream<FeedState> mapEventToState(FeedEvent event) async* {
-    final next = state.when<FeedState>(
+    final next = state.when<FeedState?>(
       available: (tree) => event.when(
         moveNext: (dir) {
           var next = dir.when(
@@ -70,13 +70,13 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
             );
           }
           print('Request and go to empty');
-          questionsBloc.add(QuestionsEvent.fetch(tree.question.id));
+          questionsBloc.add(QuestionsEvent.fetch(tree.question!.id));
           return FeedState.empty(tree);
         },
         ground: () => error$(), // this should never happen
         newArrived: (newTree, forced) {
-          print('Answer: ${newTree.question.answers}');
-          if (tree.question.id == newTree.question.id || forced) {
+          print('Answer: ${newTree.question!.answers}');
+          if (tree.question!.id == newTree.question!.id || forced) {
             print('Swapping tree');
             print(newTree.question);
             return FeedState.available(tree: newTree);
@@ -92,14 +92,14 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
           // non-history tree
           if (nextTree.left != null && nextTree.right != null || nextTree.left == null && nextTree.right == null) {
             print('Request tree prolongation');
-            questionsBloc.add(QuestionsEvent.fetch(nextTree.question.id));
+            questionsBloc.add(QuestionsEvent.fetch(nextTree.question!.id));
           }
           return FeedState.available(tree: nextTree);
         },
         newArrived: (newTree, forced) {
           print('Arrived on pending');
-          if (newTree.question.id != nextTree.question.id && !forced) {
-            questionsBloc.add(QuestionsEvent.fetch(nextTree.question.id));
+          if (newTree.question!.id != nextTree.question!.id && !forced) {
+            questionsBloc.add(QuestionsEvent.fetch(nextTree.question!.id));
             return null;
           }
           return FeedState.pending(oldTree: oldTree, newTree: newTree);
@@ -107,8 +107,8 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
       ),
       empty: (oldTree) => event.when(
         newArrived: (nextTree, forced) {
-          if (oldTree?.question?.id == nextTree.question.id || nextTree.question.id == -1 || forced) {
-            return FeedState.available(tree: nextTree.left);
+          if (oldTree?.question?.id == nextTree.question?.id || nextTree.question?.id == -1 || forced) {
+            return FeedState.available(tree: nextTree.left!);
           }
           if (oldTree?.question == null) {
             return FeedState.available(tree: nextTree);

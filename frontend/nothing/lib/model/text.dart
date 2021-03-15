@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class TextModel extends Model {
-  String _text;
-  String get text => _text;
+  String? _text;
+  String? get text => _text;
 
   void update(String s) {
     _text = s;

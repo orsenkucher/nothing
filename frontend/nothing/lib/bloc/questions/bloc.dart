@@ -46,7 +46,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
     yield* event.map(fetch: _mapFetch, refetch: _mapRefetch);
   }
 
-  int lastid;
+  int? lastid;
   Stream<QuestionsState> _mapFetch(Fetch event) async* {
     if (event.currentid == null) {
       final curid = historyBloc.state.ids.isEmpty ? 1 : -1;
@@ -63,14 +63,14 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
       final answered = [...summaryBloc.state.answers];
       var problems = await repo.fetchQuestions(
         userID: idBloc.state.id,
-        currentID: event.currentid,
+        currentID: event.currentid!,
         answers: answered,
       );
       summaryBloc.add(SummaryEvent.remove(answered));
       yield QuestionsState.loaded(problems);
     } on CloudError catch (error) {
       yield QuestionsState.error(error);
-      add(QuestionsEvent.refetch(event.currentid));
+      add(QuestionsEvent.refetch(event.currentid!));
     }
   }
 

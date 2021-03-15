@@ -27,7 +27,9 @@ Map<String, dynamic> _$_$_QuestionToJson(_$_Question instance) =>
 
 _$_QTree _$_$_QTreeFromJson(Map<String, dynamic> json) {
   return _$_QTree(
-    question: Question.fromJson(json['question'] as Map<String, dynamic>),
+    question: json['question'] == null
+        ? null
+        : Question.fromJson(json['question'] as Map<String, dynamic>),
     left: json['left'] == null
         ? null
         : QTree.fromJson(json['left'] as Map<String, dynamic>),

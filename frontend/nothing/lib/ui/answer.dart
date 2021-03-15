@@ -14,7 +14,7 @@ import 'package:nothing/model/focusnode.dart';
 import 'package:nothing/model/text.dart';
 
 class Answer extends HookWidget {
-  const Answer(this.textController, {Key key}) : super(key: key);
+  const Answer(this.textController, {Key? key}) : super(key: key);
 
   final TextEditingController textController;
 
@@ -92,7 +92,7 @@ class Answer extends HookWidget {
         },
         builder: (context, state) {
           final scheme = NothingScheme.of(context);
-          final color = ColorTween(
+          final Animation<Color?> color = ColorTween(
             begin: scheme.neutral,
             end: state.maybeWhen(
               just: (state) => state.maybeMap(
@@ -161,11 +161,11 @@ class Answer extends HookWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 32),
                 child: Material(
                   elevation: 6,
-                  shadowColor: color.value.tint,
+                  shadowColor: color.value?.tint,
                   color: color.value,
                   borderRadius: NothingScheme.of(context).answerBorder,
                   clipBehavior: Clip.antiAlias,
-                  child: isWrong && controller.isAnimating ? Container() : animCorrect(child),
+                  child: isWrong && controller.isAnimating ? Container() : animCorrect(child!),
                 ),
               ),
             ),
@@ -200,10 +200,12 @@ class Answer extends HookWidget {
                   alignment: Alignment.centerRight,
                   child: Transform.translate(
                     offset: const Offset(16.0, 0.0),
-                    child: FlatButton(
-                      shape: CircleBorder(),
-                      padding: const EdgeInsets.all(24.0),
-                      visualDensity: VisualDensity.compact,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(CircleBorder()),
+                        padding: MaterialStateProperty.all(const EdgeInsets.all(24.0)),
+                        visualDensity: VisualDensity.compact,
+                      ),
                       child: Icon(Icons.arrow_forward_ios, size: 24),
                       onPressed: () async {
                         final focus = FocusNodeModel.of(context);

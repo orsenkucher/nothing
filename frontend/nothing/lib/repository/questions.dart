@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:meta/meta.dart';
 import 'package:nothing/bloc/summary/bloc.dart';
 import 'package:nothing/domain/domain.dart';
 import 'package:nothing/error/cloud_error.dart';
@@ -22,9 +21,9 @@ class CloudQuestionsRepo extends QuestionsRepo {
 
   @override
   Future<QTree> fetchQuestions({
-    String userID,
-    int currentID,
-    List<SummaryAnswer> answers,
+    required String userID,
+    required int currentID,
+    required List<SummaryAnswer> answers,
   }) async {
     // final userID = idBloc.state.id;
     try {
@@ -52,7 +51,7 @@ class CloudQuestionsRepo extends QuestionsRepo {
         print(tr);
         return tr;
       }
-      throw null;
+      throw Never;
     } catch (_) {
       throw CloudError(error: "Could not fetch problems");
     }
@@ -76,9 +75,9 @@ class CloudQuestionsRepo extends QuestionsRepo {
 class LocalQuestionsRepo extends QuestionsRepo {
   @override
   Future<QTree> fetchQuestions({
-    String userID,
-    int currentID,
-    List<SummaryAnswer> answers,
+    required String userID,
+    required int currentID,
+    required List<SummaryAnswer> answers,
   }) {
     return Future.delayed(
       Duration(milliseconds: 400), // 800 1800 2800 server delays
@@ -92,6 +91,7 @@ class LocalQuestionsRepo extends QuestionsRepo {
       question: "Привет",
       explanation: "Будь вежливым",
       answers: r"привет<$>здравствуй<$>дороуля",
+      mmr: 0,
     ),
     left: QTree(
       question: Question(
@@ -99,6 +99,7 @@ class LocalQuestionsRepo extends QuestionsRepo {
         question: "Площадь квадрата с диагональю = √2",
         explanation: "Сторона квадрата = 1",
         answers: r"1<$>один",
+        mmr: 0,
       ),
       right: QTree(
         question: Question(
@@ -106,6 +107,7 @@ class LocalQuestionsRepo extends QuestionsRepo {
           question: "М, В, З, М, Ю, С, ?",
           explanation: "Планеты солнечной системы",
           answers: r"У",
+          mmr: 0,
         ),
         left: QTree(
           question: Question(
@@ -113,6 +115,7 @@ class LocalQuestionsRepo extends QuestionsRepo {
             question: "Бабочка, авто, самолет, птица, пчела",
             explanation: "Бабочка и пчела умеют летать",
             answers: r"авто",
+            mmr: 0,
           ),
         ),
       ),

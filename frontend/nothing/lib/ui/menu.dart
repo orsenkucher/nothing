@@ -14,7 +14,7 @@ class Menu extends StatefulWidget {
   const Menu(
     this.onBack,
     this.swipeController, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final void Function() onBack;
@@ -84,8 +84,8 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                             },
                             'Share question': () {
                               final question = context.read<FeedBloc>().state.maybeWhen(
-                                    available: (tree) => tree.question.question,
-                                    pending: (prev, _) => prev.question.question,
+                                    available: (tree) => tree.question?.question,
+                                    pending: (prev, _) => prev.question?.question,
                                     orElse: () => '',
                                   );
                               final appLink = Platform.isIOS
@@ -102,7 +102,7 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                               }
                             }
                           };
-                          final wrappers = <String, Widget Function(Widget)>{
+                          final wrappers = <String, Widget Function(Widget)?>{
                             'Vibration': platform
                                 ? (Widget child) {
                                     return Row(

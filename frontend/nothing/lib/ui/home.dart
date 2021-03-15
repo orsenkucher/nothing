@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_admob/firebase_admob.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +15,7 @@ import 'package:nothing/bloc/onboard/bloc.dart';
 import 'package:nothing/bloc/validation/bloc.dart';
 import 'package:nothing/color/scheme.dart';
 import 'package:nothing/domain/domain.dart' as domain;
-import 'package:nothing/hooks/pagecontroller.dart';
+import 'package:nothing/hooks/pagecontroller.dart' as hooks;
 import 'package:nothing/icons/icons.dart';
 import 'package:nothing/model/focusnode.dart';
 import 'package:nothing/model/text.dart';
@@ -43,9 +43,9 @@ class Home extends HookWidget {
     final swipeTintController = useAnimationController();
     final swipeMenuController = useAnimationController(upperBound: 2.0);
     final swipeHistoryController = useAnimationController(lowerBound: -2.0);
-    final pageController = usePageController(initialPage: 1, keepPage: true);
+    final pageController = hooks.usePageController(initialPage: 1, keepPage: true);
     useEffect(() {
-      WidgetsBinding.instance.addPostFrameCallback(
+      WidgetsBinding.instance!.addPostFrameCallback(
         (_) => focusNodeModel.refocus(),
       );
       return null;
@@ -236,7 +236,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
           onTap: () {
             final focusModel = FocusNodeModel.of(context);
             focusModel.focusNode.requestFocus(FocusNode());
-            WidgetsBinding.instance.addPostFrameCallback((_) => focusModel.refocus());
+            WidgetsBinding.instance!.addPostFrameCallback((_) => focusModel.refocus());
           },
         ),
       ),
@@ -282,7 +282,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
             },
             listenWhen: (oldTree, newTree) {
               if (oldTree is Available && newTree is Available) {
-                if (oldTree.tree.question.id == newTree.tree.question.id) {
+                if (oldTree.tree.question?.id == newTree.tree.question?.id) {
                   return false;
                 }
               }
@@ -366,8 +366,8 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                           child: BlocBuilder<FeedBloc, FeedState>(
                             builder: (context, state) => AutoSizeText(
                               state.when(
-                                available: (tree) => tree.question.explanation,
-                                pending: (oldTree, _) => oldTree.question.explanation,
+                                available: (tree) => tree.question?.explanation ?? '',
+                                pending: (oldTree, _) => oldTree.question?.explanation ?? '',
                                 empty: (_) => '',
                               ),
                               maxLines: 4,
@@ -501,7 +501,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 'skip': () => _skipClick(context),
                 'like': () {
                   print('like');
-                  void report(domain.QTree tree) => context.read<LikesRepo>().report(tree.question.id, 1);
+                  void report(domain.QTree tree) => context.read<LikesRepo>().report(tree.question!.id, 1);
                   context.read<FeedBloc>().state.when(
                       available: (tree) => report(tree),
                       pending: (oldTree, _) => report(oldTree),
@@ -512,7 +512,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 },
                 'dislike': () {
                   print('dislike');
-                  void report(domain.QTree tree) => context.read<LikesRepo>().report(tree.question.id, -1);
+                  void report(domain.QTree tree) => context.read<LikesRepo>().report(tree.question!.id, -1);
                   context.read<FeedBloc>().state.when(
                       available: (tree) => report(tree),
                       pending: (oldTree, _) => report(oldTree),
@@ -523,8 +523,8 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                 },
                 'share': () async {
                   final question = context.read<FeedBloc>().state.maybeWhen(
-                        available: (tree) => tree.question.question,
-                        pending: (prev, _) => prev.question.question,
+                        available: (tree) => tree.question?.question,
+                        pending: (prev, _) => prev.question?.question,
                         orElse: () => '',
                       );
 
@@ -545,28 +545,32 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
               Iterable<Widget> buildButtons(List<String> labels) {
                 return labels.map((l) {
                   final isShare = l.contains('share');
-                  return FlatButton(
-                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 9),
-                    color: color[l],
+                  return TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 0, vertical: 9)),
+                      backgroundColor: MaterialStateProperty.all(color[l]),
+                      minimumSize: isShare ? MaterialStateProperty.all(Size.fromWidth(60.0)) : null,
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius:
+                              isShare ? NothingScheme.of(context).shareBorder : NothingScheme.of(context).hintBorder,
+                        ),
+                      ),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        iconTransform[l](Icon(
+                        iconTransform[l]!(Icon(
                           icon[l],
                           size: 24,
                           color: Colors.white,
                         )),
-                        if (label[l].isNotEmpty) SizedBox(width: 2),
-                        if (label[l].isNotEmpty) text(label[l]),
-                        if (label[l].isNotEmpty) SizedBox(width: 6),
+                        if (label[l]!.isNotEmpty) SizedBox(width: 2),
+                        if (label[l]!.isNotEmpty) text(label[l]!),
+                        if (label[l]!.isNotEmpty) SizedBox(width: 6),
                       ],
                     ),
-                    minWidth: isShare ? 60.0 : null,
                     onPressed: callback[l],
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          isShare ? NothingScheme.of(context).shareBorder : NothingScheme.of(context).hintBorder,
-                    ),
                   );
                 }).expand((w) sync* {
                   yield w;
@@ -673,7 +677,7 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
     );
   }
 
-  Widget _makeKnob(IconData icon, [Function onPress]) {
+  Widget _makeKnob(IconData icon, [Function()? onPress]) {
     return Padding(
       padding: const EdgeInsets.only(left: 24, right: 24, top: 16),
       child: Knob(icon, onPress),
@@ -681,10 +685,11 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
   }
 }
 
-Future<bool> _adLoading;
+Future<bool>? _adLoading;
 void _createAd(BuildContext context) {
   print('****** Loading new ad');
-  RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+  // final rewarded = RewardedAd(adUnitId: adUnitId, listener: listener, request: request)
+  RewardedAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
     print("RewardedVideoAdEvent event is $event");
     if (event == RewardedVideoAdEvent.loaded) {
       print('RewardedVideoAdEvent is loaded');
@@ -722,7 +727,7 @@ Future<void> _showAd(BuildContext context, void Function() onRewarded) async {
     }
 
     final adLoaded = await _adLoading;
-    if (!adLoaded) {
+    if (!(adLoaded ?? false)) {
       print('****** Ad did not load');
       return;
     }

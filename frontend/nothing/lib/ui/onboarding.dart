@@ -12,22 +12,22 @@ class Onboarding extends StatefulWidget {
 class _OnboardingState extends State<Onboarding> {
   int _total = 2;
   int _current = 0;
-  PageController _pages;
-  List<VideoPlayerController> _videos;
   bool _loaded = false;
+
+  final PageController _pages = PageController(
+    initialPage: 0,
+    keepPage: true,
+    viewportFraction: 1.0,
+  );
+
+  final List<VideoPlayerController> _videos = [
+    VideoPlayerController.asset("assets/onboarding1.mp4"),
+    VideoPlayerController.asset("assets/onboarding2.mp4"),
+  ];
 
   @override
   void initState() {
     super.initState();
-    _pages = PageController(
-      initialPage: 0,
-      keepPage: true,
-      viewportFraction: 1.0,
-    );
-    _videos = [
-      VideoPlayerController.asset("assets/onboarding1.mp4"),
-      VideoPlayerController.asset("assets/onboarding2.mp4"),
-    ];
     Future.wait(_videos.map((vid) => vid.initialize())).then(
       (value) => setState(() {
         _loaded = true;

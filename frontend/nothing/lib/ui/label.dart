@@ -7,7 +7,7 @@ import 'package:nothing/ui/xp.dart';
 
 class Label extends StatefulWidget {
   const Label({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

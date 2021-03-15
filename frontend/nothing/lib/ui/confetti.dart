@@ -14,14 +14,12 @@ class Confetti extends StatefulWidget {
 }
 
 class _ConfettiState extends State<Confetti> {
-  ConfettiController _feedController;
-  ConfettiController _levelController;
+  late final ConfettiController _feedController = ConfettiController(duration: const Duration(seconds: 10));
+  late final ConfettiController _levelController = ConfettiController(duration: const Duration(milliseconds: 1600));
 
   @override
   void initState() {
     super.initState();
-    _feedController = ConfettiController(duration: const Duration(seconds: 10));
-    _levelController = ConfettiController(duration: const Duration(milliseconds: 1600));
     _feedController.play();
     // _levelController.play();
   }
@@ -51,7 +49,7 @@ class _ConfettiState extends State<Confetti> {
       listenWhen: (_, next) => next is Available,
       listener: (context, available) {
         final state = available as Available;
-        if (state.tree.question.id == 1) {
+        if (state.tree.question?.id == 1) {
           _feedController.play();
         } else {
           _feedController.stop();

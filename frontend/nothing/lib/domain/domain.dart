@@ -49,7 +49,7 @@ class Question with _$Question {
 
 @freezed
 class QTree with _$QTree {
-  const factory QTree({required Question question, QTree? left, QTree? right}) = _QTree;
+  const factory QTree({Question? question, QTree? left, QTree? right}) = _QTree;
   factory QTree.fromJson(Map<String, dynamic> json) => _$QTreeFromJson(json);
 }
 

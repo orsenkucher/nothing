@@ -8,7 +8,7 @@ import 'package:nothing/ui/slider.dart' as no;
 
 class XP extends StatefulWidget {
   const XP({
-    Key key,
+    Key? key,
     required this.sliderHeight,
     required this.sliderPadding,
     required this.queueBloc,
@@ -26,7 +26,7 @@ class XP extends StatefulWidget {
 
 class _XPState extends State<XP> with SingleTickerProviderStateMixin {
   int phase = 0;
-  XPState state;
+  XPState? state;
   bool disposed = false;
 
   @override
@@ -59,6 +59,7 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final state = this.state;
     if (state == null) return SizedBox.shrink();
 
     var xp = state.basexp;
@@ -126,7 +127,7 @@ class _XPState extends State<XP> with SingleTickerProviderStateMixin {
 
   Widget _slider({
     double value = 0,
-    Color colorleft,
+    required Color colorleft,
     Color coloright = Colors.transparent,
   }) {
     return Padding(

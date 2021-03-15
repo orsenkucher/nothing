@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 PageController usePageController({
-  int initialPage,
-  bool keepPage,
-  double viewportFraction,
-  List<Object> keys,
+  int initialPage = 0,
+  bool keepPage = true,
+  double viewportFraction = 1.0,
+  List<Object?>? keys,
 }) =>
     use(
       _PageControllerHook(initialPage, keepPage, viewportFraction, keys),
@@ -19,7 +19,7 @@ class _PageControllerHook extends Hook<PageController> {
     this.initialPage,
     this.keepPage,
     this.viewportFraction, [
-    List<Object> keys,
+    List<Object?>? keys,
   ]) : super(keys: keys);
 
   @override
@@ -29,17 +29,11 @@ class _PageControllerHook extends Hook<PageController> {
 }
 
 class _PageControllerHookState extends HookState<PageController, _PageControllerHook> {
-  PageController _pageController;
-
-  @override
-  void initHook() {
-    super.initHook();
-    _pageController = PageController(
-      initialPage: hook.initialPage ?? 0,
-      keepPage: hook.keepPage ?? true,
-      viewportFraction: hook.viewportFraction ?? 1.0,
-    );
-  }
+  late final _pageController = PageController(
+    initialPage: hook.initialPage,
+    keepPage: hook.keepPage,
+    viewportFraction: hook.viewportFraction,
+  );
 
   @override
   PageController build(BuildContext context) => _pageController;

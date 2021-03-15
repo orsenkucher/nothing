@@ -78,8 +78,8 @@ class _HistoryState extends State<History> with AutomaticKeepAliveClientMixin<Hi
 
 class HistoryStack extends StatelessWidget {
   const HistoryStack({
-    Key key,
-    this.swipeController,
+    Key? key,
+    required this.swipeController,
   }) : super(key: key);
 
   final AnimationController swipeController;
@@ -94,7 +94,7 @@ class HistoryStack extends StatelessWidget {
             const itemExtent = 60.0;
             final scrollController = useScrollController();
             useEffect(() {
-              WidgetsBinding.instance.addPostFrameCallback(
+              WidgetsBinding.instance!.addPostFrameCallback(
                 (_) => scrollController.jumpTo(scrollController.position.maxScrollExtent),
               );
               return;
@@ -199,14 +199,16 @@ class HistoryStack extends StatelessWidget {
                   ),
                 ),
               ),
-            FlatButton(
-              padding: const EdgeInsets.all(8.0),
+            TextButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(const EdgeInsets.all(8.0)),
+                // splashColor: Colors.white.withOpacity(0.2),
+              ),
               onPressed: () {
                 final pos = counter;
                 // if (item.answered) return null;
                 return () => context.read<ControlCubit>().select(pos);
               }(),
-              splashColor: Colors.white.withOpacity(0.2),
               // splashColor: NothingScheme.of(context).hint.withOpacity(0.2),
               // highlightColor: NothingScheme.of(context).neutral.withOpacity(0.1),
               child: Row(mainAxisSize: MainAxisSize.max, children: [
@@ -241,12 +243,12 @@ extension Location$ on Location {
   Alignment get alignment => const {
         Location.up: Alignment.topCenter,
         Location.down: Alignment.bottomCenter,
-      }[this];
+      }[this]!;
 
   Location operator ~() => const {
         Location.up: Location.down,
         Location.down: Location.up,
-      }[this];
+      }[this]!;
 }
 
 class FuzzyOut extends StatelessWidget {
@@ -254,7 +256,12 @@ class FuzzyOut extends StatelessWidget {
   final double height;
   final List<double> stops;
   final List<Color> colors;
-  const FuzzyOut({this.loc, this.height, this.colors, this.stops = const [0.5, 1]});
+  const FuzzyOut({
+    required this.loc,
+    required this.height,
+    required this.colors,
+    this.stops = const [0.5, 1],
+  });
 
   @override
   Widget build(BuildContext context) {

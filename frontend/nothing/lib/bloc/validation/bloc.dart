@@ -103,7 +103,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
       focus: (question) => ValidationState.just(
         _ValidationState2.neutral(question, [], TimePoints.fromNow()),
       ),
-      check: (answer) => state.when<ValidationState>(
+      check: (answer) => state.when<ValidationState?>(
         nothing: () => ValidationState.nothing(),
         just: (state) {
           final question = state.question;
@@ -124,7 +124,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> {
             wrong: (w) => w.timePoints,
             orElse: () => null,
           );
-          final duration = timePoints.add(TimePoint.suspendNow()).duration;
+          final duration = timePoints!.add(TimePoint.suspendNow()).duration;
 
           if (correct) {
             return ValidationState.just(_ValidationState2.correct(question, [...answers, answer], duration));

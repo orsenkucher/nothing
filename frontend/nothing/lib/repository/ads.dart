@@ -29,8 +29,8 @@ class CloudAdRepo extends AdRepo {
         print(mode);
         return mode;
       }
-      throw null;
-    } on dynamic catch (_) {
+      throw Never;
+    } catch (_) {
       throw CloudError(error: "Could not register ad user");
     }
   }
@@ -47,8 +47,8 @@ class CloudAdRepo extends AdRepo {
         body: body,
       );
       if (resp.statusCode == 200) return;
-      throw null;
-    } on dynamic catch (_) {
+      throw Never;
+    } catch (_) {
       throw CloudError(error: "Could not report ad watch");
     }
   }

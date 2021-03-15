@@ -9,7 +9,7 @@ mixin PortraitLock on StatelessWidget {
   @mustCallSuper
   Widget build(BuildContext context) {
     _portraitModeOnly();
-    return null;
+    return SizedBox.shrink();
   }
 
   void _portraitModeOnly() {

@@ -274,7 +274,7 @@ QTree _$QTreeFromJson(Map<String, dynamic> json) {
 class _$QTreeTearOff {
   const _$QTreeTearOff();
 
-  _QTree call({required Question question, QTree? left, QTree? right}) {
+  _QTree call({Question? question, QTree? left, QTree? right}) {
     return _QTree(
       question: question,
       left: left,
@@ -292,7 +292,7 @@ const $QTree = _$QTreeTearOff();
 
 /// @nodoc
 mixin _$QTree {
-  Question get question => throw _privateConstructorUsedError;
+  Question? get question => throw _privateConstructorUsedError;
   QTree? get left => throw _privateConstructorUsedError;
   QTree? get right => throw _privateConstructorUsedError;
 
@@ -305,9 +305,9 @@ mixin _$QTree {
 abstract class $QTreeCopyWith<$Res> {
   factory $QTreeCopyWith(QTree value, $Res Function(QTree) then) =
       _$QTreeCopyWithImpl<$Res>;
-  $Res call({Question question, QTree? left, QTree? right});
+  $Res call({Question? question, QTree? left, QTree? right});
 
-  $QuestionCopyWith<$Res> get question;
+  $QuestionCopyWith<$Res>? get question;
   $QTreeCopyWith<$Res>? get left;
   $QTreeCopyWith<$Res>? get right;
 }
@@ -330,7 +330,7 @@ class _$QTreeCopyWithImpl<$Res> implements $QTreeCopyWith<$Res> {
       question: question == freezed
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
-              as Question,
+              as Question?,
       left: left == freezed
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
@@ -343,8 +343,12 @@ class _$QTreeCopyWithImpl<$Res> implements $QTreeCopyWith<$Res> {
   }
 
   @override
-  $QuestionCopyWith<$Res> get question {
-    return $QuestionCopyWith<$Res>(_value.question, (value) {
+  $QuestionCopyWith<$Res>? get question {
+    if (_value.question == null) {
+      return null;
+    }
+
+    return $QuestionCopyWith<$Res>(_value.question!, (value) {
       return _then(_value.copyWith(question: value));
     });
   }
@@ -377,10 +381,10 @@ abstract class _$QTreeCopyWith<$Res> implements $QTreeCopyWith<$Res> {
   factory _$QTreeCopyWith(_QTree value, $Res Function(_QTree) then) =
       __$QTreeCopyWithImpl<$Res>;
   @override
-  $Res call({Question question, QTree? left, QTree? right});
+  $Res call({Question? question, QTree? left, QTree? right});
 
   @override
-  $QuestionCopyWith<$Res> get question;
+  $QuestionCopyWith<$Res>? get question;
   @override
   $QTreeCopyWith<$Res>? get left;
   @override
@@ -406,7 +410,7 @@ class __$QTreeCopyWithImpl<$Res> extends _$QTreeCopyWithImpl<$Res>
       question: question == freezed
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
-              as Question,
+              as Question?,
       left: left == freezed
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
@@ -423,13 +427,13 @@ class __$QTreeCopyWithImpl<$Res> extends _$QTreeCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_QTree with DiagnosticableTreeMixin implements _QTree {
-  const _$_QTree({required this.question, this.left, this.right});
+  const _$_QTree({this.question, this.left, this.right});
 
   factory _$_QTree.fromJson(Map<String, dynamic> json) =>
       _$_$_QTreeFromJson(json);
 
   @override
-  final Question question;
+  final Question? question;
   @override
   final QTree? left;
   @override
@@ -482,13 +486,13 @@ class _$_QTree with DiagnosticableTreeMixin implements _QTree {
 }
 
 abstract class _QTree implements QTree {
-  const factory _QTree(
-      {required Question question, QTree? left, QTree? right}) = _$_QTree;
+  const factory _QTree({Question? question, QTree? left, QTree? right}) =
+      _$_QTree;
 
   factory _QTree.fromJson(Map<String, dynamic> json) = _$_QTree.fromJson;
 
   @override
-  Question get question => throw _privateConstructorUsedError;
+  Question? get question => throw _privateConstructorUsedError;
   @override
   QTree? get left => throw _privateConstructorUsedError;
   @override
