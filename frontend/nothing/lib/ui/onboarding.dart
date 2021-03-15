@@ -97,12 +97,19 @@ class _OnboardingState extends State<Onboarding> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 28.0),
-            child: FlatButton(
-              padding: const EdgeInsets.symmetric(
-                vertical: 12,
-                horizontal: 36,
+            child: TextButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 36,
+                )),
+                backgroundColor: MaterialStateProperty.all(
+                  NothingScheme.of(context).knob,
+                ),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: NothingScheme.of(context).hintBorder,
+                )),
               ),
-              color: NothingScheme.of(context).knob,
               child: Text(_current == _total - 1 ? 'Play!' : 'Next', style: TextStyle(fontSize: 16)),
               onPressed: () {
                 if (_current == _total - 1) {
@@ -113,9 +120,6 @@ class _OnboardingState extends State<Onboarding> {
                   curve: Curves.ease,
                 );
               },
-              shape: RoundedRectangleBorder(
-                borderRadius: NothingScheme.of(context).hintBorder,
-              ),
             ),
           )
         ]),

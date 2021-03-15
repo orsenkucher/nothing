@@ -119,8 +119,8 @@ class _MenuState extends State<Menu> with AutomaticKeepAliveClientMixin<Menu> {
                                 : null,
                           };
                           return titles
-                              .map((t) => FlatButton(
-                                    splashColor: Colors.white.withOpacity(0.2),
+                              .map((t) => TextButton(
+                                    // splashColor: Colors.white.withOpacity(0.2),
                                     child: Padding(
                                       padding: const EdgeInsets.all(12.0),
                                       child: (wrappers[t] ?? (x) => x)(Text(t, style: TextStyle(fontSize: 24))),

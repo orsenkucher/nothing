@@ -53,7 +53,7 @@ class Home extends HookWidget {
 
     useEffect(() {
       print("Creating initail Ad");
-      _createAd(context);
+      _createAd(context, () {});
       return null;
     }, [0]);
 
@@ -381,20 +381,22 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
                     Container(
                       padding: const EdgeInsets.only(bottom: 12),
                       alignment: Alignment.bottomCenter,
-                      child: FlatButton(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 36,
+                      child: TextButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 36,
+                          )),
+                          backgroundColor: MaterialStateProperty.all(NothingScheme.of(context).knob),
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: NothingScheme.of(context).hintBorder,
+                          )),
                         ),
-                        color: NothingScheme.of(context).knob,
                         child: Text('Close', style: TextStyle(fontSize: 16)),
                         onPressed: () {
                           showHint.value = false;
                           hintTintController.fling(velocity: -1);
                         },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: NothingScheme.of(context).hintBorder,
-                        ),
                       ),
                     ),
                   ],
@@ -685,59 +687,61 @@ class _MainState extends State<Main> with AutomaticKeepAliveClientMixin<Main> {
   }
 }
 
-Future<bool>? _adLoading;
-void _createAd(BuildContext context) {
+Future<void>? _adLoading;
+RewardedAd? _rewarded;
+void _createAd(BuildContext context, void Function() onRewarded) {
   print('****** Loading new ad');
-  // final rewarded = RewardedAd(adUnitId: adUnitId, listener: listener, request: request)
-  RewardedAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
-    print("RewardedVideoAdEvent event is $event");
-    if (event == RewardedVideoAdEvent.loaded) {
-      print('RewardedVideoAdEvent is loaded');
-    }
-  };
-  _adLoading = RewardedVideoAd.instance.load(
+  // final model = FocusNodeModel.of(context);
+  final rewarded = RewardedAd.fromPublisherRequest(
     adUnitId: Platform.isIOS // rewarded ios/android
         ? 'ca-app-pub-3169956978186495/1379142349'
         : 'ca-app-pub-3169956978186495/4928393166',
-    // adUnitId: InterstitialAd.testAdUnitId,
-    targetingInfo: MobileAdTargetingInfo(),
+    listener: AdListener(onAdLoaded: (ad) {
+      print('RewardedVideoAdEvent is loaded');
+    }, onRewardedAdUserEarnedReward: (ad, item) {
+      context.read<HintBloc>().unlock();
+      onRewarded();
+    }, onAdClosed: (ad) {
+      print("RewardedVideoAdEvent is closed");
+      final model = FocusNodeModel.of(context);
+      model.refocus();
+      _createAd(context, onRewarded);
+    }),
+    publisherRequest: PublisherAdRequest(),
   );
+  _rewarded = rewarded;
+  _adLoading = rewarded.load();
 }
 
 Future<void> _showAd(BuildContext context, void Function() onRewarded) async {
-  final model = FocusNodeModel.of(context);
-
-  RewardedVideoAd.instance.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
-    print("RewardedVideoAdEvent event is $event");
-    if (event == RewardedVideoAdEvent.loaded) {}
-    if (event == RewardedVideoAdEvent.rewarded) {
-      context.read<HintBloc>().unlock();
-      onRewarded();
-    }
-    if (event == RewardedVideoAdEvent.closed) {
-      print("RewardedVideoAdEvent is closed");
-      model.refocus();
-      _createAd(context);
-    }
-  };
+  // final model = FocusNodeModel.of(context);
+  // _rewarded.listener = (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+  //   print("RewardedVideoAdEvent event is $event");
+  //   if (event == RewardedVideoAdEvent.loaded) {}
+  //   if (event == RewardedVideoAdEvent.rewarded) {
+  //     context.read<HintBloc>().unlock();
+  //     onRewarded();
+  //   }
+  //   if (event == RewardedVideoAdEvent.closed) {
+  //     print("RewardedVideoAdEvent is closed");
+  //     model.refocus();
+  //     _createAd(context);
+  //   }
+  // };
 
   try {
     if (_adLoading == null) {
       print('_adLoading is null');
     }
 
-    final adLoaded = await _adLoading;
-    if (!(adLoaded ?? false)) {
-      print('****** Ad did not load');
-      return;
-    }
+    await _adLoading;
 
-    await RewardedVideoAd.instance.show();
+    await _rewarded!.show();
     context.read<AdBloc>().add(AdEvent.report(domain.AdType.rewarded));
     print('****** Loaded ad successfully');
   } catch (e) {
     print('****** Ad error\n$e');
-    _createAd(context);
+    _createAd(context, onRewarded);
     onRewarded();
   }
 }
