@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   uuid: ^2.0.4
-  http: ^0.12.0+3
+  http: ">=0.12.0+3 <0.14.0"
   rxdart: ^0.24.1
   flutter_bloc: ^6.0.0
   hydrated_bloc: ^6.0.0
